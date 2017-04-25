@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|ARM">
@@ -26,7 +26,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-
   <PropertyGroup Label="Globals">
     <ProjectGuid>{63e4b9af-e8e7-4130-a6c1-e0fe46636a16}</ProjectGuid>
     <Keyword>DynamicLibrary</Keyword>
@@ -39,9 +38,7 @@
     <WindowsTargetPlatformMinVersion>10.0.10586.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -75,76 +72,62 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-
-  <ImportGroup Label="Shared" >
+  <ImportGroup Label="Shared">
   </ImportGroup>
-
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <GenerateManifest>false</GenerateManifest>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <GenerateManifest>false</GenerateManifest>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <GenerateManifest>false</GenerateManifest>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <GenerateManifest>false</GenerateManifest>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <GenerateManifest>false</GenerateManifest>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <GenerateManifest>false</GenerateManifest>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>USE_32BPP_RENDERING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,11 +135,13 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>USE_32BPP_RENDERING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,11 +149,13 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>USE_32BPP_RENDERING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -176,11 +163,13 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>USE_32BPP_RENDERING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -188,11 +177,13 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>USE_32BPP_RENDERING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -200,11 +191,13 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>USE_32BPP_RENDERING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -212,28 +205,161 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
-
   <ItemGroup>
-    <ClInclude Include="GPGX.h" />
-    <ClInclude Include="pch.h" />
+    <ClInclude Include="src\core\cart_hw\areplay.h" />
+    <ClInclude Include="src\core\cart_hw\eeprom_93c.h" />
+    <ClInclude Include="src\core\cart_hw\eeprom_i2c.h" />
+    <ClInclude Include="src\core\cart_hw\eeprom_spi.h" />
+    <ClInclude Include="src\core\cart_hw\ggenie.h" />
+    <ClInclude Include="src\core\cart_hw\md_cart.h" />
+    <ClInclude Include="src\core\cart_hw\sms_cart.h" />
+    <ClInclude Include="src\core\cart_hw\sram.h" />
+    <ClInclude Include="src\core\cart_hw\svp\ssp16.h" />
+    <ClInclude Include="src\core\cart_hw\svp\svp.h" />
+    <ClInclude Include="src\core\cd_hw\cdc.h" />
+    <ClInclude Include="src\core\cd_hw\cdd.h" />
+    <ClInclude Include="src\core\cd_hw\cd_cart.h" />
+    <ClInclude Include="src\core\cd_hw\gfx.h" />
+    <ClInclude Include="src\core\cd_hw\pcm.h" />
+    <ClInclude Include="src\core\cd_hw\scd.h" />
+    <ClInclude Include="src\core\genesis.h" />
+    <ClInclude Include="src\core\hvc.h" />
+    <ClInclude Include="src\core\input_hw\activator.h" />
+    <ClInclude Include="src\core\input_hw\gamepad.h" />
+    <ClInclude Include="src\core\input_hw\graphic_board.h" />
+    <ClInclude Include="src\core\input_hw\input.h" />
+    <ClInclude Include="src\core\input_hw\lightgun.h" />
+    <ClInclude Include="src\core\input_hw\mouse.h" />
+    <ClInclude Include="src\core\input_hw\paddle.h" />
+    <ClInclude Include="src\core\input_hw\sportspad.h" />
+    <ClInclude Include="src\core\input_hw\teamplayer.h" />
+    <ClInclude Include="src\core\input_hw\terebi_oekaki.h" />
+    <ClInclude Include="src\core\input_hw\xe_1ap.h" />
+    <ClInclude Include="src\core\io_ctrl.h" />
+    <ClInclude Include="src\core\loadrom.h" />
+    <ClInclude Include="src\core\m68k\m68k.h" />
+    <ClInclude Include="src\core\m68k\m68kconf.h" />
+    <ClInclude Include="src\core\m68k\m68kcpu.h" />
+    <ClInclude Include="src\core\m68k\m68ki_cycles.h" />
+    <ClInclude Include="src\core\m68k\m68ki_instruction_jump_table.h" />
+    <ClInclude Include="src\core\m68k\m68kops.h" />
+    <ClInclude Include="src\core\m68k\s68kconf.h" />
+    <ClInclude Include="src\core\m68k\s68ki_cycles.h" />
+    <ClInclude Include="src\core\macros.h" />
+    <ClInclude Include="src\core\mem68k.h" />
+    <ClInclude Include="src\core\membnk.h" />
+    <ClInclude Include="src\core\memz80.h" />
+    <ClInclude Include="src\core\ntsc\md_ntsc.h" />
+    <ClInclude Include="src\core\ntsc\md_ntsc_config.h" />
+    <ClInclude Include="src\core\ntsc\md_ntsc_impl.h" />
+    <ClInclude Include="src\core\ntsc\sms_ntsc.h" />
+    <ClInclude Include="src\core\ntsc\sms_ntsc_config.h" />
+    <ClInclude Include="src\core\ntsc\sms_ntsc_impl.h" />
+    <ClInclude Include="src\core\shared.h" />
+    <ClInclude Include="src\core\sound\blip_buf.h" />
+    <ClInclude Include="src\core\sound\eq.h" />
+    <ClInclude Include="src\core\sound\psg.h" />
+    <ClInclude Include="src\core\sound\sound.h" />
+    <ClInclude Include="src\core\sound\ym2413.h" />
+    <ClInclude Include="src\core\sound\ym2612.h" />
+    <ClInclude Include="src\core\state.h" />
+    <ClInclude Include="src\core\system.h" />
+    <ClInclude Include="src\core\tremor\asm_arm.h" />
+    <ClInclude Include="src\core\tremor\backends.h" />
+    <ClInclude Include="src\core\tremor\block.h" />
+    <ClInclude Include="src\core\tremor\codebook.h" />
+    <ClInclude Include="src\core\tremor\codec_internal.h" />
+    <ClInclude Include="src\core\tremor\config_types.h" />
+    <ClInclude Include="src\core\tremor\ivorbiscodec.h" />
+    <ClInclude Include="src\core\tremor\ivorbisfile.h" />
+    <ClInclude Include="src\core\tremor\lsp_lookup.h" />
+    <ClInclude Include="src\core\tremor\mdct.h" />
+    <ClInclude Include="src\core\tremor\mdct_lookup.h" />
+    <ClInclude Include="src\core\tremor\misc.h" />
+    <ClInclude Include="src\core\tremor\ogg.h" />
+    <ClInclude Include="src\core\tremor\os.h" />
+    <ClInclude Include="src\core\tremor\os_types.h" />
+    <ClInclude Include="src\core\tremor\registry.h" />
+    <ClInclude Include="src\core\tremor\window.h" />
+    <ClInclude Include="src\core\tremor\window_lookup.h" />
+    <ClInclude Include="src\core\types.h" />
+    <ClInclude Include="src\core\vdp_ctrl.h" />
+    <ClInclude Include="src\core\vdp_render.h" />
+    <ClInclude Include="src\core\z80\osd_cpu.h" />
+    <ClInclude Include="src\core\z80\z80.h" />
+    <ClInclude Include="src\libretro\libretro.h" />
+    <ClInclude Include="src\libretro\osd.h" />
+    <ClInclude Include="src\libretro\scrc32.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="GPGX.cpp" />
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="src\core\cart_hw\areplay.c" />
+    <ClCompile Include="src\core\cart_hw\eeprom_93c.c" />
+    <ClCompile Include="src\core\cart_hw\eeprom_i2c.c" />
+    <ClCompile Include="src\core\cart_hw\eeprom_spi.c" />
+    <ClCompile Include="src\core\cart_hw\ggenie.c" />
+    <ClCompile Include="src\core\cart_hw\md_cart.c" />
+    <ClCompile Include="src\core\cart_hw\sms_cart.c" />
+    <ClCompile Include="src\core\cart_hw\sram.c" />
+    <ClCompile Include="src\core\cart_hw\svp\ssp16.c" />
+    <ClCompile Include="src\core\cart_hw\svp\svp.c" />
+    <ClCompile Include="src\core\cd_hw\cdc.c" />
+    <ClCompile Include="src\core\cd_hw\cdd.c" />
+    <ClCompile Include="src\core\cd_hw\cd_cart.c" />
+    <ClCompile Include="src\core\cd_hw\gfx.c" />
+    <ClCompile Include="src\core\cd_hw\pcm.c" />
+    <ClCompile Include="src\core\cd_hw\scd.c" />
+    <ClCompile Include="src\core\genesis.c" />
+    <ClCompile Include="src\core\input_hw\activator.c" />
+    <ClCompile Include="src\core\input_hw\gamepad.c" />
+    <ClCompile Include="src\core\input_hw\graphic_board.c" />
+    <ClCompile Include="src\core\input_hw\input.c" />
+    <ClCompile Include="src\core\input_hw\lightgun.c" />
+    <ClCompile Include="src\core\input_hw\mouse.c" />
+    <ClCompile Include="src\core\input_hw\paddle.c" />
+    <ClCompile Include="src\core\input_hw\sportspad.c" />
+    <ClCompile Include="src\core\input_hw\teamplayer.c" />
+    <ClCompile Include="src\core\input_hw\terebi_oekaki.c" />
+    <ClCompile Include="src\core\input_hw\xe_1ap.c" />
+    <ClCompile Include="src\core\io_ctrl.c" />
+    <ClCompile Include="src\core\loadrom.c" />
+    <ClCompile Include="src\core\m68k\m68kcpu.c" />
+    <ClCompile Include="src\core\m68k\s68kcpu.c" />
+    <ClCompile Include="src\core\mem68k.c" />
+    <ClCompile Include="src\core\membnk.c" />
+    <ClCompile Include="src\core\memz80.c" />
+    <ClCompile Include="src\core\ntsc\md_ntsc.c" />
+    <ClCompile Include="src\core\ntsc\sms_ntsc.c" />
+    <ClCompile Include="src\core\sound\blip_buf.c" />
+    <ClCompile Include="src\core\sound\eq.c" />
+    <ClCompile Include="src\core\sound\psg.c" />
+    <ClCompile Include="src\core\sound\sound.c" />
+    <ClCompile Include="src\core\sound\ym2413.c" />
+    <ClCompile Include="src\core\sound\ym2612.c" />
+    <ClCompile Include="src\core\state.c" />
+    <ClCompile Include="src\core\system.c" />
+    <ClCompile Include="src\core\tremor\bitwise.c" />
+    <ClCompile Include="src\core\tremor\block.c" />
+    <ClCompile Include="src\core\tremor\codebook.c" />
+    <ClCompile Include="src\core\tremor\floor0.c" />
+    <ClCompile Include="src\core\tremor\floor1.c" />
+    <ClCompile Include="src\core\tremor\framing.c" />
+    <ClCompile Include="src\core\tremor\info.c" />
+    <ClCompile Include="src\core\tremor\mapping0.c" />
+    <ClCompile Include="src\core\tremor\mdct.c" />
+    <ClCompile Include="src\core\tremor\registry.c" />
+    <ClCompile Include="src\core\tremor\res012.c" />
+    <ClCompile Include="src\core\tremor\sharedbook.c" />
+    <ClCompile Include="src\core\tremor\synthesis.c" />
+    <ClCompile Include="src\core\tremor\vorbisfile.c" />
+    <ClCompile Include="src\core\tremor\window.c" />
+    <ClCompile Include="src\core\vdp_ctrl.c" />
+    <ClCompile Include="src\core\vdp_render.c" />
+    <ClCompile Include="src\core\z80\z80.c" />
+    <ClCompile Include="src\libretro\libretro.c" />
+    <ClCompile Include="src\libretro\scrc32.c" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-
 </Project>
