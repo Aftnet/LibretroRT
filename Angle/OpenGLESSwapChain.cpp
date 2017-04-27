@@ -5,12 +5,18 @@
 using namespace Angle;
 using namespace Platform;
 using namespace Concurrency;
+using namespace Windows::ApplicationModel;
 using namespace Windows::Foundation;
 
 OpenGLES* OpenGLESSwapChain::mOpenGLES;
 
 OpenGLESSwapChain::OpenGLESSwapChain() : mRenderSurface(EGL_NO_SURFACE)
 {
+	if (DesignMode::DesignModeEnabled)
+	{
+		return;
+	}
+
 	if (mOpenGLES == nullptr)
 	{
 		mOpenGLES = new OpenGLES();
@@ -33,6 +39,11 @@ OpenGLESSwapChain::~OpenGLESSwapChain()
 
 void OpenGLESSwapChain::OnPageLoaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	if (DesignMode::DesignModeEnabled)
+	{
+		return;
+	}
+
     // The SwapChainPanel has been created and arranged in the page layout, so EGL can be initialized.
     CreateRenderSurface();
     StartRenderLoop();
@@ -40,6 +51,11 @@ void OpenGLESSwapChain::OnPageLoaded(Platform::Object^ sender, Windows::UI::Xaml
 
 void OpenGLESSwapChain::OnVisibilityChanged(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::VisibilityChangedEventArgs^ args)
 {
+	if (DesignMode::DesignModeEnabled)
+	{
+		return;
+	}
+
     if (args->Visible && mRenderSurface != EGL_NO_SURFACE)
     {
         StartRenderLoop();

@@ -8,5 +8,14 @@
     xmlns:angle="using:Angle"
     mc:Ignorable="d">
 
-    <angle:OpenGLESSwapChain/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <CommandBar Grid.Row="0">
+            <AppBarButton Icon="OpenFile"/>
+        </CommandBar>
+        <angle:OpenGLESSwapChain Grid.Row="1"/>
+    </Grid>
 </Page>
