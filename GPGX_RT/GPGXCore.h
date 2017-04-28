@@ -57,5 +57,7 @@ namespace GPGX_RT
 		LibRetroRT::AV::SystemAVInfo avInfo;
 
 		GPGXCore();
+
+		Platform::String^ CStringToPlatformString(const char* string);
 	};
 }
