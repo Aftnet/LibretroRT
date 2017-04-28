@@ -58,6 +58,8 @@ namespace GPGX_RT
 
 		GPGXCore();
 
-		Platform::String^ CStringToPlatformString(const char* string);
+		static bool EnvironmentHandler(unsigned cmd, void *data);
+
+		static Platform::String^ CStringToPlatformString(const char* string);
 	};
 }
