@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GPGX", "GPGX\GPGX.vcxproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibRetroRT", "LibRetroRT\LibRetroRT.csproj", "{94977E96-B007-4970-B02C-3CC9D3CF9B90}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GPGX_RT", "GPGX_RT\GPGX_RT.vcxproj", "{11B1386F-ABF9-4753-96FD-CDB4A354E82B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,20 @@ Global
 		{94977E96-B007-4970-B02C-3CC9D3CF9B90}.Release|x64.Build.0 = Release|x64
 		{94977E96-B007-4970-B02C-3CC9D3CF9B90}.Release|x86.ActiveCfg = Release|x86
 		{94977E96-B007-4970-B02C-3CC9D3CF9B90}.Release|x86.Build.0 = Release|x86
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Debug|ARM.ActiveCfg = Debug|ARM
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Debug|ARM.Build.0 = Debug|ARM
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Debug|x64.ActiveCfg = Debug|x64
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Debug|x64.Build.0 = Debug|x64
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Debug|x86.ActiveCfg = Debug|Win32
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Debug|x86.Build.0 = Debug|Win32
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Release|Any CPU.ActiveCfg = Release|Win32
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Release|ARM.ActiveCfg = Release|ARM
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Release|ARM.Build.0 = Release|ARM
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Release|x64.ActiveCfg = Release|x64
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Release|x64.Build.0 = Release|x64
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Release|x86.ActiveCfg = Release|Win32
+		{11B1386F-ABF9-4753-96FD-CDB4A354E82B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
