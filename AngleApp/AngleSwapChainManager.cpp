@@ -7,23 +7,16 @@ using namespace Platform;
 using namespace Concurrency;
 using namespace Windows::Foundation;
 
-OpenGLES* AngleSwapChainManager::mOpenGLES = nullptr;
-
 AngleSwapChainManager::AngleSwapChainManager(SwapChainPanel^ swapChainPanel) :
+	mOpenGLES(*OpenGLES::GetInstance()),
+	mSwapChainPanel(swapChainPanel),
 	mRenderSurface(EGL_NO_SURFACE)
 {
-	if (mOpenGLES = nullptr)
-	{
-		mOpenGLES = 
-	}
-
 	Windows::UI::Core::CoreWindow^ window = Windows::UI::Xaml::Window::Current->CoreWindow;
 
-	window->VisibilityChanged +=
-		ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::VisibilityChangedEventArgs^>(this, &OpenGLESPage::OnVisibilityChanged);
+	window->VisibilityChanged += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::VisibilityChangedEventArgs^>(this, &AngleSwapChainManager::OnVisibilityChanged);
 
-	this->Loaded +=
-		ref new Windows::UI::Xaml::RoutedEventHandler(this, &OpenGLESPage::OnPageLoaded);
+	mSwapChainPanel->Loaded += ref new Windows::UI::Xaml::RoutedEventHandler(this, &AngleSwapChainManager::OnPageLoaded);
 }
 
 AngleSwapChainManager::~AngleSwapChainManager()
@@ -53,7 +46,7 @@ void AngleSwapChainManager::OnVisibilityChanged(Windows::UI::Core::CoreWindow^ s
 
 void AngleSwapChainManager::CreateRenderSurface()
 {
-	if (mOpenGLES && mRenderSurface == EGL_NO_SURFACE)
+	if (mRenderSurface == EGL_NO_SURFACE)
 	{
 		// The app can configure the the SwapChainPanel which may boost performance.
 		// By default, this template uses the default configuration.
@@ -76,10 +69,7 @@ void AngleSwapChainManager::CreateRenderSurface()
 
 void AngleSwapChainManager::DestroyRenderSurface()
 {
-	if (mOpenGLES)
-	{
-		mOpenGLES->DestroySurface(mRenderSurface);
-	}
+	mOpenGLES.DestroySurface(mRenderSurface);
 	mRenderSurface = EGL_NO_SURFACE;
 }
 
@@ -94,7 +84,7 @@ void AngleSwapChainManager::RecoverFromLostDevice()
 		critical_section::scoped_lock lock(mRenderSurfaceCriticalSection);
 
 		DestroyRenderSurface();
-		mOpenGLES->Reset();
+		mOpenGLES.Reset();
 		CreateRenderSurface();
 	}
 
@@ -114,14 +104,14 @@ void AngleSwapChainManager::StartRenderLoop()
 	{
 		critical_section::scoped_lock lock(mRenderSurfaceCriticalSection);
 
-		mOpenGLES->MakeCurrent(mRenderSurface);
+		mOpenGLES.MakeCurrent(mRenderSurface);
 		SimpleRenderer renderer;
 
 		while (action->Status == Windows::Foundation::AsyncStatus::Started)
 		{
 			EGLint panelWidth = 0;
 			EGLint panelHeight = 0;
-			mOpenGLES->GetSurfaceDimensions(mRenderSurface, &panelWidth, &panelHeight);
+			mOpenGLES.GetSurfaceDimensions(mRenderSurface, &panelWidth, &panelHeight);
 
 			// Logic to update the scene could go here
 			renderer.UpdateWindowSize(panelWidth, panelHeight);
@@ -129,10 +119,10 @@ void AngleSwapChainManager::StartRenderLoop()
 
 			// The call to eglSwapBuffers might not be successful (i.e. due to Device Lost)
 			// If the call fails, then we must reinitialize EGL and the GL resources.
-			if (mOpenGLES->SwapBuffers(mRenderSurface) != GL_TRUE)
+			if (mOpenGLES.SwapBuffers(mRenderSurface) != GL_TRUE)
 			{
 				// XAML objects like the SwapChainPanel must only be manipulated on the UI thread.
-				swapChainPanel->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::High, ref new Windows::UI::Core::DispatchedHandler([=]()
+				mSwapChainPanel->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::High, ref new Windows::UI::Core::DispatchedHandler([=]()
 				{
 					RecoverFromLostDevice();
 				}, CallbackContext::Any));

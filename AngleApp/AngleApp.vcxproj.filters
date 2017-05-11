@@ -18,6 +18,7 @@
     <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="SimpleRenderer.cpp" />
     <ClCompile Include="OpenGLESPage.xaml.cpp" />
+    <ClCompile Include="AngleSwapChainManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="OpenGLES.h" />
     <ClInclude Include="SimpleRenderer.h" />
     <ClInclude Include="OpenGLESPage.xaml.h" />
+    <ClInclude Include="AngleSwapChainManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

@@ -8,7 +8,7 @@ ref class AngleSwapChainManager sealed
 {
 public:
 	AngleSwapChainManager(SwapChainPanel^ swapChainPanel);
-	~AngleSwapChainManager();
+	virtual ~AngleSwapChainManager();
 
 private:
 	void OnPageLoaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
@@ -19,7 +19,7 @@ private:
 	void StartRenderLoop();
 	void StopRenderLoop();
 
-	static OpenGLES* mOpenGLES;
+	OpenGLES& mOpenGLES;
 
 	SwapChainPanel^ mSwapChainPanel;
 	EGLSurface mRenderSurface;     // This surface is associated with a swapChainPanel on the page

@@ -136,6 +136,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AngleSwapChainManager.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="OpenGLES.h" />
     <ClInclude Include="OpenGLESPage.xaml.h">
@@ -170,6 +171,7 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AngleSwapChainManager.cpp" />
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
