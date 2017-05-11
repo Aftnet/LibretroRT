@@ -6,6 +6,8 @@ using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 
+std::mutex OpenGLES::mMutex;
+
 OpenGLES::OpenGLES() :
     mEglConfig(nullptr),
     mEglDisplay(EGL_NO_DISPLAY),
@@ -17,6 +19,23 @@ OpenGLES::OpenGLES() :
 OpenGLES::~OpenGLES()
 {
     Cleanup();
+}
+
+std::shared_ptr<OpenGLES>& OpenGLES::GetInstance()
+{
+	static std::shared_ptr<OpenGLES> instance = nullptr;
+
+	if (!instance)
+	{
+		std::lock_guard<std::mutex> lock(mMutex);
+
+		if (!instance)
+		{
+			instance.reset(new OpenGLES());
+		}
+	}
+
+	return instance;
 }
 
 void OpenGLES::Initialize()

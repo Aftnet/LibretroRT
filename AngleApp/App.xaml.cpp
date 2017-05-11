@@ -3,7 +3,8 @@
 
 using namespace AngleApp;
 
-App::App()
+App::App() :
+	mOpenGLES(*OpenGLES::GetInstance())
 {
     InitializeComponent();
 }

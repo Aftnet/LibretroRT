@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#include <memory>
+#include <Windows.h>
+
 #include <concrt.h>
 #include <ppltasks.h>
 
