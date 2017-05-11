@@ -1,7 +1,10 @@
 ﻿#pragma once
 
+#include <memory>
+
 #include "OpenGLES.h"
 #include "OpenGLESPage.g.h"
+#include "AngleSwapChainManager.h"
 
 namespace AngleApp
 {
@@ -9,24 +12,10 @@ namespace AngleApp
     {
     public:
         OpenGLESPage();
-        virtual ~OpenGLESPage();
-
-    internal:
-        OpenGLESPage(OpenGLES* openGLES);
 
     private:
-        void OnPageLoaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
-        void OnVisibilityChanged(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::VisibilityChangedEventArgs^ args);
-        void CreateRenderSurface();
-        void DestroyRenderSurface();
-        void RecoverFromLostDevice();
-        void StartRenderLoop();
-        void StopRenderLoop();
+		AngleSwapChainManager^ mAngleSwapChainManager;
 
-        OpenGLES* mOpenGLES;
-
-        EGLSurface mRenderSurface;     // This surface is associated with a swapChainPanel on the page
-        Concurrency::critical_section mRenderSurfaceCriticalSection;
-        Windows::Foundation::IAsyncAction^ mRenderLoopWorker;
+		void OnPageLoaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
     };
 }

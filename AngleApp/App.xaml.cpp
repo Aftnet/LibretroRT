@@ -3,8 +3,7 @@
 
 using namespace AngleApp;
 
-App::App() :
-	mOpenGLES(*OpenGLES::GetInstance())
+App::App()
 {
     InitializeComponent();
 }
@@ -20,7 +19,7 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 
     if (mPage == nullptr)
     {
-        mPage = ref new OpenGLESPage(&mOpenGLES);
+        mPage = ref new OpenGLESPage();
     }
 
     // Place the page in the current window and ensure that it is active.

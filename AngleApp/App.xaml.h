@@ -14,6 +14,5 @@ namespace AngleApp
 
     private:
         OpenGLESPage^ mPage;
-        OpenGLES& mOpenGLES;
     };
 }
