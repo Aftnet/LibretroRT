@@ -28,6 +28,7 @@
     <ClInclude Include="SimpleRenderer.h" />
     <ClInclude Include="OpenGLESPage.xaml.h" />
     <ClInclude Include="AngleSwapChainManager.h" />
+    <ClInclude Include="IRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

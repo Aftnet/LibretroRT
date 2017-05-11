@@ -10,7 +10,8 @@ using namespace Windows::Foundation;
 AngleSwapChainManager::AngleSwapChainManager(SwapChainPanel^ swapChainPanel) :
 	mOpenGLES(*OpenGLES::GetInstance()),
 	mSwapChainPanel(swapChainPanel),
-	mRenderSurface(EGL_NO_SURFACE)
+	mRenderSurface(EGL_NO_SURFACE),
+	mRenderer(nullptr)
 {
 	Windows::UI::Core::CoreWindow^ window = Windows::UI::Xaml::Window::Current->CoreWindow;
 
@@ -21,7 +22,7 @@ AngleSwapChainManager::AngleSwapChainManager(SwapChainPanel^ swapChainPanel) :
 
 AngleSwapChainManager::~AngleSwapChainManager()
 {
-	StopRenderLoop();
+	StopRenderer();
 	DestroyRenderSurface();
 }
 
@@ -29,18 +30,18 @@ void AngleSwapChainManager::OnPageLoaded(Platform::Object^ sender, Windows::UI::
 {
 	// The SwapChainPanel has been created and arranged in the page layout, so EGL can be initialized.
 	CreateRenderSurface();
-	StartRenderLoop();
+	StartRenderer();
 }
 
 void AngleSwapChainManager::OnVisibilityChanged(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::VisibilityChangedEventArgs^ args)
 {
 	if (args->Visible && mRenderSurface != EGL_NO_SURFACE)
 	{
-		StartRenderLoop();
+		StartRenderer();
 	}
 	else
 	{
-		StopRenderLoop();
+		StopRenderer();
 	}
 }
 
@@ -78,7 +79,7 @@ void AngleSwapChainManager::RecoverFromLostDevice()
 	// Stop the render loop, reset OpenGLES, recreate the render surface
 	// and start the render loop again to recover from a lost device.
 
-	StopRenderLoop();
+	StopRenderer();
 
 	{
 		critical_section::scoped_lock lock(mRenderSurfaceCriticalSection);
@@ -88,10 +89,23 @@ void AngleSwapChainManager::RecoverFromLostDevice()
 		CreateRenderSurface();
 	}
 
-	StartRenderLoop();
+	StartRenderer();
 }
 
-void AngleSwapChainManager::StartRenderLoop()
+void AngleSwapChainManager::StartRenderer(IRenderer^ renderer)
+{
+	StopRenderer();
+	
+	{
+		critical_section::scoped_lock lock(mRenderSurfaceCriticalSection);
+
+		mRenderer = renderer;
+	}
+
+	StartRenderer();
+}
+
+void AngleSwapChainManager::StartRenderer()
 {
 	// If the render loop is already running then do not start another thread.
 	if (mRenderLoopWorker != nullptr && mRenderLoopWorker->Status == Windows::Foundation::AsyncStatus::Started)
@@ -105,7 +119,6 @@ void AngleSwapChainManager::StartRenderLoop()
 		critical_section::scoped_lock lock(mRenderSurfaceCriticalSection);
 
 		mOpenGLES.MakeCurrent(mRenderSurface);
-		SimpleRenderer renderer;
 
 		while (action->Status == Windows::Foundation::AsyncStatus::Started)
 		{
@@ -114,8 +127,8 @@ void AngleSwapChainManager::StartRenderLoop()
 			mOpenGLES.GetSurfaceDimensions(mRenderSurface, &panelWidth, &panelHeight);
 
 			// Logic to update the scene could go here
-			renderer.UpdateWindowSize(panelWidth, panelHeight);
-			renderer.Draw();
+			mRenderer->UpdateWindowSize(panelWidth, panelHeight);
+			mRenderer->Draw();
 
 			// The call to eglSwapBuffers might not be successful (i.e. due to Device Lost)
 			// If the call fails, then we must reinitialize EGL and the GL resources.
@@ -136,7 +149,7 @@ void AngleSwapChainManager::StartRenderLoop()
 	mRenderLoopWorker = Windows::System::Threading::ThreadPool::RunAsync(workItemHandler, Windows::System::Threading::WorkItemPriority::High, Windows::System::Threading::WorkItemOptions::TimeSliced);
 }
 
-void AngleSwapChainManager::StopRenderLoop()
+void AngleSwapChainManager::StopRenderer()
 {
 	if (mRenderLoopWorker)
 	{

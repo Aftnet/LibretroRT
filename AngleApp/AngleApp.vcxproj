@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AngleSwapChainManager.h" />
+    <ClInclude Include="IRenderer.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="OpenGLES.h" />
     <ClInclude Include="OpenGLESPage.xaml.h">
