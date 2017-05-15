@@ -2,16 +2,22 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Resources">
-      <UniqueIdentifier>0522c8b4-e313-457f-baad-50c94741d376</UniqueIdentifier>
+      <UniqueIdentifier>a5d8b17b-1bd1-489c-b08d-4c9502700138</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="GPGXCore.cpp" />
+    <ClCompile Include="AngleSwapChainManager.cpp" />
+    <ClCompile Include="OpenGLES.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="GPGXCore.h" />
+    <ClInclude Include="AngleSwapChainManager.h" />
+    <ClInclude Include="IRenderer.h" />
+    <ClInclude Include="OpenGLES.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
