@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "app.g.h"
-#include "OpenGLES.h"
 #include "OpenGLESPage.xaml.h"
 
 namespace AngleApp

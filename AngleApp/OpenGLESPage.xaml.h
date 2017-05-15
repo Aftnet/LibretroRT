@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "OpenGLES.h"
 #include "OpenGLESPage.g.h"
-#include "AngleSwapChainManager.h"
+
+using namespace LibretroRT;
 
 namespace AngleApp
 {

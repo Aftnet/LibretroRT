@@ -1,7 +1,8 @@
 #pragma once
 
 #include "pch.h"
-#include "IRenderer.h"
+
+using namespace LibretroRT;
 
 namespace AngleApp
 {

@@ -7,7 +7,7 @@ using namespace Windows::UI::Xaml::Controls;
 
 namespace LibretroRT
 {
-	ref class AngleSwapChainManager sealed
+	public ref class AngleSwapChainManager sealed
 	{
 	public:
 		AngleSwapChainManager(SwapChainPanel^ swapChainPanel);
