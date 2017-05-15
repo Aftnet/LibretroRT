@@ -94,9 +94,17 @@ GLuint CompileProgram(const std::string &vsSource, const std::string &fsSource)
 }
 
 SimpleRenderer::SimpleRenderer() :
-    mWindowWidth(0),
-    mWindowHeight(0),
-    mDrawCount(0)
+	mWindowWidth(0),
+	mWindowHeight(0),
+	mDrawCount(0)
+{
+}
+
+SimpleRenderer::~SimpleRenderer()
+{
+}
+
+void SimpleRenderer::Init()
 {
     // Vertex Shader source
     const std::string vs = STRING
@@ -192,7 +200,7 @@ SimpleRenderer::SimpleRenderer() :
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 }
 
-SimpleRenderer::~SimpleRenderer()
+void SimpleRenderer::Deinit()
 {
     if (mProgram != 0)
     {

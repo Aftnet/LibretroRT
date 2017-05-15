@@ -18,5 +18,6 @@ OpenGLESPage::OpenGLESPage()
 
 void OpenGLESPage::OnPageLoaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	mAngleSwapChainManager->StartRenderer(nullptr);
+	auto renderer = ref new SimpleRenderer;
+	mAngleSwapChainManager->StartRenderer(renderer);
 }

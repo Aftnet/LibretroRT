@@ -10,6 +10,8 @@ namespace AngleApp
     public:
         SimpleRenderer();
         virtual ~SimpleRenderer();
+		virtual void Init();
+		virtual void Deinit();
         virtual void Draw();
         virtual void UpdateWindowSize(GLsizei width, GLsizei height);
 

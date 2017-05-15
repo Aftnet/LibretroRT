@@ -30,7 +30,6 @@ void AngleSwapChainManager::OnPageLoaded(Platform::Object^ sender, Windows::UI::
 {
 	// The SwapChainPanel has been created and arranged in the page layout, so EGL can be initialized.
 	CreateRenderSurface();
-	StartRenderer();
 }
 
 void AngleSwapChainManager::OnVisibilityChanged(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::VisibilityChangedEventArgs^ args)
@@ -120,7 +119,7 @@ void AngleSwapChainManager::StartRenderer()
 
 		mOpenGLES.MakeCurrent(mRenderSurface);
 
-		SimpleRenderer^ renderer = ref new SimpleRenderer;
+		mRenderer->Init();
 
 		while (action->Status == Windows::Foundation::AsyncStatus::Started)
 		{
@@ -129,8 +128,8 @@ void AngleSwapChainManager::StartRenderer()
 			mOpenGLES.GetSurfaceDimensions(mRenderSurface, &panelWidth, &panelHeight);
 
 			// Logic to update the scene could go here
-			renderer->UpdateWindowSize(panelWidth, panelHeight);
-			renderer->Draw();
+			mRenderer->UpdateWindowSize(panelWidth, panelHeight);
+			mRenderer->Draw();
 
 			// The call to eglSwapBuffers might not be successful (i.e. due to Device Lost)
 			// If the call fails, then we must reinitialize EGL and the GL resources.
@@ -145,6 +144,8 @@ void AngleSwapChainManager::StartRenderer()
 				return;
 			}
 		}
+
+		mRenderer->Deinit();
 	});
 
 	// Run task on a dedicated high priority background thread.
