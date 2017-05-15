@@ -120,7 +120,7 @@ void AngleSwapChainManager::StartRenderer()
 
 		mOpenGLES.MakeCurrent(mRenderSurface);
 
-		SimpleRenderer renderer;
+		SimpleRenderer^ renderer = ref new SimpleRenderer;
 
 		while (action->Status == Windows::Foundation::AsyncStatus::Started)
 		{
@@ -129,8 +129,8 @@ void AngleSwapChainManager::StartRenderer()
 			mOpenGLES.GetSurfaceDimensions(mRenderSurface, &panelWidth, &panelHeight);
 
 			// Logic to update the scene could go here
-			renderer.UpdateWindowSize(panelWidth, panelHeight);
-			renderer.Draw();
+			renderer->UpdateWindowSize(panelWidth, panelHeight);
+			renderer->Draw();
 
 			// The call to eglSwapBuffers might not be successful (i.e. due to Device Lost)
 			// If the call fails, then we must reinitialize EGL and the GL resources.

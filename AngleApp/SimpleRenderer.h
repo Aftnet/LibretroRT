@@ -1,16 +1,17 @@
 #pragma once
 
 #include "pch.h"
+#include "IRenderer.h"
 
 namespace AngleApp
 {
-    class SimpleRenderer
+	public ref class SimpleRenderer sealed : IRenderer
     {
     public:
         SimpleRenderer();
-        ~SimpleRenderer();
-        void Draw();
-        void UpdateWindowSize(GLsizei width, GLsizei height);
+        virtual ~SimpleRenderer();
+        virtual void Draw();
+        virtual void UpdateWindowSize(GLsizei width, GLsizei height);
 
     private:
         GLuint mProgram;
