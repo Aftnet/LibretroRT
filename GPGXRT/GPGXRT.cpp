@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "GPGXRT.h"
 
-#include "../LibretroRTSupport/Converter.h"
+#include "../LibretroRTSupport/Conversion.h"
+#include "../LibretroRTSupport/DefaultHandlers.h"
 
 GPGXRT::GPGXRT()
 {
@@ -9,7 +10,7 @@ GPGXRT::GPGXRT()
 
 void GPGXRT::Init()
 {
-	auto lol = CStringToWString("");
+	retro_set_environment(LibretroDefaultEnvironmentHandler);
 	throw ref new Platform::NotImplementedException();
 }
 

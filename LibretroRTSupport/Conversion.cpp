@@ -1,8 +1,8 @@
 #include "pch.h"
 
-#include "Converter.h"
+#include "Conversion.h"
 
-std::wstring CStringToWString(const std::string& t_str)
+std::wstring CStringToWString(const char* t_str)
 {
 	//setup converter
 	typedef std::codecvt_utf8<wchar_t> convert_type;
