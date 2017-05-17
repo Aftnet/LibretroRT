@@ -31,6 +31,7 @@
     <ClInclude Include="SystemTiming.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="ICore.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
