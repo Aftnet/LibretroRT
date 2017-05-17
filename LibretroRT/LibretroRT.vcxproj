@@ -207,9 +207,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AngleSwapChainManager.h" />
+    <ClInclude Include="Devices.h" />
+    <ClInclude Include="GameGeometry.h" />
     <ClInclude Include="IRenderer.h" />
+    <ClInclude Include="libretro.h" />
     <ClInclude Include="OpenGLES.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="SystemTiming.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AngleSwapChainManager.cpp" />

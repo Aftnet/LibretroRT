@@ -5,6 +5,9 @@
       <UniqueIdentifier>a5d8b17b-1bd1-489c-b08d-4c9502700138</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="DataTypes">
+      <UniqueIdentifier>{a66824d9-b9f0-462c-b604-8580677271c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -16,6 +19,14 @@
     <ClInclude Include="AngleSwapChainManager.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="OpenGLES.h" />
+    <ClInclude Include="libretro.h" />
+    <ClInclude Include="Devices.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameGeometry.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemTiming.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
