@@ -13,6 +13,8 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="AngleSwapChainManager.cpp" />
     <ClCompile Include="OpenGLES.cpp" />
+    <ClCompile Include="Converter.h" />
+    <ClCompile Include="Converter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -26,7 +28,9 @@
     <ClInclude Include="GameGeometry.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
-    <ClInclude Include="SystemTiming.h" />
+    <ClInclude Include="SystemTiming.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
