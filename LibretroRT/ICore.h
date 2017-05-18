@@ -1,9 +1,6 @@
 #pragma once
 
 using namespace Platform;
-using namespace Windows::Foundation;
-using namespace Windows::Foundation::Collections;
-using namespace Windows::Storage::Streams;
 
 namespace LibretroRT
 {
@@ -20,7 +17,7 @@ namespace LibretroRT
 		property String^ Version { String^ get(); };
 		property String^ SupportedExtensions { String^ get(); };
 
-		void LoadGame(IRandomAccessStream^ gameStream);
+		void LoadGame(Windows::Storage::Streams::IRandomAccessStream^ gameStream);
 		void UnloadGame();
 
 		void RunFrame();

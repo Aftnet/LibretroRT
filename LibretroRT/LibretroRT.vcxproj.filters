@@ -15,6 +15,7 @@
     <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="Converter.h" />
     <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="ICore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

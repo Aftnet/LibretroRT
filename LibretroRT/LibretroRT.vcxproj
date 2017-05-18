@@ -220,6 +220,7 @@
     <ClCompile Include="AngleSwapChainManager.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Converter.h" />
+    <ClCompile Include="ICore.cpp" />
     <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
