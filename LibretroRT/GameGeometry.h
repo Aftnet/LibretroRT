@@ -23,30 +23,35 @@ namespace LibretroRT
 		property unsigned BaseWidth
 		{
 			unsigned get() { return nativeGeometry.base_width; }
+		internal:
 			void set(unsigned value) { nativeGeometry.base_width = value; }
 		}
 
 		property unsigned BaseHeight
 		{
 			unsigned get() { return nativeGeometry.base_height; }
+		internal:
 			void set(unsigned value) { nativeGeometry.base_height = value; }
 		}
 
 		property unsigned MaxWidth
 		{
 			unsigned get() { return nativeGeometry.max_width; }
+		internal:
 			void set(unsigned value) { nativeGeometry.max_width = value; }
 		}
 
 		property unsigned MaxHeight
 		{
 			unsigned get() { return nativeGeometry.max_height; }
+		internal:
 			void set(unsigned value) { nativeGeometry.max_height = value; }
 		}
 
 		property float AspectRatio
 		{
 			float get() { return nativeGeometry.aspect_ratio; }
+		internal:
 			void set(float value) { nativeGeometry.aspect_ratio = value; }
 		}
 	};

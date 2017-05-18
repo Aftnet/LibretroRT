@@ -16,6 +16,7 @@
     <ClCompile Include="Converter.h" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="ICore.cpp" />
+    <ClCompile Include="CoreHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -33,6 +34,7 @@
       <Filter>DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="ICore.h" />
+    <ClInclude Include="CoreHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

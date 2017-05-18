@@ -25,12 +25,14 @@ namespace LibretroRT
 		property double FPS
 		{
 			double get() { return nativeTiming.fps; }
+		internal:
 			void set(double value) { nativeTiming.fps = value; }
 		}
 
 		property double SampleRate
 		{
 			double get() { return nativeTiming.sample_rate; }
+		internal:
 			void set(double value) { nativeTiming.sample_rate = value; }
 		}
 	};
