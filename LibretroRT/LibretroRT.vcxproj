@@ -218,9 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AngleSwapChainManager.cpp" />
-    <ClCompile Include="Converter.cpp" />
     <ClCompile Include="SystemTiming.cpp" />
-    <ClInclude Include="Converter.h" />
     <ClCompile Include="GameGeometry.cpp" />
     <ClCompile Include="ICore.cpp" />
     <ClCompile Include="OpenGLES.cpp" />

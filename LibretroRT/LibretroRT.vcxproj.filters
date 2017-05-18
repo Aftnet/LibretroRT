@@ -13,7 +13,6 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="AngleSwapChainManager.cpp" />
     <ClCompile Include="OpenGLES.cpp" />
-    <ClCompile Include="Converter.cpp" />
     <ClCompile Include="ICore.cpp" />
     <ClCompile Include="GameGeometry.cpp">
       <Filter>DataTypes</Filter>
@@ -38,7 +37,6 @@
       <Filter>DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="ICore.h" />
-    <ClInclude Include="Converter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

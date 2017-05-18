@@ -8,14 +8,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Conversion.cpp" />
-    <ClCompile Include="DefaultHandlers.cpp" />
+    <ClCompile Include="Converter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="libretro.h" />
-    <ClInclude Include="Conversion.h" />
-    <ClInclude Include="DefaultHandlers.h" />
+    <ClInclude Include="Export.h" />
+    <ClInclude Include="Converter.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
 </Project>

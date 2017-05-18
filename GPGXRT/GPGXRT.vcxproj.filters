@@ -8,12 +8,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="GPGXRT.cpp" />
     <ClCompile Include="GPGXCore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="GPGXRT.h" />
     <ClInclude Include="GPGXCore.h" />
   </ItemGroup>
 </Project>
