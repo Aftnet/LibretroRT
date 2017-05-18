@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include <memory>
-
 #include "OpenGLESPage.g.h"
 
 using namespace AngleSupport;
