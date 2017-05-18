@@ -5,8 +5,9 @@
 
 using namespace Windows::UI::Xaml::Controls;
 
-namespace LibretroRT
+namespace AngleSupport
 {
+	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class AngleSwapChainManager sealed
 	{
 	public:

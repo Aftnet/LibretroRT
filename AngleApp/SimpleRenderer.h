@@ -1,8 +1,6 @@
 #pragma once
 
-#include "pch.h"
-
-using namespace LibretroRT;
+using namespace AngleSupport;
 
 namespace AngleApp
 {

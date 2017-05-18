@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LibretroRT
+namespace AngleSupport
 {
 	public interface class IRenderer
 	{

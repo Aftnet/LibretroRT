@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "AngleSwapChainManager.h"
 
-using namespace LibretroRT;
+using namespace AngleSupport;
 using namespace Platform;
 using namespace Concurrency;
 using namespace Windows::Foundation;

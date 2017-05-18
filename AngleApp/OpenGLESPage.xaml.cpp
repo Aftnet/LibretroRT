@@ -3,6 +3,7 @@
 #include "SimpleRenderer.h"
 
 using namespace AngleApp;
+using namespace AngleSupport;
 using namespace Platform;
 using namespace Concurrency;
 using namespace Windows::Foundation;
