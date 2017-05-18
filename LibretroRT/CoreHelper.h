@@ -1,30 +1,32 @@
 #pragma once
 
-#include "GameGeometry.h"
-#include "SystemTiming.h"
+struct retro_system_info;
+struct retro_system_av_info;
 
-#include "libretro.h"
+using namespace Platform;
 
 namespace LibretroRT
 {
-	class CoreHelper
+	ref struct GameGeometry;
+	ref struct SystemTiming;
+
+	private ref class CoreHelper sealed
 	{
-	private:
-		Platform::String^ name;
-		Platform::String^ version;
-		Platform::String^ supportedExtensions;
-
-		GameGeometry^ gameGeometry;
-		SystemTiming^ systemTiming;
-
-	public:
+	internal:
 		CoreHelper(retro_system_info& info);
 		void SetAVInfo(retro_system_av_info& avInfo);
 
-		Platform::String^ GetName();
-		Platform::String^ GetVersion();
-		Platform::String^ GetSupportedExtensions();
-		GameGeometry^ GetGameGeometry();
-		SystemTiming^ GetSystemTiming();
+		property String^ Name { String^ get() { return name; } }
+		property String^ Version { String^ get() { return version; } }
+		property String^ SupportedExtensions { String^ get() { return supportedExtensions; } }
+		property LibretroRT::GameGeometry^ GameGeometry { LibretroRT::GameGeometry^ get() { return gameGeometry; } }
+		property LibretroRT::SystemTiming^ SystemTiming { LibretroRT::SystemTiming^ get() { return systemTiming; } }
+
+	private:
+		String^ name;
+		String^ version;
+		String^ supportedExtensions;
+		LibretroRT::GameGeometry^ gameGeometry;
+		LibretroRT::SystemTiming^ systemTiming;
 	};
 }

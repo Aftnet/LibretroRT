@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "CoreHelper.h"
 #include "Converter.h"
+#include "GameGeometry.h"
+#include "SystemTiming.h"
+
+#include "libretro.h"
 
 using namespace LibretroRT;
 
@@ -11,33 +15,8 @@ CoreHelper::CoreHelper(retro_system_info& info):
 {
 }
 
-void LibretroRT::CoreHelper::SetAVInfo(retro_system_av_info & avInfo)
+void CoreHelper::SetAVInfo(retro_system_av_info & avInfo)
 {
-	gameGeometry = ref new GameGeometry(avInfo.geometry);
-	systemTiming = ref new SystemTiming(avInfo.timing);
-}
-
-Platform::String ^ LibretroRT::CoreHelper::GetName()
-{
-	return name;
-}
-
-Platform::String ^ LibretroRT::CoreHelper::GetVersion()
-{
-	return version;
-}
-
-Platform::String ^ LibretroRT::CoreHelper::GetSupportedExtensions()
-{
-	return supportedExtensions;
-}
-
-GameGeometry ^ LibretroRT::CoreHelper::GetGameGeometry()
-{
-	return gameGeometry;
-}
-
-SystemTiming ^ LibretroRT::CoreHelper::GetSystemTiming()
-{
-	return systemTiming;
+	gameGeometry = ref new LibretroRT::GameGeometry(avInfo.geometry);
+	systemTiming = ref new LibretroRT::SystemTiming(avInfo.timing);
 }
