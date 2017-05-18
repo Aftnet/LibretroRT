@@ -1,15 +1,20 @@
 #pragma once
 
 #include "Export.h"
-#include "../LibretroRT/libretro.h"
+
+struct retro_game_geometry;
+struct retro_system_timing;
+
+using namespace Platform;
+using namespace LibretroRT;
 
 namespace LibretroRTSupport
 {
 	class SUPPORT_API Converter
 	{
 	public:
-		static Platform::String^ CToPlatformString(const char* t_str);
-		static LibretroRT::GameGeometry^ CToRTGameGeometry(const retro_game_geometry& geometry);
-		static LibretroRT::SystemTiming^ CToRTSystemTiming(const retro_system_timing& timing);
+		static String^ CToPlatformString(const char* t_str);
+		static GameGeometry^ CToRTGameGeometry(const retro_game_geometry& geometry);
+		static SystemTiming^ CToRTSystemTiming(const retro_system_timing& timing);
 	};
 }

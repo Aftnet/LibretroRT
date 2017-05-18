@@ -1,36 +1,31 @@
 #pragma once
 
+#include "../LibretroRTSupport/CoreHelper.h"
+
 using namespace Platform;
+using namespace LibretroRTSupport;
 
 namespace GPGXRT
 {
 	public ref class GPGXCore sealed : public LibretroRT::ICore
 	{
 	private:
-		String^ name;
-		String^ version;
-		String^ supportedExtensions;
+		std::shared_ptr<CoreHelper> helper;
 
 	public:
 		virtual property String^ Name
 		{
-			String^ get() { return name; }
-		private:
-			void set(String^ value) { name = value; }
+			String^ get() { return helper->GetName(); }
 		}
 
 		virtual property String^ Version
 		{
-			String^ get() { return version; }
-		private:
-			void set(String^ value) { version = value; }
+			String^ get() { return helper->GetVersion(); }
 		}
 
 		virtual property String^ SupportedExtensions
 		{
-			String^ get() { return supportedExtensions; }
-		private:
-			void set(String^ value) { supportedExtensions = value; }
+			String^ get() { return  helper->GetSupportedExtensions(); }
 		}
 
 		GPGXCore();

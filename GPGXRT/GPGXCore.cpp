@@ -2,7 +2,6 @@
 #include "GPGXCore.h"
 
 #include "../LibretroRT/libretro.h"
-#include "../LibretroRTSupport/Converter.h"
 
 using namespace GPGXRT;
 using namespace LibretroRTSupport;
@@ -11,7 +10,7 @@ GPGXCore::GPGXCore()
 {
 	retro_system_info info;
 	retro_get_system_info(&info);
-	Name = Converter::CToPlatformString(info.library_name);
+	helper = std::make_shared<CoreHelper>(CoreHelper(info));
 }
 
 

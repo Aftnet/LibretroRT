@@ -1,7 +1,5 @@
 #pragma once
 
-#include "libretro.h"
-
 namespace LibretroRT
 {
 	public ref struct SystemTiming sealed

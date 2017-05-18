@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Converter.h"
+#include "../LibretroRT/libretro.h"
 
 Platform::String^ LibretroRTSupport::Converter::CToPlatformString(const char* t_str)
 {
