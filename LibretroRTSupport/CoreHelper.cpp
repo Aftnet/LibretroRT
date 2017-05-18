@@ -17,3 +17,8 @@ void LibretroRTSupport::CoreHelper::SetAVInfo(const retro_system_av_info & info)
 	gameGeometry = Converter::CToRTGameGeometry(info.geometry);
 	systemTiming = Converter::CToRTSystemTiming(info.timing);
 }
+
+bool LibretroRTSupport::CoreHelper::DefaultEnvironmentHandler(unsigned cmd, void * data)
+{
+	return false;
+}

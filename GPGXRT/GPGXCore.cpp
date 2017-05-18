@@ -11,6 +11,9 @@ GPGXCore::GPGXCore()
 	retro_system_info info;
 	retro_get_system_info(&info);
 	helper = std::make_shared<CoreHelper>(CoreHelper(info));
+
+	retro_set_environment(CoreHelper::DefaultEnvironmentHandler);
+	retro_init();
 }
 
 

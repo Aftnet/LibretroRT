@@ -30,5 +30,7 @@ namespace LibretroRTSupport
 
 		GameGeometry^ GetGameGeometry() { return ref new GameGeometry(gameGeometry); }
 		SystemTiming^ GetSystemTiming() { return ref new SystemTiming(systemTiming); }
+
+		static bool DefaultEnvironmentHandler(unsigned cmd, void *data);
 	};
 }
