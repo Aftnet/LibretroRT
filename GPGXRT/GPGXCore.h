@@ -28,6 +28,16 @@ namespace GPGXRT
 			String^ get() { return  helper->GetSupportedExtensions(); }
 		}
 
+		virtual property GameGeometry^ Geometry
+		{
+			GameGeometry^ get() { return  helper->GetGameGeometry(); }
+		}
+
+		virtual property SystemTiming^ Timing
+		{
+			SystemTiming^ get() { return  helper->GetSystemTiming(); }
+		}
+
 		GPGXCore();
 		virtual ~GPGXCore();
 

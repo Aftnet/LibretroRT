@@ -1,5 +1,8 @@
 #pragma once
 
+#include "GameGeometry.h"
+#include "SystemTiming.h"
+
 using namespace Platform;
 
 namespace LibretroRT
@@ -16,6 +19,9 @@ namespace LibretroRT
 		property String^ Name { String^ get(); };
 		property String^ Version { String^ get(); };
 		property String^ SupportedExtensions { String^ get(); };
+
+		property GameGeometry^ Geometry { GameGeometry^ get(); }
+		property SystemTiming^ Timing { SystemTiming^ get(); }
 
 		void LoadGame(Windows::Storage::Streams::IRandomAccessStream^ gameStream);
 		void UnloadGame();

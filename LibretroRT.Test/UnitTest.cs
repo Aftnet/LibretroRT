@@ -12,6 +12,9 @@ namespace LibretroRT.Test
             Assert.NotNull(core.Name);
             Assert.NotNull(core.Version);
             Assert.NotNull(core.SupportedExtensions);
+
+            Assert.NotNull(core.Geometry);
+            Assert.NotNull(core.Timing);
         }
     }
 }
