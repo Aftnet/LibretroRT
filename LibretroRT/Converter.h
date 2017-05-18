@@ -1,7 +1,5 @@
 #pragma once
 
-#include "pch.h"
-
 using namespace Platform;
 
 namespace LibretroRT

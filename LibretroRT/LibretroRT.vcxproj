@@ -220,7 +220,7 @@
   <ItemGroup>
     <ClCompile Include="AngleSwapChainManager.cpp" />
     <ClCompile Include="Converter.cpp" />
-    <ClCompile Include="Converter.h" />
+    <ClInclude Include="Converter.h" />
     <ClCompile Include="CoreHelper.cpp" />
     <ClCompile Include="ICore.cpp" />
     <ClCompile Include="OpenGLES.cpp" />

@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace GPGXRT
 {
 	public ref class GPGXCore sealed : public LibretroRT::ICore
@@ -21,6 +22,8 @@ namespace GPGXRT
 		virtual event LibretroRT::PollInputDelegate ^ PollInput;
 		virtual event LibretroRT::RenderAudioFramesDelegate ^ RenderAudioFrames;
 		virtual event LibretroRT::RenderVideoFrameDelegate ^ RenderVideoFrame;
+	private:
+
 	};
 }
 

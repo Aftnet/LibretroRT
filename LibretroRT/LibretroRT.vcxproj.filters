@@ -13,7 +13,6 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="AngleSwapChainManager.cpp" />
     <ClCompile Include="OpenGLES.cpp" />
-    <ClCompile Include="Converter.h" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="ICore.cpp" />
     <ClCompile Include="CoreHelper.cpp" />
@@ -35,6 +34,7 @@
     </ClInclude>
     <ClInclude Include="ICore.h" />
     <ClInclude Include="CoreHelper.h" />
+    <ClInclude Include="Converter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
