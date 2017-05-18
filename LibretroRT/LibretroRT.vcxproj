@@ -27,7 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6d1cc2d7-898b-46e8-9b70-9833476867b8}</ProjectGuid>
+    <ProjectGuid>{458b4cb3-2af3-4f93-9397-67598fd764ee}</ProjectGuid>
     <Keyword>WindowsRuntimeComponent</Keyword>
     <RootNamespace>LibretroRT</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
@@ -206,22 +206,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AngleSwapChainManager.h" />
     <ClInclude Include="Devices.h" />
     <ClInclude Include="GameGeometry.h" />
     <ClInclude Include="ICore.h" />
-    <ClInclude Include="IRenderer.h" />
     <ClInclude Include="libretro.h" />
-    <ClInclude Include="OpenGLES.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SystemTiming.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AngleSwapChainManager.cpp" />
-    <ClCompile Include="SystemTiming.cpp" />
     <ClCompile Include="GameGeometry.cpp" />
     <ClCompile Include="ICore.cpp" />
-    <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -230,18 +224,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ClCompile Include="SystemTiming.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\ANGLE.WindowsStore.2.1.13\build\native\ANGLE.WindowsStore.targets" Condition="Exists('..\packages\ANGLE.WindowsStore.2.1.13\build\native\ANGLE.WindowsStore.targets')" />
   </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\ANGLE.WindowsStore.2.1.13\build\native\ANGLE.WindowsStore.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ANGLE.WindowsStore.2.1.13\build\native\ANGLE.WindowsStore.targets'))" />
-  </Target>
 </Project>

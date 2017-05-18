@@ -143,7 +143,7 @@
       <Name>GPGXRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
-      <Project>{6d1cc2d7-898b-46e8-9b70-9833476867b8}</Project>
+      <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
       <Name>LibretroRT</Name>
     </ProjectReference>
   </ItemGroup>
