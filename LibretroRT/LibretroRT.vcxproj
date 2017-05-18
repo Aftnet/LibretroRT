@@ -207,7 +207,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AngleSwapChainManager.h" />
-    <ClInclude Include="CoreHelper.h" />
     <ClInclude Include="Devices.h" />
     <ClInclude Include="GameGeometry.h" />
     <ClInclude Include="ICore.h" />
@@ -220,8 +219,9 @@
   <ItemGroup>
     <ClCompile Include="AngleSwapChainManager.cpp" />
     <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="SystemTiming.cpp" />
     <ClInclude Include="Converter.h" />
-    <ClCompile Include="CoreHelper.cpp" />
+    <ClCompile Include="GameGeometry.cpp" />
     <ClCompile Include="ICore.cpp" />
     <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="pch.cpp">

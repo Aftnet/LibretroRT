@@ -6,32 +6,15 @@ namespace LibretroRT
 {
 	public ref struct SystemTiming sealed
 	{
-	private:
-		retro_system_timing nativeTiming;
-
-	internal:
-		SystemTiming(const retro_system_timing& timing) : nativeTiming(timing) { }
-
-		property retro_system_timing& NativeTiming
-		{
-			retro_system_timing& get() { return nativeTiming; }
-		}
-
 	public:
-		SystemTiming() { }
+		SystemTiming();
+		SystemTiming(SystemTiming^ input);
+		SystemTiming(double fps, double sampleRate);
 
-		property double FPS
-		{
-			double get() { return nativeTiming.fps; }
-		internal:
-			void set(double value) { nativeTiming.fps = value; }
-		}
+		property double FPS;
+		property double SampleRate;
 
-		property double SampleRate
-		{
-			double get() { return nativeTiming.sample_rate; }
-		internal:
-			void set(double value) { nativeTiming.sample_rate = value; }
-		}
+	private:
+		void Init(double fps, double sampleRate);
 	};
 }

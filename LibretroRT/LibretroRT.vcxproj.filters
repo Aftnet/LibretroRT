@@ -15,7 +15,12 @@
     <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="ICore.cpp" />
-    <ClCompile Include="CoreHelper.cpp" />
+    <ClCompile Include="GameGeometry.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemTiming.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -33,7 +38,6 @@
       <Filter>DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="ICore.h" />
-    <ClInclude Include="CoreHelper.h" />
     <ClInclude Include="Converter.h" />
   </ItemGroup>
   <ItemGroup>

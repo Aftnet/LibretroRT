@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../LibretroRT/CoreHelper.h"
-
 using namespace Platform;
 
 namespace GPGXRT
@@ -9,15 +7,34 @@ namespace GPGXRT
 	public ref class GPGXCore sealed : public LibretroRT::ICore
 	{
 	private:
-		LibretroRT::CoreHelper^ helper;
+		String^ name;
+		String^ version;
+		String^ supportedExtensions;
 
 	public:
+		virtual property String^ Name
+		{
+			String^ get() { return name; }
+		private:
+			void set(String^ value) { name = value; }
+		}
+
+		virtual property String^ Version
+		{
+			String^ get() { return version; }
+		private:
+			void set(String^ value) { version = value; }
+		}
+
+		virtual property String^ SupportedExtensions
+		{
+			String^ get() { return supportedExtensions; }
+		private:
+			void set(String^ value) { supportedExtensions = value; }
+		}
+
 		GPGXCore();
 		virtual ~GPGXCore();
-
-		virtual property String^ SupportedExtensions { String^ get() { return helper->SupportedExtensions; }}
-		virtual property String^ Version { String^ get() { return helper->Version; }}
-		virtual property String^ Name { String^ get() { return helper->Name; }}
 
 		virtual void LoadGame(Windows::Storage::Streams::IRandomAccessStream ^gameStream);
 		virtual void UnloadGame();

@@ -1,10 +1,14 @@
 #include "pch.h"
 #include "GPGXCore.h"
 
+#include "../LibretroRT/libretro.h"
+
 using namespace GPGXRT;
 
 GPGXCore::GPGXCore()
 {
+	retro_system_info info;
+	auto ptr = Platform::UIntPtr();
 }
 
 
