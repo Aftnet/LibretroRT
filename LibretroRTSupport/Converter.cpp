@@ -74,18 +74,56 @@ InputType LibretroRTSupport::Converter::ConvertToInputType(unsigned device, unsi
 	case RETRO_DEVICE_MOUSE:
 		switch (id)
 		{
+		case RETRO_DEVICE_ID_MOUSE_X:
+			return InputType::DeviceIdMouseX;
+		case RETRO_DEVICE_ID_MOUSE_Y:
+			return InputType::DeviceIdMouseY;
+		case RETRO_DEVICE_ID_MOUSE_LEFT:
+			return InputType::DeviceIdMouseLeft;
+		case RETRO_DEVICE_ID_MOUSE_RIGHT:
+			return InputType::DeviceIdMouseRight;
+		case RETRO_DEVICE_ID_MOUSE_WHEELUP:
+			return InputType::DeviceIdMouseWheelup;
+		case RETRO_DEVICE_ID_MOUSE_WHEELDOWN:
+			return InputType::DeviceIdMouseWheeldown;
+		case RETRO_DEVICE_ID_MOUSE_MIDDLE:
+			return InputType::DeviceIdMouseMiddle;
+		case RETRO_DEVICE_ID_MOUSE_HORIZ_WHEELUP:
+			return InputType::DeviceIdMouseHorizWheelup;
+		case RETRO_DEVICE_ID_MOUSE_HORIZ_WHEELDOWN:
+			return InputType::DeviceIdMouseHorizWheeldown;
 		default:
 			return InputType::DeviceIdUnknown;
 		}
 	case RETRO_DEVICE_LIGHTGUN:
 		switch (id)
 		{
+		case RETRO_DEVICE_ID_LIGHTGUN_X:
+			return InputType::DeviceIdLightgunX;
+		case RETRO_DEVICE_ID_LIGHTGUN_Y:
+			return InputType::DeviceIdLightgunY;
+		case RETRO_DEVICE_ID_LIGHTGUN_TRIGGER:
+			return InputType::DeviceIdLightgunTrigger;
+		case RETRO_DEVICE_ID_LIGHTGUN_CURSOR:
+			return InputType::DeviceIdLightgunCursor;
+		case RETRO_DEVICE_ID_LIGHTGUN_TURBO:
+			return InputType::DeviceIdLightgunTurbo;
+		case RETRO_DEVICE_ID_LIGHTGUN_PAUSE:
+			return InputType::DeviceIdLightgunPause;
+		case RETRO_DEVICE_ID_LIGHTGUN_START:
+			return InputType::DeviceIdLightgunStart;
 		default:
 			return InputType::DeviceIdUnknown;
 		}
 	case RETRO_DEVICE_POINTER:
 		switch (id)
 		{
+		case RETRO_DEVICE_ID_POINTER_X:
+			return InputType::DeviceIdPointerX;
+		case RETRO_DEVICE_ID_POINTER_Y:
+			return InputType::DeviceIdPointerY;
+		case RETRO_DEVICE_ID_POINTER_PRESSED:
+			return InputType::DeviceIdPointerPressed;
 		default:
 			return InputType::DeviceIdUnknown;
 		}
