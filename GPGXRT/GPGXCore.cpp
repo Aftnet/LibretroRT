@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "GPGXCore.h"
+#include "GPGXCoreInternal.h"
 
 using namespace GPGXRT;
 using namespace LibretroRT;
 
-ICore^ GPGXCore::GetInstance()
+ICore^ GPGXCore::Instance::get()
 {
-	return GPGXCore::GetInstance();
+	return GPGXCoreInternal::Instance;
 }

@@ -7,7 +7,7 @@ namespace GPGXRT
 	public ref class GPGXCore sealed
 	{
 	public:
-		static ICore^ GetInstance();
+		static property ICore^ Instance { ICore^ get(); }
 	};
 }
 

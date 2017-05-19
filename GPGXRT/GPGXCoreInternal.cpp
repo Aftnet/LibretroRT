@@ -8,7 +8,7 @@ using namespace LibretroRTSupport;
 
 GPGXCoreInternal^ coreInstance = nullptr;
 
-GPGXCoreInternal^ GPGXCoreInternal::GetInstance()
+GPGXCoreInternal^ GPGXCoreInternal::Instance::get()
 {
 	if (coreInstance == nullptr)
 	{

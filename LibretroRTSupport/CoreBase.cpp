@@ -6,6 +6,8 @@
 using namespace LibretroRTSupport;
 
 CoreBase::CoreBase():
+	timing(ref new SystemTiming),
+	geometry(ref new GameGeometry),
 	pixelFormat(LibretroRT::PixelFormats::FormatUknown)
 {
 }

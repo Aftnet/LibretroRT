@@ -7,7 +7,7 @@ namespace LibretroRT.Test
         [Fact]
         public void CoreInfoIsRead()
         {
-            var core = new GPGXRT.GPGXCore();
+            var core = GPGXRT.GPGXCore.Instance;
 
             Assert.NotNull(core.Name);
             Assert.NotNull(core.Version);
