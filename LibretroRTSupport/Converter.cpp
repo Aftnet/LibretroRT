@@ -2,6 +2,8 @@
 #include "Converter.h"
 #include "../LibretroRT/libretro.h"
 
+using namespace Platform;
+using namespace LibretroRT;
 using namespace LibretroRTSupport;
 
 Platform::String^ Converter::CToPlatformString(const char* t_str)
@@ -12,35 +14,35 @@ Platform::String^ Converter::CToPlatformString(const char* t_str)
 
 	//use converter (.to_bytes: wstr->str, .from_bytes: str->wstr)
 	auto wstring = converter.from_bytes(t_str);
-	return ref new Platform::String(wstring.c_str());
+	return ref new String(wstring.c_str());
 }
 
-LibretroRT::GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
+GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
 {
-	return ref new LibretroRT::GameGeometry(geometry.base_width, geometry.base_height, geometry.max_width, geometry.max_height, geometry.aspect_ratio);
+	return ref new GameGeometry(geometry.base_width, geometry.base_height, geometry.max_width, geometry.max_height, geometry.aspect_ratio);
 }
 
-LibretroRT::SystemTiming ^ Converter::CToRTSystemTiming(const retro_system_timing & timing)
+SystemTiming^ Converter::CToRTSystemTiming(const retro_system_timing & timing)
 {
-	return ref new LibretroRT::SystemTiming(timing.fps, timing.sample_rate);
+	return ref new SystemTiming(timing.fps, timing.sample_rate);
 }
 
-PixelFormat ConvertToPixelFormat(enum retro_pixel_format format)
+PixelFormats Converter::ConvertToPixelFormat(enum retro_pixel_format format)
 {
 	switch (format)
 	{
 	case RETRO_PIXEL_FORMAT_0RGB1555:
-		return PixelFormat::Format0RGB1555;
+		return PixelFormats::Format0RGB1555;
 	case RETRO_PIXEL_FORMAT_XRGB8888:
-		return PixelFormat::FormatXRGB8888;
+		return PixelFormats::FormatXRGB8888;
 	case RETRO_PIXEL_FORMAT_RGB565:
-		return PixelFormat::FormatRGB565;
-	case RETRO_PIXEL_FORMAT_UNKNOWN:
-		return PixelFormat::FormatUknown;
+		return PixelFormats::FormatRGB565;
+	default:
+		return PixelFormats::FormatUknown;
 	}
 }
 
-InputType Converter::ConvertToInputType(unsigned device, unsigned index, unsigned id)
+InputTypes Converter::ConvertToInputType(unsigned device, unsigned index, unsigned id)
 {
 	switch (device)
 	{
@@ -48,39 +50,39 @@ InputType Converter::ConvertToInputType(unsigned device, unsigned index, unsigne
 		switch (id)
 		{
 		case RETRO_DEVICE_ID_JOYPAD_B:
-			return InputType::DeviceIdJoypadB;
+			return InputTypes::DeviceIdJoypadB;
 		case RETRO_DEVICE_ID_JOYPAD_Y:
-			return InputType::DeviceIdJoypadY;
+			return InputTypes::DeviceIdJoypadY;
 		case RETRO_DEVICE_ID_JOYPAD_SELECT:
-			return InputType::DeviceIdJoypadSelect;
+			return InputTypes::DeviceIdJoypadSelect;
 		case RETRO_DEVICE_ID_JOYPAD_START:
-			return InputType::DeviceIdJoypadStart;
+			return InputTypes::DeviceIdJoypadStart;
 		case RETRO_DEVICE_ID_JOYPAD_UP:
-			return InputType::DeviceIdJoypadUp;
+			return InputTypes::DeviceIdJoypadUp;
 		case RETRO_DEVICE_ID_JOYPAD_DOWN:
-			return InputType::DeviceIdJoypadDown;
+			return InputTypes::DeviceIdJoypadDown;
 		case RETRO_DEVICE_ID_JOYPAD_LEFT:
-			return InputType::DeviceIdJoypadLeft;
+			return InputTypes::DeviceIdJoypadLeft;
 		case RETRO_DEVICE_ID_JOYPAD_RIGHT:
-			return InputType::DeviceIdJoypadRight;
+			return InputTypes::DeviceIdJoypadRight;
 		case RETRO_DEVICE_ID_JOYPAD_A:
-			return InputType::DeviceIdJoypadA;
+			return InputTypes::DeviceIdJoypadA;
 		case RETRO_DEVICE_ID_JOYPAD_X:
-			return InputType::DeviceIdJoypadX;
+			return InputTypes::DeviceIdJoypadX;
 		case RETRO_DEVICE_ID_JOYPAD_L:
-			return InputType::DeviceIdJoypadL;
+			return InputTypes::DeviceIdJoypadL;
 		case RETRO_DEVICE_ID_JOYPAD_R:
-			return InputType::DeviceIdJoypadR;
+			return InputTypes::DeviceIdJoypadR;
 		case RETRO_DEVICE_ID_JOYPAD_L2:
-			return InputType::DeviceIdJoypadL2;
+			return InputTypes::DeviceIdJoypadL2;
 		case RETRO_DEVICE_ID_JOYPAD_R2:
-			return InputType::DeviceIdJoypadR2;
+			return InputTypes::DeviceIdJoypadR2;
 		case RETRO_DEVICE_ID_JOYPAD_L3:
-			return InputType::DeviceIdJoypadL3;
+			return InputTypes::DeviceIdJoypadL3;
 		case RETRO_DEVICE_ID_JOYPAD_R3:
-			return InputType::DeviceIdJoypadR3;
+			return InputTypes::DeviceIdJoypadR3;
 		default:
-			return InputType::DeviceIdUnknown;
+			return InputTypes::DeviceIdUnknown;
 		}
 	case RETRO_DEVICE_ANALOG:
 		switch (index)
@@ -89,82 +91,82 @@ InputType Converter::ConvertToInputType(unsigned device, unsigned index, unsigne
 			switch (id)
 			{
 			case RETRO_DEVICE_ID_ANALOG_X:
-				return InputType::DeviceIdAnalogLeftX;
+				return InputTypes::DeviceIdAnalogLeftX;
 			case RETRO_DEVICE_ID_ANALOG_Y:
-				return InputType::DeviceIdAnalogLeftY;
+				return InputTypes::DeviceIdAnalogLeftY;
 			default:
-				return InputType::DeviceIdUnknown;
+				return InputTypes::DeviceIdUnknown;
 			}
 		case RETRO_DEVICE_INDEX_ANALOG_RIGHT:
 			switch (id)
 			{
 			case RETRO_DEVICE_ID_ANALOG_X:
-				return InputType::DeviceIdAnalogRightX;
+				return InputTypes::DeviceIdAnalogRightX;
 			case RETRO_DEVICE_ID_ANALOG_Y:
-				return InputType::DeviceIdAnalogRightY;
+				return InputTypes::DeviceIdAnalogRightY;
 			default:
-				return InputType::DeviceIdUnknown;
+				return InputTypes::DeviceIdUnknown;
 			}
 		default:
-			return InputType::DeviceIdUnknown;
+			return InputTypes::DeviceIdUnknown;
 		}
 	case RETRO_DEVICE_MOUSE:
 		switch (id)
 		{
 		case RETRO_DEVICE_ID_MOUSE_X:
-			return InputType::DeviceIdMouseX;
+			return InputTypes::DeviceIdMouseX;
 		case RETRO_DEVICE_ID_MOUSE_Y:
-			return InputType::DeviceIdMouseY;
+			return InputTypes::DeviceIdMouseY;
 		case RETRO_DEVICE_ID_MOUSE_LEFT:
-			return InputType::DeviceIdMouseLeft;
+			return InputTypes::DeviceIdMouseLeft;
 		case RETRO_DEVICE_ID_MOUSE_RIGHT:
-			return InputType::DeviceIdMouseRight;
+			return InputTypes::DeviceIdMouseRight;
 		case RETRO_DEVICE_ID_MOUSE_WHEELUP:
-			return InputType::DeviceIdMouseWheelup;
+			return InputTypes::DeviceIdMouseWheelup;
 		case RETRO_DEVICE_ID_MOUSE_WHEELDOWN:
-			return InputType::DeviceIdMouseWheeldown;
+			return InputTypes::DeviceIdMouseWheeldown;
 		case RETRO_DEVICE_ID_MOUSE_MIDDLE:
-			return InputType::DeviceIdMouseMiddle;
+			return InputTypes::DeviceIdMouseMiddle;
 		case RETRO_DEVICE_ID_MOUSE_HORIZ_WHEELUP:
-			return InputType::DeviceIdMouseHorizWheelup;
+			return InputTypes::DeviceIdMouseHorizWheelup;
 		case RETRO_DEVICE_ID_MOUSE_HORIZ_WHEELDOWN:
-			return InputType::DeviceIdMouseHorizWheeldown;
+			return InputTypes::DeviceIdMouseHorizWheeldown;
 		default:
-			return InputType::DeviceIdUnknown;
+			return InputTypes::DeviceIdUnknown;
 		}
 	case RETRO_DEVICE_LIGHTGUN:
 		switch (id)
 		{
 		case RETRO_DEVICE_ID_LIGHTGUN_X:
-			return InputType::DeviceIdLightgunX;
+			return InputTypes::DeviceIdLightgunX;
 		case RETRO_DEVICE_ID_LIGHTGUN_Y:
-			return InputType::DeviceIdLightgunY;
+			return InputTypes::DeviceIdLightgunY;
 		case RETRO_DEVICE_ID_LIGHTGUN_TRIGGER:
-			return InputType::DeviceIdLightgunTrigger;
+			return InputTypes::DeviceIdLightgunTrigger;
 		case RETRO_DEVICE_ID_LIGHTGUN_CURSOR:
-			return InputType::DeviceIdLightgunCursor;
+			return InputTypes::DeviceIdLightgunCursor;
 		case RETRO_DEVICE_ID_LIGHTGUN_TURBO:
-			return InputType::DeviceIdLightgunTurbo;
+			return InputTypes::DeviceIdLightgunTurbo;
 		case RETRO_DEVICE_ID_LIGHTGUN_PAUSE:
-			return InputType::DeviceIdLightgunPause;
+			return InputTypes::DeviceIdLightgunPause;
 		case RETRO_DEVICE_ID_LIGHTGUN_START:
-			return InputType::DeviceIdLightgunStart;
+			return InputTypes::DeviceIdLightgunStart;
 		default:
-			return InputType::DeviceIdUnknown;
+			return InputTypes::DeviceIdUnknown;
 		}
 	case RETRO_DEVICE_POINTER:
 		switch (id)
 		{
 		case RETRO_DEVICE_ID_POINTER_X:
-			return InputType::DeviceIdPointerX;
+			return InputTypes::DeviceIdPointerX;
 		case RETRO_DEVICE_ID_POINTER_Y:
-			return InputType::DeviceIdPointerY;
+			return InputTypes::DeviceIdPointerY;
 		case RETRO_DEVICE_ID_POINTER_PRESSED:
-			return InputType::DeviceIdPointerPressed;
+			return InputTypes::DeviceIdPointerPressed;
 		default:
-			return InputType::DeviceIdUnknown;
+			return InputTypes::DeviceIdUnknown;
 		}
 	default:
-		return InputType::DeviceIdUnknown;
+		return InputTypes::DeviceIdUnknown;
 	}
 }

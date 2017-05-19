@@ -11,6 +11,7 @@ namespace LibretroRTSupport
 	private ref class CoreBase : public ICore
 	{
 	private:
+		PixelFormats pixelFormat;
 		SystemTiming^ timing;
 		GameGeometry^ geometry;
 		String^ supportedExtensions;
@@ -35,6 +36,7 @@ namespace LibretroRTSupport
 	public:
 		virtual ~CoreBase();
 
+		virtual property PixelFormats PixelFormat { PixelFormats get() { return pixelFormat; } }
 		virtual property SystemTiming^ Timing { SystemTiming^ get() { return ref new SystemTiming(timing); } }
 		virtual property GameGeometry^ Geometry { GameGeometry^ get() { return ref new GameGeometry(geometry); } }
 		virtual property String^ SupportedExtensions { String^ get() { return supportedExtensions; } }

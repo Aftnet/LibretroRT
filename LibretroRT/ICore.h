@@ -12,7 +12,7 @@ namespace LibretroRT
 	public delegate void RenderAudioFramesDelegate(const Array<int16>^ data, uint32 numFrames);
 	
 	public delegate void PollInputDelegate();
-	public delegate int16 GetInputStateDelegate(unsigned port, InputType inputType);
+	public delegate int16 GetInputStateDelegate(unsigned port, InputTypes inputType);
 
 	public interface class ICore
 	{
@@ -21,6 +21,7 @@ namespace LibretroRT
 		property String^ Version { String^ get(); };
 		property String^ SupportedExtensions { String^ get(); };
 
+		property PixelFormats PixelFormat { PixelFormats get(); }
 		property GameGeometry^ Geometry { GameGeometry^ get(); }
 		property SystemTiming^ Timing { SystemTiming^ get(); }
 

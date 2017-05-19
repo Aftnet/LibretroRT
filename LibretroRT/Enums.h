@@ -2,7 +2,7 @@
 
 namespace LibretroRT
 {
-	public enum class PixelFormat
+	public enum class PixelFormats
 	{
 		Format0RGB1555,
 		FormatXRGB8888,
@@ -10,7 +10,7 @@ namespace LibretroRT
 		FormatUknown,
 	};
 
-	public enum class InputType
+	public enum class InputTypes
 	{
 		DeviceIdJoypadB,
 		DeviceIdJoypadY,
