@@ -212,10 +212,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
     <ClInclude Include="GPGXCore.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
     <ClCompile Include="GPGXCore.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

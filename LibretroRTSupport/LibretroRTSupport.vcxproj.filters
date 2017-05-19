@@ -3,7 +3,7 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Converter.cpp" />
-    <ClCompile Include="CoreHelper.cpp" />
+    <ClCompile Include="CoreBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -11,6 +11,6 @@
     <ClInclude Include="Export.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="CoreHelper.h" />
+    <ClInclude Include="CoreBase.h" />
   </ItemGroup>
 </Project>

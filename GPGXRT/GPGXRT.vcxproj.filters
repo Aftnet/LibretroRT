@@ -9,9 +9,11 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="GPGXCore.cpp" />
+    <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="GPGXCore.h" />
+    <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
   </ItemGroup>
 </Project>

@@ -6,19 +6,30 @@
 using namespace GPGXRT;
 using namespace LibretroRTSupport;
 
+GPGXCore^ coreInstance = nullptr;
+
+GPGXCore^ GPGXCore::GetInstance()
+{
+	if (coreInstance == nullptr)
+	{
+		coreInstance = ref new GPGXCore();
+	}
+	return coreInstance;
+}
+
 GPGXCore::GPGXCore()
 {
 	retro_system_info info;
 	retro_get_system_info(&info);
-	helper = std::make_shared<CoreHelper>(CoreHelper(info));
+	SetSystemInfo(info);
 
-	retro_set_environment(CoreHelper::DefaultEnvironmentHandler);
-	retro_init();
+	retro_set_input_poll([]() { coreInstance->RaisePollInput(); });
 }
-
 
 GPGXCore::~GPGXCore()
 {
+	retro_deinit();
+	coreInstance = nullptr;
 }
 
 void GPGXRT::GPGXCore::LoadGame(Windows::Storage::Streams::IRandomAccessStream ^gameStream)
