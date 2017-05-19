@@ -25,5 +25,71 @@ LibretroRT::SystemTiming ^ LibretroRTSupport::Converter::CToRTSystemTiming(const
 
 InputType LibretroRTSupport::Converter::ConvertToInputType(unsigned device, unsigned index, unsigned id)
 {
-	return InputType();
+	switch (device)
+	{
+	case RETRO_DEVICE_JOYPAD:
+		switch (id)
+		{
+		case RETRO_DEVICE_ID_JOYPAD_B:
+			return InputType::DeviceIdJoypadB;
+		case RETRO_DEVICE_ID_JOYPAD_Y:
+			return InputType::DeviceIdJoypadY;
+		case RETRO_DEVICE_ID_JOYPAD_SELECT:
+			return InputType::DeviceIdJoypadSelect;
+		case RETRO_DEVICE_ID_JOYPAD_START:
+			return InputType::DeviceIdJoypadStart;
+		case RETRO_DEVICE_ID_JOYPAD_UP:
+			return InputType::DeviceIdJoypadUp;
+		case RETRO_DEVICE_ID_JOYPAD_DOWN:
+			return InputType::DeviceIdJoypadDown;
+		case RETRO_DEVICE_ID_JOYPAD_LEFT:
+			return InputType::DeviceIdJoypadLeft;
+		case RETRO_DEVICE_ID_JOYPAD_RIGHT:
+			return InputType::DeviceIdJoypadRight;
+		case RETRO_DEVICE_ID_JOYPAD_A:
+			return InputType::DeviceIdJoypadA;
+		case RETRO_DEVICE_ID_JOYPAD_X:
+			return InputType::DeviceIdJoypadX;
+		case RETRO_DEVICE_ID_JOYPAD_L:
+			return InputType::DeviceIdJoypadL;
+		case RETRO_DEVICE_ID_JOYPAD_R:
+			return InputType::DeviceIdJoypadR;
+		case RETRO_DEVICE_ID_JOYPAD_L2:
+			return InputType::DeviceIdJoypadL2;
+		case RETRO_DEVICE_ID_JOYPAD_R2:
+			return InputType::DeviceIdJoypadR2;
+		case RETRO_DEVICE_ID_JOYPAD_L3:
+			return InputType::DeviceIdJoypadL3;
+		case RETRO_DEVICE_ID_JOYPAD_R3:
+			return InputType::DeviceIdJoypadR3;
+		default:
+			return InputType::DeviceIdUnknown;
+		}
+	case RETRO_DEVICE_ANALOG:
+		switch (id)
+		{
+		default:
+			return InputType::DeviceIdUnknown;
+		}
+	case RETRO_DEVICE_MOUSE:
+		switch (id)
+		{
+		default:
+			return InputType::DeviceIdUnknown;
+		}
+	case RETRO_DEVICE_LIGHTGUN:
+		switch (id)
+		{
+		default:
+			return InputType::DeviceIdUnknown;
+		}
+	case RETRO_DEVICE_POINTER:
+		switch (id)
+		{
+		default:
+			return InputType::DeviceIdUnknown;
+		}
+	default:
+		return InputType::DeviceIdUnknown;
+	}
 }

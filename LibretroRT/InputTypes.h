@@ -42,6 +42,7 @@ namespace LibretroRT
 		DeviceIdLightgunStart,
 		DeviceIdPointerX,
 		DeviceIdPointerY,
-		DeviceIdPointerPressed
+		DeviceIdPointerPressed,
+		DeviceIdUnknown
 	};
 }
