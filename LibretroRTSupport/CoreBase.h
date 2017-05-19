@@ -29,8 +29,8 @@ namespace LibretroRTSupport
 
 		void RaiseGetInputState();
 		void RaisePollInput();
-		size_t RaiseRenderAudioFrames(const int16_t *data, size_t frames);
-		void RaiseRenderVideoFrame();
+		size_t RaiseRenderAudioFrames(const int16_t* data, size_t frames);
+		void RaiseRenderVideoFrame(const void* data, unsigned width, unsigned height, size_t pitch);
 
 	public:
 		virtual ~CoreBase();

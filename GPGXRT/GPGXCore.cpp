@@ -25,8 +25,9 @@ GPGXCore::GPGXCore()
 
 	retro_set_environment([](unsigned cmd, void* data) { return coreInstance->EnvironmentHandler(cmd, data); });
 	retro_set_input_poll([]() { coreInstance->RaisePollInput(); });
-	retro_set_audio_sample([](int16_t left, int16_t right) { return coreInstance->SingleAudioFrameHandler(left, right); });
+	retro_set_audio_sample([](int16_t left, int16_t right) { coreInstance->SingleAudioFrameHandler(left, right); });
 	retro_set_audio_sample_batch([](const int16_t* data, size_t numFrames) { return coreInstance->RaiseRenderAudioFrames(data, numFrames); });
+	retro_set_video_refresh([](const void *data, unsigned width, unsigned height, size_t pitch) { coreInstance->RaiseRenderVideoFrame(data, width, height, pitch); });
 
 	retro_init();
 }
