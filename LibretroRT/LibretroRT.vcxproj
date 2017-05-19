@@ -214,6 +214,7 @@
     <ClInclude Include="SystemTiming.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Devices.cpp" />
     <ClCompile Include="GameGeometry.cpp" />
     <ClCompile Include="ICore.cpp" />
     <ClCompile Include="pch.cpp">

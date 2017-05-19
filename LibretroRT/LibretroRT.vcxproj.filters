@@ -18,6 +18,9 @@
     <ClCompile Include="SystemTiming.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="Devices.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
