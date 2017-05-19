@@ -66,8 +66,28 @@ InputType LibretroRTSupport::Converter::ConvertToInputType(unsigned device, unsi
 			return InputType::DeviceIdUnknown;
 		}
 	case RETRO_DEVICE_ANALOG:
-		switch (id)
+		switch (index)
 		{
+		case RETRO_DEVICE_INDEX_ANALOG_LEFT:
+			switch (id)
+			{
+			case RETRO_DEVICE_ID_ANALOG_X:
+				return InputType::DeviceIdAnalogLeftX;
+			case RETRO_DEVICE_ID_ANALOG_Y:
+				return InputType::DeviceIdAnalogLeftY;
+			default:
+				return InputType::DeviceIdUnknown;
+			}
+		case RETRO_DEVICE_INDEX_ANALOG_RIGHT:
+			switch (id)
+			{
+			case RETRO_DEVICE_ID_ANALOG_X:
+				return InputType::DeviceIdAnalogRightX;
+			case RETRO_DEVICE_ID_ANALOG_Y:
+				return InputType::DeviceIdAnalogRightY;
+			default:
+				return InputType::DeviceIdUnknown;
+			}
 		default:
 			return InputType::DeviceIdUnknown;
 		}
