@@ -25,8 +25,12 @@ namespace LibretroRTSupport
 		void SetAVInfo(retro_system_av_info & info);
 
 		virtual bool EnvironmentHandler(unsigned cmd, void *data);
+		void SingleAudioFrameHandler(int16_t left, int16_t right);
 
+		void RaiseGetInputState();
 		void RaisePollInput();
+		size_t RaiseRenderAudioFrames(const int16_t *data, size_t frames);
+		void RaiseRenderVideoFrame();
 
 	public:
 		virtual ~CoreBase();

@@ -23,7 +23,12 @@ GPGXCore::GPGXCore()
 	retro_get_system_info(&info);
 	SetSystemInfo(info);
 
+	retro_set_environment([](unsigned cmd, void* data) { return coreInstance->EnvironmentHandler(cmd, data); });
 	retro_set_input_poll([]() { coreInstance->RaisePollInput(); });
+	retro_set_audio_sample([](int16_t left, int16_t right) { return coreInstance->SingleAudioFrameHandler(left, right); });
+	retro_set_audio_sample_batch([](const int16_t* data, size_t numFrames) { return coreInstance->RaiseRenderAudioFrames(data, numFrames); });
+
+	retro_init();
 }
 
 GPGXCore::~GPGXCore()
@@ -39,15 +44,15 @@ void GPGXRT::GPGXCore::LoadGame(Windows::Storage::Streams::IRandomAccessStream ^
 
 void GPGXRT::GPGXCore::UnloadGame()
 {
-	throw ref new Platform::NotImplementedException();
+	retro_unload_game();
 }
 
 void GPGXRT::GPGXCore::RunFrame()
 {
-	throw ref new Platform::NotImplementedException();
+	retro_run();
 }
 
 void GPGXRT::GPGXCore::Reset()
 {
-	throw ref new Platform::NotImplementedException();
+	retro_reset();
 }

@@ -31,7 +31,23 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	return false;
 }
 
+void CoreBase::SingleAudioFrameHandler(int16_t left, int16_t right)
+{
+	int16_t data[2];
+	data[0] = left;
+	data[1] = right;
+	RaiseRenderAudioFrames(data, 1);
+}
+
 void CoreBase::RaisePollInput()
 {
 	PollInput();
+}
+
+size_t CoreBase::RaiseRenderAudioFrames(const int16_t * data, size_t frames)
+{
+	auto dataPtr = const_cast<int16_t*>(data);
+	auto array = ref new Platform::Array<int16_t>(dataPtr, frames * 2);
+	RenderAudioFrames(array, frames);
+	return 0;
 }
