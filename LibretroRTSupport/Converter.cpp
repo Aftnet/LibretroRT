@@ -2,7 +2,9 @@
 #include "Converter.h"
 #include "../LibretroRT/libretro.h"
 
-Platform::String^ LibretroRTSupport::Converter::CToPlatformString(const char* t_str)
+using namespace LibretroRTSupport;
+
+Platform::String^ Converter::CToPlatformString(const char* t_str)
 {
 	//setup converter
 	typedef std::codecvt_utf8<wchar_t> convert_type;
@@ -13,17 +15,32 @@ Platform::String^ LibretroRTSupport::Converter::CToPlatformString(const char* t_
 	return ref new Platform::String(wstring.c_str());
 }
 
-LibretroRT::GameGeometry^ LibretroRTSupport::Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
+LibretroRT::GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
 {
 	return ref new LibretroRT::GameGeometry(geometry.base_width, geometry.base_height, geometry.max_width, geometry.max_height, geometry.aspect_ratio);
 }
 
-LibretroRT::SystemTiming ^ LibretroRTSupport::Converter::CToRTSystemTiming(const retro_system_timing & timing)
+LibretroRT::SystemTiming ^ Converter::CToRTSystemTiming(const retro_system_timing & timing)
 {
 	return ref new LibretroRT::SystemTiming(timing.fps, timing.sample_rate);
 }
 
-InputType LibretroRTSupport::Converter::ConvertToInputType(unsigned device, unsigned index, unsigned id)
+PixelFormat ConvertToPixelFormat(enum retro_pixel_format format)
+{
+	switch (format)
+	{
+	case RETRO_PIXEL_FORMAT_0RGB1555:
+		return PixelFormat::Format0RGB1555;
+	case RETRO_PIXEL_FORMAT_XRGB8888:
+		return PixelFormat::FormatXRGB8888;
+	case RETRO_PIXEL_FORMAT_RGB565:
+		return PixelFormat::FormatRGB565;
+	case RETRO_PIXEL_FORMAT_UNKNOWN:
+		return PixelFormat::FormatUknown;
+	}
+}
+
+InputType Converter::ConvertToInputType(unsigned device, unsigned index, unsigned id)
 {
 	switch (device)
 	{

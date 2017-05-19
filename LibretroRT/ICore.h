@@ -1,6 +1,6 @@
 #pragma once
 
-#include "InputTypes.h"
+#include "Enums.h"
 #include "GameGeometry.h"
 #include "SystemTiming.h"
 

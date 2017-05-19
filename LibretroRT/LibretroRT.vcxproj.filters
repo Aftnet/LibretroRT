@@ -18,7 +18,7 @@
     <ClCompile Include="SystemTiming.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
-    <ClCompile Include="InputTypes.cpp">
+    <ClCompile Include="Enums.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClInclude Include="SystemTiming.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
-    <ClInclude Include="InputTypes.h">
+    <ClInclude Include="Enums.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
   </ItemGroup>
