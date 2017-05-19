@@ -44,6 +44,11 @@ void CoreBase::RaisePollInput()
 	PollInput();
 }
 
+int16_t CoreBase::RaiseGetInputState(unsigned port, unsigned device, unsigned index, unsigned keyId)
+{
+	return GetInputState(port, device, index, keyId);
+}
+
 size_t CoreBase::RaiseRenderAudioFrames(const int16_t* data, size_t frames)
 {
 	auto dataPtr = const_cast<int16_t*>(data);
