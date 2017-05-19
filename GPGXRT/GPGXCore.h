@@ -1,25 +1,13 @@
 #pragma once
 
-#include "../LibretroRTSupport/CoreBase.h"
-
-using namespace Platform;
-using namespace LibretroRTSupport;
+using namespace LibretroRT;
 
 namespace GPGXRT
 {
-	private ref class GPGXCore sealed : public LibretroRTSupport::CoreBase
+	public ref class GPGXCore sealed
 	{
-	protected private:
-		GPGXCore();
-
 	public:
-		static GPGXCore^ GetInstance();
-		virtual ~GPGXCore();
-
-		void LoadGame(Windows::Storage::Streams::IRandomAccessStream ^gameStream) override;
-		void UnloadGame() override;
-		void RunFrame() override;
-		void Reset() override;
+		static ICore^ GetInstance();
 	};
 }
 

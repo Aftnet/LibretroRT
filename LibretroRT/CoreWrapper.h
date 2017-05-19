@@ -4,6 +4,7 @@
 
 namespace LibretroRT
 {
+	//This class's only purpose is to expose cores as public WinRT components.
 	public ref class CoreWrapper sealed : ICore
 	{
 	private:

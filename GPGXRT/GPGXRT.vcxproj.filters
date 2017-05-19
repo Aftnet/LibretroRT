@@ -8,12 +8,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="GPGXCore.cpp" />
     <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
+    <ClCompile Include="GPGXCoreInternal.cpp" />
+    <ClCompile Include="GPGXCore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="GPGXCore.h" />
     <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
+    <ClInclude Include="GPGXCoreInternal.h" />
+    <ClInclude Include="GPGXCore.h" />
   </ItemGroup>
 </Project>
