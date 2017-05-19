@@ -11,7 +11,6 @@ namespace LibretroRTSupport
 	private ref class CoreBase : public ICore
 	{
 	private:
-		PixelFormats pixelFormat;
 		SystemTiming^ timing;
 		GameGeometry^ geometry;
 		String^ supportedExtensions;
@@ -19,6 +18,8 @@ namespace LibretroRTSupport
 		String^ name;
 
 	protected private:
+		PixelFormats pixelFormat;
+
 		CoreBase();
 
 	internal:

@@ -5,7 +5,8 @@
 
 using namespace LibretroRTSupport;
 
-CoreBase::CoreBase()
+CoreBase::CoreBase():
+	pixelFormat(LibretroRT::PixelFormats::FormatUknown)
 {
 }
 
@@ -28,6 +29,14 @@ void CoreBase::SetAVInfo(retro_system_av_info & info)
 
 bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 {
+	switch (cmd)
+	{
+	case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
+		auto pix = reinterpret_cast<enum retro_pixel_format*>(data);
+		pixelFormat = Converter::ConvertToPixelFormat(*pix);
+		return true;
+	}
+
 	return false;
 }
 
