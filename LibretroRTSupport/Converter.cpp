@@ -22,3 +22,8 @@ LibretroRT::SystemTiming ^ LibretroRTSupport::Converter::CToRTSystemTiming(const
 {
 	return ref new LibretroRT::SystemTiming(timing.fps, timing.sample_rate);
 }
+
+InputType LibretroRTSupport::Converter::ConvertToInputType(unsigned device, unsigned index, unsigned id)
+{
+	return InputType();
+}

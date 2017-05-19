@@ -16,5 +16,6 @@ namespace LibretroRTSupport
 		static String^ CToPlatformString(const char* t_str);
 		static GameGeometry^ CToRTGameGeometry(const retro_game_geometry& geometry);
 		static SystemTiming^ CToRTSystemTiming(const retro_system_timing& timing);
+		static InputType ConvertToInputType(unsigned device, unsigned index, unsigned id);
 	};
 }

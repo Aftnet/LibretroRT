@@ -46,9 +46,8 @@ void CoreBase::RaisePollInput()
 
 int16_t CoreBase::RaiseGetInputState(unsigned port, unsigned device, unsigned index, unsigned keyId)
 {
-	//LibretroRT::Devices::lol;
-	//return GetInputState(port, device, index, keyId);
-	return 0;
+	auto key = Converter::ConvertToInputType(device, index, keyId);
+	return GetInputState(port, key);
 }
 
 size_t CoreBase::RaiseRenderAudioFrames(const int16_t* data, size_t frames)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Devices.h"
+#include "InputTypes.h"
 #include "GameGeometry.h"
 #include "SystemTiming.h"
 
@@ -12,7 +12,7 @@ namespace LibretroRT
 	public delegate void RenderAudioFramesDelegate(const Array<int16>^ data, uint32 numFrames);
 	
 	public delegate void PollInputDelegate();
-	public delegate int16 GetInputStateDelegate(unsigned port, DeviceType deviceType, unsigned index, unsigned keyId);
+	public delegate int16 GetInputStateDelegate(unsigned port, InputType inputType);
 
 	public interface class ICore
 	{
