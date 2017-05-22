@@ -6,15 +6,24 @@ using namespace Platform;
 using namespace LibretroRT;
 using namespace LibretroRTSupport;
 
-Platform::String^ Converter::CToPlatformString(const char* t_str)
-{
-	//setup converter
-	typedef std::codecvt_utf8<wchar_t> convert_type;
-	std::wstring_convert<convert_type, wchar_t> converter;
+std::wstring_convert<std::codecvt_utf8<wchar_t>> stringConverter;
 
-	//use converter (.to_bytes: wstr->str, .from_bytes: str->wstr)
-	auto wstring = converter.from_bytes(t_str);
+Platform::String^ Converter::CToPlatformString(const char* string)
+{
+	auto wstring = stringConverter.from_bytes(string);
 	return ref new String(wstring.c_str());
+}
+
+Platform::String^ Converter::CPPToPlatformString(const std::string string)
+{
+	auto wstring = stringConverter.from_bytes(string);
+	return ref new String(wstring.c_str());
+}
+
+std::string Converter::PlatformToCPPString(Platform::String^ string)
+{
+	auto cstring = stringConverter.to_bytes(string->Data());
+	return cstring;
 }
 
 GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)

@@ -2,6 +2,7 @@
 #include "GPGXCoreInternal.h"
 
 #include "../LibretroRT/libretro.h"
+#include "../LibretroRTSupport/Converter.h"
 
 using namespace GPGXRT;
 using namespace LibretroRTSupport;
@@ -39,7 +40,30 @@ GPGXCoreInternal::~GPGXCoreInternal()
 	coreInstance = nullptr;
 }
 
-void GPGXRT::GPGXCoreInternal::LoadGame(Windows::Storage::Streams::IRandomAccessStream ^gameStream)
+bool GPGXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
+{
+	switch (cmd)
+	{
+	case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
+	{
+		auto installPath = Windows::ApplicationModel::Package::Current->InstalledLocation->Path;
+		auto pathStr = Converter::PlatformToCPPString(installPath);
+		data = (void*)pathStr.c_str();
+		return true;
+	}
+	case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
+	{
+		auto appDataPath = Windows::Storage::ApplicationData::Current->LocalFolder->Path;
+		auto pathStr = Converter::PlatformToCPPString(appDataPath);
+		data = (void*)pathStr.c_str();
+		return true;
+	}
+	default:
+		return CoreBase::EnvironmentHandler(cmd, data);
+	}
+}
+
+void GPGXCoreInternal::LoadGame(Windows::Storage::Streams::IRandomAccessStream ^gameStream)
 {
 	throw ref new Platform::NotImplementedException();
 
