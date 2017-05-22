@@ -1,4 +1,4 @@
 [submodule "GPGX/src"]
 	path = GPGX/src
-	url = https://github.com/libretro/Genesis-Plus-GX.git
+	url = https://github.com/Aftnet/Genesis-Plus-GX.git
 	branch = master
