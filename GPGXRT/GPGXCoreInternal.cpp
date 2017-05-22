@@ -40,32 +40,11 @@ GPGXCoreInternal::~GPGXCoreInternal()
 	coreInstance = nullptr;
 }
 
-bool GPGXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
-{
-	switch (cmd)
-	{
-	case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
-	{
-		auto installPath = Windows::ApplicationModel::Package::Current->InstalledLocation->Path;
-		auto pathStr = Converter::PlatformToCPPString(installPath);
-		data = (void*)pathStr.c_str();
-		return true;
-	}
-	case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
-	{
-		auto appDataPath = Windows::Storage::ApplicationData::Current->LocalFolder->Path;
-		auto pathStr = Converter::PlatformToCPPString(appDataPath);
-		data = (void*)pathStr.c_str();
-		return true;
-	}
-	default:
-		return CoreBase::EnvironmentHandler(cmd, data);
-	}
-}
-
 void GPGXCoreInternal::LoadGame(Windows::Storage::Streams::IRandomAccessStream ^gameStream)
 {
-	throw ref new Platform::NotImplementedException();
+	retro_game_info gameInfo;
+	gameInfo.path = "C:\\lol\\somePath.smd";
+	retro_load_game(&gameInfo);
 
 	retro_system_av_info info;
 	retro_get_system_av_info(&info);

@@ -19,6 +19,8 @@ namespace LibretroRTSupport
 
 	protected private:
 		PixelFormats pixelFormat;
+		const std::string CoreSystemPath;
+		const std::string CoreSaveGamePath;
 
 		CoreBase();
 

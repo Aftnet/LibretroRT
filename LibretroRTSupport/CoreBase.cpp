@@ -8,7 +8,9 @@ using namespace LibretroRTSupport;
 CoreBase::CoreBase():
 	timing(ref new SystemTiming),
 	geometry(ref new GameGeometry),
-	pixelFormat(LibretroRT::PixelFormats::FormatUknown)
+	pixelFormat(LibretroRT::PixelFormats::FormatUknown),
+	CoreSystemPath(Converter::PlatformToCPPString(Windows::ApplicationModel::Package::Current->InstalledLocation->Path)),
+	CoreSaveGamePath(Converter::PlatformToCPPString(Windows::Storage::ApplicationData::Current->LocalFolder->Path))
 {
 }
 
@@ -33,6 +35,18 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 {
 	switch (cmd)
 	{
+	case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
+	{
+		auto dataPtr = (const char**)data;
+		*dataPtr = CoreSystemPath.c_str();
+		return true;
+	}
+	case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
+	{
+		auto dataPtr = (const char**)data;
+		*dataPtr = CoreSaveGamePath.c_str();
+		return true;
+	}
 	case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
 		auto pix = reinterpret_cast<enum retro_pixel_format*>(data);
 		pixelFormat = Converter::ConvertToPixelFormat(*pix);
