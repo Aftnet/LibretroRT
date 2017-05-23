@@ -64,6 +64,27 @@ void CoreBase::SingleAudioFrameHandler(int16_t left, int16_t right)
 	RaiseRenderAudioFrames(data, 1);
 }
 
+size_t CoreBase::ReadGameFileHandler(void* buffer, size_t requested)
+{
+	if (gameStream == nullptr)
+		return 0;
+
+	auto arrayRef = ArrayReference<UCHAR>((UCHAR*)buffer, requested, false);
+	auto reader = ref new Streams::DataReader(gameStream);
+	reader->ReadBytes(arrayRef);
+
+	auto remaining = gameStream->Size - gameStream->Position;
+	return min(requested, remaining);
+}
+
+void CoreBase::SeekGameFileHandler(unsigned long requested)
+{
+	if (gameStream == nullptr)
+		return;
+
+	gameStream->Seek(requested);
+}
+
 void CoreBase::RaisePollInput()
 {
 	PollInput();

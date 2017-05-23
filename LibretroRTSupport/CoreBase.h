@@ -17,6 +17,7 @@ namespace LibretroRTSupport
 		String^ supportedExtensions;
 		String^ version;
 		String^ name;
+		Streams::FileRandomAccessStream^ gameStream;
 
 	protected private:
 		PixelFormats pixelFormat;
@@ -31,6 +32,8 @@ namespace LibretroRTSupport
 
 		virtual bool EnvironmentHandler(unsigned cmd, void *data);
 		void SingleAudioFrameHandler(int16_t left, int16_t right);
+		size_t ReadGameFileHandler(void* buffer, size_t requested);
+		void SeekGameFileHandler(unsigned long requested);
 
 		void RaisePollInput();
 		int16_t RaiseGetInputState(unsigned port, unsigned device, unsigned index, unsigned keyId);

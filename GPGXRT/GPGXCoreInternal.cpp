@@ -30,6 +30,8 @@ GPGXCoreInternal::GPGXCoreInternal()
 	retro_set_audio_sample([](int16_t left, int16_t right) { coreInstance->SingleAudioFrameHandler(left, right); });
 	retro_set_audio_sample_batch([](const int16_t* data, size_t numFrames) { return coreInstance->RaiseRenderAudioFrames(data, numFrames); });
 	retro_set_video_refresh([](const void *data, unsigned width, unsigned height, size_t pitch) { coreInstance->RaiseRenderVideoFrame(data, width, height, pitch); });
+	retro_set_game_read([](void* buffer, size_t requested) { return coreInstance->ReadGameFileHandler(buffer, requested); });
+	retro_set_game_seek([](unsigned long requested) { coreInstance->SeekGameFileHandler(requested); });
 
 	retro_init();
 }
