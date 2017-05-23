@@ -4,6 +4,7 @@
 
 using namespace Platform;
 using namespace LibretroRTSupport;
+using namespace Windows::Storage;
 
 namespace GPGXRT
 {
@@ -16,7 +17,7 @@ namespace GPGXRT
 		static property GPGXCoreInternal^ Instance { GPGXCoreInternal^ get(); }
 		virtual ~GPGXCoreInternal();
 
-		void LoadGame(Windows::Storage::Streams::IRandomAccessStream ^gameStream) override;
+		bool LoadGame(IStorageFile^ gameFile) override;
 		void UnloadGame() override;
 		void RunFrame() override;
 		void Reset() override;

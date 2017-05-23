@@ -40,15 +40,20 @@ GPGXCoreInternal::~GPGXCoreInternal()
 	coreInstance = nullptr;
 }
 
-void GPGXCoreInternal::LoadGame(Windows::Storage::Streams::IRandomAccessStream ^gameStream)
+bool GPGXCoreInternal::LoadGame(IStorageFile^ gameFile)
 {
 	retro_game_info gameInfo;
 	gameInfo.path = "C:\\lol\\somePath.smd";
-	retro_load_game(&gameInfo);
+	if (!retro_load_game(&gameInfo))
+	{
+		return false;
+	}
 
 	retro_system_av_info info;
 	retro_get_system_av_info(&info);
 	SetAVInfo(info);
+
+	return true;
 }
 
 void GPGXRT::GPGXCoreInternal::UnloadGame()

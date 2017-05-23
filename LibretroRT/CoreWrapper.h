@@ -2,6 +2,8 @@
 
 #include "ICore.h"
 
+using namespace Windows::Storage;
+
 namespace LibretroRT
 {
 	//This class's only purpose is to expose cores as public WinRT components.
@@ -20,7 +22,7 @@ namespace LibretroRT
 		virtual property GameGeometry^ Geometry { GameGeometry^ get() { return core->Geometry; } }
 		virtual property SystemTiming^ Timing { SystemTiming^ get() { return core->Timing; } }
 
-		virtual void LoadGame(Windows::Storage::Streams::IRandomAccessStream ^ gameStream);
+		virtual bool LoadGame(IStorageFile^ gameFile);
 		virtual void UnloadGame();
 		virtual void RunFrame();
 		virtual void Reset();

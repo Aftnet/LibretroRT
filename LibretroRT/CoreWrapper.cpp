@@ -12,9 +12,9 @@ CoreWrapper::CoreWrapper(ICore^ wrappedCore) :
 	core->GetInputState += ref new GetInputStateDelegate(this, &CoreWrapper::OnGetInputState);
 }
 
-void CoreWrapper::LoadGame(Windows::Storage::Streams::IRandomAccessStream ^ gameStream)
+bool CoreWrapper::LoadGame(Windows::Storage::IStorageFile^ gameFile)
 {
-	core->LoadGame(gameStream);
+	return core->LoadGame(gameFile);
 }
 
 void CoreWrapper::UnloadGame()

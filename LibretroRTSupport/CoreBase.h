@@ -2,6 +2,7 @@
 
 using namespace LibretroRT;
 using namespace Platform;
+using namespace Windows::Storage;
 
 struct retro_system_info;
 struct retro_system_av_info;
@@ -51,7 +52,7 @@ namespace LibretroRTSupport
 		virtual event RenderAudioFramesDelegate ^ RenderAudioFrames;
 		virtual event RenderVideoFrameDelegate ^ RenderVideoFrame;
 
-		virtual void LoadGame(Windows::Storage::Streams::IRandomAccessStream ^gameStream) = 0;
+		virtual bool LoadGame(IStorageFile^ gameFile) = 0;
 		virtual void UnloadGame() = 0;
 		virtual void RunFrame() = 0;
 		virtual void Reset() = 0;

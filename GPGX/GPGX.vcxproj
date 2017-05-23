@@ -125,7 +125,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibretroRT;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>USE_32BPP_RENDERING;INLINE=static __inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -139,7 +139,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibretroRT;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>USE_32BPP_RENDERING;INLINE=static __inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -153,7 +153,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibretroRT;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>USE_32BPP_RENDERING;INLINE=static __inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -167,7 +167,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibretroRT;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>USE_32BPP_RENDERING;INLINE=static __inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -181,7 +181,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibretroRT;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>USE_32BPP_RENDERING;INLINE=static __inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -195,7 +195,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LibretroRT;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>USE_32BPP_RENDERING;INLINE=static __inline;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -287,7 +287,6 @@
     <ClInclude Include="src\core\vdp_render.h" />
     <ClInclude Include="src\core\z80\osd_cpu.h" />
     <ClInclude Include="src\core\z80\z80.h" />
-    <ClInclude Include="src\libretro\libretro.h" />
     <ClInclude Include="src\libretro\osd.h" />
     <ClInclude Include="src\libretro\scrc32.h" />
     <ClInclude Include="targetver.h" />

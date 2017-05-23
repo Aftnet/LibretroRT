@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="src\libretro\libretro.h" />
     <ClInclude Include="src\libretro\osd.h" />
     <ClInclude Include="src\libretro\scrc32.h" />
     <ClInclude Include="src\core\cart_hw\svp\ssp16.h" />

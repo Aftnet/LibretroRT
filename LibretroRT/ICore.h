@@ -5,6 +5,7 @@
 #include "SystemTiming.h"
 
 using namespace Platform;
+using namespace Windows::Storage;
 
 namespace LibretroRT
 {
@@ -25,7 +26,7 @@ namespace LibretroRT
 		property GameGeometry^ Geometry { GameGeometry^ get(); }
 		property SystemTiming^ Timing { SystemTiming^ get(); }
 
-		void LoadGame(Windows::Storage::Streams::IRandomAccessStream^ gameStream);
+		bool LoadGame(IStorageFile^ gameFile);
 		void UnloadGame();
 
 		void RunFrame();
