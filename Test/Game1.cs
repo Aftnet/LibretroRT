@@ -28,6 +28,12 @@ namespace Test
             EmuCore.RenderAudioFrames += EmuCore_RenderAudioFrames;
             EmuCore.PollInput += EmuCore_PollInput;
             EmuCore.GetInputState += EmuCore_GetInputState;
+            EmuCore.GameGeometryChanged += EmuCore_GameGeometryChanged;
+        }
+
+        private void EmuCore_GameGeometryChanged(GameGeometry geometry)
+        {
+            FrameBuffer = new Texture2D(graphics.GraphicsDevice, (int)geometry.MaxWidth, (int)geometry.MaxHeight, false, SurfaceFormat.ColorSRgb);
         }
 
         private short EmuCore_GetInputState(uint port, InputTypes inputType)
@@ -45,7 +51,6 @@ namespace Test
 
         private void EmuCore_RenderVideoFrame(byte[] frameBuffer, uint width, uint height, uint pitch)
         {
-            FrameBuffer = new Texture2D(graphics.GraphicsDevice, (int)pitch / 4, (int)height, false, SurfaceFormat.ColorSRgb);
             FrameBuffer.SetData<byte>(frameBuffer);          
         }
 

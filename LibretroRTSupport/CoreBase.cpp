@@ -66,12 +66,15 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 		{
 			auto geom = reinterpret_cast<retro_game_geometry*>(data);
 			geometry = Converter::CToRTGameGeometry(*geom);
+			GameGeometryChanged(geometry);
 			return true;
 		}
 		case RETRO_ENVIRONMENT_SET_SYSTEM_AV_INFO:
 		{
 			auto avInfo = reinterpret_cast<retro_system_av_info*>(data);
 			SetAVInfo(*avInfo);
+			GameGeometryChanged(geometry);
+			SystemTimingChanged(timing);
 			return true;
 		}
 	}
