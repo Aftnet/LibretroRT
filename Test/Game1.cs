@@ -13,9 +13,11 @@ namespace Test
     {
         private readonly ICore EmuCore = GPGXRT.GPGXCore.Instance;
 
-        private Texture2D FrameBuffer = null;
+        private Texture2D FrameBuffer;
+        private SpriteFont font;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        uint frameNumber = 0;
 
         public Game1()
         {
@@ -43,8 +45,8 @@ namespace Test
 
         private void EmuCore_RenderVideoFrame(byte[] frameBuffer, uint width, uint height, uint pitch)
         {
-            var texture = new Texture2D(graphics.GraphicsDevice, (int)width, (int)height, false, SurfaceFormat.ColorSRgb);
-            texture.SetData<byte>(frameBuffer);          
+            FrameBuffer = new Texture2D(graphics.GraphicsDevice, (int)pitch / 4, (int)height, false, SurfaceFormat.ColorSRgb);
+            FrameBuffer.SetData<byte>(frameBuffer);          
         }
 
         public void LoadRom(IStorageFile storageFile)
@@ -81,6 +83,7 @@ namespace Test
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            font = Content.Load<SpriteFont>("Consolas");
         }
 
         /// <summary>
@@ -105,6 +108,7 @@ namespace Test
                 EmuCore.RunFrame();
             }
 
+            frameNumber++;
             base.Update(gameTime);
         }
 
@@ -121,10 +125,11 @@ namespace Test
             if (FrameBuffer != null)
             {
                 spriteBatch.Begin();
-                lock(EmuCore)
+                lock (EmuCore)
                 {
                     spriteBatch.Draw(FrameBuffer, new Rectangle(0, 0, 800, 600), Color.White);
                 }
+                spriteBatch.DrawString(font, $"Frame {frameNumber}", new Vector2(100, 100), Color.White);
                 spriteBatch.End();
             }
 

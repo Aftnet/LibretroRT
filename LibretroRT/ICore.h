@@ -15,6 +15,9 @@ namespace LibretroRT
 	public delegate void PollInputDelegate();
 	public delegate int16 GetInputStateDelegate(unsigned port, InputTypes inputType);
 
+	public delegate void GameGeometryChangedDelegate(GameGeometry^ geometry);
+	public delegate void SystemTimingChangedDelegate(SystemTiming^ timing);
+
 	public interface class ICore
 	{
 	public:
@@ -34,9 +37,10 @@ namespace LibretroRT
 
 		event RenderVideoFrameDelegate^ RenderVideoFrame;
 		event RenderAudioFramesDelegate^ RenderAudioFrames;
-
 		event PollInputDelegate^ PollInput;
 		event GetInputStateDelegate^ GetInputState;
+		event GameGeometryChangedDelegate^ GameGeometryChanged;
+		event SystemTimingChangedDelegate^ SystemTimingChanged;
 	};
 }
 

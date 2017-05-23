@@ -53,6 +53,8 @@ namespace LibretroRTSupport
 		virtual event PollInputDelegate ^ PollInput;
 		virtual event RenderAudioFramesDelegate ^ RenderAudioFrames;
 		virtual event RenderVideoFrameDelegate ^ RenderVideoFrame;
+		virtual event GameGeometryChangedDelegate^ GameGeometryChanged;
+		virtual event SystemTimingChangedDelegate^ SystemTimingChanged;
 
 		virtual bool LoadGame(IStorageFile^ gameFile) = 0;
 		virtual void UnloadGame() = 0;

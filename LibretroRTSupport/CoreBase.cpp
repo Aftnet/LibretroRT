@@ -44,24 +44,37 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 {
 	switch (cmd)
 	{
-	case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
-	{
-		auto dataPtr = (const char**)data;
-		*dataPtr = CoreSystemPath.c_str();
-		return true;
+		case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
+		{
+			auto dataPtr = (const char**)data;
+			*dataPtr = CoreSystemPath.c_str();
+			return true;
+		}
+		case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
+		{
+			auto dataPtr = (const char**)data;
+			*dataPtr = CoreSaveGamePath.c_str();
+			return true;
+		}
+		case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
+		{
+			auto pix = reinterpret_cast<enum retro_pixel_format*>(data);
+			pixelFormat = Converter::ConvertToPixelFormat(*pix);
+			return true;
+		}
+		case RETRO_ENVIRONMENT_SET_GEOMETRY:
+		{
+			auto geom = reinterpret_cast<retro_game_geometry*>(data);
+			geometry = Converter::CToRTGameGeometry(*geom);
+			return true;
+		}
+		case RETRO_ENVIRONMENT_SET_SYSTEM_AV_INFO:
+		{
+			auto avInfo = reinterpret_cast<retro_system_av_info*>(data);
+			SetAVInfo(*avInfo);
+			return true;
+		}
 	}
-	case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
-	{
-		auto dataPtr = (const char**)data;
-		*dataPtr = CoreSaveGamePath.c_str();
-		return true;
-	}
-	case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
-		auto pix = reinterpret_cast<enum retro_pixel_format*>(data);
-		pixelFormat = Converter::ConvertToPixelFormat(*pix);
-		return true;
-	}
-
 	return false;
 }
 

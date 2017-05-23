@@ -10,6 +10,8 @@ CoreWrapper::CoreWrapper(ICore^ wrappedCore) :
 	core->RenderAudioFrames += ref new RenderAudioFramesDelegate(this, &CoreWrapper::OnRenderAudioFrames);
 	core->PollInput += ref new PollInputDelegate(this, &CoreWrapper::OnPollInput);
 	core->GetInputState += ref new GetInputStateDelegate(this, &CoreWrapper::OnGetInputState);
+	core->GameGeometryChanged += ref new GameGeometryChangedDelegate(this, &CoreWrapper::OnGameGeometryChanged);
+	core->SystemTimingChanged += ref new SystemTimingChangedDelegate(this, &CoreWrapper::OnSystemTimingChanged);
 }
 
 bool CoreWrapper::LoadGame(Windows::Storage::IStorageFile^ gameFile)
@@ -53,4 +55,14 @@ void CoreWrapper::OnPollInput()
 short CoreWrapper::OnGetInputState(unsigned int port, InputTypes inputType)
 {
 	return GetInputState(port, inputType);
+}
+
+void CoreWrapper::OnGameGeometryChanged(GameGeometry^ geometry)
+{
+	GameGeometryChanged(geometry);
+}
+
+void CoreWrapper::OnSystemTimingChanged(SystemTiming^ timing)
+{
+	SystemTimingChanged(timing);
 }
