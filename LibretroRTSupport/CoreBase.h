@@ -1,11 +1,10 @@
 #pragma once
 
+#include "../LibretroRT/libretro.h"
+
 using namespace LibretroRT;
 using namespace Platform;
 using namespace Windows::Storage;
-
-struct retro_system_info;
-struct retro_system_av_info;
 
 namespace LibretroRTSupport
 {
@@ -17,19 +16,19 @@ namespace LibretroRTSupport
 		String^ supportedExtensions;
 		String^ version;
 		String^ name;
-		Streams::FileRandomAccessStream^ gameStream;
 
 	protected private:
+		Streams::IRandomAccessStream^ gameStream;
 		PixelFormats pixelFormat;
 		const std::string CoreSystemPath;
 		const std::string CoreSaveGamePath;
 
 		CoreBase();
-
-	internal:
 		void SetSystemInfo(retro_system_info& info);
 		void SetAVInfo(retro_system_av_info & info);
+		static retro_game_info GenerateGameInfo(String^ gamePath, unsigned long long gameSize);
 
+	internal:
 		virtual bool EnvironmentHandler(unsigned cmd, void *data);
 		void SingleAudioFrameHandler(int16_t left, int16_t right);
 		size_t ReadGameFileHandler(void* buffer, size_t requested);

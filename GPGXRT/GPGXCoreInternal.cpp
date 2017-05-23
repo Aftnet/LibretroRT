@@ -44,8 +44,10 @@ GPGXCoreInternal::~GPGXCoreInternal()
 
 bool GPGXCoreInternal::LoadGame(IStorageFile^ gameFile)
 {
-	retro_game_info gameInfo;
-	gameInfo.path = "C:\\lol\\somePath.smd";
+	static auto gamePathStr = Converter::PlatformToCPPString(gameFile->Path);
+	gameStream = gameFile->OpenAsync(FileAccessMode::Read)->GetResults();
+
+	auto gameInfo = GenerateGameInfo(gameFile->Path, gameStream->Size);
 	if (!retro_load_game(&gameInfo))
 	{
 		return false;
@@ -61,6 +63,7 @@ bool GPGXCoreInternal::LoadGame(IStorageFile^ gameFile)
 void GPGXRT::GPGXCoreInternal::UnloadGame()
 {
 	retro_unload_game();
+	gameStream = nullptr;
 }
 
 void GPGXRT::GPGXCoreInternal::RunFrame()

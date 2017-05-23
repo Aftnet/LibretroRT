@@ -31,6 +31,15 @@ void CoreBase::SetAVInfo(retro_system_av_info & info)
 	timing = Converter::CToRTSystemTiming(info.timing);
 }
 
+retro_game_info CoreBase::GenerateGameInfo(String^ gamePath, unsigned long long gameSize)
+{
+	static auto gamePathStr = Converter::PlatformToCPPString(gamePath);
+	retro_game_info gameInfo;
+	gameInfo.path = gamePathStr.c_str();
+	gameInfo.size = gameSize;
+	return gameInfo;
+}
+
 bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 {
 	switch (cmd)
