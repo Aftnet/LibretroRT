@@ -36,6 +36,8 @@ namespace LibretroRT.Test
                 Target.LoadGame(file);
             });
 
+            Assert.NotEqual(PixelFormats.FormatUknown, Target.PixelFormat);
+
             var geometry = Target.Geometry;
             Assert.NotEqual(0, geometry.AspectRatio);
             Assert.NotEqual(0U, geometry.BaseWidth);
