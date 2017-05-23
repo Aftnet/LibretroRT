@@ -86,6 +86,9 @@ void GPGXRT::GPGXCoreInternal::UnloadGame()
 
 void GPGXRT::GPGXCoreInternal::RunFrame()
 {
+	if (gameStream == nullptr)
+		return;
+
 	retro_run();
 }
 
