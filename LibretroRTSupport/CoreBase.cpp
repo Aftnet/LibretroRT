@@ -78,20 +78,23 @@ size_t CoreBase::ReadGameFileHandler(void* buffer, size_t requested)
 	if (gameStream == nullptr)
 		return 0;
 
+	auto remaining = (size_t)(gameStream->Size - gameStream->Position);
+	requested = min(requested, remaining);
+
 	auto arrayRef = ArrayReference<UCHAR>((UCHAR*)buffer, requested, false);
 	auto reader = ref new Streams::DataReader(gameStream);
+	concurrency::create_task(reader->LoadAsync(requested)).wait();
 	reader->ReadBytes(arrayRef);
 
-	auto remaining = gameStream->Size - gameStream->Position;
-	return min(requested, remaining);
+	return requested;
 }
 
-void CoreBase::SeekGameFileHandler(unsigned long requested)
+void CoreBase::SeekGameFileHandler(unsigned long position)
 {
 	if (gameStream == nullptr)
 		return;
 
-	gameStream->Seek(requested);
+	gameStream->Seek(position);
 }
 
 void CoreBase::RaisePollInput()

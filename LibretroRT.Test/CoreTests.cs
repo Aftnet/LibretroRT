@@ -29,8 +29,10 @@ namespace LibretroRT.Test
         {
             var installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
             var file = await installedLocation.GetFileAsync("Roms\\Sonic2.md");
-            Target.LoadGame(file);
-
+            await Task.Run(() =>
+            {
+                Target.LoadGame(file);
+            });
         }
     }
 }

@@ -61,8 +61,7 @@ bool GPGXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 bool GPGXCoreInternal::LoadGame(IStorageFile^ gameFile)
 {
 	static auto gamePathStr = Converter::PlatformToCPPString(gameFile->Path);
-	auto operation = gameFile->OpenAsync(FileAccessMode::Read);
-	gameStream = operation->GetResults();
+	gameStream = concurrency::create_task(gameFile->OpenAsync(FileAccessMode::Read)).get();
 
 	auto gameInfo = GenerateGameInfo(gameFile->Path, gameStream->Size);
 	if (!retro_load_game(&gameInfo))
