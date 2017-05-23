@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AngleSupport", "AngleSuppor
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibretroRT", "LibretroRT\LibretroRT.vcxproj", "{458B4CB3-2AF3-4F93-9397-67598FD764EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{424025C8-1625-41D5-811E-F949FC2276C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,26 @@ Global
 		{458B4CB3-2AF3-4F93-9397-67598FD764EE}.Release|x64.Build.0 = Release|x64
 		{458B4CB3-2AF3-4F93-9397-67598FD764EE}.Release|x86.ActiveCfg = Release|Win32
 		{458B4CB3-2AF3-4F93-9397-67598FD764EE}.Release|x86.Build.0 = Release|Win32
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|ARM.ActiveCfg = Debug|ARM
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|ARM.Build.0 = Debug|ARM
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|ARM.Deploy.0 = Debug|ARM
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|x64.ActiveCfg = Debug|x64
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|x64.Build.0 = Debug|x64
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|x64.Deploy.0 = Debug|x64
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|x86.ActiveCfg = Debug|x86
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|x86.Build.0 = Debug|x86
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Debug|x86.Deploy.0 = Debug|x86
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|Any CPU.ActiveCfg = Release|x86
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|ARM.ActiveCfg = Release|ARM
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|ARM.Build.0 = Release|ARM
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|ARM.Deploy.0 = Release|ARM
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|x64.ActiveCfg = Release|x64
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|x64.Build.0 = Release|x64
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|x64.Deploy.0 = Release|x64
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|x86.ActiveCfg = Release|x86
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|x86.Build.0 = Release|x86
+		{424025C8-1625-41D5-811E-F949FC2276C4}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
