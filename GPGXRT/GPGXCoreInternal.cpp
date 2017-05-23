@@ -20,7 +20,7 @@ GPGXCoreInternal^ GPGXCoreInternal::Instance::get()
 
 GPGXCoreInternal::GPGXCoreInternal()
 {
-	pixelFormat = PixelFormats::FormatXRGB8888;
+	pixelFormat = PixelFormats::FormatRGB565;
 
 	retro_system_info info;
 	retro_get_system_info(&info);

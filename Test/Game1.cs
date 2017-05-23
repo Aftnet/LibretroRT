@@ -33,7 +33,7 @@ namespace Test
 
         private void EmuCore_GameGeometryChanged(GameGeometry geometry)
         {
-            FrameBuffer = new Texture2D(graphics.GraphicsDevice, (int)geometry.MaxWidth, (int)geometry.MaxHeight, false, SurfaceFormat.ColorSRgb);
+            FrameBuffer = new Texture2D(graphics.GraphicsDevice, (int)geometry.MaxWidth, (int)geometry.MaxHeight, false, SurfaceFormat.Bgr565);
         }
 
         private short EmuCore_GetInputState(uint port, InputTypes inputType)
@@ -51,7 +51,8 @@ namespace Test
 
         private void EmuCore_RenderVideoFrame(byte[] frameBuffer, uint width, uint height, uint pitch)
         {
-            FrameBuffer.SetData<byte>(frameBuffer);          
+            var targetArea = new Rectangle(0, 0, (int)EmuCore.Geometry.MaxWidth, (int)height);
+            FrameBuffer.SetData<byte>(0, targetArea, frameBuffer, 0, frameBuffer.Length);        
         }
 
         public void LoadRom(IStorageFile storageFile)
