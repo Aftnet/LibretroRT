@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace LibretroRT.Test
 {
@@ -23,9 +25,11 @@ namespace LibretroRT.Test
         }
 
         [Fact]
-        public void LoadingRomWorks()
+        public async Task LoadingRomWorks()
         {
-            Target.LoadGame(null);
+            var installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var file = await installedLocation.GetFileAsync("Roms\\Sonic2.md");
+            Target.LoadGame(file);
 
         }
     }
