@@ -124,7 +124,8 @@ namespace Test
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            var viewport = graphics.GraphicsDevice.Viewport;
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
@@ -133,9 +134,11 @@ namespace Test
                 spriteBatch.Begin();
                 lock (EmuCore)
                 {
-                    spriteBatch.Draw(FrameBuffer, new Rectangle(0, 0, 800, 600), Color.White);
+                    var viewportSize = new Point(viewport.Width, viewport.Height);
+                    var frameBufferSize = new Point((int)EmuCore.Geometry.BaseWidth, (int)EmuCore.Geometry.BaseHeight);
+                    spriteBatch.Draw(FrameBuffer, new Rectangle(Point.Zero, viewportSize), new Rectangle(Point.Zero, frameBufferSize), Color.White);
                 }
-                spriteBatch.DrawString(font, $"Frame {frameNumber}", new Vector2(100, 100), Color.White);
+                spriteBatch.DrawString(font, $"Frame {frameNumber}", new Vector2(0, 0), Color.White);
                 spriteBatch.End();
             }
 
