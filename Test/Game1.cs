@@ -134,15 +134,34 @@ namespace Test
                 spriteBatch.Begin();
                 lock (EmuCore)
                 {
-                    var viewportSize = new Point(viewport.Width, viewport.Height);
+                    var viewportLocation = ComputeBestFittingSize(new Point(viewport.Width, viewport.Height), EmuCore.Geometry.AspectRatio);
                     var frameBufferSize = new Point((int)EmuCore.Geometry.BaseWidth, (int)EmuCore.Geometry.BaseHeight);
-                    spriteBatch.Draw(FrameBuffer, new Rectangle(Point.Zero, viewportSize), new Rectangle(Point.Zero, frameBufferSize), Color.White);
+                    spriteBatch.Draw(FrameBuffer, viewportLocation, new Rectangle(Point.Zero, frameBufferSize), Color.White);
                 }
-                spriteBatch.DrawString(font, $"Frame {frameNumber}", new Vector2(0, 0), Color.White);
+                //spriteBatch.DrawString(font, $"Frame {frameNumber}", new Vector2(0, 0), Color.White);
                 spriteBatch.End();
             }
 
             base.Draw(gameTime);
+        }
+
+        private static Rectangle ComputeBestFittingSize(Point viewportSize, float aspectRatio)
+        {
+            Rectangle output;
+            int candidateWidth = (int)(viewportSize.Y * aspectRatio);
+            if (viewportSize.X >= candidateWidth)
+            {
+                var size = new Point(candidateWidth, viewportSize.Y);
+                output = new Rectangle(new Point((viewportSize.X - candidateWidth) / 2, 0), size);
+            }
+            else
+            {
+                var height = (int)(viewportSize.X / aspectRatio);
+                var size = new Point(viewportSize.X, height);
+                output = new Rectangle(new Point(0, (viewportSize.Y - height) / 2), size);
+            }
+
+            return output;
         }
     }
 }
