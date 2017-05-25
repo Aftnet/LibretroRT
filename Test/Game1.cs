@@ -11,6 +11,7 @@ namespace Test
     /// </summary>
     public class Game1 : Game
     {
+        private bool CoreShouldRun = false;
         private readonly ICore EmuCore = GPGXRT.GPGXCore.Instance;
 
         private Texture2D FrameBuffer;
@@ -18,6 +19,8 @@ namespace Test
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         uint frameNumber = 0;
+
+        private readonly AudioPlayer MusicPlayer = new AudioPlayer();
 
         public Game1()
         {
@@ -29,6 +32,12 @@ namespace Test
             EmuCore.PollInput += EmuCore_PollInput;
             EmuCore.GetInputState += EmuCore_GetInputState;
             EmuCore.GameGeometryChanged += EmuCore_GameGeometryChanged;
+            EmuCore.SystemTimingChanged += EmuCore_SystemTimingChanged;
+        }
+
+        private void EmuCore_SystemTimingChanged(SystemTiming timing)
+        {
+            MusicPlayer.SetSampleRateAsync((uint)timing.SampleRate);
         }
 
         private void EmuCore_GameGeometryChanged(GameGeometry geometry)
@@ -47,6 +56,12 @@ namespace Test
 
         private void EmuCore_RenderAudioFrames(short[] data, uint numFrames)
         {
+            if(!MusicPlayer.Started)
+            {
+                MusicPlayer.Start();
+            }
+
+            MusicPlayer.AddSamples(data);
         }
 
         private void EmuCore_RenderVideoFrame(byte[] frameBuffer, uint width, uint height, uint pitch)
@@ -55,15 +70,18 @@ namespace Test
             FrameBuffer.SetData<byte>(0, targetArea, frameBuffer, 0, frameBuffer.Length);        
         }
 
-        public void LoadRom(IStorageFile storageFile)
+        public async void LoadRom(IStorageFile storageFile)
         {
-            Task.Run(() =>
+            CoreShouldRun = false;
+            MusicPlayer.Stop();
+            await Task.Run(() =>
             {
                 lock(EmuCore)
                 {
                     EmuCore.LoadGame(storageFile);
                 }
             });
+            CoreShouldRun = true;
         }
 
         /// <summary>
@@ -109,9 +127,12 @@ namespace Test
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
-            lock(EmuCore)
+            if(CoreShouldRun)
             {
-                EmuCore.RunFrame();
+                lock (EmuCore)
+                {
+                    EmuCore.RunFrame();
+                }
             }
 
             frameNumber++;

@@ -20,14 +20,13 @@ namespace Test
         }
 
         private const uint NumChannels = 2;
-        private const uint NumBytesPerSample = sizeof(short);
-        private const uint NumBitsPerSample = NumBytesPerSample * 8;
         private const uint NullSampleRate = 0;
         private const int BufferingDelayMs = 200;
 
         public uint SampleRate { get; private set; }
 
-        private bool IsPlaying = false;
+        public bool Started { get; private set; }
+
         private readonly Queue<short> SamplesBuffer = new Queue<short>();
 
         private AudioGraph graph;
@@ -53,6 +52,7 @@ namespace Test
 
         public AudioPlayer()
         {
+            Started = false;
             SampleRate = NullSampleRate;
         }
 
@@ -74,18 +74,25 @@ namespace Test
 
         public async void Start()
         {
-            IsPlaying = true;
+            if (Started || Graph == null)
+                return;
+
+            Started = true;
             //Add some delay to fill the buffer with some data and avoid pops
-            await (Task.Delay(BufferingDelayMs));
+            await Task.Delay(BufferingDelayMs);
+
             Graph.Start();
         }
 
         public void Stop()
         {
-            IsPlaying = false;
+            if (!Started || Graph == null)
+                return;
+
+            Started = false;
             Graph.Stop();
 
-            lock(SamplesBuffer)
+            lock (SamplesBuffer)
             {
                 SamplesBuffer.Clear();
             }
@@ -93,7 +100,7 @@ namespace Test
 
         public void AddSamples(short[] samples)
         {
-            if (!IsPlaying)
+            if (!Started)
                 return;
 
             lock(SamplesBuffer)
@@ -108,23 +115,15 @@ namespace Test
         private async Task CreateGraph(uint sampleRate)
         {
             DisposeGraph();
-            
-            var graphResult = await AudioGraph.CreateAsync(new AudioGraphSettings(Windows.Media.Render.AudioRenderCategory.GameMedia)
-            {
-                EncodingProperties = new AudioEncodingProperties
-                {
-                    SampleRate = sampleRate,
-                    ChannelCount = NumChannels,
-                    BitsPerSample = NumBitsPerSample
-                }
-            });
+
+            var graphResult = await AudioGraph.CreateAsync(new AudioGraphSettings(Windows.Media.Render.AudioRenderCategory.GameMedia));
             if (graphResult.Status != AudioGraphCreationStatus.Success)
             {
                 SampleRate = NullSampleRate;
                 DisposeGraph();
                 throw new Exception($"Unable to create audio graph: {graphResult.Status.ToString()}");
             }
-
+            Graph = graphResult.Graph;
             Graph.Stop();
 
             var outNodeResult = await Graph.CreateDeviceOutputNodeAsync();
@@ -134,8 +133,11 @@ namespace Test
                 DisposeGraph();
                 throw new Exception($"Unable to create device node: {outNodeResult.Status.ToString()}");
             }
+            OutputNode = outNodeResult.DeviceOutputNode;
 
-            InputNode = Graph.CreateFrameInputNode(AudioEncodingProperties.CreatePcm(sampleRate, NumChannels, NumBitsPerSample));
+            var nodeProperties = Graph.EncodingProperties;
+            nodeProperties.ChannelCount = 2;
+            InputNode = Graph.CreateFrameInputNode(nodeProperties);
             InputNode.QuantumStarted += InputNodeQuantumStartedHandler;
             InputNode.AddOutgoingConnection(OutputNode);
             SampleRate = sampleRate;
@@ -162,7 +164,7 @@ namespace Test
             // Buffer size is (number of samples) * (size of each sample)
             // We choose to generate single channel (mono) audio. For multi-channel, multiply by number of channels
             uint bufferSizeElements = (uint)requiredSamples * NumChannels;
-            uint bufferSizeBytes = bufferSizeElements * NumBytesPerSample;
+            uint bufferSizeBytes = bufferSizeElements * sizeof(float);
             AudioFrame frame = new AudioFrame(bufferSizeBytes);
 
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
@@ -170,25 +172,26 @@ namespace Test
             {
                 byte* dataInBytes;
                 uint capacityInBytes;
-                short* dataInShort;
+                float* dataInFloat;
 
                 // Get the buffer from the AudioFrame
                 ((IMemoryBufferByteAccess)reference).GetBuffer(out dataInBytes, out capacityInBytes);
 
                 // Cast to float since the data we are generating is float
-                dataInShort = (short*)dataInBytes;
+                dataInFloat = (float*)dataInBytes;
 
                 lock (SamplesBuffer)
                 {
                     var numElementsToCopy = Math.Min(bufferSizeElements, SamplesBuffer.Count);
                     for (var i = 0; i < numElementsToCopy; i++)
                     {
-                        dataInShort[i] = SamplesBuffer.Dequeue();
+                        var converted = (float)SamplesBuffer.Dequeue() / short.MaxValue;
+                        dataInFloat[i] = converted;
                     }
                     //Should we not have enough samples in buffer, set the remaing data in audio frame to zeros
                     for (var i = numElementsToCopy; i < bufferSizeElements; i++)
                     {
-                        dataInShort[i] = 0;
+                        dataInFloat[i] = 0f;
                     }
                 }
             }
