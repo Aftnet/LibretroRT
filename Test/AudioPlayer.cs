@@ -137,6 +137,7 @@ namespace Test
 
             var nodeProperties = Graph.EncodingProperties;
             nodeProperties.ChannelCount = 2;
+            nodeProperties.SampleRate = sampleRate;
             InputNode = Graph.CreateFrameInputNode(nodeProperties);
             InputNode.QuantumStarted += InputNodeQuantumStartedHandler;
             InputNode.AddOutgoingConnection(OutputNode);
