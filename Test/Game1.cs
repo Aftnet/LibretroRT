@@ -1,5 +1,6 @@
 ﻿using LibretroRT;
 using LibretroRT.AudioGraphPlayer;
+using LibretroRT.InputManager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Threading.Tasks;
@@ -21,7 +22,8 @@ namespace Test
         SpriteBatch spriteBatch;
         uint frameNumber = 0;
 
-        private readonly AudioPlayer MusicPlayer = new AudioPlayer();
+        private readonly IAudioPlayer MusicPlayer = new AudioPlayer();
+        private readonly InputManager InputManager = new InputManager();
 
         public Game1()
         {
@@ -48,11 +50,12 @@ namespace Test
 
         private short EmuCore_GetInputState(uint port, InputTypes inputType)
         {
-            return 0;
+            return InputManager.GetInputState(port, inputType);
         }
 
         private void EmuCore_PollInput()
         {
+            InputManager.PollInput();
         }
 
         private void EmuCore_RenderAudioFrames(short[] data)
@@ -89,7 +92,7 @@ namespace Test
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            IsMouseVisible = true;
             base.Initialize();
         }
 

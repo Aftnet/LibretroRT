@@ -177,6 +177,10 @@
       <Project>{81707c8e-a1fd-44d5-aa2b-0a40909763e9}</Project>
       <Name>LibretroRT.AudioGraphPlayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LibretroRT.InputManager\LibretroRT.InputManager.csproj">
+      <Project>{6cd44590-c233-48cf-a8b2-6451d0880bb5}</Project>
+      <Name>LibretroRT.InputManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
       <Name>LibretroRT</Name>
