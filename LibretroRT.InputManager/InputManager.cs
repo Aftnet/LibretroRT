@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace LibretroRT.InputManager
 {
-    public sealed class InputManager
+    public sealed class InputManager : IInputManager
     {
         private static readonly Dictionary<InputTypes, VirtualKey> LibretroGamepadToKeyboardKeyMapping = new Dictionary<InputTypes, VirtualKey>()
         {
