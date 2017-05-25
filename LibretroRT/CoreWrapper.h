@@ -35,7 +35,7 @@ namespace LibretroRT
 		virtual event SystemTimingChangedDelegate^ SystemTimingChanged;
 
 		void OnRenderVideoFrame(const Platform::Array<unsigned char, 1U> ^frameBuffer, unsigned int width, unsigned int height, unsigned int pitch);
-		void OnRenderAudioFrames(const Platform::Array<short, 1U> ^data, unsigned int numFrames);
+		void OnRenderAudioFrames(const Platform::Array<short, 1U> ^data);
 		void OnPollInput();
 		short OnGetInputState(unsigned int port, LibretroRT::InputTypes inputType);
 		void OnGameGeometryChanged(GameGeometry^ geometry);

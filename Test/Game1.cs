@@ -55,7 +55,7 @@ namespace Test
         {
         }
 
-        private void EmuCore_RenderAudioFrames(short[] data, uint numFrames)
+        private void EmuCore_RenderAudioFrames(short[] data)
         {
             MusicPlayer.AddSamples(data);
         }

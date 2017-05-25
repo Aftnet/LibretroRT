@@ -10,7 +10,7 @@ using namespace Windows::Storage;
 namespace LibretroRT
 {
 	public delegate void RenderVideoFrameDelegate(const Array<uint8>^ frameBuffer, uint32 width, uint32 height, uint32 pitch);
-	public delegate void RenderAudioFramesDelegate(const Array<int16>^ data, uint32 numFrames);
+	public delegate void RenderAudioFramesDelegate(const Array<int16>^ data);
 	
 	public delegate void PollInputDelegate();
 	public delegate int16 GetInputStateDelegate(unsigned port, InputTypes inputType);

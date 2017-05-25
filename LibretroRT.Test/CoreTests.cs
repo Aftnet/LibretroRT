@@ -74,11 +74,10 @@ namespace LibretroRT.Test
             };
 
             var renderAudioFrameCalled = false;
-            Target.RenderAudioFrames += (d, e) =>
+            Target.RenderAudioFrames += (d) =>
             {
                 Assert.NotEmpty(d);
-                Assert.True(e > 0);
-                Assert.True(d.Length == 2 * e);
+                Assert.True(d.Length % 2 == 0);
                 renderAudioFrameCalled = true;
             };
 

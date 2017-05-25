@@ -40,9 +40,9 @@ void CoreWrapper::OnRenderVideoFrame(const Platform::Array<unsigned char, 1U> ^f
 }
 
 
-void CoreWrapper::OnRenderAudioFrames(const Platform::Array<short, 1U> ^data, unsigned int numFrames)
+void CoreWrapper::OnRenderAudioFrames(const Platform::Array<short, 1U> ^data)
 {
-	RenderAudioFrames(data, numFrames);
+	RenderAudioFrames(data);
 }
 
 

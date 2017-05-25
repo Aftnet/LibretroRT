@@ -128,7 +128,7 @@ size_t CoreBase::RaiseRenderAudioFrames(const int16_t* data, size_t frames)
 {
 	auto dataPtr = const_cast<int16_t*>(data);
 	auto dataArray = Platform::ArrayReference<int16_t>(dataPtr, frames * 2);
-	RenderAudioFrames(dataArray, frames);
+	RenderAudioFrames(dataArray);
 	return 0;
 }
 
