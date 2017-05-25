@@ -100,7 +100,7 @@ namespace Test
 
         public void AddSamples(short[] samples)
         {
-            if (!Started)
+            if (!Started || Graph == null)
                 return;
 
             lock(SamplesBuffer)
@@ -136,7 +136,7 @@ namespace Test
             OutputNode = outNodeResult.DeviceOutputNode;
 
             var nodeProperties = Graph.EncodingProperties;
-            nodeProperties.ChannelCount = 2;
+            nodeProperties.ChannelCount = NumChannels;
             nodeProperties.SampleRate = sampleRate;
             InputNode = Graph.CreateFrameInputNode(nodeProperties);
             InputNode.QuantumStarted += InputNodeQuantumStartedHandler;
