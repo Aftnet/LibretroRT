@@ -20,9 +20,11 @@ namespace LibretroRT.AudioGraphPlayer
         }
 
         private const uint NumChannels = 2;
-        private const float PlaybackDelaySeconds = 0.2f;
+        private const float PlaybackDelaySeconds = 0.1f; //Have some buffer to avoid crackling
+        private const float MaxAllowedDelaySeconds = 0.3f; //Limit maximum delay
 
         private int MinNumSamplesForPlayback = 0;
+        private int MaxNumSamplesForTargetDelay = 0;
 
         public uint SampleRate { get; private set; }
 
@@ -50,6 +52,20 @@ namespace LibretroRT.AudioGraphPlayer
         {
             get { return inputNode; }
             set { inputNode?.Dispose(); inputNode = value; }
+        }
+
+        public bool ShouldDelayNextFrame
+        {
+            get
+            {
+                if (SampleRate == 0)
+                    return false; //Allow core a chance to init timings by runnning
+
+                lock(SamplesBuffer)
+                {
+                    return SamplesBuffer.Count >= MaxNumSamplesForTargetDelay;
+                }
+            }
         }
 
         public AudioPlayer()
@@ -109,7 +125,14 @@ namespace LibretroRT.AudioGraphPlayer
 
             SampleRate = sampleRate;
             MinNumSamplesForPlayback = (int)(sampleRate * PlaybackDelaySeconds);
+            MaxNumSamplesForTargetDelay = (int)(sampleRate * MaxAllowedDelaySeconds);
+
             DisposeGraph();
+            if (SampleRate == 0) //If invalid sample rate do not create graph but return to allow trying again
+            {
+                GraphReconstructionInProgress = false;
+                return;
+            }
 
             var graphResult = await AudioGraph.CreateAsync(new AudioGraphSettings(Windows.Media.Render.AudioRenderCategory.GameMedia));
             if (graphResult.Status != AudioGraphCreationStatus.Success)

@@ -23,7 +23,7 @@ namespace Test
         uint frameNumber = 0;
 
         private readonly IAudioPlayer MusicPlayer = new AudioPlayer();
-        private readonly InputManager InputManager = new InputManager();
+        private readonly IInputManager InputManager = new InputManager();
 
         public Game1()
         {
@@ -126,7 +126,7 @@ namespace Test
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
-            if(CoreShouldRun)
+            if(CoreShouldRun && !MusicPlayer.ShouldDelayNextFrame)
             {
                 lock (EmuCore)
                 {
