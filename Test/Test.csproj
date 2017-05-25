@@ -13,7 +13,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -96,7 +96,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AudioPlayer.cs" />
     <Compile Include="GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
@@ -136,6 +135,10 @@
     <ProjectReference Include="..\GPGXRT\GPGXRT.vcxproj">
       <Project>{82569d80-5620-4012-8314-26bfecb7c9d8}</Project>
       <Name>GPGXRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibretroRT.AudioGraphPlayer\LibretroRT.AudioGraphPlayer.csproj">
+      <Project>{81707c8e-a1fd-44d5-aa2b-0a40909763e9}</Project>
+      <Name>LibretroRT.AudioGraphPlayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>

@@ -1,4 +1,5 @@
 ﻿using LibretroRT;
+using LibretroRT.AudioGraphPlayer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace Test
 
         private void EmuCore_SystemTimingChanged(SystemTiming timing)
         {
-            MusicPlayer.SetSampleRateAsync((uint)timing.SampleRate);
+            MusicPlayer.SetSampleRate((uint)timing.SampleRate);
         }
 
         private void EmuCore_GameGeometryChanged(GameGeometry geometry)
@@ -56,11 +57,6 @@ namespace Test
 
         private void EmuCore_RenderAudioFrames(short[] data, uint numFrames)
         {
-            if(!MusicPlayer.Started)
-            {
-                MusicPlayer.Start();
-            }
-
             MusicPlayer.AddSamples(data);
         }
 

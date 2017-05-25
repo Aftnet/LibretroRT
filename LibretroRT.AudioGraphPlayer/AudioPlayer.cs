@@ -29,6 +29,7 @@ namespace LibretroRT.AudioGraphPlayer
         private readonly Queue<short> SamplesBuffer = new Queue<short>();
 
         private bool GraphReconstructionInProgress = false;
+        private bool AllowPlaybackControl { get { return !GraphReconstructionInProgress && InputNode != null; } }
 
         private AudioGraph graph;
         private AudioGraph Graph
@@ -72,7 +73,7 @@ namespace LibretroRT.AudioGraphPlayer
 
         public void AddSamples([ReadOnlyArray] short[] samples)
         {
-            if (GraphReconstructionInProgress)
+            if (!AllowPlaybackControl)
                 return;
 
             lock (SamplesBuffer)
@@ -91,7 +92,7 @@ namespace LibretroRT.AudioGraphPlayer
 
         public void Stop()
         {
-            if (GraphReconstructionInProgress)
+            if (!AllowPlaybackControl)
                 return;
 
             Graph.Stop();
