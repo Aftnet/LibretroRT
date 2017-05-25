@@ -9,7 +9,7 @@ using Windows.Media.Audio;
 
 namespace LibretroRT.AudioGraphPlayer
 {
-    public sealed class AudioPlayer : IDisposable
+    public sealed class AudioPlayer : IDisposable, IAudioPlayer
     {
         [ComImport]
         [Guid("5B0D3235-4DBA-4D44-865E-8F1D0E4FD04D")]
