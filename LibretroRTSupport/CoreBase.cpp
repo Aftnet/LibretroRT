@@ -17,7 +17,6 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 	va_end(args);
 
 	auto debugMsg = Converter::CToPlatformString(logBuffer);
-
 	OutputDebugString(debugMsg->Data());
 #endif // DEBUG
 }

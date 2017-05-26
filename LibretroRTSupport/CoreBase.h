@@ -60,6 +60,9 @@ namespace LibretroRTSupport
 		virtual void UnloadGame() = 0;
 		virtual void RunFrame() = 0;
 		virtual void Reset() = 0;
+
+		virtual bool Serialize(WriteOnlyArray<uint8>^ stateData) = 0;
+		virtual bool Unserialize(const Array<uint8>^ stateData) = 0;
 	};
 }
 

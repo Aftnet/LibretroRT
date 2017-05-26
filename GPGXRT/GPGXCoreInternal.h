@@ -24,6 +24,9 @@ namespace GPGXRT
 		void UnloadGame() override;
 		void RunFrame() override;
 		void Reset() override;
+
+		bool Serialize(WriteOnlyArray<uint8>^ stateData) override;
+		bool Unserialize(const Array<uint8>^ stateData) override;
 	};
 }
 

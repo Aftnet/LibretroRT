@@ -27,6 +27,9 @@ namespace LibretroRT
 		virtual void RunFrame();
 		virtual void Reset();
 
+		virtual bool Serialize(WriteOnlyArray<uint8>^ stateData);
+		virtual bool Unserialize(const Array<uint8>^ stateData);
+
 		virtual event RenderVideoFrameDelegate ^ RenderVideoFrame;
 		virtual event RenderAudioFramesDelegate ^ RenderAudioFrames;
 		virtual event PollInputDelegate ^ PollInput;

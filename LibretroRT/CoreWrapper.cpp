@@ -34,6 +34,16 @@ void CoreWrapper::Reset()
 	core->Reset();
 }
 
+bool CoreWrapper::Serialize(WriteOnlyArray<uint8>^ stateData)
+{
+	return core->Serialize(stateData);
+}
+
+bool CoreWrapper::Unserialize(const Array<uint8>^ stateData)
+{
+	return core->Unserialize(stateData);
+}
+
 void CoreWrapper::OnRenderVideoFrame(const Platform::Array<unsigned char, 1U> ^frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
 	RenderVideoFrame(frameBuffer, width, height, pitch);

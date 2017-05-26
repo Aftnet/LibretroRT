@@ -78,13 +78,13 @@ bool GPGXCoreInternal::LoadGame(IStorageFile^ gameFile)
 	return true;
 }
 
-void GPGXRT::GPGXCoreInternal::UnloadGame()
+void GPGXCoreInternal::UnloadGame()
 {
 	retro_unload_game();
 	gameStream = nullptr;
 }
 
-void GPGXRT::GPGXCoreInternal::RunFrame()
+void GPGXCoreInternal::RunFrame()
 {
 	if (gameStream == nullptr)
 		return;
@@ -92,7 +92,17 @@ void GPGXRT::GPGXCoreInternal::RunFrame()
 	retro_run();
 }
 
-void GPGXRT::GPGXCoreInternal::Reset()
+void GPGXCoreInternal::Reset()
 {
 	retro_reset();
+}
+
+bool GPGXCoreInternal::Serialize(WriteOnlyArray<uint8>^ stateData)
+{
+	return retro_serialize(stateData->Data, stateData->Length);
+}
+
+bool GPGXCoreInternal::Unserialize(const Array<uint8>^ stateData)
+{
+	return retro_unserialize(stateData->Data, stateData->Length);
 }
