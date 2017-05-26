@@ -3,12 +3,13 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.Gaming.Input;
 using System.Linq;
+using System;
 
 namespace LibretroRT.InputManager
 {
     public sealed class InputManager : IInputManager
     {
-        private static readonly Dictionary<InputTypes, VirtualKey> LibretroGamepadToKeyboardKeyMapping = new Dictionary<InputTypes, VirtualKey>()
+        private static readonly IReadOnlyDictionary<InputTypes, VirtualKey> LibretroGamepadToKeyboardKeyMapping = new Dictionary<InputTypes, VirtualKey>()
         {
             { InputTypes.DeviceIdJoypadUp, VirtualKey.Up },
             { InputTypes.DeviceIdJoypadDown, VirtualKey.Down },
@@ -22,7 +23,7 @@ namespace LibretroRT.InputManager
             { InputTypes.DeviceIdJoypadStart, VirtualKey.P },
         };
 
-        private static readonly Dictionary<InputTypes, GamepadButtons> LibretroGamepadToWindowsGamepadMapping = new Dictionary<InputTypes, GamepadButtons>()
+        private static readonly IReadOnlyDictionary<InputTypes, GamepadButtons> LibretroGamepadToWindowsGamepadMapping = new Dictionary<InputTypes, GamepadButtons>()
         {
             { InputTypes.DeviceIdJoypadUp, GamepadButtons.DPadUp },
             { InputTypes.DeviceIdJoypadDown, GamepadButtons.DPadDown },
@@ -36,16 +37,30 @@ namespace LibretroRT.InputManager
             { InputTypes.DeviceIdJoypadStart, GamepadButtons.Menu },
         };
 
-        private readonly Dictionary<VirtualKey, CoreVirtualKeyStates> KeyStates = new Dictionary<VirtualKey, CoreVirtualKeyStates>();
+        private readonly Lazy<CoreWindow> Window;
+
+        private readonly Dictionary<VirtualKey, bool> KeyStates = new Dictionary<VirtualKey, bool>();
+        private readonly Dictionary<VirtualKey, bool> KeySnapshot = new Dictionary<VirtualKey, bool>();
 
         private GamepadReading[] GamepadReadings;
 
+        public InputManager()
+        {
+            Window = new Lazy<CoreWindow>(() =>
+             {
+                 var window = CoreWindow.GetForCurrentThread();
+                 window.KeyDown += WindowKeyDownHandler;
+                 window.KeyUp += WindowKeyUpHandler;
+                 return window;
+             });
+        }
+
         public void PollInput()
         {
-            var coreWindow = CoreWindow.GetForCurrentThread();
-            foreach(var i in LibretroGamepadToKeyboardKeyMapping.Values)
+            var window = Window.Value;
+            foreach (var i in KeyStates.Keys)
             {
-                KeyStates[i] = coreWindow.GetKeyState(i);
+                KeySnapshot[i] = KeyStates[i];
             }
 
             GamepadReadings = Gamepad.Gamepads.Select(d => d.GetCurrentReading()).ToArray();
@@ -56,7 +71,7 @@ namespace LibretroRT.InputManager
             var output = false;
             if (port == 0)
             {
-                output = GetKeyboardKeyState(KeyStates, inputType);
+                output = GetKeyboardKeyState(KeySnapshot, inputType);
             }
 
             if (port < GamepadReadings.Length)
@@ -67,10 +82,10 @@ namespace LibretroRT.InputManager
             return output ? (short)1 : (short)0;
         }
 
-        private static bool GetKeyboardKeyState(Dictionary<VirtualKey, CoreVirtualKeyStates> keyStates, InputTypes button)
+        private static bool GetKeyboardKeyState(Dictionary<VirtualKey, bool> keyStates, InputTypes button)
         {
             var nativeKey = LibretroGamepadToKeyboardKeyMapping[button];
-            var output = keyStates[nativeKey] == CoreVirtualKeyStates.Down;
+            var output = keyStates.ContainsKey(nativeKey) && keyStates[nativeKey];
             return output;
         }
 
@@ -79,6 +94,16 @@ namespace LibretroRT.InputManager
             var nativeButton = LibretroGamepadToWindowsGamepadMapping[button];
             var output = (reading.Buttons & nativeButton) == nativeButton;
             return output;
+        }
+
+        private void WindowKeyUpHandler(CoreWindow sender, KeyEventArgs args)
+        {
+            KeyStates[args.VirtualKey] = false;
+        }
+
+        private void WindowKeyDownHandler(CoreWindow sender, KeyEventArgs args)
+        {
+            KeyStates[args.VirtualKey] = true;
         }
     }
 }
