@@ -5,7 +5,7 @@
 
 using namespace LibretroRTSupport;
 
-CoreBase::CoreBase():
+CoreBase::CoreBase() :
 	timing(ref new SystemTiming),
 	geometry(ref new GameGeometry),
 	pixelFormat(LibretroRT::PixelFormats::FormatUknown),
@@ -44,39 +44,51 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 {
 	switch (cmd)
 	{
-		case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
-		{
-			auto dataPtr = (const char**)data;
-			*dataPtr = CoreSystemPath.c_str();
-			return true;
-		}
-		case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
-		{
-			auto dataPtr = (const char**)data;
-			*dataPtr = CoreSaveGamePath.c_str();
-			return true;
-		}
-		case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
-		{
-			auto pix = reinterpret_cast<enum retro_pixel_format*>(data);
-			pixelFormat = Converter::ConvertToPixelFormat(*pix);
-			return true;
-		}
-		case RETRO_ENVIRONMENT_SET_GEOMETRY:
-		{
-			auto geom = reinterpret_cast<retro_game_geometry*>(data);
-			geometry = Converter::CToRTGameGeometry(*geom);
-			GameGeometryChanged(geometry);
-			return true;
-		}
-		case RETRO_ENVIRONMENT_SET_SYSTEM_AV_INFO:
-		{
-			auto avInfo = reinterpret_cast<retro_system_av_info*>(data);
-			SetAVInfo(*avInfo);
-			GameGeometryChanged(geometry);
-			SystemTimingChanged(timing);
-			return true;
-		}
+	case RETRO_ENVIRONMENT_GET_OVERSCAN:
+	{
+		auto dataPtr = reinterpret_cast<bool*>(data);
+		*dataPtr = false;
+		return true;
+	}
+	case RETRO_ENVIRONMENT_GET_CAN_DUPE:
+	{
+		auto dataPtr = reinterpret_cast<bool*>(data);
+		*dataPtr = false;
+		return true;
+	}
+	case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
+	{
+		auto dataPtr = reinterpret_cast<const char**>(data);
+		*dataPtr = CoreSystemPath.c_str();
+		return true;
+	}
+	case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
+	{
+		auto dataPtr = reinterpret_cast<const char**>(data);
+		*dataPtr = CoreSaveGamePath.c_str();
+		return true;
+	}
+	case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
+	{
+		auto pix = reinterpret_cast<enum retro_pixel_format*>(data);
+		pixelFormat = Converter::ConvertToPixelFormat(*pix);
+		return true;
+	}
+	case RETRO_ENVIRONMENT_SET_GEOMETRY:
+	{
+		auto geom = reinterpret_cast<retro_game_geometry*>(data);
+		geometry = Converter::CToRTGameGeometry(*geom);
+		GameGeometryChanged(geometry);
+		return true;
+	}
+	case RETRO_ENVIRONMENT_SET_SYSTEM_AV_INFO:
+	{
+		auto avInfo = reinterpret_cast<retro_system_av_info*>(data);
+		SetAVInfo(*avInfo);
+		GameGeometryChanged(geometry);
+		SystemTimingChanged(timing);
+		return true;
+	}
 	}
 	return false;
 }
