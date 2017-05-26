@@ -13,7 +13,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <CommandBar Grid.Row="0">
-            <AppBarButton Icon="OpenFile" Click="AppBarButton_Click" Label="Open rom"/>
+            <AppBarButton Icon="OpenFile" Click="OpenRomButton_Click" Label="Open rom"/>
+            <AppBarButton Icon="Save" Click="SaveStateButton_Click" Label="Save state"/>
+            <AppBarButton Icon="OpenLocal" Click="LoadStateButton_Click" Label="Load state"/>
         </CommandBar>
         <SwapChainPanel x:Name="swapChainPanel" Grid.Row="1"/>
     </Grid>

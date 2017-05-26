@@ -14,9 +14,10 @@ namespace LibretroRTSupport
 	class SUPPORT_API Converter
 	{
 	public:
+		static std::wstring CToWString(const char* string);
 		static String^ CToPlatformString(const char* string);
 		static String^ CPPToPlatformString(const std::string string);
-		static std::string Converter::PlatformToCPPString(Platform::String^ string);
+		static std::string PlatformToCPPString(Platform::String^ string);
 		static GameGeometry^ CToRTGameGeometry(const retro_game_geometry& geometry);
 		static SystemTiming^ CToRTSystemTiming(const retro_system_timing& timing);
 		static PixelFormats ConvertToPixelFormat(enum retro_pixel_format format);

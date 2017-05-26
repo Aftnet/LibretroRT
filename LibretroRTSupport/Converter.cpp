@@ -8,9 +8,14 @@ using namespace LibretroRTSupport;
 
 std::wstring_convert<std::codecvt_utf8<wchar_t>> stringConverter;
 
+std::wstring Converter::CToWString(const char* string)
+{
+	return stringConverter.from_bytes(string);
+}
+
 Platform::String^ Converter::CToPlatformString(const char* string)
 {
-	auto wstring = stringConverter.from_bytes(string);
+	auto wstring = CToWString(string);
 	return ref new String(wstring.c_str());
 }
 

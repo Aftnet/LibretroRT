@@ -3,6 +3,8 @@ using LibretroRT.AudioGraphPlayer;
 using LibretroRT.InputManager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -15,6 +17,7 @@ namespace Test
     {
         private bool CoreShouldRun = false;
         private readonly ICore EmuCore = GPGXRT.GPGXCore.Instance;
+        private IStorageFile CurrentRomFile;
 
         private Texture2D FrameBuffer;
         private SpriteFont font;
@@ -71,16 +74,53 @@ namespace Test
 
         public async void LoadRom(IStorageFile storageFile)
         {
+            CurrentRomFile = storageFile;
+
             CoreShouldRun = false;
             MusicPlayer.Stop();
             await Task.Run(() =>
             {
                 lock(EmuCore)
                 {
-                    EmuCore.LoadGame(storageFile);
+                    EmuCore.LoadGame(CurrentRomFile);
                 }
             });
             CoreShouldRun = true;
+        }
+
+        public async void SaveState()
+        {
+            var file = await GetStateStorageFileAsync(true);
+            if (file == null)
+                return;
+
+            using (var stream = (await file.OpenAsync(FileAccessMode.ReadWrite)).AsStream())
+            {
+                byte[] data;
+                lock(EmuCore)
+                {
+                    data = new byte[EmuCore.SerializationSize];
+                    EmuCore.Serialize(data);
+                }
+                var operation = stream.WriteAsync(data, 0, data.Length);
+            }
+        }
+
+        public async void LoadState()
+        {
+            var file = await GetStateStorageFileAsync(false);
+            if (file == null)
+                return;
+
+            using (var stream = (await file.OpenAsync(FileAccessMode.Read)).AsStream())
+            {
+                var data = new byte[stream.Length];
+                await stream.ReadAsync(data, 0, data.Length);
+                lock (EmuCore)
+                {
+                    EmuCore.Unserialize(data);
+                }
+            }
         }
 
         /// <summary>
@@ -182,6 +222,27 @@ namespace Test
             }
 
             return output;
+        }
+
+        private async Task<StorageFile> GetStateStorageFileAsync(bool forSaving)
+        {
+            if (CurrentRomFile == null)
+                return null;
+
+            var folder = ApplicationData.Current.LocalFolder;
+            var fileName = CurrentRomFile.Name + ".state";
+
+            StorageFile file;
+            if(forSaving)
+            {
+                file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+            }
+            else
+            {
+                file = (await folder.TryGetItemAsync(fileName)) as StorageFile;
+            }
+
+            return file;
         }
     }
 }
