@@ -4,6 +4,12 @@ LibretroRT is a framework to enable porting of Libretro cores to WinRT component
 
 This should enable creating native UWP emulator front ends using high the high quality open source Libretro cores available.
 
+## Demo
+
+[![Youtube link](https://img.youtube.com/vi/hWgOV9yi1M8/0.jpg)](https://www.youtube.com/watch?v=hWgOV9yi1M8)
+
+Click image to play video
+
 ## Design goals
 
 - Full compliance with UWP sandboxing
