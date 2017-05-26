@@ -5,6 +5,23 @@
 
 using namespace LibretroRTSupport;
 
+void LogHandler(enum retro_log_level level, const char *fmt, ...)
+{
+#ifdef DEBUG
+	const int bufLen = 1024;
+	static char logBuffer[bufLen];
+
+	va_list args;
+	va_start(args, fmt);
+	vsnprintf_s(logBuffer, bufLen, fmt, args);
+	va_end(args);
+
+	auto debugMsg = Converter::CToPlatformString(logBuffer);
+
+	OutputDebugString(debugMsg->Data());
+#endif // DEBUG
+}
+
 CoreBase::CoreBase() :
 	timing(ref new SystemTiming),
 	geometry(ref new GameGeometry),
@@ -66,6 +83,12 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	{
 		auto dataPtr = reinterpret_cast<const char**>(data);
 		*dataPtr = CoreSaveGamePath.c_str();
+		return true;
+	}
+	case RETRO_ENVIRONMENT_GET_LOG_INTERFACE:
+	{
+		auto dataPtr = reinterpret_cast<retro_log_callback*>(data);
+		dataPtr->log = LogHandler;
 		return true;
 	}
 	case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
