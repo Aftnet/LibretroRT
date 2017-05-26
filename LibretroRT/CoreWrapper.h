@@ -21,6 +21,7 @@ namespace LibretroRT
 		virtual property PixelFormats PixelFormat { PixelFormats get() { return core->PixelFormat; } }
 		virtual property GameGeometry^ Geometry { GameGeometry^ get() { return core->Geometry; } }
 		virtual property SystemTiming^ Timing { SystemTiming^ get() { return core->Timing; } }
+		virtual property unsigned int SerializationSize { unsigned int get() { return core->SerializationSize; } }
 
 		virtual bool LoadGame(IStorageFile^ gameFile);
 		virtual void UnloadGame();

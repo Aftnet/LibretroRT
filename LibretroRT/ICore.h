@@ -29,6 +29,8 @@ namespace LibretroRT
 		property GameGeometry^ Geometry { GameGeometry^ get(); }
 		property SystemTiming^ Timing { SystemTiming^ get(); }
 
+		property unsigned int SerializationSize { unsigned int get(); }
+
 		bool LoadGame(IStorageFile^ gameFile);
 		void UnloadGame();
 

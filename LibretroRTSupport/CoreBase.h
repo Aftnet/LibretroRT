@@ -48,6 +48,7 @@ namespace LibretroRTSupport
 		virtual property String^ SupportedExtensions { String^ get() { return supportedExtensions; } }
 		virtual property String^ Version { String^ get() { return version; } }
 		virtual property String^ Name { String^ get() { return name; } }
+		virtual property unsigned int SerializationSize { unsigned int get() = 0; }
 
 		virtual event GetInputStateDelegate ^ GetInputState;
 		virtual event PollInputDelegate ^ PollInput;

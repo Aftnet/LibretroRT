@@ -9,6 +9,11 @@ using namespace LibretroRTSupport;
 
 GPGXCoreInternal^ coreInstance = nullptr;
 
+unsigned int GPGXCoreInternal::SerializationSize::get()
+{
+	return retro_serialize_size();
+}
+
 GPGXCoreInternal^ GPGXCoreInternal::Instance::get()
 {
 	if (coreInstance == nullptr)

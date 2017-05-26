@@ -17,6 +17,8 @@ namespace GPGXRT
 		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
 
 	public:
+		property unsigned int SerializationSize { unsigned int get() override; }
+
 		static property GPGXCoreInternal^ Instance { GPGXCoreInternal^ get(); }
 		virtual ~GPGXCoreInternal();
 
