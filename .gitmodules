@@ -2,3 +2,7 @@
 	path = GPGX/src
 	url = https://github.com/Aftnet/Genesis-Plus-GX.git
 	branch = master
+[submodule "Snes9X/src"]
+	path = Snes9X/src
+	url = https://github.com/libretro/snes9x.git
+	branch = master

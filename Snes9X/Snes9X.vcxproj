@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{e141e8d9-450d-40b5-b92a-36fa165e5005}</ProjectGuid>
+    <Keyword>DynamicLibrary</Keyword>
+    <RootNamespace>Snes9X</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.14393.0</WindowsTargetPlatformMinVersion>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\apu;$(ProjectDir)src\docs;$(ProjectDir)src\libretro;$(ProjectDir)src\apu\bapu;$(ProjectDir)src\apu\bapu\dsp;$(ProjectDir)src\apu\bapu\smp;$(ProjectDir)src\apu\bapu\snes;$(ProjectDir)src\apu\bapu\smp\core;$(ProjectDir)src\apu\bapu\smp\debugger;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__WIN32__;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\apu;$(ProjectDir)src\docs;$(ProjectDir)src\libretro;$(ProjectDir)src\apu\bapu;$(ProjectDir)src\apu\bapu\dsp;$(ProjectDir)src\apu\bapu\smp;$(ProjectDir)src\apu\bapu\snes;$(ProjectDir)src\apu\bapu\smp\core;$(ProjectDir)src\apu\bapu\smp\debugger;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__WIN32__;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\apu;$(ProjectDir)src\docs;$(ProjectDir)src\libretro;$(ProjectDir)src\apu\bapu;$(ProjectDir)src\apu\bapu\dsp;$(ProjectDir)src\apu\bapu\smp;$(ProjectDir)src\apu\bapu\snes;$(ProjectDir)src\apu\bapu\smp\core;$(ProjectDir)src\apu\bapu\smp\debugger;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__WIN32__;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\apu;$(ProjectDir)src\docs;$(ProjectDir)src\libretro;$(ProjectDir)src\apu\bapu;$(ProjectDir)src\apu\bapu\dsp;$(ProjectDir)src\apu\bapu\smp;$(ProjectDir)src\apu\bapu\snes;$(ProjectDir)src\apu\bapu\smp\core;$(ProjectDir)src\apu\bapu\smp\debugger;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__WIN32__;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\apu;$(ProjectDir)src\docs;$(ProjectDir)src\libretro;$(ProjectDir)src\apu\bapu;$(ProjectDir)src\apu\bapu\dsp;$(ProjectDir)src\apu\bapu\smp;$(ProjectDir)src\apu\bapu\snes;$(ProjectDir)src\apu\bapu\smp\core;$(ProjectDir)src\apu\bapu\smp\debugger;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__WIN32__;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\apu;$(ProjectDir)src\docs;$(ProjectDir)src\libretro;$(ProjectDir)src\apu\bapu;$(ProjectDir)src\apu\bapu\dsp;$(ProjectDir)src\apu\bapu\smp;$(ProjectDir)src\apu\bapu\snes;$(ProjectDir)src\apu\bapu\smp\core;$(ProjectDir)src\apu\bapu\smp\debugger;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__WIN32__;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\65c816.h" />
+    <ClInclude Include="src\apu\apu.h" />
+    <ClInclude Include="src\apu\bapu\dsp\blargg_common.h" />
+    <ClInclude Include="src\apu\bapu\dsp\blargg_config.h" />
+    <ClInclude Include="src\apu\bapu\dsp\blargg_endian.h" />
+    <ClInclude Include="src\apu\bapu\dsp\blargg_source.h" />
+    <ClInclude Include="src\apu\bapu\dsp\sdsp.hpp" />
+    <ClInclude Include="src\apu\bapu\dsp\SPC_DSP.h" />
+    <ClInclude Include="src\apu\bapu\snes\snes.hpp" />
+    <ClInclude Include="src\apu\hermite_resampler.h" />
+    <ClInclude Include="src\apu\resampler.h" />
+    <ClInclude Include="src\apu\ring_buffer.h" />
+    <ClInclude Include="src\bsx.h" />
+    <ClInclude Include="src\c4.h" />
+    <ClInclude Include="src\cheats.h" />
+    <ClInclude Include="src\conffile.h" />
+    <ClInclude Include="src\controls.h" />
+    <ClInclude Include="src\cpuaddr.h" />
+    <ClInclude Include="src\cpuexec.h" />
+    <ClInclude Include="src\cpumacro.h" />
+    <ClInclude Include="src\cpuops.h" />
+    <ClInclude Include="src\crosshairs.h" />
+    <ClInclude Include="src\debug.h" />
+    <ClInclude Include="src\display.h" />
+    <ClInclude Include="src\dma.h" />
+    <ClInclude Include="src\dsp.h" />
+    <ClInclude Include="src\font.h" />
+    <ClInclude Include="src\fxemu.h" />
+    <ClInclude Include="src\fxinst.h" />
+    <ClInclude Include="src\getset.h" />
+    <ClInclude Include="src\gfx.h" />
+    <ClInclude Include="src\language.h" />
+    <ClInclude Include="src\libretro\libretro.h" />
+    <ClInclude Include="src\logger.h" />
+    <ClInclude Include="src\memmap.h" />
+    <ClInclude Include="src\messages.h" />
+    <ClInclude Include="src\missing.h" />
+    <ClInclude Include="src\msu1.h" />
+    <ClInclude Include="src\netplay.h" />
+    <ClInclude Include="src\obc1.h" />
+    <ClInclude Include="src\pixform.h" />
+    <ClInclude Include="src\port.h" />
+    <ClInclude Include="src\ppu.h" />
+    <ClInclude Include="src\sa1.h" />
+    <ClInclude Include="src\sar.h" />
+    <ClInclude Include="src\screenshot.h" />
+    <ClInclude Include="src\sdd1.h" />
+    <ClInclude Include="src\sdd1emu.h" />
+    <ClInclude Include="src\seta.h" />
+    <ClInclude Include="src\snapshot.h" />
+    <ClInclude Include="src\snes9x.h" />
+    <ClInclude Include="src\spc7110.h" />
+    <ClInclude Include="src\spc7110dec.h" />
+    <ClInclude Include="src\spc7110emu.h" />
+    <ClInclude Include="src\srtc.h" />
+    <ClInclude Include="src\srtcemu.h" />
+    <ClInclude Include="src\statemanager.h" />
+    <ClInclude Include="src\stream.h" />
+    <ClInclude Include="src\tile.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\apu\apu.cpp" />
+    <ClCompile Include="src\apu\bapu\dsp\sdsp.cpp" />
+    <ClCompile Include="src\apu\bapu\dsp\SPC_DSP.cpp" />
+    <ClCompile Include="src\apu\bapu\smp\smp.cpp" />
+    <ClCompile Include="src\apu\bapu\smp\smp_state.cpp" />
+    <ClCompile Include="src\bsx.cpp" />
+    <ClCompile Include="src\c4.cpp" />
+    <ClCompile Include="src\c4emu.cpp" />
+    <ClCompile Include="src\cheats.cpp" />
+    <ClCompile Include="src\cheats2.cpp" />
+    <ClCompile Include="src\clip.cpp" />
+    <ClCompile Include="src\conffile.cpp" />
+    <ClCompile Include="src\controls.cpp" />
+    <ClCompile Include="src\cpu.cpp" />
+    <ClCompile Include="src\cpuexec.cpp" />
+    <ClCompile Include="src\cpuops.cpp" />
+    <ClCompile Include="src\crosshairs.cpp" />
+    <ClCompile Include="src\debug.cpp" />
+    <ClCompile Include="src\dma.cpp" />
+    <ClCompile Include="src\dsp.cpp" />
+    <ClCompile Include="src\dsp1.cpp" />
+    <ClCompile Include="src\dsp2.cpp" />
+    <ClCompile Include="src\dsp3.cpp" />
+    <ClCompile Include="src\dsp4.cpp" />
+    <ClCompile Include="src\fxdbg.cpp" />
+    <ClCompile Include="src\fxemu.cpp" />
+    <ClCompile Include="src\fxinst.cpp" />
+    <ClCompile Include="src\gfx.cpp" />
+    <ClCompile Include="src\globals.cpp" />
+    <ClCompile Include="src\libretro\libretro.cpp" />
+    <ClCompile Include="src\logger.cpp" />
+    <ClCompile Include="src\memmap.cpp" />
+    <ClCompile Include="src\msu1.cpp" />
+    <ClCompile Include="src\netplay.cpp" />
+    <ClCompile Include="src\obc1.cpp" />
+    <ClCompile Include="src\ppu.cpp" />
+    <ClCompile Include="src\sa1.cpp" />
+    <ClCompile Include="src\sa1cpu.cpp" />
+    <ClCompile Include="src\sdd1.cpp" />
+    <ClCompile Include="src\sdd1emu.cpp" />
+    <ClCompile Include="src\server.cpp" />
+    <ClCompile Include="src\seta.cpp" />
+    <ClCompile Include="src\seta010.cpp" />
+    <ClCompile Include="src\seta011.cpp" />
+    <ClCompile Include="src\seta018.cpp" />
+    <ClCompile Include="src\snapshot.cpp" />
+    <ClCompile Include="src\snes9x.cpp" />
+    <ClCompile Include="src\spc7110.cpp" />
+    <ClCompile Include="src\srtc.cpp" />
+    <ClCompile Include="src\stream.cpp" />
+    <ClCompile Include="src\tile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\docs\porting.html" />
+    <None Include="src\libretro\msvc\msvc-2010\libretro.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

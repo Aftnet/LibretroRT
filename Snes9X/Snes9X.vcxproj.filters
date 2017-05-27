@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="src\apu\bapu\dsp\blargg_common.h" />
+    <ClInclude Include="src\apu\bapu\dsp\blargg_config.h" />
+    <ClInclude Include="src\apu\bapu\dsp\blargg_endian.h" />
+    <ClInclude Include="src\apu\bapu\dsp\blargg_source.h" />
+    <ClInclude Include="src\apu\bapu\dsp\sdsp.hpp" />
+    <ClInclude Include="src\apu\bapu\dsp\SPC_DSP.h" />
+    <ClInclude Include="src\apu\bapu\snes\snes.hpp" />
+    <ClInclude Include="src\apu\apu.h" />
+    <ClInclude Include="src\apu\hermite_resampler.h" />
+    <ClInclude Include="src\apu\resampler.h" />
+    <ClInclude Include="src\apu\ring_buffer.h" />
+    <ClInclude Include="src\libretro\libretro.h" />
+    <ClInclude Include="src\65c816.h" />
+    <ClInclude Include="src\bsx.h" />
+    <ClInclude Include="src\c4.h" />
+    <ClInclude Include="src\cheats.h" />
+    <ClInclude Include="src\conffile.h" />
+    <ClInclude Include="src\controls.h" />
+    <ClInclude Include="src\cpuaddr.h" />
+    <ClInclude Include="src\cpuexec.h" />
+    <ClInclude Include="src\cpumacro.h" />
+    <ClInclude Include="src\cpuops.h" />
+    <ClInclude Include="src\crosshairs.h" />
+    <ClInclude Include="src\debug.h" />
+    <ClInclude Include="src\display.h" />
+    <ClInclude Include="src\dma.h" />
+    <ClInclude Include="src\dsp.h" />
+    <ClInclude Include="src\font.h" />
+    <ClInclude Include="src\fxemu.h" />
+    <ClInclude Include="src\fxinst.h" />
+    <ClInclude Include="src\getset.h" />
+    <ClInclude Include="src\gfx.h" />
+    <ClInclude Include="src\language.h" />
+    <ClInclude Include="src\logger.h" />
+    <ClInclude Include="src\memmap.h" />
+    <ClInclude Include="src\messages.h" />
+    <ClInclude Include="src\missing.h" />
+    <ClInclude Include="src\msu1.h" />
+    <ClInclude Include="src\netplay.h" />
+    <ClInclude Include="src\obc1.h" />
+    <ClInclude Include="src\pixform.h" />
+    <ClInclude Include="src\port.h" />
+    <ClInclude Include="src\ppu.h" />
+    <ClInclude Include="src\sa1.h" />
+    <ClInclude Include="src\sar.h" />
+    <ClInclude Include="src\screenshot.h" />
+    <ClInclude Include="src\sdd1.h" />
+    <ClInclude Include="src\sdd1emu.h" />
+    <ClInclude Include="src\seta.h" />
+    <ClInclude Include="src\snapshot.h" />
+    <ClInclude Include="src\snes9x.h" />
+    <ClInclude Include="src\spc7110.h" />
+    <ClInclude Include="src\spc7110dec.h" />
+    <ClInclude Include="src\spc7110emu.h" />
+    <ClInclude Include="src\srtc.h" />
+    <ClInclude Include="src\srtcemu.h" />
+    <ClInclude Include="src\statemanager.h" />
+    <ClInclude Include="src\stream.h" />
+    <ClInclude Include="src\tile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\apu\bapu\dsp\sdsp.cpp" />
+    <ClCompile Include="src\apu\bapu\dsp\SPC_DSP.cpp" />
+    <ClCompile Include="src\apu\bapu\smp\smp.cpp" />
+    <ClCompile Include="src\apu\bapu\smp\smp_state.cpp" />
+    <ClCompile Include="src\apu\apu.cpp" />
+    <ClCompile Include="src\libretro\libretro.cpp" />
+    <ClCompile Include="src\bsx.cpp" />
+    <ClCompile Include="src\c4.cpp" />
+    <ClCompile Include="src\c4emu.cpp" />
+    <ClCompile Include="src\cheats.cpp" />
+    <ClCompile Include="src\cheats2.cpp" />
+    <ClCompile Include="src\clip.cpp" />
+    <ClCompile Include="src\conffile.cpp" />
+    <ClCompile Include="src\controls.cpp" />
+    <ClCompile Include="src\cpu.cpp" />
+    <ClCompile Include="src\cpuexec.cpp" />
+    <ClCompile Include="src\cpuops.cpp" />
+    <ClCompile Include="src\crosshairs.cpp" />
+    <ClCompile Include="src\debug.cpp" />
+    <ClCompile Include="src\dma.cpp" />
+    <ClCompile Include="src\dsp.cpp" />
+    <ClCompile Include="src\dsp1.cpp" />
+    <ClCompile Include="src\dsp2.cpp" />
+    <ClCompile Include="src\dsp3.cpp" />
+    <ClCompile Include="src\dsp4.cpp" />
+    <ClCompile Include="src\fxdbg.cpp" />
+    <ClCompile Include="src\fxemu.cpp" />
+    <ClCompile Include="src\fxinst.cpp" />
+    <ClCompile Include="src\gfx.cpp" />
+    <ClCompile Include="src\globals.cpp" />
+    <ClCompile Include="src\logger.cpp" />
+    <ClCompile Include="src\memmap.cpp" />
+    <ClCompile Include="src\netplay.cpp" />
+    <ClCompile Include="src\obc1.cpp" />
+    <ClCompile Include="src\ppu.cpp" />
+    <ClCompile Include="src\sa1.cpp" />
+    <ClCompile Include="src\sa1cpu.cpp" />
+    <ClCompile Include="src\sdd1.cpp" />
+    <ClCompile Include="src\sdd1emu.cpp" />
+    <ClCompile Include="src\server.cpp" />
+    <ClCompile Include="src\seta.cpp" />
+    <ClCompile Include="src\seta010.cpp" />
+    <ClCompile Include="src\seta011.cpp" />
+    <ClCompile Include="src\seta018.cpp" />
+    <ClCompile Include="src\snapshot.cpp" />
+    <ClCompile Include="src\snes9x.cpp" />
+    <ClCompile Include="src\spc7110.cpp" />
+    <ClCompile Include="src\srtc.cpp" />
+    <ClCompile Include="src\stream.cpp" />
+    <ClCompile Include="src\tile.cpp" />
+    <ClCompile Include="src\msu1.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\docs\porting.html" />
+    <None Include="src\libretro\msvc\msvc-2010\libretro.def" />
+  </ItemGroup>
+</Project>
