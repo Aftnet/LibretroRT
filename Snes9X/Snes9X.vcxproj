@@ -322,7 +322,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\docs\porting.html" />
-    <None Include="src\libretro\msvc\msvc-2010\libretro.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
