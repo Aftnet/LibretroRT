@@ -2,9 +2,9 @@
 
 using namespace LibretroRT;
 
-namespace GPGXRT
+namespace Snes9XRT
 {
-	public ref class GPGXCore sealed
+	public ref class Snes9XCore sealed
 	{
 	public:
 		static property ICore^ Instance { ICore^ get(); }
