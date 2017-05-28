@@ -23,19 +23,14 @@ namespace Test
             _game = MonoGame.Framework.XamlGame<Game1>.Create(launchArguments, Window.Current.CoreWindow, swapChainPanel);
         }
 
-        private async void OpenRomButton_Click(object sender, RoutedEventArgs e)
+        private void OpenGenesisRomButton_Click(object sender, RoutedEventArgs e)
         {
-            var picker = new FileOpenPicker();
-            var extensions = _game.GetGenesisSupportedExtensions();
-            foreach(var i in extensions)
-            {
-                picker.FileTypeFilter.Add(i);
-            }
-            var file = await picker.PickSingleFileAsync();
-            if (file == null)
-                return;
+            OpenRomHandler(Game1.ConsoleType.Genesis);
+        }
 
-            _game.LoadRom(file);
+        private void OpenSNESRomButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenRomHandler(Game1.ConsoleType.SNES);
         }
 
         private void SaveStateButton_Click(object sender, RoutedEventArgs e)
@@ -46,6 +41,21 @@ namespace Test
         private void LoadStateButton_Click(object sender, RoutedEventArgs e)
         {
             _game.LoadState();
+        }
+
+        private async void OpenRomHandler(Game1.ConsoleType consoleType)
+        {
+            var picker = new FileOpenPicker();
+            var extensions = _game.GetSupportedExtensions(consoleType);
+            foreach (var i in extensions)
+            {
+                picker.FileTypeFilter.Add(i);
+            }
+            var file = await picker.PickSingleFileAsync();
+            if (file == null)
+                return;
+
+            _game.LoadRom(consoleType, file);
         }
     }
 }

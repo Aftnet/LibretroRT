@@ -4,6 +4,7 @@ using LibretroRT.InputManager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,8 +17,48 @@ namespace Test
     /// </summary>
     public class Game1 : Game
     {
-        private bool CoreShouldRun = false;
-        private readonly ICore EmuCore = Snes9XRT.Snes9XCore.Instance;
+        public enum ConsoleType { Genesis, SNES };
+
+        private readonly ICore GenesisCore = GPGXRT.GPGXCore.Instance;
+        private readonly ICore SNESCore = Snes9XRT.Snes9XCore.Instance;
+
+        private readonly IReadOnlyDictionary<ConsoleType, ICore> ConsoleTypeCoreMapping;
+
+        readonly object CurrentCoreLock = new object();
+
+        private ICore currentCore;
+        private ICore CurrentCore
+        {
+            get { return currentCore; }
+            set
+            {
+                if (currentCore == value)
+                    return;
+
+                if (currentCore != null)
+                {
+                    currentCore.RenderVideoFrame -= EmuCore_RenderVideoFrame;
+                    currentCore.RenderAudioFrames -= EmuCore_RenderAudioFrames;
+                    currentCore.PollInput -= EmuCore_PollInput;
+                    currentCore.GetInputState -= EmuCore_GetInputState;
+                    currentCore.GameGeometryChanged -= EmuCore_GameGeometryChanged;
+                    currentCore.SystemTimingChanged -= EmuCore_SystemTimingChanged;
+                }
+
+                currentCore = value;
+
+                if (currentCore == null)
+                    return;
+
+                currentCore.RenderVideoFrame += EmuCore_RenderVideoFrame;
+                currentCore.RenderAudioFrames += EmuCore_RenderAudioFrames;
+                currentCore.PollInput += EmuCore_PollInput;
+                currentCore.GetInputState += EmuCore_GetInputState;
+                currentCore.GameGeometryChanged += EmuCore_GameGeometryChanged;
+                currentCore.SystemTimingChanged += EmuCore_SystemTimingChanged;
+            }
+        }
+
         private IStorageFile CurrentRomFile;
 
         private Texture2D FrameBuffer;
@@ -34,12 +75,11 @@ namespace Test
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            EmuCore.RenderVideoFrame += EmuCore_RenderVideoFrame;
-            EmuCore.RenderAudioFrames += EmuCore_RenderAudioFrames;
-            EmuCore.PollInput += EmuCore_PollInput;
-            EmuCore.GetInputState += EmuCore_GetInputState;
-            EmuCore.GameGeometryChanged += EmuCore_GameGeometryChanged;
-            EmuCore.SystemTimingChanged += EmuCore_SystemTimingChanged;
+            ConsoleTypeCoreMapping = new Dictionary<ConsoleType, ICore>
+            {
+                { ConsoleType.Genesis, GenesisCore },
+                { ConsoleType.SNES, SNESCore },
+            };
         }
 
         private void EmuCore_SystemTimingChanged(SystemTiming timing)
@@ -69,34 +109,40 @@ namespace Test
 
         private void EmuCore_RenderVideoFrame(byte[] frameBuffer, uint width, uint height, uint pitch)
         {
-            var targetArea = new Rectangle(0, 0, (int)EmuCore.Geometry.MaxWidth, (int)height);
+            var targetArea = new Rectangle(0, 0, (int)CurrentCore.Geometry.MaxWidth, (int)height);
             FrameBuffer.SetData<byte>(0, targetArea, frameBuffer, 0, frameBuffer.Length);        
         }
 
-        public string[] GetGenesisSupportedExtensions()
+        public string[] GetSupportedExtensions(ConsoleType consoleType)
         {
-            return GetSupportedExtensions(EmuCore);
+            return GetSupportedExtensions(ConsoleTypeCoreMapping[consoleType]);
         }
 
-        public async void LoadRom(IStorageFile storageFile)
+        public async void LoadRom(ConsoleType consoleType, IStorageFile storageFile)
         {
             CurrentRomFile = storageFile;
 
-            CoreShouldRun = false;
             MusicPlayer.Stop();
             await Task.Run(() =>
             {
-                lock(EmuCore)
+                lock (CurrentCoreLock)
                 {
-                    EmuCore.LoadGame(CurrentRomFile);
-                    EmuCore_SystemTimingChanged(EmuCore.Timing);
+                    CurrentCore?.UnloadGame();
+                    CurrentCore = ConsoleTypeCoreMapping[consoleType];
+                    CurrentCore.LoadGame(CurrentRomFile);
+                    EmuCore_SystemTimingChanged(CurrentCore.Timing);
                 }
             });
-            CoreShouldRun = true;
         }
 
         public async void SaveState()
         {
+            lock (CurrentCoreLock)
+            {
+                if (CurrentCore == null)
+                    return;
+            }
+
             var file = await GetStateStorageFileAsync(true);
             if (file == null)
                 return;
@@ -104,10 +150,10 @@ namespace Test
             using (var stream = (await file.OpenAsync(FileAccessMode.ReadWrite)).AsStream())
             {
                 byte[] data;
-                lock(EmuCore)
+                lock(CurrentCoreLock)
                 {
-                    data = new byte[EmuCore.SerializationSize];
-                    EmuCore.Serialize(data);
+                    data = new byte[CurrentCore.SerializationSize];
+                    CurrentCore.Serialize(data);
                 }
                 var operation = stream.WriteAsync(data, 0, data.Length);
             }
@@ -115,6 +161,12 @@ namespace Test
 
         public async void LoadState()
         {
+            lock (CurrentCoreLock)
+            {
+                if (CurrentCore == null)
+                    return;
+            }
+
             var file = await GetStateStorageFileAsync(false);
             if (file == null)
                 return;
@@ -123,9 +175,9 @@ namespace Test
             {
                 var data = new byte[stream.Length];
                 await stream.ReadAsync(data, 0, data.Length);
-                lock (EmuCore)
+                lock (CurrentCoreLock)
                 {
-                    EmuCore.Unserialize(data);
+                    CurrentCore.Unserialize(data);
                 }
             }
         }
@@ -173,11 +225,11 @@ namespace Test
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
-            if(CoreShouldRun && !MusicPlayer.ShouldDelayNextFrame)
+            if(!MusicPlayer.ShouldDelayNextFrame)
             {
-                lock (EmuCore)
+                lock (CurrentCoreLock)
                 {
-                    EmuCore.RunFrame();
+                    CurrentCore?.RunFrame();
                 }
             }
 
@@ -199,11 +251,14 @@ namespace Test
             if (FrameBuffer != null)
             {
                 spriteBatch.Begin();
-                lock (EmuCore)
+                lock (CurrentCoreLock)
                 {
-                    var viewportLocation = ComputeBestFittingSize(new Point(viewport.Width, viewport.Height), EmuCore.Geometry.AspectRatio);
-                    var frameBufferSize = new Point((int)EmuCore.Geometry.BaseWidth, (int)EmuCore.Geometry.BaseHeight);
-                    spriteBatch.Draw(FrameBuffer, viewportLocation, new Rectangle(Point.Zero, frameBufferSize), Color.White);
+                    if (CurrentCore != null)
+                    {
+                        var viewportLocation = ComputeBestFittingSize(new Point(viewport.Width, viewport.Height), CurrentCore.Geometry.AspectRatio);
+                        var frameBufferSize = new Point((int)CurrentCore.Geometry.BaseWidth, (int)CurrentCore.Geometry.BaseHeight);
+                        spriteBatch.Draw(FrameBuffer, viewportLocation, new Rectangle(Point.Zero, frameBufferSize), Color.White);
+                    }
                 }
                 //spriteBatch.DrawString(font, $"Frame {frameNumber}", new Vector2(0, 0), Color.White);
                 spriteBatch.End();
