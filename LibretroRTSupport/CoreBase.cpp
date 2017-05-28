@@ -56,6 +56,14 @@ retro_game_info CoreBase::GenerateGameInfo(String^ gamePath, unsigned long long 
 	return gameInfo;
 }
 
+retro_game_info CoreBase::GenerateGameInfo(const Platform::Array<unsigned char>^ gameData)
+{
+	retro_game_info gameInfo;
+	gameInfo.data = gameData->Data;
+	gameInfo.size = gameData->Length;
+	return gameInfo;
+}
+
 bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 {
 	switch (cmd)

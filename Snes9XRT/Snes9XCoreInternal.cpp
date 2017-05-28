@@ -70,7 +70,14 @@ bool Snes9XCoreInternal::LoadGame(IStorageFile^ gameFile)
 	static auto gamePathStr = Converter::PlatformToCPPString(gameFile->Path);
 	gameStream = concurrency::create_task(gameFile->OpenAsync(FileAccessMode::Read)).get();
 
-	auto gameInfo = GenerateGameInfo(gameFile->Path, gameStream->Size);
+	std::vector<unsigned char> gameData;
+	gameData.resize(gameStream->Size);
+
+	auto reader = ref new Windows::Storage::Streams::DataReader(gameStream);
+	auto dataArray = Platform::ArrayReference<unsigned char>(gameData.data(), gameStream->Size);
+	reader->ReadBytes(dataArray);
+
+	auto gameInfo = GenerateGameInfo(dataArray);
 	if (!retro_load_game(&gameInfo))
 	{
 		return false;
