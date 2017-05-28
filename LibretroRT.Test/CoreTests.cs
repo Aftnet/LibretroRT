@@ -5,15 +5,16 @@ using Xunit;
 
 namespace LibretroRT.Test
 {
-    public class CoreTests
+    public abstract class TestBase
     {
-        const string RomPath = "Roms\\Sonic2.md";
+        protected string RomPath { get; private set; }
 
-        private ICore Target { get; set; }
+        protected ICore Target { get; private set; }
 
-        public CoreTests()
+        protected TestBase(Func<ICore> coreInstancer, string romPath)
         {
-            Target = GPGXRT.GPGXCore.Instance;
+            RomPath = romPath;
+            Target = coreInstancer();
         }
 
         [Fact]

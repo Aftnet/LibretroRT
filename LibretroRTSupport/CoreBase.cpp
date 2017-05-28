@@ -51,8 +51,10 @@ retro_game_info CoreBase::GenerateGameInfo(String^ gamePath, unsigned long long 
 {
 	static auto gamePathStr = Converter::PlatformToCPPString(gamePath);
 	retro_game_info gameInfo;
+	gameInfo.data = nullptr;
 	gameInfo.path = gamePathStr.c_str();
 	gameInfo.size = gameSize;
+	gameInfo.meta = nullptr;
 	return gameInfo;
 }
 
@@ -60,7 +62,9 @@ retro_game_info CoreBase::GenerateGameInfo(const Platform::Array<unsigned char>^
 {
 	retro_game_info gameInfo;
 	gameInfo.data = gameData->Data;
+	gameInfo.path = nullptr;
 	gameInfo.size = gameData->Length;
+	gameInfo.meta = nullptr;
 	return gameInfo;
 }
 

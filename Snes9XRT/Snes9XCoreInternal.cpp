@@ -72,9 +72,10 @@ bool Snes9XCoreInternal::LoadGame(IStorageFile^ gameFile)
 
 	std::vector<unsigned char> gameData;
 	gameData.resize(gameStream->Size);
+	auto dataArray = Platform::ArrayReference<unsigned char>(gameData.data(), gameStream->Size);
 
 	auto reader = ref new Windows::Storage::Streams::DataReader(gameStream);
-	auto dataArray = Platform::ArrayReference<unsigned char>(gameData.data(), gameStream->Size);
+	concurrency::create_task(reader->LoadAsync(gameStream->Size)).get();
 	reader->ReadBytes(dataArray);
 
 	auto gameInfo = GenerateGameInfo(dataArray);
