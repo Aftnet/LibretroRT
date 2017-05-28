@@ -89,6 +89,7 @@ namespace Test
                 lock(EmuCore)
                 {
                     EmuCore.LoadGame(CurrentRomFile);
+                    EmuCore_SystemTimingChanged(EmuCore.Timing);
                 }
             });
             CoreShouldRun = true;
