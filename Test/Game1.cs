@@ -17,7 +17,7 @@ namespace Test
     public class Game1 : Game
     {
         private bool CoreShouldRun = false;
-        private readonly ICore EmuCore = GPGXRT.GPGXCore.Instance;
+        private readonly ICore EmuCore = Snes9XRT.Snes9XCore.Instance;
         private IStorageFile CurrentRomFile;
 
         private Texture2D FrameBuffer;

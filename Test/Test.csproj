@@ -185,6 +185,10 @@
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
       <Name>LibretroRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
+      <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>
+      <Name>Snes9XRT</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
