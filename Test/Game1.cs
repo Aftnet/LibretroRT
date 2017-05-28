@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -70,6 +71,11 @@ namespace Test
         {
             var targetArea = new Rectangle(0, 0, (int)EmuCore.Geometry.MaxWidth, (int)height);
             FrameBuffer.SetData<byte>(0, targetArea, frameBuffer, 0, frameBuffer.Length);        
+        }
+
+        public string[] GetGenesisSupportedExtensions()
+        {
+            return GetSupportedExtensions(EmuCore);
         }
 
         public async void LoadRom(IStorageFile storageFile)
@@ -243,6 +249,13 @@ namespace Test
             }
 
             return file;
+        }
+
+        private string[] GetSupportedExtensions(ICore core)
+        {
+            var extensions = core.SupportedExtensions;
+            var output = extensions.Split('|').Select(d => "." + d).ToArray();
+            return output;
         }
     }
 }

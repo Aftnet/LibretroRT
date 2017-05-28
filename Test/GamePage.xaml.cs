@@ -26,7 +26,11 @@ namespace Test
         private async void OpenRomButton_Click(object sender, RoutedEventArgs e)
         {
             var picker = new FileOpenPicker();
-            picker.FileTypeFilter.Add(".md");
+            var extensions = _game.GetGenesisSupportedExtensions();
+            foreach(var i in extensions)
+            {
+                picker.FileTypeFilter.Add(i);
+            }
             var file = await picker.PickSingleFileAsync();
             if (file == null)
                 return;
