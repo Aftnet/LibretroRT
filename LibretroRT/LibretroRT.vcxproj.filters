@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>22928a7b-cbd6-40a9-b9b4-3fbb4bb7599c</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="DataTypes">
+      <UniqueIdentifier>{ae8ca919-4b98-4c9c-ae6a-6f4bd05ee538}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="ICore.cpp" />
+    <ClCompile Include="GameGeometry.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemTiming.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreWrapper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="ICore.h" />
+    <ClInclude Include="libretro.h" />
+    <ClInclude Include="GameGeometry.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemTiming.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreWrapper.h" />
+  </ItemGroup>
+</Project>
