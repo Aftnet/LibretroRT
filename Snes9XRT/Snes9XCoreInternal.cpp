@@ -84,14 +84,10 @@ bool Snes9XCoreInternal::LoadGame(IStorageFile^ gameFile)
 void Snes9XCoreInternal::UnloadGame()
 {
 	retro_unload_game();
-	gameStream = nullptr;
 }
 
 void Snes9XCoreInternal::RunFrame()
 {
-	if (gameStream == nullptr)
-		return;
-
 	retro_run();
 }
 

@@ -84,14 +84,10 @@ bool VBAMCoreInternal::LoadGame(IStorageFile^ gameFile)
 void VBAMCoreInternal::UnloadGame()
 {
 	retro_unload_game();
-	gameStream = nullptr;
 }
 
 void VBAMCoreInternal::RunFrame()
 {
-	if (gameStream == nullptr)
-		return;
-
 	retro_run();
 }
 
