@@ -260,4 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 
+*Test/Roms/
+
 **/Generated Files
