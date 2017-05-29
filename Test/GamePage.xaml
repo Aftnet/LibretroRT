@@ -16,6 +16,7 @@
             <AppBarButton Icon="OpenFile" Label="Open rom">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
+                        <MenuFlyoutItem Text="GBA" Click="OpenGBARomButton_Click" />
                         <MenuFlyoutItem Text="Genesis" Click="OpenGenesisRomButton_Click" />
                         <MenuFlyoutItem Text="SNES" Click="OpenSNESRomButton_Click" />
                     </MenuFlyout>

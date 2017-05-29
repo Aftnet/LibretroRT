@@ -17,10 +17,7 @@ namespace Test
     /// </summary>
     public class Game1 : Game
     {
-        public enum ConsoleType { Genesis, SNES };
-
-        private readonly ICore GenesisCore = GPGXRT.GPGXCore.Instance;
-        private readonly ICore SNESCore = Snes9XRT.Snes9XCore.Instance;
+        public enum ConsoleType { GBA, Genesis, SNES };
 
         private readonly IReadOnlyDictionary<ConsoleType, ICore> ConsoleTypeCoreMapping;
 
@@ -77,8 +74,9 @@ namespace Test
 
             ConsoleTypeCoreMapping = new Dictionary<ConsoleType, ICore>
             {
-                { ConsoleType.Genesis, GenesisCore },
-                { ConsoleType.SNES, SNESCore },
+                { ConsoleType.GBA, VBAMRT.VBAMCore.Instance },
+                { ConsoleType.Genesis, GPGXRT.GPGXCore.Instance },
+                { ConsoleType.SNES, Snes9XRT.Snes9XCore.Instance },
             };
         }
 
@@ -130,6 +128,7 @@ namespace Test
                     CurrentCore?.UnloadGame();
                     CurrentCore = ConsoleTypeCoreMapping[consoleType];
                     CurrentCore.LoadGame(CurrentRomFile);
+                    EmuCore_GameGeometryChanged(CurrentCore.Geometry);
                     EmuCore_SystemTimingChanged(CurrentCore.Timing);
                 }
             });
