@@ -27,7 +27,8 @@ namespace LibretroRTSupport
 		void SetSystemInfo(retro_system_info& info);
 		void SetAVInfo(retro_system_av_info & info);
 		static retro_game_info GenerateGameInfo(String^ gamePath, unsigned long long gameSize);
-		static retro_game_info GenerateGameInfo(const Platform::Array<unsigned char>^ gameData);
+		static retro_game_info GenerateGameInfo(const std::vector<unsigned char>& gameData);
+		void ReadFileToMemory(std::vector<unsigned char>& data, IStorageFile^ file);
 
 	internal:
 		virtual bool EnvironmentHandler(unsigned cmd, void *data);

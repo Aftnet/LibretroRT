@@ -65,10 +65,10 @@ bool VBAMCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 
 bool VBAMCoreInternal::LoadGame(IStorageFile^ gameFile)
 {
-	static auto gamePathStr = Converter::PlatformToCPPString(gameFile->Path);
-	gameStream = concurrency::create_task(gameFile->OpenAsync(FileAccessMode::Read)).get();
+	std::vector<unsigned char> gameData;
+	ReadFileToMemory(gameData, gameFile);
 
-	auto gameInfo = GenerateGameInfo(gameFile->Path, gameStream->Size);
+	auto gameInfo = GenerateGameInfo(gameData);
 	if (!retro_load_game(&gameInfo))
 	{
 		return false;

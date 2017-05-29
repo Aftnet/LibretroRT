@@ -24,6 +24,7 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 CoreBase::CoreBase() :
 	timing(ref new SystemTiming),
 	geometry(ref new GameGeometry),
+	gameStream(nullptr),
 	pixelFormat(LibretroRT::PixelFormats::FormatUknown),
 	CoreSystemPath(Converter::PlatformToCPPString(Windows::ApplicationModel::Package::Current->InstalledLocation->Path)),
 	CoreSaveGamePath(Converter::PlatformToCPPString(Windows::Storage::ApplicationData::Current->LocalFolder->Path))
@@ -58,14 +59,25 @@ retro_game_info CoreBase::GenerateGameInfo(String^ gamePath, unsigned long long 
 	return gameInfo;
 }
 
-retro_game_info CoreBase::GenerateGameInfo(const Platform::Array<unsigned char>^ gameData)
+retro_game_info CoreBase::GenerateGameInfo(const std::vector<unsigned char>& gameData)
 {
 	retro_game_info gameInfo;
-	gameInfo.data = gameData->Data;
+	gameInfo.data = gameData.data();
 	gameInfo.path = nullptr;
-	gameInfo.size = gameData->Length;
+	gameInfo.size = gameData.size();
 	gameInfo.meta = nullptr;
 	return gameInfo;
+}
+
+void CoreBase::ReadFileToMemory(std::vector<unsigned char>& data, IStorageFile^ file)
+{
+	auto stream = concurrency::create_task(file->OpenAsync(FileAccessMode::Read)).get();
+	data.resize(stream->Size);
+	auto dataArray = Platform::ArrayReference<unsigned char>(data.data(), stream->Size);
+
+	auto reader = ref new Windows::Storage::Streams::DataReader(stream);
+	concurrency::create_task(reader->LoadAsync(stream->Size)).get();
+	reader->ReadBytes(dataArray);
 }
 
 bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
