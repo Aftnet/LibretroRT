@@ -125,6 +125,8 @@
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>WIN32;FINAL_VERSION;_DEBUG;_WINDOWS;_USRDLL;NO_LINK;C_CORE;_CRT_SECURE_NO_WARNINGS;LSB_FIRST;SPEEDHAX=1;__LIBRETRO__;INLINE=_inline;FRONTEND_SUPPORTS_RGB565;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +138,8 @@
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>WIN32;FINAL_VERSION;NDEBUG;_WINDOWS;_USRDLL;NO_LINK;C_CORE;_CRT_SECURE_NO_WARNINGS;LSB_FIRST;SPEEDHAX=1;__LIBRETRO__;INLINE=_inline;FRONTEND_SUPPORTS_RGB565;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +151,8 @@
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>WIN32;FINAL_VERSION;_DEBUG;_WINDOWS;_USRDLL;NO_LINK;C_CORE;_CRT_SECURE_NO_WARNINGS;LSB_FIRST;SPEEDHAX=1;__LIBRETRO__;INLINE=_inline;FRONTEND_SUPPORTS_RGB565;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +164,8 @@
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>WIN32;FINAL_VERSION;NDEBUG;_WINDOWS;_USRDLL;NO_LINK;C_CORE;_CRT_SECURE_NO_WARNINGS;LSB_FIRST;SPEEDHAX=1;__LIBRETRO__;INLINE=_inline;FRONTEND_SUPPORTS_RGB565;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,6 +177,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>WIN32;FINAL_VERSION;_DEBUG;_WINDOWS;_USRDLL;NO_LINK;C_CORE;_CRT_SECURE_NO_WARNINGS;LSB_FIRST;SPEEDHAX=1;__LIBRETRO__;INLINE=_inline;FRONTEND_SUPPORTS_RGB565;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,6 +190,8 @@
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>WIN32;FINAL_VERSION;NDEBUG;_WINDOWS;_USRDLL;NO_LINK;C_CORE;_CRT_SECURE_NO_WARNINGS;LSB_FIRST;SPEEDHAX=1;__LIBRETRO__;INLINE=_inline;FRONTEND_SUPPORTS_RGB565;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -188,7 +200,82 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\src\apu\blargg_common.h" />
+    <ClInclude Include="src\src\apu\blargg_config.h" />
+    <ClInclude Include="src\src\apu\blargg_source.h" />
+    <ClInclude Include="src\src\apu\Blip_Buffer.h" />
+    <ClInclude Include="src\src\apu\Effects_Buffer.h" />
+    <ClInclude Include="src\src\apu\Gb_Apu.h" />
+    <ClInclude Include="src\src\apu\Gb_Oscs.h" />
+    <ClInclude Include="src\src\apu\Multi_Buffer.h" />
+    <ClInclude Include="src\src\common\Array.h" />
+    <ClInclude Include="src\src\common\Patch.h" />
+    <ClInclude Include="src\src\common\Port.h" />
+    <ClInclude Include="src\src\common\SoundDriver.h" />
+    <ClInclude Include="src\src\common\Types.h" />
+    <ClInclude Include="src\src\gba\agbprint.h" />
+    <ClInclude Include="src\src\gba\armdis.h" />
+    <ClInclude Include="src\src\gba\bios.h" />
+    <ClInclude Include="src\src\gba\Cheats.h" />
+    <ClInclude Include="src\src\gba\CheatSearch.h" />
+    <ClInclude Include="src\src\gba\EEprom.h" />
+    <ClInclude Include="src\src\gba\elf.h" />
+    <ClInclude Include="src\src\gba\Flash.h" />
+    <ClInclude Include="src\src\gba\GBA.h" />
+    <ClInclude Include="src\src\gba\GBAcpu.h" />
+    <ClInclude Include="src\src\gba\gbafilter.h" />
+    <ClInclude Include="src\src\gba\GBAGfx.h" />
+    <ClInclude Include="src\src\gba\GBAinline.h" />
+    <ClInclude Include="src\src\gba\GBALink.h" />
+    <ClInclude Include="src\src\gba\GBASockClient.h" />
+    <ClInclude Include="src\src\gba\Globals.h" />
+    <ClInclude Include="src\src\gba\RTC.h" />
+    <ClInclude Include="src\src\gba\Sound.h" />
+    <ClInclude Include="src\src\gba\Sram.h" />
+    <ClInclude Include="src\src\libretro\libretro.h" />
+    <ClInclude Include="src\src\libretro\SoundRetro.h" />
+    <ClInclude Include="src\src\NLS.h" />
+    <ClInclude Include="src\src\System.h" />
     <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\src\apu\Blip_Buffer.cpp" />
+    <ClCompile Include="src\src\apu\Effects_Buffer.cpp" />
+    <ClCompile Include="src\src\apu\Gb_Apu.cpp" />
+    <ClCompile Include="src\src\apu\Gb_Apu_State.cpp" />
+    <ClCompile Include="src\src\apu\Gb_Oscs.cpp" />
+    <ClCompile Include="src\src\apu\Multi_Buffer.cpp" />
+    <ClCompile Include="src\src\common\Patch.cpp" />
+    <ClCompile Include="src\src\gba\agbprint.cpp" />
+    <ClCompile Include="src\src\gba\armdis.cpp" />
+    <ClCompile Include="src\src\gba\bios.cpp" />
+    <ClCompile Include="src\src\gba\Cheats.cpp" />
+    <ClCompile Include="src\src\gba\CheatSearch.cpp" />
+    <ClCompile Include="src\src\gba\EEprom.cpp" />
+    <ClCompile Include="src\src\gba\elf.cpp" />
+    <ClCompile Include="src\src\gba\Flash.cpp" />
+    <ClCompile Include="src\src\gba\GBA-arm.cpp" />
+    <ClCompile Include="src\src\gba\GBA-thumb.cpp" />
+    <ClCompile Include="src\src\gba\GBA.cpp" />
+    <ClCompile Include="src\src\gba\gbafilter.cpp" />
+    <ClCompile Include="src\src\gba\GBAGfx.cpp" />
+    <ClCompile Include="src\src\gba\GBALink.cpp" />
+    <ClCompile Include="src\src\gba\GBASockClient.cpp" />
+    <ClCompile Include="src\src\gba\Globals.cpp" />
+    <ClCompile Include="src\src\gba\Mode0.cpp" />
+    <ClCompile Include="src\src\gba\Mode1.cpp" />
+    <ClCompile Include="src\src\gba\Mode2.cpp" />
+    <ClCompile Include="src\src\gba\Mode3.cpp" />
+    <ClCompile Include="src\src\gba\Mode4.cpp" />
+    <ClCompile Include="src\src\gba\Mode5.cpp" />
+    <ClCompile Include="src\src\gba\remote.cpp" />
+    <ClCompile Include="src\src\gba\RTC.cpp" />
+    <ClCompile Include="src\src\gba\Sound.cpp" />
+    <ClCompile Include="src\src\gba\Sram.cpp" />
+    <ClCompile Include="src\src\libretro\libretro.cpp" />
+    <ClCompile Include="src\src\libretro\scrc32.cpp" />
+    <ClCompile Include="src\src\libretro\SoundRetro.cpp" />
+    <ClCompile Include="src\src\libretro\UtilRetro.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

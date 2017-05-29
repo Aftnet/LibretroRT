@@ -6,3 +6,7 @@
 	path = Snes9X/src
 	url = https://github.com/Aftnet/snes9x.git
 	branch = master
+[submodule "VBAM/src"]
+	path = VBAM/src
+	url = https://github.com/libretro/vbam-libretro.git
+	branch = master
