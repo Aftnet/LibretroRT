@@ -25,7 +25,7 @@ CoreBase::CoreBase() :
 	timing(ref new SystemTiming),
 	geometry(ref new GameGeometry),
 	gameStream(nullptr),
-	pixelFormat(LibretroRT::PixelFormats::FormatUknown),
+	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
 	CoreSystemPath(Converter::PlatformToCPPString(Windows::ApplicationModel::Package::Current->InstalledLocation->Path)),
 	CoreSaveGamePath(Converter::PlatformToCPPString(Windows::Storage::ApplicationData::Current->LocalFolder->Path))
 {
