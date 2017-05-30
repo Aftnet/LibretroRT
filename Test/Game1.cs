@@ -88,6 +88,10 @@ namespace Test
 
         private void EmuCore_GameGeometryChanged(GameGeometry geometry)
         {
+            if (FrameBuffer != null)
+            {
+                FrameBuffer.Dispose();
+            }
             FrameBuffer = new Texture2D(graphics.GraphicsDevice, (int)geometry.MaxWidth, (int)geometry.MaxHeight, false, SurfaceFormat.Bgr565);
         }
 

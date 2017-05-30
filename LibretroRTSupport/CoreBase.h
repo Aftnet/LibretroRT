@@ -58,6 +58,7 @@ namespace LibretroRTSupport
 		virtual event RenderVideoFrameDelegate ^ RenderVideoFrame;
 		virtual event GameGeometryChangedDelegate^ GameGeometryChanged;
 		virtual event SystemTimingChangedDelegate^ SystemTimingChanged;
+		virtual event PixelFormatChangedDelegate^ PixelFormatChanged;
 
 		virtual bool LoadGame(IStorageFile^ gameFile) = 0;
 		virtual void UnloadGame() = 0;
