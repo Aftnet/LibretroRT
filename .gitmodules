@@ -10,3 +10,7 @@
 	path = VBAM/src
 	url = https://github.com/libretro/vbam-libretro.git
 	branch = master
+[submodule "Nestopia/src"]
+	path = Nestopia/src
+	url = https://github.com/libretro/nestopia.git
+	branch = master
