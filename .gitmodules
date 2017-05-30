@@ -12,5 +12,5 @@
 	branch = master
 [submodule "Nestopia/src"]
 	path = Nestopia/src
-	url = https://github.com/libretro/nestopia.git
+	url = https://github.com/Aftnet/nestopia.git
 	branch = master
