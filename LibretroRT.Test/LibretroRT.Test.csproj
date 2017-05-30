@@ -95,6 +95,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NestopiaCoreTest.cs" />
     <Compile Include="VBAMCoreTest.cs" />
     <Compile Include="GPGXCoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,6 +123,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Roms\PokemonFireRed.gba">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Roms\SMB3.nes">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -157,6 +161,10 @@
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
       <Name>LibretroRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NestopiaRT\NestopiaRT.vcxproj">
+      <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
+      <Name>NestopiaRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
       <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>

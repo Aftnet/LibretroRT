@@ -12,6 +12,7 @@ CoreWrapper::CoreWrapper(ICore^ wrappedCore) :
 	core->GetInputState += ref new GetInputStateDelegate(this, &CoreWrapper::OnGetInputState);
 	core->GameGeometryChanged += ref new GameGeometryChangedDelegate(this, &CoreWrapper::OnGameGeometryChanged);
 	core->SystemTimingChanged += ref new SystemTimingChangedDelegate(this, &CoreWrapper::OnSystemTimingChanged);
+	core->PixelFormatChanged += ref new PixelFormatChangedDelegate(this, &CoreWrapper::OnPixelFormatChanged);
 }
 
 bool CoreWrapper::LoadGame(Windows::Storage::IStorageFile^ gameFile)
@@ -75,4 +76,9 @@ void CoreWrapper::OnGameGeometryChanged(GameGeometry^ geometry)
 void CoreWrapper::OnSystemTimingChanged(SystemTiming^ timing)
 {
 	SystemTimingChanged(timing);
+}
+
+void CoreWrapper::OnPixelFormatChanged(PixelFormats format)
+{
+	PixelFormatChanged(format);
 }

@@ -17,6 +17,7 @@ namespace LibretroRT
 
 	public delegate void GameGeometryChangedDelegate(GameGeometry^ geometry);
 	public delegate void SystemTimingChangedDelegate(SystemTiming^ timing);
+	public delegate void PixelFormatChangedDelegate(PixelFormats format);
 
 	public interface class ICore
 	{
@@ -46,6 +47,7 @@ namespace LibretroRT
 		event GetInputStateDelegate^ GetInputState;
 		event GameGeometryChangedDelegate^ GameGeometryChanged;
 		event SystemTimingChangedDelegate^ SystemTimingChanged;
+		event PixelFormatChangedDelegate^ PixelFormatChanged;
 	};
 }
 

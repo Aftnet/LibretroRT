@@ -118,6 +118,7 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	{
 		auto pix = reinterpret_cast<enum retro_pixel_format*>(data);
 		pixelFormat = Converter::ConvertToPixelFormat(*pix);
+		PixelFormatChanged(pixelFormat);
 		return true;
 	}
 	case RETRO_ENVIRONMENT_SET_GEOMETRY:

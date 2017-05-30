@@ -17,7 +17,21 @@ namespace Test
     /// </summary>
     public class Game1 : Game
     {
-        public enum ConsoleType { GBA, Genesis, SNES };
+        public enum ConsoleType { GBA, Genesis, NES, SNES };
+
+        private static readonly IReadOnlyDictionary<PixelFormats, SurfaceFormat> PixelFormatToSurfaceMapping = new Dictionary<PixelFormats, SurfaceFormat>
+        {
+            { PixelFormats.Format0RGB1555, SurfaceFormat.Bgra5551 },
+            { PixelFormats.FormatRGB565, SurfaceFormat.Bgr565 },
+            { PixelFormats.FormatXRGB8888, SurfaceFormat.Color },
+        };
+
+        private static readonly IReadOnlyDictionary<PixelFormats, int> PixelFormatToSizeMapping = new Dictionary<PixelFormats, int>
+        {
+            { PixelFormats.Format0RGB1555, 2 },
+            { PixelFormats.FormatRGB565, 2 },
+            { PixelFormats.FormatXRGB8888, 4 },
+        };
 
         private readonly IReadOnlyDictionary<ConsoleType, ICore> ConsoleTypeCoreMapping;
 
@@ -40,6 +54,7 @@ namespace Test
                     currentCore.GetInputState -= EmuCore_GetInputState;
                     currentCore.GameGeometryChanged -= EmuCore_GameGeometryChanged;
                     currentCore.SystemTimingChanged -= EmuCore_SystemTimingChanged;
+                    currentCore.PixelFormatChanged -= EmuCore_PixelFormatChanged;
                 }
 
                 currentCore = value;
@@ -53,6 +68,7 @@ namespace Test
                 currentCore.GetInputState += EmuCore_GetInputState;
                 currentCore.GameGeometryChanged += EmuCore_GameGeometryChanged;
                 currentCore.SystemTimingChanged += EmuCore_SystemTimingChanged;
+                currentCore.PixelFormatChanged += EmuCore_PixelFormatChanged;
             }
         }
 
@@ -77,6 +93,7 @@ namespace Test
                 { ConsoleType.GBA, VBAMRT.VBAMCore.Instance },
                 { ConsoleType.Genesis, GPGXRT.GPGXCore.Instance },
                 { ConsoleType.SNES, Snes9XRT.Snes9XCore.Instance },
+                { ConsoleType.NES, NestopiaRT.NestopiaCore.Instance },
             };
         }
 
@@ -85,9 +102,21 @@ namespace Test
             MusicPlayer.SetSampleRate((uint)timing.SampleRate);
         }
 
+
         private void EmuCore_GameGeometryChanged(GameGeometry geometry)
         {
-            FrameBuffer = new Texture2D(graphics.GraphicsDevice, (int)geometry.MaxWidth, (int)geometry.MaxHeight, false, SurfaceFormat.Bgr565);
+            lock (CurrentCoreLock)
+            {
+                UpdateFrameBuffer(geometry, CurrentCore.PixelFormat);
+            }
+        }
+
+        private void EmuCore_PixelFormatChanged(PixelFormats format)
+        {
+            lock (CurrentCoreLock)
+            {
+                UpdateFrameBuffer(CurrentCore.Geometry, format);
+            }
         }
 
         private short EmuCore_GetInputState(uint port, InputTypes inputType)
@@ -107,7 +136,8 @@ namespace Test
 
         private void EmuCore_RenderVideoFrame(byte[] frameBuffer, uint width, uint height, uint pitch)
         {
-            var targetArea = new Rectangle(0, 0, (int)CurrentCore.Geometry.MaxWidth, (int)height);
+            var targetWidth = pitch / PixelFormatToSizeMapping[CurrentCore.PixelFormat];
+            var targetArea = new Rectangle(0, 0, (int)targetWidth, (int)height);
             FrameBuffer.SetData<byte>(0, targetArea, frameBuffer, 0, frameBuffer.Length);        
         }
 
@@ -128,7 +158,7 @@ namespace Test
                     CurrentCore?.UnloadGame();
                     CurrentCore = ConsoleTypeCoreMapping[consoleType];
                     CurrentCore.LoadGame(CurrentRomFile);
-                    EmuCore_GameGeometryChanged(CurrentCore.Geometry);
+                    UpdateFrameBuffer(CurrentCore.Geometry, CurrentCore.PixelFormat);
                     EmuCore_SystemTimingChanged(CurrentCore.Timing);
                 }
             });
@@ -264,6 +294,22 @@ namespace Test
             }
 
             base.Draw(gameTime);
+        }
+
+        private void UpdateFrameBuffer(GameGeometry geometry, PixelFormats pixelFormat)
+        {
+            var requestedSurfaceFormat = PixelFormatToSurfaceMapping[pixelFormat];
+
+            int frameBufferSize = 2048;
+            if (FrameBuffer == null || requestedSurfaceFormat != FrameBuffer.Format)
+            {
+                if (FrameBuffer != null)
+                {
+                    FrameBuffer.Dispose();
+                }
+
+                FrameBuffer = new Texture2D(graphics.GraphicsDevice, frameBufferSize, frameBufferSize, false, requestedSurfaceFormat);
+            }
         }
 
         private static Rectangle ComputeBestFittingSize(Point viewportSize, float aspectRatio)
