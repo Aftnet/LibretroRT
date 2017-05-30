@@ -21,6 +21,8 @@ namespace LibretroRT.InputManager
             { InputTypes.DeviceIdJoypadY, VirtualKey.X },
             { InputTypes.DeviceIdJoypadL, VirtualKey.Q },
             { InputTypes.DeviceIdJoypadR, VirtualKey.W },
+            { InputTypes.DeviceIdJoypadL2, VirtualKey.E },
+            { InputTypes.DeviceIdJoypadR2, VirtualKey.R },
             { InputTypes.DeviceIdJoypadSelect, VirtualKey.O },
             { InputTypes.DeviceIdJoypadStart, VirtualKey.P },
         };
@@ -37,6 +39,8 @@ namespace LibretroRT.InputManager
             { InputTypes.DeviceIdJoypadY, GamepadButtons.Y },
             { InputTypes.DeviceIdJoypadL, GamepadButtons.LeftShoulder },
             { InputTypes.DeviceIdJoypadR, GamepadButtons.RightShoulder },
+            { InputTypes.DeviceIdJoypadL2, GamepadButtons.Paddle1 },
+            { InputTypes.DeviceIdJoypadR2, GamepadButtons.Paddle2 },
             { InputTypes.DeviceIdJoypadSelect, GamepadButtons.View },
             { InputTypes.DeviceIdJoypadStart, GamepadButtons.Menu },
         };

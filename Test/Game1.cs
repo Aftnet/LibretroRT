@@ -17,7 +17,7 @@ namespace Test
     /// </summary>
     public class Game1 : Game
     {
-        public enum ConsoleType { GBA, Genesis, SNES };
+        public enum ConsoleType { GBA, Genesis, NES, SNES };
 
         private readonly IReadOnlyDictionary<ConsoleType, ICore> ConsoleTypeCoreMapping;
 
@@ -77,6 +77,7 @@ namespace Test
                 { ConsoleType.GBA, VBAMRT.VBAMCore.Instance },
                 { ConsoleType.Genesis, GPGXRT.GPGXCore.Instance },
                 { ConsoleType.SNES, Snes9XRT.Snes9XCore.Instance },
+                { ConsoleType.NES, NestopiaRT.NestopiaCore.Instance },
             };
         }
 

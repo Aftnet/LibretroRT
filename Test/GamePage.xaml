@@ -18,6 +18,7 @@
                     <MenuFlyout>
                         <MenuFlyoutItem Text="GBA" Click="OpenGBARomButton_Click" />
                         <MenuFlyoutItem Text="Genesis" Click="OpenGenesisRomButton_Click" />
+                        <MenuFlyoutItem Text="NES" Click="OpenNESRomButton_Click" />
                         <MenuFlyoutItem Text="SNES" Click="OpenSNESRomButton_Click" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>

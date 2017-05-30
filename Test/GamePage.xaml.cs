@@ -33,6 +33,11 @@ namespace Test
             OpenRomHandler(Game1.ConsoleType.Genesis);
         }
 
+        private void OpenNESRomButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenRomHandler(Game1.ConsoleType.NES);
+        }
+
         private void OpenSNESRomButton_Click(object sender, RoutedEventArgs e)
         {
             OpenRomHandler(Game1.ConsoleType.SNES);
