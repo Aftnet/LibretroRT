@@ -93,7 +93,7 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	case RETRO_ENVIRONMENT_GET_CAN_DUPE:
 	{
 		auto dataPtr = reinterpret_cast<bool*>(data);
-		*dataPtr = false;
+		*dataPtr = true;
 		return true;
 	}
 	case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:

@@ -136,6 +136,9 @@ namespace Test
 
         private void EmuCore_RenderVideoFrame(byte[] frameBuffer, uint width, uint height, uint pitch)
         {
+            if (FrameBuffer == null)
+                return;
+
             var targetWidth = pitch / PixelFormatToSizeMapping[CurrentCore.PixelFormat];
             var targetArea = new Rectangle(0, 0, (int)targetWidth, (int)height);
             FrameBuffer.SetData<byte>(0, targetArea, frameBuffer, 0, frameBuffer.Length);        

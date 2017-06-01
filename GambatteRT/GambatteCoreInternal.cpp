@@ -68,8 +68,8 @@ bool GambatteCoreInternal::LoadGame(IStorageFile^ gameFile)
 
 	auto gameInfo = GenerateGameInfo(gameData);
 
-	static std::string gamePath = Converter::PlatformToCPPString(gameFile->Name);
-	gameInfo.path = gamePath.data();
+	//static std::string gamePath = Converter::PlatformToCPPString(gameFile->Name);
+	//gameInfo.path = gamePath.data();
 	if (!retro_load_game(&gameInfo))
 	{
 		return false;
