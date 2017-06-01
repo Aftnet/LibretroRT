@@ -207,11 +207,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
+    <ClInclude Include="FCEUMMCore.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Class1.h" />
+    <ClInclude Include="FCEUMMCoreInternal.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
+    <ClCompile Include="FCEUMMCore.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -220,7 +222,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Class1.cpp" />
+    <ClCompile Include="FCEUMMCoreInternal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FCEUMM\FCEUMM.vcxproj">

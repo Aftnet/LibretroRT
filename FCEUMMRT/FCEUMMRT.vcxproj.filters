@@ -8,12 +8,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Class1.cpp" />
     <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
+    <ClCompile Include="FCEUMMCoreInternal.cpp" />
+    <ClCompile Include="FCEUMMCore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Class1.h" />
     <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
+    <ClInclude Include="FCEUMMCoreInternal.h" />
+    <ClInclude Include="FCEUMMCore.h" />
   </ItemGroup>
 </Project>
