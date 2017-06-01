@@ -17,7 +17,7 @@ namespace Test
     /// </summary>
     public class Game1 : Game
     {
-        public enum ConsoleType { GBA, Genesis, NES, SNES };
+        public enum ConsoleType { GB, GBA, Genesis, NES, SNES };
 
         private static readonly IReadOnlyDictionary<PixelFormats, SurfaceFormat> PixelFormatToSurfaceMapping = new Dictionary<PixelFormats, SurfaceFormat>
         {
@@ -90,6 +90,7 @@ namespace Test
 
             ConsoleTypeCoreMapping = new Dictionary<ConsoleType, ICore>
             {
+                { ConsoleType.GB, GambatteRT.GambatteCore.Instance },
                 { ConsoleType.GBA, VBAMRT.VBAMCore.Instance },
                 { ConsoleType.Genesis, GPGXRT.GPGXCore.Instance },
                 { ConsoleType.SNES, Snes9XRT.Snes9XCore.Instance },
