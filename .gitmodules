@@ -4,7 +4,7 @@
 	branch = master
 [submodule "Snes9X/src"]
 	path = Snes9X/src
-	url = https://github.com/Aftnet/snes9x.git
+	url = https://github.com/libretro/snes9x.git
 	branch = master
 [submodule "VBAM/src"]
 	path = VBAM/src
@@ -12,7 +12,7 @@
 	branch = master
 [submodule "Nestopia/src"]
 	path = Nestopia/src
-	url = https://github.com/Aftnet/nestopia.git
+	url = https://github.com/libretro/nestopia.git
 	branch = master
 [submodule "FCEUMM/src"]
 	path = FCEUMM/src
