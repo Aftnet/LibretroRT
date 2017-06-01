@@ -18,3 +18,7 @@
 	path = FCEUMM/src
 	url = https://github.com/libretro/libretro-fceumm.git
 	branch = master
+[submodule "Gambatte/src"]
+	path = Gambatte/src
+	url = https://github.com/libretro/gambatte-libretro.git
+	branch = master
