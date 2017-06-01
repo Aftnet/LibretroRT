@@ -95,6 +95,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GambatteCoreTest.cs" />
     <Compile Include="FCEUMMCoreTest.cs" />
     <Compile Include="NestopiaCoreTest.cs" />
     <Compile Include="VBAMCoreTest.cs" />
@@ -129,6 +130,9 @@
     <Content Include="Roms\SMB3.nes">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Roms\PokemonSilver.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\UnitTestApp.rd.xml" />
@@ -158,6 +162,10 @@
     <ProjectReference Include="..\FCEUMMRT\FCEUMMRT.vcxproj">
       <Project>{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}</Project>
       <Name>FCEUMMRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GambatteRT\GambatteRT.vcxproj">
+      <Project>{d19bfce3-0233-4b39-8ea5-fa0ee0d4a753}</Project>
+      <Name>GambatteRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\GPGXRT\GPGXRT.vcxproj">
       <Project>{82569d80-5620-4012-8314-26bfecb7c9d8}</Project>
