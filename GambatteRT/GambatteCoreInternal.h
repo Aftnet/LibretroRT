@@ -6,12 +6,12 @@ using namespace Platform;
 using namespace LibretroRTSupport;
 using namespace Windows::Storage;
 
-namespace FCEUMMRT
+namespace GambatteRT
 {
-	private ref class FCEUMMCoreInternal sealed : public LibretroRTSupport::CoreBase
+	private ref class GambatteCoreInternal sealed : public LibretroRTSupport::CoreBase
 	{
 	protected private:
-		FCEUMMCoreInternal();
+		GambatteCoreInternal();
 
 	internal:
 		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
@@ -19,8 +19,8 @@ namespace FCEUMMRT
 	public:
 		property unsigned int SerializationSize { unsigned int get() override; }
 
-		static property FCEUMMCoreInternal^ Instance { FCEUMMCoreInternal^ get(); }
-		virtual ~FCEUMMCoreInternal();
+		static property GambatteCoreInternal^ Instance { GambatteCoreInternal^ get(); }
+		virtual ~GambatteCoreInternal();
 
 		bool LoadGame(IStorageFile^ gameFile) override;
 		void UnloadGame() override;
