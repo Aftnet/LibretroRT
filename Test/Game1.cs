@@ -93,7 +93,7 @@ namespace Test
                 { ConsoleType.GBA, VBAMRT.VBAMCore.Instance },
                 { ConsoleType.Genesis, GPGXRT.GPGXCore.Instance },
                 { ConsoleType.SNES, Snes9XRT.Snes9XCore.Instance },
-                { ConsoleType.NES, NestopiaRT.NestopiaCore.Instance },
+                { ConsoleType.NES, FCEUMMRT.FCEUMMCore.Instance },
             };
         }
 

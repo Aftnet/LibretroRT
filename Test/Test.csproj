@@ -169,6 +169,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FCEUMMRT\FCEUMMRT.vcxproj">
+      <Project>{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}</Project>
+      <Name>FCEUMMRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GPGXRT\GPGXRT.vcxproj">
       <Project>{82569d80-5620-4012-8314-26bfecb7c9d8}</Project>
       <Name>GPGXRT</Name>
