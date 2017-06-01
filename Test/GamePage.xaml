@@ -16,10 +16,11 @@
             <AppBarButton Icon="OpenFile" Label="Open rom">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="GBA" Click="OpenGBARomButton_Click" />
+                        <MenuFlyoutItem Text="Game Boy" Click="OpenGBRomButton_Click" />
+                        <MenuFlyoutItem Text="Game Boy Advance" Click="OpenGBARomButton_Click" />
                         <MenuFlyoutItem Text="Genesis" Click="OpenGenesisRomButton_Click" />
                         <MenuFlyoutItem Text="NES" Click="OpenNESRomButton_Click" />
-                        <MenuFlyoutItem Text="SNES" Click="OpenSNESRomButton_Click" />
+                        <MenuFlyoutItem Text="Super Nintendo" Click="OpenSNESRomButton_Click" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>

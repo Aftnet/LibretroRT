@@ -17,7 +17,7 @@ namespace Test
     /// </summary>
     public class Game1 : Game
     {
-        public enum ConsoleType { GBA, Genesis, NES, SNES };
+        public enum ConsoleType { GB, GBA, Genesis, NES, SNES };
 
         private static readonly IReadOnlyDictionary<PixelFormats, SurfaceFormat> PixelFormatToSurfaceMapping = new Dictionary<PixelFormats, SurfaceFormat>
         {
@@ -90,10 +90,11 @@ namespace Test
 
             ConsoleTypeCoreMapping = new Dictionary<ConsoleType, ICore>
             {
+                { ConsoleType.GB, GambatteRT.GambatteCore.Instance },
                 { ConsoleType.GBA, VBAMRT.VBAMCore.Instance },
                 { ConsoleType.Genesis, GPGXRT.GPGXCore.Instance },
                 { ConsoleType.SNES, Snes9XRT.Snes9XCore.Instance },
-                { ConsoleType.NES, NestopiaRT.NestopiaCore.Instance },
+                { ConsoleType.NES, FCEUMMRT.FCEUMMCore.Instance },
             };
         }
 
@@ -136,6 +137,9 @@ namespace Test
 
         private void EmuCore_RenderVideoFrame(byte[] frameBuffer, uint width, uint height, uint pitch)
         {
+            if (FrameBuffer == null)
+                return;
+
             var targetWidth = pitch / PixelFormatToSizeMapping[CurrentCore.PixelFormat];
             var targetArea = new Rectangle(0, 0, (int)targetWidth, (int)height);
             FrameBuffer.SetData<byte>(0, targetArea, frameBuffer, 0, frameBuffer.Length);        

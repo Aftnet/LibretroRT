@@ -1,4 +1,4 @@
-﻿namespace LibretroRT.Test
+﻿namespace LibretroRT.Test.Cores
 {
     public class VBAMCoreTest : TestBase
     {

@@ -23,6 +23,11 @@ namespace Test
             _game = MonoGame.Framework.XamlGame<Game1>.Create(launchArguments, Window.Current.CoreWindow, swapChainPanel);
         }
 
+        private void OpenGBRomButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenRomHandler(Game1.ConsoleType.GB);
+        }
+
         private void OpenGBARomButton_Click(object sender, RoutedEventArgs e)
         {
             OpenRomHandler(Game1.ConsoleType.GBA);
