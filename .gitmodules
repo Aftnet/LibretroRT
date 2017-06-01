@@ -14,3 +14,7 @@
 	path = Nestopia/src
 	url = https://github.com/Aftnet/nestopia.git
 	branch = master
+[submodule "FCEUMM/src"]
+	path = FCEUMM/src
+	url = https://github.com/libretro/libretro-fceumm.git
+	branch = master
