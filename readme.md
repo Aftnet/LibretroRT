@@ -26,7 +26,7 @@ Click image to play video
 ## Current state
 
 - Created a framework to speed up porting of software rendering based Libretro cores to WinRT components
-- Ported GenesisPlusGX core to WinRT
+- Ported GenesisPlusGX, Snes9x, FCEUMM, Nestopia (doesn't work well, use FCEUMM instead), VBAM, Ganbatte (unstable)
 - Created audio player WinRT components to interop between Libretro's audio rendering interface and Windows 10's [AudioGraph](https://docs.microsoft.com/en-us/windows/uwp/audio-video-camera/audio-graphs) API
 - Created input manager WinRT component to interop between Libretro's input polling interface and Windows 10's [Gamepad APIs](https://docs.microsoft.com/en-us/uwp/api/windows.gaming.input.gamepad)
 - Created minimal C# [Monogame](http://www.monogame.net/) based front end for testing
