@@ -125,6 +125,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>__LIBRETRO__;WANT_GRIFFIN;SOUND_QUALITY=0;INLINE=_inline;PSS_STYLE=2;PATH_MAX=1024;FCEU_VERSION_NUMERIC=9813;FRONTEND_SUPPORTS_RGB565;_CRT_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +138,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>__LIBRETRO__;WANT_GRIFFIN;SOUND_QUALITY=0;INLINE=_inline;PSS_STYLE=2;PATH_MAX=1024;FCEU_VERSION_NUMERIC=9813;FRONTEND_SUPPORTS_RGB565;_CRT_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +151,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>__LIBRETRO__;WANT_GRIFFIN;SOUND_QUALITY=0;INLINE=_inline;PSS_STYLE=2;PATH_MAX=1024;FCEU_VERSION_NUMERIC=9813;FRONTEND_SUPPORTS_RGB565;_CRT_SECURE_NO_WARNINGS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +164,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>__LIBRETRO__;WANT_GRIFFIN;SOUND_QUALITY=0;INLINE=_inline;PSS_STYLE=2;PATH_MAX=1024;FCEU_VERSION_NUMERIC=9813;FRONTEND_SUPPORTS_RGB565;_CRT_SECURE_NO_WARNINGS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,6 +177,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>__LIBRETRO__;WANT_GRIFFIN;SOUND_QUALITY=0;INLINE=_inline;PSS_STYLE=2;PATH_MAX=1024;FCEU_VERSION_NUMERIC=9813;FRONTEND_SUPPORTS_RGB565;_CRT_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,6 +190,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>__LIBRETRO__;WANT_GRIFFIN;SOUND_QUALITY=0;INLINE=_inline;PSS_STYLE=2;PATH_MAX=1024;FCEU_VERSION_NUMERIC=9813;FRONTEND_SUPPORTS_RGB565;_CRT_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -188,7 +200,205 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\src\boards\emu2413.h" />
+    <ClInclude Include="src\src\boards\mapinc.h" />
+    <ClInclude Include="src\src\boards\mmc3.h" />
+    <ClInclude Include="src\src\boards\__serial.h" />
+    <ClInclude Include="src\src\drivers\libretro\libretro.h" />
+    <ClInclude Include="src\src\ines.h" />
+    <ClInclude Include="src\src\input\fkb.h" />
+    <ClInclude Include="src\src\input\share.h" />
+    <ClInclude Include="src\src\input\suborkb.h" />
+    <ClInclude Include="src\src\unif.h" />
+    <ClInclude Include="src\src\x6502.h" />
+    <ClInclude Include="src\src\x6502struct.h" />
     <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\src\boards\01-222.c" />
+    <ClCompile Include="src\src\boards\09-034a.c" />
+    <ClCompile Include="src\src\boards\103.c" />
+    <ClCompile Include="src\src\boards\104.c" />
+    <ClCompile Include="src\src\boards\106.c" />
+    <ClCompile Include="src\src\boards\108.c" />
+    <ClCompile Include="src\src\boards\112.c" />
+    <ClCompile Include="src\src\boards\116.c" />
+    <ClCompile Include="src\src\boards\117.c" />
+    <ClCompile Include="src\src\boards\120.c" />
+    <ClCompile Include="src\src\boards\121.c" />
+    <ClCompile Include="src\src\boards\12in1.c" />
+    <ClCompile Include="src\src\boards\15.c" />
+    <ClCompile Include="src\src\boards\151.c" />
+    <ClCompile Include="src\src\boards\156.c" />
+    <ClCompile Include="src\src\boards\158B.c" />
+    <ClCompile Include="src\src\boards\164.c" />
+    <ClCompile Include="src\src\boards\168.c" />
+    <ClCompile Include="src\src\boards\170.c" />
+    <ClCompile Include="src\src\boards\175.c" />
+    <ClCompile Include="src\src\boards\177.c" />
+    <ClCompile Include="src\src\boards\178.c" />
+    <ClCompile Include="src\src\boards\18.c" />
+    <ClCompile Include="src\src\boards\183.c" />
+    <ClCompile Include="src\src\boards\185.c" />
+    <ClCompile Include="src\src\boards\186.c" />
+    <ClCompile Include="src\src\boards\187.c" />
+    <ClCompile Include="src\src\boards\189.c" />
+    <ClCompile Include="src\src\boards\190.c" />
+    <ClCompile Include="src\src\boards\193.c" />
+    <ClCompile Include="src\src\boards\199.c" />
+    <ClCompile Include="src\src\boards\206.c" />
+    <ClCompile Include="src\src\boards\208.c" />
+    <ClCompile Include="src\src\boards\222.c" />
+    <ClCompile Include="src\src\boards\225.c" />
+    <ClCompile Include="src\src\boards\228.c" />
+    <ClCompile Include="src\src\boards\230.c" />
+    <ClCompile Include="src\src\boards\232.c" />
+    <ClCompile Include="src\src\boards\234.c" />
+    <ClCompile Include="src\src\boards\235.c" />
+    <ClCompile Include="src\src\boards\244.c" />
+    <ClCompile Include="src\src\boards\246.c" />
+    <ClCompile Include="src\src\boards\252.c" />
+    <ClCompile Include="src\src\boards\253.c" />
+    <ClCompile Include="src\src\boards\32.c" />
+    <ClCompile Include="src\src\boards\33.c" />
+    <ClCompile Include="src\src\boards\34.c" />
+    <ClCompile Include="src\src\boards\36.c" />
+    <ClCompile Include="src\src\boards\3d-block.c" />
+    <ClCompile Include="src\src\boards\40.c" />
+    <ClCompile Include="src\src\boards\41.c" />
+    <ClCompile Include="src\src\boards\411120-c.c" />
+    <ClCompile Include="src\src\boards\42.c" />
+    <ClCompile Include="src\src\boards\43.c" />
+    <ClCompile Include="src\src\boards\46.c" />
+    <ClCompile Include="src\src\boards\50.c" />
+    <ClCompile Include="src\src\boards\51.c" />
+    <ClCompile Include="src\src\boards\57.c" />
+    <ClCompile Include="src\src\boards\603-5052.c" />
+    <ClCompile Include="src\src\boards\62.c" />
+    <ClCompile Include="src\src\boards\65.c" />
+    <ClCompile Include="src\src\boards\67.c" />
+    <ClCompile Include="src\src\boards\68.c" />
+    <ClCompile Include="src\src\boards\69.c" />
+    <ClCompile Include="src\src\boards\71.c" />
+    <ClCompile Include="src\src\boards\72.c" />
+    <ClCompile Include="src\src\boards\77.c" />
+    <ClCompile Include="src\src\boards\79.c" />
+    <ClCompile Include="src\src\boards\80.c" />
+    <ClCompile Include="src\src\boards\8157.c" />
+    <ClCompile Include="src\src\boards\82.c" />
+    <ClCompile Include="src\src\boards\8237.c" />
+    <ClCompile Include="src\src\boards\830118C.c" />
+    <ClCompile Include="src\src\boards\88.c" />
+    <ClCompile Include="src\src\boards\8in1.c" />
+    <ClCompile Include="src\src\boards\90.c" />
+    <ClCompile Include="src\src\boards\91.c" />
+    <ClCompile Include="src\src\boards\96.c" />
+    <ClCompile Include="src\src\boards\99.c" />
+    <ClCompile Include="src\src\boards\a9746.c" />
+    <ClCompile Include="src\src\boards\ac-08.c" />
+    <ClCompile Include="src\src\boards\addrlatch.c" />
+    <ClCompile Include="src\src\boards\ax5705.c" />
+    <ClCompile Include="src\src\boards\bandai.c" />
+    <ClCompile Include="src\src\boards\bb.c" />
+    <ClCompile Include="src\src\boards\bmc13in1jy110.c" />
+    <ClCompile Include="src\src\boards\bmc42in1r.c" />
+    <ClCompile Include="src\src\boards\bmc64in1nr.c" />
+    <ClCompile Include="src\src\boards\bmc70in1.c" />
+    <ClCompile Include="src\src\boards\BMW8544.c" />
+    <ClCompile Include="src\src\boards\bonza.c" />
+    <ClCompile Include="src\src\boards\bs-5.c" />
+    <ClCompile Include="src\src\boards\cityfighter.c" />
+    <ClCompile Include="src\src\boards\coolboy.c" />
+    <ClCompile Include="src\src\boards\copyfami_emu.c" />
+    <ClCompile Include="src\src\boards\copyfami_hwi.c" />
+    <ClCompile Include="src\src\boards\dance2000.c" />
+    <ClCompile Include="src\src\boards\datalatch.c" />
+    <ClCompile Include="src\src\boards\dream.c" />
+    <ClCompile Include="src\src\boards\edu2000.c" />
+    <ClCompile Include="src\src\boards\eh8813a.c" />
+    <ClCompile Include="src\src\boards\emu2413.c" />
+    <ClCompile Include="src\src\boards\et-100.c" />
+    <ClCompile Include="src\src\boards\et-4320.c" />
+    <ClCompile Include="src\src\boards\f-15.c" />
+    <ClCompile Include="src\src\boards\famicombox.c" />
+    <ClCompile Include="src\src\boards\ffe.c" />
+    <ClCompile Include="src\src\boards\fk23c.c" />
+    <ClCompile Include="src\src\boards\ghostbusters63in1.c" />
+    <ClCompile Include="src\src\boards\gs-2004.c" />
+    <ClCompile Include="src\src\boards\gs-2013.c" />
+    <ClCompile Include="src\src\boards\h2288.c" />
+    <ClCompile Include="src\src\boards\hp898f.c" />
+    <ClCompile Include="src\src\boards\karaoke.c" />
+    <ClCompile Include="src\src\boards\kof97.c" />
+    <ClCompile Include="src\src\boards\KS7012.c" />
+    <ClCompile Include="src\src\boards\KS7013.c" />
+    <ClCompile Include="src\src\boards\ks7016.c" />
+    <ClCompile Include="src\src\boards\KS7017.c" />
+    <ClCompile Include="src\src\boards\KS7030.c" />
+    <ClCompile Include="src\src\boards\KS7031.c" />
+    <ClCompile Include="src\src\boards\KS7032.c" />
+    <ClCompile Include="src\src\boards\KS7037.c" />
+    <ClCompile Include="src\src\boards\KS7057.c" />
+    <ClCompile Include="src\src\boards\le05.c" />
+    <ClCompile Include="src\src\boards\lh32.c" />
+    <ClCompile Include="src\src\boards\lh53.c" />
+    <ClCompile Include="src\src\boards\malee.c" />
+    <ClCompile Include="src\src\boards\mihunche.c" />
+    <ClCompile Include="src\src\boards\mmc1.c" />
+    <ClCompile Include="src\src\boards\mmc2and4.c" />
+    <ClCompile Include="src\src\boards\mmc3.c" />
+    <ClCompile Include="src\src\boards\mmc5.c" />
+    <ClCompile Include="src\src\boards\n106.c" />
+    <ClCompile Include="src\src\boards\n625092.c" />
+    <ClCompile Include="src\src\boards\novel.c" />
+    <ClCompile Include="src\src\boards\onebus.c" />
+    <ClCompile Include="src\src\boards\pec-586.c" />
+    <ClCompile Include="src\src\boards\SA-9602B.c" />
+    <ClCompile Include="src\src\boards\sachen.c" />
+    <ClCompile Include="src\src\boards\sc-127.c" />
+    <ClCompile Include="src\src\boards\sheroes.c" />
+    <ClCompile Include="src\src\boards\sl1632.c" />
+    <ClCompile Include="src\src\boards\subor.c" />
+    <ClCompile Include="src\src\boards\super24.c" />
+    <ClCompile Include="src\src\boards\supervision.c" />
+    <ClCompile Include="src\src\boards\t-227-1.c" />
+    <ClCompile Include="src\src\boards\t-262.c" />
+    <ClCompile Include="src\src\boards\tengen.c" />
+    <ClCompile Include="src\src\boards\tf-1201.c" />
+    <ClCompile Include="src\src\boards\transformer.c" />
+    <ClCompile Include="src\src\boards\unrom512.c" />
+    <ClCompile Include="src\src\boards\vrc1.c" />
+    <ClCompile Include="src\src\boards\vrc2and4.c" />
+    <ClCompile Include="src\src\boards\vrc3.c" />
+    <ClCompile Include="src\src\boards\vrc5.c" />
+    <ClCompile Include="src\src\boards\vrc6.c" />
+    <ClCompile Include="src\src\boards\vrc7.c" />
+    <ClCompile Include="src\src\boards\vrc7p.c" />
+    <ClCompile Include="src\src\boards\yoko.c" />
+    <ClCompile Include="src\src\boards\__dummy_mapper.c" />
+    <ClCompile Include="src\src\boards\__serial.c" />
+    <ClCompile Include="src\src\drivers\libretro\griffin.c" />
+    <ClCompile Include="src\src\ines.c" />
+    <ClCompile Include="src\src\input\arkanoid.c" />
+    <ClCompile Include="src\src\input\bbox.c" />
+    <ClCompile Include="src\src\input\bworld.c" />
+    <ClCompile Include="src\src\input\cursor.c" />
+    <ClCompile Include="src\src\input\fkb.c" />
+    <ClCompile Include="src\src\input\ftrainer.c" />
+    <ClCompile Include="src\src\input\hypershot.c" />
+    <ClCompile Include="src\src\input\mahjong.c" />
+    <ClCompile Include="src\src\input\mouse.c" />
+    <ClCompile Include="src\src\input\oekakids.c" />
+    <ClCompile Include="src\src\input\pads.c" />
+    <ClCompile Include="src\src\input\pec586kb.c" />
+    <ClCompile Include="src\src\input\powerpad.c" />
+    <ClCompile Include="src\src\input\quiz.c" />
+    <ClCompile Include="src\src\input\shadow.c" />
+    <ClCompile Include="src\src\input\suborkb.c" />
+    <ClCompile Include="src\src\input\toprider.c" />
+    <ClCompile Include="src\src\input\zapper.c" />
+    <ClCompile Include="src\src\unif.c" />
+    <ClCompile Include="src\src\x6502.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
