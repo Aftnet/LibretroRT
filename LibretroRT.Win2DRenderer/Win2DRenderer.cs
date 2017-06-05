@@ -29,14 +29,20 @@ namespace LibretroRT.Win2DRenderer
         private CanvasBitmap CoreRenderTarget;
         private Rect CoreRenderTargetViewport = new Rect();
 
+        private readonly object CoreLock = new object();
+
         private ICore core = null;
         public ICore Core
         {
             get { return core; }
             private set
             {
+                if (core == value)
+                    return;
+
                 if (core != null)
                 {
+                    RunCore = false;
                     core.GameGeometryChanged -= CoreGameGeometryChanged;
                     core.PixelFormatChanged -= CorePixelFormatChanged;
                     core.RenderVideoFrame -= UpdateCoreRenderTarget;
@@ -51,7 +57,20 @@ namespace LibretroRT.Win2DRenderer
                 }
             }
         }
-        
+
+        private bool runCore = false;
+        public bool RunCore
+        {
+            get { return runCore; }
+            set
+            {
+                lock (CoreLock)
+                {
+                    runCore = value;
+                }
+            }
+        }
+
         public Win2DRenderer(CanvasAnimatedControl renderPanel)
         {
             RenderPanel = renderPanel;
@@ -62,13 +81,23 @@ namespace LibretroRT.Win2DRenderer
 
         private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            RenderPanel.Update -= RenderPanelUpdate;
+            RenderPanel.Draw -= RenderPanelDraw;
+            RenderPanel.Unloaded -= RenderPanelUnloaded;
+
             CoreRenderTarget?.Dispose();
             CoreRenderTarget = null;
         }
 
         private void RenderPanelUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            Core.RunFrame();
+            lock (CoreLock)
+            {
+                if (RunCore)
+                {
+                    Core.RunFrame();
+                }
+            }
         }
 
         private void RenderPanelDraw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
