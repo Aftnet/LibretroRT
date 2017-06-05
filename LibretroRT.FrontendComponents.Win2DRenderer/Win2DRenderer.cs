@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
 
-namespace LibretroRT.Win2DRenderer
+namespace LibretroRT.FrontendComponents.Win2DRenderer
 {
     public sealed class Win2DRenderer
     {

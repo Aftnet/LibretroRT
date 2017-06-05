@@ -39,8 +39,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gambatte", "Gambatte\Gambat
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GambatteRT", "GambatteRT\GambatteRT.vcxproj", "{D19BFCE3-0233-4B39-8EA5-FA0EE0D4A753}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibretroRT.Win2DRenderer", "LibretroRT.Win2DRenderer\LibretroRT.Win2DRenderer.csproj", "{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibretroRT.CoreTools", "LibretroRT.CoreTools\LibretroRT.CoreTools.vcxproj", "{6F5DE5AA-3BE6-4B95-85B6-DBB94BB79E1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{D7A445C0-F588-4D6C-A5BB-7DDBA94AC903}"
@@ -50,6 +48,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibretroRT.FrontendComponents.InputManager", "LibretroRT.FrontendComponents.InputManager\LibretroRT.FrontendComponents.InputManager.csproj", "{0555A467-B1B2-4301-901C-0489F63B8ECC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibretroRT.FrontendComponents.AudioGraphPlayer", "LibretroRT.FrontendComponents.AudioGraphPlayer\LibretroRT.FrontendComponents.AudioGraphPlayer.csproj", "{80DDA0D6-5181-49D1-9CB6-4A441E743086}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibretroRT.FrontendComponents.Win2DRenderer", "LibretroRT.FrontendComponents.Win2DRenderer\LibretroRT.FrontendComponents.Win2DRenderer.csproj", "{CC7FB684-776F-4902-BE3B-D354933EF2DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -319,22 +319,6 @@ Global
 		{D19BFCE3-0233-4B39-8EA5-FA0EE0D4A753}.Release|x64.Build.0 = Release|x64
 		{D19BFCE3-0233-4B39-8EA5-FA0EE0D4A753}.Release|x86.ActiveCfg = Release|Win32
 		{D19BFCE3-0233-4B39-8EA5-FA0EE0D4A753}.Release|x86.Build.0 = Release|Win32
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|ARM.ActiveCfg = Debug|ARM
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|ARM.Build.0 = Debug|ARM
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|x64.ActiveCfg = Debug|x64
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|x64.Build.0 = Debug|x64
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|x86.ActiveCfg = Debug|x86
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|x86.Build.0 = Debug|x86
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|ARM.ActiveCfg = Release|ARM
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|ARM.Build.0 = Release|ARM
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|x64.ActiveCfg = Release|x64
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|x64.Build.0 = Release|x64
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|x86.ActiveCfg = Release|x86
-		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|x86.Build.0 = Release|x86
 		{6F5DE5AA-3BE6-4B95-85B6-DBB94BB79E1F}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{6F5DE5AA-3BE6-4B95-85B6-DBB94BB79E1F}.Debug|ARM.ActiveCfg = Debug|ARM
 		{6F5DE5AA-3BE6-4B95-85B6-DBB94BB79E1F}.Debug|ARM.Build.0 = Debug|ARM
@@ -397,6 +381,22 @@ Global
 		{80DDA0D6-5181-49D1-9CB6-4A441E743086}.Release|x64.Build.0 = Release|x64
 		{80DDA0D6-5181-49D1-9CB6-4A441E743086}.Release|x86.ActiveCfg = Release|x86
 		{80DDA0D6-5181-49D1-9CB6-4A441E743086}.Release|x86.Build.0 = Release|x86
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Debug|ARM.ActiveCfg = Debug|ARM
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Debug|ARM.Build.0 = Debug|ARM
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Debug|x64.ActiveCfg = Debug|x64
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Debug|x64.Build.0 = Debug|x64
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Debug|x86.ActiveCfg = Debug|x86
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Debug|x86.Build.0 = Debug|x86
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Release|ARM.ActiveCfg = Release|ARM
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Release|ARM.Build.0 = Release|ARM
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Release|x64.ActiveCfg = Release|x64
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Release|x64.Build.0 = Release|x64
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Release|x86.ActiveCfg = Release|x86
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -417,5 +417,6 @@ Global
 		{0BBA2068-71D5-4FEC-8E44-761D0E9B44D4} = {D7A445C0-F588-4D6C-A5BB-7DDBA94AC903}
 		{0555A467-B1B2-4301-901C-0489F63B8ECC} = {D7A445C0-F588-4D6C-A5BB-7DDBA94AC903}
 		{80DDA0D6-5181-49D1-9CB6-4A441E743086} = {D7A445C0-F588-4D6C-A5BB-7DDBA94AC903}
+		{CC7FB684-776F-4902-BE3B-D354933EF2DC} = {D7A445C0-F588-4D6C-A5BB-7DDBA94AC903}
 	EndGlobalSection
 EndGlobal
