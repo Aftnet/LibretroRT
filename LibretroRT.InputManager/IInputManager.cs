@@ -2,7 +2,6 @@
 {
     public interface IInputManager
     {
-        short GetInputState(uint port, InputTypes inputType);
-        void PollInput();
+        ICore Core { get; set; }
     }
 }

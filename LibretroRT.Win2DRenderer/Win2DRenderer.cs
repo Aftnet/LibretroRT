@@ -35,10 +35,12 @@ namespace LibretroRT.Win2DRenderer
         public ICore Core
         {
             get { return core; }
-            private set
+            set
             {
                 if (core == value)
+                {
                     return;
+                }
 
                 if (core != null)
                 {

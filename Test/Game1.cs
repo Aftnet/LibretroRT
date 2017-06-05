@@ -50,22 +50,19 @@ namespace Test
                 {
                     currentCore.RenderVideoFrame -= EmuCore_RenderVideoFrame;
                     currentCore.RenderAudioFrames -= EmuCore_RenderAudioFrames;
-                    currentCore.PollInput -= EmuCore_PollInput;
-                    currentCore.GetInputState -= EmuCore_GetInputState;
                     currentCore.GameGeometryChanged -= EmuCore_GameGeometryChanged;
                     currentCore.SystemTimingChanged -= EmuCore_SystemTimingChanged;
                     currentCore.PixelFormatChanged -= EmuCore_PixelFormatChanged;
                 }
 
                 currentCore = value;
+                InputManager.Core = currentCore;
 
                 if (currentCore == null)
                     return;
 
                 currentCore.RenderVideoFrame += EmuCore_RenderVideoFrame;
                 currentCore.RenderAudioFrames += EmuCore_RenderAudioFrames;
-                currentCore.PollInput += EmuCore_PollInput;
-                currentCore.GetInputState += EmuCore_GetInputState;
                 currentCore.GameGeometryChanged += EmuCore_GameGeometryChanged;
                 currentCore.SystemTimingChanged += EmuCore_SystemTimingChanged;
                 currentCore.PixelFormatChanged += EmuCore_PixelFormatChanged;
@@ -118,16 +115,6 @@ namespace Test
             {
                 UpdateFrameBuffer(CurrentCore.Geometry, format);
             }
-        }
-
-        private short EmuCore_GetInputState(uint port, InputTypes inputType)
-        {
-            return InputManager.GetInputState(port, inputType);
-        }
-
-        private void EmuCore_PollInput()
-        {
-            InputManager.PollInput();
         }
 
         private void EmuCore_RenderAudioFrames(short[] data)
