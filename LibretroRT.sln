@@ -41,7 +41,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GambatteRT", "GambatteRT\Ga
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibretroRT.CoreTools", "LibretroRT.CoreTools\LibretroRT.CoreTools.vcxproj", "{6F5DE5AA-3BE6-4B95-85B6-DBB94BB79E1F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{D7A445C0-F588-4D6C-A5BB-7DDBA94AC903}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontendComponents", "FrontendComponents", "{D7A445C0-F588-4D6C-A5BB-7DDBA94AC903}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibretroRT.FrontendComponents.Common", "LibretroRT.FrontendComponents.Common\LibretroRT.FrontendComponents.Common.csproj", "{0BBA2068-71D5-4FEC-8E44-761D0E9B44D4}"
 EndProject
