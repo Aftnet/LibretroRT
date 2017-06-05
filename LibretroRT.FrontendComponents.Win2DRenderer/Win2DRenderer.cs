@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas;
+﻿using LibretroRT.FrontendComponents.Common;
+using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,9 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         private Rect CoreRenderTargetViewport = new Rect();
 
         private readonly object CoreLock = new object();
+
+        public IAudioPlayer AudioPlayer { get; set; }
+        private bool AudioPlayerWantsDelay { get { return AudioPlayer != null && AudioPlayer.ShouldDelayNextFrame; } }
 
         private ICore core = null;
         public ICore Core
@@ -95,7 +99,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             lock (CoreLock)
             {
-                if (RunCore)
+                if (RunCore && !AudioPlayerWantsDelay)
                 {
                     Core.RunFrame();
                 }
