@@ -45,6 +45,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gambatte", "Gambatte\Gambat
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GambatteRT", "GambatteRT\GambatteRT.vcxproj", "{D19BFCE3-0233-4B39-8EA5-FA0EE0D4A753}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibretroRT.Win2DRenderer", "LibretroRT.Win2DRenderer\LibretroRT.Win2DRenderer.csproj", "{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -359,6 +361,22 @@ Global
 		{D19BFCE3-0233-4B39-8EA5-FA0EE0D4A753}.Release|x64.Build.0 = Release|x64
 		{D19BFCE3-0233-4B39-8EA5-FA0EE0D4A753}.Release|x86.ActiveCfg = Release|Win32
 		{D19BFCE3-0233-4B39-8EA5-FA0EE0D4A753}.Release|x86.Build.0 = Release|Win32
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|ARM.ActiveCfg = Debug|ARM
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|ARM.Build.0 = Debug|ARM
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|x64.ActiveCfg = Debug|x64
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|x64.Build.0 = Debug|x64
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|x86.ActiveCfg = Debug|x86
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Debug|x86.Build.0 = Debug|x86
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|ARM.ActiveCfg = Release|ARM
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|ARM.Build.0 = Release|ARM
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|x64.ActiveCfg = Release|x64
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|x64.Build.0 = Release|x64
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|x86.ActiveCfg = Release|x86
+		{E4782D84-FDA3-45BB-9DAC-A2AF510073A2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
