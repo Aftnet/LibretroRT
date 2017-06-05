@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using LibretroRT.FrontendComponents.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.Gaming.Input;
 using Windows.System;
 using Windows.UI.Core;
-using Windows.Gaming.Input;
-using System.Linq;
-using System;
 
-namespace LibretroRT.InputManager
+namespace LibretroRT.FrontendComponents.InputManager
 {
     public sealed class InputManager : IInputManager
     {

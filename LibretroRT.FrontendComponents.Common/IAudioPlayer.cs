@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
-
-namespace LibretroRT.AudioGraphPlayer
+﻿namespace LibretroRT.FrontendComponents.Common
 {
     public interface IAudioPlayer
     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibretroRT.FrontendComponents.Common;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -7,9 +8,9 @@ using Windows.Foundation;
 using Windows.Media;
 using Windows.Media.Audio;
 
-namespace LibretroRT.AudioGraphPlayer
+namespace LibretroRT.FrontendComponents.AudioGraphPlayer
 {
-    public sealed class AudioPlayer : IDisposable, IAudioPlayer
+    public sealed class AudioGraphPlayer : IDisposable, IAudioPlayer
     {
         [ComImport]
         [Guid("5B0D3235-4DBA-4D44-865E-8F1D0E4FD04D")]
@@ -95,7 +96,7 @@ namespace LibretroRT.AudioGraphPlayer
             set { inputNode?.Dispose(); inputNode = value; }
         }
 
-        public AudioPlayer()
+        public AudioGraphPlayer()
         {
             SampleRate = 0;
         }

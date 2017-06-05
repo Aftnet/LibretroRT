@@ -1,6 +1,7 @@
 ﻿using LibretroRT;
-using LibretroRT.AudioGraphPlayer;
-using LibretroRT.InputManager;
+using LibretroRT.FrontendComponents.AudioGraphPlayer;
+using LibretroRT.FrontendComponents.Common;
+using LibretroRT.FrontendComponents.InputManager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -74,7 +75,7 @@ namespace Test
         SpriteBatch spriteBatch;
         uint frameNumber = 0;
 
-        private readonly IAudioPlayer MusicPlayer = new AudioPlayer();
+        private readonly IAudioPlayer MusicPlayer = new AudioGraphPlayer();
         private readonly IInputManager InputManager = new InputManager();
 
         public Game1()

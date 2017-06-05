@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6CD44590-C233-48CF-A8B2-6451D0880BB5}</ProjectGuid>
+    <ProjectGuid>{0555A467-B1B2-4301-901C-0489F63B8ECC}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LibretroRT.InputManager</RootNamespace>
-    <AssemblyName>LibretroRT.InputManager</AssemblyName>
+    <RootNamespace>LibretroRT.FrontendComponents.InputManager</RootNamespace>
+    <AssemblyName>LibretroRT.FrontendComponents.InputManager</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
@@ -107,16 +107,19 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="IInputManager.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.3.3</Version>
+      <Version>5.2.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LibretroRT.FrontendComponents.Common\LibretroRT.FrontendComponents.Common.csproj">
+      <Project>{0bba2068-71d5-4fec-8e44-761d0e9b44d4}</Project>
+      <Name>LibretroRT.FrontendComponents.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
       <Name>LibretroRT</Name>

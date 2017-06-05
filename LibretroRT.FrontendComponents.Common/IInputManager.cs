@@ -1,4 +1,4 @@
-﻿namespace LibretroRT.InputManager
+﻿namespace LibretroRT.FrontendComponents.Common
 {
     public interface IInputManager
     {

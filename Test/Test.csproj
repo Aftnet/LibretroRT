@@ -181,13 +181,17 @@
       <Project>{82569d80-5620-4012-8314-26bfecb7c9d8}</Project>
       <Name>GPGXRT</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.AudioGraphPlayer\LibretroRT.AudioGraphPlayer.csproj">
-      <Project>{81707c8e-a1fd-44d5-aa2b-0a40909763e9}</Project>
-      <Name>LibretroRT.AudioGraphPlayer</Name>
+    <ProjectReference Include="..\LibretroRT.FrontendComponents.AudioGraphPlayer\LibretroRT.FrontendComponents.AudioGraphPlayer.csproj">
+      <Project>{80dda0d6-5181-49d1-9cb6-4a441e743086}</Project>
+      <Name>LibretroRT.FrontendComponents.AudioGraphPlayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.InputManager\LibretroRT.InputManager.csproj">
-      <Project>{6cd44590-c233-48cf-a8b2-6451d0880bb5}</Project>
-      <Name>LibretroRT.InputManager</Name>
+    <ProjectReference Include="..\LibretroRT.FrontendComponents.Common\LibretroRT.FrontendComponents.Common.csproj">
+      <Project>{0bba2068-71d5-4fec-8e44-761d0e9b44d4}</Project>
+      <Name>LibretroRT.FrontendComponents.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibretroRT.FrontendComponents.InputManager\LibretroRT.FrontendComponents.InputManager.csproj">
+      <Project>{0555a467-b1b2-4301-901c-0489f63b8ecc}</Project>
+      <Name>LibretroRT.FrontendComponents.InputManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
