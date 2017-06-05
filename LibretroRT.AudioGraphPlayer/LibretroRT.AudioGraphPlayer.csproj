@@ -124,6 +124,12 @@
       <Version>5.3.3</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
+      <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
+      <Name>LibretroRT</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

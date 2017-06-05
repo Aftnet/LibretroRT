@@ -4,11 +4,11 @@ namespace LibretroRT.AudioGraphPlayer
 {
     public interface IAudioPlayer
     {
-        uint SampleRate { get; }
+        ICore Core { get; set; }
+
+        void ForceDetectSampleRate();
         bool ShouldDelayNextFrame { get; }
 
-        void AddSamples([ReadOnlyArray] short[] samples);
-        void SetSampleRate(uint sampleRate);
         void Stop();
     }
 }

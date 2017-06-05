@@ -26,7 +26,49 @@ namespace LibretroRT.AudioGraphPlayer
         private int MinNumSamplesForPlayback = 0;
         private int MaxNumSamplesForTargetDelay = 0;
 
-        public uint SampleRate { get; private set; }
+        private ICore core = null;
+        public ICore Core
+        {
+            get { return core; }
+            set
+            {
+                if (core == value)
+                {
+                    return;
+                }
+
+                if (core != null)
+                {
+                    Stop();
+                    core.SystemTimingChanged -= CoreTimingsChanged;
+                    core.RenderAudioFrames -= RenderAudioFrames;
+                }
+
+                core = value;
+                if (core != null)
+                {
+                    core.SystemTimingChanged += CoreTimingsChanged;
+                    core.RenderAudioFrames += RenderAudioFrames;
+                    ForceDetectSampleRate();
+                }
+            }
+        }
+
+        private uint SampleRate { get; set; }
+
+        public bool ShouldDelayNextFrame
+        {
+            get
+            {
+                if (SampleRate == 0)
+                    return false; //Allow core a chance to init timings by runnning
+
+                lock (SamplesBuffer)
+                {
+                    return SamplesBuffer.Count >= MaxNumSamplesForTargetDelay;
+                }
+            }
+        }
 
         private readonly Queue<short> SamplesBuffer = new Queue<short>();
 
@@ -54,20 +96,6 @@ namespace LibretroRT.AudioGraphPlayer
             set { inputNode?.Dispose(); inputNode = value; }
         }
 
-        public bool ShouldDelayNextFrame
-        {
-            get
-            {
-                if (SampleRate == 0)
-                    return false; //Allow core a chance to init timings by runnning
-
-                lock(SamplesBuffer)
-                {
-                    return SamplesBuffer.Count >= MaxNumSamplesForTargetDelay;
-                }
-            }
-        }
-
         public AudioPlayer()
         {
             SampleRate = 0;
@@ -78,8 +106,17 @@ namespace LibretroRT.AudioGraphPlayer
             DisposeGraph();
         }
 
-        public void SetSampleRate(uint sampleRate)
+        public void ForceDetectSampleRate()
         {
+            if (core == null)
+                return;
+
+            CoreTimingsChanged(Core.Timing);
+        }
+
+        private void CoreTimingsChanged(SystemTiming timings)
+        {
+            uint sampleRate = (uint)timings.SampleRate;
             if (SampleRate == sampleRate || GraphReconstructionInProgress)
                 return;
 
@@ -87,7 +124,7 @@ namespace LibretroRT.AudioGraphPlayer
             var operation = ReconstructGraph(sampleRate);
         }
 
-        public void AddSamples([ReadOnlyArray] short[] samples)
+        private void RenderAudioFrames([ReadOnlyArray] short[] samples)
         {
             if (!AllowPlaybackControl)
                 return;

@@ -49,22 +49,19 @@ namespace Test
                 if (currentCore != null)
                 {
                     currentCore.RenderVideoFrame -= EmuCore_RenderVideoFrame;
-                    currentCore.RenderAudioFrames -= EmuCore_RenderAudioFrames;
                     currentCore.GameGeometryChanged -= EmuCore_GameGeometryChanged;
-                    currentCore.SystemTimingChanged -= EmuCore_SystemTimingChanged;
                     currentCore.PixelFormatChanged -= EmuCore_PixelFormatChanged;
                 }
 
                 currentCore = value;
                 InputManager.Core = currentCore;
+                MusicPlayer.Core = currentCore;
 
                 if (currentCore == null)
                     return;
 
                 currentCore.RenderVideoFrame += EmuCore_RenderVideoFrame;
-                currentCore.RenderAudioFrames += EmuCore_RenderAudioFrames;
                 currentCore.GameGeometryChanged += EmuCore_GameGeometryChanged;
-                currentCore.SystemTimingChanged += EmuCore_SystemTimingChanged;
                 currentCore.PixelFormatChanged += EmuCore_PixelFormatChanged;
             }
         }
@@ -95,12 +92,6 @@ namespace Test
             };
         }
 
-        private void EmuCore_SystemTimingChanged(SystemTiming timing)
-        {
-            MusicPlayer.SetSampleRate((uint)timing.SampleRate);
-        }
-
-
         private void EmuCore_GameGeometryChanged(GameGeometry geometry)
         {
             lock (CurrentCoreLock)
@@ -115,11 +106,6 @@ namespace Test
             {
                 UpdateFrameBuffer(CurrentCore.Geometry, format);
             }
-        }
-
-        private void EmuCore_RenderAudioFrames(short[] data)
-        {
-            MusicPlayer.AddSamples(data);
         }
 
         private void EmuCore_RenderVideoFrame(byte[] frameBuffer, uint width, uint height, uint pitch)
@@ -150,7 +136,7 @@ namespace Test
                     CurrentCore = ConsoleTypeCoreMapping[consoleType];
                     CurrentCore.LoadGame(CurrentRomFile);
                     UpdateFrameBuffer(CurrentCore.Geometry, CurrentCore.PixelFormat);
-                    EmuCore_SystemTimingChanged(CurrentCore.Timing);
+                    MusicPlayer.ForceDetectSampleRate();
                 }
             });
         }
