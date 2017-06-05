@@ -3,7 +3,7 @@
 #include"Converter.h"
 #include "../LibretroRT/libretro.h"
 
-using namespace LibretroRTSupport;
+using namespace LibretroRT_CoreTools;
 
 void LogHandler(enum retro_log_level level, const char *fmt, ...)
 {

@@ -2,10 +2,10 @@
 #include "Snes9XCoreInternal.h"
 
 #include "../LibretroRT/libretro.h"
-#include "../LibretroRTSupport/Converter.h"
+#include "../LibretroRT.CoreTools/Converter.h"
 
 using namespace Snes9XRT;
-using namespace LibretroRTSupport;
+using namespace LibretroRT_CoreTools;
 
 Snes9XCoreInternal^ coreInstance = nullptr;
 

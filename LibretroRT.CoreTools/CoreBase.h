@@ -6,7 +6,7 @@ using namespace LibretroRT;
 using namespace Platform;
 using namespace Windows::Storage;
 
-namespace LibretroRTSupport
+namespace LibretroRT_CoreTools
 {
 	private ref class CoreBase : public ICore
 	{

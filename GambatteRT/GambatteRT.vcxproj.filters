@@ -9,13 +9,13 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="GambatteCoreInternal.cpp" />
-    <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
     <ClCompile Include="GambatteCore.cpp" />
+    <ClCompile Include="..\LibretroRT.CoreTools\CoreBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="GambatteCoreInternal.h" />
-    <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
     <ClInclude Include="GambatteCore.h" />
+    <ClInclude Include="..\LibretroRT.CoreTools\CoreBase.h" />
   </ItemGroup>
 </Project>

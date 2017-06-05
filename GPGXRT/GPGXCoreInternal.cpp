@@ -2,10 +2,10 @@
 #include "GPGXCoreInternal.h"
 
 #include "../LibretroRT/libretro.h"
-#include "../LibretroRTSupport/Converter.h"
+#include "../LibretroRT.CoreTools/Converter.h"
 
 using namespace GPGXRT;
-using namespace LibretroRTSupport;
+using namespace LibretroRT_CoreTools;
 
 GPGXCoreInternal^ coreInstance = nullptr;
 

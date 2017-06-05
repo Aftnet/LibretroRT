@@ -2,10 +2,10 @@
 #include "NestopiaCoreInternal.h"
 
 #include "../LibretroRT/libretro.h"
-#include "../LibretroRTSupport/Converter.h"
+#include "../LibretroRT.CoreTools/Converter.h"
 
 using namespace NestopiaRT;
-using namespace LibretroRTSupport;
+using namespace LibretroRT_CoreTools;
 
 NestopiaCoreInternal^ coreInstance = nullptr;
 

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../LibretroRTSupport/CoreBase.h"
+#include "../LibretroRT.CoreTools/CoreBase.h"
 
 using namespace Platform;
-using namespace LibretroRTSupport;
+using namespace LibretroRT_CoreTools;
 using namespace Windows::Storage;
 
 namespace VBAMRT
 {
-	private ref class VBAMCoreInternal sealed : public LibretroRTSupport::CoreBase
+	private ref class VBAMCoreInternal sealed : public LibretroRT_CoreTools::CoreBase
 	{
 	protected private:
 		VBAMCoreInternal();

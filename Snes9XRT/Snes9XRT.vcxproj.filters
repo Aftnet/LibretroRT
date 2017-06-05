@@ -8,14 +8,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
     <ClCompile Include="Snes9XCoreInternal.cpp" />
     <ClCompile Include="Snes9XCore.cpp" />
+    <ClCompile Include="..\LibretroRT.CoreTools\CoreBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
     <ClInclude Include="Snes9XCoreInternal.h" />
     <ClInclude Include="Snes9XCore.h" />
+    <ClInclude Include="..\LibretroRT.CoreTools\CoreBase.h" />
   </ItemGroup>
 </Project>

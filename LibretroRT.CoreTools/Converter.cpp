@@ -4,7 +4,7 @@
 
 using namespace Platform;
 using namespace LibretroRT;
-using namespace LibretroRTSupport;
+using namespace LibretroRT_CoreTools;
 
 std::wstring_convert<std::codecvt_utf8<wchar_t>> stringConverter;
 

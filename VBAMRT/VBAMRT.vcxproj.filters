@@ -8,14 +8,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
     <ClCompile Include="VBAMCore.cpp" />
     <ClCompile Include="VBAMCoreInternal.cpp" />
+    <ClCompile Include="..\LibretroRT.CoreTools\CoreBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
     <ClInclude Include="VBAMCore.h" />
     <ClInclude Include="VBAMCoreInternal.h" />
+    <ClInclude Include="..\LibretroRT.CoreTools\CoreBase.h" />
   </ItemGroup>
 </Project>

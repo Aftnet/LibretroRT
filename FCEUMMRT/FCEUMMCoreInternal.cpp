@@ -2,10 +2,10 @@
 #include "FCEUMMCoreInternal.h"
 
 #include "../LibretroRT/libretro.h"
-#include "../LibretroRTSupport/Converter.h"
+#include "../LibretroRT.CoreTools/Converter.h"
 
 using namespace FCEUMMRT;
-using namespace LibretroRTSupport;
+using namespace LibretroRT_CoreTools;
 
 FCEUMMCoreInternal^ coreInstance = nullptr;
 
