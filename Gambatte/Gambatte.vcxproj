@@ -212,6 +212,7 @@
     <ClInclude Include="src\libgambatte\include\gbint.h" />
     <ClInclude Include="src\libgambatte\include\inputgetter.h" />
     <ClInclude Include="src\libgambatte\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\compat\msvc.h" />
     <ClInclude Include="src\libgambatte\libretro-common\include\memmap.h" />
     <ClInclude Include="src\libgambatte\libretro-common\include\retro_common_api.h" />
     <ClInclude Include="src\libgambatte\libretro-common\include\retro_inline.h" />

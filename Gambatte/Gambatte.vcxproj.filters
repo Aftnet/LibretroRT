@@ -59,6 +59,7 @@
     <ClInclude Include="src\libgambatte\libretro-common\include\retro_common_api.h" />
     <ClInclude Include="src\libgambatte\libretro-common\include\retro_inline.h" />
     <ClInclude Include="src\libgambatte\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\compat\msvc.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libgambatte\libretro\libretro.cpp" />
