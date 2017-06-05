@@ -40,16 +40,15 @@ namespace LibretroRT.AudioGraphPlayer
                 if (core != null)
                 {
                     Stop();
-                    core.SystemTimingChanged -= CoreTimingsChanged;
+                    core.TimingChanged -= CoreTimingsChanged;
                     core.RenderAudioFrames -= RenderAudioFrames;
                 }
 
                 core = value;
                 if (core != null)
                 {
-                    core.SystemTimingChanged += CoreTimingsChanged;
+                    core.TimingChanged += CoreTimingsChanged;
                     core.RenderAudioFrames += RenderAudioFrames;
-                    ForceDetectSampleRate();
                 }
             }
         }
@@ -104,14 +103,6 @@ namespace LibretroRT.AudioGraphPlayer
         public void Dispose()
         {
             DisposeGraph();
-        }
-
-        public void ForceDetectSampleRate()
-        {
-            if (core == null)
-                return;
-
-            CoreTimingsChanged(Core.Timing);
         }
 
         private void CoreTimingsChanged(SystemTiming timings)

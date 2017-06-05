@@ -44,9 +44,25 @@ namespace LibretroRTSupport
 	public:
 		virtual ~CoreBase();
 
-		virtual property PixelFormats PixelFormat { PixelFormats get() { return pixelFormat; } }
-		virtual property SystemTiming^ Timing { SystemTiming^ get() { return ref new SystemTiming(timing); } }
-		virtual property GameGeometry^ Geometry { GameGeometry^ get() { return ref new GameGeometry(geometry); } }
+		virtual property PixelFormats PixelFormat
+		{
+			PixelFormats get() { return pixelFormat; }
+		private:
+			void set(PixelFormats value) { pixelFormat = value; PixelFormatChanged(pixelFormat); }
+		}
+		virtual property SystemTiming^ Timing
+		{
+			SystemTiming^ get() { return timing; }
+		private:
+			void set(SystemTiming^ value) { timing = value; TimingChanged(timing); }
+		}
+		virtual property GameGeometry^ Geometry
+		{
+			GameGeometry^ get() { return geometry; }
+		private:
+			void set(GameGeometry^ value) { geometry = value; GeometryChanged(geometry); }
+		}
+
 		virtual property String^ SupportedExtensions { String^ get() { return supportedExtensions; } }
 		virtual property String^ Version { String^ get() { return version; } }
 		virtual property String^ Name { String^ get() { return name; } }
@@ -56,8 +72,8 @@ namespace LibretroRTSupport
 		virtual event PollInputDelegate ^ PollInput;
 		virtual event RenderAudioFramesDelegate ^ RenderAudioFrames;
 		virtual event RenderVideoFrameDelegate ^ RenderVideoFrame;
-		virtual event GameGeometryChangedDelegate^ GameGeometryChanged;
-		virtual event SystemTimingChangedDelegate^ SystemTimingChanged;
+		virtual event GeometryChangedDelegate^ GeometryChanged;
+		virtual event TimingChangedDelegate^ TimingChanged;
 		virtual event PixelFormatChangedDelegate^ PixelFormatChanged;
 
 		virtual bool LoadGame(IStorageFile^ gameFile) = 0;

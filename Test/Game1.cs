@@ -49,7 +49,7 @@ namespace Test
                 if (currentCore != null)
                 {
                     currentCore.RenderVideoFrame -= EmuCore_RenderVideoFrame;
-                    currentCore.GameGeometryChanged -= EmuCore_GameGeometryChanged;
+                    currentCore.GeometryChanged -= EmuCore_GameGeometryChanged;
                     currentCore.PixelFormatChanged -= EmuCore_PixelFormatChanged;
                 }
 
@@ -61,7 +61,7 @@ namespace Test
                     return;
 
                 currentCore.RenderVideoFrame += EmuCore_RenderVideoFrame;
-                currentCore.GameGeometryChanged += EmuCore_GameGeometryChanged;
+                currentCore.GeometryChanged += EmuCore_GameGeometryChanged;
                 currentCore.PixelFormatChanged += EmuCore_PixelFormatChanged;
             }
         }
@@ -135,8 +135,6 @@ namespace Test
                     CurrentCore?.UnloadGame();
                     CurrentCore = ConsoleTypeCoreMapping[consoleType];
                     CurrentCore.LoadGame(CurrentRomFile);
-                    UpdateFrameBuffer(CurrentCore.Geometry, CurrentCore.PixelFormat);
-                    MusicPlayer.ForceDetectSampleRate();
                 }
             });
         }

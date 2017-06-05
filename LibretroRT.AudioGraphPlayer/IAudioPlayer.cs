@@ -6,7 +6,6 @@ namespace LibretroRT.AudioGraphPlayer
     {
         ICore Core { get; set; }
 
-        void ForceDetectSampleRate();
         bool ShouldDelayNextFrame { get; }
 
         void Stop();

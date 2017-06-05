@@ -44,8 +44,8 @@ void CoreBase::SetSystemInfo(retro_system_info& info)
 
 void CoreBase::SetAVInfo(retro_system_av_info & info)
 {
-	geometry = Converter::CToRTGameGeometry(info.geometry);
-	timing = Converter::CToRTSystemTiming(info.timing);
+	Geometry = Converter::CToRTGameGeometry(info.geometry);
+	Timing = Converter::CToRTSystemTiming(info.timing);
 }
 
 retro_game_info CoreBase::GenerateGameInfo(String^ gamePath, unsigned long long gameSize)
@@ -117,23 +117,19 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
 	{
 		auto pix = reinterpret_cast<enum retro_pixel_format*>(data);
-		pixelFormat = Converter::ConvertToPixelFormat(*pix);
-		PixelFormatChanged(pixelFormat);
+		PixelFormat = Converter::ConvertToPixelFormat(*pix);
 		return true;
 	}
 	case RETRO_ENVIRONMENT_SET_GEOMETRY:
 	{
 		auto geom = reinterpret_cast<retro_game_geometry*>(data);
-		geometry = Converter::CToRTGameGeometry(*geom);
-		GameGeometryChanged(geometry);
+		Geometry = Converter::CToRTGameGeometry(*geom);
 		return true;
 	}
 	case RETRO_ENVIRONMENT_SET_SYSTEM_AV_INFO:
 	{
 		auto avInfo = reinterpret_cast<retro_system_av_info*>(data);
 		SetAVInfo(*avInfo);
-		GameGeometryChanged(geometry);
-		SystemTimingChanged(timing);
 		return true;
 	}
 	}

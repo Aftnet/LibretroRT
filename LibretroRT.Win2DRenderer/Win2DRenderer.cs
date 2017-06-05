@@ -45,7 +45,7 @@ namespace LibretroRT.Win2DRenderer
                 if (core != null)
                 {
                     RunCore = false;
-                    core.GameGeometryChanged -= CoreGameGeometryChanged;
+                    core.GeometryChanged -= CoreGameGeometryChanged;
                     core.PixelFormatChanged -= CorePixelFormatChanged;
                     core.RenderVideoFrame -= UpdateCoreRenderTarget;
                 }
@@ -53,7 +53,7 @@ namespace LibretroRT.Win2DRenderer
                 core = value;
                 if (core != null)
                 {
-                    core.GameGeometryChanged += CoreGameGeometryChanged;
+                    core.GeometryChanged += CoreGameGeometryChanged;
                     core.PixelFormatChanged += CorePixelFormatChanged;
                     core.RenderVideoFrame += UpdateCoreRenderTarget;
                 }
