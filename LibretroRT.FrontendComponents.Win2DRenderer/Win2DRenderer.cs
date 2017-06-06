@@ -3,12 +3,13 @@ using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
 
 namespace LibretroRT.FrontendComponents.Win2DRenderer
 {
-    public sealed class Win2DRenderer
+    public sealed class Win2DRenderer : IRenderer
     {
         private const uint CoreRenderTargetMinSize = 1024;
 
@@ -49,17 +50,17 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 if (core != null)
                 {
                     RunCore = false;
-                    core.GeometryChanged -= CoreGameGeometryChanged;
-                    core.PixelFormatChanged -= CorePixelFormatChanged;
-                    core.RenderVideoFrame -= UpdateCoreRenderTarget;
+                    core.GeometryChanged -= GeometryChanged;
+                    core.PixelFormatChanged -= PixelFormatChanged;
+                    core.RenderVideoFrame -= RenderVideoFrame;
                 }
 
                 core = value;
                 if (core != null)
                 {
-                    core.GeometryChanged += CoreGameGeometryChanged;
-                    core.PixelFormatChanged += CorePixelFormatChanged;
-                    core.RenderVideoFrame += UpdateCoreRenderTarget;
+                    core.GeometryChanged += GeometryChanged;
+                    core.PixelFormatChanged += PixelFormatChanged;
+                    core.RenderVideoFrame += RenderVideoFrame;
                 }
             }
         }
@@ -114,20 +115,23 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             drawingSession.DrawImage(CoreRenderTarget, destinationRect, CoreRenderTargetViewport);
         }
 
-        private void UpdateCoreRenderTarget(byte[] frameBuffer, uint width, uint height, uint pitch)
+        public void RenderVideoFrame([ReadOnlyArray] byte[] frameBuffer, uint width, uint height, uint pitch)
         {
+            if (frameBuffer == null)
+                return;
+
             var virtualWidth = pitch / PixelFormatsSizeMapping[CoreRenderTarget.Format];
             CoreRenderTarget.SetPixelBytes(frameBuffer, 0, 0, (int)virtualWidth, (int)height);
             CoreRenderTargetViewport.Width = width;
             CoreRenderTargetViewport.Height = height;
         }
 
-        private void CoreGameGeometryChanged(GameGeometry geometry)
+        public void GeometryChanged(GameGeometry geometry)
         {
             UpdateFramebufferFormat(Core.Geometry, Core.PixelFormat);
         }
 
-        private void CorePixelFormatChanged(PixelFormats format)
+        public void PixelFormatChanged(PixelFormats format)
         {
             UpdateFramebufferFormat(Core.Geometry, Core.PixelFormat);
         }

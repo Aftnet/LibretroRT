@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="IAudioPlayer.cs" />
     <Compile Include="IInputManager.cs" />
+    <Compile Include="IRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
