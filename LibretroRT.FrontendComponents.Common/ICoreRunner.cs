@@ -7,12 +7,12 @@ namespace LibretroRT.FrontendComponents.Common
     {
         void LoadGame(ICore core, IStorageFile gameFile);
         void UnloadGame();
-
-        void PauseGame();
-        void ResumeGame();
         void ResetGame();
 
-        bool LoadState(IStorageFile stateFile);
-        bool SaveState(IStorageFile stateFile);
+        void PauseCoreExecution();
+        void ResumeCoreExecution();
+
+        //bool LoadState(IStorageFile stateFile);
+        //bool SaveState(IStorageFile stateFile);
     }
 }

@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
+using Windows.Storage;
 
 namespace LibretroRT.FrontendComponents.Win2DRenderer
 {
-    public sealed class Win2DRenderer : IRenderer
+    public sealed class Win2DRenderer : IRenderer, ICoreRunner
     {
         private const uint CoreRenderTargetMinSize = 1024;
 
@@ -27,24 +28,12 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             { DirectXPixelFormat.B5G5R5A1UIntNormalized, 2 },
         };
 
+        private readonly CoreEventCoordinator Coordinator;
+        private bool RunCore { get; set; }
+
         private readonly CanvasAnimatedControl RenderPanel;
         private CanvasBitmap CoreRenderTarget;
         private Rect CoreRenderTargetViewport = new Rect();
-
-        private readonly CoreEventCoordinator Coordinator;
-
-        private bool runCore = false;
-        public bool RunCore
-        {
-            get { return runCore; }
-            set
-            {
-                lock (Coordinator)
-                {
-                    runCore = value;
-                }
-            }
-        }
 
         public Win2DRenderer(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
         {
@@ -55,10 +44,56 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 InputManager = inputManager
             };
 
+            RunCore = false;
+
             RenderPanel = renderPanel;
             RenderPanel.Update += RenderPanelUpdate;
             RenderPanel.Draw += RenderPanelDraw;
             RenderPanel.Unloaded += RenderPanelUnloaded;
+        }
+
+        public void LoadGame(ICore core, IStorageFile gameFile)
+        {
+            lock (Coordinator)
+            {
+                Coordinator.Core?.UnloadGame();
+                Coordinator.Core = core;
+                Coordinator.Core.LoadGame(gameFile);
+                RunCore = true;
+            }
+        }
+
+        public void UnloadGame()
+        {
+            lock (Coordinator)
+            {
+                RunCore = false;
+                Coordinator.Core?.UnloadGame();
+            }
+        }
+
+        public void ResetGame()
+        {
+            lock (Coordinator)
+            {
+                Coordinator.Core?.Reset();
+            }
+        }
+
+        public void PauseCoreExecution()
+        {
+            lock (Coordinator)
+            {
+                RunCore = false;
+            }
+        }
+
+        public void ResumeCoreExecution()
+        {
+            lock (Coordinator)
+            {
+                RunCore = true;
+            }
         }
 
         private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -77,7 +112,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             {
                 if (RunCore && !Coordinator.AudioPlayerRequestsFrameDelay)
                 {
-                    Coordinator.Core.RunFrame();
+                    Coordinator.Core?.RunFrame();
                 }
             }
         }
