@@ -1,11 +1,12 @@
-﻿namespace LibretroRT.FrontendComponents.Common
+﻿using System.Runtime.InteropServices.WindowsRuntime;
+
+namespace LibretroRT.FrontendComponents.Common
 {
     public interface IAudioPlayer
     {
-        ICore Core { get; set; }
-
         bool ShouldDelayNextFrame { get; }
-
+        void TimingChanged(SystemTiming timings);
+        void RenderAudioFrames([ReadOnlyArray] short[] samples);
         void Stop();
     }
 }

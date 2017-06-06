@@ -49,14 +49,17 @@ namespace Test
 
                 if (currentCore != null)
                 {
+                    MusicPlayer.Stop();
                     currentCore.RenderVideoFrame -= EmuCore_RenderVideoFrame;
                     currentCore.GeometryChanged -= EmuCore_GameGeometryChanged;
                     currentCore.PixelFormatChanged -= EmuCore_PixelFormatChanged;
+                    currentCore.TimingChanged -= MusicPlayer.TimingChanged;
+                    currentCore.RenderAudioFrames -= MusicPlayer.RenderAudioFrames;
+                    currentCore.PollInput -= InputManager.PollInput;
+                    currentCore.GetInputState -= InputManager.GetInputState;
                 }
 
                 currentCore = value;
-                InputManager.Core = currentCore;
-                MusicPlayer.Core = currentCore;
 
                 if (currentCore == null)
                     return;
@@ -64,6 +67,10 @@ namespace Test
                 currentCore.RenderVideoFrame += EmuCore_RenderVideoFrame;
                 currentCore.GeometryChanged += EmuCore_GameGeometryChanged;
                 currentCore.PixelFormatChanged += EmuCore_PixelFormatChanged;
+                currentCore.TimingChanged += MusicPlayer.TimingChanged;
+                currentCore.RenderAudioFrames += MusicPlayer.RenderAudioFrames;
+                currentCore.PollInput += InputManager.PollInput;
+                currentCore.GetInputState += InputManager.GetInputState;
             }
         }
 

@@ -27,33 +27,6 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
         private int MinNumSamplesForPlayback = 0;
         private int MaxNumSamplesForTargetDelay = 0;
 
-        private ICore core = null;
-        public ICore Core
-        {
-            get { return core; }
-            set
-            {
-                if (core == value)
-                {
-                    return;
-                }
-
-                if (core != null)
-                {
-                    Stop();
-                    core.TimingChanged -= CoreTimingsChanged;
-                    core.RenderAudioFrames -= RenderAudioFrames;
-                }
-
-                core = value;
-                if (core != null)
-                {
-                    core.TimingChanged += CoreTimingsChanged;
-                    core.RenderAudioFrames += RenderAudioFrames;
-                }
-            }
-        }
-
         private uint SampleRate { get; set; }
 
         public bool ShouldDelayNextFrame
@@ -106,7 +79,7 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
             DisposeGraph();
         }
 
-        private void CoreTimingsChanged(SystemTiming timings)
+        public void TimingChanged(SystemTiming timings)
         {
             uint sampleRate = (uint)timings.SampleRate;
             if (SampleRate == sampleRate || GraphReconstructionInProgress)
@@ -116,7 +89,7 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
             var operation = ReconstructGraph(sampleRate);
         }
 
-        private void RenderAudioFrames([ReadOnlyArray] short[] samples)
+        public void RenderAudioFrames([ReadOnlyArray] short[] samples)
         {
             if (!AllowPlaybackControl)
                 return;

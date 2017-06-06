@@ -46,32 +46,6 @@ namespace LibretroRT.FrontendComponents.InputManager
             { InputTypes.DeviceIdJoypadStart, GamepadButtons.Menu },
         };
 
-        private ICore core = null;
-        public ICore Core
-        {
-            get { return core; }
-            set
-            {
-                if (core == value)
-                {
-                    return;
-                }
-
-                if (core != null)
-                {
-                    core.PollInput -= PollInput;
-                    core.GetInputState -= GetInputState;
-                }
-
-                core = value;
-                if (core != null)
-                {
-                    core.PollInput += PollInput;
-                    core.GetInputState += GetInputState;
-                }
-            }
-        }
-
         private readonly Lazy<CoreWindow> Window;
 
         private readonly Dictionary<VirtualKey, bool> KeyStates = new Dictionary<VirtualKey, bool>();
@@ -90,7 +64,7 @@ namespace LibretroRT.FrontendComponents.InputManager
              });
         }
 
-        private void PollInput()
+        public void PollInput()
         {
             var window = Window.Value;
             foreach (var i in KeyStates.Keys)
@@ -101,7 +75,7 @@ namespace LibretroRT.FrontendComponents.InputManager
             GamepadReadings = Gamepad.Gamepads.Select(d => d.GetCurrentReading()).ToArray();
         }
 
-        private short GetInputState(uint port, InputTypes inputType)
+        public short GetInputState(uint port, InputTypes inputType)
         {
             var output = false;
             if (port == 0)
