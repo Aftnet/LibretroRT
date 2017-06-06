@@ -26,8 +26,11 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             RunCore = false;
 
             RenderPanel = renderPanel;
+            RenderPanel.Update -= RenderPanelUpdate;
             RenderPanel.Update += RenderPanelUpdate;
+            RenderPanel.Draw -= RenderPanelDraw;
             RenderPanel.Draw += RenderPanelDraw;
+            RenderPanel.Unloaded -= RenderPanelUnloaded;
             RenderPanel.Unloaded += RenderPanelUnloaded;
         }
 
