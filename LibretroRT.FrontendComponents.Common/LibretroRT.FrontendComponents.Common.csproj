@@ -107,6 +107,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Coordinator.cs" />
     <Compile Include="IAudioPlayer.cs" />
     <Compile Include="ICoreRunner.cs" />
     <Compile Include="IInputManager.cs" />
