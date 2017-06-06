@@ -2,7 +2,7 @@
 
 namespace LibretroRT.FrontendComponents.Common
 {
-    public sealed class Coordinator
+    public sealed class CoreEventCoordinator
     {
         private ICore core;
         public ICore Core

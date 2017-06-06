@@ -31,39 +31,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         private CanvasBitmap CoreRenderTarget;
         private Rect CoreRenderTargetViewport = new Rect();
 
-        private readonly object CoreLock = new object();
-
-        public IAudioPlayer AudioPlayer { get; set; }
-        private bool AudioPlayerWantsDelay { get { return AudioPlayer != null && AudioPlayer.ShouldDelayNextFrame; } }
-
-        private ICore core = null;
-        public ICore Core
-        {
-            get { return core; }
-            set
-            {
-                if (core == value)
-                {
-                    return;
-                }
-
-                if (core != null)
-                {
-                    RunCore = false;
-                    core.GeometryChanged -= GeometryChanged;
-                    core.PixelFormatChanged -= PixelFormatChanged;
-                    core.RenderVideoFrame -= RenderVideoFrame;
-                }
-
-                core = value;
-                if (core != null)
-                {
-                    core.GeometryChanged += GeometryChanged;
-                    core.PixelFormatChanged += PixelFormatChanged;
-                    core.RenderVideoFrame += RenderVideoFrame;
-                }
-            }
-        }
+        private readonly CoreEventCoordinator Coordinator;
 
         private bool runCore = false;
         public bool RunCore
@@ -71,15 +39,22 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             get { return runCore; }
             set
             {
-                lock (CoreLock)
+                lock (Coordinator)
                 {
                     runCore = value;
                 }
             }
         }
 
-        public Win2DRenderer(CanvasAnimatedControl renderPanel)
+        public Win2DRenderer(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
         {
+            Coordinator = new CoreEventCoordinator
+            {
+                Renderer = this,
+                AudioPlayer = audioPlayer,
+                InputManager = inputManager
+            };
+
             RenderPanel = renderPanel;
             RenderPanel.Update += RenderPanelUpdate;
             RenderPanel.Draw += RenderPanelDraw;
@@ -98,11 +73,11 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         private void RenderPanelUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            lock (CoreLock)
+            lock (Coordinator)
             {
-                if (RunCore && !AudioPlayerWantsDelay)
+                if (RunCore && !Coordinator.AudioPlayerRequestsFrameDelay)
                 {
-                    Core.RunFrame();
+                    Coordinator.Core.RunFrame();
                 }
             }
         }
@@ -128,12 +103,14 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public void GeometryChanged(GameGeometry geometry)
         {
-            UpdateFramebufferFormat(Core.Geometry, Core.PixelFormat);
+            var core = Coordinator.Core;
+            UpdateFramebufferFormat(core.Geometry, core.PixelFormat);
         }
 
         public void PixelFormatChanged(PixelFormats format)
         {
-            UpdateFramebufferFormat(Core.Geometry, Core.PixelFormat);
+            var core = Coordinator.Core;
+            UpdateFramebufferFormat(core.Geometry, core.PixelFormat);
         }
 
         private void UpdateFramebufferFormat(GameGeometry geometry, PixelFormats format)
