@@ -108,6 +108,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="IAudioPlayer.cs" />
+    <Compile Include="ICoreRunner.cs" />
     <Compile Include="IInputManager.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
