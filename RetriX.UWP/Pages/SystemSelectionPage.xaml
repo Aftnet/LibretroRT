@@ -8,10 +8,19 @@
     mc:Ignorable="d">
 
     <Page.Resources>
+        <Style x:Key="GameSystemListItemLabel" TargetType="TextBlock" BasedOn="{StaticResource SubheaderTextBlockStyle}">
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundAccentBrush}"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="GameSystemListItemIcon" TargetType="TextBlock" BasedOn="{StaticResource GameSystemListItemLabel}">
+            <Setter Property="FontFamily" Value="{StaticResource GameSymbolsFontFamily}"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
         <DataTemplate x:Key="GameSystemListItemDT" x:DataType="vm:GameSystemListItemVM">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="{x:Bind Symbol}" FontFamily="{StaticResource GameSymbolsFontFamily}"/>
-                <TextBlock Text="{x:Bind Name}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{x:Bind Symbol}" Style="{StaticResource GameSystemListItemIcon}"/>
+                <TextBlock Text="{x:Bind Name}" Style="{StaticResource GameSystemListItemLabel}"/>
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
