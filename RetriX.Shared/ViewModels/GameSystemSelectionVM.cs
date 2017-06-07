@@ -14,11 +14,11 @@ namespace RetriX.Shared.ViewModels
 
         public RelayCommand<GameSystemListItemVM> GameSystemSelectedCommand { get; private set; }
 
-        public GameSystemSelectionVM( ILocalizationService localizationService, IEmulationService emulationService)
+        public GameSystemSelectionVM(ILocalizationService localizationService, IEmulationService emulationService)
         {
             EmulationService = emulationService;
 
-            gameSystems= new GameSystemListItemVM[]
+            gameSystems = new GameSystemListItemVM[]
             {
                 new GameSystemListItemVM(GameSystemTypes.NES, localizationService.GetLocalizedString("SystemNameNES"), "\ue928"),
                 new GameSystemListItemVM(GameSystemTypes.SNES, localizationService.GetLocalizedString("SystemNameSNES"), "\ue90f"),
