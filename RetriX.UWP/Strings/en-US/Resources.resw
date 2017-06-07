@@ -120,4 +120,19 @@
   <data name="Appname.Text" xml:space="preserve">
     <value>RetriX beta</value>
   </data>
+  <data name="SystemNameGameBoy" xml:space="preserve">
+    <value>Game Boy</value>
+  </data>
+  <data name="SystemNameGameBoyAdvance" xml:space="preserve">
+    <value>Game Boy Advance</value>
+  </data>
+  <data name="SystemNameMegaDrive" xml:space="preserve">
+    <value>Genesis</value>
+  </data>
+  <data name="SystemNameNES" xml:space="preserve">
+    <value>NES</value>
+  </data>
+  <data name="SystemNameSNES" xml:space="preserve">
+    <value>Super Nintendo</value>
+  </data>
 </root>
