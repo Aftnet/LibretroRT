@@ -30,9 +30,9 @@ namespace RetriX.Shared.ViewModels
             GameSystemSelectedCommand = new RelayCommand<GameSystemListItemVM>(GameSystemSelected);
         }
 
-        public void GameSystemSelected(GameSystemListItemVM selectedItem)
+        public void GameSystemSelected(GameSystemListItemVM selectedSystem)
         {
-
+            EmulationService.SelectAndRunGame(selectedSystem.Type);
         }
     }
 }
