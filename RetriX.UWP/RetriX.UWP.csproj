@@ -106,6 +106,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\GameGlyphs.ttf" />
     <None Include="RetriX.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,10 @@
     <ProjectReference Include="..\NestopiaRT\NestopiaRT.vcxproj">
       <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
       <Name>NestopiaRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">
+      <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>
+      <Name>RetriX.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
       <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>
