@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using RetriX.Shared.Services;
 using System.Collections.Generic;
 
@@ -10,6 +11,8 @@ namespace RetriX.Shared.ViewModels
 
         private readonly IReadOnlyList<GameSystemListItemVM> gameSystems;
         public IReadOnlyList<GameSystemListItemVM> GameSystems => gameSystems;
+
+        public RelayCommand<GameSystemListItemVM> GameSystemSelectedCommand { get; private set; }
 
         public GameSystemSelectionVM( ILocalizationService localizationService, IEmulationService emulationService)
         {
@@ -23,6 +26,13 @@ namespace RetriX.Shared.ViewModels
                 new GameSystemListItemVM(GameSystemTypes.GBA, localizationService.GetLocalizedString("SystemNameGameBoyAdvance"), "\ue90c"),
                 new GameSystemListItemVM(GameSystemTypes.MegaDrive, localizationService.GetLocalizedString("SystemNameMegaDrive"), "\ue91f"),
             };
+
+            GameSystemSelectedCommand = new RelayCommand<GameSystemListItemVM>(GameSystemSelected);
+        }
+
+        public void GameSystemSelected(GameSystemListItemVM selectedItem)
+        {
+
         }
     }
 }

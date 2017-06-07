@@ -5,6 +5,8 @@
     xmlns:vm="using:RetriX.Shared.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -26,6 +28,14 @@
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemListItemDT}" SelectionMode="None" IsItemClickEnabled="True"/>
+        <ListView ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemListItemDT}"
+                  SelectionMode="None" IsItemClickEnabled="True">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="ItemClick">
+                    <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelectedCommand}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+
+        </ListView>
     </Grid>
 </Page>

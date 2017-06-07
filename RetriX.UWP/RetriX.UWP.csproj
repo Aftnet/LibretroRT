@@ -98,6 +98,7 @@
     <Compile Include="AppResources.xaml.cs">
       <DependentUpon>AppResources.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ItemClickEventArgsConverter.cs" />
     <Compile Include="Locator\Locator.cs" />
     <Compile Include="Pages\ITypedViewModel.cs" />
     <Compile Include="Pages\SystemSelectionPage.xaml.cs">
