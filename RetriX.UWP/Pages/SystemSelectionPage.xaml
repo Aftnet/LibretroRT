@@ -26,6 +26,6 @@
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemListItemDT}"/>
+        <ListView ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemListItemDT}" SelectionMode="None" IsItemClickEnabled="True"/>
     </Grid>
 </Page>
