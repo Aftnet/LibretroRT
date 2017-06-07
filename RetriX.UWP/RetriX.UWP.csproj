@@ -100,7 +100,6 @@
     </Compile>
     <Compile Include="Pages\ITypedViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\SystemSelectionVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -108,6 +107,7 @@
     </AppxManifest>
     <Content Include="Assets\GameGlyphs.ttf" />
     <None Include="RetriX.UWP_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
