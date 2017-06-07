@@ -1,5 +1,4 @@
 ﻿using RetriX.Shared.Services;
-using System.Collections.Generic;
 
 namespace RetriX.Shared.ViewModels
 {
