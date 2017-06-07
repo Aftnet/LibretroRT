@@ -7,7 +7,7 @@ namespace RetriX.Shared.ViewModels
     {
         private static readonly IReadOnlyList<GameSystemListItemVM> systems = new GameSystemListItemVM[]
         {
-            new GameSystemListItemVM(GameSystemTypes.NES, "NES", "\ue928;"),
+            new GameSystemListItemVM(GameSystemTypes.NES, "NES", "\ue928"),
             new GameSystemListItemVM(GameSystemTypes.SNES, "SNES", "\ue90f"),
             new GameSystemListItemVM(GameSystemTypes.GB, "GameBoy", "\ue90d"),
             new GameSystemListItemVM(GameSystemTypes.GBA, "GameBoy Advance", "\ue90c"),
