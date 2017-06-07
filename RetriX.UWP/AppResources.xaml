@@ -3,8 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:RetriX.UWP">
-    
+
+    <FontFamily x:Key="GameSymbolsFontFamily">Assets/GameGlyphs.ttf#GameGlyphs</FontFamily>
     <Style x:Key="GameSymbolsFontStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
-        <Setter Property="FontFamily" Value="Assets/GameGlyphs.ttf#GameGlyphs"/>
+        <Setter Property="FontFamily" Value="{StaticResource GameSymbolsFontFamily}"/>
     </Style>
 </ResourceDictionary>
