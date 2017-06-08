@@ -10,23 +10,25 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
     {
         private const uint CoreRenderTargetMinSize = 1024;
 
-        private static readonly IReadOnlyDictionary<PixelFormats, DirectXPixelFormat> PixelFormatsMapping = new Dictionary<PixelFormats, DirectXPixelFormat>
+        private static readonly IReadOnlyDictionary<PixelFormats, int> PixelFormatsSizeMapping = new Dictionary<PixelFormats, int>
         {
-            { PixelFormats.FormatXRGB8888, DirectXPixelFormat.B8G8R8A8UIntNormalized },
-            { PixelFormats.FormatRGB565, DirectXPixelFormat.B5G6R5UIntNormalized },
-            { PixelFormats.Format0RGB1555, DirectXPixelFormat.B5G5R5A1UIntNormalized },
-        };
-
-        private static readonly IReadOnlyDictionary<DirectXPixelFormat, int> PixelFormatsSizeMapping = new Dictionary<DirectXPixelFormat, int>
-        {
-            { DirectXPixelFormat.B8G8R8A8UIntNormalized, 4 },
-            { DirectXPixelFormat.B5G6R5UIntNormalized, 2 },
-            { DirectXPixelFormat.B5G5R5A1UIntNormalized, 2 },
+            { PixelFormats.FormatXRGB8888, 4 },
+            { PixelFormats.FormatRGB565, 2 },
+            { PixelFormats.Format0RGB1555, 2 },
         };
 
         private readonly object RenderTargetLock = new object();
         private CanvasBitmap RenderTarget = null;
+        private byte[] RenderTargetBuffer = null;
         private Rect RenderTargetViewport = new Rect();
+
+        private PixelFormats currentCorePixelFormat;
+        public PixelFormats CurrentCorePixelFormat
+        {
+            get { return currentCorePixelFormat; }
+            set { currentCorePixelFormat = value; RenderTargetPixelSize = PixelFormatsSizeMapping[value]; }
+        }
+
         private int RenderTargetPixelSize = 0;
 
         public void Dispose()
@@ -60,19 +62,25 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 RenderTargetViewport.Width = width;
                 RenderTargetViewport.Height = height;
 
-                RenderTarget.SetPixelBytes(frameBuffer, 0, 0, (int)virtualWidth, (int)height);
+                switch(CurrentCorePixelFormat)
+                {
+                    case PixelFormats.FormatXRGB8888:
+                        RenderTarget.SetPixelBytes(frameBuffer, 0, 0, (int)virtualWidth, (int)height);
+                        break;
+                    case PixelFormats.FormatRGB565:
+                        ColorConverter.ConvertRGB565ToXRGB8888(frameBuffer, RenderTargetBuffer);
+                        RenderTarget.SetPixelBytes(RenderTargetBuffer, 0, 0, (int)virtualWidth, (int)height);
+                        break;
+                }
             }
         }
 
-        public void UpdateFormat(ICanvasResourceCreator resourceCreator, GameGeometry geometry, PixelFormats format)
+        public void UpdateRenderTargetSize(ICanvasResourceCreator resourceCreator, GameGeometry geometry)
         {
-            var requestedFormat = PixelFormatsMapping[format];
-            RenderTargetPixelSize = PixelFormatsSizeMapping[requestedFormat];
-
             if (RenderTarget != null)
             {
                 var currentSize = RenderTarget.Size;
-                if (currentSize.Width >= geometry.MaxWidth && currentSize.Height >= geometry.MaxHeight && RenderTarget.Format == requestedFormat)
+                if (currentSize.Width >= geometry.MaxWidth && currentSize.Height >= geometry.MaxHeight)
                 {
                     return;
                 }
@@ -82,10 +90,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             {
                 var size = Math.Max(Math.Max(geometry.MaxWidth, geometry.MaxHeight), CoreRenderTargetMinSize);
                 size = ClosestGreaterPowerTwo(size);
-                var buffer = new byte[size * size * RenderTargetPixelSize];
+                RenderTargetBuffer = new byte[size * size * 4];
 
                 RenderTarget?.Dispose();
-                RenderTarget = CanvasBitmap.CreateFromBytes(resourceCreator, buffer, (int)size, (int)size, requestedFormat);
+                RenderTarget = CanvasBitmap.CreateFromBytes(resourceCreator, RenderTargetBuffer, (int)size, (int)size, DirectXPixelFormat.B8G8R8A8UIntNormalized);
             }
         }
 

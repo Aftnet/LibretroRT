@@ -114,13 +114,12 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         public void GeometryChanged(GameGeometry geometry)
         {
             var core = Coordinator.Core;
-            RenderTargetManager.UpdateFormat(RenderPanel, core.Geometry, core.PixelFormat);
+            RenderTargetManager.UpdateRenderTargetSize(RenderPanel, geometry);
         }
 
         public void PixelFormatChanged(PixelFormats format)
         {
-            var core = Coordinator.Core;
-            RenderTargetManager.UpdateFormat(RenderPanel, core.Geometry, core.PixelFormat);
+            RenderTargetManager.CurrentCorePixelFormat = format;
         }
     }
 }
