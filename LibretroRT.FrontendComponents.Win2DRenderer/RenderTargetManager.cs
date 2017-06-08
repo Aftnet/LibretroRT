@@ -101,7 +101,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         private static Rect ComputeBestFittingSize(Size viewportSize, float aspectRatio)
         {
             Rect output;
-            var candidateWidth = viewportSize.Height * aspectRatio;
+            var candidateWidth = Math.Floor(viewportSize.Height * aspectRatio);
             if (viewportSize.Width >= candidateWidth)
             {
                 var size = new Size(candidateWidth, viewportSize.Height);

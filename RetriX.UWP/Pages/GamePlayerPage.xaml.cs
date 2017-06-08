@@ -46,6 +46,8 @@ namespace RetriX.UWP.Pages
         {
             EmulationService.CoreRunner = null;
             Runner.Dispose();
+            PlayerPanel.RemoveFromVisualTree();
+            PlayerPanel = null;
         }
     }
 }
