@@ -19,7 +19,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 g = ((((i >> 5) & 0x3F) * 259) + 33) >> 6;
                 b = (((i & 0x1F) * 527) + 23) >> 6;
 
-                RGB565LUT[i] = 0xff << 24 | r << 16 | g << 8 | b;
+                RGB565LUT[i] = b << 24 | g << 16 | r << 8 | 0xff;
             }
         }
 
@@ -32,18 +32,22 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
             fixed (byte* inPtr = input)
             fixed (byte* outPtr = output)
+            fixed (int* lutPtr = RGB565LUT)
             {
                 var inLineStart = inPtr;
                 var outLineStart = outPtr;
 
                 for (var i = 0; i < height; i++)
                 {
-                    ushort* inShortPtr = (ushort*)inPtr;
-                    int* outIntPtr = (int*)outPtr;
+                    ushort* inShortPtr = (ushort*)inLineStart;
+                    int* outIntPtr = (int*)outLineStart;
 
-                    for (var j = 0; j < width; j++)
+                    unchecked
                     {
-                        outIntPtr[j] = RGB565LUT[inShortPtr[j]];
+                        for (var j = 0; j < width; j++)
+                        {
+                            outIntPtr[j] = lutPtr[inShortPtr[j]];
+                        }
                     }
 
                     inLineStart += pitch;

@@ -8,7 +8,9 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 {
     internal class RenderTargetManager : IDisposable
     {
-        private const uint CoreRenderTargetMinSize = 1024;
+        private const uint RenderTargetMinSize = 1024;
+        private const DirectXPixelFormat RenderTargetPixelFormat = DirectXPixelFormat.B8G8R8A8UIntNormalized;
+        private const int RenderTargetPixelSize = 4;
 
         private static readonly IReadOnlyDictionary<PixelFormats, int> PixelFormatsSizeMapping = new Dictionary<PixelFormats, int>
         {
@@ -26,10 +28,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         public PixelFormats CurrentCorePixelFormat
         {
             get { return currentCorePixelFormat; }
-            set { currentCorePixelFormat = value; RenderTargetPixelSize = PixelFormatsSizeMapping[value]; }
+            set { currentCorePixelFormat = value; CurrentCorePixelSize = PixelFormatsSizeMapping[currentCorePixelFormat]; }
         }
 
-        private int RenderTargetPixelSize = 0;
+        private int CurrentCorePixelSize = 0;
 
         public void Dispose()
         {
@@ -54,12 +56,12 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public void UpdateFromCoreOutput(byte[] frameBuffer, uint width, uint height, uint pitch)
         {
-            if (frameBuffer == null || RenderTarget == null || RenderTargetPixelSize == 0)
+            if (frameBuffer == null || RenderTarget == null || CurrentCorePixelSize == 0)
                 return;
 
             lock (RenderTargetLock)
             {
-                var virtualWidth = pitch / RenderTargetPixelSize;
+                var virtualWidth = pitch / CurrentCorePixelSize;
                 RenderTargetViewport.Width = width;
                 RenderTargetViewport.Height = height;
 
@@ -69,7 +71,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                         RenderTarget.SetPixelBytes(frameBuffer, 0, 0, (int)virtualWidth, (int)height);
                         break;
                     case PixelFormats.FormatRGB565:
-                        ColorConverter.ConvertFrameBufferRGB565ToXRGB8888(frameBuffer, width, height, pitch, RenderTargetBuffer, RenderTarget.SizeInPixels.Width * 4);
+                        ColorConverter.ConvertFrameBufferRGB565ToXRGB8888(frameBuffer, width, height, pitch, RenderTargetBuffer, RenderTarget.SizeInPixels.Width * RenderTargetPixelSize);
                         RenderTarget.SetPixelBytes(RenderTargetBuffer, 0, 0, (int)virtualWidth, (int)height);
                         break;
                 }
@@ -89,12 +91,12 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
             lock (RenderTargetLock)
             {
-                var size = Math.Max(Math.Max(geometry.MaxWidth, geometry.MaxHeight), CoreRenderTargetMinSize);
+                var size = Math.Max(Math.Max(geometry.MaxWidth, geometry.MaxHeight), RenderTargetMinSize);
                 size = ClosestGreaterPowerTwo(size);
-                RenderTargetBuffer = new byte[size * size * 4];
+                RenderTargetBuffer = new byte[size * size * RenderTargetPixelSize];
 
                 RenderTarget?.Dispose();
-                RenderTarget = CanvasBitmap.CreateFromBytes(resourceCreator, RenderTargetBuffer, (int)size, (int)size, DirectXPixelFormat.B8G8R8A8UIntNormalized);
+                RenderTarget = CanvasBitmap.CreateFromBytes(resourceCreator, RenderTargetBuffer, (int)size, (int)size, RenderTargetPixelFormat);
             }
         }
 
