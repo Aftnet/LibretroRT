@@ -17,6 +17,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             { PixelFormats.FormatXRGB8888, 4 },
             { PixelFormats.FormatRGB565, 2 },
             { PixelFormats.Format0RGB1555, 2 },
+            { PixelFormats.FormatUknown, 0 },
         };
 
         private readonly object RenderTargetLock = new object();
@@ -24,7 +25,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         private byte[] RenderTargetBuffer = null;
         private Rect RenderTargetViewport = new Rect();
 
-        private PixelFormats currentCorePixelFormat;
+        private PixelFormats currentCorePixelFormat = PixelFormats.FormatUknown;
         public PixelFormats CurrentCorePixelFormat
         {
             get { return currentCorePixelFormat; }

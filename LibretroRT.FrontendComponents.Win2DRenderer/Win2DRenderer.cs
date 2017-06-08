@@ -46,7 +46,8 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             {
                 Coordinator.Core?.UnloadGame();
                 Coordinator.Core = core;
-                Coordinator.Core.LoadGame(gameFile);
+                core.LoadGame(gameFile);
+                RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
                 RunCore = true;
             }
         }
