@@ -2,6 +2,7 @@
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -13,6 +14,8 @@ namespace RetriX.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        private Frame RootFrame => Window.Current.Content as Frame;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -32,7 +35,7 @@ namespace RetriX.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            var rootFrame = RootFrame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -42,6 +45,7 @@ namespace RetriX.UWP
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.Navigated += OnNavigated;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -50,6 +54,16 @@ namespace RetriX.UWP
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+
+                // Register a handler for BackRequested events and set the
+                // visibility of the Back button
+                SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                    rootFrame.CanGoBack ?
+                    AppViewBackButtonVisibility.Visible :
+                    AppViewBackButtonVisibility.Collapsed;
+
             }
 
             if (e.PrelaunchActivated == false)
@@ -76,6 +90,13 @@ namespace RetriX.UWP
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            // Each time a navigation event occurs, update the Back button's visibility
+            var visibility = ((Frame)sender).CanGoBack? AppViewBackButtonVisibility.Visible: AppViewBackButtonVisibility.Collapsed;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = visibility;
+        }
+
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
         /// without knowing whether the application will be terminated or resumed with the contents
@@ -89,5 +110,15 @@ namespace RetriX.UWP
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (RootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                RootFrame.GoBack();
+            }
+        }
+
     }
 }
