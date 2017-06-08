@@ -4,25 +4,24 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 {
     internal static class ColorConverter
     {
-        private static readonly int[] RGB565LUT = new int[ushort.MaxValue];
+        private const uint LookupTableSize = ushort.MaxValue + 1;
+
+        private static readonly uint[] RGB565LookupTable = new uint[LookupTableSize];
 
         static ColorConverter()
         {
-            int r, g, b;
-            unchecked
+            uint r, g, b;
+            for (uint i = 0; i < LookupTableSize; i++)
             {
-                for (ushort i = 0; i < ushort.MaxValue; i++)
-                {
-                    r = ((i >> 11) & 0x1F);
-                    g = ((i >> 5) & 0x3F);
-                    b = (i & 0x1F);
+                r = (i >> 11) & 0x1F;
+                g = (i >> 5) & 0x3F;
+                b = (i & 0x1F);
 
-                    r = ((((i >> 11) & 0x1F) * 527) + 23) >> 6;
-                    g = ((((i >> 5) & 0x3F) * 259) + 33) >> 6;
-                    b = (((i & 0x1F) * 527) + 23) >> 6;
+                r = (uint)Math.Round(r * 255.0 / 31.0);
+                g = (uint)Math.Round(g * 255.0 / 63.0);
+                b = (uint)Math.Round(b * 255.0 / 31.0);
 
-                    RGB565LUT[i] = 0xFF << 24 | r << 16 | g << 8 | b;
-                }
+                RGB565LookupTable[i] = 0xFF000000 | r << 16 | g << 8 | b;
             }
         }
 
@@ -35,22 +34,19 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
             fixed (byte* inPtr = input)
             fixed (byte* outPtr = output)
-            fixed (int* lutPtr = RGB565LUT)
+            fixed (uint* lutPtr = RGB565LookupTable)
             {
-                var outIntPtr = (int*)outPtr;
+                var outIntPtr = (uint*)outPtr;
                 var inLineStart = inPtr;
 
                 for (var i = 0; i < height; i++)
                 {
                     var inShortPtr = (ushort*)inLineStart;
 
-                    unchecked
+                    for (var j = 0; j < width; j++)
                     {
-                        for (var j = 0; j < width; j++)
-                        {
-                            *outIntPtr = lutPtr[inShortPtr[j]];
-                            outIntPtr++;
-                        }
+                        *outIntPtr = lutPtr[inShortPtr[j]];
+                        outIntPtr++;
                     }
 
                     inLineStart += pitch;
