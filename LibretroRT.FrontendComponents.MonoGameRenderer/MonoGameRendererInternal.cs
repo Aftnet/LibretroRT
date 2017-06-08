@@ -13,6 +13,19 @@ namespace LibretroRT.FrontendComponents.MonoGameRenderer
         private GraphicsDevice Device => DeviceManager.GraphicsDevice;
 
         private readonly CoreEventCoordinator Coordinator;
+
+        public IAudioPlayer AudioPlayer
+        {
+            get { return Coordinator.AudioPlayer; }
+            set { Coordinator.AudioPlayer = value; }
+        }
+
+        public IInputManager InputManager
+        {
+            get { return Coordinator.InputManager; }
+            set { Coordinator.InputManager = value; }
+        }
+
         private bool RunCore { get; set; }
 
         private SpriteBatch SpriteBatch { get; set; }
@@ -84,11 +97,10 @@ namespace LibretroRT.FrontendComponents.MonoGameRenderer
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            var viewport = Device.Viewport;
             GraphicsDevice.Clear(Color.Black);
 
             SpriteBatch.Begin();
-            RenderTargetManager.Render(SpriteBatch, viewport.Bounds.Size);
+            RenderTargetManager.Render(SpriteBatch, Device.Viewport.Bounds.Size);
             SpriteBatch.End();
 
             base.Draw(gameTime);

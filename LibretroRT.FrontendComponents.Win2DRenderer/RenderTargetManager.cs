@@ -78,7 +78,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 }
             }
 
-            lock(RenderTargetLock)
+            lock (RenderTargetLock)
             {
                 var size = Math.Max(Math.Max(geometry.MaxWidth, geometry.MaxHeight), CoreRenderTargetMinSize);
                 size = ClosestGreaterPowerTwo(size);
