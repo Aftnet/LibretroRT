@@ -3,6 +3,7 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Storage;
+using Windows.UI;
 
 namespace LibretroRT.FrontendComponents.Win2DRenderer
 {
@@ -26,6 +27,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             RunCore = false;
 
             RenderPanel = renderPanel;
+            RenderPanel.ClearColor = Color.FromArgb(0xff, 0, 0, 0);
             RenderPanel.Update -= RenderPanelUpdate;
             RenderPanel.Update += RenderPanelUpdate;
             RenderPanel.Draw -= RenderPanelDraw;
@@ -105,6 +107,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         private void RenderPanelDraw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
+
             RenderTargetManager.Render(args.DrawingSession, sender.Size);
         }
 
