@@ -1,5 +1,5 @@
 ﻿using LibretroRT.FrontendComponents.Common;
-using LibretroRT.FrontendComponents.Win2DRenderer;
+using LibretroRT.FrontendComponents.MonoGameRenderer;
 using Microsoft.Practices.ServiceLocation;
 using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
@@ -20,7 +20,7 @@ namespace RetriX.UWP.Pages
 
         private IServiceLocator Locator => ServiceLocator.Current;
 
-        private readonly Win2DRenderer Renderer;
+        private readonly MonoGameCoreRunner Runner;
 
         private readonly EmulationService EmulationService;
 
@@ -29,15 +29,15 @@ namespace RetriX.UWP.Pages
             this.InitializeComponent();
 
             EmulationService = Locator.GetInstance<IEmulationService>() as EmulationService;
-            Renderer = new Win2DRenderer(Win2dCanvas, Locator.GetInstance<IAudioPlayer>(), Locator.GetInstance<IInputManager>());
-            EmulationService.CoreRunner = Renderer;
+            Runner = new MonoGameCoreRunner(PlayerPanel, Locator.GetInstance<IAudioPlayer>(), Locator.GetInstance<IInputManager>());
+            EmulationService.CoreRunner = Runner;
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            Renderer.UnloadGame();
+            Runner.UnloadGame();
             EmulationService.CoreRunner = null;
-            Renderer.Dispose();
+            Runner.Dispose();
         }
     }
 }
