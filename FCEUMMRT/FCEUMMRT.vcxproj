@@ -206,13 +206,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
+    <ClInclude Include="..\LibretroRT.CoreTools\CoreBase.h" />
     <ClInclude Include="FCEUMMCore.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="FCEUMMCoreInternal.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
+    <ClCompile Include="..\LibretroRT.CoreTools\CoreBase.cpp" />
     <ClCompile Include="FCEUMMCore.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -228,8 +228,8 @@
     <ProjectReference Include="..\FCEUMM\FCEUMM.vcxproj">
       <Project>{5cfa4e87-5e7c-49eb-bda6-52f31b40e1aa}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRTSupport\LibretroRTSupport.vcxproj">
-      <Project>{bb091f51-d3ad-479e-8cb7-1886c9b0676e}</Project>
+    <ProjectReference Include="..\LibretroRT.CoreTools\LibretroRT.CoreTools.vcxproj">
+      <Project>{6f5de5aa-3be6-4b95-85b6-dbb94bb79e1f}</Project>
     </ProjectReference>
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>

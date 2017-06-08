@@ -10,8 +10,8 @@ CoreWrapper::CoreWrapper(ICore^ wrappedCore) :
 	core->RenderAudioFrames += ref new RenderAudioFramesDelegate(this, &CoreWrapper::OnRenderAudioFrames);
 	core->PollInput += ref new PollInputDelegate(this, &CoreWrapper::OnPollInput);
 	core->GetInputState += ref new GetInputStateDelegate(this, &CoreWrapper::OnGetInputState);
-	core->GameGeometryChanged += ref new GameGeometryChangedDelegate(this, &CoreWrapper::OnGameGeometryChanged);
-	core->SystemTimingChanged += ref new SystemTimingChangedDelegate(this, &CoreWrapper::OnSystemTimingChanged);
+	core->GeometryChanged += ref new GeometryChangedDelegate(this, &CoreWrapper::OnGeometryChanged);
+	core->TimingChanged += ref new TimingChangedDelegate(this, &CoreWrapper::OnTimingChanged);
 	core->PixelFormatChanged += ref new PixelFormatChangedDelegate(this, &CoreWrapper::OnPixelFormatChanged);
 }
 
@@ -68,14 +68,14 @@ short CoreWrapper::OnGetInputState(unsigned int port, InputTypes inputType)
 	return GetInputState(port, inputType);
 }
 
-void CoreWrapper::OnGameGeometryChanged(GameGeometry^ geometry)
+void CoreWrapper::OnGeometryChanged(GameGeometry^ geometry)
 {
-	GameGeometryChanged(geometry);
+	GeometryChanged(geometry);
 }
 
-void CoreWrapper::OnSystemTimingChanged(SystemTiming^ timing)
+void CoreWrapper::OnTimingChanged(SystemTiming^ timing)
 {
-	SystemTimingChanged(timing);
+	TimingChanged(timing);
 }
 
 void CoreWrapper::OnPixelFormatChanged(PixelFormats format)

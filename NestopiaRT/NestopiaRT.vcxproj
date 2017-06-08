@@ -206,13 +206,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\LibretroRTSupport\CoreBase.h" />
+    <ClInclude Include="..\LibretroRT.CoreTools\CoreBase.h" />
     <ClInclude Include="NestopiaCore.h" />
     <ClInclude Include="NestopiaCoreInternal.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\LibretroRTSupport\CoreBase.cpp" />
+    <ClCompile Include="..\LibretroRT.CoreTools\CoreBase.cpp" />
     <ClCompile Include="NestopiaCore.cpp" />
     <ClCompile Include="NestopiaCoreInternal.cpp" />
     <ClCompile Include="pch.cpp">
@@ -225,8 +225,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LibretroRTSupport\LibretroRTSupport.vcxproj">
-      <Project>{bb091f51-d3ad-479e-8cb7-1886c9b0676e}</Project>
+    <ProjectReference Include="..\LibretroRT.CoreTools\LibretroRT.CoreTools.vcxproj">
+      <Project>{6f5de5aa-3be6-4b95-85b6-dbb94bb79e1f}</Project>
     </ProjectReference>
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
