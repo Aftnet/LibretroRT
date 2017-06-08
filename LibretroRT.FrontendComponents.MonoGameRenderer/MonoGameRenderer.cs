@@ -58,6 +58,7 @@ namespace LibretroRT.FrontendComponents.MonoGameRenderer
         /// </summary>
         protected override void LoadContent()
         {
+            base.LoadContent();
             // Create a new SpriteBatch, which can be used to draw textures.
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             RenderTargetManager = new RenderTargetManager();
@@ -69,8 +70,10 @@ namespace LibretroRT.FrontendComponents.MonoGameRenderer
         /// </summary>
         protected override void UnloadContent()
         {
+            UnloadGame();
             RenderTargetManager.Dispose();
             SpriteBatch.Dispose();
+            base.UnloadContent();
         }
 
         /// <summary>
