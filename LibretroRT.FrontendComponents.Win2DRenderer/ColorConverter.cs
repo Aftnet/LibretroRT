@@ -48,7 +48,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                     {
                         for (var j = 0; j < width; j++)
                         {
-                            *outIntPtr = (int)0xFF00FFFF; //lutPtr[inShortPtr[j]];
+                            *outIntPtr = lutPtr[inShortPtr[j]];
                             outIntPtr++;
                         }
                     }
