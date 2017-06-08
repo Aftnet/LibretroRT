@@ -71,8 +71,8 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                         RenderTarget.SetPixelBytes(frameBuffer, 0, 0, (int)virtualWidth, (int)height);
                         break;
                     case PixelFormats.FormatRGB565:
-                        ColorConverter.ConvertFrameBufferRGB565ToXRGB8888(frameBuffer, width, height, pitch, RenderTargetBuffer, RenderTarget.SizeInPixels.Width * RenderTargetPixelSize);
-                        RenderTarget.SetPixelBytes(RenderTargetBuffer, 0, 0, (int)virtualWidth, (int)height);
+                        ColorConverter.ConvertFrameBufferRGB565ToXRGB8888(frameBuffer, width, height, pitch, RenderTargetBuffer);
+                        RenderTarget.SetPixelBytes(RenderTargetBuffer, 0, 0, (int)width, (int)height);
                         break;
                 }
             }
