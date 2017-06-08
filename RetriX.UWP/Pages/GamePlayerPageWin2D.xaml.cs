@@ -1,4 +1,5 @@
-﻿using LibretroRT.FrontendComponents.Win2DRenderer;
+﻿using LibretroRT.FrontendComponents.Common;
+using LibretroRT.FrontendComponents.Win2DRenderer;
 using Microsoft.Practices.ServiceLocation;
 using RetriX.Shared.Services;
 using RetriX.UWP.Services;
@@ -25,7 +26,7 @@ namespace RetriX.UWP.Pages
             this.InitializeComponent();
 
             EmulationService = Locator.GetInstance<IEmulationService>() as EmulationService;
-            Renderer = new Win2DRenderer(Win2dCanvas, EmulationService.AudioPlayer, EmulationService.InputManager);
+            Renderer = new Win2DRenderer(Win2dCanvas, Locator.GetInstance<IAudioPlayer>(), Locator.GetInstance<IInputManager>());
             EmulationService.CoreRunner = Renderer;
         }
 

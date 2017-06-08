@@ -1,7 +1,5 @@
 ﻿using LibretroRT;
-using LibretroRT.FrontendComponents.AudioGraphPlayer;
 using LibretroRT.FrontendComponents.Common;
-using LibretroRT.FrontendComponents.InputManager;
 using RetriX.Shared.Services;
 using RetriX.UWP.Pages;
 using System;
@@ -27,12 +25,6 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.GBA, VBAMRT.VBAMCore.Instance },
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
-
-        private readonly IAudioPlayer audioPlayer = new AudioGraphPlayer();
-        public IAudioPlayer AudioPlayer => audioPlayer;
-
-        private readonly IInputManager inputManager = new InputManager();
-        public IInputManager InputManager => inputManager;
 
         public ICoreRunner CoreRunner { get; set; }
 

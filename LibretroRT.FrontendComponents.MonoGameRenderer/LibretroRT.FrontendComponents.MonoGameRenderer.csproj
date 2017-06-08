@@ -107,8 +107,8 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MonoGameCoreRunner.cs" />
     <Compile Include="MonoGameRenderer.cs" />
-    <Compile Include="MonoGameRendererInternal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderTargetManager.cs" />
   </ItemGroup>
