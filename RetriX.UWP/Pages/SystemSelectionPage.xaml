@@ -35,7 +35,6 @@
                     <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelectedCommand}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
-
         </ListView>
     </Grid>
 </Page>
