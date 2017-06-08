@@ -4,6 +4,11 @@
 
     public interface IEmulationService
     {
+        bool IsFullScreenMode { get; }
+
         void SelectAndRunGame(GameSystemTypes systemType);
+
+        bool TryEnterFullScreen();
+        void ExitFullScreen();
     }
 }

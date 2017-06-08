@@ -20,7 +20,7 @@ namespace RetriX.UWP.Pages
         public GamePlayerVM VM => Locator.GetInstance<GamePlayerVM>();
 
         private IServiceLocator Locator => ServiceLocator.Current;
-        private CoreWindow Window => CoreWindow.GetForCurrentThread();
+        private CoreWindow CoreWindow => CoreWindow.GetForCurrentThread();
 
         private Win2DRenderer Runner;
 
@@ -48,7 +48,7 @@ namespace RetriX.UWP.Pages
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            Window.KeyDown -= OnKeyDown;
+            CoreWindow.KeyDown -= OnKeyDown;
         }
 
         private void OnKeyDown(CoreWindow sender, KeyEventArgs args)
