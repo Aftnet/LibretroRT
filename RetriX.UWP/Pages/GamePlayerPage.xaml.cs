@@ -4,6 +4,7 @@ using Microsoft.Practices.ServiceLocation;
 using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
 using RetriX.UWP.Services;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -20,7 +21,7 @@ namespace RetriX.UWP.Pages
         public GamePlayerVM VM => Locator.GetInstance<GamePlayerVM>();
 
         private IServiceLocator Locator => ServiceLocator.Current;
-        private CoreWindow Window => CoreWindow.GetForCurrentThread();
+        private CoreWindow CoreWindow => CoreWindow.GetForCurrentThread();
 
         private Win2DRenderer Runner;
 
@@ -48,15 +49,34 @@ namespace RetriX.UWP.Pages
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            Window.KeyDown -= OnKeyDown;
+            CoreWindow.KeyDown -= OnKeyDown;
         }
 
         private void OnKeyDown(CoreWindow sender, KeyEventArgs args)
         {
-            //By default the gamepad's B button is treated as a hardware back button.
-            //Handling the KeyDown event disables this.
-            //We want this to happen only in the game page and not in the rest of the UI
-            args.Handled = args.VirtualKey == Windows.System.VirtualKey.GamepadB;
+            switch (args.VirtualKey)
+            {
+                //By default the gamepad's B button is treated as a hardware back button.
+                //Handling the KeyDown event disables this.
+                //We want this to happen only in the game page and not in the rest of the UI
+                case VirtualKey.GamepadB:
+                    args.Handled = true;
+                    break;
+
+                //Alt+Enter: enter fullscreen
+                case VirtualKey.Enter:
+                    if (CoreWindow.GetKeyState(VirtualKey.Menu) == CoreVirtualKeyStates.Down)
+                    {
+                        EmulationService.TryEnterFullScreen();
+                        args.Handled = true;
+                    }
+                    break;
+
+                case VirtualKey.Escape:
+                    EmulationService.ExitFullScreen();
+                    args.Handled = true;
+                    break;
+            }
         }
 
         private void OnUnloading(object sender, Windows.UI.Xaml.RoutedEventArgs e)
