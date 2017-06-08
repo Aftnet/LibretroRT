@@ -4,6 +4,7 @@ using Microsoft.Practices.ServiceLocation;
 using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
 using RetriX.UWP.Services;
+using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -19,6 +20,7 @@ namespace RetriX.UWP.Pages
         public GamePlayerVM VM => Locator.GetInstance<GamePlayerVM>();
 
         private IServiceLocator Locator => ServiceLocator.Current;
+        private CoreWindow Window => CoreWindow.GetForCurrentThread();
 
         private Win2DRenderer Runner;
 
@@ -37,9 +39,24 @@ namespace RetriX.UWP.Pages
             Unloaded += OnUnloading;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var window = CoreWindow.GetForCurrentThread();
+            window.KeyDown -= OnKeyDown;
+            window.KeyDown += OnKeyDown;
+        }
+
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            //Runner.UnloadGame();
+            Window.KeyDown -= OnKeyDown;
+        }
+
+        private void OnKeyDown(CoreWindow sender, KeyEventArgs args)
+        {
+            //By default the gamepad's B button is treated as a hardware back button.
+            //Handling the KeyDown event disables this.
+            //We want this to happen only in the game page and not in the rest of the UI
+            args.Handled = args.VirtualKey == Windows.System.VirtualKey.GamepadB;
         }
 
         private void OnUnloading(object sender, Windows.UI.Xaml.RoutedEventArgs e)
