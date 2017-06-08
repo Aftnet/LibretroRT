@@ -14,6 +14,8 @@ namespace LibretroRT.FrontendComponents.MonoGameRenderer
         public MonoGameCoreRunner(SwapChainPanel swapChainPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
         {
             Renderer = XamlGame<MonoGameRenderer>.Create(string.Empty, Window.Current.CoreWindow, swapChainPanel);
+            Renderer.AudioPlayer = audioPlayer;
+            Renderer.InputManager = inputManager;
         }
 
         public void Dispose()
