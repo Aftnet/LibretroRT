@@ -1,8 +1,8 @@
-﻿using System.Threading;
+﻿using System;
 
 namespace LibretroRT.FrontendComponents.Common
 {
-    public sealed class CoreEventCoordinator
+    public sealed class CoreEventCoordinator : IDisposable
     {
         private ICore core;
         public ICore Core
@@ -12,7 +12,7 @@ namespace LibretroRT.FrontendComponents.Common
             {
                 if (core != value)
                 {
-                    UnregisterCoreEvents();
+                    UnregisterEvents();
                     core = value;
                     RegisterEvents();
                 }
@@ -27,7 +27,7 @@ namespace LibretroRT.FrontendComponents.Common
             {
                 if (renderer != value)
                 {
-                    UnregisterCoreEvents();
+                    UnregisterEvents();
                     renderer = value;
                     RegisterEvents();
                 }
@@ -42,7 +42,7 @@ namespace LibretroRT.FrontendComponents.Common
             {
                 if (audioPlayer != value)
                 {
-                    UnregisterCoreEvents();
+                    UnregisterEvents();
                     audioPlayer = value;
                     RegisterEvents();
                 }
@@ -57,7 +57,7 @@ namespace LibretroRT.FrontendComponents.Common
             {
                 if (inputManager != value)
                 {
-                    UnregisterCoreEvents();
+                    UnregisterEvents();
                     inputManager = value;
                     RegisterEvents();
                 }
@@ -66,7 +66,14 @@ namespace LibretroRT.FrontendComponents.Common
 
         public bool AudioPlayerRequestsFrameDelay { get { return AudioPlayer != null && AudioPlayer.ShouldDelayNextFrame; } }
 
-        private void UnregisterCoreEvents()
+        public void Dispose()
+        {
+            Core = null;
+            AudioPlayer = null;
+            InputManager = null;
+        }
+
+        private void UnregisterEvents()
         {
             if (Core == null)
                 return;

@@ -40,13 +40,8 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             lock (Coordinator)
             {
-                RenderPanel.Update -= RenderPanelUpdate;
-                RenderPanel.Draw -= RenderPanelDraw;
-                RenderPanel.Unloaded -= RenderPanelUnloaded;
-                RenderPanel = null;
-
                 Coordinator.Core?.UnloadGame();
-                Coordinator.Core = null;
+                Coordinator.Dispose();
                 RenderTargetManager.Dispose();
             }
         }
@@ -101,6 +96,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             RenderPanel.Update -= RenderPanelUpdate;
             RenderPanel.Draw -= RenderPanelDraw;
             RenderPanel.Unloaded -= RenderPanelUnloaded;
+            RenderPanel = null;
         }
 
         private void RenderPanelUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
@@ -127,7 +123,6 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public void GeometryChanged(GameGeometry geometry)
         {
-            var core = Coordinator.Core;
             RenderTargetManager.UpdateRenderTargetSize(RenderPanel, geometry);
         }
 
