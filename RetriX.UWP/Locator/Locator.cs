@@ -20,6 +20,7 @@ namespace RetriX.UWP.Locator
             ioc.Register<IEmulationService, EmulationService>();
             ioc.Register<ILocalizationService, LocalizationService>();
             ioc.Register<GameSystemSelectionVM>();
+            ioc.Register<GamePlayerVM>();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
         }

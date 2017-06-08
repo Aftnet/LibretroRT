@@ -37,7 +37,7 @@ namespace RetriX.UWP.Services
             if (file == null)
                 return;
 
-            RootFrame.Navigate(typeof(GamePlayerPageWin2D));
+            RootFrame.Navigate(typeof(GamePlayerPage));
             var task = Task.Run(() => CoreRunner.LoadGame(core, file));
         }
 

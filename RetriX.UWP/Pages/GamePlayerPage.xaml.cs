@@ -2,6 +2,7 @@
 using LibretroRT.FrontendComponents.Win2DRenderer;
 using Microsoft.Practices.ServiceLocation;
 using RetriX.Shared.Services;
+using RetriX.Shared.ViewModels;
 using RetriX.UWP.Services;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -13,15 +14,17 @@ namespace RetriX.UWP.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class GamePlayerPageWin2D : Page
+    public sealed partial class GamePlayerPage : Page, ITypedViewModel<GamePlayerVM>
     {
+        public GamePlayerVM VM => Locator.GetInstance<GamePlayerVM>();
+
         private IServiceLocator Locator => ServiceLocator.Current;
 
         private readonly Win2DRenderer Renderer;
 
         private readonly EmulationService EmulationService;
 
-        public GamePlayerPageWin2D()
+        public GamePlayerPage()
         {
             this.InitializeComponent();
 

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="RetriX.UWP.Pages.GamePlayerPageWin2D"
+    x:Class="RetriX.UWP.Pages.GamePlayerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:RetriX.UWP.Pages"

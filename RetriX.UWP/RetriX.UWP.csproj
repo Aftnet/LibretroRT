@@ -104,8 +104,8 @@
     <Compile Include="Pages\SystemSelectionPage.xaml.cs">
       <DependentUpon>SystemSelectionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GamePlayerPageWin2D.xaml.cs">
-      <DependentUpon>GamePlayerPageWin2D.xaml</DependentUpon>
+    <Compile Include="Pages\GamePlayerPage.xaml.cs">
+      <DependentUpon>GamePlayerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmulationService.cs" />
@@ -188,7 +188,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\GamePlayerPageWin2D.xaml">
+    <Page Include="Pages\GamePlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
