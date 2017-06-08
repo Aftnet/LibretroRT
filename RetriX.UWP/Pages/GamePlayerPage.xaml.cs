@@ -31,11 +31,17 @@ namespace RetriX.UWP.Pages
             EmulationService = Locator.GetInstance<IEmulationService>() as EmulationService;
             Runner = new MonoGameCoreRunner(PlayerPanel, Locator.GetInstance<IAudioPlayer>(), Locator.GetInstance<IInputManager>());
             EmulationService.CoreRunner = Runner;
+
+            Unloaded += OnUnloading;
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             Runner.UnloadGame();
+        }
+
+        private void OnUnloading(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
             EmulationService.CoreRunner = null;
             Runner.Dispose();
         }
