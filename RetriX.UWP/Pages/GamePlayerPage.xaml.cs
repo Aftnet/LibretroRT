@@ -29,7 +29,9 @@ namespace RetriX.UWP.Pages
             this.InitializeComponent();
 
             EmulationService = Locator.GetInstance<IEmulationService>() as EmulationService;
-            Runner = new Win2DRenderer(PlayerPanel, Locator.GetInstance<IAudioPlayer>(), Locator.GetInstance<IInputManager>());
+            var audioPlayer = Locator.GetInstance<IAudioPlayer>();
+            var inputManager = Locator.GetInstance<IInputManager>();
+            Runner = new Win2DRenderer(PlayerPanel, audioPlayer, inputManager);
             EmulationService.CoreRunner = Runner;
 
             Unloaded += OnUnloading;
@@ -37,7 +39,7 @@ namespace RetriX.UWP.Pages
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            Runner.UnloadGame();
+            //Runner.UnloadGame();
         }
 
         private void OnUnloading(object sender, Windows.UI.Xaml.RoutedEventArgs e)

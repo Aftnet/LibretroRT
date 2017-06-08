@@ -34,6 +34,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         public void Dispose()
         {
             RenderTarget.Dispose();
+            RenderTarget = null;
         }
 
         public void Render(CanvasDrawingSession drawingSession, Size canvasSize)
@@ -53,7 +54,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public void UpdateFromCoreOutput(byte[] frameBuffer, uint width, uint height, uint pitch)
         {
-            if (frameBuffer == null || RenderTarget == null)
+            if (frameBuffer == null || RenderTarget == null || RenderTargetPixelSize == 0)
                 return;
 
             lock (RenderTargetLock)

@@ -46,8 +46,6 @@ namespace LibretroRT.FrontendComponents.InputManager
             { InputTypes.DeviceIdJoypadStart, GamepadButtons.Menu },
         };
 
-        private readonly Lazy<CoreWindow> Window;
-
         private readonly Dictionary<VirtualKey, bool> KeyStates = new Dictionary<VirtualKey, bool>();
         private readonly Dictionary<VirtualKey, bool> KeySnapshot = new Dictionary<VirtualKey, bool>();
 
@@ -55,18 +53,15 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         public InputManager()
         {
-            Window = new Lazy<CoreWindow>(() =>
-             {
-                 var window = CoreWindow.GetForCurrentThread();
-                 window.KeyDown += WindowKeyDownHandler;
-                 window.KeyUp += WindowKeyUpHandler;
-                 return window;
-             });
+            var window = CoreWindow.GetForCurrentThread();
+            window.KeyDown -= WindowKeyDownHandler;
+            window.KeyDown += WindowKeyDownHandler;
+            window.KeyUp -= WindowKeyUpHandler;
+            window.KeyUp += WindowKeyUpHandler;
         }
 
         public void PollInput()
         {
-            var window = Window.Value;
             foreach (var i in KeyStates.Keys)
             {
                 KeySnapshot[i] = KeyStates[i];

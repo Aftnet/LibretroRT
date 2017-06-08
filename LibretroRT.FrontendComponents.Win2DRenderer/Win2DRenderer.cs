@@ -36,6 +36,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public void Dispose()
         {
+            UnloadGame();
             RenderTargetManager.Dispose();
         }
 
