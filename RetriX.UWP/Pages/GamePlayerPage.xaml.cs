@@ -20,7 +20,7 @@ namespace RetriX.UWP.Pages
 
         private IServiceLocator Locator => ServiceLocator.Current;
 
-        private readonly Win2DRenderer Runner;
+        private Win2DRenderer Runner;
 
         private readonly EmulationService EmulationService;
 
@@ -46,6 +46,8 @@ namespace RetriX.UWP.Pages
         {
             EmulationService.CoreRunner = null;
             Runner.Dispose();
+            Runner = null;
+
             PlayerPanel.RemoveFromVisualTree();
             PlayerPanel = null;
         }

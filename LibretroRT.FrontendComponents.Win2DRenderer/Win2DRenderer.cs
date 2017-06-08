@@ -12,7 +12,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         private readonly CoreEventCoordinator Coordinator;
         private bool RunCore { get; set; }
 
-        private readonly CanvasAnimatedControl RenderPanel;
+        private CanvasAnimatedControl RenderPanel;
         private readonly RenderTargetManager RenderTargetManager = new RenderTargetManager();
 
         public Win2DRenderer(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
@@ -38,8 +38,17 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public void Dispose()
         {
-            UnloadGame();
-            RenderTargetManager.Dispose();
+            lock (Coordinator)
+            {
+                RenderPanel.Update -= RenderPanelUpdate;
+                RenderPanel.Draw -= RenderPanelDraw;
+                RenderPanel.Unloaded -= RenderPanelUnloaded;
+                RenderPanel = null;
+
+                Coordinator.Core?.UnloadGame();
+                Coordinator.Core = null;
+                RenderTargetManager.Dispose();
+            }
         }
 
         public void LoadGame(ICore core, IStorageFile gameFile)
