@@ -1,5 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using LibretroRT.FrontendComponents.AudioGraphPlayer;
 using LibretroRT.FrontendComponents.Common;
+using LibretroRT.FrontendComponents.InputManager;
 using Microsoft.Practices.ServiceLocation;
 using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
@@ -15,8 +17,8 @@ namespace RetriX.UWP.Locator
                 return;
 
             var ioc = SimpleIoc.Default;
-            ioc.Register<IAudioPlayer, IAudioPlayer>();
-            ioc.Register<IInputManager, IInputManager>();
+            ioc.Register<IAudioPlayer, AudioGraphPlayer>();
+            ioc.Register<IInputManager, InputManager>();
             ioc.Register<IEmulationService, EmulationService>();
             ioc.Register<ILocalizationService, LocalizationService>();
             ioc.Register<GameSystemSelectionVM>();
