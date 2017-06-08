@@ -5,9 +5,10 @@
     xmlns:local="using:RetriX.UWP.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SwapChainPanel x:Name="PlayerPanel"/>
+        <canvas:CanvasAnimatedControl x:Name="PlayerPanel"/>
     </Grid>
 </Page>
