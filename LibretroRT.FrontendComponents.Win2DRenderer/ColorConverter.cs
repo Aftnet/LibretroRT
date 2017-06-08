@@ -23,7 +23,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             }
         }
 
-        unsafe public static void ConvertRGB565ToXRGB8888(byte[] input, byte[] output)
+        unsafe public static void ConvertFrameBufferRGB565ToXRGB8888(byte[] input, uint width, uint height, uint pitch, byte[] output, uint outputPitch)
         {
             if (output.Length < input.Length * 2)
             {
@@ -33,12 +33,21 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             fixed (byte* inPtr = input)
             fixed (byte* outPtr = output)
             {
-                ushort* inShortPtr = (ushort*)inPtr;
-                int* outIntPtr = (int*)outPtr;
+                var inLineStart = inPtr;
+                var outLineStart = outPtr;
 
-                for (var i = 0; i < input.Length / 2; i++)
+                for (var i = 0; i < height; i++)
                 {
-                    outIntPtr[i] = RGB565LUT[inShortPtr[i]];
+                    ushort* inShortPtr = (ushort*)inPtr;
+                    int* outIntPtr = (int*)outPtr;
+
+                    for (var j = 0; j < width; j++)
+                    {
+                        outIntPtr[j] = RGB565LUT[inShortPtr[j]];
+                    }
+
+                    inLineStart += pitch;
+                    outLineStart += outputPitch;
                 }
             }
         }
