@@ -31,6 +31,8 @@ namespace RetriX.UWP.Pages
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+            Renderer.UnloadGame();
+            EmulationService.CoreRunner = null;
             Renderer.Dispose();
         }
     }
