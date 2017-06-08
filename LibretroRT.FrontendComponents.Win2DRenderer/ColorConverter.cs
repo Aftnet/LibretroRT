@@ -21,7 +21,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                     g = ((((i >> 5) & 0x3F) * 259) + 33) >> 6;
                     b = (((i & 0x1F) * 527) + 23) >> 6;
 
-                    RGB565LUT[i] = b << 24 | g << 16 | r << 8 | 0xff;
+                    RGB565LUT[i] = 0xFF << 24 | r << 16 | g << 8 | b;
                 }
             }
         }
