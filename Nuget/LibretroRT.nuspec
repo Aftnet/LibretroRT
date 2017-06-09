@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <package >
     <metadata>
-    <id>LibretroRT.Aftnet</id>
+    <id>LibretroRT</id>
     <version>$version$</version>
     <title>LibretroRT</title>
     <authors>Alberto Fustinoni</authors>
     <owners>Alberto Fustinoni</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/aftnet/LibretroRT</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/timheuer/taglib-sharp-portable/master/nuget/taglib.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/Aftnet/LibretroRT/master/LibretroRTLogo.png</iconUrl>
     <description>Port of Libretro to UWP WinRT components</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2017</copyright>
