@@ -9,7 +9,7 @@ enum retro_pixel_format;
 using namespace Platform;
 using namespace LibretroRT;
 
-namespace LibretroRT_CoreTools
+namespace LibretroRT_Tools
 {
 	class SUPPORT_API Converter
 	{

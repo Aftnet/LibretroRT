@@ -3,11 +3,11 @@
 #include"Converter.h"
 #include "../LibretroRT/libretro.h"
 
-using namespace LibretroRT_CoreTools;
+using namespace LibretroRT_Tools;
 
 void LogHandler(enum retro_log_level level, const char *fmt, ...)
 {
-#ifdef DEBUG
+#ifndef NDEBUG
 	const int bufLen = 1024;
 	static char logBuffer[bufLen];
 

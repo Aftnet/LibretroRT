@@ -9,13 +9,11 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Converter.cpp" />
-    <ClCompile Include="CoreBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Converter.h" />
-    <ClInclude Include="CoreBase.h" />
     <ClInclude Include="Export.h" />
   </ItemGroup>
 </Project>

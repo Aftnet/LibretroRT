@@ -1,7 +1,6 @@
 ﻿using LibretroRT.FrontendComponents.Common;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -12,14 +11,6 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
 {
     public sealed class AudioGraphPlayer : IDisposable, IAudioPlayer
     {
-        [ComImport]
-        [Guid("5B0D3235-4DBA-4D44-865E-8F1D0E4FD04D")]
-        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-        unsafe interface IMemoryBufferByteAccess
-        {
-            void GetBuffer(out byte* buffer, out uint capacity);
-        }
-
         private const uint NumChannels = 2;
         private const float PlaybackDelaySeconds = 0.1f; //Have some buffer to avoid crackling
         private const float MaxAllowedDelaySeconds = 0.3f; //Limit maximum delay

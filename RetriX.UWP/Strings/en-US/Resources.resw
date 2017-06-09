@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Appname.Text" xml:space="preserve">
-    <value>RetriX beta</value>
+    <value>RetriX</value>
   </data>
   <data name="SystemNameGameBoy" xml:space="preserve">
     <value>Game Boy</value>

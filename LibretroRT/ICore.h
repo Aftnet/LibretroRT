@@ -19,6 +19,9 @@ namespace LibretroRT
 	public delegate void TimingChangedDelegate(SystemTiming^ timing);
 	public delegate void PixelFormatChangedDelegate(PixelFormats format);
 
+	/// <summary>
+	/// Interface for LibretroRT cores
+	/// </summary>
 	public interface class ICore
 	{
 	public:
