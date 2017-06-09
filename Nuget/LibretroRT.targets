@@ -6,7 +6,6 @@
     </PropertyGroup>
     <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'UAP'">
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\LibretroRT.winmd"><Implementation>LibretroRT.dll</Implementation></Reference>
-        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\LibretroRT.CoreTools.winmd"><Implementation>LibretroRT_Tools.dll</Implementation></Reference>
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\FCEUMMRT.winmd"><Implementation>FCEUMMRT.dll</Implementation></Reference>
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\GambatteRT.winmd"><Implementation>GambatteRT.dll</Implementation></Reference>
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\GPGXRT.winmd"><Implementation>GPGXRT.dll</Implementation></Reference>
