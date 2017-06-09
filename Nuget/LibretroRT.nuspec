@@ -2,7 +2,7 @@
 <package >
     <metadata>
     <id>LibretroRT.Aftnet</id>
-    <version>0.1.0</version>
+    <version>$version$</version>
     <title>LibretroRT</title>
     <authors>Alberto Fustinoni</authors>
     <owners>Alberto Fustinoni</owners>
@@ -18,19 +18,18 @@
         <!-- WinMd and IntelliSense files -->
         <file src="..\$configuration$\LibretroRT\LibretroRT.winmd" target="lib\uap10.0"/>
         <file src="..\$configuration$\LibretroRT\LibretroRT.xml" target="lib\uap10.0"/>
-        <file src="..\$configuration$\LibretroRT\LibretroRT.CoreTools.winmd" target="lib\uap10.0"/>
-        <file src="..\$configuration$\LibretroRT\FCEUMMRT.winmd" target="lib\uap10.0"/>
-        <file src="..\$configuration$\LibretroRT\GambatteRT.winmd" target="lib\uap10.0"/>
-        <file src="..\$configuration$\LibretroRT\GPGXRT.winmd" target="lib\uap10.0"/>
-        <file src="..\$configuration$\LibretroRT\NestopiaRT.winmd" target="lib\uap10.0"/>
-        <file src="..\$configuration$\LibretroRT\Snes9XRT.winmd" target="lib\uap10.0"/>
-        <file src="..\$configuration$\LibretroRT\VBAMRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\FCEUMMRT\FCEUMMRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\GambatteRT\GambatteRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\GPGXRT\GPGXRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\NestopiaRT\NestopiaRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\Snes9XRT\Snes9XRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\VBAMRT\VBAMRT.winmd" target="lib\uap10.0"/>
 
         <!-- DLLs and resources -->
         <file src="..\ARM\$configuration$\LibretroRT\LibretroRT.dll" target="runtimes\win10-arm\native"/>
         <file src="..\ARM\$configuration$\LibretroRT\LibretroRT.pri" target="runtimes\win10-arm\native"/>
-        <file src="..\ARM\$configuration$\LibretroRT\LibretroRT.CoreTools.dll" target="runtimes\win10-arm\native"/>
-        <file src="..\ARM\$configuration$\LibretroRT\LibretroRT_CoreTools.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\LibretroRT.CoreTools\LibretroRT.CoreTools.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\LibretroRT.CoreTools\LibretroRT_CoreTools.pri" target="runtimes\win10-arm\native"/>
         <file src="..\ARM\$configuration$\FCEUMM\FCEUMM.dll" target="runtimes\win10-arm\native"/>
         <file src="..\ARM\$configuration$\FCEUMM\FCEUMM.pri" target="runtimes\win10-arm\native"/>
         <file src="..\ARM\$configuration$\FCEUMMRT\FCEUMMRT.dll" target="runtimes\win10-arm\native"/>
@@ -58,8 +57,8 @@
 
         <file src="..\x64\$configuration$\LibretroRT\LibretroRT.dll" target="runtimes\win10-arm\native"/>
         <file src="..\x64\$configuration$\LibretroRT\LibretroRT.pri" target="runtimes\win10-arm\native"/>
-        <file src="..\x64\$configuration$\LibretroRT\LibretroRT.CoreTools.dll" target="runtimes\win10-arm\native"/>
-        <file src="..\x64\$configuration$\LibretroRT\LibretroRT_CoreTools.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\LibretroRT.CoreTools\LibretroRT.CoreTools.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\LibretroRT.CoreTools\LibretroRT_CoreTools.pri" target="runtimes\win10-arm\native"/>
         <file src="..\x64\$configuration$\FCEUMM\FCEUMM.dll" target="runtimes\win10-arm\native"/>
         <file src="..\x64\$configuration$\FCEUMM\FCEUMM.pri" target="runtimes\win10-arm\native"/>
         <file src="..\x64\$configuration$\FCEUMMRT\FCEUMMRT.dll" target="runtimes\win10-arm\native"/>
@@ -87,8 +86,8 @@
 
         <file src="..\$configuration$\LibretroRT\LibretroRT.dll" target="runtimes\win10-arm\native"/>
         <file src="..\$configuration$\LibretroRT\LibretroRT.pri" target="runtimes\win10-arm\native"/>
-        <file src="..\$configuration$\LibretroRT\LibretroRT.CoreTools.dll" target="runtimes\win10-arm\native"/>
-        <file src="..\$configuration$\LibretroRT\LibretroRT_CoreTools.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\LibretroRT.CoreTools\LibretroRT.CoreTools.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\LibretroRT.CoreTools\LibretroRT_CoreTools.pri" target="runtimes\win10-arm\native"/>
         <file src="..\$configuration$\FCEUMM\FCEUMM.dll" target="runtimes\win10-arm\native"/>
         <file src="..\$configuration$\FCEUMM\FCEUMM.pri" target="runtimes\win10-arm\native"/>
         <file src="..\$configuration$\FCEUMMRT\FCEUMMRT.dll" target="runtimes\win10-arm\native"/>
