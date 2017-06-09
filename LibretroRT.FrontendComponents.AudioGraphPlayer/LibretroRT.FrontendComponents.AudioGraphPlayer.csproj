@@ -116,6 +116,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AudioGraphPlayer.cs" />
+    <Compile Include="IMemoryBufferByteAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
