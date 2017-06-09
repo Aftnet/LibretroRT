@@ -22,8 +22,8 @@ namespace VBAMRT
 		static property VBAMCoreInternal^ Instance { VBAMCoreInternal^ get(); }
 		virtual ~VBAMCoreInternal();
 
-		bool LoadGame(IStorageFile^ gameFile) override;
-		void UnloadGame() override;
+		bool LoadGameInternal(IStorageFile^ gameFile) override;
+		void UnloadGameInternal() override;
 		void RunFrame() override;
 		void Reset() override;
 

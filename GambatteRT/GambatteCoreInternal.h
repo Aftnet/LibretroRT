@@ -22,8 +22,8 @@ namespace GambatteRT
 		static property GambatteCoreInternal^ Instance { GambatteCoreInternal^ get(); }
 		virtual ~GambatteCoreInternal();
 
-		bool LoadGame(IStorageFile^ gameFile) override;
-		void UnloadGame() override;
+		bool LoadGameInternal(IStorageFile^ gameFile) override;
+		void UnloadGameInternal() override;
 		void RunFrame() override;
 		void Reset() override;
 

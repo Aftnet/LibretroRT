@@ -22,8 +22,8 @@ namespace NestopiaRT
 		static property NestopiaCoreInternal^ Instance { NestopiaCoreInternal^ get(); }
 		virtual ~NestopiaCoreInternal();
 
-		bool LoadGame(IStorageFile^ gameFile) override;
-		void UnloadGame() override;
+		bool LoadGameInternal(IStorageFile^ gameFile) override;
+		void UnloadGameInternal() override;
 		void RunFrame() override;
 		void Reset() override;
 

@@ -63,7 +63,7 @@ bool NestopiaCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	return false;
 }
 
-bool NestopiaCoreInternal::LoadGame(IStorageFile^ gameFile)
+bool NestopiaCoreInternal::LoadGameInternal(IStorageFile^ gameFile)
 {
 	std::vector<unsigned char> gameData;
 	ReadFileToMemory(gameData, gameFile);
@@ -81,7 +81,7 @@ bool NestopiaCoreInternal::LoadGame(IStorageFile^ gameFile)
 	return true;
 }
 
-void NestopiaCoreInternal::UnloadGame()
+void NestopiaCoreInternal::UnloadGameInternal()
 {
 	retro_unload_game();
 }

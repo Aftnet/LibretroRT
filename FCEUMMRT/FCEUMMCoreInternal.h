@@ -22,8 +22,8 @@ namespace FCEUMMRT
 		static property FCEUMMCoreInternal^ Instance { FCEUMMCoreInternal^ get(); }
 		virtual ~FCEUMMCoreInternal();
 
-		bool LoadGame(IStorageFile^ gameFile) override;
-		void UnloadGame() override;
+		bool LoadGameInternal(IStorageFile^ gameFile) override;
+		void UnloadGameInternal() override;
 		void RunFrame() override;
 		void Reset() override;
 
