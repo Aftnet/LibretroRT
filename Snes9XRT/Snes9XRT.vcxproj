@@ -206,13 +206,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\LibretroRT.CoreTools\CoreBase.h" />
+    <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Snes9XCore.h" />
     <ClInclude Include="Snes9XCoreInternal.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\LibretroRT.CoreTools\CoreBase.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -225,11 +225,11 @@
     <ClCompile Include="Snes9XCoreInternal.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LibretroRT.CoreTools\LibretroRT.CoreTools.vcxproj">
-      <Project>{6f5de5aa-3be6-4b95-85b6-dbb94bb79e1f}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\LibretroRT_Tools\LibretroRT_Tools.vcxproj">
+      <Project>{e64ed7da-f5bc-413b-a80d-a95111894139}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Snes9X\Snes9X.vcxproj">
       <Project>{e141e8d9-450d-40b5-b92a-36fa165e5005}</Project>

@@ -10,12 +10,12 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="FCEUMMCoreInternal.cpp" />
     <ClCompile Include="FCEUMMCore.cpp" />
-    <ClCompile Include="..\LibretroRT.CoreTools\CoreBase.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="FCEUMMCoreInternal.h" />
     <ClInclude Include="FCEUMMCore.h" />
-    <ClInclude Include="..\LibretroRT.CoreTools\CoreBase.h" />
+    <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
   </ItemGroup>
 </Project>

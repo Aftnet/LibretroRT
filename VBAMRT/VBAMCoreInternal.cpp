@@ -2,10 +2,10 @@
 #include "VBAMCoreInternal.h"
 
 #include "../LibretroRT/libretro.h"
-#include "../LibretroRT.CoreTools/Converter.h"
+#include "../LibretroRT_Tools/Converter.h"
 
 using namespace VBAMRT;
-using namespace LibretroRT_CoreTools;
+using namespace LibretroRT_Tools;
 
 VBAMCoreInternal^ coreInstance = nullptr;
 
