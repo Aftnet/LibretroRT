@@ -28,8 +28,8 @@
         <!-- DLLs and resources -->
         <file src="..\ARM\$configuration$\LibretroRT\LibretroRT.dll" target="runtimes\win10-arm\native"/>
         <file src="..\ARM\$configuration$\LibretroRT\LibretroRT.pri" target="runtimes\win10-arm\native"/>
-        <file src="..\ARM\$configuration$\LibretroRT.CoreTools\LibretroRT.CoreTools.dll" target="runtimes\win10-arm\native"/>
-        <file src="..\ARM\$configuration$\LibretroRT.CoreTools\LibretroRT_CoreTools.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\LibretroRT_Tools\LibretroRT_Tools.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\LibretroRT_Tools\LibretroRT_Tools.pri" target="runtimes\win10-arm\native"/>
         <file src="..\ARM\$configuration$\FCEUMM\FCEUMM.dll" target="runtimes\win10-arm\native"/>
         <file src="..\ARM\$configuration$\FCEUMM\FCEUMM.pri" target="runtimes\win10-arm\native"/>
         <file src="..\ARM\$configuration$\FCEUMMRT\FCEUMMRT.dll" target="runtimes\win10-arm\native"/>
@@ -57,8 +57,8 @@
 
         <file src="..\x64\$configuration$\LibretroRT\LibretroRT.dll" target="runtimes\win10-arm\native"/>
         <file src="..\x64\$configuration$\LibretroRT\LibretroRT.pri" target="runtimes\win10-arm\native"/>
-        <file src="..\x64\$configuration$\LibretroRT.CoreTools\LibretroRT.CoreTools.dll" target="runtimes\win10-arm\native"/>
-        <file src="..\x64\$configuration$\LibretroRT.CoreTools\LibretroRT_CoreTools.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\LibretroRT_Tools\LibretroRT_Tools.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\LibretroRT_Tools\LibretroRT_Tools.pri" target="runtimes\win10-arm\native"/>
         <file src="..\x64\$configuration$\FCEUMM\FCEUMM.dll" target="runtimes\win10-arm\native"/>
         <file src="..\x64\$configuration$\FCEUMM\FCEUMM.pri" target="runtimes\win10-arm\native"/>
         <file src="..\x64\$configuration$\FCEUMMRT\FCEUMMRT.dll" target="runtimes\win10-arm\native"/>
@@ -86,8 +86,8 @@
 
         <file src="..\$configuration$\LibretroRT\LibretroRT.dll" target="runtimes\win10-arm\native"/>
         <file src="..\$configuration$\LibretroRT\LibretroRT.pri" target="runtimes\win10-arm\native"/>
-        <file src="..\$configuration$\LibretroRT.CoreTools\LibretroRT.CoreTools.dll" target="runtimes\win10-arm\native"/>
-        <file src="..\$configuration$\LibretroRT.CoreTools\LibretroRT_CoreTools.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\LibretroRT_Tools\LibretroRT_Tools.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\LibretroRT_Tools\LibretroRT_Tools.pri" target="runtimes\win10-arm\native"/>
         <file src="..\$configuration$\FCEUMM\FCEUMM.dll" target="runtimes\win10-arm\native"/>
         <file src="..\$configuration$\FCEUMM\FCEUMM.pri" target="runtimes\win10-arm\native"/>
         <file src="..\$configuration$\FCEUMMRT\FCEUMMRT.dll" target="runtimes\win10-arm\native"/>

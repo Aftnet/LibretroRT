@@ -6,7 +6,7 @@
     </PropertyGroup>
     <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'UAP'">
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\LibretroRT.winmd"><Implementation>LibretroRT.dll</Implementation></Reference>
-        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\LibretroRT.CoreTools.winmd"><Implementation>LibretroRT.CoreTools.dll</Implementation></Reference>
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\LibretroRT.CoreTools.winmd"><Implementation>LibretroRT_Tools.dll</Implementation></Reference>
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\FCEUMMRT.winmd"><Implementation>FCEUMMRT.dll</Implementation></Reference>
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\GambatteRT.winmd"><Implementation>GambatteRT.dll</Implementation></Reference>
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\GPGXRT.winmd"><Implementation>GPGXRT.dll</Implementation></Reference>
@@ -15,7 +15,7 @@
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\VBAMRT.winmd"><Implementation>VBAMRT.dll</Implementation></Reference>
         
     <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\LibretroRT.dll" />
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\LibretroRT.CoreTools.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\LibretroRT_Tools.dll" />
     <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\FCEUMM.dll" />
     <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\FCEUMMRT.dll" />
     <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\Gambatte.dll" />
