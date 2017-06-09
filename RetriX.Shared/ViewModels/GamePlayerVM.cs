@@ -6,13 +6,16 @@ namespace RetriX.Shared.ViewModels
 {
     public class GamePlayerVM : ViewModelBase
     {
+        private readonly IPlatformService PlatformService;
+
         private readonly IEmulationService EmulationService;
 
         public RelayCommand ToggleFullScreenCommand { get; private set; }
-        public bool IsFullScreenMode => EmulationService.IsFullScreenMode;
+        public bool IsFullScreenMode => PlatformService.IsFullScreenMode;
 
-        public GamePlayerVM(IEmulationService emulationService)
+        public GamePlayerVM(IPlatformService platformService, IEmulationService emulationService)
         {
+            PlatformService = platformService;
             EmulationService = emulationService;
 
             ToggleFullScreenCommand = new RelayCommand(ToggleFullScreen);
@@ -20,13 +23,13 @@ namespace RetriX.Shared.ViewModels
 
         private void ToggleFullScreen()
         {
-            if (EmulationService.IsFullScreenMode)
+            if (PlatformService.IsFullScreenMode)
             {
-                EmulationService.ExitFullScreen();
+                PlatformService.ExitFullScreen();
             }
             else
             {
-                EmulationService.TryEnterFullScreen();
+                PlatformService.TryEnterFullScreen();
             }
 
             RaisePropertyChanged(nameof(IsFullScreenMode));

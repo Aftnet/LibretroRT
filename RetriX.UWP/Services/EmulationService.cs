@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -28,9 +27,6 @@ namespace RetriX.UWP.Services
         };
 
         public ICoreRunner CoreRunner { get; set; }
-        public bool IsFullScreenMode => AppView.IsFullScreenMode;
-
-        private ApplicationView AppView => ApplicationView.GetForCurrentView();
         private Frame RootFrame => Window.Current.Content as Frame;
 
         public async void SelectAndRunGame(GameSystemTypes systemType)
@@ -42,16 +38,6 @@ namespace RetriX.UWP.Services
 
             RootFrame.Navigate(typeof(GamePlayerPage));
             var task = Task.Run(() => CoreRunner.LoadGame(core, file));
-        }
-
-        public bool TryEnterFullScreen()
-        {
-            return AppView.TryEnterFullScreenMode();
-        }
-
-        public void ExitFullScreen()
-        {
-            AppView.ExitFullScreenMode();
         }
 
         private Task<StorageFile> PickCoreSupportedGameFile(ICore core)
