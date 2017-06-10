@@ -10,6 +10,7 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace RetriX.UWP.Services
 {
@@ -26,31 +27,85 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
 
-        public ICoreRunner CoreRunner { get; set; }
-        private Frame RootFrame => Window.Current.Content as Frame;
+        private readonly IPlatformService PlatformService;
+        private readonly Frame RootFrame = Window.Current.Content as Frame;
 
-        public async void SelectAndRunGame(GameSystemTypes systemType)
+        private ICoreRunner CoreRunner;
+        private Tuple<ICore, IStorageFile> GameRunRequest;
+
+        public EmulationService(IPlatformService platformService)
+        {
+            PlatformService = platformService;
+            RootFrame.Navigated += OnNavigated;
+        }
+
+        public async void SelectAndRunGameForSystem(GameSystemTypes systemType)
         {
             var core = SystemCoreMapping[systemType];
             var file = await PickCoreSupportedGameFile(core);
             if (file == null)
                 return;
 
-            RootFrame.Navigate(typeof(GamePlayerPage));
-            var task = Task.Run(() => CoreRunner.LoadGame(core, file));
+            GameRunRequest = new Tuple<ICore, IStorageFile>(core, file);
+            ExecuteGameRunRequest();
+        }
+
+        private void RunGame(IStorageFile file)
+        {
+            foreach (var i in SystemCoreMapping.Values)
+            {
+                var coreExtensions = GetSupportedExtensionsListForCore(i);
+                if(coreExtensions.Contains(file.FileType))
+                {
+                    GameRunRequest = new Tuple<ICore, IStorageFile>(i, file);
+                    ExecuteGameRunRequest();
+                }
+            }
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            var runnerPage = e.Content as ICoreRunnerPage;
+            CoreRunner = runnerPage?.CoreRunner;
+            PlatformService.HandleGameplayKeyShortcuts = runnerPage != null;
+
+            ExecuteGameRunRequest();
+        }
+
+        private void ExecuteGameRunRequest()
+        {
+            if (GameRunRequest == null)
+                return;
+
+            if (CoreRunner != null)
+            {
+                //Need to make GameRunRequest before starting another thread
+                var request = GameRunRequest;
+                GameRunRequest = null;
+                var task = Task.Run(() => CoreRunner.LoadGame(request.Item1, request.Item2));
+            }
+            else
+            {
+                RootFrame.Navigate(typeof(GamePlayerPage));
+            }
         }
 
         private Task<StorageFile> PickCoreSupportedGameFile(ICore core)
         {
             var picker = new FileOpenPicker();
             picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            var extensions = core.SupportedExtensions.Split(CoreExtensionDelimiter).Select(d => $".{d}").ToArray();
-            foreach (var i in extensions)
+            var coreExtensions = GetSupportedExtensionsListForCore(core);
+            foreach (var i in coreExtensions)
             {
                 picker.FileTypeFilter.Add(i);
             }
 
             return picker.PickSingleFileAsync().AsTask();
+        }
+
+        private string[] GetSupportedExtensionsListForCore(ICore core)
+        {
+            return core.SupportedExtensions.Split(CoreExtensionDelimiter).Select(d => $".{d}").ToArray();
         }
     }
 }

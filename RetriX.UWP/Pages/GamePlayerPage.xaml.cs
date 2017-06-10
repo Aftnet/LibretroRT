@@ -14,44 +14,27 @@ namespace RetriX.UWP.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class GamePlayerPage : Page, ITypedViewModel<GamePlayerVM>
+    public sealed partial class GamePlayerPage : Page, ITypedViewModel<GamePlayerVM>, ICoreRunnerPage
     {
-        public GamePlayerVM VM => Locator.GetInstance<GamePlayerVM>();
-
-        private IServiceLocator Locator => ServiceLocator.Current;
+        public GamePlayerVM VM => ServiceLocator.Current.GetInstance<GamePlayerVM>();
+        public ICoreRunner CoreRunner => Runner;
 
         private Win2DRenderer Runner;
 
-        private readonly IPlatformService PlatformService;
-        private readonly EmulationService EmulationService;
-
         public GamePlayerPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            PlatformService = Locator.GetInstance<IPlatformService>();
-            EmulationService = Locator.GetInstance<IEmulationService>() as EmulationService;
-            var audioPlayer = Locator.GetInstance<IAudioPlayer>();
-            var inputManager = Locator.GetInstance<IInputManager>();
+            var locator = ServiceLocator.Current;
+            var audioPlayer = locator.GetInstance<IAudioPlayer>();
+            var inputManager = locator.GetInstance<IInputManager>();
             Runner = new Win2DRenderer(PlayerPanel, audioPlayer, inputManager);
-            EmulationService.CoreRunner = Runner;
 
             Unloaded += OnUnloading;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            PlatformService.HandleGameplayKeyShortcuts = true;
-        }
-
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            PlatformService.HandleGameplayKeyShortcuts = false;
-        }
-
         private void OnUnloading(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            EmulationService.CoreRunner = null;
             Runner.Dispose();
             Runner = null;
 

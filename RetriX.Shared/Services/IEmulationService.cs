@@ -4,6 +4,6 @@
 
     public interface IEmulationService
     {
-        void SelectAndRunGame(GameSystemTypes systemType);
+        void SelectAndRunGameForSystem(GameSystemTypes systemType);
     }
 }

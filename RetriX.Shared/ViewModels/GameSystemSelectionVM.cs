@@ -32,7 +32,7 @@ namespace RetriX.Shared.ViewModels
 
         public void GameSystemSelected(GameSystemListItemVM selectedSystem)
         {
-            EmulationService.SelectAndRunGame(selectedSystem.Type);
+            EmulationService.SelectAndRunGameForSystem(selectedSystem.Type);
         }
     }
 }
