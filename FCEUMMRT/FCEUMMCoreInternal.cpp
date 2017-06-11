@@ -61,7 +61,7 @@ bool FCEUMMCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	return false;
 }
 
-bool FCEUMMCoreInternal::LoadGame(IStorageFile^ gameFile)
+bool FCEUMMCoreInternal::LoadGameInternal(IStorageFile^ gameFile)
 {
 	std::vector<unsigned char> gameData;
 	ReadFileToMemory(gameData, gameFile);
@@ -82,7 +82,7 @@ bool FCEUMMCoreInternal::LoadGame(IStorageFile^ gameFile)
 	return true;
 }
 
-void FCEUMMCoreInternal::UnloadGame()
+void FCEUMMCoreInternal::UnloadGameInternal()
 {
 	retro_unload_game();
 }

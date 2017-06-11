@@ -24,6 +24,7 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 CoreBase::CoreBase() :
 	timing(ref new SystemTiming),
 	geometry(ref new GameGeometry),
+	gameLoaded(false),
 	gameStream(nullptr),
 	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
 	CoreSystemPath(Converter::PlatformToCPPString(Windows::ApplicationModel::Package::Current->InstalledLocation->Path)),
@@ -193,4 +194,26 @@ void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned 
 	//See retro_video_refresh_t for why buffer size is computed that way
 	auto dataArray = Platform::ArrayReference<uint8>(dataPtr, height * pitch);
 	RenderVideoFrame(dataArray, width, height, pitch);
+}
+
+bool CoreBase::LoadGame(IStorageFile^ gameFile)
+{
+	if (gameLoaded)
+	{
+		UnloadGame();
+	}
+
+	gameLoaded = LoadGameInternal(gameFile);
+	return gameLoaded;
+}
+
+void CoreBase::UnloadGame()
+{
+	if (!gameLoaded)
+	{
+		return;
+	}
+
+	UnloadGameInternal();
+	gameLoaded = false;
 }

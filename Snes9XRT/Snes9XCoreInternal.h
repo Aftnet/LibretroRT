@@ -22,8 +22,8 @@ namespace Snes9XRT
 		static property Snes9XCoreInternal^ Instance { Snes9XCoreInternal^ get(); }
 		virtual ~Snes9XCoreInternal();
 
-		bool LoadGame(IStorageFile^ gameFile) override;
-		void UnloadGame() override;
+		bool LoadGameInternal(IStorageFile^ gameFile) override;
+		void UnloadGameInternal() override;
 		void RunFrame() override;
 		void Reset() override;
 

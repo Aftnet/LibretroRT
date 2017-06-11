@@ -16,12 +16,16 @@ namespace LibretroRT_Tools
 		String^ supportedExtensions;
 		String^ version;
 		String^ name;
+		bool gameLoaded;
 
 	protected private:
 		Streams::IRandomAccessStream^ gameStream;
 		PixelFormats pixelFormat;
 		const std::string CoreSystemPath;
 		const std::string CoreSaveGamePath;
+
+		virtual bool LoadGameInternal(IStorageFile^ gameFile) = 0;
+		virtual void UnloadGameInternal() = 0;
 
 		CoreBase();
 		void SetSystemInfo(retro_system_info& info);
@@ -76,8 +80,8 @@ namespace LibretroRT_Tools
 		virtual event TimingChangedDelegate^ TimingChanged;
 		virtual event PixelFormatChangedDelegate^ PixelFormatChanged;
 
-		virtual bool LoadGame(IStorageFile^ gameFile) = 0;
-		virtual void UnloadGame() = 0;
+		virtual bool LoadGame(IStorageFile^ gameFile);
+		virtual void UnloadGame();
 		virtual void RunFrame() = 0;
 		virtual void Reset() = 0;
 

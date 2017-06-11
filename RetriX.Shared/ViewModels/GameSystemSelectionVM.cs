@@ -20,11 +20,11 @@ namespace RetriX.Shared.ViewModels
 
             gameSystems = new GameSystemListItemVM[]
             {
-                new GameSystemListItemVM(GameSystemTypes.NES, localizationService.GetLocalizedString("SystemNameNES"), "\ue928"),
-                new GameSystemListItemVM(GameSystemTypes.SNES, localizationService.GetLocalizedString("SystemNameSNES"), "\ue90f"),
-                new GameSystemListItemVM(GameSystemTypes.GB, localizationService.GetLocalizedString("SystemNameGameBoy"), "\ue90d"),
-                new GameSystemListItemVM(GameSystemTypes.GBA, localizationService.GetLocalizedString("SystemNameGameBoyAdvance"), "\ue90c"),
-                new GameSystemListItemVM(GameSystemTypes.MegaDrive, localizationService.GetLocalizedString("SystemNameMegaDrive"), "\ue91f"),
+                new GameSystemListItemVM{ Type = GameSystemTypes.NES, Name = localizationService.GetLocalizedString("SystemNameNES"), Symbol = "\ue928" },
+                new GameSystemListItemVM{ Type = GameSystemTypes.SNES, Name = localizationService.GetLocalizedString("SystemNameSNES"), Symbol = "\ue90f" },
+                new GameSystemListItemVM{ Type = GameSystemTypes.GB, Name = localizationService.GetLocalizedString("SystemNameGameBoy"), Symbol = "\ue90d" },
+                new GameSystemListItemVM{ Type = GameSystemTypes.GBA, Name = localizationService.GetLocalizedString("SystemNameGameBoyAdvance"), Symbol = "\ue90c" },
+                new GameSystemListItemVM{ Type = GameSystemTypes.MegaDrive, Name = localizationService.GetLocalizedString("SystemNameMegaDrive"), Symbol = "\ue91f" },
             };
 
             GameSystemSelectedCommand = new RelayCommand<GameSystemListItemVM>(GameSystemSelected);
@@ -32,7 +32,7 @@ namespace RetriX.Shared.ViewModels
 
         public void GameSystemSelected(GameSystemListItemVM selectedSystem)
         {
-            EmulationService.SelectAndRunGame(selectedSystem.Type);
+            EmulationService.SelectAndRunGameForSystem(selectedSystem.Type);
         }
     }
 }

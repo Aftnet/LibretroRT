@@ -19,6 +19,7 @@ namespace RetriX.UWP.Locator
             var ioc = SimpleIoc.Default;
             ioc.Register<IAudioPlayer, AudioGraphPlayer>();
             ioc.Register<IInputManager, InputManager>();
+            ioc.Register<IPlatformService, PlatformService>();
             ioc.Register<IEmulationService, EmulationService>();
             ioc.Register<ILocalizationService, LocalizationService>();
             ioc.Register<GameSystemSelectionVM>();

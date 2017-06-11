@@ -8,9 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace RetriX.UWP.Services
 {
@@ -27,44 +27,89 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
 
-        public ICoreRunner CoreRunner { get; set; }
-        public bool IsFullScreenMode => AppView.IsFullScreenMode;
+        private readonly IPlatformService PlatformService;
+        private readonly Frame RootFrame = Window.Current.Content as Frame;
 
-        private ApplicationView AppView => ApplicationView.GetForCurrentView();
-        private Frame RootFrame => Window.Current.Content as Frame;
+        private ICoreRunner CoreRunner;
+        private Tuple<ICore, IStorageFile> GameRunRequest;
 
-        public async void SelectAndRunGame(GameSystemTypes systemType)
+        public EmulationService(IPlatformService platformService)
+        {
+            PlatformService = platformService;
+            RootFrame.Navigated += OnNavigated;
+        }
+
+        public async void SelectAndRunGameForSystem(GameSystemTypes systemType)
         {
             var core = SystemCoreMapping[systemType];
-            var file = await PickCoreSupportedGameFile(core);
-            if (file == null)
+            var extensions = GetSupportedExtensionsListForCore(core);
+            var file = await PlatformService.SelectFileAsync(extensions);
+            RunGame(core, file);
+        }
+
+        public void RunGame(IPlatformFileWrapper file)
+        {
+            var platformFile = file.File as IStorageFile;
+            foreach (var i in SystemCoreMapping.Values)
+            {
+                var coreExtensions = GetSupportedExtensionsListForCore(i);
+                if (coreExtensions.Contains(platformFile.FileType))
+                {
+                    GameRunRequest = new Tuple<ICore, IStorageFile>(i, platformFile);
+                    ExecuteGameRunRequest();
+                }
+            }
+        }
+
+        private void RunGame(ICore core, IPlatformFileWrapper file)
+        {
+            GameRunRequest = new Tuple<ICore, IStorageFile>(core, file.File as IStorageFile);
+            ExecuteGameRunRequest();
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            var runnerPage = e.Content as ICoreRunnerPage;
+            CoreRunner = runnerPage?.CoreRunner;
+            PlatformService.HandleGameplayKeyShortcuts = runnerPage != null;
+
+            ExecuteGameRunRequest();
+        }
+
+        private void ExecuteGameRunRequest()
+        {
+            if (GameRunRequest == null)
                 return;
 
-            RootFrame.Navigate(typeof(GamePlayerPage));
-            var task = Task.Run(() => CoreRunner.LoadGame(core, file));
-        }
-
-        public bool TryEnterFullScreen()
-        {
-            return AppView.TryEnterFullScreenMode();
-        }
-
-        public void ExitFullScreen()
-        {
-            AppView.ExitFullScreenMode();
+            if (CoreRunner != null)
+            {
+                //Need to null GameRunRequest before starting another thread
+                var request = GameRunRequest;
+                GameRunRequest = null;
+                var task = Task.Run(() => CoreRunner.LoadGame(request.Item1, request.Item2));
+            }
+            else
+            {
+                RootFrame.Navigate(typeof(GamePlayerPage));
+            }
         }
 
         private Task<StorageFile> PickCoreSupportedGameFile(ICore core)
         {
             var picker = new FileOpenPicker();
             picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            var extensions = core.SupportedExtensions.Split(CoreExtensionDelimiter).Select(d => $".{d}").ToArray();
-            foreach (var i in extensions)
+            var coreExtensions = GetSupportedExtensionsListForCore(core);
+            foreach (var i in coreExtensions)
             {
                 picker.FileTypeFilter.Add(i);
             }
 
             return picker.PickSingleFileAsync().AsTask();
+        }
+
+        private string[] GetSupportedExtensionsListForCore(ICore core)
+        {
+            return core.SupportedExtensions.Split(CoreExtensionDelimiter).Select(d => $".{d}").ToArray();
         }
     }
 }

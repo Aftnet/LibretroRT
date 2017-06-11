@@ -61,7 +61,7 @@ bool VBAMCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	return false;
 }
 
-bool VBAMCoreInternal::LoadGame(IStorageFile^ gameFile)
+bool VBAMCoreInternal::LoadGameInternal(IStorageFile^ gameFile)
 {
 	std::vector<unsigned char> gameData;
 	ReadFileToMemory(gameData, gameFile);
@@ -79,7 +79,7 @@ bool VBAMCoreInternal::LoadGame(IStorageFile^ gameFile)
 	return true;
 }
 
-void VBAMCoreInternal::UnloadGame()
+void VBAMCoreInternal::UnloadGameInternal()
 {
 	retro_unload_game();
 }

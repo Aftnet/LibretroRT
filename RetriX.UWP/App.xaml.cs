@@ -1,7 +1,12 @@
-﻿using RetriX.UWP.Pages;
+﻿using Microsoft.Practices.ServiceLocation;
+using RetriX.Shared.Services;
+using RetriX.UWP.Pages;
+using RetriX.UWP.Services;
 using System;
+using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,6 +40,21 @@ namespace RetriX.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            InitializeApp(e.PreviousExecutionState, e.PrelaunchActivated);
+        }
+
+        protected override void OnFileActivated(FileActivatedEventArgs args)
+        {
+            InitializeApp(args.PreviousExecutionState, false);
+            var emulationService = ServiceLocator.Current.GetInstance<IEmulationService>();
+            var file = args.Files.First(d => d as IStorageFile != null);
+
+            var wrappedFile = new PlatformFileWrapper(file as IStorageFile);
+            emulationService.RunGame(wrappedFile);
+        }
+
+        private void InitializeApp(ApplicationExecutionState previousExecutionState, bool prelaunchActivated)
+        {
             var rootFrame = RootFrame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -47,7 +67,7 @@ namespace RetriX.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 rootFrame.Navigated += OnNavigated;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (previousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
                 }
@@ -66,14 +86,14 @@ namespace RetriX.UWP
 
             }
 
-            if (e.PrelaunchActivated == false)
+            if (prelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
                 {
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(SystemSelectionPage), e.Arguments);
+                    rootFrame.Navigate(typeof(SystemSelectionPage), null);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();

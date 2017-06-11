@@ -61,7 +61,7 @@ bool GambatteCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	return false;
 }
 
-bool GambatteCoreInternal::LoadGame(IStorageFile^ gameFile)
+bool GambatteCoreInternal::LoadGameInternal(IStorageFile^ gameFile)
 {
 	std::vector<unsigned char> gameData;
 	ReadFileToMemory(gameData, gameFile);
@@ -82,7 +82,7 @@ bool GambatteCoreInternal::LoadGame(IStorageFile^ gameFile)
 	return true;
 }
 
-void GambatteCoreInternal::UnloadGame()
+void GambatteCoreInternal::UnloadGameInternal()
 {
 	retro_unload_game();
 }

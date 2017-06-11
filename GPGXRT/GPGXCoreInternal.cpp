@@ -63,7 +63,7 @@ bool GPGXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	return false;
 }
 
-bool GPGXCoreInternal::LoadGame(IStorageFile^ gameFile)
+bool GPGXCoreInternal::LoadGameInternal(IStorageFile^ gameFile)
 {
 	static auto gamePathStr = Converter::PlatformToCPPString(gameFile->Path);
 	gameStream = concurrency::create_task(gameFile->OpenAsync(FileAccessMode::Read)).get();
@@ -81,7 +81,7 @@ bool GPGXCoreInternal::LoadGame(IStorageFile^ gameFile)
 	return true;
 }
 
-void GPGXCoreInternal::UnloadGame()
+void GPGXCoreInternal::UnloadGameInternal()
 {
 	retro_unload_game();
 	gameStream = nullptr;

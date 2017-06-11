@@ -61,7 +61,7 @@ bool Snes9XCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	return false;
 }
 
-bool Snes9XCoreInternal::LoadGame(IStorageFile^ gameFile)
+bool Snes9XCoreInternal::LoadGameInternal(IStorageFile^ gameFile)
 {
 	std::vector<unsigned char> gameData;
 	ReadFileToMemory(gameData, gameFile);
@@ -79,7 +79,7 @@ bool Snes9XCoreInternal::LoadGame(IStorageFile^ gameFile)
 	return true;
 }
 
-void Snes9XCoreInternal::UnloadGame()
+void Snes9XCoreInternal::UnloadGameInternal()
 {
 	retro_unload_game();
 }

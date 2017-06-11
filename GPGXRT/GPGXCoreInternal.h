@@ -22,8 +22,8 @@ namespace GPGXRT
 		static property GPGXCoreInternal^ Instance { GPGXCoreInternal^ get(); }
 		virtual ~GPGXCoreInternal();
 
-		bool LoadGame(IStorageFile^ gameFile) override;
-		void UnloadGame() override;
+		bool LoadGameInternal(IStorageFile^ gameFile) override;
+		void UnloadGameInternal() override;
 		void RunFrame() override;
 		void Reset() override;
 
