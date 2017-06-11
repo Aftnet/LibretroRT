@@ -5,5 +5,6 @@
     public interface IEmulationService
     {
         void SelectAndRunGameForSystem(GameSystemTypes systemType);
+        void RunGame(IPlatformFileWrapper file);
     }
 }

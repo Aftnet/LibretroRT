@@ -1,7 +1,11 @@
 ﻿using RetriX.Shared.Services;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.Storage.Pickers;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
+using System;
 
 namespace RetriX.UWP.Services
 {
@@ -36,6 +40,19 @@ namespace RetriX.UWP.Services
         public void ExitFullScreen()
         {
             AppView.ExitFullScreenMode();
+        }
+
+        public async Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter)
+        {
+            var picker = new FileOpenPicker();
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            foreach (var i in extensionsFilter)
+            {
+                picker.FileTypeFilter.Add(i);
+            }
+
+            var file = await picker.PickSingleFileAsync();
+            return file == null ? null : new PlatformFileWrapper(file);
         }
 
         private void OnKeyDown(CoreWindow sender, KeyEventArgs args)

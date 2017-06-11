@@ -1,4 +1,7 @@
-﻿namespace RetriX.Shared.Services
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace RetriX.Shared.Services
 {
     public interface IPlatformService
     {
@@ -7,5 +10,7 @@
 
         bool TryEnterFullScreen();
         void ExitFullScreen();
+
+        Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter);
     }
 }

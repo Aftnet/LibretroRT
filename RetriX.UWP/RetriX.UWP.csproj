@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmulationService.cs" />
+    <Compile Include="Services\PlatformFileWrapper.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\PlatformService.cs" />
   </ItemGroup>
