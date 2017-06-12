@@ -10,7 +10,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
     public sealed class Win2DRenderer : IRenderer, ICoreRunner, IDisposable
     {
         private readonly CoreEventCoordinator Coordinator;
-        private bool RunCore { get; set; }
+        public bool CoreIsExecuting { get; private set; }
 
         private CanvasAnimatedControl RenderPanel;
         private readonly RenderTargetManager RenderTargetManager = new RenderTargetManager();
@@ -24,7 +24,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 InputManager = inputManager
             };
 
-            RunCore = false;
+            CoreIsExecuting = false;
 
             RenderPanel = renderPanel;
             RenderPanel.ClearColor = Color.FromArgb(0xff, 0, 0, 0);
@@ -54,7 +54,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 Coordinator.Core = core;
                 core.LoadGame(gameFile);
                 RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
-                RunCore = true;
+                CoreIsExecuting = true;
             }
         }
 
@@ -62,7 +62,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             lock (Coordinator)
             {
-                RunCore = false;
+                CoreIsExecuting = false;
                 Coordinator.Core?.UnloadGame();
             }
         }
@@ -79,7 +79,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             lock (Coordinator)
             {
-                RunCore = false;
+                CoreIsExecuting = false;
             }
         }
 
@@ -87,7 +87,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             lock (Coordinator)
             {
-                RunCore = true;
+                CoreIsExecuting = true;
             }
         }
 
@@ -103,7 +103,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             lock (Coordinator)
             {
-                if (RunCore && !Coordinator.AudioPlayerRequestsFrameDelay)
+                if (CoreIsExecuting && !Coordinator.AudioPlayerRequestsFrameDelay)
                 {
                     Coordinator.Core?.RunFrame();
                 }

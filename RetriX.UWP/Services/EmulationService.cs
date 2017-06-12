@@ -33,6 +33,8 @@ namespace RetriX.UWP.Services
         private ICoreRunner CoreRunner;
         private Tuple<ICore, IStorageFile> GameRunRequest;
 
+        public bool GamePaused { get; set; }
+
         public EmulationService(IPlatformService platformService)
         {
             PlatformService = platformService;
