@@ -2,7 +2,7 @@
     x:Class="RetriX.UWP.Pages.GamePlayerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RetriX.UWP.Pages"
+    xmlns:controls="using:RetriX.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
@@ -16,7 +16,15 @@
                 <core:EventTriggerBehavior EventName="DoubleTapped">
                     <core:InvokeCommandAction Command="{x:Bind VM.ToggleFullScreenCommand}"/>
                 </core:EventTriggerBehavior>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <core:InvokeCommandAction Command="{x:Bind VM.TappedCommand}"/>
+                </core:EventTriggerBehavior>
+                <core:EventTriggerBehavior EventName="PointerMoved">
+                    <core:InvokeCommandAction Command="{x:Bind VM.PointerMovedCommand}"/>
+                </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </canvas:CanvasAnimatedControl>
+        <controls:PlayerOverlay ViewModel="{x:Bind VM}" VerticalAlignment="Bottom"
+                                Visibility="{x:Bind VM.DisplayPlayerUI, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
     </Grid>
 </Page>

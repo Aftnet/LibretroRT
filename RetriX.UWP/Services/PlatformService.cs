@@ -6,6 +6,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using System;
+using Windows.ApplicationModel.Core;
 
 namespace RetriX.UWP.Services
 {
@@ -80,6 +81,11 @@ namespace RetriX.UWP.Services
                     args.Handled = true;
                     break;
             }
+        }
+
+        public Task RunOnUIThreadAsync(Action action)
+        {
+            return CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()).AsTask();
         }
     }
 }

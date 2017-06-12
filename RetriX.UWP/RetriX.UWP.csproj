@@ -98,6 +98,9 @@
     <Compile Include="AppResources.xaml.cs">
       <DependentUpon>AppResources.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PlayerOverlay.xaml.cs">
+      <DependentUpon>PlayerOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ItemClickEventArgsConverter.cs" />
     <Compile Include="Locator\Locator.cs" />
     <Compile Include="Pages\ICoreRunnerPage.cs" />
@@ -123,6 +126,10 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\FileIcon.targetsize-16.png" />
+    <Content Include="Assets\FileIcon.targetsize-256.png" />
+    <Content Include="Assets\FileIcon.targetsize-32.png" />
+    <Content Include="Assets\FileIcon.targetsize-48.png" />
     <Content Include="Assets\GameGlyphs.ttf" />
     <None Include="RetriX.UWP_TemporaryKey.pfx" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
@@ -169,12 +176,10 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +191,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Controls\PlayerOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SystemSelectionPage.xaml">
       <SubType>Designer</SubType>
@@ -199,6 +208,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>5.3.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>1.4.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.0</Version>

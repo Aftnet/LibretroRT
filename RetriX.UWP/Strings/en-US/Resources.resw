@@ -124,28 +124,34 @@
     <value>RetriX</value>
   </data>
   <data name="GameBoyAdvanceRomDescription.Text" xml:space="preserve">
-    <value>Game Boy Advance Roms</value>
+    <value>Nintendo Game Boy Advance Rom</value>
   </data>
   <data name="GameBoyRomDescription.Text" xml:space="preserve">
-    <value>Game Boy Roms</value>
+    <value>Nintendo Game Boy Rom</value>
   </data>
   <data name="GameGearRomDescription.Text" xml:space="preserve">
-    <value>Game Gear Roms</value>
+    <value>SEGA Game Gear Rom</value>
+  </data>
+  <data name="ManufacturerNameNintendo" xml:space="preserve">
+    <value>Nintendo</value>
+  </data>
+  <data name="ManufacturerNameSega" xml:space="preserve">
+    <value>SEGA</value>
   </data>
   <data name="MasterSystemRomDescription.Text" xml:space="preserve">
-    <value>Master System Roms</value>
+    <value>SEGA Master System Rom</value>
   </data>
   <data name="MegaDriveRomDescription.Text" xml:space="preserve">
-    <value>Genesis Roms</value>
+    <value>SEGA Mega Drive Rom</value>
   </data>
   <data name="NESRomDescription.Text" xml:space="preserve">
-    <value>NES Roms</value>
+    <value>Nintendo Entertainment System Rom</value>
   </data>
   <data name="SG1000RomDescription.Text" xml:space="preserve">
-    <value>SG-1000 Roms</value>
+    <value>SEGA SG-1000 Rom</value>
   </data>
   <data name="SNESRomDescription.Text" xml:space="preserve">
-    <value>Super Nintendo Roms</value>
+    <value>Super Nintendo Entertainment System Rom</value>
   </data>
   <data name="SystemNameGameBoy" xml:space="preserve">
     <value>Game Boy</value>
@@ -154,7 +160,7 @@
     <value>Game Boy Advance</value>
   </data>
   <data name="SystemNameMegaDrive" xml:space="preserve">
-    <value>Genesis</value>
+    <value>Mega Drive</value>
   </data>
   <data name="SystemNameNES" xml:space="preserve">
     <value>NES</value>

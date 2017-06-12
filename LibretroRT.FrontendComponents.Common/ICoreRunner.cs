@@ -5,6 +5,8 @@ namespace LibretroRT.FrontendComponents.Common
 {
     public interface ICoreRunner
     {
+        bool CoreIsExecuting { get; }
+
         void LoadGame(ICore core, IStorageFile gameFile);
         void UnloadGame();
         void ResetGame();

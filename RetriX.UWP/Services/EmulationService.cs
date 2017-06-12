@@ -33,6 +33,25 @@ namespace RetriX.UWP.Services
         private ICoreRunner CoreRunner;
         private Tuple<ICore, IStorageFile> GameRunRequest;
 
+        public bool GamePaused
+        {
+            get { return CoreRunner != null ? !CoreRunner.CoreIsExecuting : true; }
+            set
+            {
+                if (value == true)
+                {
+                    CoreRunner?.PauseCoreExecution();
+                }
+                else
+                {
+                    CoreRunner?.ResumeCoreExecution();
+                }
+                GamePausedChanged();
+            }
+        }
+
+        public event GamePausedChangedDelegate GamePausedChanged;
+
         public EmulationService(IPlatformService platformService)
         {
             PlatformService = platformService;
@@ -44,7 +63,10 @@ namespace RetriX.UWP.Services
             var core = SystemCoreMapping[systemType];
             var extensions = GetSupportedExtensionsListForCore(core);
             var file = await PlatformService.SelectFileAsync(extensions);
-            RunGame(core, file);
+            if (file != null)
+            {
+                RunGame(core, file);
+            }
         }
 
         public void RunGame(IPlatformFileWrapper file)
@@ -56,15 +78,21 @@ namespace RetriX.UWP.Services
                 if (coreExtensions.Contains(platformFile.FileType))
                 {
                     GameRunRequest = new Tuple<ICore, IStorageFile>(i, platformFile);
-                    ExecuteGameRunRequest();
+                    var task = ExecuteGameRunRequestAsync();
+                    return;
                 }
             }
+        }
+
+        public void ResetGame()
+        {
+            CoreRunner?.ResetGame();
         }
 
         private void RunGame(ICore core, IPlatformFileWrapper file)
         {
             GameRunRequest = new Tuple<ICore, IStorageFile>(core, file.File as IStorageFile);
-            ExecuteGameRunRequest();
+            var task = ExecuteGameRunRequestAsync();
         }
 
         private void OnNavigated(object sender, NavigationEventArgs e)
@@ -73,10 +101,10 @@ namespace RetriX.UWP.Services
             CoreRunner = runnerPage?.CoreRunner;
             PlatformService.HandleGameplayKeyShortcuts = runnerPage != null;
 
-            ExecuteGameRunRequest();
+            var task = ExecuteGameRunRequestAsync();
         }
 
-        private void ExecuteGameRunRequest()
+        private async Task ExecuteGameRunRequestAsync()
         {
             if (GameRunRequest == null)
                 return;
@@ -86,7 +114,8 @@ namespace RetriX.UWP.Services
                 //Need to null GameRunRequest before starting another thread
                 var request = GameRunRequest;
                 GameRunRequest = null;
-                var task = Task.Run(() => CoreRunner.LoadGame(request.Item1, request.Item2));
+                await Task.Run(() => CoreRunner.LoadGame(request.Item1, request.Item2));
+                GamePausedChanged();
             }
             else
             {
