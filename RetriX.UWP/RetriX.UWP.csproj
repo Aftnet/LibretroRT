@@ -123,6 +123,10 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\FileIcon.targetsize-16.png" />
+    <Content Include="Assets\FileIcon.targetsize-256.png" />
+    <Content Include="Assets\FileIcon.targetsize-32.png" />
+    <Content Include="Assets\FileIcon.targetsize-48.png" />
     <Content Include="Assets\GameGlyphs.ttf" />
     <None Include="RetriX.UWP_TemporaryKey.pfx" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
