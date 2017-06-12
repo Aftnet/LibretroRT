@@ -55,6 +55,8 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             while (!RenderPanelInitialized)
             {
+                //Ensure core doesn't try rendering before Win2D is ready.
+                //Some games load faster than the Win2D canvas is initialized
                 await Task.Delay(100);
             }
 
