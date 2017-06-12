@@ -25,6 +25,8 @@ namespace RetriX.Shared.ViewModels
             ToggleFullScreenCommand = new RelayCommand(ToggleFullScreen);
             TogglePauseCommand = new RelayCommand(TogglePause);
             ResetCommand = new RelayCommand(Reset);
+
+            EmulationService.GamePausedChanged += OnGamePausedChanged;
         }
 
         private void ToggleFullScreen()
@@ -44,12 +46,16 @@ namespace RetriX.Shared.ViewModels
         private void TogglePause()
         {
             EmulationService.GamePaused = !EmulationService.GamePaused;
-            RaisePropertyChanged(nameof(IsPaused));
         }
 
         private void Reset()
         {
             EmulationService.ResetGame();
+        }
+
+        private void OnGamePausedChanged()
+        {
+            RaisePropertyChanged(nameof(IsPaused));
         }
     }
 }

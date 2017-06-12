@@ -46,8 +46,11 @@ namespace RetriX.UWP.Services
                 {
                     CoreRunner?.ResumeCoreExecution();
                 }
+                GamePausedChanged();
             }
         }
+
+        public event GamePausedChangedDelegate GamePausedChanged;
 
         public EmulationService(IPlatformService platformService)
         {
@@ -75,7 +78,7 @@ namespace RetriX.UWP.Services
                 if (coreExtensions.Contains(platformFile.FileType))
                 {
                     GameRunRequest = new Tuple<ICore, IStorageFile>(i, platformFile);
-                    ExecuteGameRunRequest();
+                    var task = ExecuteGameRunRequestAsync();
                     return;
                 }
             }
@@ -89,7 +92,7 @@ namespace RetriX.UWP.Services
         private void RunGame(ICore core, IPlatformFileWrapper file)
         {
             GameRunRequest = new Tuple<ICore, IStorageFile>(core, file.File as IStorageFile);
-            ExecuteGameRunRequest();
+            var task = ExecuteGameRunRequestAsync();
         }
 
         private void OnNavigated(object sender, NavigationEventArgs e)
@@ -98,10 +101,10 @@ namespace RetriX.UWP.Services
             CoreRunner = runnerPage?.CoreRunner;
             PlatformService.HandleGameplayKeyShortcuts = runnerPage != null;
 
-            ExecuteGameRunRequest();
+            var task = ExecuteGameRunRequestAsync();
         }
 
-        private void ExecuteGameRunRequest()
+        private async Task ExecuteGameRunRequestAsync()
         {
             if (GameRunRequest == null)
                 return;
@@ -111,7 +114,8 @@ namespace RetriX.UWP.Services
                 //Need to null GameRunRequest before starting another thread
                 var request = GameRunRequest;
                 GameRunRequest = null;
-                var task = Task.Run(() => CoreRunner.LoadGame(request.Item1, request.Item2));
+                await Task.Run(() => CoreRunner.LoadGame(request.Item1, request.Item2));
+                GamePausedChanged();
             }
             else
             {
