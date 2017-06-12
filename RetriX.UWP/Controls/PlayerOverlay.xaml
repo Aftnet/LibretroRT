@@ -11,21 +11,23 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <conv:BoolToObjectConverter x:Key="PlayPauseSymbolConverter" TrueValue="&#xe768;" FalseValue="&#xe769;"/>
+        <conv:BoolToObjectConverter x:Key="PlayPauseSymbolConverter" TrueValue="&#xe102;" FalseValue="&#xe103;"/>
         <conv:BoolToObjectConverter x:Key="FullScreenSymbolConverter" TrueValue="&#xe73f;" FalseValue="&#xe740;"/>
         <LinearGradientBrush x:Key="BackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1" >
             <GradientStop Color="#00000000" Offset="0"/>
-            <GradientStop Color="#AA000000" Offset="1"/>
+            <GradientStop Color="#FF000000" Offset="1"/>
         </LinearGradientBrush>
         <Style x:Key="GlyphStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
     </UserControl.Resources>
 
-    <Grid VerticalAlignment="Bottom" Background="{StaticResource BackgroundBrush}" Padding="0,8">
+    <Grid VerticalAlignment="Bottom" Background="{StaticResource BackgroundBrush}" Padding="24,24">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{ThemeResource TextBlockButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}">
-                <TextBlock Text="{x:Bind ViewModel.IsPaused, Mode=OneWay, Converter={StaticResource PlayPauseSymbolConverter}, FallbackValue=&#xe769;}" Style="{StaticResource GlyphStyle}" FontSize="24"/>
+            <Button Style="{StaticResource TextBlockButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}">
+                <TextBlock Text="{x:Bind ViewModel.IsPaused, Mode=OneWay, Converter={StaticResource PlayPauseSymbolConverter}, FallbackValue=&#xe103;}" Style="{StaticResource GlyphStyle}" FontSize="24"/>
             </Button>
             <Button Style="{ThemeResource TextBlockButtonStyle}" Command="{x:Bind ViewModel.ResetCommand}">
                 <TextBlock Text="&#xe72c;" Style="{StaticResource GlyphStyle}"/>

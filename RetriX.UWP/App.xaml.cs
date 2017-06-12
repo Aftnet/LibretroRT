@@ -28,6 +28,7 @@ namespace RetriX.UWP
         public App()
         {
             Locator.Locator.Initialize();
+            RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
