@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:RetriX.UWP.Converters">
 
-    <FontFamily x:Key="GameSymbolsFontFamily">/Assets/GameGlyphs.ttf#GameGlyphs</FontFamily>
+    <FontFamily x:Key="GameSymbolsFontFamily">/Assets/GameGlyphs.ttf#Flaticon</FontFamily>
     <Style x:Key="GameSymbolsFontStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontFamily" Value="{StaticResource GameSymbolsFontFamily}"/>
     </Style>

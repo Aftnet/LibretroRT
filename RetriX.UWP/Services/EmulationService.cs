@@ -44,7 +44,10 @@ namespace RetriX.UWP.Services
             var core = SystemCoreMapping[systemType];
             var extensions = GetSupportedExtensionsListForCore(core);
             var file = await PlatformService.SelectFileAsync(extensions);
-            RunGame(core, file);
+            if (file != null)
+            {
+                RunGame(core, file);
+            }
         }
 
         public void RunGame(IPlatformFileWrapper file)
@@ -57,6 +60,7 @@ namespace RetriX.UWP.Services
                 {
                     GameRunRequest = new Tuple<ICore, IStorageFile>(i, platformFile);
                     ExecuteGameRunRequest();
+                    return;
                 }
             }
         }
