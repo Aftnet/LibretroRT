@@ -2,6 +2,7 @@
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI;
 
@@ -13,6 +14,8 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         public bool CoreIsExecuting { get; private set; }
 
         private CanvasAnimatedControl RenderPanel;
+        private bool RenderPanelInitialized = false;
+
         private readonly RenderTargetManager RenderTargetManager = new RenderTargetManager();
 
         public Win2DRenderer(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
@@ -30,6 +33,8 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             RenderPanel.ClearColor = Color.FromArgb(0xff, 0, 0, 0);
             RenderPanel.Update -= RenderPanelUpdate;
             RenderPanel.Update += RenderPanelUpdate;
+            RenderPanel.CreateResources -= RenderPanelCreateResources;
+            RenderPanel.CreateResources += RenderPanelCreateResources;
             RenderPanel.Draw -= RenderPanelDraw;
             RenderPanel.Draw += RenderPanelDraw;
             RenderPanel.Unloaded -= RenderPanelUnloaded;
@@ -46,8 +51,13 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             }
         }
 
-        public void LoadGame(ICore core, IStorageFile gameFile)
+        public async void LoadGame(ICore core, IStorageFile gameFile)
         {
+            while (!RenderPanelInitialized)
+            {
+                await Task.Delay(100);
+            }
+
             lock (Coordinator)
             {
                 Coordinator.Core?.UnloadGame();
@@ -100,6 +110,11 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             RenderPanel.Draw -= RenderPanelDraw;
             RenderPanel.Unloaded -= RenderPanelUnloaded;
             RenderPanel = null;
+        }
+
+        private void RenderPanelCreateResources(CanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
+        {
+            RenderPanelInitialized = true;
         }
 
         private void RenderPanelUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
