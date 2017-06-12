@@ -35,7 +35,7 @@ namespace RetriX.UWP.Services
 
         public bool GamePaused
         {
-            get { return CoreRunner != null ? CoreRunner.CoreIsExecuting : true; }
+            get { return CoreRunner != null ? !CoreRunner.CoreIsExecuting : true; }
             set
             {
                 if (value == true)
