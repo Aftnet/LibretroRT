@@ -13,10 +13,15 @@
     <UserControl.Resources>
         <conv:BoolToObjectConverter x:Key="PlayPauseSymbolConverter" TrueValue="&#xe102;" FalseValue="&#xe103;"/>
         <conv:BoolToObjectConverter x:Key="FullScreenSymbolConverter" TrueValue="&#xe73f;" FalseValue="&#xe740;"/>
+        
         <LinearGradientBrush x:Key="BackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1" >
             <GradientStop Color="#00000000" Offset="0"/>
             <GradientStop Color="#FF000000" Offset="1"/>
         </LinearGradientBrush>
+        
+        <Style x:Key="ControlButtonStyle" TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
+            <Setter Property="IsTabStop" Value="False"/>
+        </Style>
         <Style x:Key="GlyphStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}"/>
             <Setter Property="Foreground" Value="White"/>
@@ -25,16 +30,24 @@
     </UserControl.Resources>
 
     <Grid VerticalAlignment="Bottom" Background="{StaticResource BackgroundBrush}" Padding="24,24">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Style="{StaticResource ControlButtonStyle}">
+                <TextBlock Text="&#xE74E;" Style="{StaticResource GlyphStyle}"/>
+            </Button>
+            <Button Style="{StaticResource ControlButtonStyle}">
+                <TextBlock Text="&#xE8DA;" Style="{StaticResource GlyphStyle}"/>
+            </Button>
+        </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{StaticResource TextBlockButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}">
+            <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}">
                 <TextBlock Text="{x:Bind ViewModel.IsPaused, Mode=OneWay, Converter={StaticResource PlayPauseSymbolConverter}, FallbackValue=&#xe103;}" Style="{StaticResource GlyphStyle}" FontSize="24"/>
             </Button>
-            <Button Style="{ThemeResource TextBlockButtonStyle}" Command="{x:Bind ViewModel.ResetCommand}">
+            <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ResetCommand}">
                 <TextBlock Text="&#xe72c;" Style="{StaticResource GlyphStyle}"/>
             </Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Style="{ThemeResource TextBlockButtonStyle}" Command="{x:Bind ViewModel.ToggleFullScreenCommand}">
+            <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ToggleFullScreenCommand}">
                 <TextBlock Text="{x:Bind ViewModel.IsFullScreenMode, Mode=OneWay, Converter={StaticResource FullScreenSymbolConverter}, FallbackValue=&#xe740;}" Style="{StaticResource GlyphStyle}"/>
             </Button>
         </StackPanel>

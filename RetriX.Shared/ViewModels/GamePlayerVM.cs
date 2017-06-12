@@ -8,7 +8,7 @@ namespace RetriX.Shared.ViewModels
 {
     public class GamePlayerVM : ViewModelBase
     {
-        private static readonly TimeSpan UIInactivityCheckInterval = TimeSpan.FromSeconds(1);
+        private static readonly TimeSpan UIInactivityCheckInterval = TimeSpan.FromSeconds(0.5);
         private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(3);
 
         private readonly IPlatformService PlatformService;
