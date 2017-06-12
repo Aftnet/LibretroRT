@@ -16,8 +16,15 @@
                 <core:EventTriggerBehavior EventName="DoubleTapped">
                     <core:InvokeCommandAction Command="{x:Bind VM.ToggleFullScreenCommand}"/>
                 </core:EventTriggerBehavior>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <core:InvokeCommandAction Command="{x:Bind VM.TappedCommand}"/>
+                </core:EventTriggerBehavior>
+                <core:EventTriggerBehavior EventName="PointerMoved">
+                    <core:InvokeCommandAction Command="{x:Bind VM.PointerMovedCommand}"/>
+                </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </canvas:CanvasAnimatedControl>
-        <controls:PlayerOverlay ViewModel="{x:Bind VM}" VerticalAlignment="Bottom"/>
+        <controls:PlayerOverlay ViewModel="{x:Bind VM}" VerticalAlignment="Bottom"
+                                Visibility="{x:Bind VM.DisplayPlayerUI, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
     </Grid>
 </Page>

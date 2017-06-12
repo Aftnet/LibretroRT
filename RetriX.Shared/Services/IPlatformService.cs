@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -12,5 +13,7 @@ namespace RetriX.Shared.Services
         void ExitFullScreen();
 
         Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter);
+
+        Task RunOnUIThreadAsync(Action action);
     }
 }
