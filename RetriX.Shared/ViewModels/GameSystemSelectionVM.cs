@@ -20,11 +20,11 @@ namespace RetriX.Shared.ViewModels
 
             gameSystems = new GameSystemListItemVM[]
             {
-                new GameSystemListItemVM{ Type = GameSystemTypes.NES, Name = localizationService.GetLocalizedString("SystemNameNES"), Symbol = "\uf118" },
-                new GameSystemListItemVM{ Type = GameSystemTypes.SNES, Name = localizationService.GetLocalizedString("SystemNameSNES"), Symbol = "\uf119" },
-                new GameSystemListItemVM{ Type = GameSystemTypes.GB, Name = localizationService.GetLocalizedString("SystemNameGameBoy"), Symbol = "\uf11b" },
-                new GameSystemListItemVM{ Type = GameSystemTypes.GBA, Name = localizationService.GetLocalizedString("SystemNameGameBoyAdvance"), Symbol = "\uf115" },
-                new GameSystemListItemVM{ Type = GameSystemTypes.MegaDrive, Name = localizationService.GetLocalizedString("SystemNameMegaDrive"), Symbol = "\uf124" },
+                new GameSystemListItemVM(localizationService, GameSystemTypes.NES, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
+                new GameSystemListItemVM(localizationService, GameSystemTypes.SNES, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
+                new GameSystemListItemVM(localizationService, GameSystemTypes.GB, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
+                new GameSystemListItemVM(localizationService, GameSystemTypes.GBA, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
+                new GameSystemListItemVM(localizationService, GameSystemTypes.MegaDrive, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124"),
             };
 
             GameSystemSelectedCommand = new RelayCommand<GameSystemListItemVM>(GameSystemSelected);

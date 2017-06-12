@@ -132,6 +132,12 @@
   <data name="GameGearRomDescription.Text" xml:space="preserve">
     <value>SEGA Game Gear Rom</value>
   </data>
+  <data name="ManufacturerNameNintendo" xml:space="preserve">
+    <value>Nintendo</value>
+  </data>
+  <data name="ManufacturerNameSega" xml:space="preserve">
+    <value>SEGA</value>
+  </data>
   <data name="MasterSystemRomDescription.Text" xml:space="preserve">
     <value>SEGA Master System Rom</value>
   </data>
@@ -154,7 +160,7 @@
     <value>Game Boy Advance</value>
   </data>
   <data name="SystemNameMegaDrive" xml:space="preserve">
-    <value>Genesis</value>
+    <value>Mega Drive</value>
   </data>
   <data name="SystemNameNES" xml:space="preserve">
     <value>NES</value>
