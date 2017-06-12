@@ -63,6 +63,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             lock (Coordinator)
             {
                 CoreIsExecuting = false;
+                Coordinator.AudioPlayer?.Stop();
                 Coordinator.Core?.UnloadGame();
             }
         }
@@ -71,6 +72,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             lock (Coordinator)
             {
+                Coordinator.AudioPlayer?.Stop();
                 Coordinator.Core?.Reset();
             }
         }
@@ -79,6 +81,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             lock (Coordinator)
             {
+                Coordinator.AudioPlayer?.Stop();
                 CoreIsExecuting = false;
             }
         }

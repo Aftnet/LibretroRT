@@ -33,7 +33,21 @@ namespace RetriX.UWP.Services
         private ICoreRunner CoreRunner;
         private Tuple<ICore, IStorageFile> GameRunRequest;
 
-        public bool GamePaused { get; set; }
+        public bool GamePaused
+        {
+            get { return CoreRunner != null ? CoreRunner.CoreIsExecuting : true; }
+            set
+            {
+                if (value == true)
+                {
+                    CoreRunner?.PauseCoreExecution();
+                }
+                else
+                {
+                    CoreRunner?.ResumeCoreExecution();
+                }
+            }
+        }
 
         public EmulationService(IPlatformService platformService)
         {
@@ -65,6 +79,11 @@ namespace RetriX.UWP.Services
                     return;
                 }
             }
+        }
+
+        public void ResetGame()
+        {
+            CoreRunner?.ResetGame();
         }
 
         private void RunGame(ICore core, IPlatformFileWrapper file)
