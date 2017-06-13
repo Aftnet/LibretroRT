@@ -17,6 +17,9 @@ namespace RetriX.Shared.Services
         Task RunGameAsync(GameSystemTypes systemType, IPlatformFileWrapper file);
         Task ResetGameAsync();
 
+        Task<byte[]> SaveGameStateAsync();
+        Task<bool> LoadGameStateAsync(byte[] stateData);
+
         event GamePausedChangedDelegate GamePausedChanged;
     }
 }

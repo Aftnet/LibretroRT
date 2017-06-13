@@ -105,6 +105,28 @@ namespace RetriX.UWP.Services
             return Task.Run(() => CoreRunner?.ResetGame());
         }
 
+        public async Task<byte[]> SaveGameStateAsync()
+        {
+            if (CoreRunner == null)
+            {
+                return null;
+            }
+
+            var output = new byte[CoreRunner.SerializationSize];
+            var success = await Task.Run(() => CoreRunner.SaveGameState(output));
+            return success ? output : null;
+        }
+
+        public Task<bool> LoadGameStateAsync(byte[] stateData)
+        {
+            if (CoreRunner == null)
+            {
+                return Task.FromResult(false);
+            }
+
+            return Task.Run(() => CoreRunner.LoadGameState(stateData));
+        }
+
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
             var runnerPage = e.Content as ICoreRunnerPage;
