@@ -21,6 +21,7 @@ namespace RetriX.UWP.Locator
             ioc.Register<IInputManager, InputManager>();
             ioc.Register<IPlatformService, PlatformService>();
             ioc.Register<IEmulationService, EmulationService>();
+            ioc.Register<ISaveStateService, SaveStateService>();
             ioc.Register<ILocalizationService, LocalizationService>();
             ioc.Register<GameSystemSelectionVM>();
             ioc.Register<GamePlayerVM>();
