@@ -11,6 +11,7 @@ namespace RetriX.Shared.Services
 
         Task<byte[]> LoadStateAsync(uint slotId);
         Task<bool> SaveStateAsync(uint slotId, byte[] data);
-        Task<bool> SlotHasData(uint slotId);
+        Task<bool> SlotHasDataAsync(uint slotId);
+        Task ClearSavesAsync();
     };
 }

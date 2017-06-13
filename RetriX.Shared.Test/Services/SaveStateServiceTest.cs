@@ -1,8 +1,5 @@
 ﻿using RetriX.Shared.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -19,7 +16,7 @@ namespace RetriX.Shared.Test.Services
 
         protected override SaveStateService InstanceTarget()
         {
-            return new SaveStateService();
+            return new SaveStateService { GameId = GameId };
         }
 
         [Theory]
@@ -31,17 +28,37 @@ namespace RetriX.Shared.Test.Services
             await Task.Delay(InitializationDelayMs);
 
             Target.GameId = gameId;
-            var result = await Target.SlotHasData(SlotID);
+            var result = await Target.SlotHasDataAsync(SlotID);
             Assert.False(result);
 
             result = await Target.SaveStateAsync(SlotID, TestSavePayload);
             Assert.False(result);
 
-            result = await Target.SlotHasData(SlotID);
+            result = await Target.SlotHasDataAsync(SlotID);
             Assert.False(result);
 
             var loaded = await Target.LoadStateAsync(SlotID);
             Assert.Null(loaded);
+        }
+
+        [Fact]
+        public async Task SavingWorks()
+        {
+            await Task.Delay(InitializationDelayMs);
+
+            var result = await Target.SlotHasDataAsync(SlotID);
+            Assert.False(result);
+
+            var loaded = await Target.LoadStateAsync(SlotID);
+            Assert.Null(loaded);
+
+            result = await Target.SaveStateAsync(SlotID, TestSavePayload);
+            Assert.True(result);
+
+            loaded = await Target.LoadStateAsync(SlotID);
+            Assert.Equal(loaded, TestSavePayload);
+
+            await Target.ClearSavesAsync();
         }
     }
 }

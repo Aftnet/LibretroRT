@@ -8,7 +8,9 @@ namespace RetriX.Shared.Services
         private const string SaveStatesFolderName = "SaveStates";
 
         public string GameId { get; set; }
-        private bool AllowOperations => !(SaveStatesFolder == null || string.IsNullOrEmpty(GameId) || string.IsNullOrWhiteSpace(GameId));
+
+        private bool OperationInProgress = false;
+        private bool AllowOperations => !(OperationInProgress || SaveStatesFolder == null || string.IsNullOrEmpty(GameId) || string.IsNullOrWhiteSpace(GameId));
 
         private IFolder SaveStatesFolder;
 
@@ -27,18 +29,24 @@ namespace RetriX.Shared.Services
                 return null;
             }
 
+            OperationInProgress = true;
+
             var statesFolder = await GetGameSaveStatesFolderAsync();
             var fileName = GenerateSaveFileName(slotId);
-            var file = await statesFolder.GetFileAsync(fileName);
-            if (file == null)
+            var fileExistence = await statesFolder.CheckExistsAsync(fileName);
+            if (fileExistence == ExistenceCheckResult.NotFound)
             {
+                OperationInProgress = false;
                 return null;
             }
 
+            var file = await statesFolder.GetFileAsync(fileName);
             using (var stream = await file.OpenAsync(FileAccess.Read))
             {
                 var output = new byte[stream.Length];
                 await stream.ReadAsync(output, 0, output.Length);
+
+                OperationInProgress = false;
                 return output;
             }
         }
@@ -50,6 +58,8 @@ namespace RetriX.Shared.Services
                 return false;
             }
 
+            OperationInProgress = true;
+
             var statesFolder = await GetGameSaveStatesFolderAsync();
             var fileName = GenerateSaveFileName(slotId);
             var file = await statesFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
@@ -58,20 +68,41 @@ namespace RetriX.Shared.Services
                 await stream.WriteAsync(data, 0, data.Length);
             }
 
+            OperationInProgress = false;
             return true;
         }
 
-        public async Task<bool> SlotHasData(uint slotId)
+        public async Task<bool> SlotHasDataAsync(uint slotId)
         {
             if (!AllowOperations)
             {
                 return false;
             }
 
+            OperationInProgress = true;
+
             var statesFolder = await GetGameSaveStatesFolderAsync();
             var fileName = GenerateSaveFileName(slotId);
             var result = await statesFolder.CheckExistsAsync(fileName);
+
+            OperationInProgress = false;
             return result == ExistenceCheckResult.FileExists;
+        }
+
+        public async Task ClearSavesAsync()
+        {
+            if (!AllowOperations)
+            {
+                return;
+            }
+
+            OperationInProgress = true;
+
+            var statesFolder = await GetGameSaveStatesFolderAsync();
+            await statesFolder.DeleteAsync();
+            await GetGameSaveStatesFolderAsync();
+
+            OperationInProgress = false;
         }
 
         private string GenerateSaveFileName(uint slotId)
