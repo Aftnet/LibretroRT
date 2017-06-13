@@ -13,6 +13,18 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         private readonly CoreEventCoordinator Coordinator;
         public bool CoreIsExecuting { get; private set; }
 
+        public uint SerializationSize
+        {
+            get
+            {
+                lock (Coordinator)
+                {
+                    var core = Coordinator.Core;
+                    return core != null ? core.SerializationSize : 0;
+                }
+            }
+        }
+
         private CanvasAnimatedControl RenderPanel;
         private bool RenderPanelInitialized = false;
 
@@ -103,6 +115,30 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             lock (Coordinator)
             {
                 CoreIsExecuting = true;
+            }
+        }
+
+        public bool SaveGameState([WriteOnlyArray] byte[] stateData)
+        {
+            lock (Coordinator)
+            {
+                var core = Coordinator.Core;
+                if (core == null)
+                    return false;
+
+                return core.Serialize(stateData);
+            }
+        }
+
+        public bool LoadGameState([ReadOnlyArray] byte[] stateData)
+        {
+            lock (Coordinator)
+            {
+                var core = Coordinator.Core;
+                if (core == null)
+                    return false;
+
+                return core.Unserialize(stateData);
             }
         }
 

@@ -6,6 +6,7 @@ namespace LibretroRT.FrontendComponents.Common
     public interface ICoreRunner
     {
         bool CoreIsExecuting { get; }
+        uint SerializationSize { get; }
 
         void LoadGame(ICore core, IStorageFile gameFile);
         void UnloadGame();
@@ -14,7 +15,7 @@ namespace LibretroRT.FrontendComponents.Common
         void PauseCoreExecution();
         void ResumeCoreExecution();
 
-        //bool LoadState(IStorageFile stateFile);
-        //bool SaveState(IStorageFile stateFile);
+        bool SaveGameState([WriteOnlyArray] byte[] stateData);
+        bool LoadGameState([ReadOnlyArray] byte[] stateData);
     }
 }
