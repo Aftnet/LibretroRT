@@ -1,0 +1,13 @@
+﻿{
+  "frameworks": {
+    "net47": {}
+  },
+  "runtimes": {
+    "win": {}
+  },
+  "dependencies": {
+    "Moq": "4.7.25",
+    "xunit": "2.2.0",
+    "xunit.runner.visualstudio": "2.2.0"
+  }
+}
