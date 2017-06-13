@@ -1,4 +1,7 @@
-﻿namespace RetriX.Shared.Services
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace RetriX.Shared.Services
 {
     public enum GameSystemTypes { NES, SNES, GB, GBA, MegaDrive };
 
@@ -8,9 +11,11 @@
     {
         bool GamePaused { get; set; }
 
-        void SelectAndRunGameForSystem(GameSystemTypes systemType);
-        void RunGame(IPlatformFileWrapper file);
-        void ResetGame();
+        IReadOnlyList<string> GetSupportedExtensions(GameSystemTypes systemType);
+
+        Task RunGameAsync(IPlatformFileWrapper file);
+        Task RunGameAsync(GameSystemTypes systemType, IPlatformFileWrapper file);
+        Task ResetGameAsync();
 
         event GamePausedChangedDelegate GamePausedChanged;
     }

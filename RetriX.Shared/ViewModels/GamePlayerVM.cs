@@ -70,7 +70,7 @@ namespace RetriX.Shared.ViewModels
 
         private void Reset()
         {
-            EmulationService.ResetGame();
+            EmulationService.ResetGameAsync();
         }
 
         private void OnGamePausedChanged()

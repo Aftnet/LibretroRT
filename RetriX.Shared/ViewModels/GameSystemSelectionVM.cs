@@ -7,6 +7,7 @@ namespace RetriX.Shared.ViewModels
 {
     public class GameSystemSelectionVM : ViewModelBase
     {
+        private readonly IPlatformService PlatformService;
         private readonly IEmulationService EmulationService;
 
         private readonly IReadOnlyList<GameSystemListItemVM> gameSystems;
@@ -14,8 +15,9 @@ namespace RetriX.Shared.ViewModels
 
         public RelayCommand<GameSystemListItemVM> GameSystemSelectedCommand { get; private set; }
 
-        public GameSystemSelectionVM(ILocalizationService localizationService, IEmulationService emulationService)
+        public GameSystemSelectionVM(ILocalizationService localizationService, IPlatformService platformService, IEmulationService emulationService)
         {
+            PlatformService = platformService;
             EmulationService = emulationService;
 
             gameSystems = new GameSystemListItemVM[]
@@ -30,9 +32,15 @@ namespace RetriX.Shared.ViewModels
             GameSystemSelectedCommand = new RelayCommand<GameSystemListItemVM>(GameSystemSelected);
         }
 
-        public void GameSystemSelected(GameSystemListItemVM selectedSystem)
+        public async void GameSystemSelected(GameSystemListItemVM selectedSystem)
         {
-            EmulationService.SelectAndRunGameForSystem(selectedSystem.Type);
+            var systemType = selectedSystem.Type;
+            var extensions = EmulationService.GetSupportedExtensions(systemType);
+            var file = await PlatformService.SelectFileAsync(extensions);
+            if (file == null)
+                return;
+
+            await EmulationService.RunGameAsync(systemType, file);
         }
     }
 }

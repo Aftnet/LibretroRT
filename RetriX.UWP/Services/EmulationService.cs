@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -58,41 +57,52 @@ namespace RetriX.UWP.Services
             RootFrame.Navigated += OnNavigated;
         }
 
-        public async void SelectAndRunGameForSystem(GameSystemTypes systemType)
+        public IReadOnlyList<string> GetSupportedExtensions(GameSystemTypes systemType)
         {
             var core = SystemCoreMapping[systemType];
-            var extensions = GetSupportedExtensionsListForCore(core);
-            var file = await PlatformService.SelectFileAsync(extensions);
-            if (file != null)
-            {
-                RunGame(core, file);
-            }
+            return GetSupportedExtensionsListForCore(core);
         }
 
-        public void RunGame(IPlatformFileWrapper file)
+        public Task RunGameAsync(IPlatformFileWrapper file)
         {
+            if (file == null)
+            {
+                throw new ArgumentException();
+            }
+
             var platformFile = file.File as IStorageFile;
             foreach (var i in SystemCoreMapping.Values)
             {
                 var coreExtensions = GetSupportedExtensionsListForCore(i);
                 if (coreExtensions.Contains(platformFile.FileType))
                 {
-                    GameRunRequest = new Tuple<ICore, IStorageFile>(i, platformFile);
-                    var task = ExecuteGameRunRequestAsync();
-                    return;
+                    return RunGameAsync(i, file);
                 }
             }
+
+            throw new Exception("No compatible core found");
         }
 
-        public void ResetGame()
+        public Task RunGameAsync(GameSystemTypes systemType, IPlatformFileWrapper file)
         {
-            CoreRunner?.ResetGame();
+            if (file == null)
+            {
+                throw new ArgumentException();
+            }
+
+            var core = SystemCoreMapping[systemType];
+            return RunGameAsync(core, file);
         }
 
-        private void RunGame(ICore core, IPlatformFileWrapper file)
+        private Task RunGameAsync(ICore core, IPlatformFileWrapper file)
         {
             GameRunRequest = new Tuple<ICore, IStorageFile>(core, file.File as IStorageFile);
-            var task = ExecuteGameRunRequestAsync();
+            return ExecuteGameRunRequestAsync();
+        }
+
+        public Task ResetGameAsync()
+        {
+            return Task.Run(() => CoreRunner?.ResetGame());
         }
 
         private void OnNavigated(object sender, NavigationEventArgs e)
@@ -121,19 +131,6 @@ namespace RetriX.UWP.Services
             {
                 RootFrame.Navigate(typeof(GamePlayerPage));
             }
-        }
-
-        private Task<StorageFile> PickCoreSupportedGameFile(ICore core)
-        {
-            var picker = new FileOpenPicker();
-            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            var coreExtensions = GetSupportedExtensionsListForCore(core);
-            foreach (var i in coreExtensions)
-            {
-                picker.FileTypeFilter.Add(i);
-            }
-
-            return picker.PickSingleFileAsync().AsTask();
         }
 
         private string[] GetSupportedExtensionsListForCore(ICore core)
