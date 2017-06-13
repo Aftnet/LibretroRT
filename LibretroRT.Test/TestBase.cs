@@ -32,11 +32,9 @@ namespace LibretroRT.Test
         public async Task LoadingRomWorks()
         {
             var file = await GetFileAsync(RomPath);
-            await Task.Run(() =>
-            {
-                Target.LoadGame(file);
-            });
+            var loadResult = await Task.Run(() => Target.LoadGame(file));
 
+            Assert.True(loadResult);
             Assert.NotEqual(PixelFormats.FormatUknown, Target.PixelFormat);
 
             var geometry = Target.Geometry;
