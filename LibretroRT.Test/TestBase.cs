@@ -81,10 +81,11 @@ namespace LibretroRT.Test
             };
 
             var file = await GetFileAsync(RomPath);
+            var loadResult = await Task.Run(() => Target.LoadGame(file));
+            Assert.True(loadResult);
+
             await Task.Run(() =>
             {
-                Target.LoadGame(file);
-
                 Target.RunFrame();
             });
 

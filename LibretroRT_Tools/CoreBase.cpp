@@ -203,7 +203,16 @@ bool CoreBase::LoadGame(IStorageFile^ gameFile)
 		UnloadGame();
 	}
 
-	gameLoaded = LoadGameInternal(gameFile);
+	try
+	{
+		gameLoaded = LoadGameInternal(gameFile);
+	}
+	catch (const std::exception& e)
+	{
+		UnloadGameInternal();
+		gameLoaded = false;
+	}
+
 	return gameLoaded;
 }
 
