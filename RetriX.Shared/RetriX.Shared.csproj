@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="MvvmLightLibs" Version="5.3.0" />
+    <PackageReference Include="PCLStorage" Version="1.0.2" />
   </ItemGroup>
 
 </Project>
