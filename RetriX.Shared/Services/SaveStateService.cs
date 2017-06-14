@@ -8,8 +8,8 @@ namespace RetriX.Shared.Services
     {
         private const string SaveStatesFolderName = "SaveStates";
 
-        public const string StateSavedToSlotMessageTitleKey = "StateSavedMessageTitle";
-        public const string StateSavedToSlotMessageBodyKey = "StateSavedMessageBody";
+        public const string StateSavedToSlotMessageTitleKey = "StateSavedToSlotMessageTitleKey";
+        public const string StateSavedToSlotMessageBodyKey = "StateSavedToSlotMessageBodyKey";
 
         private readonly ILocalNotifications NotificationService;
         private readonly ILocalizationService LocalizationService;
