@@ -1,5 +1,5 @@
 ﻿using Microsoft.Practices.ServiceLocation;
-using RetriX.Shared.Services;
+using RetriX.Shared.ViewModels;
 using RetriX.UWP.Pages;
 using RetriX.UWP.Services;
 using System;
@@ -47,11 +47,10 @@ namespace RetriX.UWP
         protected override void OnFileActivated(FileActivatedEventArgs args)
         {
             InitializeApp(args.PreviousExecutionState, false);
-            var emulationService = ServiceLocator.Current.GetInstance<IEmulationService>();
+            var mainVM = ServiceLocator.Current.GetInstance<GameSystemSelectionVM>();
             var file = args.Files.First(d => d as IStorageFile != null);
-
             var wrappedFile = new PlatformFileWrapper(file as IStorageFile);
-            emulationService.StartGameAsync(wrappedFile);
+            var task = mainVM.StartGameFromFileAsync(wrappedFile);
         }
 
         private void InitializeApp(ApplicationExecutionState previousExecutionState, bool prelaunchActivated)

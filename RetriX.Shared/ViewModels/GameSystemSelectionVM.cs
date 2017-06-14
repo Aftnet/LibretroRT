@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RetriX.Shared.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
@@ -51,10 +52,24 @@ namespace RetriX.Shared.ViewModels
             var result = await EmulationService.StartGameAsync(systemType, file);
             if (!result)
             {
-                var title = LocalizationService.GetLocalizedString(GameLoadingFailAlertTitleKey);
-                var message = LocalizationService.GetLocalizedString(GameLoadingFailAlertMessageKey);
-                await DialogsService.AlertAsync(message, title);
+                await DisplayGameLoadingError();
             }
+        }
+
+        public async Task StartGameFromFileAsync(IPlatformFileWrapper file)
+        {
+            var result = await EmulationService.StartGameAsync(file);
+            if (!result)
+            {
+                await DisplayGameLoadingError();
+            }
+        }
+
+        private Task DisplayGameLoadingError()
+        {
+            var title = LocalizationService.GetLocalizedString(GameLoadingFailAlertTitleKey);
+            var message = LocalizationService.GetLocalizedString(GameLoadingFailAlertMessageKey);
+            return DialogsService.AlertAsync(message, title);
         }
     }
 }
