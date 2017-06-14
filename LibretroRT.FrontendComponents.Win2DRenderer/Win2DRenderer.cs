@@ -3,6 +3,7 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI;
 
@@ -11,7 +12,21 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
     public sealed class Win2DRenderer : IRenderer, ICoreRunner, IDisposable
     {
         private readonly CoreEventCoordinator Coordinator;
+
+        public string GameID { get; private set; }
         public bool CoreIsExecuting { get; private set; }
+
+        public uint SerializationSize
+        {
+            get
+            {
+                lock (Coordinator)
+                {
+                    var core = Coordinator.Core;
+                    return core != null ? core.SerializationSize : 0;
+                }
+            }
+        }
 
         private CanvasAnimatedControl RenderPanel;
         private bool RenderPanelInitialized = false;
@@ -51,59 +66,112 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             }
         }
 
-        public async void LoadGame(ICore core, IStorageFile gameFile)
+        public IAsyncOperation<bool> LoadGameAsync(ICore core, IStorageFile gameFile)
         {
-            while (!RenderPanelInitialized)
+            return Task.Run(async () =>
             {
-                //Ensure core doesn't try rendering before Win2D is ready.
-                //Some games load faster than the Win2D canvas is initialized
-                await Task.Delay(100);
-            }
+                while (!RenderPanelInitialized)
+                {
+                    //Ensure core doesn't try rendering before Win2D is ready.
+                    //Some games load faster than the Win2D canvas is initialized
+                    await Task.Delay(100);
+                }
 
-            lock (Coordinator)
-            {
-                Coordinator.Core?.UnloadGame();
-                Coordinator.Core = core;
-                core.LoadGame(gameFile);
-                RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
-                CoreIsExecuting = true;
-            }
+                await UnloadGameAsync();
+
+                lock (Coordinator)
+                {
+                    Coordinator.Core = core;
+                    if (core.LoadGame(gameFile) == false)
+                    {
+                        return false;
+                    }
+
+                    GameID = gameFile.Name;
+                    RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
+                    CoreIsExecuting = true;
+                    return true;
+                }
+            }).AsAsyncOperation();
         }
 
-        public void UnloadGame()
+        public IAsyncAction UnloadGameAsync()
         {
-            lock (Coordinator)
+            return Task.Run(() =>
             {
-                CoreIsExecuting = false;
-                Coordinator.AudioPlayer?.Stop();
-                Coordinator.Core?.UnloadGame();
-            }
+                lock (Coordinator)
+                {
+                    GameID = null;
+                    CoreIsExecuting = false;
+                    Coordinator.Core?.UnloadGame();
+                    Coordinator.AudioPlayer?.Stop();
+                }
+            }).AsAsyncAction();
         }
 
-        public void ResetGame()
+        public IAsyncAction ResetGameAsync()
         {
-            lock (Coordinator)
+            return Task.Run(() =>
             {
-                Coordinator.AudioPlayer?.Stop();
-                Coordinator.Core?.Reset();
-            }
+                lock (Coordinator)
+                {
+                    Coordinator.AudioPlayer?.Stop();
+                    Coordinator.Core?.Reset();
+                }
+            }).AsAsyncAction();
         }
 
-        public void PauseCoreExecution()
+        public IAsyncAction PauseCoreExecutionAsync()
         {
-            lock (Coordinator)
+            return Task.Run(() =>
             {
-                Coordinator.AudioPlayer?.Stop();
-                CoreIsExecuting = false;
-            }
+                lock (Coordinator)
+                {
+                    Coordinator.AudioPlayer?.Stop();
+                    CoreIsExecuting = false;
+                }
+            }).AsAsyncAction();
         }
 
-        public void ResumeCoreExecution()
+        public IAsyncAction ResumeCoreExecutionAsync()
         {
-            lock (Coordinator)
+            return Task.Run(() =>
             {
-                CoreIsExecuting = true;
-            }
+                lock (Coordinator)
+                {
+                    CoreIsExecuting = true;
+                }
+            }).AsAsyncAction();
+        }
+
+        public IAsyncOperation<bool> SaveGameStateAsync([WriteOnlyArray] byte[] stateData)
+        {
+            return Task.Run(() =>
+            {
+                lock (Coordinator)
+                {
+                    var core = Coordinator.Core;
+                    if (core == null)
+                        return false;
+
+                    return core.Serialize(stateData);
+                }
+            }).AsAsyncOperation();
+        }
+
+        public IAsyncOperation<bool> LoadGameStateAsync([ReadOnlyArray] byte[] stateData)
+        {
+            return Task.Run(() =>
+            {
+                lock (Coordinator)
+                {
+                    var core = Coordinator.Core;
+                    if (core == null)
+                        return false;
+
+                    return core.Unserialize(stateData);
+                }
+            }).AsAsyncOperation();
         }
 
         private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)

@@ -7,6 +7,8 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using System;
 using Windows.ApplicationModel.Core;
+using GalaSoft.MvvmLight.Messaging;
+using RetriX.Shared.Messages;
 
 namespace RetriX.UWP.Services
 {
@@ -33,14 +35,32 @@ namespace RetriX.UWP.Services
             }
         }
 
-        public bool TryEnterFullScreen()
-        {
-            return AppView.TryEnterFullScreenMode();
-        }
+        public event FullScreenChangeRequestedDelegate FullScreenChangeRequested;
 
-        public void ExitFullScreen()
+        public event GameStateOperationRequestedDelegate GameStateOperationRequested;
+
+        public bool ChangeFullScreenState(FullScreenChangeType changeType)
         {
-            AppView.ExitFullScreenMode();
+            if ((changeType == FullScreenChangeType.Enter && IsFullScreenMode) || (changeType == FullScreenChangeType.Exit && !IsFullScreenMode))
+            {
+                return true;
+            }
+
+            if (changeType == FullScreenChangeType.Toggle)
+            {
+                changeType = IsFullScreenMode ? FullScreenChangeType.Exit : FullScreenChangeType.Enter;
+            }
+
+            switch (changeType)
+            {
+                case FullScreenChangeType.Enter:
+                    return AppView.TryEnterFullScreenMode();
+                case FullScreenChangeType.Exit:
+                    AppView.ExitFullScreenMode();
+                    return true;
+            }
+
+            throw new Exception("this should never happen");
         }
 
         public async Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter)
@@ -58,6 +78,12 @@ namespace RetriX.UWP.Services
 
         private void OnKeyDown(CoreWindow sender, KeyEventArgs args)
         {
+            var shiftState = sender.GetKeyState(VirtualKey.Shift);
+            var shiftIsDown = (shiftState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
+            var altState = sender.GetKeyState(VirtualKey.LeftMenu);
+            var altIsDown = (altState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
             switch (args.VirtualKey)
             {
                 //By default the gamepad's B button is treated as a hardware back button.
@@ -69,16 +95,40 @@ namespace RetriX.UWP.Services
 
                 //Alt+Enter: enter fullscreen
                 case VirtualKey.Enter:
-                    if (CoreWindow.GetKeyState(VirtualKey.Menu) == CoreVirtualKeyStates.Down)
+                    if (shiftIsDown)
                     {
-                        TryEnterFullScreen();
+                        FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Toggle));
                         args.Handled = true;
                     }
                     break;
 
                 case VirtualKey.Escape:
-                    ExitFullScreen();
+                    FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Exit));
                     args.Handled = true;
+                    break;
+
+                case VirtualKey.F1:
+                    HandleFunctionKeyPress(shiftIsDown, 1, args);
+                    break;
+
+                case VirtualKey.F2:
+                    HandleFunctionKeyPress(shiftIsDown, 2, args);
+                    break;
+
+                case VirtualKey.F3:
+                    HandleFunctionKeyPress(shiftIsDown, 3, args);
+                    break;
+
+                case VirtualKey.F4:
+                    HandleFunctionKeyPress(shiftIsDown, 4, args);
+                    break;
+
+                case VirtualKey.F5:
+                    HandleFunctionKeyPress(shiftIsDown, 5, args);
+                    break;
+
+                case VirtualKey.F6:
+                    HandleFunctionKeyPress(shiftIsDown, 6, args);
                     break;
             }
         }
@@ -86,6 +136,14 @@ namespace RetriX.UWP.Services
         public Task RunOnUIThreadAsync(Action action)
         {
             return CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()).AsTask();
+        }
+
+        private void HandleFunctionKeyPress(bool shiftIsDown, uint slotID, KeyEventArgs args)
+        {
+            var eventArgs = new GameStateOperationEventArgs(shiftIsDown ? GameStateOperationEventArgs.GameStateOperationType.Save : GameStateOperationEventArgs.GameStateOperationType.Load, slotID);
+            GameStateOperationRequested(this, eventArgs);
+
+            args.Handled = true;
         }
     }
 }

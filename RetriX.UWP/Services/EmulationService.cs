@@ -1,5 +1,7 @@
-﻿using LibretroRT;
+﻿using GalaSoft.MvvmLight.Messaging;
+using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
+using RetriX.Shared.Messages;
 using RetriX.Shared.Services;
 using RetriX.UWP.Pages;
 using System;
@@ -7,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -27,113 +28,129 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
 
-        private readonly IPlatformService PlatformService;
+        private readonly IMessenger Messenger;
+
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
         private ICoreRunner CoreRunner;
-        private Tuple<ICore, IStorageFile> GameRunRequest;
 
-        public bool GamePaused
+        public string GameID => CoreRunner?.GameID;
+
+        public EmulationService(IMessenger messenger)
         {
-            get { return CoreRunner != null ? !CoreRunner.CoreIsExecuting : true; }
-            set
-            {
-                if (value == true)
-                {
-                    CoreRunner?.PauseCoreExecution();
-                }
-                else
-                {
-                    CoreRunner?.ResumeCoreExecution();
-                }
-                GamePausedChanged();
-            }
-        }
-
-        public event GamePausedChangedDelegate GamePausedChanged;
-
-        public EmulationService(IPlatformService platformService)
-        {
-            PlatformService = platformService;
+            Messenger = messenger;
             RootFrame.Navigated += OnNavigated;
         }
 
-        public async void SelectAndRunGameForSystem(GameSystemTypes systemType)
+        public IReadOnlyList<string> GetSupportedExtensions(GameSystemTypes systemType)
         {
             var core = SystemCoreMapping[systemType];
-            var extensions = GetSupportedExtensionsListForCore(core);
-            var file = await PlatformService.SelectFileAsync(extensions);
-            if (file != null)
-            {
-                RunGame(core, file);
-            }
+            return GetSupportedExtensionsListForCore(core);
         }
 
-        public void RunGame(IPlatformFileWrapper file)
+        public Task<bool> StartGameAsync(IPlatformFileWrapper file)
         {
+            if (file == null)
+            {
+                throw new ArgumentException();
+            }
+
             var platformFile = file.File as IStorageFile;
             foreach (var i in SystemCoreMapping.Values)
             {
                 var coreExtensions = GetSupportedExtensionsListForCore(i);
                 if (coreExtensions.Contains(platformFile.FileType))
                 {
-                    GameRunRequest = new Tuple<ICore, IStorageFile>(i, platformFile);
-                    var task = ExecuteGameRunRequestAsync();
-                    return;
+                    return StartGameAsync(i, file);
                 }
             }
+
+            throw new Exception("No compatible core found");
         }
 
-        public void ResetGame()
+        public Task<bool> StartGameAsync(GameSystemTypes systemType, IPlatformFileWrapper file)
         {
-            CoreRunner?.ResetGame();
+            if (file == null)
+            {
+                throw new ArgumentException();
+            }
+
+            var core = SystemCoreMapping[systemType];
+            return StartGameAsync(core, file);
         }
 
-        private void RunGame(ICore core, IPlatformFileWrapper file)
+        private async Task<bool> StartGameAsync(ICore core, IPlatformFileWrapper file)
         {
-            GameRunRequest = new Tuple<ICore, IStorageFile>(core, file.File as IStorageFile);
-            var task = ExecuteGameRunRequestAsync();
+            if (CoreRunner == null)
+            {
+                RootFrame.Navigate(typeof(GamePlayerPage));
+            }
+
+            //Navigation should cause the player page to load, which in turn should initialize the core runner
+            while (CoreRunner == null)
+            {
+                await Task.Delay(100);
+            }
+
+            return await StartGameAsync(CoreRunner, core, file);
+        }
+
+        private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, IPlatformFileWrapper file)
+        {
+            var loadSuccessful = await runner.LoadGameAsync(core, file.File as IStorageFile);
+            if (loadSuccessful)
+            {
+                Messenger.Send(new GameStartedMessage());
+            }
+            else
+            {
+                RootFrame.GoBack();
+            }
+
+            return loadSuccessful;
+        }
+
+        public Task ResetGameAsync()
+        {
+            return CoreRunner?.ResetGameAsync().AsTask();
+        }
+
+        public Task PauseGameAsync()
+        {
+            return CoreRunner != null ? CoreRunner.PauseCoreExecutionAsync().AsTask() : Task.CompletedTask;
+        }
+
+        public Task ResumeGameAsync()
+        {
+            return CoreRunner != null ? CoreRunner.ResumeCoreExecutionAsync().AsTask() : Task.CompletedTask;
+        }
+
+        public async Task<byte[]> SaveGameStateAsync()
+        {
+            if (CoreRunner == null)
+            {
+                return null;
+            }
+
+            var output = new byte[CoreRunner.SerializationSize];
+            var success = await CoreRunner.SaveGameStateAsync(output);
+            return success ? output : null;
+        }
+
+        public Task<bool> LoadGameStateAsync(byte[] stateData)
+        {
+            if (CoreRunner == null)
+            {
+                return Task.FromResult(false);
+            }
+
+            return CoreRunner.LoadGameStateAsync(stateData).AsTask();
         }
 
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
             var runnerPage = e.Content as ICoreRunnerPage;
             CoreRunner = runnerPage?.CoreRunner;
-            PlatformService.HandleGameplayKeyShortcuts = runnerPage != null;
-
-            var task = ExecuteGameRunRequestAsync();
-        }
-
-        private async Task ExecuteGameRunRequestAsync()
-        {
-            if (GameRunRequest == null)
-                return;
-
-            if (CoreRunner != null)
-            {
-                //Need to null GameRunRequest before starting another thread
-                var request = GameRunRequest;
-                GameRunRequest = null;
-                await Task.Run(() => CoreRunner.LoadGame(request.Item1, request.Item2));
-                GamePausedChanged();
-            }
-            else
-            {
-                RootFrame.Navigate(typeof(GamePlayerPage));
-            }
-        }
-
-        private Task<StorageFile> PickCoreSupportedGameFile(ICore core)
-        {
-            var picker = new FileOpenPicker();
-            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            var coreExtensions = GetSupportedExtensionsListForCore(core);
-            foreach (var i in coreExtensions)
-            {
-                picker.FileTypeFilter.Add(i);
-            }
-
-            return picker.PickSingleFileAsync().AsTask();
         }
 
         private string[] GetSupportedExtensionsListForCore(ICore core)

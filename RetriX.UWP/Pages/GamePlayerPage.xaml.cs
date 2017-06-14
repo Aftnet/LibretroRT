@@ -33,6 +33,18 @@ namespace RetriX.UWP.Pages
             Unloaded += OnUnloading;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            VM.Activated();
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            VM.Deactivated();
+            base.OnNavigatingFrom(e);
+        }
+
         private void OnUnloading(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Runner.Dispose();

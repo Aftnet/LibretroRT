@@ -1,20 +1,23 @@
 ﻿using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
 using Windows.Storage;
 
 namespace LibretroRT.FrontendComponents.Common
 {
     public interface ICoreRunner
     {
+        string GameID { get; }
         bool CoreIsExecuting { get; }
+        uint SerializationSize { get; }
 
-        void LoadGame(ICore core, IStorageFile gameFile);
-        void UnloadGame();
-        void ResetGame();
+        IAsyncOperation<bool> LoadGameAsync(ICore core, IStorageFile gameFile);
+        IAsyncAction UnloadGameAsync();
+        IAsyncAction ResetGameAsync();
 
-        void PauseCoreExecution();
-        void ResumeCoreExecution();
+        IAsyncAction PauseCoreExecutionAsync();
+        IAsyncAction ResumeCoreExecutionAsync();
 
-        //bool LoadState(IStorageFile stateFile);
-        //bool SaveState(IStorageFile stateFile);
+        IAsyncOperation<bool> SaveGameStateAsync([WriteOnlyArray] byte[] stateData);
+        IAsyncOperation<bool> LoadGameStateAsync([ReadOnlyArray] byte[] stateData);
     }
 }
