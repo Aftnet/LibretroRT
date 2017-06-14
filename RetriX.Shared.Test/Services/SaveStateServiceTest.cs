@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using Moq;
+﻿using Moq;
 using RetriX.Shared.Services;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +6,6 @@ using Xunit;
 
 namespace RetriX.Shared.Test.Services
 {
-    [Collection(nameof(ViewModelBase))]
     public class SaveStateServiceTest : TestBase<SaveStateService>
     {
         private const int InitializationDelayMs = 50;
@@ -141,6 +139,8 @@ namespace RetriX.Shared.Test.Services
             var expectedBody = string.Format(StateSavedToSlotMessageBody, SlotID);
             var expectedTimes = saveSuccessful ? Times.Once() : Times.Never();
             NotificationServiceMock.Verify(d => d.Show(StateSavedToSlotMessageTitle, expectedBody, 0), expectedTimes);
+
+            await Target.ClearSavesAsync();
         }
     }
 }
