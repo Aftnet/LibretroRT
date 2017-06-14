@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using Moq;
 using RetriX.Shared.Services;
 using System.Linq;
 using System.Threading.Tasks;
@@ -100,6 +101,8 @@ namespace RetriX.Shared.Test.Services
         [Fact]
         public async Task ConcurrentOperationsAreBlocked()
         {
+            await Task.Delay(InitializationDelayMs);
+
             var otherSlotID = SlotID + 1;
 
             var result = await Target.SaveStateAsync(SlotID, TestSavePayload);
@@ -118,6 +121,26 @@ namespace RetriX.Shared.Test.Services
             Assert.Null(loadTasks[1].Result);
 
             await Target.ClearSavesAsync();
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task NotificationsAreSentWhenAppropriate(bool saveSuccessful)
+        {
+            await Task.Delay(InitializationDelayMs);
+
+            if(!saveSuccessful)
+            {
+                Target.GameId = null;
+            }
+
+            var result = await Target.SaveStateAsync(SlotID, TestSavePayload);
+            Assert.Equal(saveSuccessful, result);
+
+            var expectedBody = string.Format(StateSavedToSlotMessageBody, SlotID);
+            var expectedTimes = saveSuccessful ? Times.Once() : Times.Never();
+            NotificationServiceMock.Verify(d => d.Show(StateSavedToSlotMessageTitle, expectedBody, 0), expectedTimes);
         }
     }
 }
