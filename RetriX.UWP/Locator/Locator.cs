@@ -20,8 +20,8 @@ namespace RetriX.UWP.Locator
                 return;
 
             var ioc = SimpleIoc.Default;
-            ioc.Register<IMessenger, Messenger>();
-            ioc.Register<ILocalNotifications>(() => CrossLocalNotifications.Current);
+            ioc.Register(() => Messenger.Default);
+            ioc.Register(() => CrossLocalNotifications.Current);
             ioc.Register<IAudioPlayer, AudioGraphPlayer>();
             ioc.Register<IInputManager, InputManager>();
             ioc.Register<IPlatformService, PlatformService>();

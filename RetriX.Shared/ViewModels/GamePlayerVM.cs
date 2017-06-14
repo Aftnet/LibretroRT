@@ -107,7 +107,7 @@ namespace RetriX.Shared.ViewModels
             };
 
             MessengerInstance.Register<GameStartedMessage>(this, d => GameIsPaused = false);
-            MessengerInstance.Register<StateOperationMessage>(this, HandleStateOperation);
+            MessengerInstance.Register<StateOperationMessage>(this, d => HandleStateOperation(d));
 
             PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
         }
@@ -199,11 +199,11 @@ namespace RetriX.Shared.ViewModels
 
             if (message.Type == StateOperationMessage.Types.Load)
             {
-                SaveState(message.SlotID);
+                LoadState(message.SlotID);
             }
             else
             {
-                LoadState(message.SlotID);
+                SaveState(message.SlotID);
             }
         }
         private void ReactToUserUIActivity()

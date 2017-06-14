@@ -7,11 +7,15 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using System;
 using Windows.ApplicationModel.Core;
+using GalaSoft.MvvmLight.Messaging;
+using RetriX.Shared.Messages;
 
 namespace RetriX.UWP.Services
 {
     public class PlatformService : IPlatformService
     {
+        private readonly IMessenger Messenger;
+
         private ApplicationView AppView => ApplicationView.GetForCurrentView();
         private CoreWindow CoreWindow => CoreWindow.GetForCurrentThread();
 
@@ -31,6 +35,11 @@ namespace RetriX.UWP.Services
                     window.KeyDown += OnKeyDown;
                 }
             }
+        }
+
+        public PlatformService(IMessenger messenger)
+        {
+            Messenger = messenger;
         }
 
         public bool TryEnterFullScreen()
@@ -80,12 +89,53 @@ namespace RetriX.UWP.Services
                     ExitFullScreen();
                     args.Handled = true;
                     break;
+
+                case VirtualKey.F1:
+                    HandleFunctionKeyPress(sender, args, 1);
+                    break;
+
+                case VirtualKey.F2:
+                    HandleFunctionKeyPress(sender, args, 2);
+                    break;
+
+                case VirtualKey.F3:
+                    HandleFunctionKeyPress(sender, args, 3);
+                    break;
+
+                case VirtualKey.F4:
+                    HandleFunctionKeyPress(sender, args, 4);
+                    break;
+
+                case VirtualKey.F5:
+                    HandleFunctionKeyPress(sender, args, 5);
+                    break;
+
+                case VirtualKey.F6:
+                    HandleFunctionKeyPress(sender, args, 6);
+                    break;
             }
         }
 
         public Task RunOnUIThreadAsync(Action action)
         {
             return CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()).AsTask();
+        }
+
+        private void HandleFunctionKeyPress(CoreWindow window, KeyEventArgs args, uint slotId)
+        {
+            var shiftState = window.GetKeyState(VirtualKey.Shift);
+            var isShiftDown = (shiftState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
+            if (isShiftDown)
+            {
+                Messenger.Send(new StateOperationMessage(StateOperationMessage.Types.Save, slotId));
+            }
+            else
+            {
+                Messenger.Send(new StateOperationMessage(StateOperationMessage.Types.Load, slotId));
+            }
+
+            args.Handled = true;
         }
     }
 }
