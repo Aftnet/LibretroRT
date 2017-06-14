@@ -1,5 +1,7 @@
-﻿using LibretroRT;
+﻿using GalaSoft.MvvmLight.Messaging;
+using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
+using RetriX.Shared.Messages;
 using RetriX.Shared.Services;
 using RetriX.UWP.Pages;
 using System;
@@ -26,14 +28,17 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
 
+        private readonly IMessenger Messenger;
+
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
         private ICoreRunner CoreRunner;
 
         public string GameID => CoreRunner?.GameID;
 
-        public EmulationService()
+        public EmulationService(IMessenger messenger)
         {
+            Messenger = messenger;
             RootFrame.Navigated += OnNavigated;
         }
 
@@ -87,15 +92,19 @@ namespace RetriX.UWP.Services
                 await Task.Delay(100);
             }
 
-            return await StartGameAsync(RootFrame, CoreRunner, core, file);
+            return await StartGameAsync(CoreRunner, core, file);
         }
 
-        private static async Task<bool> StartGameAsync(Frame frame, ICoreRunner runner, ICore core, IPlatformFileWrapper file)
+        private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, IPlatformFileWrapper file)
         {
             var loadSuccessful = await runner.LoadGameAsync(core, file.File as IStorageFile);
-            if (!loadSuccessful)
+            if (loadSuccessful)
             {
-                frame.GoBack();
+                Messenger.Send(new GameStartedMessage());
+            }
+            else
+            {
+                RootFrame.GoBack();
             }
 
             return loadSuccessful;

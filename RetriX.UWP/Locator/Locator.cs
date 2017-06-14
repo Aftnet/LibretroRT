@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using LibretroRT.FrontendComponents.AudioGraphPlayer;
 using LibretroRT.FrontendComponents.Common;
 using LibretroRT.FrontendComponents.InputManager;
@@ -17,6 +18,7 @@ namespace RetriX.UWP.Locator
                 return;
 
             var ioc = SimpleIoc.Default;
+            ioc.Register<IMessenger, Messenger>();
             ioc.Register<IAudioPlayer, AudioGraphPlayer>();
             ioc.Register<IInputManager, InputManager>();
             ioc.Register<IPlatformService, PlatformService>();
