@@ -5,6 +5,7 @@ namespace LibretroRT.FrontendComponents.Common
 {
     public interface ICoreRunner
     {
+        string GameID { get; }
         bool CoreIsExecuting { get; }
         uint SerializationSize { get; }
 

@@ -31,6 +31,8 @@ namespace RetriX.UWP.Services
         private ICoreRunner CoreRunner;
         private Tuple<ICore, IStorageFile> GameRunRequest;
 
+        public string GameID => CoreRunner?.GameID;
+
         public bool GamePaused
         {
             get { return CoreRunner != null ? !CoreRunner.CoreIsExecuting : true; }

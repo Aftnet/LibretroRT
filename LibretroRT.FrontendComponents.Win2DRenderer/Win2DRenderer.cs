@@ -11,6 +11,8 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
     public sealed class Win2DRenderer : IRenderer, ICoreRunner, IDisposable
     {
         private readonly CoreEventCoordinator Coordinator;
+
+        public string GameID { get; private set; }
         public bool CoreIsExecuting { get; private set; }
 
         public uint SerializationSize
@@ -74,6 +76,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
             lock (Coordinator)
             {
+                GameID = gameFile.Name;
                 Coordinator.Core?.UnloadGame();
                 Coordinator.Core = core;
                 core.LoadGame(gameFile);
@@ -86,6 +89,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             lock (Coordinator)
             {
+                GameID = null;
                 CoreIsExecuting = false;
                 Coordinator.AudioPlayer?.Stop();
                 Coordinator.Core?.UnloadGame();

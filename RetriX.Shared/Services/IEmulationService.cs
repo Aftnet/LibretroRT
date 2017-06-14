@@ -9,6 +9,7 @@ namespace RetriX.Shared.Services
 
     public interface IEmulationService
     {
+        string GameID { get; }
         bool GamePaused { get; set; }
 
         IReadOnlyList<string> GetSupportedExtensions(GameSystemTypes systemType);
