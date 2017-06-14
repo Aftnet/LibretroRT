@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="6.5.1" />
     <PackageReference Include="MvvmLightLibs" Version="5.3.0" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="Xam.Plugins.Notifier" Version="2.1.0" />

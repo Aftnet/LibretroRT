@@ -1,11 +1,11 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using Acr.UserDialogs;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using LibretroRT.FrontendComponents.AudioGraphPlayer;
 using LibretroRT.FrontendComponents.Common;
 using LibretroRT.FrontendComponents.InputManager;
 using Microsoft.Practices.ServiceLocation;
 using Plugin.LocalNotifications;
-using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
 using RetriX.UWP.Services;
@@ -21,6 +21,7 @@ namespace RetriX.UWP.Locator
 
             var ioc = SimpleIoc.Default;
             ioc.Register(() => Messenger.Default);
+            ioc.Register(() => UserDialogs.Instance);
             ioc.Register(() => CrossLocalNotifications.Current);
             ioc.Register<IAudioPlayer, AudioGraphPlayer>();
             ioc.Register<IInputManager, InputManager>();
