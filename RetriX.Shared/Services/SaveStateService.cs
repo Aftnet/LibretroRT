@@ -1,4 +1,5 @@
 ﻿using PCLStorage;
+using Plugin.LocalNotifications.Abstractions;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -7,6 +8,12 @@ namespace RetriX.Shared.Services
     {
         private const string SaveStatesFolderName = "SaveStates";
 
+        public const string StateSavedToSlotMessageTitleKey = "StateSavedMessageTitle";
+        public const string StateSavedToSlotMessageBodyKey = "StateSavedMessageBody";
+
+        private readonly ILocalNotifications NotificationService;
+        private readonly ILocalizationService LocalizationService;
+
         public string GameId { get; set; }
 
         private bool OperationInProgress = false;
@@ -14,8 +21,11 @@ namespace RetriX.Shared.Services
 
         private IFolder SaveStatesFolder;
 
-        public SaveStateService()
+        public SaveStateService(ILocalNotifications notificationService, ILocalizationService localizationService)
         {
+            NotificationService = notificationService;
+            LocalizationService = localizationService;
+
             GetSubfolderAsync(FileSystem.Current.LocalStorage, SaveStatesFolderName).ContinueWith(d =>
             {
                 SaveStatesFolder = d.Result;
@@ -67,6 +77,11 @@ namespace RetriX.Shared.Services
             {
                 await stream.WriteAsync(data, 0, data.Length);
             }
+
+            var messageTitle = LocalizationService.GetLocalizedString(StateSavedToSlotMessageTitleKey);
+            var messageBody = LocalizationService.GetLocalizedString(StateSavedToSlotMessageBodyKey);
+            messageBody = string.Format(messageBody, slotId);
+            NotificationService.Show(messageTitle, messageBody);
 
             OperationInProgress = false;
             return true;

@@ -4,6 +4,8 @@ using LibretroRT.FrontendComponents.AudioGraphPlayer;
 using LibretroRT.FrontendComponents.Common;
 using LibretroRT.FrontendComponents.InputManager;
 using Microsoft.Practices.ServiceLocation;
+using Plugin.LocalNotifications;
+using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
 using RetriX.UWP.Services;
@@ -19,6 +21,7 @@ namespace RetriX.UWP.Locator
 
             var ioc = SimpleIoc.Default;
             ioc.Register<IMessenger, Messenger>();
+            ioc.Register<ILocalNotifications>(() => CrossLocalNotifications.Current);
             ioc.Register<IAudioPlayer, AudioGraphPlayer>();
             ioc.Register<IInputManager, InputManager>();
             ioc.Register<IPlatformService, PlatformService>();

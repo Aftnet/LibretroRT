@@ -1,13 +1,18 @@
-﻿using RetriX.Shared.Services;
+﻿using GalaSoft.MvvmLight;
+using RetriX.Shared.Services;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace RetriX.Shared.Test.Services
 {
+    [Collection(nameof(ViewModelBase))]
     public class SaveStateServiceTest : TestBase<SaveStateService>
     {
         private const int InitializationDelayMs = 50;
+
+        private const string StateSavedToSlotMessageTitle = "Title";
+        private const string StateSavedToSlotMessageBody = "Body {0}";
 
         private const string GameId = nameof(GameId);
         private const uint SlotID = 4;
@@ -16,7 +21,13 @@ namespace RetriX.Shared.Test.Services
 
         protected override SaveStateService InstanceTarget()
         {
-            return new SaveStateService { GameId = GameId };
+            return new SaveStateService(NotificationServiceMock.Object, LocalizationServiceMock.Object) { GameId = GameId };
+        }
+
+        public SaveStateServiceTest()
+        {
+            LocalizationServiceMock.Setup(d => d.GetLocalizedString(SaveStateService.StateSavedToSlotMessageTitleKey)).Returns(StateSavedToSlotMessageTitle);
+            LocalizationServiceMock.Setup(d => d.GetLocalizedString(SaveStateService.StateSavedToSlotMessageBodyKey)).Returns(StateSavedToSlotMessageBody);
         }
 
         [Theory]

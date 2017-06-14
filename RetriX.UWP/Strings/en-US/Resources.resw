@@ -192,4 +192,10 @@
   <data name="Slot8MenuFlyoutItem.Text" xml:space="preserve">
     <value>Slot 8</value>
   </data>
+  <data name="StateSavedToSlotMessageBodyKey" xml:space="preserve">
+    <value>Game state saved to slot {0}</value>
+  </data>
+  <data name="StateSavedToSlotMessageTitleKey" xml:space="preserve">
+    <value>State saved</value>
+  </data>
 </root>
