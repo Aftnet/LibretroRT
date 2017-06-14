@@ -108,10 +108,11 @@ namespace RetriX.Shared.ViewModels
             };
 
             MessengerInstance.Register<GameStartedMessage>(this, d => GameIsPaused = false);
-            MessengerInstance.Register<StateOperationMessage>(this, d => HandleStateOperation(d));
+            PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
 
             PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
         }
+
 
         private async void ToggleFullScreen()
         {
@@ -186,22 +187,23 @@ namespace RetriX.Shared.ViewModels
             CoreOperationsAllowed = true;
         }
 
-        private void HandleStateOperation(StateOperationMessage message)
+        private void OnGameStateOperationRequested(IPlatformService sender, GameStateOperationEventArgs args)
         {
             if (!CoreOperationsAllowed)
             {
                 return;
             }
 
-            if (message.Type == StateOperationMessage.Types.Load)
+            if (args.Type == GameStateOperationEventArgs.Types.Load)
             {
-                LoadState(message.SlotID);
+                LoadState(args.SlotID);
             }
             else
             {
-                SaveState(message.SlotID);
+                SaveState(args.SlotID);
             }
         }
+
         private void ReactToUserUIActivity()
         {
             DisplayPlayerUI = true;

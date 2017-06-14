@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
 {
+    public delegate void GameStateOperationRequestedDelegate(IPlatformService sender, GameStateOperationEventArgs args);
+
     public interface IPlatformService
     {
         bool IsFullScreenMode { get; }
@@ -16,5 +18,7 @@ namespace RetriX.Shared.Services
         Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter);
 
         Task RunOnUIThreadAsync(Action action);
+
+        event GameStateOperationRequestedDelegate GameStateOperationRequested;
     }
 }

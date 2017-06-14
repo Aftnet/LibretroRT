@@ -14,8 +14,6 @@ namespace RetriX.UWP.Services
 {
     public class PlatformService : IPlatformService
     {
-        private readonly IMessenger Messenger;
-
         private ApplicationView AppView => ApplicationView.GetForCurrentView();
         private CoreWindow CoreWindow => CoreWindow.GetForCurrentThread();
 
@@ -37,10 +35,7 @@ namespace RetriX.UWP.Services
             }
         }
 
-        public PlatformService(IMessenger messenger)
-        {
-            Messenger = messenger;
-        }
+        public event GameStateOperationRequestedDelegate GameStateOperationRequested;
 
         public bool TryEnterFullScreen()
         {
@@ -139,16 +134,10 @@ namespace RetriX.UWP.Services
             return CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()).AsTask();
         }
 
-        private void HandleFunctionKeyPress(bool shiftIsDown, uint slotId, KeyEventArgs args)
+        private void HandleFunctionKeyPress(bool shiftIsDown, uint slotID, KeyEventArgs args)
         {
-            if (shiftIsDown)
-            {
-                Messenger.Send(new StateOperationMessage(StateOperationMessage.Types.Save, slotId));
-            }
-            else
-            {
-                Messenger.Send(new StateOperationMessage(StateOperationMessage.Types.Load, slotId));
-            }
+            var eventArgs = new GameStateOperationEventArgs(shiftIsDown ? GameStateOperationEventArgs.Types.Save : GameStateOperationEventArgs.Types.Load, slotID);
+            GameStateOperationRequested(this, eventArgs);
 
             args.Handled = true;
         }
