@@ -26,7 +26,6 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
 
-        private readonly IPlatformService PlatformService;
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
         private ICoreRunner CoreRunner;
@@ -51,9 +50,8 @@ namespace RetriX.UWP.Services
 
         public event GamePausedChangedDelegate GamePausedChanged;
 
-        public EmulationService(IPlatformService platformService)
+        public EmulationService()
         {
-            PlatformService = platformService;
             RootFrame.Navigated += OnNavigated;
         }
 
@@ -131,8 +129,6 @@ namespace RetriX.UWP.Services
         {
             var runnerPage = e.Content as ICoreRunnerPage;
             CoreRunner = runnerPage?.CoreRunner;
-            PlatformService.HandleGameplayKeyShortcuts = runnerPage != null;
-
             var task = ExecuteGameRunRequestAsync();
         }
 

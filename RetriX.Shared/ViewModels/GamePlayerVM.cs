@@ -97,6 +97,18 @@ namespace RetriX.Shared.ViewModels
             RaisePropertyChanged(nameof(IsFullScreenMode));
         }
 
+        public void Activated()
+        {
+            CoreOperationsAllowed = true;
+            PlatformService.HandleGameplayKeyShortcuts = true;
+        }
+
+        public void Deactivated()
+        {
+            CoreOperationsAllowed = false;
+            PlatformService.HandleGameplayKeyShortcuts = false;
+        }
+
         private void TogglePause()
         {
             EmulationService.GamePaused = !EmulationService.GamePaused;
