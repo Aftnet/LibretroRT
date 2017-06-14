@@ -87,19 +87,19 @@ namespace RetriX.Shared.ViewModels
             TogglePauseCommand = new RelayCommand(TogglePause, () => CoreOperationsAllowed);
             ResetCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
 
-            SaveStateSlot1 = new RelayCommand(() => SaveState(0), () => CoreOperationsAllowed);
-            SaveStateSlot2 = new RelayCommand(() => SaveState(1), () => CoreOperationsAllowed);
-            SaveStateSlot3 = new RelayCommand(() => SaveState(2), () => CoreOperationsAllowed);
-            SaveStateSlot4 = new RelayCommand(() => SaveState(3), () => CoreOperationsAllowed);
-            SaveStateSlot5 = new RelayCommand(() => SaveState(4), () => CoreOperationsAllowed);
-            SaveStateSlot6 = new RelayCommand(() => SaveState(5), () => CoreOperationsAllowed);
+            SaveStateSlot1 = new RelayCommand(() => SaveState(1), () => CoreOperationsAllowed);
+            SaveStateSlot2 = new RelayCommand(() => SaveState(2), () => CoreOperationsAllowed);
+            SaveStateSlot3 = new RelayCommand(() => SaveState(3), () => CoreOperationsAllowed);
+            SaveStateSlot4 = new RelayCommand(() => SaveState(4), () => CoreOperationsAllowed);
+            SaveStateSlot5 = new RelayCommand(() => SaveState(5), () => CoreOperationsAllowed);
+            SaveStateSlot6 = new RelayCommand(() => SaveState(6), () => CoreOperationsAllowed);
 
-            LoadStateSlot1 = new RelayCommand(() => LoadState(0), () => CoreOperationsAllowed);
-            LoadStateSlot2 = new RelayCommand(() => LoadState(1), () => CoreOperationsAllowed);
-            LoadStateSlot3 = new RelayCommand(() => LoadState(2), () => CoreOperationsAllowed);
-            LoadStateSlot4 = new RelayCommand(() => LoadState(3), () => CoreOperationsAllowed);
-            LoadStateSlot5 = new RelayCommand(() => LoadState(4), () => CoreOperationsAllowed);
-            LoadStateSlot6 = new RelayCommand(() => LoadState(5), () => CoreOperationsAllowed);
+            LoadStateSlot1 = new RelayCommand(() => LoadState(1), () => CoreOperationsAllowed);
+            LoadStateSlot2 = new RelayCommand(() => LoadState(2), () => CoreOperationsAllowed);
+            LoadStateSlot3 = new RelayCommand(() => LoadState(3), () => CoreOperationsAllowed);
+            LoadStateSlot4 = new RelayCommand(() => LoadState(4), () => CoreOperationsAllowed);
+            LoadStateSlot5 = new RelayCommand(() => LoadState(5), () => CoreOperationsAllowed);
+            LoadStateSlot6 = new RelayCommand(() => LoadState(6), () => CoreOperationsAllowed);
 
             AllCoreCommands = new RelayCommand[] { TogglePauseCommand, ResetCommand,
                 SaveStateSlot1, SaveStateSlot2, SaveStateSlot3, SaveStateSlot4, SaveStateSlot5, SaveStateSlot6,
