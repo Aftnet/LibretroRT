@@ -211,4 +211,28 @@ The game file may be corrupt or in a wrong format: try another one.</value>
   <data name="GameLoadingFailAlertTitleKey" xml:space="preserve">
     <value>Unable to load game</value>
   </data>
+  <data name="AboutHeader.Text" xml:space="preserve">
+    <value>ABOUT</value>
+  </data>
+  <data name="GameSystemsHeader.Text" xml:space="preserve">
+    <value>GAME SYSTEMS</value>
+  </data>
+  <data name="AboutNavItem.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="GameSystemsNavItem.Text" xml:space="preserve">
+    <value>Game Systems</value>
+  </data>
+  <data name="CopyrightLabel.Text" xml:space="preserve">
+    <value>©2017</value>
+  </data>
+  <data name="VersionLabel.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="EmulationCodeThanksToLabel.Text" xml:space="preserve">
+    <value>Game systems emulation code thanks to</value>
+  </data>
+  <data name="IconsDesignedByLabel.Text" xml:space="preserve">
+    <value>designed by</value>
+  </data>
 </root>
