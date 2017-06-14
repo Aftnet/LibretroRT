@@ -36,12 +36,12 @@
                 <TextBlock Text="&#xE74E;" Style="{StaticResource GlyphStyle}"/>
                 <Button.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6" Command="{x:Bind ViewModel.SaveStateCommands[5]}"/>
-                        <MenuFlyoutItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5" Command="{x:Bind ViewModel.SaveStateCommands[4]}"/>
-                        <MenuFlyoutItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4" Command="{x:Bind ViewModel.SaveStateCommands[3]}"/>
-                        <MenuFlyoutItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3" Command="{x:Bind ViewModel.SaveStateCommands[2]}"/>
-                        <MenuFlyoutItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2" Command="{x:Bind ViewModel.SaveStateCommands[1]}"/>
-                        <MenuFlyoutItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1" Command="{x:Bind ViewModel.SaveStateCommands[0]}"/>
+                        <MenuFlyoutItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6" Command="{x:Bind ViewModel.SaveStateSlot6}"/>
+                        <MenuFlyoutItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5" Command="{x:Bind ViewModel.SaveStateSlot5}"/>
+                        <MenuFlyoutItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4" Command="{x:Bind ViewModel.SaveStateSlot4}"/>
+                        <MenuFlyoutItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3" Command="{x:Bind ViewModel.SaveStateSlot3}"/>
+                        <MenuFlyoutItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2" Command="{x:Bind ViewModel.SaveStateSlot2}"/>
+                        <MenuFlyoutItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1" Command="{x:Bind ViewModel.SaveStateSlot1}"/>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
@@ -49,12 +49,12 @@
                 <TextBlock Text="&#xE8DA;" Style="{StaticResource GlyphStyle}"/>
                 <Button.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6" Command="{x:Bind ViewModel.LoadStateCommands[5]}"/>
-                        <MenuFlyoutItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5" Command="{x:Bind ViewModel.LoadStateCommands[4]}"/>
-                        <MenuFlyoutItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4" Command="{x:Bind ViewModel.LoadStateCommands[3]}"/>
-                        <MenuFlyoutItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3" Command="{x:Bind ViewModel.LoadStateCommands[2]}"/>
-                        <MenuFlyoutItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2" Command="{x:Bind ViewModel.LoadStateCommands[1]}"/>
-                        <MenuFlyoutItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1" Command="{x:Bind ViewModel.LoadStateCommands[0]}"/>
+                        <MenuFlyoutItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6" Command="{x:Bind ViewModel.LoadStateSlot6}"/>
+                        <MenuFlyoutItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5" Command="{x:Bind ViewModel.LoadStateSlot5}"/>
+                        <MenuFlyoutItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4" Command="{x:Bind ViewModel.LoadStateSlot4}"/>
+                        <MenuFlyoutItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3" Command="{x:Bind ViewModel.LoadStateSlot3}"/>
+                        <MenuFlyoutItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2" Command="{x:Bind ViewModel.LoadStateSlot2}"/>
+                        <MenuFlyoutItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1" Command="{x:Bind ViewModel.LoadStateSlot1}"/>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>

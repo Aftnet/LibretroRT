@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using RetriX.Shared.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -9,8 +10,6 @@ namespace RetriX.Shared.ViewModels
 {
     public class GamePlayerVM : ViewModelBase
     {
-        private const int NumSaveSlots = 6;
-
         private static readonly TimeSpan UIInactivityCheckInterval = TimeSpan.FromSeconds(0.5);
         private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(3);
 
@@ -25,8 +24,19 @@ namespace RetriX.Shared.ViewModels
         public RelayCommand TogglePauseCommand { get; private set; }
         public RelayCommand ResetCommand { get; private set; }
 
-        public RelayCommand[] SaveStateCommands { get; private set; }
-        public RelayCommand[] LoadStateCommands { get; private set; }
+        public RelayCommand SaveStateSlot1 { get; private set; }
+        public RelayCommand SaveStateSlot2 { get; private set; }
+        public RelayCommand SaveStateSlot3 { get; private set; }
+        public RelayCommand SaveStateSlot4 { get; private set; }
+        public RelayCommand SaveStateSlot5 { get; private set; }
+        public RelayCommand SaveStateSlot6 { get; private set; }
+
+        public RelayCommand LoadStateSlot1 { get; private set; }
+        public RelayCommand LoadStateSlot2 { get; private set; }
+        public RelayCommand LoadStateSlot3 { get; private set; }
+        public RelayCommand LoadStateSlot4 { get; private set; }
+        public RelayCommand LoadStateSlot5 { get; private set; }
+        public RelayCommand LoadStateSlot6 { get; private set; }
 
         private RelayCommand[] AllCoreCommands;
 
@@ -72,11 +82,24 @@ namespace RetriX.Shared.ViewModels
             TogglePauseCommand = new RelayCommand(TogglePause, () => CoreOperationsAllowed);
             ResetCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
 
-            const int saveSlotIDStart = 0;
-            SaveStateCommands = Enumerable.Range(saveSlotIDStart, NumSaveSlots).Select(d => new RelayCommand(() => SaveState((uint)d), () => CoreOperationsAllowed)).ToArray();
-            LoadStateCommands = Enumerable.Range(saveSlotIDStart, NumSaveSlots).Select(d => new RelayCommand(() => LoadState((uint)d), () => CoreOperationsAllowed)).ToArray();
+            SaveStateSlot1 = new RelayCommand(() => SaveState(0), () => CoreOperationsAllowed);
+            SaveStateSlot2 = new RelayCommand(() => SaveState(1), () => CoreOperationsAllowed);
+            SaveStateSlot3 = new RelayCommand(() => SaveState(2), () => CoreOperationsAllowed);
+            SaveStateSlot4 = new RelayCommand(() => SaveState(3), () => CoreOperationsAllowed);
+            SaveStateSlot5 = new RelayCommand(() => SaveState(4), () => CoreOperationsAllowed);
+            SaveStateSlot6 = new RelayCommand(() => SaveState(5), () => CoreOperationsAllowed);
 
-            AllCoreCommands = SaveStateCommands.Concat(LoadStateCommands).Concat(new RelayCommand[] { TogglePauseCommand, ResetCommand }).ToArray();
+            LoadStateSlot1 = new RelayCommand(() => LoadState(0), () => CoreOperationsAllowed);
+            LoadStateSlot2 = new RelayCommand(() => LoadState(1), () => CoreOperationsAllowed);
+            LoadStateSlot3 = new RelayCommand(() => LoadState(2), () => CoreOperationsAllowed);
+            LoadStateSlot4 = new RelayCommand(() => LoadState(3), () => CoreOperationsAllowed);
+            LoadStateSlot5 = new RelayCommand(() => LoadState(4), () => CoreOperationsAllowed);
+            LoadStateSlot6 = new RelayCommand(() => LoadState(5), () => CoreOperationsAllowed);
+
+            AllCoreCommands = new RelayCommand[] { TogglePauseCommand, ResetCommand,
+                SaveStateSlot1, SaveStateSlot2, SaveStateSlot3, SaveStateSlot4, SaveStateSlot5, SaveStateSlot6,
+                LoadStateSlot1, LoadStateSlot2, LoadStateSlot3, LoadStateSlot4, LoadStateSlot5, LoadStateSlot6
+            };
 
             EmulationService.GamePausedChanged += OnGamePausedChanged;
 
@@ -126,7 +149,10 @@ namespace RetriX.Shared.ViewModels
             CoreOperationsAllowed = false;
 
             var data = await EmulationService.SaveGameStateAsync();
-            await SaveStateService.SaveStateAsync(slotID, data);
+            if (data != null)
+            {
+                await SaveStateService.SaveStateAsync(slotID, data);
+            }
 
             CoreOperationsAllowed = true;
         }
@@ -136,12 +162,10 @@ namespace RetriX.Shared.ViewModels
             CoreOperationsAllowed = false;
 
             var data = await SaveStateService.LoadStateAsync(slotID);
-            if (data == null)
+            if (data != null)
             {
-                return;
+                await EmulationService.LoadGameStateAsync(data);
             }
-
-            await EmulationService.LoadGameStateAsync(data);
 
             CoreOperationsAllowed = true;
         }
