@@ -198,4 +198,10 @@
   <data name="StateSavedToSlotMessageTitleKey" xml:space="preserve">
     <value>State saved</value>
   </data>
+  <data name="LoadMenuFlyoutItem.Text" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="SaveMenuFlyoutItem.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>

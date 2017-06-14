@@ -23,6 +23,7 @@ namespace RetriX.Shared.ViewModels
 
         public RelayCommand TogglePauseCommand { get; private set; }
         public RelayCommand ResetCommand { get; private set; }
+        public RelayCommand StopCommand { get; private set; }
 
         public RelayCommand SaveStateSlot1 { get; private set; }
         public RelayCommand SaveStateSlot2 { get; private set; }
@@ -87,6 +88,7 @@ namespace RetriX.Shared.ViewModels
 
             TogglePauseCommand = new RelayCommand(TogglePause, () => CoreOperationsAllowed);
             ResetCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
+            StopCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
 
             SaveStateSlot1 = new RelayCommand(() => SaveState(1), () => CoreOperationsAllowed);
             SaveStateSlot2 = new RelayCommand(() => SaveState(2), () => CoreOperationsAllowed);
@@ -102,7 +104,7 @@ namespace RetriX.Shared.ViewModels
             LoadStateSlot5 = new RelayCommand(() => LoadState(5), () => CoreOperationsAllowed);
             LoadStateSlot6 = new RelayCommand(() => LoadState(6), () => CoreOperationsAllowed);
 
-            AllCoreCommands = new RelayCommand[] { TogglePauseCommand, ResetCommand,
+            AllCoreCommands = new RelayCommand[] { TogglePauseCommand, ResetCommand, StopCommand,
                 SaveStateSlot1, SaveStateSlot2, SaveStateSlot3, SaveStateSlot4, SaveStateSlot5, SaveStateSlot6,
                 LoadStateSlot1, LoadStateSlot2, LoadStateSlot3, LoadStateSlot4, LoadStateSlot5, LoadStateSlot6
             };
