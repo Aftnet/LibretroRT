@@ -2,8 +2,6 @@
 using GalaSoft.MvvmLight.Command;
 using RetriX.Shared.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 
 namespace RetriX.Shared.ViewModels

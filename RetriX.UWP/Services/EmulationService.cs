@@ -76,24 +76,29 @@ namespace RetriX.UWP.Services
 
         private async Task<bool> StartGameAsync(ICore core, IPlatformFileWrapper file)
         {
-            bool result;
-            var storageFile = file.File as IStorageFile;
-
-            if (CoreRunner != null)
+            if (CoreRunner == null)
             {
-                result = await CoreRunner.LoadGameAsync(core, storageFile);
-                return result;
+                RootFrame.Navigate(typeof(GamePlayerPage));
             }
 
-            RootFrame.Navigate(typeof(GamePlayerPage));
             //Navigation should cause the player page to load, which in turn should initialize the core runner
             while (CoreRunner == null)
             {
                 await Task.Delay(100);
             }
 
-            result = await CoreRunner.LoadGameAsync(core, storageFile);
-            return result;
+            return await StartGameAsync(RootFrame, CoreRunner, core, file);
+        }
+
+        private static async Task<bool> StartGameAsync(Frame frame, ICoreRunner runner, ICore core, IPlatformFileWrapper file)
+        {
+            var loadSuccessful = await runner.LoadGameAsync(core, file.File as IStorageFile);
+            if (!loadSuccessful)
+            {
+                frame.GoBack();
+            }
+
+            return loadSuccessful;
         }
 
         public Task ResetGameAsync()
