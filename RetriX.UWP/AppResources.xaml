@@ -5,6 +5,7 @@
     xmlns:converters="using:RetriX.UWP.Converters"
     xmlns:tkconv="using:Microsoft.Toolkit.Uwp.UI.Converters">
 
+    <x:Double x:Key="WideLayoutSplitPoint">800</x:Double>
     <Thickness x:Key="DafaultContentMargin">16,0</Thickness>
 
     <Style x:Name="PageHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
