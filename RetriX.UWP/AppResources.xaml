@@ -5,6 +5,12 @@
     xmlns:converters="using:RetriX.UWP.Converters"
     xmlns:tkconv="using:Microsoft.Toolkit.Uwp.UI.Converters">
 
+    <Style x:Name="PageHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="16,12,0,0"/>
+        <Setter Property="Text" Value="DESIGN"/>
+    </Style>
+
     <FontFamily x:Key="GameSymbolsFontFamily">/Assets/GameGlyphs.ttf#Flaticon</FontFamily>
     <Style x:Key="GameSymbolsFontStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontFamily" Value="{StaticResource GameSymbolsFontFamily}"/>

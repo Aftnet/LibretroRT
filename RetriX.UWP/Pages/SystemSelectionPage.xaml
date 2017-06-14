@@ -2,7 +2,8 @@
     x:Class="RetriX.UWP.Pages.SystemSelectionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vm="using:RetriX.UWP.ViewModels"
+    xmlns:nav="using:NavigationMenuUWP"
+    xmlns:vm="using:RetriX.Shared.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
@@ -47,13 +48,28 @@
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemListItemDT}"
-                  SelectionMode="None" IsItemClickEnabled="True">
-            <interactivity:Interaction.Behaviors>
-                <core:EventTriggerBehavior EventName="ItemClick">
-                    <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelectedCommand}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>
-                </core:EventTriggerBehavior>
-            </interactivity:Interaction.Behaviors>
-        </ListView>
+        <nav:NavigationFrame NavigationItemsTop="{StaticResource TopNavItems}"
+                         NavigationItemsBottom="{StaticResource BottomNavItems}">
+            <nav:NavigationFrame.FrameContent>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <nav:PageHeader Grid.Row="0">
+                        <nav:PageHeader.HeaderContent>
+                            <TextBlock x:Uid="GameSystemsHeader" Style="{StaticResource PageHeaderTextBlockStyle}"/>
+                        </nav:PageHeader.HeaderContent>
+                    </nav:PageHeader>
+                    <ListView ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemListItemDT}" SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ItemClick">
+                                <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelectedCommand}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </ListView>
+                </Grid>
+            </nav:NavigationFrame.FrameContent>
+        </nav:NavigationFrame>
     </Grid>
 </Page>
