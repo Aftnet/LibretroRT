@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using RetriX.Shared.Messages;
 using RetriX.Shared.Services;
 using System;
 using System.Threading;
@@ -105,6 +106,8 @@ namespace RetriX.Shared.ViewModels
                 LoadStateSlot1, LoadStateSlot2, LoadStateSlot3, LoadStateSlot4, LoadStateSlot5, LoadStateSlot6
             };
 
+            MessengerInstance.Register<GameStartedMessage>(this, d => GameIsPaused = false);
+
             PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
         }
 
@@ -124,7 +127,6 @@ namespace RetriX.Shared.ViewModels
 
         public void Activated()
         {
-            GameIsPaused = false;
             CoreOperationsAllowed = true;
             PlatformService.HandleGameplayKeyShortcuts = true;
         }
