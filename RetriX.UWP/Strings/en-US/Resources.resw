@@ -198,4 +198,17 @@
   <data name="StateSavedToSlotMessageTitleKey" xml:space="preserve">
     <value>State saved</value>
   </data>
+  <data name="LoadMenuFlyoutItem.Text" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="SaveMenuFlyoutItem.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="GameLoadingFailAlertMessageKey" xml:space="preserve">
+    <value>An error occurred while loading the game.
+The game file may be corrupt or in a wrong format: try another one.</value>
+  </data>
+  <data name="GameLoadingFailAlertTitleKey" xml:space="preserve">
+    <value>Unable to load game</value>
+  </data>
 </root>

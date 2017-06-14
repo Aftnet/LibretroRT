@@ -7,8 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" RequestedTheme="Dark"
-    d:DesignHeight="400"
-    d:DesignWidth="400">
+    d:DesignHeight="400">
 
     <UserControl.Resources>
         <conv:BoolToObjectConverter x:Key="PlayPauseSymbolConverter" TrueValue="&#xe102;" FalseValue="&#xe103;"/>
@@ -22,6 +21,70 @@
         <Style x:Key="ControlButtonStyle" TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
             <Setter Property="IsTabStop" Value="False"/>
             <Setter Property="Margin" Value="6,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumLowBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                     Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                     Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledTransparentBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            AutomationProperties.AccessibilityView="Raw"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style x:Key="GlyphStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}"/>
@@ -33,33 +96,41 @@
     <Grid VerticalAlignment="Bottom" Background="{StaticResource BackgroundBrush}" Padding="24,24">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Style="{StaticResource ControlButtonStyle}">
-                <TextBlock Text="&#xE74E;" Style="{StaticResource GlyphStyle}"/>
+                <TextBlock Text="&#xE105;" Style="{StaticResource GlyphStyle}"/>
                 <Button.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6" Command="{x:Bind ViewModel.SaveStateSlot6}"/>
-                        <MenuFlyoutItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5" Command="{x:Bind ViewModel.SaveStateSlot5}"/>
-                        <MenuFlyoutItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4" Command="{x:Bind ViewModel.SaveStateSlot4}"/>
-                        <MenuFlyoutItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3" Command="{x:Bind ViewModel.SaveStateSlot3}"/>
-                        <MenuFlyoutItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2" Command="{x:Bind ViewModel.SaveStateSlot2}"/>
-                        <MenuFlyoutItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1" Command="{x:Bind ViewModel.SaveStateSlot1}"/>
-                    </MenuFlyout>
-                </Button.Flyout>
-            </Button>
-            <Button Style="{StaticResource ControlButtonStyle}">
-                <TextBlock Text="&#xE8DA;" Style="{StaticResource GlyphStyle}"/>
-                <Button.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6" Command="{x:Bind ViewModel.LoadStateSlot6}"/>
-                        <MenuFlyoutItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5" Command="{x:Bind ViewModel.LoadStateSlot5}"/>
-                        <MenuFlyoutItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4" Command="{x:Bind ViewModel.LoadStateSlot4}"/>
-                        <MenuFlyoutItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3" Command="{x:Bind ViewModel.LoadStateSlot3}"/>
-                        <MenuFlyoutItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2" Command="{x:Bind ViewModel.LoadStateSlot2}"/>
-                        <MenuFlyoutItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1" Command="{x:Bind ViewModel.LoadStateSlot1}"/>
+                        <MenuFlyoutSubItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6">
+                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot6}"/>
+                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot6}"/>
+                        </MenuFlyoutSubItem>
+                        <MenuFlyoutSubItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5">
+                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot5}"/>
+                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot5}"/>
+                        </MenuFlyoutSubItem>
+                        <MenuFlyoutSubItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4">
+                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot4}"/>
+                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot4}"/>
+                        </MenuFlyoutSubItem>
+                        <MenuFlyoutSubItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3">
+                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot3}"/>
+                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot3}"/>
+                        </MenuFlyoutSubItem>
+                        <MenuFlyoutSubItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2">
+                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot2}"/>
+                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot2}"/>
+                        </MenuFlyoutSubItem>
+                        <MenuFlyoutSubItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1">
+                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot1}"/>
+                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot1}"/>
+                        </MenuFlyoutSubItem>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.StopCommand}">
+                <TextBlock Text="&#xe003;" Style="{StaticResource GlyphStyle}"/>
+            </Button>
             <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}">
                 <TextBlock Text="{x:Bind ViewModel.GameIsPaused, Mode=OneWay, Converter={StaticResource PlayPauseSymbolConverter}, FallbackValue=&#xe103;}" Style="{StaticResource GlyphStyle}" FontSize="24"/>
             </Button>

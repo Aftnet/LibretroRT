@@ -10,20 +10,39 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <Style x:Key="GameSystemListItemLabel" TargetType="TextBlock" BasedOn="{StaticResource SubheaderTextBlockStyle}">
-            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundAccentBrush}"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Style x:Key="GameSystemListItemManufacturerStyle" TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         </Style>
-        <Style x:Key="GameSystemListItemIcon" TargetType="TextBlock" BasedOn="{StaticResource GameSystemListItemLabel}">
+        <Style x:Key="GameSystemListItemNameStyle" TargetType="TextBlock" BasedOn="{StaticResource GameSystemListItemManufacturerStyle}">
+            <Setter Property="FontSize" Value="32"/>
+        </Style>
+        <Style x:Key="GameSystemListItemIconFrameStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SystemControlForegroundAccentBrush}"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+        <Style x:Key="GameSystemListItemIconStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontFamily" Value="{StaticResource GameSymbolsFontFamily}"/>
-            <Setter Property="FontSize" Value="40"/>
-            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="FontSize" Value="56"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <DataTemplate x:Key="GameSystemListItemDT" x:DataType="vm:GameSystemListItemVM">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{x:Bind Symbol}" Style="{StaticResource GameSystemListItemIcon}"/>
-                <TextBlock Text="{x:Bind Name}" Style="{StaticResource GameSystemListItemLabel}"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource GameSystemListItemIconFrameStyle}">
+                    <TextBlock Text="{x:Bind Symbol}" Style="{StaticResource GameSystemListItemIconStyle}"/>
+                </Border>
+                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="{x:Bind Name}" Style="{StaticResource GameSystemListItemNameStyle}"/>
+                    <TextBlock Text="{x:Bind Manufacturer}" Style="{StaticResource GameSystemListItemManufacturerStyle}"/>
+                </StackPanel>
+            </Grid>
         </DataTemplate>
     </Page.Resources>
     

@@ -1,37 +1,16 @@
-﻿using GalaSoft.MvvmLight;
-using RetriX.Shared.Services;
+﻿using RetriX.Shared.Services;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class GameSystemListItemVM : ViewModelBase
+    public class GameSystemListItemVM
     {
-        private GameSystemTypes type;
-        public GameSystemTypes Type
-        {
-            get { return type; }
-            set { Set(ref type, value); }
-        }
+        public GameSystemTypes Type { get; private set; }
 
-        private string name;
-        public string Name
-        {
-            get { return name; }
-            set { Set(ref name, value); }
-        }
+        public string Name { get; private set; }
 
-        private string manufacturer;
-        public string Manufacturer
-        {
-            get { return manufacturer; }
-            set { Set(ref manufacturer, value); }
-        }
+        public string Manufacturer { get; private set; }
 
-        private string symbol;
-        public string Symbol
-        {
-            get { return symbol; }
-            set { Set(ref symbol, value); }
-        }
+        public string Symbol { get; private set; }
 
         public GameSystemListItemVM()
         {

@@ -14,6 +14,7 @@ namespace RetriX.Shared.Services
         Task<bool> StartGameAsync(IPlatformFileWrapper file);
         Task<bool> StartGameAsync(GameSystemTypes systemType, IPlatformFileWrapper file);
         Task ResetGameAsync();
+        Task StopGameAsync();
 
         Task PauseGameAsync();
         Task ResumeGameAsync();
