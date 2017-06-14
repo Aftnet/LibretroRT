@@ -7,6 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <Style x:Key="SectionTBStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,32,0,0"/>
+        </Style>
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <nmu:NavigationFrame NavigationItemsTop="{StaticResource TopNavItems}" NavigationItemsBottom="{StaticResource BottomNavItems}">
             <nmu:NavigationFrame.FrameContent>
@@ -23,10 +29,17 @@
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
                         <StackPanel Orientation="Vertical" Margin="{StaticResource DafaultContentMargin}">
                             <TextBlock x:Uid="AppName" Text="AppNameDes" Style="{ThemeResource HeaderTextBlockStyle}"/>
-                            <TextBlock Margin="0,20,0,0">
+                            <TextBlock Style="{StaticResource SectionTBStyle}">
                                 <Run x:Uid="VersionLabel" Text="VersionDesign"/> <Run Text="{x:Bind VM.Version}"/>
                                 <LineBreak/>
                                 <Run x:Uid="CopyrightLabel" Text="CopyrightDesign"/> <Hyperlink NavigateUri="https://www.aftnet.net">Aftnet</Hyperlink>
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource SectionTBStyle}">
+                                <Run x:Uid="EmulationCodeThanksToLabel" Text="EmuCoreThanks"/> <Hyperlink NavigateUri="https://www.libretro.com/">Libretro</Hyperlink>
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource SectionTBStyle}">
+                                <Hyperlink NavigateUri="http://www.flaticon.com/packs/gaming-4">Playing Videogames icon pack</Hyperlink> 
+                                <Run x:Uid="IconsDesignedByLabel" Text="DesignedBy"/> <Hyperlink NavigateUri="http://www.flaticon.com/authors/freepik">Freepik</Hyperlink>
                             </TextBlock>
                         </StackPanel>
                     </ScrollViewer>
@@ -34,5 +47,4 @@
             </nmu:NavigationFrame.FrameContent>
         </nmu:NavigationFrame>
     </Grid>
-
 </Page>

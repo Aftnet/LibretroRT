@@ -229,4 +229,10 @@ The game file may be corrupt or in a wrong format: try another one.</value>
   <data name="VersionLabel.Text" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="EmulationCodeThanksToLabel.Text" xml:space="preserve">
+    <value>Game systems emulation code thanks to</value>
+  </data>
+  <data name="IconsDesignedByLabel.Text" xml:space="preserve">
+    <value>designed by</value>
+  </data>
 </root>
