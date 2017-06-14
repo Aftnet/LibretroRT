@@ -10,6 +10,8 @@ namespace RetriX.Shared.ViewModels
 {
     public class GamePlayerVM : ViewModelBase
     {
+        private const int NumSaveSlots = 8;
+
         private static readonly TimeSpan UIInactivityCheckInterval = TimeSpan.FromSeconds(0.5);
         private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(3);
 
@@ -37,7 +39,7 @@ namespace RetriX.Shared.ViewModels
             {
                 if (Set(ref coreOperationsAllowed, value))
                 {
-                    foreach(var i in AllCoreCommands)
+                    foreach (var i in AllCoreCommands)
                     {
                         i.RaiseCanExecuteChanged();
                     }
@@ -67,8 +69,13 @@ namespace RetriX.Shared.ViewModels
             TappedCommand = new RelayCommand(ReactToUserUIActivity);
             PointerMovedCommand = new RelayCommand(ReactToUserUIActivity);
             ToggleFullScreenCommand = new RelayCommand(ToggleFullScreen);
+
             TogglePauseCommand = new RelayCommand(TogglePause, () => CoreOperationsAllowed);
             ResetCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
+
+            const int saveSlotIDStart = 0;
+            SaveStateCommands = Enumerable.Range(saveSlotIDStart, NumSaveSlots).Select(d => new RelayCommand(() => SaveState((uint)d), () => CoreOperationsAllowed)).ToArray();
+            LoadStateCommands = Enumerable.Range(saveSlotIDStart, NumSaveSlots).Select(d => new RelayCommand(() => LoadState((uint)d), () => CoreOperationsAllowed)).ToArray();
 
             AllCoreCommands = SaveStateCommands.Concat(LoadStateCommands).Concat(new RelayCommand[] { TogglePauseCommand, ResetCommand }).ToArray();
 
