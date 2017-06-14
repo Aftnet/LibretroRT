@@ -67,6 +67,9 @@ namespace RetriX.UWP.Services
 
         private void OnKeyDown(CoreWindow sender, KeyEventArgs args)
         {
+            var shiftState = sender.GetKeyState(VirtualKey.Shift);
+            var shiftIsDown = (shiftState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
             switch (args.VirtualKey)
             {
                 //By default the gamepad's B button is treated as a hardware back button.
@@ -91,27 +94,27 @@ namespace RetriX.UWP.Services
                     break;
 
                 case VirtualKey.F1:
-                    HandleFunctionKeyPress(sender, args, 1);
+                    HandleFunctionKeyPress(shiftIsDown, 1, args);
                     break;
 
                 case VirtualKey.F2:
-                    HandleFunctionKeyPress(sender, args, 2);
+                    HandleFunctionKeyPress(shiftIsDown, 2, args);
                     break;
 
                 case VirtualKey.F3:
-                    HandleFunctionKeyPress(sender, args, 3);
+                    HandleFunctionKeyPress(shiftIsDown, 3, args);
                     break;
 
                 case VirtualKey.F4:
-                    HandleFunctionKeyPress(sender, args, 4);
+                    HandleFunctionKeyPress(shiftIsDown, 4, args);
                     break;
 
                 case VirtualKey.F5:
-                    HandleFunctionKeyPress(sender, args, 5);
+                    HandleFunctionKeyPress(shiftIsDown, 5, args);
                     break;
 
                 case VirtualKey.F6:
-                    HandleFunctionKeyPress(sender, args, 6);
+                    HandleFunctionKeyPress(shiftIsDown, 6, args);
                     break;
             }
         }
@@ -121,12 +124,9 @@ namespace RetriX.UWP.Services
             return CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()).AsTask();
         }
 
-        private void HandleFunctionKeyPress(CoreWindow window, KeyEventArgs args, uint slotId)
+        private void HandleFunctionKeyPress(bool shiftIsDown, uint slotId, KeyEventArgs args)
         {
-            var shiftState = window.GetKeyState(VirtualKey.Shift);
-            var isShiftDown = (shiftState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
-
-            if (isShiftDown)
+            if (shiftIsDown)
             {
                 Messenger.Send(new StateOperationMessage(StateOperationMessage.Types.Save, slotId));
             }
