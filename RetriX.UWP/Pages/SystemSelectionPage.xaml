@@ -45,6 +45,36 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
+
+        <Style x:Key="GameSystemGridItemManufacturerStyle" TargetType="TextBlock" BasedOn="{StaticResource GameSystemListItemManufacturerStyle}">
+        </Style>
+        <Style x:Key="GameSystemGridItemNameStyle" TargetType="TextBlock" BasedOn="{StaticResource GameSystemListItemNameStyle}">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style x:Key="GameSystemGridItemIconFrameStyle" TargetType="Border" BasedOn="{StaticResource GameSystemListItemIconFrameStyle}">
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="220"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style x:Key="GameSystemGridItemIconStyle" TargetType="TextBlock" BasedOn="{StaticResource GameSystemListItemIconStyle}">
+            <Setter Property="FontSize" Value="100"/>
+        </Style>
+        <DataTemplate x:Key="GameSystemGridItemDT" x:DataType="vm:GameSystemListItemVM">
+            <StackPanel Orientation="Vertical" Margin="8,0">
+                <Border Style="{StaticResource GameSystemGridItemIconFrameStyle}">
+                    <TextBlock Text="{x:Bind Symbol, FallbackValue=&#xf118;}" Style="{StaticResource GameSystemGridItemIconStyle}"/>
+                </Border>
+                <TextBlock Text="{x:Bind Name, FallbackValue='Console name'}" Style="{StaticResource GameSystemGridItemNameStyle}"/>
+                <TextBlock Text="{x:Bind Manufacturer,  FallbackValue='Console manufacturer'}" Style="{StaticResource GameSystemGridItemManufacturerStyle}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <Style x:Key="RootListStyle" TargetType="ListViewBase">
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="IsItemClickEnabled" Value="True"/>
+            <Setter Property="Grid.Row" Value="1"/>
+        </Style>
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -61,15 +91,42 @@
                             <TextBlock x:Uid="GameSystemsHeader" Style="{StaticResource PageHeaderTextBlockStyle}"/>
                         </nmu:PageHeader.HeaderContent>
                     </nmu:PageHeader>
-                    <ListView ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemListItemDT}" SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1">
+                    <ListView x:Name="GameSystemsList" ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemListItemDT}" Style="{StaticResource RootListStyle}">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="ItemClick">
                                 <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelectedCommand}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>
                             </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
                     </ListView>
+                    <GridView x:Name="GameSystemsGrid" ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemGridItemDT}" Style="{StaticResource RootListStyle}" Visibility="Collapsed" Margin="8,0,0,0">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ItemClick">
+                                <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelectedCommand}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </GridView>
                 </Grid>
             </nmu:NavigationFrame.FrameContent>
         </nmu:NavigationFrame>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="GameSystemsList.Visibility" Value="Visible"/>
+                        <Setter Target="GameSystemsGrid.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideLayoutSplitPoint}"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="GameSystemsList.Visibility" Value="Collapsed"/>
+                        <Setter Target="GameSystemsGrid.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
