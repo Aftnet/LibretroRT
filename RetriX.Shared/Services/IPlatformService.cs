@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
 {
+    public enum FullScreenChangeType { Enter, Exit, Toggle };
+
+    public delegate void FullScreenChangeRequestedDelegate(IPlatformService sender, FullScreenChangeEventArgs args);
+
     public delegate void GameStateOperationRequestedDelegate(IPlatformService sender, GameStateOperationEventArgs args);
 
     public interface IPlatformService
@@ -11,13 +15,13 @@ namespace RetriX.Shared.Services
         bool IsFullScreenMode { get; }
         bool HandleGameplayKeyShortcuts { get; set; }
 
-        bool TryEnterFullScreen();
-        void ExitFullScreen();
-        void ToggleFullScreen();
+        bool ChangeFullScreenState(FullScreenChangeType changeType);
 
         Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter);
 
         Task RunOnUIThreadAsync(Action action);
+
+        event FullScreenChangeRequestedDelegate FullScreenChangeRequested;
 
         event GameStateOperationRequestedDelegate GameStateOperationRequested;
     }

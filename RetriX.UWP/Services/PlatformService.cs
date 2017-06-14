@@ -35,28 +35,32 @@ namespace RetriX.UWP.Services
             }
         }
 
+        public event FullScreenChangeRequestedDelegate FullScreenChangeRequested;
+
         public event GameStateOperationRequestedDelegate GameStateOperationRequested;
 
-        public bool TryEnterFullScreen()
+        public bool ChangeFullScreenState(FullScreenChangeType changeType)
         {
-            return AppView.TryEnterFullScreenMode();
-        }
-
-        public void ExitFullScreen()
-        {
-            AppView.ExitFullScreenMode();
-        }
-
-        public void ToggleFullScreen()
-        {
-            if (IsFullScreenMode)
+            if ((changeType == FullScreenChangeType.Enter && IsFullScreenMode) || (changeType == FullScreenChangeType.Exit && !IsFullScreenMode))
             {
-                ExitFullScreen();
+                return true;
             }
-            else
+
+            if (changeType == FullScreenChangeType.Toggle)
             {
-                TryEnterFullScreen();
+                changeType = IsFullScreenMode ? FullScreenChangeType.Exit : FullScreenChangeType.Enter;
             }
+
+            switch (changeType)
+            {
+                case FullScreenChangeType.Enter:
+                    return AppView.TryEnterFullScreenMode();
+                case FullScreenChangeType.Exit:
+                    AppView.ExitFullScreenMode();
+                    return true;
+            }
+
+            throw new Exception("this should never happen");
         }
 
         public async Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter)
@@ -93,13 +97,13 @@ namespace RetriX.UWP.Services
                 case VirtualKey.Enter:
                     if (shiftIsDown)
                     {
-                        ToggleFullScreen();
+                        FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Toggle));
                         args.Handled = true;
                     }
                     break;
 
                 case VirtualKey.Escape:
-                    ExitFullScreen();
+                    FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Exit));
                     args.Handled = true;
                     break;
 
@@ -136,7 +140,7 @@ namespace RetriX.UWP.Services
 
         private void HandleFunctionKeyPress(bool shiftIsDown, uint slotID, KeyEventArgs args)
         {
-            var eventArgs = new GameStateOperationEventArgs(shiftIsDown ? GameStateOperationEventArgs.Types.Save : GameStateOperationEventArgs.Types.Load, slotID);
+            var eventArgs = new GameStateOperationEventArgs(shiftIsDown ? GameStateOperationEventArgs.GameStateOperationType.Save : GameStateOperationEventArgs.GameStateOperationType.Load, slotID);
             GameStateOperationRequested(this, eventArgs);
 
             args.Handled = true;

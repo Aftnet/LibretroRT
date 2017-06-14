@@ -83,7 +83,7 @@ namespace RetriX.Shared.ViewModels
 
             TappedCommand = new RelayCommand(ReactToUserUIActivity);
             PointerMovedCommand = new RelayCommand(ReactToUserUIActivity);
-            ToggleFullScreenCommand = new RelayCommand(ToggleFullScreen);
+            ToggleFullScreenCommand = new RelayCommand(() => RequestFullScreenChange(FullScreenChangeType.Toggle));
 
             TogglePauseCommand = new RelayCommand(TogglePause, () => CoreOperationsAllowed);
             ResetCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
@@ -108,15 +108,15 @@ namespace RetriX.Shared.ViewModels
             };
 
             MessengerInstance.Register<GameStartedMessage>(this, d => GameIsPaused = false);
+            PlatformService.FullScreenChangeRequested += (d, e) => RequestFullScreenChange(e.Type);
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
 
             PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
         }
 
-
-        private async void ToggleFullScreen()
+        private async void RequestFullScreenChange(FullScreenChangeType fullScreenChangeType)
         {
-            PlatformService.ToggleFullScreen();
+            PlatformService.ChangeFullScreenState(fullScreenChangeType);
 
             //Fullscreen toggling takes some time
             await Task.Delay(100);
@@ -194,7 +194,7 @@ namespace RetriX.Shared.ViewModels
                 return;
             }
 
-            if (args.Type == GameStateOperationEventArgs.Types.Load)
+            if (args.Type == GameStateOperationEventArgs.GameStateOperationType.Load)
             {
                 LoadState(args.SlotID);
             }
