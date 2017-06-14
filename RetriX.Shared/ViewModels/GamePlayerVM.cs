@@ -192,6 +192,11 @@ namespace RetriX.Shared.ViewModels
 
         private void HandleStateOperation(StateOperationMessage message)
         {
+            if (!CoreOperationsAllowed)
+            {
+                return;
+            }
+
             if (message.Type == StateOperationMessage.Types.Load)
             {
                 SaveState(message.SlotID);
