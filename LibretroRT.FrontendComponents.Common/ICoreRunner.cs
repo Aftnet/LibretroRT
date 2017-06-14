@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
 using Windows.Storage;
 
 namespace LibretroRT.FrontendComponents.Common
@@ -9,14 +10,14 @@ namespace LibretroRT.FrontendComponents.Common
         bool CoreIsExecuting { get; }
         uint SerializationSize { get; }
 
-        void LoadGame(ICore core, IStorageFile gameFile);
-        void UnloadGame();
-        void ResetGame();
+        IAsyncOperation<bool> LoadGameAsync(ICore core, IStorageFile gameFile);
+        IAsyncAction UnloadGameAsync();
+        IAsyncAction ResetGameAsync();
 
-        void PauseCoreExecution();
-        void ResumeCoreExecution();
+        IAsyncAction PauseCoreExecutionAsync();
+        IAsyncAction ResumeCoreExecutionAsync();
 
-        bool SaveGameState([WriteOnlyArray] byte[] stateData);
-        bool LoadGameState([ReadOnlyArray] byte[] stateData);
+        IAsyncOperation<bool> SaveGameStateAsync([WriteOnlyArray] byte[] stateData);
+        IAsyncOperation<bool> LoadGameStateAsync([ReadOnlyArray] byte[] stateData);
     }
 }

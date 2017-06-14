@@ -51,7 +51,7 @@ namespace RetriX.UWP
             var file = args.Files.First(d => d as IStorageFile != null);
 
             var wrappedFile = new PlatformFileWrapper(file as IStorageFile);
-            emulationService.RunGameAsync(wrappedFile);
+            emulationService.StartGameAsync(wrappedFile);
         }
 
         private void InitializeApp(ApplicationExecutionState previousExecutionState, bool prelaunchActivated)

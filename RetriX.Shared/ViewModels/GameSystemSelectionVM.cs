@@ -40,7 +40,7 @@ namespace RetriX.Shared.ViewModels
             if (file == null)
                 return;
 
-            await EmulationService.RunGameAsync(systemType, file);
+            await EmulationService.StartGameAsync(systemType, file);
         }
     }
 }

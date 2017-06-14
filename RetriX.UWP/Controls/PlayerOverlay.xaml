@@ -61,7 +61,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}">
-                <TextBlock Text="{x:Bind ViewModel.IsPaused, Mode=OneWay, Converter={StaticResource PlayPauseSymbolConverter}, FallbackValue=&#xe103;}" Style="{StaticResource GlyphStyle}" FontSize="24"/>
+                <TextBlock Text="{x:Bind ViewModel.GameIsPaused, Mode=OneWay, Converter={StaticResource PlayPauseSymbolConverter}, FallbackValue=&#xe103;}" Style="{StaticResource GlyphStyle}" FontSize="24"/>
             </Button>
             <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ResetCommand}">
                 <TextBlock Text="&#xe72c;" Style="{StaticResource GlyphStyle}"/>

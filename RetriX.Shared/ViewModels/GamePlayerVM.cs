@@ -57,7 +57,13 @@ namespace RetriX.Shared.ViewModels
         }
 
         public bool IsFullScreenMode => PlatformService.IsFullScreenMode;
-        public bool IsPaused => EmulationService.GamePaused;
+
+        private bool gameIsPaused;
+        public bool GameIsPaused
+        {
+            get { return gameIsPaused; }
+            set { Set(ref gameIsPaused, value); }
+        }
 
         private bool displayPlayerUI;
         public bool DisplayPlayerUI
@@ -101,8 +107,6 @@ namespace RetriX.Shared.ViewModels
                 LoadStateSlot1, LoadStateSlot2, LoadStateSlot3, LoadStateSlot4, LoadStateSlot5, LoadStateSlot6
             };
 
-            EmulationService.GamePausedChanged += OnGamePausedChanged;
-
             PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
         }
 
@@ -122,6 +126,7 @@ namespace RetriX.Shared.ViewModels
 
         public void Activated()
         {
+            GameIsPaused = false;
             CoreOperationsAllowed = true;
             PlatformService.HandleGameplayKeyShortcuts = true;
         }
@@ -132,9 +137,21 @@ namespace RetriX.Shared.ViewModels
             PlatformService.HandleGameplayKeyShortcuts = false;
         }
 
-        private void TogglePause()
+        private async void TogglePause()
         {
-            EmulationService.GamePaused = !EmulationService.GamePaused;
+            CoreOperationsAllowed = false;
+
+            if (GameIsPaused)
+            {
+                await EmulationService.ResumeGameAsync();
+            }
+            else
+            {
+                await EmulationService.PauseGameAsync();
+            }
+
+            GameIsPaused = !GameIsPaused;
+            CoreOperationsAllowed = true;
         }
 
         private async void Reset()
@@ -170,11 +187,6 @@ namespace RetriX.Shared.ViewModels
             }
 
             CoreOperationsAllowed = true;
-        }
-
-        private void OnGamePausedChanged()
-        {
-            RaisePropertyChanged(nameof(IsPaused));
         }
 
         private void ReactToUserUIActivity()
