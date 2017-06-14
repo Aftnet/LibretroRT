@@ -11,6 +11,7 @@ namespace RetriX.Shared.Services
 
         bool TryEnterFullScreen();
         void ExitFullScreen();
+        void ToggleFullScreen();
 
         Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter);
 

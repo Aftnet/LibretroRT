@@ -52,6 +52,18 @@ namespace RetriX.UWP.Services
             AppView.ExitFullScreenMode();
         }
 
+        public void ToggleFullScreen()
+        {
+            if (IsFullScreenMode)
+            {
+                ExitFullScreen();
+            }
+            else
+            {
+                TryEnterFullScreen();
+            }
+        }
+
         public async Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter)
         {
             var picker = new FileOpenPicker();
@@ -70,6 +82,9 @@ namespace RetriX.UWP.Services
             var shiftState = sender.GetKeyState(VirtualKey.Shift);
             var shiftIsDown = (shiftState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
 
+            var altState = sender.GetKeyState(VirtualKey.LeftMenu);
+            var altIsDown = (altState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
             switch (args.VirtualKey)
             {
                 //By default the gamepad's B button is treated as a hardware back button.
@@ -81,9 +96,9 @@ namespace RetriX.UWP.Services
 
                 //Alt+Enter: enter fullscreen
                 case VirtualKey.Enter:
-                    if (CoreWindow.GetKeyState(VirtualKey.Menu) == CoreVirtualKeyStates.Down)
+                    if (shiftIsDown)
                     {
-                        TryEnterFullScreen();
+                        ToggleFullScreen();
                         args.Handled = true;
                     }
                     break;

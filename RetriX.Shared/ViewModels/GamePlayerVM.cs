@@ -4,6 +4,7 @@ using RetriX.Shared.Messages;
 using RetriX.Shared.Services;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
@@ -112,17 +113,12 @@ namespace RetriX.Shared.ViewModels
             PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
         }
 
-        private void ToggleFullScreen()
+        private async void ToggleFullScreen()
         {
-            if (PlatformService.IsFullScreenMode)
-            {
-                PlatformService.ExitFullScreen();
-            }
-            else
-            {
-                PlatformService.TryEnterFullScreen();
-            }
+            PlatformService.ToggleFullScreen();
 
+            //Fullscreen toggling takes some time
+            await Task.Delay(100);
             RaisePropertyChanged(nameof(IsFullScreenMode));
         }
 
