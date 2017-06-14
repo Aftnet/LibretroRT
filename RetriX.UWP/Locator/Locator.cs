@@ -6,6 +6,7 @@ using LibretroRT.FrontendComponents.Common;
 using LibretroRT.FrontendComponents.InputManager;
 using Microsoft.Practices.ServiceLocation;
 using Plugin.LocalNotifications;
+using Plugin.VersionTracking;
 using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
 using RetriX.UWP.Services;
@@ -23,6 +24,7 @@ namespace RetriX.UWP.Locator
             ioc.Register(() => Messenger.Default);
             ioc.Register(() => UserDialogs.Instance);
             ioc.Register(() => CrossLocalNotifications.Current);
+            ioc.Register(() => CrossVersionTracking.Current);
             ioc.Register<IAudioPlayer, AudioGraphPlayer>();
             ioc.Register<IInputManager, InputManager>();
             ioc.Register<IPlatformService, PlatformService>();
@@ -30,6 +32,7 @@ namespace RetriX.UWP.Locator
             ioc.Register<ISaveStateService, SaveStateService>();
             ioc.Register<ILocalizationService, LocalizationService>();
             ioc.Register<GameSystemSelectionVM>();
+            ioc.Register<AboutVM>();
             ioc.Register<GamePlayerVM>();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);

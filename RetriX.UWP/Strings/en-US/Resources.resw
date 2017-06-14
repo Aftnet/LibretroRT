@@ -223,4 +223,10 @@ The game file may be corrupt or in a wrong format: try another one.</value>
   <data name="GameSystemsNavItem.Text" xml:space="preserve">
     <value>Game Systems</value>
   </data>
+  <data name="CopyrightLabel.Text" xml:space="preserve">
+    <value>©2017</value>
+  </data>
+  <data name="VersionLabel.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>

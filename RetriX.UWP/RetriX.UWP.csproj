@@ -103,6 +103,9 @@
     </Compile>
     <Compile Include="Converters\ItemClickEventArgsConverter.cs" />
     <Compile Include="Locator\Locator.cs" />
+    <Compile Include="Pages\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ICoreRunnerPage.cs" />
     <Compile Include="Pages\ITypedViewModel.cs" />
     <Compile Include="Pages\SystemSelectionPage.xaml.cs">
@@ -197,6 +200,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SystemSelectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -227,6 +234,9 @@
     </PackageReference>
     <PackageReference Include="PCLStorage">
       <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.VersionTracking">
+      <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="Win2D.uwp">
       <Version>1.20.0</Version>
