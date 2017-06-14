@@ -150,6 +150,9 @@
   <data name="SG1000RomDescription.Text" xml:space="preserve">
     <value>SEGA SG-1000 Rom</value>
   </data>
+  <data name="Slot1MenuFlyoutItem.Text" xml:space="preserve">
+    <value>Slot 1</value>
+  </data>
   <data name="SNESRomDescription.Text" xml:space="preserve">
     <value>Super Nintendo Entertainment System Rom</value>
   </data>
@@ -167,5 +170,26 @@
   </data>
   <data name="SystemNameSNES" xml:space="preserve">
     <value>Super Nintendo</value>
+  </data>
+  <data name="Slot2MenuFlyoutItem.Text" xml:space="preserve">
+    <value>Slot 2</value>
+  </data>
+  <data name="Slot3MenuFlyoutItem.Text" xml:space="preserve">
+    <value>Slot 3</value>
+  </data>
+  <data name="Slot4MenuFlyoutItem.Text" xml:space="preserve">
+    <value>Slot 4</value>
+  </data>
+  <data name="Slot5MenuFlyoutItem.Text" xml:space="preserve">
+    <value>Slot 5</value>
+  </data>
+  <data name="Slot6MenuFlyoutItem.Text" xml:space="preserve">
+    <value>Slot 6</value>
+  </data>
+  <data name="Slot7MenuFlyoutItem.Text" xml:space="preserve">
+    <value>Slot 7</value>
+  </data>
+  <data name="Slot8MenuFlyoutItem.Text" xml:space="preserve">
+    <value>Slot 8</value>
   </data>
 </root>

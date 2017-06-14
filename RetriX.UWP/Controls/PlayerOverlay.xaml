@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" RequestedTheme="Dark"
-    d:DesignHeight="100"
+    d:DesignHeight="400"
     d:DesignWidth="400">
 
     <UserControl.Resources>
@@ -36,8 +36,12 @@
                 <TextBlock Text="&#xE74E;" Style="{StaticResource GlyphStyle}"/>
                 <Button.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Slot 1"/>
-                        <MenuFlyoutItem Text="Slot 2"/>
+                        <MenuFlyoutItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6" Command="{x:Bind ViewModel.SaveStateCommands[5]}"/>
+                        <MenuFlyoutItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5" Command="{x:Bind ViewModel.SaveStateCommands[4]}"/>
+                        <MenuFlyoutItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4" Command="{x:Bind ViewModel.SaveStateCommands[3]}"/>
+                        <MenuFlyoutItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3" Command="{x:Bind ViewModel.SaveStateCommands[2]}"/>
+                        <MenuFlyoutItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2" Command="{x:Bind ViewModel.SaveStateCommands[1]}"/>
+                        <MenuFlyoutItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1" Command="{x:Bind ViewModel.SaveStateCommands[0]}"/>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
@@ -45,8 +49,12 @@
                 <TextBlock Text="&#xE8DA;" Style="{StaticResource GlyphStyle}"/>
                 <Button.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Slot 1"/>
-                        <MenuFlyoutItem Text="Slot 2"/>
+                        <MenuFlyoutItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6" Command="{x:Bind ViewModel.LoadStateCommands[5]}"/>
+                        <MenuFlyoutItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5" Command="{x:Bind ViewModel.LoadStateCommands[4]}"/>
+                        <MenuFlyoutItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4" Command="{x:Bind ViewModel.LoadStateCommands[3]}"/>
+                        <MenuFlyoutItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3" Command="{x:Bind ViewModel.LoadStateCommands[2]}"/>
+                        <MenuFlyoutItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2" Command="{x:Bind ViewModel.LoadStateCommands[1]}"/>
+                        <MenuFlyoutItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1" Command="{x:Bind ViewModel.LoadStateCommands[0]}"/>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>

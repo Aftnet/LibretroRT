@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.Command;
 using RetriX.Shared.Services;
 using System;
-using System.Collections;
 using System.Linq;
 using System.Threading;
 
@@ -10,7 +9,7 @@ namespace RetriX.Shared.ViewModels
 {
     public class GamePlayerVM : ViewModelBase
     {
-        private const int NumSaveSlots = 8;
+        private const int NumSaveSlots = 6;
 
         private static readonly TimeSpan UIInactivityCheckInterval = TimeSpan.FromSeconds(0.5);
         private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(3);
@@ -103,19 +102,27 @@ namespace RetriX.Shared.ViewModels
             EmulationService.GamePaused = !EmulationService.GamePaused;
         }
 
-        private void Reset()
+        private async void Reset()
         {
-            EmulationService.ResetGameAsync();
+            CoreOperationsAllowed = false;
+            await EmulationService.ResetGameAsync();
+            CoreOperationsAllowed = true;
         }
 
         private async void SaveState(uint slotID)
         {
+            CoreOperationsAllowed = false;
+
             var data = await EmulationService.SaveGameStateAsync();
             await SaveStateService.SaveStateAsync(slotID, data);
+
+            CoreOperationsAllowed = true;
         }
 
         private async void LoadState(uint slotID)
         {
+            CoreOperationsAllowed = false;
+
             var data = await SaveStateService.LoadStateAsync(slotID);
             if (data == null)
             {
@@ -123,6 +130,8 @@ namespace RetriX.Shared.ViewModels
             }
 
             await EmulationService.LoadGameStateAsync(data);
+
+            CoreOperationsAllowed = true;
         }
 
         private void OnGamePausedChanged()
