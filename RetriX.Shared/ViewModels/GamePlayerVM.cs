@@ -88,7 +88,7 @@ namespace RetriX.Shared.ViewModels
 
             TogglePauseCommand = new RelayCommand(TogglePause, () => CoreOperationsAllowed);
             ResetCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
-            StopCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
+            StopCommand = new RelayCommand(Stop, () => CoreOperationsAllowed);
 
             SaveStateSlot1 = new RelayCommand(() => SaveState(1), () => CoreOperationsAllowed);
             SaveStateSlot2 = new RelayCommand(() => SaveState(2), () => CoreOperationsAllowed);
@@ -158,6 +158,13 @@ namespace RetriX.Shared.ViewModels
         {
             CoreOperationsAllowed = false;
             await EmulationService.ResetGameAsync();
+            CoreOperationsAllowed = true;
+        }
+
+        private async void Stop()
+        {
+            CoreOperationsAllowed = false;
+            await EmulationService.StopGameAsync();
             CoreOperationsAllowed = true;
         }
 

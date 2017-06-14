@@ -115,6 +115,12 @@ namespace RetriX.UWP.Services
             return CoreRunner?.ResetGameAsync().AsTask();
         }
 
+        public async Task StopGameAsync()
+        {
+            await CoreRunner?.UnloadGameAsync();
+            RootFrame.GoBack();
+        }
+
         public Task PauseGameAsync()
         {
             return CoreRunner != null ? CoreRunner.PauseCoreExecutionAsync().AsTask() : Task.CompletedTask;
