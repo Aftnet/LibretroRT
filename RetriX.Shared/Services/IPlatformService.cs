@@ -6,6 +6,8 @@ namespace RetriX.Shared.Services
 {
     public enum FullScreenChangeType { Enter, Exit, Toggle };
 
+    public enum MousePointerVisibility { Visible, Hidden };
+
     public delegate void FullScreenChangeRequestedDelegate(IPlatformService sender, FullScreenChangeEventArgs args);
 
     public delegate void GameStateOperationRequestedDelegate(IPlatformService sender, GameStateOperationEventArgs args);
@@ -16,6 +18,7 @@ namespace RetriX.Shared.Services
         bool HandleGameplayKeyShortcuts { get; set; }
 
         bool ChangeFullScreenState(FullScreenChangeType changeType);
+        void ChangeMousePointerVisibility(MousePointerVisibility visibility);
 
         Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter);
 

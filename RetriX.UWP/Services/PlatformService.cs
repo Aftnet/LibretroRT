@@ -9,6 +9,7 @@ using System;
 using Windows.ApplicationModel.Core;
 using GalaSoft.MvvmLight.Messaging;
 using RetriX.Shared.Messages;
+using Windows.UI.Xaml;
 
 namespace RetriX.UWP.Services
 {
@@ -61,6 +62,12 @@ namespace RetriX.UWP.Services
             }
 
             throw new Exception("this should never happen");
+        }
+
+        public void ChangeMousePointerVisibility(MousePointerVisibility visibility)
+        {
+            var pointer = visibility == MousePointerVisibility.Hidden ? null : new CoreCursor(CoreCursorType.Arrow, 0);
+            Window.Current.CoreWindow.PointerCursor = pointer;
         }
 
         public async Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter)

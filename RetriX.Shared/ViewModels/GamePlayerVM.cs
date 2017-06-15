@@ -70,7 +70,13 @@ namespace RetriX.Shared.ViewModels
         public bool DisplayPlayerUI
         {
             get { return displayPlayerUI; }
-            set { Set(ref displayPlayerUI, value); }
+            set
+            {
+                if (Set(ref displayPlayerUI, value))
+                {
+                    PlatformService.ChangeMousePointerVisibility(value? MousePointerVisibility.Visible : MousePointerVisibility.Hidden);
+                }
+            }
         }
 
         private Timer PlayerUIInactivityTimer;
@@ -135,6 +141,7 @@ namespace RetriX.Shared.ViewModels
         {
             CoreOperationsAllowed = false;
             PlatformService.HandleGameplayKeyShortcuts = false;
+            DisplayPlayerUI = true;
         }
 
         private async void TogglePause()
