@@ -226,3 +226,16 @@ void CoreBase::UnloadGame()
 	UnloadGameInternal();
 	gameLoaded = false;
 }
+
+void CoreBase::RunFrame()
+{
+	try
+	{
+		RunFrameInternal();
+	}
+	catch (const std::exception& e)
+	{
+		auto message = Converter::CPPToPlatformString(e.what());
+		throw ref new Platform::FailureException(message);
+	}
+}

@@ -87,7 +87,7 @@ void FCEUMMCoreInternal::UnloadGameInternal()
 	retro_unload_game();
 }
 
-void FCEUMMCoreInternal::RunFrame()
+void FCEUMMCoreInternal::RunFrameInternal()
 {
 	retro_run();
 }

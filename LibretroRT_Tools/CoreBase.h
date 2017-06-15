@@ -26,6 +26,7 @@ namespace LibretroRT_Tools
 
 		virtual bool LoadGameInternal(IStorageFile^ gameFile) = 0;
 		virtual void UnloadGameInternal() = 0;
+		virtual void RunFrameInternal() = 0;
 
 		CoreBase();
 		void SetSystemInfo(retro_system_info& info);
@@ -82,7 +83,7 @@ namespace LibretroRT_Tools
 
 		virtual bool LoadGame(IStorageFile^ gameFile);
 		virtual void UnloadGame();
-		virtual void RunFrame() = 0;
+		virtual void RunFrame();
 		virtual void Reset() = 0;
 
 		virtual bool Serialize(WriteOnlyArray<uint8>^ stateData) = 0;

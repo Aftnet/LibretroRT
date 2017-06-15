@@ -84,7 +84,7 @@ void Snes9XCoreInternal::UnloadGameInternal()
 	retro_unload_game();
 }
 
-void Snes9XCoreInternal::RunFrame()
+void Snes9XCoreInternal::RunFrameInternal()
 {
 	retro_run();
 }

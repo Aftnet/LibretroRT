@@ -87,7 +87,7 @@ void GPGXCoreInternal::UnloadGameInternal()
 	gameStream = nullptr;
 }
 
-void GPGXCoreInternal::RunFrame()
+void GPGXCoreInternal::RunFrameInternal()
 {
 	if (gameStream == nullptr)
 		return;

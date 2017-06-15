@@ -87,7 +87,7 @@ void GambatteCoreInternal::UnloadGameInternal()
 	retro_unload_game();
 }
 
-void GambatteCoreInternal::RunFrame()
+void GambatteCoreInternal::RunFrameInternal()
 {
 	retro_run();
 }
