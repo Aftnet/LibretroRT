@@ -31,6 +31,9 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.SNES, Snes9XRT.Snes9XCore.Instance },
             { GameSystemTypes.GB, GambatteRT.GambatteCore.Instance },
             { GameSystemTypes.GBA, VBAMRT.VBAMCore.Instance },
+            { GameSystemTypes.SG1000, GPGXRT.GPGXCore.Instance },
+            { GameSystemTypes.MasterSystem, GPGXRT.GPGXCore.Instance },
+            { GameSystemTypes.GameGear, GPGXRT.GPGXCore.Instance },
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
 

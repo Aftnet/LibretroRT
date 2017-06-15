@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
 {
-    public enum GameSystemTypes { NES, SNES, GB, GBA, MegaDrive };
+    public enum GameSystemTypes { NES, SNES, GB, GBA, SG1000, MasterSystem, GameGear, MegaDrive };
 
     public interface IEmulationService
     {

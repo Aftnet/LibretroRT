@@ -30,7 +30,10 @@ namespace RetriX.Shared.ViewModels
                 new GameSystemListItemVM(LocalizationService, GameSystemTypes.SNES, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
                 new GameSystemListItemVM(LocalizationService, GameSystemTypes.GB, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
                 new GameSystemListItemVM(LocalizationService, GameSystemTypes.GBA, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
-                new GameSystemListItemVM(LocalizationService, GameSystemTypes.MegaDrive, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124"),
+                new GameSystemListItemVM(LocalizationService, GameSystemTypes.SG1000, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", new string[]{ ".sg" }),
+                new GameSystemListItemVM(LocalizationService, GameSystemTypes.MasterSystem, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", new string[]{ ".sms" }),
+                new GameSystemListItemVM(LocalizationService, GameSystemTypes.GameGear, "SystemNameGameGear", "ManufacturerNameSega", "\uf11b", new string[]{ ".gg" }),
+                new GameSystemListItemVM(LocalizationService, GameSystemTypes.MegaDrive, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new string[]{ ".mds", ".md", ".smd", ".gen" }),
             };
 
             GameSystemSelectedCommand = new RelayCommand<GameSystemListItemVM>(GameSystemSelected);
@@ -39,10 +42,17 @@ namespace RetriX.Shared.ViewModels
         public async void GameSystemSelected(GameSystemListItemVM selectedSystem)
         {
             var systemType = selectedSystem.Type;
-            var extensions = EmulationService.GetSupportedExtensions(systemType);
+            var extensions = selectedSystem.SupportedExtensionsOverride;
+            if (extensions == null)
+            {
+                extensions = EmulationService.GetSupportedExtensions(systemType);
+            }
+
             var file = await PlatformService.SelectFileAsync(extensions);
             if (file == null)
+            {
                 return;
+            }
 
             var task = EmulationService.StartGameAsync(systemType, file);
         }
