@@ -235,4 +235,11 @@ The game file may be corrupt or in a wrong format: try another one.</value>
   <data name="IconsDesignedByLabel.Text" xml:space="preserve">
     <value>designed by</value>
   </data>
+  <data name="GameRunningFailAlertMessageKey" xml:space="preserve">
+    <value>An error occurred while running the game.
+Restart RetriX and try again.</value>
+  </data>
+  <data name="GameRunningFailAlertTitleKey" xml:space="preserve">
+    <value>Game runtime error</value>
+  </data>
 </root>

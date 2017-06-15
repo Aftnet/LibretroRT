@@ -37,6 +37,7 @@ namespace RetriX.UWP.Services
         private readonly IMessenger Messenger;
         private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
+        private readonly IPlatformService PlatformService;
 
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
@@ -44,11 +45,12 @@ namespace RetriX.UWP.Services
 
         public string GameID => CoreRunner?.GameID;
 
-        public EmulationService(IMessenger messenger, IUserDialogs dialogsService, ILocalizationService localizationService)
+        public EmulationService(IMessenger messenger, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService)
         {
             Messenger = messenger;
             DialogsService = dialogsService;
             LocalizationService = localizationService;
+            PlatformService = platformService;
 
             RootFrame.Navigated += OnNavigated;
         }
@@ -182,10 +184,13 @@ namespace RetriX.UWP.Services
 
         private void OnCoreExceptionOccurred(ICore core, Exception e)
         {
-            RootFrame.GoBack();
-            var title = LocalizationService.GetLocalizedString(GameRunningFailAlertTitleKey);
-            var message = LocalizationService.GetLocalizedString(GameRunningFailAlertMessageKey);
-            var task = DialogsService.AlertAsync(message, title);
+            var task = PlatformService.RunOnUIThreadAsync(() =>
+            {
+                RootFrame.GoBack();
+                var title = LocalizationService.GetLocalizedString(GameRunningFailAlertTitleKey);
+                var message = LocalizationService.GetLocalizedString(GameRunningFailAlertMessageKey);
+                DialogsService.AlertAsync(message, title);
+            });
         }
 
         private string[] GetSupportedExtensionsListForCore(ICore core)
