@@ -206,37 +206,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\common\gambatte-array.h" />
-    <ClInclude Include="src\common\uncopyable.h" />
-    <ClInclude Include="src\libgambatte\include\gambatte.h" />
-    <ClInclude Include="src\libgambatte\include\gbint.h" />
-    <ClInclude Include="src\libgambatte\include\inputgetter.h" />
-    <ClInclude Include="src\libgambatte\libretro-common\include\boolean.h" />
-    <ClInclude Include="src\libgambatte\libretro-common\include\compat\msvc.h" />
-    <ClInclude Include="src\libgambatte\libretro-common\include\memmap.h" />
-    <ClInclude Include="src\libgambatte\libretro-common\include\retro_common_api.h" />
-    <ClInclude Include="src\libgambatte\libretro-common\include\retro_inline.h" />
-    <ClInclude Include="src\libgambatte\libretro-common\include\retro_miscellaneous.h" />
-    <ClInclude Include="src\libgambatte\libretro-common\include\streams\file_stream.h" />
-    <ClInclude Include="src\libgambatte\libretro-common\include\string\stdstring.h" />
     <ClInclude Include="src\libgambatte\libretro\blipper.h" />
-    <ClInclude Include="src\libgambatte\libretro\cc_resampler.h" />
-    <ClInclude Include="src\libgambatte\libretro\gbcpalettes.h" />
     <ClInclude Include="src\libgambatte\libretro\libretro.h" />
     <ClInclude Include="src\libgambatte\src\bootloader.h" />
-    <ClInclude Include="src\libgambatte\src\counterdef.h" />
     <ClInclude Include="src\libgambatte\src\cpu.h" />
     <ClInclude Include="src\libgambatte\src\gambatte-memory.h" />
     <ClInclude Include="src\libgambatte\src\initstate.h" />
-    <ClInclude Include="src\libgambatte\src\insertion_sort.h" />
     <ClInclude Include="src\libgambatte\src\interrupter.h" />
     <ClInclude Include="src\libgambatte\src\interruptrequester.h" />
     <ClInclude Include="src\libgambatte\src\mem\cartridge.h" />
     <ClInclude Include="src\libgambatte\src\mem\memptrs.h" />
     <ClInclude Include="src\libgambatte\src\mem\rtc.h" />
-    <ClInclude Include="src\libgambatte\src\minkeeper.h" />
-    <ClInclude Include="src\libgambatte\src\savestate.h" />
-    <ClInclude Include="src\libgambatte\src\serial_io.h" />
     <ClInclude Include="src\libgambatte\src\sound.h" />
     <ClInclude Include="src\libgambatte\src\sound\channel1.h" />
     <ClInclude Include="src\libgambatte\src\sound\channel2.h" />
@@ -245,16 +225,11 @@
     <ClInclude Include="src\libgambatte\src\sound\duty_unit.h" />
     <ClInclude Include="src\libgambatte\src\sound\envelope_unit.h" />
     <ClInclude Include="src\libgambatte\src\sound\length_counter.h" />
-    <ClInclude Include="src\libgambatte\src\sound\master_disabler.h" />
-    <ClInclude Include="src\libgambatte\src\sound\sound_unit.h" />
-    <ClInclude Include="src\libgambatte\src\sound\static_output_tester.h" />
     <ClInclude Include="src\libgambatte\src\statesaver.h" />
     <ClInclude Include="src\libgambatte\src\tima.h" />
     <ClInclude Include="src\libgambatte\src\video.h" />
-    <ClInclude Include="src\libgambatte\src\video\lcddef.h" />
     <ClInclude Include="src\libgambatte\src\video\lyc_irq.h" />
     <ClInclude Include="src\libgambatte\src\video\ly_counter.h" />
-    <ClInclude Include="src\libgambatte\src\video\m0_irq.h" />
     <ClInclude Include="src\libgambatte\src\video\next_m0_time.h" />
     <ClInclude Include="src\libgambatte\src\video\ppu.h" />
     <ClInclude Include="src\libgambatte\src\video\sprite_mapper.h" />
