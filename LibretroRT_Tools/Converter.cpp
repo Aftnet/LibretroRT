@@ -6,7 +6,8 @@ using namespace Platform;
 using namespace LibretroRT;
 using namespace LibretroRT_Tools;
 
-std::wstring_convert<std::codecvt_utf8<wchar_t>> stringConverter;
+typedef std::codecvt_byname<wchar_t, char, std::mbstate_t> localCodecvt;
+std::wstring_convert<localCodecvt> stringConverter(new localCodecvt("en_US"));
 
 std::wstring Converter::CToWString(const char* string)
 {
