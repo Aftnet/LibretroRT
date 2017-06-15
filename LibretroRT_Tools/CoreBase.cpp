@@ -233,9 +233,8 @@ void CoreBase::RunFrame()
 	{
 		RunFrameInternal();
 	}
-	catch (const std::exception& e)
+	catch (...)
 	{
-		auto message = Converter::CPPToPlatformString(e.what());
-		throw ref new Platform::FailureException(message);
+		throw ref new Platform::FailureException(L"Core runtime error");
 	}
 }
