@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using Acr.UserDialogs;
+using GalaSoft.MvvmLight.Messaging;
 using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
 using RetriX.Shared.Messages;
@@ -17,6 +18,11 @@ namespace RetriX.UWP.Services
 {
     public class EmulationService : IEmulationService
     {
+        public const string GameLoadingFailAlertTitleKey = "GameLoadingFailAlertTitleKey";
+        public const string GameLoadingFailAlertMessageKey = "GameLoadingFailAlertMessageKey";
+        public const string GameRunningFailAlertTitleKey = "GameRunningFailAlertTitleKey";
+        public const string GameRunningFailAlertMessageKey = "GameRunningFailAlertMessageKey";
+
         private const char CoreExtensionDelimiter = '|';
 
         private static readonly IReadOnlyDictionary<GameSystemTypes, ICore> SystemCoreMapping = new Dictionary<GameSystemTypes, ICore>
@@ -29,6 +35,8 @@ namespace RetriX.UWP.Services
         };
 
         private readonly IMessenger Messenger;
+        private readonly IUserDialogs DialogsService;
+        private readonly ILocalizationService LocalizationService;
 
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
@@ -36,9 +44,12 @@ namespace RetriX.UWP.Services
 
         public string GameID => CoreRunner?.GameID;
 
-        public EmulationService(IMessenger messenger)
+        public EmulationService(IMessenger messenger, IUserDialogs dialogsService, ILocalizationService localizationService)
         {
             Messenger = messenger;
+            DialogsService = dialogsService;
+            LocalizationService = localizationService;
+
             RootFrame.Navigated += OnNavigated;
         }
 
@@ -105,6 +116,10 @@ namespace RetriX.UWP.Services
             else
             {
                 RootFrame.GoBack();
+                var title = LocalizationService.GetLocalizedString(GameLoadingFailAlertTitleKey);
+                var message = LocalizationService.GetLocalizedString(GameLoadingFailAlertMessageKey);
+                await DialogsService.AlertAsync(message, title);
+                return false;
             }
 
             return loadSuccessful;
@@ -157,6 +172,20 @@ namespace RetriX.UWP.Services
         {
             var runnerPage = e.Content as ICoreRunnerPage;
             CoreRunner = runnerPage?.CoreRunner;
+
+            if (CoreRunner != null)
+            {
+                CoreRunner.CoreRunExceptionOccurred -= OnCoreExceptionOccurred;
+                CoreRunner.CoreRunExceptionOccurred += OnCoreExceptionOccurred;
+            }
+        }
+
+        private void OnCoreExceptionOccurred(ICore core, Exception e)
+        {
+            RootFrame.GoBack();
+            var title = LocalizationService.GetLocalizedString(GameRunningFailAlertTitleKey);
+            var message = LocalizationService.GetLocalizedString(GameRunningFailAlertMessageKey);
+            var task = DialogsService.AlertAsync(message, title);
         }
 
         private string[] GetSupportedExtensionsListForCore(ICore core)

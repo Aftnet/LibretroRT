@@ -9,12 +9,8 @@ namespace RetriX.Shared.ViewModels
 {
     public class GameSystemSelectionVM : ViewModelBase
     {
-        public const string GameLoadingFailAlertTitleKey = "GameLoadingFailAlertTitleKey";
-        public const string GameLoadingFailAlertMessageKey = "GameLoadingFailAlertMessageKey";
-
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
-        private readonly IUserDialogs DialogsService;
         private readonly IEmulationService EmulationService;
 
         private readonly IReadOnlyList<GameSystemListItemVM> gameSystems;
@@ -22,11 +18,10 @@ namespace RetriX.Shared.ViewModels
 
         public RelayCommand<GameSystemListItemVM> GameSystemSelectedCommand { get; private set; }
 
-        public GameSystemSelectionVM(ILocalizationService localizationService, IPlatformService platformService, IUserDialogs dialogsService, IEmulationService emulationService)
+        public GameSystemSelectionVM(ILocalizationService localizationService, IPlatformService platformService, IEmulationService emulationService)
         {
             LocalizationService = localizationService;
             PlatformService = platformService;
-            DialogsService = dialogsService;
             EmulationService = emulationService;
 
             gameSystems = new GameSystemListItemVM[]
@@ -49,27 +44,12 @@ namespace RetriX.Shared.ViewModels
             if (file == null)
                 return;
 
-            var result = await EmulationService.StartGameAsync(systemType, file);
-            if (!result)
-            {
-                await DisplayGameLoadingError();
-            }
+            var task = EmulationService.StartGameAsync(systemType, file);
         }
 
-        public async Task StartGameFromFileAsync(IPlatformFileWrapper file)
+        public Task StartGameFromFileAsync(IPlatformFileWrapper file)
         {
-            var result = await EmulationService.StartGameAsync(file);
-            if (!result)
-            {
-                await DisplayGameLoadingError();
-            }
-        }
-
-        private Task DisplayGameLoadingError()
-        {
-            var title = LocalizationService.GetLocalizedString(GameLoadingFailAlertTitleKey);
-            var message = LocalizationService.GetLocalizedString(GameLoadingFailAlertMessageKey);
-            return DialogsService.AlertAsync(message, title);
+            return EmulationService.StartGameAsync(file);
         }
     }
 }
