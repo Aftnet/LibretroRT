@@ -11,6 +11,8 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 {
     public sealed class Win2DRenderer : IRenderer, ICoreRunner, IDisposable
     {
+        public event CoreRunExceptionOccurredDelegate CoreRunExceptionOccurred;
+
         private readonly CoreEventCoordinator Coordinator;
 
         public string GameID { get; private set; }
@@ -193,7 +195,17 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             {
                 if (CoreIsExecuting && !Coordinator.AudioPlayerRequestsFrameDelay)
                 {
-                    Coordinator.Core?.RunFrame();
+                    try
+                    {
+                        Coordinator.Core?.RunFrame();
+                    }
+                    catch (Exception e)
+                    {
+                        GameID = null;
+                        CoreIsExecuting = false;
+                        Coordinator.AudioPlayer?.Stop();
+                        CoreRunExceptionOccurred(Coordinator.Core, e);
+                    }
                 }
             }
         }

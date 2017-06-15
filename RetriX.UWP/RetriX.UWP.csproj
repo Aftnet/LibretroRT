@@ -114,7 +114,6 @@
     <Compile Include="Pages\GamePlayerPage.xaml.cs">
       <DependentUpon>GamePlayerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shims\GameSystemListItemVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmulationService.cs" />
     <Compile Include="Services\PlatformFileWrapper.cs" />

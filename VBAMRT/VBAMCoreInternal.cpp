@@ -84,7 +84,7 @@ void VBAMCoreInternal::UnloadGameInternal()
 	retro_unload_game();
 }
 
-void VBAMCoreInternal::RunFrame()
+void VBAMCoreInternal::RunFrameInternal()
 {
 	retro_run();
 }

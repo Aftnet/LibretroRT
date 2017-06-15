@@ -226,3 +226,15 @@ void CoreBase::UnloadGame()
 	UnloadGameInternal();
 	gameLoaded = false;
 }
+
+void CoreBase::RunFrame()
+{
+	try
+	{
+		RunFrameInternal();
+	}
+	catch (...)
+	{
+		throw ref new Platform::FailureException(L"Core runtime error");
+	}
+}

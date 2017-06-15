@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using Acr.UserDialogs;
+using GalaSoft.MvvmLight.Messaging;
 using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
 using RetriX.Shared.Messages;
@@ -17,6 +18,11 @@ namespace RetriX.UWP.Services
 {
     public class EmulationService : IEmulationService
     {
+        public const string GameLoadingFailAlertTitleKey = "GameLoadingFailAlertTitleKey";
+        public const string GameLoadingFailAlertMessageKey = "GameLoadingFailAlertMessageKey";
+        public const string GameRunningFailAlertTitleKey = "GameRunningFailAlertTitleKey";
+        public const string GameRunningFailAlertMessageKey = "GameRunningFailAlertMessageKey";
+
         private const char CoreExtensionDelimiter = '|';
 
         private static readonly IReadOnlyDictionary<GameSystemTypes, ICore> SystemCoreMapping = new Dictionary<GameSystemTypes, ICore>
@@ -25,10 +31,16 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.SNES, Snes9XRT.Snes9XCore.Instance },
             { GameSystemTypes.GB, GambatteRT.GambatteCore.Instance },
             { GameSystemTypes.GBA, VBAMRT.VBAMCore.Instance },
+            { GameSystemTypes.SG1000, GPGXRT.GPGXCore.Instance },
+            { GameSystemTypes.MasterSystem, GPGXRT.GPGXCore.Instance },
+            { GameSystemTypes.GameGear, GPGXRT.GPGXCore.Instance },
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
 
         private readonly IMessenger Messenger;
+        private readonly IUserDialogs DialogsService;
+        private readonly ILocalizationService LocalizationService;
+        private readonly IPlatformService PlatformService;
 
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
@@ -36,9 +48,13 @@ namespace RetriX.UWP.Services
 
         public string GameID => CoreRunner?.GameID;
 
-        public EmulationService(IMessenger messenger)
+        public EmulationService(IMessenger messenger, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService)
         {
             Messenger = messenger;
+            DialogsService = dialogsService;
+            LocalizationService = localizationService;
+            PlatformService = platformService;
+
             RootFrame.Navigated += OnNavigated;
         }
 
@@ -105,6 +121,10 @@ namespace RetriX.UWP.Services
             else
             {
                 RootFrame.GoBack();
+                var title = LocalizationService.GetLocalizedString(GameLoadingFailAlertTitleKey);
+                var message = LocalizationService.GetLocalizedString(GameLoadingFailAlertMessageKey);
+                await DialogsService.AlertAsync(message, title);
+                return false;
             }
 
             return loadSuccessful;
@@ -157,6 +177,23 @@ namespace RetriX.UWP.Services
         {
             var runnerPage = e.Content as ICoreRunnerPage;
             CoreRunner = runnerPage?.CoreRunner;
+
+            if (CoreRunner != null)
+            {
+                CoreRunner.CoreRunExceptionOccurred -= OnCoreExceptionOccurred;
+                CoreRunner.CoreRunExceptionOccurred += OnCoreExceptionOccurred;
+            }
+        }
+
+        private void OnCoreExceptionOccurred(ICore core, Exception e)
+        {
+            var task = PlatformService.RunOnUIThreadAsync(() =>
+            {
+                RootFrame.GoBack();
+                var title = LocalizationService.GetLocalizedString(GameRunningFailAlertTitleKey);
+                var message = LocalizationService.GetLocalizedString(GameRunningFailAlertMessageKey);
+                DialogsService.AlertAsync(message, title);
+            });
         }
 
         private string[] GetSupportedExtensionsListForCore(ICore core)

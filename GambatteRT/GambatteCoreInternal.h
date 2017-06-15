@@ -24,7 +24,7 @@ namespace GambatteRT
 
 		bool LoadGameInternal(IStorageFile^ gameFile) override;
 		void UnloadGameInternal() override;
-		void RunFrame() override;
+		void RunFrameInternal() override;
 		void Reset() override;
 
 		bool Serialize(WriteOnlyArray<uint8>^ stateData) override;

@@ -86,7 +86,7 @@ void NestopiaCoreInternal::UnloadGameInternal()
 	retro_unload_game();
 }
 
-void NestopiaCoreInternal::RunFrame()
+void NestopiaCoreInternal::RunFrameInternal()
 {
 	retro_run();
 }
