@@ -22,3 +22,7 @@
 	path = Gambatte/src
 	url = https://github.com/libretro/gambatte-libretro.git
 	branch = master
+[submodule "BeetlePSX/src"]
+	path = BeetlePSX/src
+	url = https://github.com/libretro/beetle-psx-libretro.git
+	branch = master
