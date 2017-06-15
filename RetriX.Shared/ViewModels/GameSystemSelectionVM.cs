@@ -32,7 +32,7 @@ namespace RetriX.Shared.ViewModels
                 new GameSystemListItemVM(LocalizationService, GameSystemTypes.GBA, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
                 new GameSystemListItemVM(LocalizationService, GameSystemTypes.SG1000, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", new string[]{ ".sg" }),
                 new GameSystemListItemVM(LocalizationService, GameSystemTypes.MasterSystem, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", new string[]{ ".sms" }),
-                new GameSystemListItemVM(LocalizationService, GameSystemTypes.GameGear, "SystemNameGameGear", "ManufacturerNameSega", "\uf11b", new string[]{ ".gg" }),
+                new GameSystemListItemVM(LocalizationService, GameSystemTypes.GameGear, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", new string[]{ ".gg" }),
                 new GameSystemListItemVM(LocalizationService, GameSystemTypes.MegaDrive, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new string[]{ ".mds", ".md", ".smd", ".gen" }),
             };
 

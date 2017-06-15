@@ -118,8 +118,6 @@ namespace RetriX.Shared.ViewModels
             MessengerInstance.Register<GameStartedMessage>(this, d => GameIsPaused = false);
             PlatformService.FullScreenChangeRequested += (d, e) => RequestFullScreenChange(e.Type);
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
-
-            PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
         }
 
         private async void RequestFullScreenChange(FullScreenChangeType fullScreenChangeType)
@@ -135,10 +133,12 @@ namespace RetriX.Shared.ViewModels
         {
             CoreOperationsAllowed = true;
             PlatformService.HandleGameplayKeyShortcuts = true;
+            PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
         }
 
         public void Deactivated()
         {
+            PlayerUIInactivityTimer.Dispose();
             CoreOperationsAllowed = false;
             PlatformService.HandleGameplayKeyShortcuts = false;
             DisplayPlayerUI = true;
