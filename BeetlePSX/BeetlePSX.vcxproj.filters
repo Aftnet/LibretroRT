@@ -84,6 +84,14 @@
     <ClInclude Include="src\rsx\rsx.h" />
     <ClInclude Include="src\rsx\rsx_intf.h" />
     <ClInclude Include="src\rsx\rsx_lib_soft.h" />
+    <ClInclude Include="src\pgxp\pgxp_cpu.h" />
+    <ClInclude Include="src\pgxp\pgxp_debug.h" />
+    <ClInclude Include="src\pgxp\pgxp_gpu.h" />
+    <ClInclude Include="src\pgxp\pgxp_gte.h" />
+    <ClInclude Include="src\pgxp\pgxp_main.h" />
+    <ClInclude Include="src\pgxp\pgxp_mem.h" />
+    <ClInclude Include="src\pgxp\pgxp_types.h" />
+    <ClInclude Include="src\pgxp\pgxp_value.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\deps\zlib\adler32.c" />
@@ -160,5 +168,13 @@
     <ClCompile Include="src\mednafen\mednafen-endian.c" />
     <ClCompile Include="src\rsx\rsx_intf.cpp" />
     <ClCompile Include="src\rsx\rsx_lib_soft.c" />
+    <ClCompile Include="src\pgxp\pgxp_cpu.c" />
+    <ClCompile Include="src\pgxp\pgxp_debug.c" />
+    <ClCompile Include="src\pgxp\pgxp_gpu.c" />
+    <ClCompile Include="src\pgxp\pgxp_gte.c" />
+    <ClCompile Include="src\pgxp\pgxp_main.c" />
+    <ClCompile Include="src\pgxp\pgxp_mem.c" />
+    <ClCompile Include="src\pgxp\pgxp_value.c" />
+    <ClCompile Include="src\libretro-common\file\retro_stat.c" />
   </ItemGroup>
 </Project>

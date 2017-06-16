@@ -278,6 +278,14 @@
     <ClInclude Include="src\mednafen\tremor\window_lookup.h" />
     <ClInclude Include="src\mednafen\video\Deinterlacer.h" />
     <ClInclude Include="src\mednafen\video\surface.h" />
+    <ClInclude Include="src\pgxp\pgxp_cpu.h" />
+    <ClInclude Include="src\pgxp\pgxp_debug.h" />
+    <ClInclude Include="src\pgxp\pgxp_gpu.h" />
+    <ClInclude Include="src\pgxp\pgxp_gte.h" />
+    <ClInclude Include="src\pgxp\pgxp_main.h" />
+    <ClInclude Include="src\pgxp\pgxp_mem.h" />
+    <ClInclude Include="src\pgxp\pgxp_types.h" />
+    <ClInclude Include="src\pgxp\pgxp_value.h" />
     <ClInclude Include="src\rsx\rsx.h" />
     <ClInclude Include="src\rsx\rsx_intf.h" />
     <ClInclude Include="src\rsx\rsx_lib_soft.h" />
@@ -307,6 +315,7 @@
     <ClCompile Include="src\deps\zlib\trees.c" />
     <ClCompile Include="src\deps\zlib\uncompr.c" />
     <ClCompile Include="src\deps\zlib\zutil.c" />
+    <ClCompile Include="src\libretro-common\file\retro_stat.c" />
     <ClCompile Include="src\libretro_cbs.c" />
     <ClCompile Include="src\mednafen\error.cpp" />
     <ClCompile Include="src\mednafen\file.c" />
@@ -356,6 +365,13 @@
     <ClCompile Include="src\mednafen\tremor\window.c" />
     <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
     <ClCompile Include="src\mednafen\video\surface.cpp" />
+    <ClCompile Include="src\pgxp\pgxp_cpu.c" />
+    <ClCompile Include="src\pgxp\pgxp_debug.c" />
+    <ClCompile Include="src\pgxp\pgxp_gpu.c" />
+    <ClCompile Include="src\pgxp\pgxp_gte.c" />
+    <ClCompile Include="src\pgxp\pgxp_main.c" />
+    <ClCompile Include="src\pgxp\pgxp_mem.c" />
+    <ClCompile Include="src\pgxp\pgxp_value.c" />
     <ClCompile Include="src\rsx\rsx_intf.cpp" />
     <ClCompile Include="src\rsx\rsx_lib_soft.c" />
     <ClCompile Include="src\scrc32.c" />
