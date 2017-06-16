@@ -9,11 +9,15 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="Toolkit\file_stream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Export.h" />
+    <ClInclude Include="Toolkit\boolean.h" />
+    <ClInclude Include="Toolkit\file_stream.h" />
+    <ClInclude Include="Toolkit\retro_common_api.h" />
   </ItemGroup>
 </Project>

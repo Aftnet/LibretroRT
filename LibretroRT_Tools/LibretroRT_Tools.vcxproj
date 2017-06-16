@@ -126,6 +126,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PreprocessorDefinitions>CORETOOLSEXPORT;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Toolkit;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +139,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PreprocessorDefinitions>CORETOOLSEXPORT;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Toolkit;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +152,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PreprocessorDefinitions>CORETOOLSEXPORT;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Toolkit;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,6 +165,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PreprocessorDefinitions>CORETOOLSEXPORT;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Toolkit;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -174,6 +178,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PreprocessorDefinitions>CORETOOLSEXPORT;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Toolkit;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -186,6 +191,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>true</CompileAsWinRT>
       <PreprocessorDefinitions>CORETOOLSEXPORT;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Toolkit;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -198,6 +204,9 @@
     <ClInclude Include="Export.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Toolkit\boolean.h" />
+    <ClInclude Include="Toolkit\file_stream.h" />
+    <ClInclude Include="Toolkit\retro_common_api.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Converter.cpp" />
@@ -209,6 +218,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Toolkit\file_stream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
