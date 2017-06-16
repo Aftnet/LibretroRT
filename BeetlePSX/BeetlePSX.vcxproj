@@ -318,6 +318,7 @@
     <ClCompile Include="src\libretro-common\file\retro_stat.c" />
     <ClCompile Include="src\libretro-common\rthreads\rthreads.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libretro-common\string\stdstring.c" />
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\libretro_cbs.c" />
     <ClCompile Include="src\mednafen\cdrom\audioreader.cpp" />
