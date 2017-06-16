@@ -8,5 +8,51 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="src\deps\zlib\crc32.h" />
+    <ClInclude Include="src\deps\zlib\deflate.h" />
+    <ClInclude Include="src\deps\zlib\gzguts.h" />
+    <ClInclude Include="src\deps\zlib\inffast.h" />
+    <ClInclude Include="src\deps\zlib\inffixed.h" />
+    <ClInclude Include="src\deps\zlib\inflate.h" />
+    <ClInclude Include="src\deps\zlib\inftrees.h" />
+    <ClInclude Include="src\deps\zlib\trees.h" />
+    <ClInclude Include="src\deps\zlib\zconf.h" />
+    <ClInclude Include="src\deps\zlib\zlib.h" />
+    <ClInclude Include="src\deps\zlib\zutil.h" />
+    <ClInclude Include="src\libretro_cbs.h" />
+    <ClInclude Include="src\deps\libkirk\aes.h" />
+    <ClInclude Include="src\deps\libkirk\amctrl.h" />
+    <ClInclude Include="src\deps\libkirk\des.h" />
+    <ClInclude Include="src\deps\libkirk\key_vault.h" />
+    <ClInclude Include="src\deps\libkirk\kirk_engine.h" />
+    <ClInclude Include="src\deps\libkirk\psp_headers.h" />
+    <ClInclude Include="src\deps\libkirk\sha1.h" />
+    <ClInclude Include="src\scrc32.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\deps\zlib\adler32.c" />
+    <ClCompile Include="src\deps\zlib\compress.c" />
+    <ClCompile Include="src\deps\zlib\crc32.c" />
+    <ClCompile Include="src\deps\zlib\deflate.c" />
+    <ClCompile Include="src\deps\zlib\gzclose.c" />
+    <ClCompile Include="src\deps\zlib\gzlib.c" />
+    <ClCompile Include="src\deps\zlib\gzread.c" />
+    <ClCompile Include="src\deps\zlib\gzwrite.c" />
+    <ClCompile Include="src\deps\zlib\infback.c" />
+    <ClCompile Include="src\deps\zlib\inffast.c" />
+    <ClCompile Include="src\deps\zlib\inflate.c" />
+    <ClCompile Include="src\deps\zlib\inftrees.c" />
+    <ClCompile Include="src\deps\zlib\trees.c" />
+    <ClCompile Include="src\deps\zlib\uncompr.c" />
+    <ClCompile Include="src\deps\zlib\zutil.c" />
+    <ClCompile Include="src\libretro_cbs.c" />
+    <ClCompile Include="src\deps\libkirk\aes.c" />
+    <ClCompile Include="src\deps\libkirk\amctrl.c" />
+    <ClCompile Include="src\deps\libkirk\bn.c" />
+    <ClCompile Include="src\deps\libkirk\des.c" />
+    <ClCompile Include="src\deps\libkirk\ec.c" />
+    <ClCompile Include="src\deps\libkirk\kirk_engine.c" />
+    <ClCompile Include="src\deps\libkirk\sha1.c" />
+    <ClCompile Include="src\scrc32.c" />
   </ItemGroup>
 </Project>
