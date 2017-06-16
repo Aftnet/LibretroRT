@@ -28,6 +28,26 @@
     <ClInclude Include="src\deps\libkirk\psp_headers.h" />
     <ClInclude Include="src\deps\libkirk\sha1.h" />
     <ClInclude Include="src\scrc32.h" />
+    <ClInclude Include="src\mednafen\psx\irq.h" />
+    <ClInclude Include="src\mednafen\psx\timer.h" />
+    <ClInclude Include="src\mednafen\psx\dma.h" />
+    <ClInclude Include="src\mednafen\psx\frontio.h" />
+    <ClInclude Include="src\mednafen\psx\sio.h" />
+    <ClInclude Include="src\mednafen\psx\cpu.h" />
+    <ClInclude Include="src\mednafen\psx\cdc.h" />
+    <ClInclude Include="src\mednafen\psx\gte.h" />
+    <ClInclude Include="src\mednafen\psx\gpu.h" />
+    <ClInclude Include="src\mednafen\psx\spu.h" />
+    <ClInclude Include="src\mednafen\psx\mdec.h" />
+    <ClInclude Include="src\mednafen\psx\input\dualanalog.h" />
+    <ClInclude Include="src\mednafen\psx\input\dualshock.h" />
+    <ClInclude Include="src\mednafen\psx\input\gamepad.h" />
+    <ClInclude Include="src\mednafen\psx\input\guncon.h" />
+    <ClInclude Include="src\mednafen\psx\input\justifier.h" />
+    <ClInclude Include="src\mednafen\psx\input\memcard.h" />
+    <ClInclude Include="src\mednafen\psx\input\mouse.h" />
+    <ClInclude Include="src\mednafen\psx\input\multitap.h" />
+    <ClInclude Include="src\mednafen\psx\input\negcon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\deps\zlib\adler32.c" />
@@ -54,5 +74,25 @@
     <ClCompile Include="src\deps\libkirk\kirk_engine.c" />
     <ClCompile Include="src\deps\libkirk\sha1.c" />
     <ClCompile Include="src\scrc32.c" />
+    <ClCompile Include="src\mednafen\psx\irq.cpp" />
+    <ClCompile Include="src\mednafen\psx\timer.cpp" />
+    <ClCompile Include="src\mednafen\psx\dma.cpp" />
+    <ClCompile Include="src\mednafen\psx\frontio.cpp" />
+    <ClCompile Include="src\mednafen\psx\sio.cpp" />
+    <ClCompile Include="src\mednafen\psx\cpu.cpp" />
+    <ClCompile Include="src\mednafen\psx\cdc.cpp" />
+    <ClCompile Include="src\mednafen\psx\gte.cpp" />
+    <ClCompile Include="src\mednafen\psx\gpu.cpp" />
+    <ClCompile Include="src\mednafen\psx\spu.cpp" />
+    <ClCompile Include="src\mednafen\psx\mdec.cpp" />
+    <ClCompile Include="src\mednafen\psx\input\dualanalog.cpp" />
+    <ClCompile Include="src\mednafen\psx\input\dualshock.cpp" />
+    <ClCompile Include="src\mednafen\psx\input\gamepad.cpp" />
+    <ClCompile Include="src\mednafen\psx\input\guncon.cpp" />
+    <ClCompile Include="src\mednafen\psx\input\justifier.cpp" />
+    <ClCompile Include="src\mednafen\psx\input\memcard.cpp" />
+    <ClCompile Include="src\mednafen\psx\input\mouse.cpp" />
+    <ClCompile Include="src\mednafen\psx\input\multitap.cpp" />
+    <ClCompile Include="src\mednafen\psx\input\negcon.cpp" />
   </ItemGroup>
 </Project>
