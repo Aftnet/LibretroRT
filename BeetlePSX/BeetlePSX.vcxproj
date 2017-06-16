@@ -126,7 +126,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>FRONTEND_SUPPORTS_RGB565;WANT_PBP;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>FRONTEND_SUPPORTS_RGB565;WANT_PBP;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -154,7 +154,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>FRONTEND_SUPPORTS_RGB565;WANT_PBP;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -168,7 +168,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>FRONTEND_SUPPORTS_RGB565;WANT_PBP;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -182,7 +182,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>FRONTEND_SUPPORTS_RGB565;WANT_PBP;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -196,7 +196,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>FRONTEND_SUPPORTS_RGB565;WANT_PBP;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
