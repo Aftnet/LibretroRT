@@ -95,6 +95,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cores\BeetlePSXCoreTest.cs" />
     <Compile Include="Cores\GambatteCoreTest.cs" />
     <Compile Include="Cores\FCEUMMCoreTest.cs" />
     <Compile Include="Cores\NestopiaCoreTest.cs" />
@@ -159,6 +160,10 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
+      <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
+      <Name>BeetlePSXRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FCEUMMRT\FCEUMMRT.vcxproj">
       <Project>{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}</Project>
       <Name>FCEUMMRT</Name>
