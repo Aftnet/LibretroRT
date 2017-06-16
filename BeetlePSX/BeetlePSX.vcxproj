@@ -126,7 +126,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -154,7 +154,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -168,7 +168,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -182,7 +182,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -196,7 +196,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=\"0.9.38.6\";PACKAGE=\"mednafen\";PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS;HAVE__MKDIR;FRONTEND_SUPPORTS_RGB565;WANT_PBP;MEDNAFEN_VERSION_NUMERIC=9386;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -206,175 +206,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\deps\libkirk\aes.h" />
-    <ClInclude Include="src\deps\libkirk\amctrl.h" />
-    <ClInclude Include="src\deps\libkirk\des.h" />
-    <ClInclude Include="src\deps\libkirk\key_vault.h" />
-    <ClInclude Include="src\deps\libkirk\kirk_engine.h" />
-    <ClInclude Include="src\deps\libkirk\psp_headers.h" />
-    <ClInclude Include="src\deps\libkirk\sha1.h" />
-    <ClInclude Include="src\deps\zlib\crc32.h" />
-    <ClInclude Include="src\deps\zlib\deflate.h" />
-    <ClInclude Include="src\deps\zlib\gzguts.h" />
-    <ClInclude Include="src\deps\zlib\inffast.h" />
-    <ClInclude Include="src\deps\zlib\inffixed.h" />
-    <ClInclude Include="src\deps\zlib\inflate.h" />
-    <ClInclude Include="src\deps\zlib\inftrees.h" />
-    <ClInclude Include="src\deps\zlib\trees.h" />
-    <ClInclude Include="src\deps\zlib\zconf.h" />
-    <ClInclude Include="src\deps\zlib\zlib.h" />
-    <ClInclude Include="src\deps\zlib\zutil.h" />
-    <ClInclude Include="src\libretro_cbs.h" />
-    <ClInclude Include="src\mednafen\error.h" />
-    <ClInclude Include="src\mednafen\file.h" />
-    <ClInclude Include="src\mednafen\FileStream.h" />
-    <ClInclude Include="src\mednafen\general.h" />
-    <ClInclude Include="src\mednafen\md5.h" />
-    <ClInclude Include="src\mednafen\mednafen-endian.h" />
-    <ClInclude Include="src\mednafen\MemoryStream.h" />
-    <ClInclude Include="src\mednafen\mempatcher-driver.h" />
-    <ClInclude Include="src\mednafen\mempatcher.h" />
-    <ClInclude Include="src\mednafen\psx\cdc.h" />
-    <ClInclude Include="src\mednafen\psx\cpu.h" />
     <ClInclude Include="src\mednafen\psx\dma.h" />
-    <ClInclude Include="src\mednafen\psx\frontio.h" />
-    <ClInclude Include="src\mednafen\psx\gpu.h" />
-    <ClInclude Include="src\mednafen\psx\gte.h" />
-    <ClInclude Include="src\mednafen\psx\input\dualanalog.h" />
-    <ClInclude Include="src\mednafen\psx\input\dualshock.h" />
-    <ClInclude Include="src\mednafen\psx\input\gamepad.h" />
-    <ClInclude Include="src\mednafen\psx\input\guncon.h" />
-    <ClInclude Include="src\mednafen\psx\input\justifier.h" />
-    <ClInclude Include="src\mednafen\psx\input\memcard.h" />
-    <ClInclude Include="src\mednafen\psx\input\mouse.h" />
-    <ClInclude Include="src\mednafen\psx\input\multitap.h" />
-    <ClInclude Include="src\mednafen\psx\input\negcon.h" />
-    <ClInclude Include="src\mednafen\psx\irq.h" />
-    <ClInclude Include="src\mednafen\psx\mdec.h" />
     <ClInclude Include="src\mednafen\psx\sio.h" />
-    <ClInclude Include="src\mednafen\psx\spu.h" />
-    <ClInclude Include="src\mednafen\psx\timer.h" />
-    <ClInclude Include="src\mednafen\settings.h" />
-    <ClInclude Include="src\mednafen\state.h" />
-    <ClInclude Include="src\mednafen\Stream.h" />
-    <ClInclude Include="src\mednafen\tremor\asm_arm.h" />
-    <ClInclude Include="src\mednafen\tremor\backends.h" />
-    <ClInclude Include="src\mednafen\tremor\block.h" />
-    <ClInclude Include="src\mednafen\tremor\codebook.h" />
-    <ClInclude Include="src\mednafen\tremor\codec_internal.h" />
-    <ClInclude Include="src\mednafen\tremor\config_types.h" />
-    <ClInclude Include="src\mednafen\tremor\ivorbiscodec.h" />
-    <ClInclude Include="src\mednafen\tremor\ivorbisfile.h" />
-    <ClInclude Include="src\mednafen\tremor\lsp_lookup.h" />
-    <ClInclude Include="src\mednafen\tremor\mdct.h" />
-    <ClInclude Include="src\mednafen\tremor\mdct_lookup.h" />
-    <ClInclude Include="src\mednafen\tremor\misc.h" />
-    <ClInclude Include="src\mednafen\tremor\ogg.h" />
-    <ClInclude Include="src\mednafen\tremor\os.h" />
-    <ClInclude Include="src\mednafen\tremor\os_types.h" />
-    <ClInclude Include="src\mednafen\tremor\registry.h" />
-    <ClInclude Include="src\mednafen\tremor\tremor_shared.h" />
-    <ClInclude Include="src\mednafen\tremor\window.h" />
-    <ClInclude Include="src\mednafen\tremor\window_lookup.h" />
-    <ClInclude Include="src\mednafen\video\Deinterlacer.h" />
-    <ClInclude Include="src\mednafen\video\surface.h" />
-    <ClInclude Include="src\pgxp\pgxp_cpu.h" />
-    <ClInclude Include="src\pgxp\pgxp_debug.h" />
-    <ClInclude Include="src\pgxp\pgxp_gpu.h" />
-    <ClInclude Include="src\pgxp\pgxp_gte.h" />
-    <ClInclude Include="src\pgxp\pgxp_main.h" />
-    <ClInclude Include="src\pgxp\pgxp_mem.h" />
-    <ClInclude Include="src\pgxp\pgxp_types.h" />
-    <ClInclude Include="src\pgxp\pgxp_value.h" />
-    <ClInclude Include="src\rsx\rsx.h" />
-    <ClInclude Include="src\rsx\rsx_intf.h" />
-    <ClInclude Include="src\rsx\rsx_lib_soft.h" />
-    <ClInclude Include="src\scrc32.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\deps\libkirk\aes.c" />
-    <ClCompile Include="src\deps\libkirk\amctrl.c" />
-    <ClCompile Include="src\deps\libkirk\bn.c" />
-    <ClCompile Include="src\deps\libkirk\des.c" />
-    <ClCompile Include="src\deps\libkirk\ec.c" />
-    <ClCompile Include="src\deps\libkirk\kirk_engine.c" />
-    <ClCompile Include="src\deps\libkirk\sha1.c" />
-    <ClCompile Include="src\deps\zlib\adler32.c" />
-    <ClCompile Include="src\deps\zlib\compress.c" />
-    <ClCompile Include="src\deps\zlib\crc32.c" />
-    <ClCompile Include="src\deps\zlib\deflate.c" />
-    <ClCompile Include="src\deps\zlib\gzclose.c" />
-    <ClCompile Include="src\deps\zlib\gzlib.c" />
-    <ClCompile Include="src\deps\zlib\gzread.c" />
-    <ClCompile Include="src\deps\zlib\gzwrite.c" />
-    <ClCompile Include="src\deps\zlib\infback.c" />
-    <ClCompile Include="src\deps\zlib\inffast.c" />
-    <ClCompile Include="src\deps\zlib\inflate.c" />
-    <ClCompile Include="src\deps\zlib\inftrees.c" />
-    <ClCompile Include="src\deps\zlib\trees.c" />
-    <ClCompile Include="src\deps\zlib\uncompr.c" />
-    <ClCompile Include="src\deps\zlib\zutil.c" />
-    <ClCompile Include="src\libretro-common\file\retro_stat.c" />
-    <ClCompile Include="src\libretro_cbs.c" />
-    <ClCompile Include="src\mednafen\error.cpp" />
-    <ClCompile Include="src\mednafen\file.c" />
-    <ClCompile Include="src\mednafen\FileStream.cpp" />
-    <ClCompile Include="src\mednafen\general.cpp" />
-    <ClCompile Include="src\mednafen\md5.c" />
-    <ClCompile Include="src\mednafen\mednafen-endian.c" />
-    <ClCompile Include="src\mednafen\MemoryStream.cpp" />
-    <ClCompile Include="src\mednafen\mempatcher.cpp" />
-    <ClCompile Include="src\mednafen\psx\cdc.cpp" />
-    <ClCompile Include="src\mednafen\psx\cpu.cpp" />
+    <ClCompile Include="src\beetle_psx_griffin.cpp" />
+    <ClCompile Include="src\beetle_psx_griffin_c.c" />
     <ClCompile Include="src\mednafen\psx\dma.cpp" />
-    <ClCompile Include="src\mednafen\psx\frontio.cpp" />
-    <ClCompile Include="src\mednafen\psx\gpu.cpp" />
-    <ClCompile Include="src\mednafen\psx\gte.cpp" />
-    <ClCompile Include="src\mednafen\psx\input\dualanalog.cpp" />
-    <ClCompile Include="src\mednafen\psx\input\dualshock.cpp" />
-    <ClCompile Include="src\mednafen\psx\input\gamepad.cpp" />
-    <ClCompile Include="src\mednafen\psx\input\guncon.cpp" />
-    <ClCompile Include="src\mednafen\psx\input\justifier.cpp" />
-    <ClCompile Include="src\mednafen\psx\input\memcard.cpp" />
-    <ClCompile Include="src\mednafen\psx\input\mouse.cpp" />
-    <ClCompile Include="src\mednafen\psx\input\multitap.cpp" />
-    <ClCompile Include="src\mednafen\psx\input\negcon.cpp" />
-    <ClCompile Include="src\mednafen\psx\irq.cpp" />
-    <ClCompile Include="src\mednafen\psx\mdec.cpp" />
     <ClCompile Include="src\mednafen\psx\sio.cpp" />
-    <ClCompile Include="src\mednafen\psx\spu.cpp" />
-    <ClCompile Include="src\mednafen\psx\timer.cpp" />
-    <ClCompile Include="src\mednafen\settings.cpp" />
-    <ClCompile Include="src\mednafen\state.cpp" />
-    <ClCompile Include="src\mednafen\Stream.cpp" />
-    <ClCompile Include="src\mednafen\tremor\bitwise.c" />
-    <ClCompile Include="src\mednafen\tremor\block.c" />
-    <ClCompile Include="src\mednafen\tremor\codebook.c" />
-    <ClCompile Include="src\mednafen\tremor\floor0.c" />
-    <ClCompile Include="src\mednafen\tremor\floor1.c" />
-    <ClCompile Include="src\mednafen\tremor\framing.c" />
-    <ClCompile Include="src\mednafen\tremor\info.c" />
-    <ClCompile Include="src\mednafen\tremor\mapping0.c" />
-    <ClCompile Include="src\mednafen\tremor\mdct.c" />
-    <ClCompile Include="src\mednafen\tremor\registry.c" />
-    <ClCompile Include="src\mednafen\tremor\res012.c" />
-    <ClCompile Include="src\mednafen\tremor\sharedbook.c" />
-    <ClCompile Include="src\mednafen\tremor\synthesis.c" />
-    <ClCompile Include="src\mednafen\tremor\vorbisfile.c" />
-    <ClCompile Include="src\mednafen\tremor\window.c" />
-    <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
-    <ClCompile Include="src\mednafen\video\surface.cpp" />
-    <ClCompile Include="src\pgxp\pgxp_cpu.c" />
-    <ClCompile Include="src\pgxp\pgxp_debug.c" />
-    <ClCompile Include="src\pgxp\pgxp_gpu.c" />
-    <ClCompile Include="src\pgxp\pgxp_gte.c" />
-    <ClCompile Include="src\pgxp\pgxp_main.c" />
-    <ClCompile Include="src\pgxp\pgxp_mem.c" />
-    <ClCompile Include="src\pgxp\pgxp_value.c" />
-    <ClCompile Include="src\rsx\rsx_intf.cpp" />
-    <ClCompile Include="src\rsx\rsx_lib_soft.c" />
-    <ClCompile Include="src\scrc32.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
