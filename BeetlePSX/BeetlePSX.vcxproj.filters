@@ -71,6 +71,8 @@
     <ClInclude Include="src\pgxp\pgxp_value.h" />
     <ClInclude Include="src\pgxp\pgxp_main.h" />
     <ClInclude Include="src\libretro_cbs.h" />
+    <ClInclude Include="src\rsx\rsx_lib_soft.h" />
+    <ClInclude Include="src\rsx\rsx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libretro.cpp" />
@@ -147,5 +149,6 @@
     <ClCompile Include="src\pgxp\pgxp_value.c" />
     <ClCompile Include="src\pgxp\pgxp_main.c" />
     <ClCompile Include="src\libretro_cbs.c" />
+    <ClCompile Include="src\rsx\rsx_lib_soft.c" />
   </ItemGroup>
 </Project>

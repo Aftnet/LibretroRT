@@ -267,7 +267,9 @@
     <ClInclude Include="src\pgxp\pgxp_mem.h" />
     <ClInclude Include="src\pgxp\pgxp_types.h" />
     <ClInclude Include="src\pgxp\pgxp_value.h" />
+    <ClInclude Include="src\rsx\rsx.h" />
     <ClInclude Include="src\rsx\rsx_intf.h" />
+    <ClInclude Include="src\rsx\rsx_lib_soft.h" />
     <ClInclude Include="src\scrc32.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -345,6 +347,7 @@
     <ClCompile Include="src\pgxp\pgxp_mem.c" />
     <ClCompile Include="src\pgxp\pgxp_value.c" />
     <ClCompile Include="src\rsx\rsx_intf.cpp" />
+    <ClCompile Include="src\rsx\rsx_lib_soft.c" />
     <ClCompile Include="src\scrc32.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
