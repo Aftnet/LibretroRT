@@ -10,22 +10,31 @@ using namespace std;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
-retro_extra_get_file_t GetFileViaFrontend;
+retro_extra_get_file_t GetFileStreamViaFrontend;
 
 void retro_extra_set_get_file(retro_extra_get_file_t cb)
 {
-	GetFileViaFrontend = cb;
+	GetFileStreamViaFrontend = cb;
 }
 
 struct RFILE
 {
-	IStorageFile^ File;
+	string Path;
+	string FileType;
 	IRandomAccessStream^ Stream;
 
 	RFILE()
 	{
-		File = nullptr;
+		Path = nullptr;
 		Stream = nullptr;
+	}
+
+	RFILE(string path, IRandomAccessStream^ stream)
+	{
+		Path = path;
+		auto extStartIx = path.find_last_of('.');
+		FileType = path.substr(extStartIx);
+		Stream = stream;
 	}
 };
 
@@ -44,34 +53,32 @@ long long int filestream_get_size(RFILE *stream)
 
 const char *filestream_get_ext(RFILE *stream)
 {
-	auto ext = FileStreamTools::StringConverter.to_bytes(stream->File->FileType->Data());
-	return ext.data();
+	return stream->FileType.c_str();
 }
 
 RFILE *filestream_open(const char *path, unsigned mode, ssize_t len)
 {
 	string pathStr(path);
 	auto output = FileStreamTools::CoreFileMapping[path];
-	if (output.File == nullptr)
+	if (output.Stream == nullptr)
 	{
-		if (GetFileViaFrontend == nullptr)
+		if (GetFileStreamViaFrontend == nullptr)
 		{
 			return nullptr;
 		}
 
-		auto platformString = ref new String(FileStreamTools::StringConverter.from_bytes(pathStr).data());
-		IStorageFile^ file = GetFileViaFrontend(platformString);
-		if (file == nullptr)
+		auto convertedPath = ref new String(FileStreamTools::StringConverter.from_bytes(pathStr).data());
+		mode = mode & 0x0f;
+		auto accessMode = (mode == RFILE_MODE_READ || mode == RFILE_MODE_READ_TEXT) ? FileAccessMode::Read : FileAccessMode::ReadWrite;
+
+		auto stream = GetFileStreamViaFrontend(convertedPath, accessMode);
+		output = FileStreamTools::CoreFileMapping[path] = RFILE(path, stream);
+		if (output.Stream == nullptr)
 		{
 			return nullptr;
 		}
-
-		output.File = file;
 	}
 	
-	mode = mode & 0x0f;
-	auto accessMode = (mode == RFILE_MODE_READ || mode == RFILE_MODE_READ_TEXT) ? FileAccessMode::Read : FileAccessMode::ReadWrite;
-	output.Stream = concurrency::create_task(output.File->OpenAsync(accessMode)).get();
 	return &output;
 }
 
