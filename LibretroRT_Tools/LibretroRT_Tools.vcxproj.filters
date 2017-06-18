@@ -12,21 +12,11 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Converter.cpp" />
-    <ClCompile Include="Toolkit\file_stream.cpp">
-      <Filter>Toolkit</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Export.h" />
-    <ClInclude Include="Toolkit\boolean.h" />
-    <ClInclude Include="Toolkit\file_stream.h">
-      <Filter>Toolkit</Filter>
-    </ClInclude>
-    <ClInclude Include="Toolkit\retro_common_api.h">
-      <Filter>Toolkit</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Toolkit</Filter>
     </ClInclude>

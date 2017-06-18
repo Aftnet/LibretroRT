@@ -1,5 +1,9 @@
-#include "pch.h"
 #include "file_stream.h"
+
+#include <codecvt>
+#include <string>
+#include <collection.h>
+#include <ppltasks.h>
 
 using namespace std;
 using namespace Windows::Storage;
