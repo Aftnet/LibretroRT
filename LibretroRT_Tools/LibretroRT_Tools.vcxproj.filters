@@ -5,9 +5,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Toolkit">
-      <UniqueIdentifier>{42f97086-7ca8-4a78-801e-468ab7f4fa44}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -17,8 +14,6 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Export.h" />
-    <ClInclude Include="targetver.h">
-      <Filter>Toolkit</Filter>
-    </ClInclude>
+    <ClInclude Include="targetver.h" />
   </ItemGroup>
 </Project>
