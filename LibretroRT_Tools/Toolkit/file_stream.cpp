@@ -5,8 +5,12 @@ using namespace std;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
-typedef std::codecvt_byname<wchar_t, char, std::mbstate_t> localCodecvt;
-std::wstring_convert<localCodecvt> stringConverter(new localCodecvt("en_US"));
+namespace FileStreamTools
+{
+	typedef std::codecvt_byname<wchar_t, char, std::mbstate_t> localCodecvt;
+	std::wstring_convert<localCodecvt> StringConverter(new localCodecvt("en_US"));
+}
+
 
 struct RFILE
 {
@@ -25,7 +29,7 @@ long long int filestream_get_size(RFILE *stream)
 
 const char *filestream_get_ext(RFILE *stream)
 {
-	auto ext = stringConverter.to_bytes(stream->File->FileType->Data());
+	auto ext = FileStreamTools::StringConverter.to_bytes(stream->File->FileType->Data());
 	return ext.data();
 }
 

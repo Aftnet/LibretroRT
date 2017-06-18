@@ -213,7 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
-    <ClCompile Include="Debug\BeetlePSXCoreInternal.cpp" />
     <ClCompile Include="BeetlePSXCore.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

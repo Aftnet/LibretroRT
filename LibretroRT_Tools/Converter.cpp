@@ -6,12 +6,11 @@ using namespace Platform;
 using namespace LibretroRT;
 using namespace LibretroRT_Tools;
 
-typedef std::codecvt_byname<wchar_t, char, std::mbstate_t> localCodecvt;
-std::wstring_convert<localCodecvt> stringConverter(new localCodecvt("en_US"));
+std::wstring_convert<std::codecvt_byname<wchar_t, char, std::mbstate_t>> Converter::StringConverter(new std::codecvt_byname<wchar_t, char, std::mbstate_t>("en_US"));
 
 std::wstring Converter::CToWString(const char* string)
 {
-	return stringConverter.from_bytes(string);
+	return StringConverter.from_bytes(string);
 }
 
 Platform::String^ Converter::CToPlatformString(const char* string)
@@ -22,13 +21,13 @@ Platform::String^ Converter::CToPlatformString(const char* string)
 
 Platform::String^ Converter::CPPToPlatformString(const std::string string)
 {
-	auto wstring = stringConverter.from_bytes(string);
+	auto wstring = StringConverter.from_bytes(string);
 	return ref new String(wstring.c_str());
 }
 
 std::string Converter::PlatformToCPPString(Platform::String^ string)
 {
-	auto cstring = stringConverter.to_bytes(string->Data());
+	auto cstring = StringConverter.to_bytes(string->Data());
 	return cstring;
 }
 

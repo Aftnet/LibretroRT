@@ -10,7 +10,6 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="BeetlePSXCoreInternal.cpp" />
     <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
-    <ClCompile Include="Debug\BeetlePSXCoreInternal.cpp" />
     <ClCompile Include="BeetlePSXCore.cpp" />
   </ItemGroup>
   <ItemGroup>
