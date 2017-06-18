@@ -192,6 +192,6 @@
     <ClCompile Include="src\deps\zlib\uncompr.c" />
     <ClCompile Include="src\deps\zlib\zutil.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
-    <ClCompile Include="..\LibretroRT_Tools\Toolkit\file_stream.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
   </ItemGroup>
 </Project>

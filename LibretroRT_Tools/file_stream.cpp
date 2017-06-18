@@ -1,4 +1,5 @@
 #include "file_stream.h"
+#include "../LibretroRT/libretro_extra.h"
 
 #include <codecvt>
 #include <string>
@@ -8,6 +9,13 @@
 using namespace std;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
+
+retro_extra_get_file_t GetFileViaFrontend;
+
+void retro_extra_set_get_file(retro_extra_get_file_t cb)
+{
+	GetFileViaFrontend = cb;
+}
 
 struct RFILE
 {
@@ -46,9 +54,13 @@ RFILE *filestream_open(const char *path, unsigned mode, ssize_t len)
 	auto output = FileStreamTools::CoreFileMapping[path];
 	if (output.File == nullptr)
 	{
-		//This is where the cllbacks to the front end to get an IStorageFile start
-		IStorageFile^ file = nullptr;
-		//User did not open file, return null
+		if (GetFileViaFrontend == nullptr)
+		{
+			return nullptr;
+		}
+
+		auto platformString = ref new String(FileStreamTools::StringConverter.from_bytes(pathStr).data());
+		IStorageFile^ file = GetFileViaFrontend(platformString);
 		if (file == nullptr)
 		{
 			return nullptr;
