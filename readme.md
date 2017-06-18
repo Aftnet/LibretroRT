@@ -26,13 +26,15 @@ Click image to play video
 ## Current state
 
 - Created a framework to speed up porting of software rendering based Libretro cores to WinRT components
-- Ported GenesisPlusGX, Snes9x, FCEUMM, Nestopia (doesn't work well, use FCEUMM instead), VBAM, Ganbatte (unstable)
+- Ported GenesisPlusGX, Snes9x, FCEUMM, Nestopia (doesn't work well, using FCEUMM instead), VBAM, Ganbatte (unstable)
 - Created audio player WinRT components to interop between Libretro's audio rendering interface and Windows 10's [AudioGraph](https://docs.microsoft.com/en-us/windows/uwp/audio-video-camera/audio-graphs) API
 - Created input manager WinRT component to interop between Libretro's input polling interface and Windows 10's [Gamepad APIs](https://docs.microsoft.com/en-us/uwp/api/windows.gaming.input.gamepad)
-- Created minimal C# [Monogame](http://www.monogame.net/) based front end for testing
+- Created Win2D based video renderer. Supports software based Libretro cores.
+- Created RetriX, a native XAML based Libretro front end, with an UI optimized for mouse, touch as well as gamepad interaction: it scales from phones to tablets, traditional PC form factors as well as the Xbox One.
+- Working on porting Bettle-PSX, a PlayStation core
 
 ## Roadmap
 
-- Expand framework to allow porting of OpenGL based cores to WinRT using [Angle](https://github.com/Microsoft/angle), ideally still allowing front ends to be written in langiuages other than C++
-- Create a more full-featured front end, without using Monogame
+- Expand framework to allow porting of OpenGL based cores to WinRT using [Angle](https://github.com/Microsoft/angle) while still allowing front ends to be written in languages other than C++
 - Port more Libretro cores
+- Split LibretroRT (Libretro core ports to UWP) from RetriX, distribute the former via Nuget package, the latter via direct appx downlad in addition to source availability
