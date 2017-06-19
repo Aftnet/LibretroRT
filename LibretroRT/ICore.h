@@ -20,7 +20,7 @@ namespace LibretroRT
 	public delegate void TimingChangedDelegate(SystemTiming^ timing);
 	public delegate void PixelFormatChangedDelegate(PixelFormats format);
 
-	public delegate IRandomAccessStream^ GetFileStreamDelegate(String^ path);
+	public delegate IRandomAccessStream^ GetFileStreamDelegate(String^ path, FileAccessMode fileAccess);
 
 	/// <summary>
 	/// Interface for LibretroRT cores

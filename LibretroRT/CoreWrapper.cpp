@@ -84,7 +84,7 @@ void CoreWrapper::OnPixelFormatChanged(PixelFormats format)
 	PixelFormatChanged(format);
 }
 
-IRandomAccessStream^ CoreWrapper::OnGetFileStream(String^ path)
+IRandomAccessStream^ CoreWrapper::OnGetFileStream(String^ path, FileAccessMode fileAccess)
 {
-	return GetFileStream(path);
+	return GetFileStream(path, fileAccess);
 }

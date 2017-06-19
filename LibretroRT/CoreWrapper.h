@@ -47,7 +47,7 @@ namespace LibretroRT
 		void OnGeometryChanged(GameGeometry^ geometry);
 		void OnTimingChanged(SystemTiming^ timing);
 		void OnPixelFormatChanged(PixelFormats format);
-		IRandomAccessStream^ OnGetFileStream(String^ path);
+		IRandomAccessStream^ OnGetFileStream(String^ path, FileAccessMode fileAccess);
 	};
 }
 

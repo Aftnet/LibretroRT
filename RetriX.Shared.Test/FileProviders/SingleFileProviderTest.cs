@@ -21,7 +21,6 @@ namespace RetriX.Shared.Test.FileProviders
         [InlineData(FileUri, true)]
         [InlineData("scheme2://SomeFile.ext", false)]
         [InlineData("scheme://SomeFi.ext", false)]
-        [InlineData("scheme://Dir\\file.ext", false)]
         [InlineData("scheme://Dir/file.ext", false)]
         public async Task OpeningFileWorks(string uri, bool expectedSuccess)
         {
