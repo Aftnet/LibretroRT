@@ -6,13 +6,14 @@ using namespace LibretroRT;
 CoreWrapper::CoreWrapper(ICore^ wrappedCore) :
 	core(wrappedCore)
 {
-	core->RenderVideoFrame += ref new RenderVideoFrameDelegate(this, &CoreWrapper::OnRenderVideoFrame);
-	core->RenderAudioFrames += ref new RenderAudioFramesDelegate(this, &CoreWrapper::OnRenderAudioFrames);
-	core->PollInput += ref new PollInputDelegate(this, &CoreWrapper::OnPollInput);
-	core->GetInputState += ref new GetInputStateDelegate(this, &CoreWrapper::OnGetInputState);
-	core->GeometryChanged += ref new GeometryChangedDelegate(this, &CoreWrapper::OnGeometryChanged);
-	core->TimingChanged += ref new TimingChangedDelegate(this, &CoreWrapper::OnTimingChanged);
-	core->PixelFormatChanged += ref new PixelFormatChangedDelegate(this, &CoreWrapper::OnPixelFormatChanged);
+	core->RenderVideoFrame = ref new RenderVideoFrameDelegate(this, &CoreWrapper::OnRenderVideoFrame);
+	core->RenderAudioFrames = ref new RenderAudioFramesDelegate(this, &CoreWrapper::OnRenderAudioFrames);
+	core->PollInput = ref new PollInputDelegate(this, &CoreWrapper::OnPollInput);
+	core->GetInputState = ref new GetInputStateDelegate(this, &CoreWrapper::OnGetInputState);
+	core->GeometryChanged = ref new GeometryChangedDelegate(this, &CoreWrapper::OnGeometryChanged);
+	core->TimingChanged = ref new TimingChangedDelegate(this, &CoreWrapper::OnTimingChanged);
+	core->PixelFormatChanged = ref new PixelFormatChangedDelegate(this, &CoreWrapper::OnPixelFormatChanged);
+	core->GetFileStream = ref new GetFileStreamDelegate(this, &CoreWrapper::OnGetFileStream);
 }
 
 bool CoreWrapper::LoadGame(Windows::Storage::IStorageFile^ gameFile)
@@ -81,4 +82,9 @@ void CoreWrapper::OnTimingChanged(SystemTiming^ timing)
 void CoreWrapper::OnPixelFormatChanged(PixelFormats format)
 {
 	PixelFormatChanged(format);
+}
+
+IRandomAccessStream^ CoreWrapper::OnGetFileStream(String^ path)
+{
+	return GetFileStream(path);
 }

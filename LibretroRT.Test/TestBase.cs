@@ -53,7 +53,7 @@ namespace LibretroRT.Test
         public async Task ExecutionWorks()
         {
             var pollInputCalled = false;
-            Target.PollInput += () => pollInputCalled = true;
+            Target.PollInput = () => pollInputCalled = true;
 
             var getInputStateCalled = false;
             Target.GetInputState += (d, e) =>
@@ -63,7 +63,7 @@ namespace LibretroRT.Test
             };
 
             var renderVideoFrameCalled = false;
-            Target.RenderVideoFrame += (d, e, f, g) =>
+            Target.RenderVideoFrame = (d, e, f, g) =>
             {
                 Assert.NotEmpty(d);
                 Assert.True(e > 0);
@@ -73,7 +73,7 @@ namespace LibretroRT.Test
             };
 
             var renderAudioFrameCalled = false;
-            Target.RenderAudioFrames += (d) =>
+            Target.RenderAudioFrames = (d) =>
             {
                 Assert.NotEmpty(d);
                 Assert.True(d.Length % 2 == 0);

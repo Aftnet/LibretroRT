@@ -31,13 +31,14 @@ namespace LibretroRT
 		virtual bool Serialize(WriteOnlyArray<uint8>^ stateData);
 		virtual bool Unserialize(const Array<uint8>^ stateData);
 
-		virtual event RenderVideoFrameDelegate ^ RenderVideoFrame;
-		virtual event RenderAudioFramesDelegate ^ RenderAudioFrames;
-		virtual event PollInputDelegate ^ PollInput;
-		virtual event GetInputStateDelegate ^ GetInputState;
-		virtual event GeometryChangedDelegate^ GeometryChanged;
-		virtual event TimingChangedDelegate^ TimingChanged;
-		virtual event PixelFormatChangedDelegate^ PixelFormatChanged;
+		virtual property RenderVideoFrameDelegate ^ RenderVideoFrame;
+		virtual property RenderAudioFramesDelegate ^ RenderAudioFrames;
+		virtual property PollInputDelegate ^ PollInput;
+		virtual property GetInputStateDelegate ^ GetInputState;
+		virtual property GeometryChangedDelegate^ GeometryChanged;
+		virtual property TimingChangedDelegate^ TimingChanged;
+		virtual property PixelFormatChangedDelegate^ PixelFormatChanged;
+		virtual property GetFileStreamDelegate^ GetFileStream;
 
 		void OnRenderVideoFrame(const Platform::Array<unsigned char, 1U> ^frameBuffer, unsigned int width, unsigned int height, unsigned int pitch);
 		void OnRenderAudioFrames(const Platform::Array<short, 1U> ^data);
@@ -46,6 +47,7 @@ namespace LibretroRT
 		void OnGeometryChanged(GameGeometry^ geometry);
 		void OnTimingChanged(SystemTiming^ timing);
 		void OnPixelFormatChanged(PixelFormats format);
+		IRandomAccessStream^ OnGetFileStream(String^ path);
 	};
 }
 

@@ -53,19 +53,19 @@ namespace LibretroRT_Tools
 		{
 			PixelFormats get() { return pixelFormat; }
 		private:
-			void set(PixelFormats value) { pixelFormat = value; PixelFormatChanged(pixelFormat); }
+			void set(PixelFormats value) { pixelFormat = value; if (PixelFormatChanged != nullptr) { PixelFormatChanged(pixelFormat); } }
 		}
 		virtual property SystemTiming^ Timing
 		{
 			SystemTiming^ get() { return timing; }
 		private:
-			void set(SystemTiming^ value) { timing = value; TimingChanged(timing); }
+			void set(SystemTiming^ value) { timing = value; if (TimingChanged != nullptr) { TimingChanged(timing); } }
 		}
 		virtual property GameGeometry^ Geometry
 		{
 			GameGeometry^ get() { return geometry; }
 		private:
-			void set(GameGeometry^ value) { geometry = value; GeometryChanged(geometry); }
+			void set(GameGeometry^ value) { geometry = value; if (GeometryChanged != nullptr) { GeometryChanged(geometry); } }
 		}
 
 		virtual property String^ SupportedExtensions { String^ get() { return supportedExtensions; } }
@@ -73,13 +73,14 @@ namespace LibretroRT_Tools
 		virtual property String^ Name { String^ get() { return name; } }
 		virtual property unsigned int SerializationSize { unsigned int get() = 0; }
 
-		virtual event GetInputStateDelegate ^ GetInputState;
-		virtual event PollInputDelegate ^ PollInput;
-		virtual event RenderAudioFramesDelegate ^ RenderAudioFrames;
-		virtual event RenderVideoFrameDelegate ^ RenderVideoFrame;
-		virtual event GeometryChangedDelegate^ GeometryChanged;
-		virtual event TimingChangedDelegate^ TimingChanged;
-		virtual event PixelFormatChangedDelegate^ PixelFormatChanged;
+		virtual property GetInputStateDelegate ^ GetInputState;
+		virtual property PollInputDelegate ^ PollInput;
+		virtual property RenderAudioFramesDelegate ^ RenderAudioFrames;
+		virtual property RenderVideoFrameDelegate ^ RenderVideoFrame;
+		virtual property GeometryChangedDelegate^ GeometryChanged;
+		virtual property TimingChangedDelegate^ TimingChanged;
+		virtual property PixelFormatChangedDelegate^ PixelFormatChanged;
+		virtual property GetFileStreamDelegate^ GetFileStream;
 
 		virtual bool LoadGame(IStorageFile^ gameFile);
 		virtual void UnloadGame();

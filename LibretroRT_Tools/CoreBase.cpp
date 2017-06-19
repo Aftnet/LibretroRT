@@ -171,17 +171,26 @@ void CoreBase::SeekGameFileHandler(unsigned long position)
 
 void CoreBase::RaisePollInput()
 {
+	if (PollInput == nullptr)
+		return;
+
 	PollInput();
 }
 
 int16_t CoreBase::RaiseGetInputState(unsigned port, unsigned device, unsigned index, unsigned keyId)
 {
+	if (GetInputState == nullptr)
+		return 0;
+
 	auto key = Converter::ConvertToInputType(device, index, keyId);
 	return GetInputState(port, key);
 }
 
 size_t CoreBase::RaiseRenderAudioFrames(const int16_t* data, size_t frames)
 {
+	if (RenderAudioFrames == nullptr)
+		return 0;
+
 	auto dataPtr = const_cast<int16_t*>(data);
 	auto dataArray = Platform::ArrayReference<int16_t>(dataPtr, frames * 2);
 	RenderAudioFrames(dataArray);
@@ -190,6 +199,9 @@ size_t CoreBase::RaiseRenderAudioFrames(const int16_t* data, size_t frames)
 
 void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned height, size_t pitch)
 {
+	if (RenderVideoFrame == nullptr)
+		return;
+
 	auto dataPtr = reinterpret_cast<uint8*>(const_cast<void*>(data));
 	//See retro_video_refresh_t for why buffer size is computed that way
 	auto dataArray = Platform::ArrayReference<uint8>(dataPtr, height * pitch);
