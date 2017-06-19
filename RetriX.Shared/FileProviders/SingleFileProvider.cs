@@ -19,7 +19,7 @@ namespace RetriX.Shared.FileProviders
         public Task<Stream> GetFileStreamAsync(Uri uri, System.IO.FileAccess accessType)
         {
             if (Uri == uri)
-                return File.OpenAsync(accessType == System.IO.FileAccess.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite);
+                return File.OpenAsync(accessType.ToPCLStorageAccess());
 
             return Task.FromResult(null as Stream);
         }
