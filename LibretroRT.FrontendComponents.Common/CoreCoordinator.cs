@@ -64,6 +64,21 @@ namespace LibretroRT.FrontendComponents.Common
             }
         }
 
+        private IFileProvider fileProvider;
+        public IFileProvider FileProvider
+        {
+            get { return fileProvider; }
+            set
+            {
+                if (inputManager != value)
+                {
+                    UnregisterEvents();
+                    fileProvider = value;
+                    RegisterEvents();
+                }
+            }
+        }
+
         public bool AudioPlayerRequestsFrameDelay { get { return AudioPlayer != null && AudioPlayer.ShouldDelayNextFrame; } }
 
         public void Dispose()
@@ -87,6 +102,8 @@ namespace LibretroRT.FrontendComponents.Common
 
             Core.PollInput = null;
             Core.GetInputState = null;
+
+            Core.GetFileStream = null;
         }
 
         private void RegisterEvents()
@@ -111,6 +128,11 @@ namespace LibretroRT.FrontendComponents.Common
             {
                 Core.PollInput = InputManager.PollInput;
                 Core.GetInputState = InputManager.GetInputState;
+            }
+
+            if (FileProvider != null)
+            {
+                Core.GetFileStream = FileProvider.GetFileStream;
             }
         }
     }

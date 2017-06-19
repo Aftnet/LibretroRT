@@ -110,6 +110,7 @@
     <Compile Include="CoreCoordinator.cs" />
     <Compile Include="IAudioPlayer.cs" />
     <Compile Include="ICoreRunner.cs" />
+    <Compile Include="IFileProvider.cs" />
     <Compile Include="IInputManager.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
