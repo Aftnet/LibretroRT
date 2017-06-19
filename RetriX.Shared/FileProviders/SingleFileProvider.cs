@@ -16,6 +16,11 @@ namespace RetriX.Shared.FileProviders
             File = file;
         }
 
+        public void Dispose()
+        {
+
+        }
+
         public Task<Stream> GetFileStreamAsync(Uri uri, System.IO.FileAccess accessType)
         {
             if (Uri == uri)
