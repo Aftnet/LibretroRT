@@ -212,7 +212,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CoreWrapper.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="GameGeometry.h" />
     <ClInclude Include="ICore.h" />
@@ -222,7 +221,6 @@
     <ClInclude Include="SystemTiming.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CoreWrapper.cpp" />
     <ClCompile Include="Enums.cpp" />
     <ClCompile Include="GameGeometry.cpp" />
     <ClCompile Include="ICore.cpp" />

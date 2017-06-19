@@ -21,7 +21,6 @@
     <ClCompile Include="Enums.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
-    <ClCompile Include="CoreWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -36,7 +35,6 @@
     <ClInclude Include="Enums.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
-    <ClInclude Include="CoreWrapper.h" />
     <ClInclude Include="libretro_extra.h" />
   </ItemGroup>
 </Project>
