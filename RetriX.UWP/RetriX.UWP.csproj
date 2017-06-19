@@ -102,7 +102,6 @@
       <DependentUpon>PlayerOverlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ItemClickEventArgsConverter.cs" />
-    <Compile Include="FileProviders\FileProviderWrapper.cs" />
     <Compile Include="Locator\Locator.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
