@@ -6,6 +6,6 @@ namespace RetriX.Shared.FileProviders
 {
     public interface IFileProvider : IDisposable
     {
-        Task<Stream> GetFileStreamAsync(Uri uri, FileAccess accessType);
+        Task<Stream> GetFileStreamAsync(string path, FileAccess accessType);
     }
 }

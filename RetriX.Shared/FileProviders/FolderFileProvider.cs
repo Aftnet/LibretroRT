@@ -21,16 +21,23 @@ namespace RetriX.Shared.FileProviders
 
         }
 
-        public async Task<Stream> GetFileStreamAsync(Uri uri, System.IO.FileAccess accessType)
+        public async Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)
         {
-            if (uri.Scheme != HandledScheme)
+            if (!path.StartsWith(HandledScheme))
+            {
                 return null;
+            }
 
-            var existenceCheck = await RootFolder.CheckExistsAsync(uri.LocalPath);
+            path = path.Substring(HandledScheme.Length);
+            path = Path.Combine(RootFolder.Path, path);
+
+            var existenceCheck = await RootFolder.CheckExistsAsync(path);
             if (existenceCheck != ExistenceCheckResult.FileExists)
+            {
                 return null;
+            }
 
-            var file = await RootFolder.GetFileAsync(uri.LocalPath);
+            var file = await RootFolder.GetFileAsync(path);
             var output = await file.OpenAsync(accessType.ToPCLStorageAccess());
             return output;
         }

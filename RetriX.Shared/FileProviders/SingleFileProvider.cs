@@ -7,12 +7,12 @@ namespace RetriX.Shared.FileProviders
 {
     public class SingleFileProvider : IFileProvider
     {
-        private readonly Uri Uri;
+        private readonly string Path;
         private readonly IFile File;
 
-        public SingleFileProvider(Uri uri, IFile file)
+        public SingleFileProvider(string path, IFile file)
         {
-            Uri = uri;
+            Path = path;
             File = file;
         }
 
@@ -21,9 +21,9 @@ namespace RetriX.Shared.FileProviders
 
         }
 
-        public Task<Stream> GetFileStreamAsync(Uri uri, System.IO.FileAccess accessType)
+        public Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)
         {
-            if (Uri == uri)
+            if (Path == path)
                 return File.OpenAsync(accessType.ToPCLStorageAccess());
 
             return Task.FromResult(null as Stream);

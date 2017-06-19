@@ -25,19 +25,20 @@ namespace RetriX.Shared.FileProviders
             Archive?.Dispose();
         }
 
-        public async Task<Stream> GetFileStreamAsync(Uri uri, System.IO.FileAccess accessType)
+        public async Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)
         {
-            if (uri.Scheme != HandledScheme)
+            if (!path.StartsWith(HandledScheme))
             {
                 return null;
             }
 
+            path = path.Substring(HandledScheme.Length);
             while (Archive == null)
             {
                 await Task.Delay(50);
             }
 
-            var entry = Archive.GetEntry(uri.LocalPath);
+            var entry = Archive.GetEntry(path);
             return entry.Open();
         }
     }
