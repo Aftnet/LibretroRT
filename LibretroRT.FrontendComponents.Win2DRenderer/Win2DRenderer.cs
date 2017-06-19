@@ -13,7 +13,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
     {
         public event CoreRunExceptionOccurredDelegate CoreRunExceptionOccurred;
 
-        private readonly CoreEventCoordinator Coordinator;
+        private readonly CoreCoordinator Coordinator;
 
         public string GameID { get; private set; }
         public bool CoreIsExecuting { get; private set; }
@@ -37,7 +37,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public Win2DRenderer(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
         {
-            Coordinator = new CoreEventCoordinator
+            Coordinator = new CoreCoordinator
             {
                 Renderer = this,
                 AudioPlayer = audioPlayer,
