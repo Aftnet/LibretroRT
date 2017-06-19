@@ -7,7 +7,7 @@ namespace RetriX.Shared.Test.FileProviders
 {
     public class SingleFileProviderTest : TestBase<SingleFileProvider>
     {
-        private const string FilePath = "scheme://SomeFile.ext";
+        private const string FilePath = "scheme:\\SomeFile.ext";
 
         protected override SingleFileProvider InstantiateTarget()
         {
@@ -18,9 +18,9 @@ namespace RetriX.Shared.Test.FileProviders
 
         [Theory]
         [InlineData(FilePath, true)]
-        [InlineData("scheme2://SomeFile.ext", false)]
-        [InlineData("scheme://SomeFi.ext", false)]
-        [InlineData("scheme://Dir\\file.ext", false)]
+        [InlineData("scheme2:\\SomeFile.ext", false)]
+        [InlineData("scheme:\\SomeFi.ext", false)]
+        [InlineData("scheme:\\Dir\\file.ext", false)]
         public async Task OpeningFileWorks(string path, bool expectedSuccess)
         {
             var stream = await Target.GetFileStreamAsync(path, FileAccess.Read);
