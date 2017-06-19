@@ -72,6 +72,7 @@
     <ClCompile Include="src\core\system.c" />
     <ClCompile Include="src\core\vdp_ctrl.c" />
     <ClCompile Include="src\core\vdp_render.c" />
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
