@@ -160,5 +160,6 @@
     <ClInclude Include="src\core\vdp_ctrl.h" />
     <ClInclude Include="src\core\vdp_render.h" />
     <ClInclude Include="src\libretro\libretro.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
   </ItemGroup>
 </Project>
