@@ -25,7 +25,7 @@ CoreBase::CoreBase() :
 	timing(ref new SystemTiming),
 	geometry(ref new GameGeometry),
 	gameLoaded(false),
-	gameStream(nullptr),
+	coreRequiresGameFilePath(true),
 	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
 	CoreSystemPath(Converter::PlatformToCPPString(Windows::ApplicationModel::Package::Current->InstalledLocation->Path)),
 	CoreSaveGamePath(Converter::PlatformToCPPString(Windows::Storage::ApplicationData::Current->LocalFolder->Path))
@@ -41,6 +41,7 @@ void CoreBase::SetSystemInfo(retro_system_info& info)
 	name = Converter::CToPlatformString(info.library_name);
 	version = Converter::CToPlatformString(info.library_version);
 	supportedExtensions = Converter::CToPlatformString(info.valid_extensions);
+	coreRequiresGameFilePath = info.need_fullpath;
 }
 
 void CoreBase::SetAVInfo(retro_system_av_info & info)
@@ -49,13 +50,13 @@ void CoreBase::SetAVInfo(retro_system_av_info & info)
 	Timing = Converter::CToRTSystemTiming(info.timing);
 }
 
-retro_game_info CoreBase::GenerateGameInfo(String^ gamePath, unsigned long long gameSize)
+retro_game_info CoreBase::GenerateGameInfo(String^ gamePath)
 {
 	static auto gamePathStr = Converter::PlatformToCPPString(gamePath);
 	retro_game_info gameInfo;
 	gameInfo.data = nullptr;
 	gameInfo.path = gamePathStr.c_str();
-	gameInfo.size = gameSize;
+	gameInfo.size = 0;
 	gameInfo.meta = nullptr;
 	return gameInfo;
 }
@@ -70,15 +71,16 @@ retro_game_info CoreBase::GenerateGameInfo(const std::vector<unsigned char>& gam
 	return gameInfo;
 }
 
-void CoreBase::ReadFileToMemory(std::vector<unsigned char>& data, IStorageFile^ file)
+void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)
 {
-	auto stream = concurrency::create_task(file->OpenAsync(FileAccessMode::Read)).get();
+	auto stream = GetFileStream(filePath, Windows::Storage::FileAccessMode::Read);
 	data.resize(stream->Size);
 	auto dataArray = Platform::ArrayReference<unsigned char>(data.data(), stream->Size);
 
 	auto reader = ref new Windows::Storage::Streams::DataReader(stream);
 	concurrency::create_task(reader->LoadAsync(stream->Size)).get();
 	reader->ReadBytes(dataArray);
+	stream = nullptr;
 }
 
 bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
@@ -145,30 +147,6 @@ void CoreBase::SingleAudioFrameHandler(int16_t left, int16_t right)
 	RaiseRenderAudioFrames(data, 1);
 }
 
-size_t CoreBase::ReadGameFileHandler(void* buffer, size_t requested)
-{
-	if (gameStream == nullptr)
-		return 0;
-
-	auto remaining = (size_t)(gameStream->Size - gameStream->Position);
-	requested = min(requested, remaining);
-
-	auto arrayRef = ArrayReference<UCHAR>((UCHAR*)buffer, requested, false);
-	auto reader = ref new Streams::DataReader(gameStream);
-	concurrency::create_task(reader->LoadAsync(requested)).wait();
-	reader->ReadBytes(arrayRef);
-
-	return requested;
-}
-
-void CoreBase::SeekGameFileHandler(unsigned long position)
-{
-	if (gameStream == nullptr)
-		return;
-
-	gameStream->Seek(position);
-}
-
 void CoreBase::RaisePollInput()
 {
 	if (PollInput == nullptr)
@@ -208,7 +186,7 @@ void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned 
 	RenderVideoFrame(dataArray, width, height, pitch);
 }
 
-bool CoreBase::LoadGame(IStorageFile^ gameFile)
+bool CoreBase::LoadGame(String^ mainGameFilePath)
 {
 	if (gameLoaded)
 	{
@@ -217,7 +195,7 @@ bool CoreBase::LoadGame(IStorageFile^ gameFile)
 
 	try
 	{
-		gameLoaded = LoadGameInternal(gameFile);
+		gameLoaded = LoadGameInternal(mainGameFilePath);
 	}
 	catch (const std::exception& e)
 	{

@@ -38,7 +38,7 @@ namespace LibretroRT
 
 		property unsigned int SerializationSize { unsigned int get(); }
 
-		bool LoadGame(IStorageFile^ gameFile);
+		bool LoadGame(String^ mainGameFilePath);
 		void UnloadGame();
 
 		void RunFrame();
