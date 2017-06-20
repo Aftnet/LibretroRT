@@ -9,11 +9,6 @@ using namespace LibretroRT_Tools;
 
 Snes9XCoreInternal^ coreInstance = nullptr;
 
-unsigned int Snes9XCoreInternal::SerializationSize::get()
-{
-	return retro_serialize_size();
-}
-
 Snes9XCoreInternal^ Snes9XCoreInternal::Instance::get()
 {
 	if (coreInstance == nullptr)
@@ -26,22 +21,19 @@ Snes9XCoreInternal^ Snes9XCoreInternal::Instance::get()
 		retro_set_audio_sample([](int16_t left, int16_t right) { coreInstance->SingleAudioFrameHandler(left, right); });
 		retro_set_audio_sample_batch([](const int16_t* data, size_t numFrames) { return coreInstance->RaiseRenderAudioFrames(data, numFrames); });
 		retro_set_video_refresh([](const void *data, unsigned width, unsigned height, size_t pitch) { coreInstance->RaiseRenderVideoFrame(data, width, height, pitch); });
-
 		retro_init();
 	}
+
 	return coreInstance;
 }
 
-Snes9XCoreInternal::Snes9XCoreInternal()
+Snes9XCoreInternal::Snes9XCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
+	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit)
 {
-	retro_system_info info;
-	retro_get_system_info(&info);
-	SetSystemInfo(info);
 }
 
 Snes9XCoreInternal::~Snes9XCoreInternal()
 {
-	retro_deinit();
 	coreInstance = nullptr;
 }
 
@@ -49,7 +41,7 @@ bool Snes9XCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 {
 	if (CoreBase::EnvironmentHandler(cmd, data))
 		return true;
-	
+
 	switch (cmd)
 	{
 	case RETRO_ENVIRONMENT_GET_VARIABLE:
@@ -59,47 +51,4 @@ bool Snes9XCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	}
 
 	return false;
-}
-
-bool Snes9XCoreInternal::LoadGameInternal(IStorageFile^ gameFile)
-{
-	std::vector<unsigned char> gameData;
-	ReadFileToMemory(gameData, gameFile);
-
-	auto gameInfo = GenerateGameInfo(gameData);
-	if (!retro_load_game(&gameInfo))
-	{
-		return false;
-	}
-
-	retro_system_av_info info;
-	retro_get_system_av_info(&info);
-	SetAVInfo(info);
-
-	return true;
-}
-
-void Snes9XCoreInternal::UnloadGameInternal()
-{
-	retro_unload_game();
-}
-
-void Snes9XCoreInternal::RunFrameInternal()
-{
-	retro_run();
-}
-
-void Snes9XCoreInternal::Reset()
-{
-	retro_reset();
-}
-
-bool Snes9XCoreInternal::Serialize(WriteOnlyArray<uint8>^ stateData)
-{
-	return retro_serialize(stateData->Data, stateData->Length);
-}
-
-bool Snes9XCoreInternal::Unserialize(const Array<uint8>^ stateData)
-{
-	return retro_unserialize(stateData->Data, stateData->Length);
 }

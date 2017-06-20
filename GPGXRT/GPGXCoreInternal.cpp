@@ -2,17 +2,13 @@
 #include "GPGXCoreInternal.h"
 
 #include "../LibretroRT/libretro.h"
+#include "../LibretroRT/libretro_extra.h"
 #include "../LibretroRT_Tools/Converter.h"
 
 using namespace GPGXRT;
 using namespace LibretroRT_Tools;
 
 GPGXCoreInternal^ coreInstance = nullptr;
-
-unsigned int GPGXCoreInternal::SerializationSize::get()
-{
-	return retro_serialize_size();
-}
 
 GPGXCoreInternal^ GPGXCoreInternal::Instance::get()
 {
@@ -26,22 +22,20 @@ GPGXCoreInternal^ GPGXCoreInternal::Instance::get()
 		retro_set_audio_sample([](int16_t left, int16_t right) { coreInstance->SingleAudioFrameHandler(left, right); });
 		retro_set_audio_sample_batch([](const int16_t* data, size_t numFrames) { return coreInstance->RaiseRenderAudioFrames(data, numFrames); });
 		retro_set_video_refresh([](const void *data, unsigned width, unsigned height, size_t pitch) { coreInstance->RaiseRenderVideoFrame(data, width, height, pitch); });
-
+		retro_extra_set_get_file([](String^ filePath, FileAccessMode accessMode) { return coreInstance->GetFileStream(filePath, accessMode); });
 		retro_init();
 	}
+
 	return coreInstance;
 }
 
-GPGXCoreInternal::GPGXCoreInternal()
+GPGXCoreInternal::GPGXCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
+	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit)
 {
-	retro_system_info info;
-	retro_get_system_info(&info);
-	SetSystemInfo(info);
 }
 
 GPGXCoreInternal::~GPGXCoreInternal()
 {
-	retro_deinit();
 	coreInstance = nullptr;
 }
 
@@ -49,7 +43,7 @@ bool GPGXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 {
 	if (CoreBase::EnvironmentHandler(cmd, data))
 		return true;
-	
+
 	switch (cmd)
 	{
 	case RETRO_ENVIRONMENT_GET_VARIABLE:
@@ -59,51 +53,4 @@ bool GPGXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	}
 
 	return false;
-}
-
-bool GPGXCoreInternal::LoadGameInternal(IStorageFile^ gameFile)
-{
-	static auto gamePathStr = Converter::PlatformToCPPString(gameFile->Path);
-	gameStream = concurrency::create_task(gameFile->OpenAsync(FileAccessMode::Read)).get();
-
-	auto gameInfo = GenerateGameInfo(gameFile->Path, gameStream->Size);
-	if (!retro_load_game(&gameInfo))
-	{
-		return false;
-	}
-
-	retro_system_av_info info;
-	retro_get_system_av_info(&info);
-	SetAVInfo(info);
-
-	return true;
-}
-
-void GPGXCoreInternal::UnloadGameInternal()
-{
-	retro_unload_game();
-	gameStream = nullptr;
-}
-
-void GPGXCoreInternal::RunFrameInternal()
-{
-	if (gameStream == nullptr)
-		return;
-
-	retro_run();
-}
-
-void GPGXCoreInternal::Reset()
-{
-	retro_reset();
-}
-
-bool GPGXCoreInternal::Serialize(WriteOnlyArray<uint8>^ stateData)
-{
-	return retro_serialize(stateData->Data, stateData->Length);
-}
-
-bool GPGXCoreInternal::Unserialize(const Array<uint8>^ stateData)
-{
-	return retro_unserialize(stateData->Data, stateData->Length);
 }
