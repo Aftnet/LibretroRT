@@ -32,8 +32,11 @@ namespace LibretroRT.Test
         public async Task LoadingRomWorks()
         {
             var file = await GetFileAsync(RomPath);
-            Target.GetFileStream = (d, e) => { return file.OpenAsync(e).AsTask().Result; };
-            var loadResult = await Task.Run(() => Target.LoadGame(file.Path));
+            var provider = new StreamProvider();
+            var loadPath = provider.AddFile(file);
+            Target.GetFileStream = provider.GetFileStream;
+
+            var loadResult = await Task.Run(() => Target.LoadGame(loadPath));
 
             Assert.True(loadResult);
             Assert.NotEqual(PixelFormats.FormatUknown, Target.PixelFormat);
@@ -82,8 +85,11 @@ namespace LibretroRT.Test
             };
 
             var file = await GetFileAsync(RomPath);
-            Target.GetFileStream = (d, e) => { return file.OpenAsync(e).AsTask().Result; };
-            var loadResult = await Task.Run(() => Target.LoadGame(file.Path));
+            var provider = new StreamProvider();
+            var loadPath = provider.AddFile(file);
+            Target.GetFileStream = provider.GetFileStream;
+
+            var loadResult = await Task.Run(() => Target.LoadGame(loadPath));
             Assert.True(loadResult);
 
             await Task.Run(() =>
