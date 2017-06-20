@@ -1,4 +1,4 @@
-#include "file_stream.h"
+#include "streams/file_stream.h"
 #include "../LibretroRT/libretro_extra.h"
 
 #include <codecvt>

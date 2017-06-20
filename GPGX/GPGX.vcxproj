@@ -300,6 +300,14 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp">
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
+    </ClCompile>
     <ClCompile Include="src\core\cart_hw\areplay.c" />
     <ClCompile Include="src\core\cart_hw\eeprom_93c.c" />
     <ClCompile Include="src\core\cart_hw\eeprom_i2c.c" />
@@ -364,7 +372,6 @@
     <ClCompile Include="src\core\vdp_render.c" />
     <ClCompile Include="src\core\z80\z80.c" />
     <ClCompile Include="src\libretro-common\memmap\memmap.c" />
-    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro\libretro.c" />
     <ClCompile Include="src\libretro\scrc32.c" />
   </ItemGroup>
