@@ -194,9 +194,17 @@ char *filestream_gets(RFILE *stream, char *s, size_t len)
 	auto reader = ref new DataReader(stream->Stream);
 	concurrency::create_task(reader->LoadAsync(len)).wait();
 	auto string = reader->ReadString(len);
-	auto converted = FileStreamTools::StringConverter.to_bytes(string->Data());
-	strcpy_s(s, len, converted.c_str());
 	reader->DetachStream();
+
+	auto converted = FileStreamTools::StringConverter.to_bytes(string->Data());
+	converted = converted.substr(len);
+	auto newLinePos = converted.find('\n');
+	if (newLinePos != string::npos)
+	{
+		converted = converted.substr(newLinePos);
+	}
+
+	strcpy_s(s, len, converted.c_str());
 	return s;
 }
 
