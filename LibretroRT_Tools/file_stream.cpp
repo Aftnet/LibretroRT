@@ -104,6 +104,7 @@ ssize_t filestream_read(RFILE *stream, void *data, size_t len)
 	auto reader = ref new DataReader(stream->Stream);
 	auto output = concurrency::create_task(reader->LoadAsync(len)).get();
 	reader->ReadBytes(dataArray);
+	reader->DetachStream();
 	return output;
 }
 
@@ -113,6 +114,7 @@ ssize_t filestream_write(RFILE *stream, const void *data, size_t len)
 	auto writer = ref new DataWriter(stream->Stream);
 	writer->WriteBytes(dataArray);
 	concurrency::create_task(stream->Stream->FlushAsync()).wait();
+	writer->DetachStream();
 	return len;
 }
 
@@ -195,6 +197,7 @@ char *filestream_gets(RFILE *stream, char *s, size_t len)
 	auto string = reader->ReadString(len);
 	auto converted = FileStreamTools::StringConverter.to_bytes(string->Data());
 	strcpy_s(s, len, converted.c_str());
+	reader->DetachStream();
 	return s;
 }
 
@@ -204,7 +207,9 @@ int filestream_getc(RFILE *stream)
 {
 	auto reader = ref new DataReader(stream->Stream);
 	concurrency::create_task(reader->LoadAsync(1)).wait();
-	return reader->ReadByte();
+	auto output = reader->ReadByte();
+	reader->DetachStream();
+	return output;
 }
 
 int filestream_eof(RFILE *stream)
@@ -240,6 +245,7 @@ int filestream_putc(RFILE *stream, int c)
 	auto writer = ref new DataWriter(stream->Stream);
 	writer->WriteByte(c);
 	concurrency::create_task(stream->Stream->FlushAsync()).wait();
+	writer->DetachStream();
 	return c;
 }
 
