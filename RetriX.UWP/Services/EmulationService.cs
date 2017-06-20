@@ -119,10 +119,11 @@ namespace RetriX.UWP.Services
 
         private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, IFile file)
         {
-            StreamProvider = new SingleFileProvider(file.Path, file);
-            core.GetFileStream = (d, e) => StreamProvider.GetFileStreamAsync(d, e.ToIOAccess()).Result.AsRandomAccessStream();
+            var mainGamePath = $"ROM\\{file.Name}";
+            StreamProvider = new SingleFileProvider(mainGamePath, file);
+            core.GetFileStream = (d, e) => StreamProvider.GetFileStreamAsync(d, e.ToIOAccess()).Result?.AsRandomAccessStream();
 
-            var loadSuccessful = await runner.LoadGameAsync(core, file.Path);
+            var loadSuccessful = await runner.LoadGameAsync(core, mainGamePath);
             if (loadSuccessful)
             {
                 Messenger.Send(new GameStartedMessage());
