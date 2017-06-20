@@ -72,6 +72,9 @@ RFILE *filestream_open(const char *path, unsigned mode, ssize_t len)
 	{
 		return nullptr;
 	}
+
+	auto output = new RFILE(pathStr, stream);
+	return output;
 }
 
 ssize_t filestream_seek(RFILE *stream, ssize_t offset, int whence)
@@ -123,6 +126,7 @@ void filestream_rewind(RFILE *stream)
 int filestream_close(RFILE *stream)
 {
 	stream->Stream = nullptr;
+	delete stream;
 	return 0;
 }
 
