@@ -6,8 +6,10 @@
     "win": {}
   },
   "dependencies": {
-    "Moq": "4.7.25",
+    "Moq": "4.7.49",
     "PCLStorage": "1.0.2",
+    "System.IO.Compression.ZipFile": "4.3.0",
+    "System.Io.Filesystem.Primitives": "4.0.1",
     "xunit": "2.2.0",
     "xunit.runner.visualstudio": "2.2.0"
   }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PCLStorage;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -11,8 +12,8 @@ namespace RetriX.Shared.Services
 
         IReadOnlyList<string> GetSupportedExtensions(GameSystemTypes systemType);
 
-        Task<bool> StartGameAsync(IPlatformFileWrapper file);
-        Task<bool> StartGameAsync(GameSystemTypes systemType, IPlatformFileWrapper file);
+        Task<bool> StartGameAsync(IFile file);
+        Task<bool> StartGameAsync(GameSystemTypes systemType, IFile file);
         Task ResetGameAsync();
         Task StopGameAsync();
 

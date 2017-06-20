@@ -1,14 +1,13 @@
-﻿using RetriX.Shared.Services;
+﻿using PCLStorage;
+using RetriX.Shared.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Storage.Pickers;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
-using System;
-using Windows.ApplicationModel.Core;
-using GalaSoft.MvvmLight.Messaging;
-using RetriX.Shared.Messages;
 using Windows.UI.Xaml;
 
 namespace RetriX.UWP.Services
@@ -70,7 +69,7 @@ namespace RetriX.UWP.Services
             Window.Current.CoreWindow.PointerCursor = pointer;
         }
 
-        public async Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter)
+        public async Task<IFile> SelectFileAsync(IEnumerable<string> extensionsFilter)
         {
             var picker = new FileOpenPicker();
             picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
@@ -80,7 +79,7 @@ namespace RetriX.UWP.Services
             }
 
             var file = await picker.PickSingleFileAsync();
-            return file == null ? null : new PlatformFileWrapper(file);
+            return file == null ? null : new WinRTFile(file);
         }
 
         private void OnKeyDown(CoreWindow sender, KeyEventArgs args)

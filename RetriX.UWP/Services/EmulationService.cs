@@ -2,11 +2,15 @@
 using GalaSoft.MvvmLight.Messaging;
 using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
+using PCLStorage;
+using RetriX.Shared.FileProviders;
 using RetriX.Shared.Messages;
 using RetriX.Shared.Services;
+using RetriX.UWP.FileProviders;
 using RetriX.UWP.Pages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -44,6 +48,7 @@ namespace RetriX.UWP.Services
 
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
+        private IFileProvider StreamProvider;
         private ICoreRunner CoreRunner;
 
         public string GameID => CoreRunner?.GameID;
@@ -64,18 +69,19 @@ namespace RetriX.UWP.Services
             return GetSupportedExtensionsListForCore(core);
         }
 
-        public Task<bool> StartGameAsync(IPlatformFileWrapper file)
+        public Task<bool> StartGameAsync(IFile file)
         {
             if (file == null)
             {
                 throw new ArgumentException();
             }
 
-            var platformFile = file.File as IStorageFile;
+            var fileExtension = System.IO.Path.GetExtension(file.Path);
             foreach (var i in SystemCoreMapping.Values)
             {
                 var coreExtensions = GetSupportedExtensionsListForCore(i);
-                if (coreExtensions.Contains(platformFile.FileType))
+
+                if (coreExtensions.Contains(fileExtension))
                 {
                     return StartGameAsync(i, file);
                 }
@@ -84,7 +90,7 @@ namespace RetriX.UWP.Services
             throw new Exception("No compatible core found");
         }
 
-        public Task<bool> StartGameAsync(GameSystemTypes systemType, IPlatformFileWrapper file)
+        public Task<bool> StartGameAsync(GameSystemTypes systemType, IFile file)
         {
             if (file == null)
             {
@@ -95,7 +101,7 @@ namespace RetriX.UWP.Services
             return StartGameAsync(core, file);
         }
 
-        private async Task<bool> StartGameAsync(ICore core, IPlatformFileWrapper file)
+        private async Task<bool> StartGameAsync(ICore core, IFile file)
         {
             if (CoreRunner == null)
             {
@@ -111,9 +117,12 @@ namespace RetriX.UWP.Services
             return await StartGameAsync(CoreRunner, core, file);
         }
 
-        private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, IPlatformFileWrapper file)
+        private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, IFile file)
         {
-            var loadSuccessful = await runner.LoadGameAsync(core, file.File as IStorageFile);
+            StreamProvider = new SingleFileProvider(file.Path, file);
+            core.GetFileStream = (d, e) => StreamProvider.GetFileStreamAsync(d, e.ToIOAccess()).Result.AsRandomAccessStream();
+
+            var loadSuccessful = await runner.LoadGameAsync(core, file.Path);
             if (loadSuccessful)
             {
                 Messenger.Send(new GameStartedMessage());

@@ -9,11 +9,6 @@ using namespace LibretroRT_Tools;
 
 VBAMCoreInternal^ coreInstance = nullptr;
 
-unsigned int VBAMCoreInternal::SerializationSize::get()
-{
-	return retro_serialize_size();
-}
-
 VBAMCoreInternal^ VBAMCoreInternal::Instance::get()
 {
 	if (coreInstance == nullptr)
@@ -26,22 +21,19 @@ VBAMCoreInternal^ VBAMCoreInternal::Instance::get()
 		retro_set_audio_sample([](int16_t left, int16_t right) { coreInstance->SingleAudioFrameHandler(left, right); });
 		retro_set_audio_sample_batch([](const int16_t* data, size_t numFrames) { return coreInstance->RaiseRenderAudioFrames(data, numFrames); });
 		retro_set_video_refresh([](const void *data, unsigned width, unsigned height, size_t pitch) { coreInstance->RaiseRenderVideoFrame(data, width, height, pitch); });
-
 		retro_init();
 	}
+
 	return coreInstance;
 }
 
-VBAMCoreInternal::VBAMCoreInternal()
+VBAMCoreInternal::VBAMCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
+	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit)
 {
-	retro_system_info info;
-	retro_get_system_info(&info);
-	SetSystemInfo(info);
 }
 
 VBAMCoreInternal::~VBAMCoreInternal()
 {
-	retro_deinit();
 	coreInstance = nullptr;
 }
 
@@ -59,47 +51,4 @@ bool VBAMCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	}
 
 	return false;
-}
-
-bool VBAMCoreInternal::LoadGameInternal(IStorageFile^ gameFile)
-{
-	std::vector<unsigned char> gameData;
-	ReadFileToMemory(gameData, gameFile);
-
-	auto gameInfo = GenerateGameInfo(gameData);
-	if (!retro_load_game(&gameInfo))
-	{
-		return false;
-	}
-
-	retro_system_av_info info;
-	retro_get_system_av_info(&info);
-	SetAVInfo(info);
-
-	return true;
-}
-
-void VBAMCoreInternal::UnloadGameInternal()
-{
-	retro_unload_game();
-}
-
-void VBAMCoreInternal::RunFrameInternal()
-{
-	retro_run();
-}
-
-void VBAMCoreInternal::Reset()
-{
-	retro_reset();
-}
-
-bool VBAMCoreInternal::Serialize(WriteOnlyArray<uint8>^ stateData)
-{
-	return retro_serialize(stateData->Data, stateData->Length);
-}
-
-bool VBAMCoreInternal::Unserialize(const Array<uint8>^ stateData)
-{
-	return retro_unserialize(stateData->Data, stateData->Length);
 }

@@ -6,6 +6,7 @@
 
 using namespace Platform;
 using namespace Windows::Storage;
+using namespace Windows::Storage::Streams;
 
 namespace LibretroRT
 {
@@ -18,6 +19,8 @@ namespace LibretroRT
 	public delegate void GeometryChangedDelegate(GameGeometry^ geometry);
 	public delegate void TimingChangedDelegate(SystemTiming^ timing);
 	public delegate void PixelFormatChangedDelegate(PixelFormats format);
+
+	public delegate IRandomAccessStream^ GetFileStreamDelegate(String^ path, FileAccessMode fileAccess);
 
 	/// <summary>
 	/// Interface for LibretroRT cores
@@ -35,7 +38,7 @@ namespace LibretroRT
 
 		property unsigned int SerializationSize { unsigned int get(); }
 
-		bool LoadGame(IStorageFile^ gameFile);
+		bool LoadGame(String^ mainGameFilePath);
 		void UnloadGame();
 
 		void RunFrame();
@@ -44,13 +47,14 @@ namespace LibretroRT
 		bool Serialize(WriteOnlyArray<uint8>^ stateData);
 		bool Unserialize(const Array<uint8>^ stateData);
 
-		event RenderVideoFrameDelegate^ RenderVideoFrame;
-		event RenderAudioFramesDelegate^ RenderAudioFrames;
-		event PollInputDelegate^ PollInput;
-		event GetInputStateDelegate^ GetInputState;
-		event GeometryChangedDelegate^ GeometryChanged;
-		event TimingChangedDelegate^ TimingChanged;
-		event PixelFormatChangedDelegate^ PixelFormatChanged;
+		property RenderVideoFrameDelegate^ RenderVideoFrame;
+		property RenderAudioFramesDelegate^ RenderAudioFrames;
+		property PollInputDelegate^ PollInput;
+		property GetInputStateDelegate^ GetInputState;
+		property GeometryChangedDelegate^ GeometryChanged;
+		property TimingChangedDelegate^ TimingChanged;
+		property PixelFormatChangedDelegate^ PixelFormatChanged;
+		property GetFileStreamDelegate^ GetFileStream;
 	};
 }
 

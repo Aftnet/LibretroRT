@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using PCLStorage;
 using RetriX.Shared.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -57,7 +58,7 @@ namespace RetriX.Shared.ViewModels
             var task = EmulationService.StartGameAsync(systemType, file);
         }
 
-        public Task StartGameFromFileAsync(IPlatformFileWrapper file)
+        public Task StartGameFromFileAsync(IFile file)
         {
             return EmulationService.StartGameAsync(file);
         }

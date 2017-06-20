@@ -18,7 +18,7 @@ namespace RetriX.Shared.Test.Services
 
         static readonly byte[] TestSavePayload = Enumerable.Range(0, byte.MaxValue).Select(d => (byte)d).ToArray();
 
-        protected override SaveStateService InstanceTarget()
+        protected override SaveStateService InstantiateTarget()
         {
             return new SaveStateService(NotificationServiceMock.Object, LocalizationServiceMock.Object) { GameId = GameId };
         }

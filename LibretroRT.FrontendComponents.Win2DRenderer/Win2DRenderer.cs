@@ -13,7 +13,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
     {
         public event CoreRunExceptionOccurredDelegate CoreRunExceptionOccurred;
 
-        private readonly CoreEventCoordinator Coordinator;
+        private readonly CoreCoordinator Coordinator;
 
         public string GameID { get; private set; }
         public bool CoreIsExecuting { get; private set; }
@@ -37,7 +37,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public Win2DRenderer(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
         {
-            Coordinator = new CoreEventCoordinator
+            Coordinator = new CoreCoordinator
             {
                 Renderer = this,
                 AudioPlayer = audioPlayer,
@@ -68,7 +68,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             }
         }
 
-        public IAsyncOperation<bool> LoadGameAsync(ICore core, IStorageFile gameFile)
+        public IAsyncOperation<bool> LoadGameAsync(ICore core, string mainGameFilePath)
         {
             return Task.Run(async () =>
             {
@@ -84,12 +84,12 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 lock (Coordinator)
                 {
                     Coordinator.Core = core;
-                    if (core.LoadGame(gameFile) == false)
+                    if (core.LoadGame(mainGameFilePath) == false)
                     {
                         return false;
                     }
 
-                    GameID = gameFile.Name;
+                    GameID = mainGameFilePath.SHA1();
                     RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
                     CoreIsExecuting = true;
                     return true;

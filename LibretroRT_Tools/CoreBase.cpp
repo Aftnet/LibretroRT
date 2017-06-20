@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CoreBase.h"
-#include"Converter.h"
+#include "Converter.h"
 #include "../LibretroRT/libretro.h"
 
 using namespace LibretroRT_Tools;
@@ -21,58 +21,45 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 #endif // DEBUG
 }
 
-CoreBase::CoreBase() :
+CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
+	LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame,
+	LibretroRunPtr libretroRun, LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
+	LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit) :
+	LibretroGetSystemInfo(libretroGetSystemInfo),
+	LibretroGetSystemAVInfo(libretroGetSystemAVInfo),
+	LibretroLoadGame(libretroLoadGame),
+	LibretroUnloadGame(libretroUnloadGame),
+	LibretroRun(libretroRun),
+	LibretroReset(libretroReset),
+	LibretroSerializeSize(libretroSerializeSize),
+	LibretroSerialize(libretroSerialize),
+	LibretroUnserialize(libretroUnserialize),
+	LibretroDeinit(libretroDeinit),
 	timing(ref new SystemTiming),
 	geometry(ref new GameGeometry),
 	gameLoaded(false),
-	gameStream(nullptr),
+	coreRequiresGameFilePath(true),
 	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
 	CoreSystemPath(Converter::PlatformToCPPString(Windows::ApplicationModel::Package::Current->InstalledLocation->Path)),
 	CoreSaveGamePath(Converter::PlatformToCPPString(Windows::Storage::ApplicationData::Current->LocalFolder->Path))
 {
+	retro_system_info info;
+	LibretroGetSystemInfo(&info);
+
+	name = Converter::CToPlatformString(info.library_name);
+	version = Converter::CToPlatformString(info.library_version);
+	supportedExtensions = Converter::CToPlatformString(info.valid_extensions);
+	coreRequiresGameFilePath = info.need_fullpath;
 }
 
 CoreBase::~CoreBase()
 {
+	LibretroDeinit();
 }
 
-void CoreBase::SetSystemInfo(retro_system_info& info)
+void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)
 {
-	name = Converter::CToPlatformString(info.library_name);
-	version = Converter::CToPlatformString(info.library_version);
-	supportedExtensions = Converter::CToPlatformString(info.valid_extensions);
-}
-
-void CoreBase::SetAVInfo(retro_system_av_info & info)
-{
-	Geometry = Converter::CToRTGameGeometry(info.geometry);
-	Timing = Converter::CToRTSystemTiming(info.timing);
-}
-
-retro_game_info CoreBase::GenerateGameInfo(String^ gamePath, unsigned long long gameSize)
-{
-	static auto gamePathStr = Converter::PlatformToCPPString(gamePath);
-	retro_game_info gameInfo;
-	gameInfo.data = nullptr;
-	gameInfo.path = gamePathStr.c_str();
-	gameInfo.size = gameSize;
-	gameInfo.meta = nullptr;
-	return gameInfo;
-}
-
-retro_game_info CoreBase::GenerateGameInfo(const std::vector<unsigned char>& gameData)
-{
-	retro_game_info gameInfo;
-	gameInfo.data = gameData.data();
-	gameInfo.path = nullptr;
-	gameInfo.size = gameData.size();
-	gameInfo.meta = nullptr;
-	return gameInfo;
-}
-
-void CoreBase::ReadFileToMemory(std::vector<unsigned char>& data, IStorageFile^ file)
-{
-	auto stream = concurrency::create_task(file->OpenAsync(FileAccessMode::Read)).get();
+	auto stream = GetFileStream(filePath, Windows::Storage::FileAccessMode::Read);
 	data.resize(stream->Size);
 	auto dataArray = Platform::ArrayReference<unsigned char>(data.data(), stream->Size);
 
@@ -130,7 +117,8 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	case RETRO_ENVIRONMENT_SET_SYSTEM_AV_INFO:
 	{
 		auto avInfo = reinterpret_cast<retro_system_av_info*>(data);
-		SetAVInfo(*avInfo);
+		Geometry = Converter::CToRTGameGeometry(avInfo->geometry);
+		Timing = Converter::CToRTSystemTiming(avInfo->timing);
 		return true;
 	}
 	}
@@ -145,43 +133,28 @@ void CoreBase::SingleAudioFrameHandler(int16_t left, int16_t right)
 	RaiseRenderAudioFrames(data, 1);
 }
 
-size_t CoreBase::ReadGameFileHandler(void* buffer, size_t requested)
-{
-	if (gameStream == nullptr)
-		return 0;
-
-	auto remaining = (size_t)(gameStream->Size - gameStream->Position);
-	requested = min(requested, remaining);
-
-	auto arrayRef = ArrayReference<UCHAR>((UCHAR*)buffer, requested, false);
-	auto reader = ref new Streams::DataReader(gameStream);
-	concurrency::create_task(reader->LoadAsync(requested)).wait();
-	reader->ReadBytes(arrayRef);
-
-	return requested;
-}
-
-void CoreBase::SeekGameFileHandler(unsigned long position)
-{
-	if (gameStream == nullptr)
-		return;
-
-	gameStream->Seek(position);
-}
-
 void CoreBase::RaisePollInput()
 {
+	if (PollInput == nullptr)
+		return;
+
 	PollInput();
 }
 
 int16_t CoreBase::RaiseGetInputState(unsigned port, unsigned device, unsigned index, unsigned keyId)
 {
+	if (GetInputState == nullptr)
+		return 0;
+
 	auto key = Converter::ConvertToInputType(device, index, keyId);
 	return GetInputState(port, key);
 }
 
 size_t CoreBase::RaiseRenderAudioFrames(const int16_t* data, size_t frames)
 {
+	if (RenderAudioFrames == nullptr)
+		return 0;
+
 	auto dataPtr = const_cast<int16_t*>(data);
 	auto dataArray = Platform::ArrayReference<int16_t>(dataPtr, frames * 2);
 	RenderAudioFrames(dataArray);
@@ -190,13 +163,16 @@ size_t CoreBase::RaiseRenderAudioFrames(const int16_t* data, size_t frames)
 
 void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned height, size_t pitch)
 {
+	if (RenderVideoFrame == nullptr)
+		return;
+
 	auto dataPtr = reinterpret_cast<uint8*>(const_cast<void*>(data));
 	//See retro_video_refresh_t for why buffer size is computed that way
 	auto dataArray = Platform::ArrayReference<uint8>(dataPtr, height * pitch);
 	RenderVideoFrame(dataArray, width, height, pitch);
 }
 
-bool CoreBase::LoadGame(IStorageFile^ gameFile)
+bool CoreBase::LoadGame(String^ mainGameFilePath)
 {
 	if (gameLoaded)
 	{
@@ -205,11 +181,34 @@ bool CoreBase::LoadGame(IStorageFile^ gameFile)
 
 	try
 	{
-		gameLoaded = LoadGameInternal(gameFile);
+		static auto gamePathStr = Converter::PlatformToCPPString(mainGameFilePath);
+		retro_game_info gameInfo;
+		gameInfo.data = nullptr;
+		gameInfo.path = gamePathStr.c_str();
+		gameInfo.size = 0;
+		gameInfo.meta = nullptr;
+
+		std::vector<unsigned char> gameData;
+		if (!coreRequiresGameFilePath)
+		{
+			ReadFileToMemory(mainGameFilePath, gameData);
+			gameInfo.data = gameData.data();
+			gameInfo.size = gameData.size();
+		}
+
+		gameLoaded = retro_load_game(&gameInfo);
+		if (gameLoaded)
+		{
+			retro_system_av_info info;
+			LibretroGetSystemAVInfo(&info);
+
+			Geometry = Converter::CToRTGameGeometry(info.geometry);
+			Timing = Converter::CToRTSystemTiming(info.timing);
+		}		
 	}
 	catch (const std::exception& e)
 	{
-		UnloadGameInternal();
+		UnloadGame();
 		gameLoaded = false;
 	}
 
@@ -223,7 +222,7 @@ void CoreBase::UnloadGame()
 		return;
 	}
 
-	UnloadGameInternal();
+	LibretroUnloadGame();
 	gameLoaded = false;
 }
 
@@ -231,10 +230,25 @@ void CoreBase::RunFrame()
 {
 	try
 	{
-		RunFrameInternal();
+		LibretroRun();
 	}
 	catch (...)
 	{
 		throw ref new Platform::FailureException(L"Core runtime error");
 	}
+}
+
+void CoreBase::Reset()
+{
+	LibretroReset();
+}
+
+bool CoreBase::Serialize(WriteOnlyArray<uint8>^ stateData)
+{
+	return LibretroSerialize(stateData->Data, stateData->Length);
+}
+
+bool CoreBase::Unserialize(const Array<uint8>^ stateData)
+{
+	return LibretroUnserialize(stateData->Data, stateData->Length);
 }

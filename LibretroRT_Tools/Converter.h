@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Export.h"
+#include <codecvt>
 
 struct retro_game_geometry;
 struct retro_system_timing;
@@ -22,5 +23,8 @@ namespace LibretroRT_Tools
 		static SystemTiming^ CToRTSystemTiming(const retro_system_timing& timing);
 		static PixelFormats ConvertToPixelFormat(enum retro_pixel_format format);
 		static InputTypes ConvertToInputType(unsigned device, unsigned index, unsigned id);
+	private:
+
+		static std::wstring_convert<std::codecvt_byname<wchar_t, char, std::mbstate_t>> StringConverter;
 	};
 }

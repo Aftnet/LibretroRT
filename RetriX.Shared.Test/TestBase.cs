@@ -1,12 +1,14 @@
 ﻿using Moq;
+using PCLStorage;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.Services;
+using System.Threading.Tasks;
 
 namespace RetriX.Shared.Test
 {
     public abstract class TestBase<T> where T : class
     {
-        protected abstract T InstanceTarget();
+        protected abstract T InstantiateTarget();
 
         protected readonly T Target;
 
@@ -15,7 +17,12 @@ namespace RetriX.Shared.Test
 
         public TestBase()
         {
-            Target = InstanceTarget();
+            Target = InstantiateTarget();
+        }
+
+        protected Task<IFolder> GetTestFilesFolderAsync()
+        {
+            return PCLStorage.FileSystem.Current.GetFolderFromPathAsync("TestFiles");
         }
     }
 }
