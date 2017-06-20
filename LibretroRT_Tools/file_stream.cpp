@@ -84,10 +84,13 @@ ssize_t filestream_seek(RFILE *stream, ssize_t offset, int whence)
 	{
 	case SEEK_SET:
 		winStream->Seek(offset);
+		break;
 	case SEEK_CUR:
 		winStream->Seek(winStream->Position + offset);
+		break;
 	case SEEK_END:
 		winStream->Seek(winStream->Size - offset);
+		break;
 	}
 
 	return 0;
