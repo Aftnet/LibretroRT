@@ -89,7 +89,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                         return false;
                     }
 
-                    GameID = mainGameFilePath;
+                    GameID = mainGameFilePath.SHA1();
                     RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
                     CoreIsExecuting = true;
                     return true;
