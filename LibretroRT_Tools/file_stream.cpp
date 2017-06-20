@@ -42,8 +42,6 @@ namespace FileStreamTools
 {
 	typedef codecvt_byname<wchar_t, char, mbstate_t> localCodecvt;
 	wstring_convert<localCodecvt> StringConverter(new localCodecvt("en_US"));
-
-	unordered_map<string, RFILE> CoreFileMapping;
 }
 
 long long int filestream_get_size(RFILE *stream)
@@ -59,27 +57,21 @@ const char *filestream_get_ext(RFILE *stream)
 RFILE *filestream_open(const char *path, unsigned mode, ssize_t len)
 {
 	string pathStr(path);
-	auto output = FileStreamTools::CoreFileMapping[path];
-	if (output.Stream == nullptr)
+
+	if (GetFileStreamViaFrontend == nullptr)
 	{
-		if (GetFileStreamViaFrontend == nullptr)
-		{
-			return nullptr;
-		}
-
-		auto convertedPath = ref new String(FileStreamTools::StringConverter.from_bytes(pathStr).data());
-		mode = mode & 0x0f;
-		auto accessMode = (mode == RFILE_MODE_READ || mode == RFILE_MODE_READ_TEXT) ? FileAccessMode::Read : FileAccessMode::ReadWrite;
-
-		auto stream = GetFileStreamViaFrontend(convertedPath, accessMode);
-		output = FileStreamTools::CoreFileMapping[path] = RFILE(path, stream);
-		if (output.Stream == nullptr)
-		{
-			return nullptr;
-		}
+		return nullptr;
 	}
-	
-	return &output;
+
+	auto convertedPath = ref new String(FileStreamTools::StringConverter.from_bytes(pathStr).data());
+	mode = mode & 0x0f;
+	auto accessMode = (mode == RFILE_MODE_READ || mode == RFILE_MODE_READ_TEXT) ? FileAccessMode::Read : FileAccessMode::ReadWrite;
+
+	auto stream = GetFileStreamViaFrontend(convertedPath, accessMode);
+	if (stream == nullptr)
+	{
+		return nullptr;
+	}
 }
 
 ssize_t filestream_seek(RFILE *stream, ssize_t offset, int whence)
