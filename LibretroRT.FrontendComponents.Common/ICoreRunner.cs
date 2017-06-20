@@ -13,7 +13,7 @@ namespace LibretroRT.FrontendComponents.Common
         bool CoreIsExecuting { get; }
         uint SerializationSize { get; }
 
-        IAsyncOperation<bool> LoadGameAsync(ICore core, IStorageFile gameFile);
+        IAsyncOperation<bool> LoadGameAsync(ICore core, string mainGameFilePath);
         IAsyncAction UnloadGameAsync();
         IAsyncAction ResetGameAsync();
 

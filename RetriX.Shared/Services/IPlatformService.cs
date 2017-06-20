@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PCLStorage;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace RetriX.Shared.Services
         bool ChangeFullScreenState(FullScreenChangeType changeType);
         void ChangeMousePointerVisibility(MousePointerVisibility visibility);
 
-        Task<IPlatformFileWrapper> SelectFileAsync(IEnumerable<string> extensionsFilter);
+        Task<IFile> SelectFileAsync(IEnumerable<string> extensionsFilter);
 
         Task RunOnUIThreadAsync(Action action);
 

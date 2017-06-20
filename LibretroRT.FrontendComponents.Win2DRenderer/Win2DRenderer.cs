@@ -68,7 +68,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             }
         }
 
-        public IAsyncOperation<bool> LoadGameAsync(ICore core, IStorageFile gameFile)
+        public IAsyncOperation<bool> LoadGameAsync(ICore core, string mainGameFilePath)
         {
             return Task.Run(async () =>
             {
@@ -84,12 +84,12 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 lock (Coordinator)
                 {
                     Coordinator.Core = core;
-                    if (core.LoadGame(gameFile) == false)
+                    if (core.LoadGame(mainGameFilePath) == false)
                     {
                         return false;
                     }
 
-                    GameID = gameFile.Name;
+                    GameID = mainGameFilePath;
                     RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
                     CoreIsExecuting = true;
                     return true;
