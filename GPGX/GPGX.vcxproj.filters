@@ -73,6 +73,7 @@
     <ClCompile Include="src\core\vdp_ctrl.c" />
     <ClCompile Include="src\core\vdp_render.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libretro-common\memmap\memmap.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
@@ -161,5 +162,11 @@
     <ClInclude Include="src\core\vdp_render.h" />
     <ClInclude Include="src\libretro\libretro.h" />
     <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\libretro-common\include\retro_inline.h" />
   </ItemGroup>
 </Project>
