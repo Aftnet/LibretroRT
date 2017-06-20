@@ -3,11 +3,14 @@ using GalaSoft.MvvmLight.Messaging;
 using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
 using PCLStorage;
+using RetriX.Shared.FileProviders;
 using RetriX.Shared.Messages;
 using RetriX.Shared.Services;
+using RetriX.UWP.FileProviders;
 using RetriX.UWP.Pages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -45,6 +48,7 @@ namespace RetriX.UWP.Services
 
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
+        private IFileProvider StreamProvider;
         private ICoreRunner CoreRunner;
 
         public string GameID => CoreRunner?.GameID;
@@ -115,6 +119,9 @@ namespace RetriX.UWP.Services
 
         private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, IFile file)
         {
+            StreamProvider = new SingleFileProvider(file.Path, file);
+            core.GetFileStream = (d, e) => StreamProvider.GetFileStreamAsync(d, e.ToIOAccess()).Result.AsRandomAccessStream();
+
             var loadSuccessful = await runner.LoadGameAsync(core, file.Path);
             if (loadSuccessful)
             {
