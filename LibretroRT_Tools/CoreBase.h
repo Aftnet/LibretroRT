@@ -50,8 +50,6 @@ namespace LibretroRT_Tools
 			LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
 			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit);
 
-		static retro_game_info GenerateGameInfo(String^ gamePath);
-		static retro_game_info GenerateGameInfo(const std::vector<unsigned char>& gameData);
 		void ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data);
 
 	internal:

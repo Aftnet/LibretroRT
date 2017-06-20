@@ -57,27 +57,6 @@ CoreBase::~CoreBase()
 	LibretroDeinit();
 }
 
-retro_game_info CoreBase::GenerateGameInfo(String^ gamePath)
-{
-	static auto gamePathStr = Converter::PlatformToCPPString(gamePath);
-	retro_game_info gameInfo;
-	gameInfo.data = nullptr;
-	gameInfo.path = gamePathStr.c_str();
-	gameInfo.size = 0;
-	gameInfo.meta = nullptr;
-	return gameInfo;
-}
-
-retro_game_info CoreBase::GenerateGameInfo(const std::vector<unsigned char>& gameData)
-{
-	retro_game_info gameInfo;
-	gameInfo.data = gameData.data();
-	gameInfo.path = nullptr;
-	gameInfo.size = gameData.size();
-	gameInfo.meta = nullptr;
-	return gameInfo;
-}
-
 void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)
 {
 	auto stream = GetFileStream(filePath, Windows::Storage::FileAccessMode::Read);
@@ -87,7 +66,6 @@ void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& da
 	auto reader = ref new Windows::Storage::Streams::DataReader(stream);
 	concurrency::create_task(reader->LoadAsync(stream->Size)).get();
 	reader->ReadBytes(dataArray);
-	stream = nullptr;
 }
 
 bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
@@ -203,10 +181,19 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 
 	try
 	{
-		retro_game_info gameInfo = GenerateGameInfo(mainGameFilePath);
+		static auto gamePathStr = Converter::PlatformToCPPString(mainGameFilePath);
+		retro_game_info gameInfo;
+		gameInfo.data = nullptr;
+		gameInfo.path = gamePathStr.c_str();
+		gameInfo.size = 0;
+		gameInfo.meta = nullptr;
+
+		std::vector<unsigned char> gameData;
 		if (!coreRequiresGameFilePath)
 		{
-			//gameInfo = GenerateGameInfo(gameData);
+			ReadFileToMemory(mainGameFilePath, gameData);
+			gameInfo.data = gameData.data();
+			gameInfo.size = gameData.size();
 		}
 
 		gameLoaded = retro_load_game(&gameInfo);
