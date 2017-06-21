@@ -251,4 +251,10 @@ Restart RetriX and try again.</value>
   <data name="SystemNameSG1000" xml:space="preserve">
     <value>SG-1000</value>
   </data>
+  <data name="FileHashMismatchMessageKey" xml:space="preserve">
+    <value>The file supplied is not the expected one. Try a different file.</value>
+  </data>
+  <data name="FileHashMismatchTitleKey" xml:space="preserve">
+    <value>Wrong file</value>
+  </data>
 </root>
