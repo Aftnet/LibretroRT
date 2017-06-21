@@ -10,6 +10,10 @@ namespace RetriX.Shared.ViewModels
 {
     public class GameSystemSelectionVM : ViewModelBase
     {
+        public const string GameLoadingFailAlertTitleKey = "GameLoadingFailAlertTitleKey";
+        public const string GameLoadingFailAlertMessageKey = "GameLoadingFailAlertMessageKey";
+
+        private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
         private readonly IEmulationService EmulationService;
@@ -19,8 +23,9 @@ namespace RetriX.Shared.ViewModels
 
         public RelayCommand<GameSystemListItemVM> GameSystemSelectedCommand { get; private set; }
 
-        public GameSystemSelectionVM(ILocalizationService localizationService, IPlatformService platformService, IEmulationService emulationService)
+        public GameSystemSelectionVM(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, IEmulationService emulationService)
         {
+            DialogsService = dialogsService;
             LocalizationService = localizationService;
             PlatformService = platformService;
             EmulationService = emulationService;
@@ -55,12 +60,27 @@ namespace RetriX.Shared.ViewModels
                 return;
             }
 
-            var task = EmulationService.StartGameAsync(systemType, file);
+            var result = await EmulationService.StartGameAsync(systemType, file);
+            if (!result)
+            {
+                await NotifyGameStartFailure();
+            }
         }
 
-        public Task StartGameFromFileAsync(IFile file)
+        public async Task StartGameFromFileAsync(IFile file)
         {
-            return EmulationService.StartGameAsync(file);
+            var result = await EmulationService.StartGameAsync(file);
+            if (!result)
+            {
+                await NotifyGameStartFailure();
+            }
+        }
+
+        private Task NotifyGameStartFailure()
+        {
+            var title = LocalizationService.GetLocalizedString(GameLoadingFailAlertTitleKey);
+            var message = LocalizationService.GetLocalizedString(GameLoadingFailAlertMessageKey);
+            return DialogsService.AlertAsync(message, title);
         }
     }
 }

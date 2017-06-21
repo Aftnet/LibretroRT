@@ -22,8 +22,6 @@ namespace RetriX.UWP.Services
 {
     public class EmulationService : IEmulationService
     {
-        public const string GameLoadingFailAlertTitleKey = "GameLoadingFailAlertTitleKey";
-        public const string GameLoadingFailAlertMessageKey = "GameLoadingFailAlertMessageKey";
         public const string GameRunningFailAlertTitleKey = "GameRunningFailAlertTitleKey";
         public const string GameRunningFailAlertMessageKey = "GameRunningFailAlertMessageKey";
 
@@ -131,9 +129,6 @@ namespace RetriX.UWP.Services
             else
             {
                 RootFrame.GoBack();
-                var title = LocalizationService.GetLocalizedString(GameLoadingFailAlertTitleKey);
-                var message = LocalizationService.GetLocalizedString(GameLoadingFailAlertMessageKey);
-                await DialogsService.AlertAsync(message, title);
                 return false;
             }
 
