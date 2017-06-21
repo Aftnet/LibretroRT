@@ -22,7 +22,7 @@ namespace RetriX.Shared.Test
 
         protected Task<IFolder> GetTestFilesFolderAsync()
         {
-            return PCLStorage.FileSystem.Current.GetFolderFromPathAsync("TestFiles");
+            return FileSystem.Current.GetFolderFromPathAsync("TestFiles");
         }
     }
 }

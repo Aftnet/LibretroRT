@@ -73,17 +73,17 @@ namespace RetriX.Shared.ViewModels
                 return;
             }
 
+            var md5 = await CryptographyService.ComputeMD5Async(sourceFile);
+            if (md5 != TargetMD5)
+            {
+                var title = LocalizationService.GetLocalizedString(FileHashMismatchTitleKey);
+                var message = LocalizationService.GetLocalizedString(FileHashMismatchMessageKey);
+                await DialogsService.AlertAsync(message, title);
+                return;
+            }
+
             using (var inStream = await sourceFile.OpenAsync(PCLStorage.FileAccess.Read))
             {
-                var md5 = await CryptographyService.ComputeMD5Async(inStream);
-                if (md5 != TargetMD5)
-                {
-                    var title = LocalizationService.GetLocalizedString(FileHashMismatchTitleKey);
-                    var message = LocalizationService.GetLocalizedString(FileHashMismatchMessageKey);
-                    await DialogsService.AlertAsync(message, title);
-                    return;
-                }
-
                 var targetFile = await TargetFolder.CreateFileAsync(targetFileName, CreationCollisionOption.ReplaceExisting);
                 using (var outStream = await targetFile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
                 {
