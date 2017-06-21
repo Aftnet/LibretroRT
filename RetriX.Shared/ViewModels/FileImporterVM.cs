@@ -31,7 +31,7 @@ namespace RetriX.Shared.ViewModels
         public bool FileAvailable
         {
             get { return fileAvailable; }
-            set { if(Set(ref fileAvailable, value)) { ImportCommand.RaiseCanExecuteChanged(); } }
+            private set { if(Set(ref fileAvailable, value)) { ImportCommand.RaiseCanExecuteChanged(); } }
         }
 
         public RelayCommand ImportCommand { get; private set; }
@@ -52,7 +52,7 @@ namespace RetriX.Shared.ViewModels
             GetTargetFileAsync().ContinueWith(d => FileAvailable = d.Result != null);
         }
 
-        private async Task<IFile> GetTargetFileAsync()
+        public async Task<IFile> GetTargetFileAsync()
         {
             var result = await TargetFolder.CheckExistsAsync(TargetFileName);
             if (result != ExistenceCheckResult.FileExists)
@@ -74,7 +74,7 @@ namespace RetriX.Shared.ViewModels
             }
 
             var md5 = await CryptographyService.ComputeMD5Async(sourceFile);
-            if (md5 != TargetMD5)
+            if (md5.ToLowerInvariant() != TargetMD5.ToLowerInvariant())
             {
                 var title = LocalizationService.GetLocalizedString(FileHashMismatchTitleKey);
                 var message = LocalizationService.GetLocalizedString(FileHashMismatchMessageKey);

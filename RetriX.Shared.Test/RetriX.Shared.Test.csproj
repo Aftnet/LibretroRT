@@ -45,6 +45,7 @@
     <Compile Include="Services\SaveStateServiceTest.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\FileImporterVMTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
