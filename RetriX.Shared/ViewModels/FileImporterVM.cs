@@ -9,9 +9,12 @@ namespace RetriX.Shared.ViewModels
 {
     public class FileImporterVM : ViewModelBase
     {
+        public const string FileHashMismatchTitleKey = nameof(FileHashMismatchTitleKey);
+        public const string FileHashMismatchMessageKey = nameof(FileHashMismatchMessageKey);
+
+        private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
-        private readonly IUserDialogs DialogsService;
         private readonly ICryptographyService CryptographyService;
 
         private readonly IFolder targetFolder;
@@ -25,8 +28,9 @@ namespace RetriX.Shared.ViewModels
 
         public RelayCommand ImportCommand { get; private set; }
 
-        public FileImporterVM(ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IFolder folder, string fileName, string MD5)
+        public FileImporterVM(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IFolder folder, string fileName, string MD5)
         {
+            DialogsService = dialogsService;
             LocalizationService = localizationService;
             PlatformService = platformService;
             CryptographyService = cryptographyService;
@@ -46,10 +50,12 @@ namespace RetriX.Shared.ViewModels
             }
 
             var md5 = CryptographyService.ComputeMD5(file);
-            if(md5!=TargetMD5)
+            if (md5 != TargetMD5)
             {
 
             }
+
+            
         }
     }
 }

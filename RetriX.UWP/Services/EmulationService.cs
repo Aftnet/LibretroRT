@@ -21,8 +21,8 @@ namespace RetriX.UWP.Services
 {
     public class EmulationService : IEmulationService
     {
-        public const string GameRunningFailAlertTitleKey = "GameRunningFailAlertTitleKey";
-        public const string GameRunningFailAlertMessageKey = "GameRunningFailAlertMessageKey";
+        public const string GameRunningFailAlertTitleKey = nameof(GameRunningFailAlertTitleKey);
+        public const string GameRunningFailAlertMessageKey = nameof(GameRunningFailAlertMessageKey);
 
         private const char CoreExtensionDelimiter = '|';
 

@@ -10,8 +10,8 @@ namespace RetriX.Shared.ViewModels
 {
     public class GameSystemSelectionVM : ViewModelBase
     {
-        public const string GameLoadingFailAlertTitleKey = "GameLoadingFailAlertTitleKey";
-        public const string GameLoadingFailAlertMessageKey = "GameLoadingFailAlertMessageKey";
+        public const string GameLoadingFailAlertTitleKey = nameof(GameLoadingFailAlertTitleKey);
+        public const string GameLoadingFailAlertMessageKey = nameof(GameLoadingFailAlertMessageKey);
 
         private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
