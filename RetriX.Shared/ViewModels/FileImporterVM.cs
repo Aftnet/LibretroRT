@@ -75,7 +75,7 @@ namespace RetriX.Shared.ViewModels
 
             using (var inStream = await sourceFile.OpenAsync(PCLStorage.FileAccess.Read))
             {
-                var md5 = CryptographyService.ComputeMD5(inStream);
+                var md5 = await CryptographyService.ComputeMD5Async(inStream);
                 if (md5 != TargetMD5)
                 {
                     var title = LocalizationService.GetLocalizedString(FileHashMismatchTitleKey);

@@ -1,9 +1,10 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
 {
     public interface ICryptographyService
     {
-        string ComputeMD5(Stream stream);
+        Task<string> ComputeMD5Async(Stream stream);
     }
 }
