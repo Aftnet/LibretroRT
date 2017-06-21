@@ -98,6 +98,9 @@
     <Compile Include="AppResources.xaml.cs">
       <DependentUpon>AppResources.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FileImporter.xaml.cs">
+      <DependentUpon>FileImporter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PlayerOverlay.xaml.cs">
       <DependentUpon>PlayerOverlay.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Controls\FileImporter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PlayerOverlay.xaml">
       <SubType>Designer</SubType>

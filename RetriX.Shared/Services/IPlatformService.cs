@@ -22,6 +22,7 @@ namespace RetriX.Shared.Services
         void ChangeMousePointerVisibility(MousePointerVisibility visibility);
 
         Task<IFile> SelectFileAsync(IEnumerable<string> extensionsFilter);
+        void CopyToClipboard(string content);
 
         Task RunOnUIThreadAsync(Action action);
 
