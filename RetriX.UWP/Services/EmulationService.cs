@@ -62,8 +62,7 @@ namespace RetriX.UWP.Services
 
         public IReadOnlyList<string> GetSupportedExtensions(GameSystemTypes systemType)
         {
-            var core = SystemCoreMapping[systemType];
-            return GetSupportedExtensionsListForCore(core);
+            return SystemCoreMapping[systemType].SupportedExtensions;
         }
 
         public Task<bool> StartGameAsync(IFile file)
@@ -76,9 +75,7 @@ namespace RetriX.UWP.Services
             var fileExtension = System.IO.Path.GetExtension(file.Path);
             foreach (var i in SystemCoreMapping.Values)
             {
-                var coreExtensions = GetSupportedExtensionsListForCore(i);
-
-                if (coreExtensions.Contains(fileExtension))
+                if (i.SupportedExtensions.Contains(fileExtension))
                 {
                     return StartGameAsync(i, file);
                 }
@@ -198,11 +195,6 @@ namespace RetriX.UWP.Services
                 var message = LocalizationService.GetLocalizedString(GameRunningFailAlertMessageKey);
                 DialogsService.AlertAsync(message, title);
             });
-        }
-
-        private string[] GetSupportedExtensionsListForCore(ICore core)
-        {
-            return core.SupportedExtensions.Split(CoreExtensionDelimiter).Select(d => $".{d}").ToArray();
         }
     }
 }

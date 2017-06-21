@@ -4,6 +4,8 @@
 
 using namespace LibretroRT;
 using namespace Platform;
+using namespace Platform::Collections;
+using namespace Windows::Foundation::Collections;
 
 namespace LibretroRT_Tools
 {
@@ -34,7 +36,7 @@ namespace LibretroRT_Tools
 
 		SystemTiming^ timing;
 		GameGeometry^ geometry;
-		String^ supportedExtensions;
+		IVector<String^>^ supportedExtensions;
 		String^ version;
 		String^ name;
 		bool gameLoaded;
@@ -83,7 +85,7 @@ namespace LibretroRT_Tools
 			void set(GameGeometry^ value) { geometry = value; if (GeometryChanged != nullptr) { GeometryChanged(geometry); } }
 		}
 
-		virtual property String^ SupportedExtensions { String^ get() { return supportedExtensions; } }
+		virtual property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get() { return supportedExtensions->GetView(); } }
 		virtual property String^ Version { String^ get() { return version; } }
 		virtual property String^ Name { String^ get() { return name; } }
 		virtual property unsigned int SerializationSize { unsigned int get() { return LibretroSerializeSize(); } }

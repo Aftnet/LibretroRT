@@ -7,6 +7,7 @@
 using namespace Platform;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
+using namespace Windows::Foundation::Collections;
 
 namespace LibretroRT
 {
@@ -30,7 +31,7 @@ namespace LibretroRT
 	public:
 		property String^ Name { String^ get(); };
 		property String^ Version { String^ get(); };
-		property String^ SupportedExtensions { String^ get(); };
+		property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get(); };
 
 		property PixelFormats PixelFormat { PixelFormats get(); }
 		property GameGeometry^ Geometry { GameGeometry^ get(); }

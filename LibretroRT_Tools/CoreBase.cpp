@@ -48,7 +48,13 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 
 	name = Converter::CToPlatformString(info.library_name);
 	version = Converter::CToPlatformString(info.library_version);
-	supportedExtensions = Converter::CToPlatformString(info.valid_extensions);
+	auto extensions = Converter::SplitString(info.valid_extensions, '|');
+	supportedExtensions = ref new Platform::Collections::Vector<String^>();
+	for (auto i : extensions)
+	{
+		supportedExtensions->Append(Converter::CPPToPlatformString("." + i));
+	}
+
 	coreRequiresGameFilePath = info.need_fullpath;
 }
 
