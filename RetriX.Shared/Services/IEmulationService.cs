@@ -1,4 +1,5 @@
 ﻿using PCLStorage;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace RetriX.Shared.Services
     public enum GameSystemTypes { NES, SNES, GB, GBA, SG1000, MasterSystem, GameGear, MegaDrive };
 
     public delegate void GameStartedDelegate(IEmulationService sender);
+    public delegate void GameRuntimeExceptionOccurredDelegate(IEmulationService sender, Exception exception);
 
     public interface IEmulationService
     {
@@ -26,5 +28,6 @@ namespace RetriX.Shared.Services
         Task<bool> LoadGameStateAsync(byte[] stateData);
 
         event GameStartedDelegate GameStarted;
+        event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
     }
 }

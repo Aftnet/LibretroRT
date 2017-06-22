@@ -1,6 +1,4 @@
-﻿using Acr.UserDialogs;
-using GalaSoft.MvvmLight.Messaging;
-using LibretroRT;
+﻿using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
 using PCLStorage;
 using RetriX.Shared.FileProviders;
@@ -20,9 +18,6 @@ namespace RetriX.UWP.Services
 {
     public class EmulationService : IEmulationService
     {
-        public const string GameRunningFailAlertTitleKey = nameof(GameRunningFailAlertTitleKey);
-        public const string GameRunningFailAlertMessageKey = nameof(GameRunningFailAlertMessageKey);
-
         private const char CoreExtensionDelimiter = '|';
 
         private static readonly IReadOnlyDictionary<GameSystemTypes, ICore> SystemCoreMapping = new Dictionary<GameSystemTypes, ICore>
@@ -37,7 +32,6 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
 
-        private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
 
@@ -49,10 +43,10 @@ namespace RetriX.UWP.Services
         public string GameID => CoreRunner?.GameID;
 
         public event GameStartedDelegate GameStarted;
+        public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
-        public EmulationService(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService)
+        public EmulationService(ILocalizationService localizationService, IPlatformService platformService)
         {
-            DialogsService = dialogsService;
             LocalizationService = localizationService;
             PlatformService = platformService;
 
@@ -190,9 +184,7 @@ namespace RetriX.UWP.Services
             var task = PlatformService.RunOnUIThreadAsync(() =>
             {
                 RootFrame.GoBack();
-                var title = LocalizationService.GetLocalizedString(GameRunningFailAlertTitleKey);
-                var message = LocalizationService.GetLocalizedString(GameRunningFailAlertMessageKey);
-                DialogsService.AlertAsync(message, title);
+                GameRuntimeExceptionOccurred(this, e);
             });
         }
     }

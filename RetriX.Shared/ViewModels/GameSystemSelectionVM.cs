@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using PCLStorage;
 using RetriX.Shared.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,6 +13,8 @@ namespace RetriX.Shared.ViewModels
     {
         public const string GameLoadingFailAlertTitleKey = nameof(GameLoadingFailAlertTitleKey);
         public const string GameLoadingFailAlertMessageKey = nameof(GameLoadingFailAlertMessageKey);
+        public const string GameRunningFailAlertTitleKey = nameof(GameRunningFailAlertTitleKey);
+        public const string GameRunningFailAlertMessageKey = nameof(GameRunningFailAlertMessageKey);
 
         private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
@@ -63,7 +66,7 @@ namespace RetriX.Shared.ViewModels
             var result = await EmulationService.StartGameAsync(systemType, file);
             if (!result)
             {
-                await NotifyGameStartFailure();
+                await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
             }
         }
 
@@ -72,14 +75,19 @@ namespace RetriX.Shared.ViewModels
             var result = await EmulationService.StartGameAsync(file);
             if (!result)
             {
-                await NotifyGameStartFailure();
+                await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
             }
         }
 
-        private Task NotifyGameStartFailure()
+        private void OnExceptionOccurred(IEmulationService sender, Exception e)
         {
-            var title = LocalizationService.GetLocalizedString(GameLoadingFailAlertTitleKey);
-            var message = LocalizationService.GetLocalizedString(GameLoadingFailAlertMessageKey);
+            DisplayNotification(GameRunningFailAlertTitleKey, GameRunningFailAlertMessageKey);
+        }
+
+        private Task DisplayNotification(string titleKey, string messageKey)
+        {
+            var title = LocalizationService.GetLocalizedString(titleKey);
+            var message = LocalizationService.GetLocalizedString(messageKey);
             return DialogsService.AlertAsync(message, title);
         }
     }
