@@ -4,7 +4,7 @@ using Xunit;
 
 namespace RetriX.Shared.Test.FileProviders
 {
-    class ArchiveFileProviderTest : FileProviderTestBase<ArchiveFileProvider>
+    public class ArchiveFileProviderTest : FileProviderTestBase<ArchiveFileProvider>
     {
         protected override ArchiveFileProvider InstantiateTarget()
         {
