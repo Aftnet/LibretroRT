@@ -1,5 +1,4 @@
 ﻿using RetriX.Shared.StreamProviders;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -24,7 +23,8 @@ namespace RetriX.Shared.Test.StreamProviders
         [Theory]
         [InlineData("scheme:\\TestFile.txt", true)]
         [InlineData("scheme:\\Archive.zip", true)]
-        [InlineData("scheme:\\Afolder\\File.zzz", true)]
+        [InlineData("scheme:\\A\\B\\AnotherFile.cds", true)]
+        [InlineData("scheme:\\A\\C\\AnotherFile.cds", false)]
         [InlineData("ascheme:\\Archive.zip", false)]
         [InlineData("ascheme:\\SomeFi.ext", false)]
         [InlineData("ascheme:\\Dir\\file.ext", false)]

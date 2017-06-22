@@ -24,22 +24,9 @@ namespace RetriX.Shared.StreamProviders
 
         public async Task<IEnumerable<string>> ListEntriesAsync()
         {
-            var files = await ListFilesAsync(RootFolder);
+            var files = await ListFilesRecursiveAsync(RootFolder);
             var output = files.Select(d => HandledScheme + d.Path.Substring(RootFolder.Path.Length + 1)).OrderBy(d => d).ToArray();
             return output;
-        }
-
-        private async Task<IEnumerable<IFile>> ListFilesAsync(IFolder folder)
-        {
-            IEnumerable<IFile> files = await folder.GetFilesAsync();
-            var subfolders = await folder.GetFoldersAsync();
-            foreach(var i in subfolders)
-            {
-                var subfolderFiles = await ListFilesAsync(i);
-                files = files.Concat(subfolderFiles);
-            }
-
-            return files;
         }
 
         public async Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
@@ -60,6 +47,19 @@ namespace RetriX.Shared.StreamProviders
             var file = await RootFolder.GetFileAsync(path);
             var output = await file.OpenAsync(accessType);
             return output;
+        }
+
+        private async Task<IEnumerable<IFile>> ListFilesRecursiveAsync(IFolder folder)
+        {
+            IEnumerable<IFile> files = await folder.GetFilesAsync();
+            var subfolders = await folder.GetFoldersAsync();
+            foreach (var i in subfolders)
+            {
+                var subfolderFiles = await ListFilesRecursiveAsync(i);
+                files = files.Concat(subfolderFiles);
+            }
+
+            return files;
         }
     }
 }
