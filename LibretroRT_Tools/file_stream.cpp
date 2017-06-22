@@ -191,14 +191,20 @@ error:
 
 char *filestream_gets(RFILE *stream, char *s, size_t len)
 {
+	auto winstream = stream->Stream;
+	auto initialPos = winstream->Position;
+	auto validLen = min(len, winstream->Size - initialPos);
+
 	auto reader = ref new DataReader(stream->Stream);
-	concurrency::create_task(reader->LoadAsync(len)).wait();
-	auto string = reader->ReadString(len);
+	concurrency::create_task(reader->LoadAsync(validLen)).wait();
+
+	auto string = reader->ReadString(validLen);
 	reader->DetachStream();
 
 	auto converted = FileStreamTools::StringConverter.to_bytes(string->Data());
 	converted = converted.substr(0, len);
 	converted = converted.substr(0, converted.find("\n", 0));
+	winstream->Seek(initialPos + converted.length() + 1);
 	converted = converted.substr(0, converted.find("\r", 0));
 
 	strcpy_s(s, len, converted.c_str());
