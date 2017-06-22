@@ -272,4 +272,7 @@ Restart RetriX and try again.</value>
   <data name="BiosFilesHeader.Text" xml:space="preserve">
     <value>Bios files</value>
   </data>
+  <data name="SystemNameMegaCD" xml:space="preserve">
+    <value>Mega CD</value>
+  </data>
 </root>
