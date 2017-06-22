@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace RetriX.UWP.Pages
 {
-    public sealed partial class SettingsPage : UserControl, ITypedViewModel<SettingsVM>
+    public sealed partial class SettingsPage : Page, ITypedViewModel<SettingsVM>
     {
         public SettingsVM VM => ServiceLocator.Current.GetInstance<SettingsVM>();
 

@@ -10,7 +10,7 @@ namespace RetriX.Shared.ViewModels
     {
         private readonly IEmulationService EmulationService;
 
-        //public IReadOnlyList<FileImporterVM> FileDependencyImporters => EmulationService.FileDependencyImporters;
+        public IReadOnlyList<FileImporterVM> FileDependencyImporters => EmulationService.FileDependencyImporters;
 
         public SettingsVM(IEmulationService emulationService)
         {
