@@ -122,7 +122,7 @@ namespace RetriX.UWP.Services
             var folderRequired = system.MultiFileExtensions.Contains(Path.GetExtension(file.Name));
             if (folderRequired)
             {
-                var gameFolder = await RequestGameFolderAsync();
+                var gameFolder = await RequestGameFolderAsync(this);
                 if (gameFolder == null)
                 {
                     return false;

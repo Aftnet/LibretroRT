@@ -83,6 +83,15 @@ namespace RetriX.UWP.Services
             return file == null ? null : new WinRTFile(file);
         }
 
+        public async Task<IFolder> SelectFolderAsync()
+        {
+            var picker = new FolderPicker();
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+
+            var folder = await picker.PickSingleFolderAsync();
+            return folder == null ? null : new WinRTFolder(folder);
+        }
+
         public void CopyToClipboard(string content)
         {
             var dataPackage = new DataPackage();

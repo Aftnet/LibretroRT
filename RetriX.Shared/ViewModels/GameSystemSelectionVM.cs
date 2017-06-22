@@ -11,6 +11,9 @@ namespace RetriX.Shared.ViewModels
 {
     public class GameSystemSelectionVM<T> : ViewModelBase where T : GameSystemVMBase
     {
+        public const string SelectFolderRequestAlertTitleKey = nameof(SelectFolderRequestAlertTitleKey);
+        public const string SelectFolderRequestAlertMessageKey = nameof(SelectFolderRequestAlertMessageKey);
+
         public const string GameLoadingFailAlertTitleKey = nameof(GameLoadingFailAlertTitleKey);
         public const string GameLoadingFailAlertMessageKey = nameof(GameLoadingFailAlertMessageKey);
         public const string GameRunningFailAlertTitleKey = nameof(GameRunningFailAlertTitleKey);
@@ -33,6 +36,7 @@ namespace RetriX.Shared.ViewModels
 
             GameSystemSelectedCommand = new RelayCommand<T>(GameSystemSelected);
 
+            EmulationService.RequestGameFolderAsync = OnRequestGameFolderAsync;
             EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
         }
 
@@ -59,6 +63,13 @@ namespace RetriX.Shared.ViewModels
             {
                 await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
             }
+        }
+
+        private async Task<IFolder> OnRequestGameFolderAsync(IEmulationService sender)
+        {
+            await DisplayNotification(SelectFolderRequestAlertTitleKey, SelectFolderRequestAlertMessageKey);
+            var folder = await PlatformService.SelectFolderAsync();
+            return folder;
         }
 
         private void OnGameRuntimeExceptionOccurred(IEmulationService sender, Exception e)
