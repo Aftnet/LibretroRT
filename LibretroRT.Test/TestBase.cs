@@ -26,6 +26,14 @@ namespace LibretroRT.Test
 
             Assert.NotNull(Target.Geometry);
             Assert.NotNull(Target.Timing);
+
+            Assert.NotNull(Target.FileDependencies);
+            foreach(var i in Target.FileDependencies)
+            {
+                Assert.False(string.IsNullOrEmpty(i.Description) || string.IsNullOrWhiteSpace(i.Description));
+                Assert.False(string.IsNullOrEmpty(i.Name) || string.IsNullOrWhiteSpace(i.Name));
+                Assert.Equal(16, i.MD5.Length);
+            }
         }
 
         [Fact]
