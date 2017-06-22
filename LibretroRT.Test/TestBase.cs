@@ -18,7 +18,7 @@ namespace LibretroRT.Test
         }
 
         [Fact]
-        public void CoreInfoIsRead()
+        public async Task CoreInfoIsRead()
         {
             Assert.NotNull(Target.Name);
             Assert.NotNull(Target.Version);
@@ -26,6 +26,12 @@ namespace LibretroRT.Test
 
             Assert.NotNull(Target.Geometry);
             Assert.NotNull(Target.Timing);
+
+            await Task.Delay(50);
+            Assert.NotNull(Target.SystemFolder);
+            Assert.NotEmpty(Target.SystemFolder.Path);
+            Assert.NotNull(Target.SaveGameFolder);
+            Assert.NotEmpty(Target.SaveGameFolder.Path);
 
             Assert.NotNull(Target.FileDependencies);
             foreach(var i in Target.FileDependencies)

@@ -32,6 +32,8 @@ namespace LibretroRT
 	public:
 		property String^ Name { String^ get(); };
 		property String^ Version { String^ get(); };
+		property IStorageFolder^ SystemFolder { IStorageFolder^ get(); };
+		property IStorageFolder^ SaveGameFolder { IStorageFolder^ get(); };
 		property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get(); };
 		property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get(); };
 

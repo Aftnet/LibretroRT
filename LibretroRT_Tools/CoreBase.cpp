@@ -4,6 +4,7 @@
 #include "../LibretroRT/libretro.h"
 
 using namespace LibretroRT_Tools;
+using namespace Windows::Storage;
 
 void LogHandler(enum retro_log_level level, const char *fmt, ...)
 {
@@ -40,8 +41,8 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	gameLoaded(false),
 	coreRequiresGameFilePath(true),
 	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
-	CoreSystemPath(Converter::PlatformToCPPString(Windows::ApplicationModel::Package::Current->InstalledLocation->Path)),
-	CoreSaveGamePath(Converter::PlatformToCPPString(Windows::Storage::ApplicationData::Current->LocalFolder->Path))
+	systemFolder(nullptr),
+	saveGameFolder(nullptr)
 {
 	retro_system_info info;
 	LibretroGetSystemInfo(&info);
@@ -58,11 +59,27 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	fileDependencies = GenerateFileDependencies();
 
 	coreRequiresGameFilePath = info.need_fullpath;
+
+	auto rootFolder = ApplicationData::Current->LocalFolder;
+	auto systemFolderName = name->Concat(name, L"_System");
+	CreateCoreFolderAsync(systemFolderName, &systemFolder, &coreEnvironmentSystemFolderPath);
+	auto saveGameFolderName = name->Concat(name, L"_Saves");
+	CreateCoreFolderAsync(saveGameFolderName, &saveGameFolder, &coreEnvironmentSaveGameFolderPath);
 }
 
 CoreBase::~CoreBase()
 {
 	LibretroDeinit();
+}
+
+void CoreBase::CreateCoreFolderAsync(String^ folderName, IStorageFolder^* folderRef, std::string* coreEnvironmentFolderPath)
+{
+	auto rootFolder = ApplicationData::Current->LocalFolder;
+	concurrency::create_task(rootFolder->CreateFolderAsync(folderName, CreationCollisionOption::OpenIfExists)).then([=](StorageFolder^ d)
+	{
+		*folderRef = d;
+		coreEnvironmentFolderPath->assign(Converter::PlatformToCPPString(d->Path));
+	});
 }
 
 IVectorView<FileDependency^>^ CoreBase::GenerateFileDependencies()
@@ -100,13 +117,13 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
 	{
 		auto dataPtr = reinterpret_cast<const char**>(data);
-		*dataPtr = CoreSystemPath.c_str();
+		*dataPtr = coreEnvironmentSystemFolderPath.c_str();
 		return true;
 	}
 	case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
 	{
 		auto dataPtr = reinterpret_cast<const char**>(data);
-		*dataPtr = CoreSaveGamePath.c_str();
+		*dataPtr = coreEnvironmentSaveGameFolderPath.c_str();
 		return true;
 	}
 	case RETRO_ENVIRONMENT_GET_LOG_INTERFACE:

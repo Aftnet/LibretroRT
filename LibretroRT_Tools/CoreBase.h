@@ -6,6 +6,7 @@ using namespace LibretroRT;
 using namespace Platform;
 using namespace Platform::Collections;
 using namespace Windows::Foundation::Collections;
+using namespace Windows::Storage;
 
 namespace LibretroRT_Tools
 {
@@ -34,20 +35,25 @@ namespace LibretroRT_Tools
 		const LibretroUnserializePtr LibretroUnserialize;
 		const LibretroDeinitPtr LibretroDeinit;
 
-		SystemTiming^ timing;
-		GameGeometry^ geometry;
+		String^ name;
+		String^ version;
+		IStorageFolder^ systemFolder;
+		std::string coreEnvironmentSystemFolderPath;
+		IStorageFolder^ saveGameFolder;
+		std::string coreEnvironmentSaveGameFolderPath;
 		IVectorView<String^>^ supportedExtensions;
 		IVectorView<FileDependency^>^ fileDependencies;
-		String^ version;
-		String^ name;
+
+		PixelFormats pixelFormat;
+		GameGeometry^ geometry;
+		SystemTiming^ timing;
+
+		bool coreRequiresGameFilePath;
 		bool gameLoaded;
 
-	protected private:
-		bool coreRequiresGameFilePath;
-		PixelFormats pixelFormat;
-		const std::string CoreSystemPath;
-		const std::string CoreSaveGamePath;
+		void CreateCoreFolderAsync(String^ folderName, IStorageFolder^* folderRef, std::string* coreEnvironmentFolderPath);
 
+	protected private:
 		CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
 			LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame, LibretroRunPtr libretroRun,
 			LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
@@ -66,7 +72,12 @@ namespace LibretroRT_Tools
 		void RaiseRenderVideoFrame(const void* data, unsigned width, unsigned height, size_t pitch);
 
 	public:
-		virtual ~CoreBase();
+		virtual property String^ Name { String^ get() { return name; } }
+		virtual property String^ Version { String^ get() { return version; } }
+		virtual property IStorageFolder^ SystemFolder { IStorageFolder^ get() { return systemFolder; } }
+		virtual property IStorageFolder^ SaveGameFolder { IStorageFolder^ get() { return saveGameFolder; } }
+		virtual property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get() { return supportedExtensions; } }
+		virtual property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get() { return fileDependencies; } }
 
 		virtual property PixelFormats PixelFormat
 		{
@@ -74,12 +85,7 @@ namespace LibretroRT_Tools
 		private:
 			void set(PixelFormats value) { pixelFormat = value; if (PixelFormatChanged != nullptr) { PixelFormatChanged(pixelFormat); } }
 		}
-		virtual property SystemTiming^ Timing
-		{
-			SystemTiming^ get() { return timing; }
-		private:
-			void set(SystemTiming^ value) { timing = value; if (TimingChanged != nullptr) { TimingChanged(timing); } }
-		}
+
 		virtual property GameGeometry^ Geometry
 		{
 			GameGeometry^ get() { return geometry; }
@@ -87,20 +93,25 @@ namespace LibretroRT_Tools
 			void set(GameGeometry^ value) { geometry = value; if (GeometryChanged != nullptr) { GeometryChanged(geometry); } }
 		}
 
-		virtual property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get() { return supportedExtensions; } }
-		virtual property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get() { return fileDependencies; } }
-		virtual property String^ Version { String^ get() { return version; } }
-		virtual property String^ Name { String^ get() { return name; } }
+		virtual property SystemTiming^ Timing
+		{
+			SystemTiming^ get() { return timing; }
+		private:
+			void set(SystemTiming^ value) { timing = value; if (TimingChanged != nullptr) { TimingChanged(timing); } }
+		}
+
 		virtual property unsigned int SerializationSize { unsigned int get() { return LibretroSerializeSize(); } }
 
-		virtual property GetInputStateDelegate ^ GetInputState;
-		virtual property PollInputDelegate ^ PollInput;
-		virtual property RenderAudioFramesDelegate ^ RenderAudioFrames;
 		virtual property RenderVideoFrameDelegate ^ RenderVideoFrame;
+		virtual property RenderAudioFramesDelegate ^ RenderAudioFrames;
+		virtual property PollInputDelegate ^ PollInput;
+		virtual property GetInputStateDelegate ^ GetInputState;
 		virtual property GeometryChangedDelegate^ GeometryChanged;
 		virtual property TimingChangedDelegate^ TimingChanged;
 		virtual property PixelFormatChangedDelegate^ PixelFormatChanged;
 		virtual property GetFileStreamDelegate^ GetFileStream;
+
+		virtual ~CoreBase();
 
 		virtual bool LoadGame(String^ mainGameFilePath);
 		virtual void UnloadGame();
