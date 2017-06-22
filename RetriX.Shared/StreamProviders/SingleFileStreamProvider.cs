@@ -1,4 +1,5 @@
 ﻿using PCLStorage;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace RetriX.Shared.StreamProviders
 
         public Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
         {
-            if (Path == path)
+            if (Path.Equals(path, StringComparison.OrdinalIgnoreCase))
             {
                 return File.OpenAsync(accessType);
             }

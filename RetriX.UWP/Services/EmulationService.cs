@@ -218,7 +218,7 @@ namespace RetriX.UWP.Services
 
         private async Task<IStreamProvider> InitializeStreamProviderAsync(GameSystemVM system, IFile file)
         {
-            IStreamProvider output;
+            IStreamProvider romProvider;
             var folderRequired = system.MultiFileExtensions.Contains(Path.GetExtension(file.Name));
             if (folderRequired)
             {
@@ -228,13 +228,16 @@ namespace RetriX.UWP.Services
                     return null;
                 }
 
-                output = new FolderStreamProvider(VFS.RomPath, gameFolder);
+                romProvider = new FolderStreamProvider(VFS.RomPath, gameFolder);
             }
             else
             {
-                output = new SingleFileStreamProvider(VFS.RomPath + file.Name, file);
+                romProvider = new SingleFileStreamProvider(VFS.RomPath + file.Name, file);
             }
 
+            var systemProvider = new FolderStreamProvider(VFS.SystemPath, new WinRTFolder(system.Core.SystemFolder));
+            var saveProvider = new FolderStreamProvider(VFS.SavePath, new WinRTFolder(system.Core.SaveGameFolder));
+            var output = new CombinedStreamProvider(new HashSet<IStreamProvider> { romProvider, systemProvider, saveProvider });
             return output;
         }
     }

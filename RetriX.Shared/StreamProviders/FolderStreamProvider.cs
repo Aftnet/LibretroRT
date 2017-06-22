@@ -31,7 +31,7 @@ namespace RetriX.Shared.StreamProviders
 
         public async Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
         {
-            if (!path.StartsWith(HandledScheme))
+            if (!path.StartsWith(HandledScheme, System.StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
