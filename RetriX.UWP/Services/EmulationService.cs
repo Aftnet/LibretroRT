@@ -100,10 +100,23 @@ namespace RetriX.UWP.Services
                 throw new ArgumentException();
             }
 
+            var nextStreamProvider = await InitializeStreamProviderAsync(system, file);
+            if (nextStreamProvider == null)
+            {
+                return false;
+            }
+
             if (CoreRunner == null)
             {
                 RootFrame.Navigate(typeof(GamePlayerPage));
             }
+            else
+            {
+                await CoreRunner.UnloadGameAsync();
+            }
+
+            StreamProvider?.Dispose();
+            StreamProvider = nextStreamProvider;
 
             //Navigation should cause the player page to load, which in turn should initialize the core runner
             while (CoreRunner == null)
@@ -111,31 +124,11 @@ namespace RetriX.UWP.Services
                 await Task.Delay(100);
             }
 
-            return await StartGameAsync(CoreRunner, system, file);
+            return await StartGameAsync(CoreRunner, system.Core, VFS.RomPath + file.Name);
         }
 
-        private async Task<bool> StartGameAsync(ICoreRunner runner, GameSystemVM system, IFile file)
+        private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, string mainGameFilePath)
         {
-            var mainGamePath = VFS.RomPath + file.Name;
-
-            StreamProvider?.Dispose();
-            var folderRequired = system.MultiFileExtensions.Contains(Path.GetExtension(file.Name));
-            if (folderRequired)
-            {
-                var gameFolder = await RequestGameFolderAsync(this);
-                if (gameFolder == null)
-                {
-                    return false;
-                }
-
-                StreamProvider = new FolderStreamProvider(VFS.RomPath, gameFolder);
-            }
-            else
-            {              
-                StreamProvider = new SingleFileStreamProvider(mainGamePath, file);
-            }
-
-            var core = system.Core;
             core.GetFileStream = (d, e) =>
             {
                 var accessMode = e == Windows.Storage.FileAccessMode.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite;
@@ -143,7 +136,7 @@ namespace RetriX.UWP.Services
                 return output;
             };
 
-            var loadSuccessful = await runner.LoadGameAsync(core, mainGamePath);
+            var loadSuccessful = await runner.LoadGameAsync(core, mainGameFilePath);
             if (loadSuccessful)
             {
                 GameStarted(this);
@@ -165,6 +158,8 @@ namespace RetriX.UWP.Services
         public async Task StopGameAsync()
         {
             await CoreRunner?.UnloadGameAsync();
+            StreamProvider?.Dispose();
+            StreamProvider = null;
             RootFrame.GoBack();
         }
 
@@ -219,6 +214,28 @@ namespace RetriX.UWP.Services
                 RootFrame.GoBack();
                 GameRuntimeExceptionOccurred(this, e);
             });
+        }
+
+        private async Task<IStreamProvider> InitializeStreamProviderAsync(GameSystemVM system, IFile file)
+        {
+            IStreamProvider output;
+            var folderRequired = system.MultiFileExtensions.Contains(Path.GetExtension(file.Name));
+            if (folderRequired)
+            {
+                var gameFolder = await RequestGameFolderAsync(this);
+                if (gameFolder == null)
+                {
+                    return null;
+                }
+
+                output = new FolderStreamProvider(VFS.RomPath, gameFolder);
+            }
+            else
+            {
+                output = new SingleFileStreamProvider(VFS.RomPath + file.Name, file);
+            }
+
+            return output;
         }
     }
 }
