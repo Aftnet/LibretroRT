@@ -1,17 +1,18 @@
 ﻿using PCLStorage;
-using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace RetriX.Shared.FileProviders
+namespace RetriX.Shared.StreamProviders
 {
-    public class ArchiveFileProvider : IFileProvider
+    /*public class ArchiveStreamProvider : IStreamProvider
     {
         private readonly string HandledScheme;
         private ZipArchive Archive = null;
 
-        public ArchiveFileProvider(string handledScheme, IFile archiveFile)
+        public ArchiveStreamProvider(string handledScheme, IFile archiveFile)
         {
             HandledScheme = handledScheme;
             archiveFile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite).ContinueWith(d =>
@@ -23,6 +24,17 @@ namespace RetriX.Shared.FileProviders
         public void Dispose()
         {
             Archive?.Dispose();
+        }
+
+        public async Task<IEnumerable<string>> ListEntriesAsync()
+        {
+            while (Archive == null)
+            {
+                await Task.Delay(50);
+            }
+
+            var output = Archive.Entries.Select(d => $"{HandledScheme}{d.FullName}").OrderBy(d => d).ToArray();
+            return output;
         }
 
         public async Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)
@@ -41,5 +53,5 @@ namespace RetriX.Shared.FileProviders
             var entry = Archive.GetEntry(path);
             return entry.Open();
         }
-    }
+    }*/
 }

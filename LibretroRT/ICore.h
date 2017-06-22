@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Enums.h"
+#include "FileDependency.h"
 #include "GameGeometry.h"
 #include "SystemTiming.h"
 
 using namespace Platform;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
+using namespace Windows::Foundation::Collections;
 
 namespace LibretroRT
 {
@@ -30,7 +32,10 @@ namespace LibretroRT
 	public:
 		property String^ Name { String^ get(); };
 		property String^ Version { String^ get(); };
-		property String^ SupportedExtensions { String^ get(); };
+		property IStorageFolder^ SystemFolder { IStorageFolder^ get(); };
+		property IStorageFolder^ SaveGameFolder { IStorageFolder^ get(); };
+		property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get(); };
+		property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get(); };
 
 		property PixelFormats PixelFormat { PixelFormats get(); }
 		property GameGeometry^ Geometry { GameGeometry^ get(); }

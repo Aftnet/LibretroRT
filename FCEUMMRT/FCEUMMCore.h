@@ -8,5 +8,7 @@ namespace FCEUMMRT
 	{
 	public:
 		static property ICore^ Instance { ICore^ get(); }
+	private:
+		FCEUMMCore() { }
 	};
 }

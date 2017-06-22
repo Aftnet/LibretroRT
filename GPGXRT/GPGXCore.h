@@ -8,5 +8,7 @@ namespace GPGXRT
 	{
 	public:
 		static property ICore^ Instance { ICore^ get(); }
+	private:
+		GPGXCore() { }
 	};
 }

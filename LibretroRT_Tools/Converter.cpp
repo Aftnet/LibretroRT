@@ -31,6 +31,19 @@ std::string Converter::PlatformToCPPString(Platform::String^ string)
 	return cstring;
 }
 
+std::vector<std::string> Converter::SplitString(const std::string input, char delimiter)
+{
+	std::stringstream iss(input);
+	std::string s;
+	std::vector<std::string> tokens;
+	while (getline(iss, s, delimiter))
+	{
+		tokens.push_back(s);
+	}
+
+	return tokens;
+}
+
 GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
 {
 	return ref new GameGeometry(geometry.base_width, geometry.base_height, geometry.max_width, geometry.max_height, geometry.aspect_ratio);

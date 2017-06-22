@@ -251,4 +251,34 @@ Restart RetriX and try again.</value>
   <data name="SystemNameSG1000" xml:space="preserve">
     <value>SG-1000</value>
   </data>
+  <data name="FileHashMismatchMessageKey" xml:space="preserve">
+    <value>The file supplied is not the expected one. Try a different file.</value>
+  </data>
+  <data name="FileHashMismatchTitleKey" xml:space="preserve">
+    <value>Wrong file</value>
+  </data>
+  <data name="ExpectedFileMD5Label.Text" xml:space="preserve">
+    <value>MD5 should be</value>
+  </data>
+  <data name="ImportFileButtonLabel.Text" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="SettingsNavItem.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsHeader.Text" xml:space="preserve">
+    <value>SETTINGS</value>
+  </data>
+  <data name="BiosFilesHeader.Text" xml:space="preserve">
+    <value>Bios files</value>
+  </data>
+  <data name="SystemNameMegaCD" xml:space="preserve">
+    <value>Mega CD</value>
+  </data>
+  <data name="SelectFolderRequestAlertTitleKey" xml:space="preserve">
+    <value>Select the game folder</value>
+  </data>
+  <data name="SelectFolderRequestAlertMessageKey" xml:space="preserve">
+    <value>This game is made up of multiple files. Please select the folder that contains them to load it.</value>
+  </data>
 </root>

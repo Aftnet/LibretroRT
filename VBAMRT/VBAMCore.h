@@ -8,5 +8,7 @@ namespace VBAMRT
 	{
 	public:
 		static property ICore^ Instance { ICore^ get(); }
+	private:
+		VBAMCore() { }
 	};
 }

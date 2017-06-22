@@ -19,6 +19,7 @@ namespace LibretroRT_Tools
 		static String^ CToPlatformString(const char* string);
 		static String^ CPPToPlatformString(const std::string string);
 		static std::string PlatformToCPPString(Platform::String^ string);
+		static std::vector<std::string> SplitString(const std::string input, char delimiter);
 		static GameGeometry^ CToRTGameGeometry(const retro_game_geometry& geometry);
 		static SystemTiming^ CToRTSystemTiming(const retro_system_timing& timing);
 		static PixelFormats ConvertToPixelFormat(enum retro_pixel_format format);

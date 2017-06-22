@@ -21,4 +21,5 @@
 
     <converters:ItemClickEventArgsConverter x:Key="ItemClickEventArgsConverter"/>
     <tkconv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    <tkconv:BoolNegationConverter x:Key="BoolNegationConverter"/>
 </ResourceDictionary>

@@ -1,72 +1,77 @@
 ﻿using Acr.UserDialogs;
-using GalaSoft.MvvmLight.Messaging;
 using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
 using PCLStorage;
-using RetriX.Shared.FileProviders;
-using RetriX.Shared.Messages;
 using RetriX.Shared.Services;
-using RetriX.UWP.FileProviders;
+using RetriX.Shared.StreamProviders;
+using RetriX.Shared.ViewModels;
 using RetriX.UWP.Pages;
+using RetriX.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace RetriX.UWP.Services
 {
-    public class EmulationService : IEmulationService
+    public class EmulationService : IEmulationService<GameSystemVM>
     {
-        public const string GameLoadingFailAlertTitleKey = "GameLoadingFailAlertTitleKey";
-        public const string GameLoadingFailAlertMessageKey = "GameLoadingFailAlertMessageKey";
-        public const string GameRunningFailAlertTitleKey = "GameRunningFailAlertTitleKey";
-        public const string GameRunningFailAlertMessageKey = "GameRunningFailAlertMessageKey";
-
         private const char CoreExtensionDelimiter = '|';
 
-        private static readonly IReadOnlyDictionary<GameSystemTypes, ICore> SystemCoreMapping = new Dictionary<GameSystemTypes, ICore>
-        {
-            { GameSystemTypes.NES, FCEUMMRT.FCEUMMCore.Instance },
-            { GameSystemTypes.SNES, Snes9XRT.Snes9XCore.Instance },
-            { GameSystemTypes.GB, GambatteRT.GambatteCore.Instance },
-            { GameSystemTypes.GBA, VBAMRT.VBAMCore.Instance },
-            { GameSystemTypes.SG1000, GPGXRT.GPGXCore.Instance },
-            { GameSystemTypes.MasterSystem, GPGXRT.GPGXCore.Instance },
-            { GameSystemTypes.GameGear, GPGXRT.GPGXCore.Instance },
-            { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
-        };
-
-        private readonly IMessenger Messenger;
-        private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
 
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
-        private IFileProvider StreamProvider;
+        private IStreamProvider StreamProvider;
         private ICoreRunner CoreRunner;
+
+        private readonly ICore[] AvailableCores = { FCEUMMRT.FCEUMMCore.Instance, Snes9XRT.Snes9XCore.Instance, GambatteRT.GambatteCore.Instance, VBAMRT.VBAMCore.Instance, GPGXRT.GPGXCore.Instance };
+
+        private readonly GameSystemVM[] systems;
+        public IReadOnlyList<GameSystemVM> Systems => systems;
+
+        private readonly Lazy<FileImporterVM[]> fileDependencyImporters;
+        public IReadOnlyList<FileImporterVM> FileDependencyImporters => fileDependencyImporters.Value;
 
         public string GameID => CoreRunner?.GameID;
 
-        public EmulationService(IMessenger messenger, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService)
+        public RequestGameFolderAsyncDelegate RequestGameFolderAsync { get; set; }
+
+        public event GameStartedDelegate GameStarted;
+        public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
+
+        public EmulationService(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService)
         {
-            Messenger = messenger;
-            DialogsService = dialogsService;
             LocalizationService = localizationService;
             PlatformService = platformService;
 
             RootFrame.Navigated += OnNavigated;
-        }
 
-        public IReadOnlyList<string> GetSupportedExtensions(GameSystemTypes systemType)
-        {
-            var core = SystemCoreMapping[systemType];
-            return GetSupportedExtensionsListForCore(core);
+            var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso" };
+            systems = new GameSystemVM[]
+            {
+                new GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118", FCEUMMRT.FCEUMMCore.Instance.SupportedExtensions, new string[0]),
+                new GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119", Snes9XRT.Snes9XCore.Instance.SupportedExtensions, new string[0]),
+                new GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b", GambatteRT.GambatteCore.Instance.SupportedExtensions, new string[0]),
+                new GameSystemVM(VBAMRT.VBAMCore.Instance, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115", VBAMRT.VBAMCore.Instance.SupportedExtensions, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", new HashSet<string>{ ".sg" }, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", new HashSet<string>{ ".sms" }, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", new HashSet<string>{ ".gg" }, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new HashSet<string>{ ".mds", ".md", ".smd", ".gen" }, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", CDImageExtensions, CDImageExtensions),
+            };
+
+            fileDependencyImporters = new Lazy<FileImporterVM[]>(() =>
+            {
+                return AvailableCores.Where(d => d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
+                    .Select(d => new FileImporterVM(dialogsService, localizationService, platformService, cryptographyService,
+                    new WinRTFolder(d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
+            });
         }
 
         public Task<bool> StartGameAsync(IFile file)
@@ -76,12 +81,10 @@ namespace RetriX.UWP.Services
                 throw new ArgumentException();
             }
 
-            var fileExtension = System.IO.Path.GetExtension(file.Path);
-            foreach (var i in SystemCoreMapping.Values)
+            var fileExtension = Path.GetExtension(file.Path);
+            foreach (var i in Systems)
             {
-                var coreExtensions = GetSupportedExtensionsListForCore(i);
-
-                if (coreExtensions.Contains(fileExtension))
+                if (i.SupportedExtensions.Contains(fileExtension))
                 {
                     return StartGameAsync(i, file);
                 }
@@ -90,23 +93,30 @@ namespace RetriX.UWP.Services
             throw new Exception("No compatible core found");
         }
 
-        public Task<bool> StartGameAsync(GameSystemTypes systemType, IFile file)
+        public async Task<bool> StartGameAsync(GameSystemVM system, IFile file)
         {
             if (file == null)
             {
                 throw new ArgumentException();
             }
 
-            var core = SystemCoreMapping[systemType];
-            return StartGameAsync(core, file);
-        }
+            var nextStreamProvider = await InitializeStreamProviderAsync(system, file);
+            if (nextStreamProvider == null)
+            {
+                return false;
+            }
 
-        private async Task<bool> StartGameAsync(ICore core, IFile file)
-        {
             if (CoreRunner == null)
             {
                 RootFrame.Navigate(typeof(GamePlayerPage));
             }
+            else
+            {
+                await CoreRunner.UnloadGameAsync();
+            }
+
+            StreamProvider?.Dispose();
+            StreamProvider = nextStreamProvider;
 
             //Navigation should cause the player page to load, which in turn should initialize the core runner
             while (CoreRunner == null)
@@ -114,26 +124,26 @@ namespace RetriX.UWP.Services
                 await Task.Delay(100);
             }
 
-            return await StartGameAsync(CoreRunner, core, file);
+            return await StartGameAsync(CoreRunner, system.Core, VFS.RomPath + file.Name);
         }
 
-        private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, IFile file)
+        private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, string mainGameFilePath)
         {
-            var mainGamePath = $"ROM\\{file.Name}";
-            StreamProvider = new SingleFileProvider(mainGamePath, file);
-            core.GetFileStream = (d, e) => StreamProvider.GetFileStreamAsync(d, e.ToIOAccess()).Result?.AsRandomAccessStream();
+            core.GetFileStream = (d, e) =>
+            {
+                var accessMode = e == Windows.Storage.FileAccessMode.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite;
+                var output = StreamProvider.GetFileStreamAsync(d, accessMode).Result?.AsRandomAccessStream();
+                return output;
+            };
 
-            var loadSuccessful = await runner.LoadGameAsync(core, mainGamePath);
+            var loadSuccessful = await runner.LoadGameAsync(core, mainGameFilePath);
             if (loadSuccessful)
             {
-                Messenger.Send(new GameStartedMessage());
+                GameStarted(this);
             }
             else
             {
                 RootFrame.GoBack();
-                var title = LocalizationService.GetLocalizedString(GameLoadingFailAlertTitleKey);
-                var message = LocalizationService.GetLocalizedString(GameLoadingFailAlertMessageKey);
-                await DialogsService.AlertAsync(message, title);
                 return false;
             }
 
@@ -148,6 +158,8 @@ namespace RetriX.UWP.Services
         public async Task StopGameAsync()
         {
             await CoreRunner?.UnloadGameAsync();
+            StreamProvider?.Dispose();
+            StreamProvider = null;
             RootFrame.GoBack();
         }
 
@@ -200,15 +212,33 @@ namespace RetriX.UWP.Services
             var task = PlatformService.RunOnUIThreadAsync(() =>
             {
                 RootFrame.GoBack();
-                var title = LocalizationService.GetLocalizedString(GameRunningFailAlertTitleKey);
-                var message = LocalizationService.GetLocalizedString(GameRunningFailAlertMessageKey);
-                DialogsService.AlertAsync(message, title);
+                GameRuntimeExceptionOccurred(this, e);
             });
         }
 
-        private string[] GetSupportedExtensionsListForCore(ICore core)
+        private async Task<IStreamProvider> InitializeStreamProviderAsync(GameSystemVM system, IFile file)
         {
-            return core.SupportedExtensions.Split(CoreExtensionDelimiter).Select(d => $".{d}").ToArray();
+            IStreamProvider romProvider;
+            var folderRequired = system.MultiFileExtensions.Contains(Path.GetExtension(file.Name));
+            if (folderRequired)
+            {
+                var gameFolder = await RequestGameFolderAsync(this);
+                if (gameFolder == null)
+                {
+                    return null;
+                }
+
+                romProvider = new FolderStreamProvider(VFS.RomPath, gameFolder);
+            }
+            else
+            {
+                romProvider = new SingleFileStreamProvider(VFS.RomPath + file.Name, file);
+            }
+
+            var systemProvider = new FolderStreamProvider(VFS.SystemPath, new WinRTFolder(system.Core.SystemFolder));
+            var saveProvider = new FolderStreamProvider(VFS.SavePath, new WinRTFolder(system.Core.SaveGameFolder));
+            var output = new CombinedStreamProvider(new HashSet<IStreamProvider> { romProvider, systemProvider, saveProvider });
+            return output;
         }
     }
 }

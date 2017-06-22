@@ -118,7 +118,6 @@
     <Compile Include="ColorConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderTargetManager.cs" />
-    <Compile Include="StringHasher.cs" />
     <Compile Include="Win2DRenderer.cs" />
   </ItemGroup>
   <ItemGroup>

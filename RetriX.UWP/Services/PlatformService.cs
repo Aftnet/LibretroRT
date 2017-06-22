@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Pickers;
 using Windows.System;
 using Windows.UI.Core;
@@ -80,6 +81,29 @@ namespace RetriX.UWP.Services
 
             var file = await picker.PickSingleFileAsync();
             return file == null ? null : new WinRTFile(file);
+        }
+
+        public async Task<IFolder> SelectFolderAsync()
+        {
+            var picker = new FolderPicker();
+            picker.FileTypeFilter.Add("*");
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+
+            var folder = await picker.PickSingleFolderAsync();
+            if (folder == null)
+            {
+                return null;
+            }
+
+            Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Add(folder);
+            return new WinRTFolder(folder);
+        }
+
+        public void CopyToClipboard(string content)
+        {
+            var dataPackage = new DataPackage();
+            dataPackage.SetText(content);
+            Clipboard.SetContent(dataPackage);
         }
 
         private void OnKeyDown(CoreWindow sender, KeyEventArgs args)

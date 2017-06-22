@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Acr.UserDialogs;
+using Moq;
 using PCLStorage;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.Services;
@@ -12,8 +13,11 @@ namespace RetriX.Shared.Test
 
         protected readonly T Target;
 
-        protected readonly Mock<ILocalNotifications> NotificationServiceMock = new Mock<ILocalNotifications>();
+        protected readonly Mock<IUserDialogs> DialogsServiceMock = new Mock<IUserDialogs>();
         protected readonly Mock<ILocalizationService> LocalizationServiceMock = new Mock<ILocalizationService>();
+        protected readonly Mock<IPlatformService> PlatformServiceMock = new Mock<IPlatformService>();
+        protected readonly Mock<ILocalNotifications> NotificationServiceMock = new Mock<ILocalNotifications>();
+        protected readonly Mock<ICryptographyService> CryptographyServiceMock = new Mock<ICryptographyService>();
 
         public TestBase()
         {
@@ -22,7 +26,7 @@ namespace RetriX.Shared.Test
 
         protected Task<IFolder> GetTestFilesFolderAsync()
         {
-            return PCLStorage.FileSystem.Current.GetFolderFromPathAsync("TestFiles");
+            return FileSystem.Current.GetFolderFromPathAsync("TestFiles");
         }
     }
 }
