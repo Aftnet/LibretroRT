@@ -24,9 +24,22 @@ namespace RetriX.Shared.StreamProviders
 
         public async Task<IEnumerable<string>> ListEntriesAsync()
         {
-            var files = await RootFolder.GetFilesAsync();
-            var output = files.Select(d => $"{HandledScheme}{d.Name}").OrderBy(d => d).ToArray();
+            var files = await ListFilesAsync(RootFolder);
+            var output = files.Select(d => HandledScheme + d.Path.Substring(RootFolder.Path.Length + 1)).OrderBy(d => d).ToArray();
             return output;
+        }
+
+        private async Task<IEnumerable<IFile>> ListFilesAsync(IFolder folder)
+        {
+            IEnumerable<IFile> files = await folder.GetFilesAsync();
+            var subfolders = await folder.GetFoldersAsync();
+            foreach(var i in subfolders)
+            {
+                var subfolderFiles = await ListFilesAsync(i);
+                files = files.Concat(subfolderFiles);
+            }
+
+            return files;
         }
 
         public async Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
