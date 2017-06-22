@@ -45,7 +45,8 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	systemFolder(nullptr),
 	supportsSystemFolderVirtualization(supportsSystemFolderVirtualization),
 	supportsSaveGameFolderVirtualization(supportsSaveGameFolderVirtualization),
-	saveGameFolder(nullptr)
+	saveGameFolder(nullptr),
+	fileDependencies(ref new Vector<FileDependency^>)
 {
 	retro_system_info info;
 	LibretroGetSystemInfo(&info);
@@ -60,8 +61,6 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 		extensionsVector->Append(Converter::CPPToPlatformString("." + i));
 	}
 	supportedExtensions = extensionsVector->GetView();
-
-	fileDependencies = GenerateFileDependencies();
 
 	coreRequiresGameFilePath = info.need_fullpath;
 
@@ -87,11 +86,6 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 CoreBase::~CoreBase()
 {
 	LibretroDeinit();
-}
-
-IVectorView<FileDependency^>^ CoreBase::GenerateFileDependencies()
-{
-	return ref new VectorView<FileDependency^>();
 }
 
 void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)

@@ -31,18 +31,12 @@ NestopiaCoreInternal::NestopiaCoreInternal() : LibretroRT_Tools::CoreBase(retro_
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
 	false, false)
 {
+	fileDependencies->Append(ref new FileDependency(L"disksys.rom", L"Famicom Disk System BIOS", L"ca30b50f880eb660a320674ed365ef7a"));
 }
 
 NestopiaCoreInternal::~NestopiaCoreInternal()
 {
 	coreInstance = nullptr;
-}
-
-IVectorView<FileDependency^>^ NestopiaCoreInternal::GenerateFileDependencies()
-{
-	auto output = ref new Vector<FileDependency^>();
-	output->Append(ref new FileDependency(L"disksys.rom", L"Famicom Disk System BIOS", L"ca30b50f880eb660a320674ed365ef7a"));
-	return output->GetView();
 }
 
 bool NestopiaCoreInternal::EnvironmentHandler(unsigned cmd, void *data)

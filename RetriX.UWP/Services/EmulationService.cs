@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using RetriX.Shared.ViewModels;
+using Acr.UserDialogs;
 
 namespace RetriX.UWP.Services
 {
@@ -29,15 +31,20 @@ namespace RetriX.UWP.Services
         private IStreamProvider StreamProvider;
         private ICoreRunner CoreRunner;
 
+        private readonly ICore[] AvailableCores = { FCEUMMRT.FCEUMMCore.Instance, Snes9XRT.Snes9XCore.Instance, GambatteRT.GambatteCore.Instance, VBAMRT.VBAMCore.Instance, GPGXRT.GPGXCore.Instance };
+
         private readonly GameSystemVM[] systems;
         public IReadOnlyList<GameSystemVM> Systems => systems;
+
+        private readonly FileImporterVM[] dependencyImporters;
+        public IReadOnlyList<FileImporterVM> DependencyImporters => dependencyImporters;
 
         public string GameID => CoreRunner?.GameID;
 
         public event GameStartedDelegate GameStarted;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
-        public EmulationService(ILocalizationService localizationService, IPlatformService platformService)
+        public EmulationService(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService)
         {
             LocalizationService = localizationService;
             PlatformService = platformService;
@@ -55,6 +62,10 @@ namespace RetriX.UWP.Services
                 new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", new string[]{ ".gg" }),
                 new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new string[]{ ".mds", ".md", ".smd", ".gen" }),
             };
+
+            dependencyImporters = AvailableCores.Where(d=>d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
+                .Select(d => new FileImporterVM(dialogsService, localizationService, platformService, cryptographyService,
+                new WinRTFolder(d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
         }
 
         public Task<bool> StartGameAsync(IFile file)

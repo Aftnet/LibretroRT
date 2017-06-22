@@ -44,7 +44,6 @@ namespace LibretroRT_Tools
 		std::string coreEnvironmentSaveGameFolderPath;
 		const bool supportsSaveGameFolderVirtualization;
 		IVectorView<String^>^ supportedExtensions;
-		IVectorView<FileDependency^>^ fileDependencies;
 
 		PixelFormats pixelFormat;
 		GameGeometry^ geometry;
@@ -60,7 +59,7 @@ namespace LibretroRT_Tools
 			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
 			bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization);
 
-		virtual IVectorView<FileDependency^>^ GenerateFileDependencies();
+		Vector<FileDependency^>^ fileDependencies;
 		void ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data);
 
 	internal:
@@ -78,7 +77,7 @@ namespace LibretroRT_Tools
 		virtual property IStorageFolder^ SystemFolder { IStorageFolder^ get() { return systemFolder; } }
 		virtual property IStorageFolder^ SaveGameFolder { IStorageFolder^ get() { return saveGameFolder; } }
 		virtual property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get() { return supportedExtensions; } }
-		virtual property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get() { return fileDependencies; } }
+		virtual property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get() { return fileDependencies->GetView(); } }
 
 		virtual property PixelFormats PixelFormat
 		{
