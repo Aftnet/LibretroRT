@@ -38,7 +38,7 @@ namespace LibretroRT.Test
             {
                 Assert.False(string.IsNullOrEmpty(i.Description) || string.IsNullOrWhiteSpace(i.Description));
                 Assert.False(string.IsNullOrEmpty(i.Name) || string.IsNullOrWhiteSpace(i.Name));
-                Assert.Equal(16, i.MD5.Length);
+                Assert.Equal(32, i.MD5.Length);
             }
         }
 

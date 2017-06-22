@@ -1,9 +1,10 @@
-﻿using LibretroRT;
+﻿using Acr.UserDialogs;
+using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
 using PCLStorage;
-using RetriX.Shared.StreamProviders;
 using RetriX.Shared.Services;
-using RetriX.UWP.FileProviders;
+using RetriX.Shared.StreamProviders;
+using RetriX.Shared.ViewModels;
 using RetriX.UWP.Pages;
 using RetriX.UWP.ViewModels;
 using System;
@@ -14,8 +15,6 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using RetriX.Shared.ViewModels;
-using Acr.UserDialogs;
 
 namespace RetriX.UWP.Services
 {
