@@ -8,5 +8,7 @@ namespace GambatteRT
 	{
 	public:
 		static property ICore^ Instance { ICore^ get(); }
+	private:
+		GambatteCore() { }
 	};
 }

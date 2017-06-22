@@ -8,5 +8,7 @@ namespace Snes9XRT
 	{
 	public:
 		static property ICore^ Instance { ICore^ get(); }
+	private:
+		Snes9XCore() { }
 	};
 }

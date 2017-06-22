@@ -8,5 +8,7 @@ namespace NestopiaRT
 	{
 	public:
 		static property ICore^ Instance { ICore^ get(); }
+	private:
+		NestopiaCore() { }
 	};
 }

@@ -8,5 +8,7 @@ namespace BeetlePSXRT
 	{
 	public:
 		static property ICore^ Instance { ICore^ get(); }
+	private:
+		BeetlePSXCore() { }
 	};
 }
