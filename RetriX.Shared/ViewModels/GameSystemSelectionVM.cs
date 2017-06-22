@@ -46,6 +46,8 @@ namespace RetriX.Shared.ViewModels
             };
 
             GameSystemSelectedCommand = new RelayCommand<GameSystemListItemVM>(GameSystemSelected);
+
+            EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
         }
 
         public async void GameSystemSelected(GameSystemListItemVM selectedSystem)
@@ -79,7 +81,7 @@ namespace RetriX.Shared.ViewModels
             }
         }
 
-        private void OnExceptionOccurred(IEmulationService sender, Exception e)
+        private void OnGameRuntimeExceptionOccurred(IEmulationService sender, Exception e)
         {
             DisplayNotification(GameRunningFailAlertTitleKey, GameRunningFailAlertMessageKey);
         }
