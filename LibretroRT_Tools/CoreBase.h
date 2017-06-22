@@ -39,8 +39,10 @@ namespace LibretroRT_Tools
 		String^ version;
 		IStorageFolder^ systemFolder;
 		std::string coreEnvironmentSystemFolderPath;
+		const bool supportsSystemFolderVirtualization;
 		IStorageFolder^ saveGameFolder;
 		std::string coreEnvironmentSaveGameFolderPath;
+		const bool supportsSaveGameFolderVirtualization;
 		IVectorView<String^>^ supportedExtensions;
 		IVectorView<FileDependency^>^ fileDependencies;
 
@@ -51,13 +53,12 @@ namespace LibretroRT_Tools
 		bool coreRequiresGameFilePath;
 		bool gameLoaded;
 
-		void CreateCoreFolderAsync(String^ folderName, IStorageFolder^* folderRef, std::string* coreEnvironmentFolderPath);
-
 	protected private:
 		CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
 			LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame, LibretroRunPtr libretroRun,
 			LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
-			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit);
+			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
+			bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization);
 
 		virtual IVectorView<FileDependency^>^ GenerateFileDependencies();
 		void ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data);

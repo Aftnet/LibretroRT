@@ -25,7 +25,8 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
 	LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame,
 	LibretroRunPtr libretroRun, LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
-	LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit) :
+	LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
+	bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization) :
 	LibretroGetSystemInfo(libretroGetSystemInfo),
 	LibretroGetSystemAVInfo(libretroGetSystemAVInfo),
 	LibretroLoadGame(libretroLoadGame),
@@ -42,6 +43,8 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	coreRequiresGameFilePath(true),
 	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
 	systemFolder(nullptr),
+	supportsSystemFolderVirtualization(supportsSystemFolderVirtualization),
+	supportsSaveGameFolderVirtualization(supportsSaveGameFolderVirtualization),
 	saveGameFolder(nullptr)
 {
 	retro_system_info info;
@@ -49,6 +52,7 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 
 	name = Converter::CToPlatformString(info.library_name);
 	version = Converter::CToPlatformString(info.library_version);
+
 	auto extensions = Converter::SplitString(info.valid_extensions, '|');
 	auto extensionsVector = ref new Platform::Collections::Vector<String^>();
 	for (auto i : extensions)
@@ -56,30 +60,33 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 		extensionsVector->Append(Converter::CPPToPlatformString("." + i));
 	}
 	supportedExtensions = extensionsVector->GetView();
+
 	fileDependencies = GenerateFileDependencies();
 
 	coreRequiresGameFilePath = info.need_fullpath;
 
 	auto rootFolder = ApplicationData::Current->LocalFolder;
+
 	auto systemFolderName = name->Concat(name, L"_System");
-	CreateCoreFolderAsync(systemFolderName, &systemFolder, &coreEnvironmentSystemFolderPath);
+	concurrency::create_task(rootFolder->CreateFolderAsync(systemFolderName, CreationCollisionOption::OpenIfExists)).then([=](StorageFolder^ d)
+	{
+		systemFolder = d;
+		auto envPath = supportsSystemFolderVirtualization ? VFS::SystemPath : d->Path;
+		coreEnvironmentSystemFolderPath.assign(Converter::PlatformToCPPString(envPath));
+	});
+
 	auto saveGameFolderName = name->Concat(name, L"_Saves");
-	CreateCoreFolderAsync(saveGameFolderName, &saveGameFolder, &coreEnvironmentSaveGameFolderPath);
+	concurrency::create_task(rootFolder->CreateFolderAsync(saveGameFolderName, CreationCollisionOption::OpenIfExists)).then([=](StorageFolder^ d)
+	{
+		saveGameFolder = d;
+		auto envPath = supportsSaveGameFolderVirtualization ? VFS::SavePath : d->Path;
+		coreEnvironmentSaveGameFolderPath.assign(Converter::PlatformToCPPString(d->Path));
+	});
 }
 
 CoreBase::~CoreBase()
 {
 	LibretroDeinit();
-}
-
-void CoreBase::CreateCoreFolderAsync(String^ folderName, IStorageFolder^* folderRef, std::string* coreEnvironmentFolderPath)
-{
-	auto rootFolder = ApplicationData::Current->LocalFolder;
-	concurrency::create_task(rootFolder->CreateFolderAsync(folderName, CreationCollisionOption::OpenIfExists)).then([=](StorageFolder^ d)
-	{
-		*folderRef = d;
-		coreEnvironmentFolderPath->assign(Converter::PlatformToCPPString(d->Path));
-	});
 }
 
 IVectorView<FileDependency^>^ CoreBase::GenerateFileDependencies()
