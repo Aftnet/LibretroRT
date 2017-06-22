@@ -36,7 +36,8 @@ namespace LibretroRT_Tools
 
 		SystemTiming^ timing;
 		GameGeometry^ geometry;
-		IVector<String^>^ supportedExtensions;
+		IVectorView<String^>^ supportedExtensions;
+		IVectorView<FileDependency^>^ fileDependencies;
 		String^ version;
 		String^ name;
 		bool gameLoaded;
@@ -52,6 +53,7 @@ namespace LibretroRT_Tools
 			LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
 			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit);
 
+		virtual IVectorView<FileDependency^>^ GenerateFileDependencies();
 		void ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data);
 
 	internal:
@@ -85,7 +87,8 @@ namespace LibretroRT_Tools
 			void set(GameGeometry^ value) { geometry = value; if (GeometryChanged != nullptr) { GeometryChanged(geometry); } }
 		}
 
-		virtual property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get() { return supportedExtensions->GetView(); } }
+		virtual property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get() { return supportedExtensions; } }
+		virtual property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get() { return fileDependencies; } }
 		virtual property String^ Version { String^ get() { return version; } }
 		virtual property String^ Name { String^ get() { return name; } }
 		virtual property unsigned int SerializationSize { unsigned int get() { return LibretroSerializeSize(); } }

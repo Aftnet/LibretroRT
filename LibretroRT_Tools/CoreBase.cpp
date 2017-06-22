@@ -49,11 +49,13 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	name = Converter::CToPlatformString(info.library_name);
 	version = Converter::CToPlatformString(info.library_version);
 	auto extensions = Converter::SplitString(info.valid_extensions, '|');
-	supportedExtensions = ref new Platform::Collections::Vector<String^>();
+	auto extensionsVector = ref new Platform::Collections::Vector<String^>();
 	for (auto i : extensions)
 	{
-		supportedExtensions->Append(Converter::CPPToPlatformString("." + i));
+		extensionsVector->Append(Converter::CPPToPlatformString("." + i));
 	}
+	supportedExtensions = extensionsVector->GetView();
+	fileDependencies = GenerateFileDependencies();
 
 	coreRequiresGameFilePath = info.need_fullpath;
 }
@@ -61,6 +63,11 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 CoreBase::~CoreBase()
 {
 	LibretroDeinit();
+}
+
+IVectorView<FileDependency^>^ CoreBase::GenerateFileDependencies()
+{
+	return ref new VectorView<FileDependency^>();
 }
 
 void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Enums.h"
+#include "FileDependency.h"
 #include "GameGeometry.h"
 #include "SystemTiming.h"
 
@@ -32,6 +33,7 @@ namespace LibretroRT
 		property String^ Name { String^ get(); };
 		property String^ Version { String^ get(); };
 		property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get(); };
+		property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get(); };
 
 		property PixelFormats PixelFormat { PixelFormats get(); }
 		property GameGeometry^ Geometry { GameGeometry^ get(); }

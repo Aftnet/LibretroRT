@@ -213,6 +213,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="FileDependency.h" />
     <ClInclude Include="GameGeometry.h" />
     <ClInclude Include="ICore.h" />
     <ClInclude Include="libretro.h" />
@@ -222,6 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />
+    <ClCompile Include="FileDependency.cpp" />
     <ClCompile Include="GameGeometry.cpp" />
     <ClCompile Include="ICore.cpp" />
     <ClCompile Include="pch.cpp">
