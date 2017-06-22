@@ -37,6 +37,13 @@ NestopiaCoreInternal::~NestopiaCoreInternal()
 	coreInstance = nullptr;
 }
 
+IVectorView<FileDependency^>^ NestopiaCoreInternal::GenerateFileDependencies()
+{
+	auto output = ref new Vector<FileDependency^>();
+	output->Append(ref new FileDependency(L"disksys.rom", L"Famicom Disk System BIOS", L"ca30b50f880eb660a320674ed365ef7a"));
+	return output->GetView();
+}
+
 bool NestopiaCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 {
 	if (CoreBase::EnvironmentHandler(cmd, data))

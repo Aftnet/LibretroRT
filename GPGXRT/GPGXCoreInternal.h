@@ -14,7 +14,7 @@ namespace GPGXRT
 		GPGXCoreInternal();
 
 	internal:
-		IVectorView<FileDependency^>^ GenerateFileDependencies() override;
+		virtual IVectorView<FileDependency^>^ GenerateFileDependencies() override;
 		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
 
 	public:

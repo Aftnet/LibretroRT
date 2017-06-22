@@ -39,6 +39,15 @@ BeetlePSXCoreInternal::~BeetlePSXCoreInternal()
 	coreInstance = nullptr;
 }
 
+IVectorView<FileDependency^>^ BeetlePSXCoreInternal::GenerateFileDependencies()
+{
+	auto output = ref new Vector<FileDependency^>();
+	output->Append(ref new FileDependency(L"scph5500.bin", L"PlayStation (v3.0 09/09/96 J) BIOS", L"8dd7d5296a650fac7319bce665a6a53c"));
+	output->Append(ref new FileDependency(L"scph5501.bin", L"PlayStation (v3.0 11/18/96 A) BIOS", L"490f666e1afb15b7362b406ed1cea246"));
+	output->Append(ref new FileDependency(L"scph5502.bin", L"PlayStation (v3.0 01/06/97 E) BIOS", L"32736f17079d0b2b7024407c39bd3050"));
+	return output->GetView();
+}
+
 bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 {
 	if (CoreBase::EnvironmentHandler(cmd, data))
