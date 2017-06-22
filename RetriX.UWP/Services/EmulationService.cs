@@ -5,6 +5,7 @@ using RetriX.Shared.FileProviders;
 using RetriX.Shared.Services;
 using RetriX.UWP.FileProviders;
 using RetriX.UWP.Pages;
+using RetriX.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,21 +17,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace RetriX.UWP.Services
 {
-    public class EmulationService : IEmulationService
+    public class EmulationService : IEmulationService<GameSystemVM>
     {
         private const char CoreExtensionDelimiter = '|';
-
-        private static readonly IReadOnlyDictionary<GameSystemTypes, ICore> SystemCoreMapping = new Dictionary<GameSystemTypes, ICore>
-        {
-            { GameSystemTypes.NES, FCEUMMRT.FCEUMMCore.Instance },
-            { GameSystemTypes.SNES, Snes9XRT.Snes9XCore.Instance },
-            { GameSystemTypes.GB, GambatteRT.GambatteCore.Instance },
-            { GameSystemTypes.GBA, VBAMRT.VBAMCore.Instance },
-            { GameSystemTypes.SG1000, GPGXRT.GPGXCore.Instance },
-            { GameSystemTypes.MasterSystem, GPGXRT.GPGXCore.Instance },
-            { GameSystemTypes.GameGear, GPGXRT.GPGXCore.Instance },
-            { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
-        };
 
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
@@ -39,6 +28,9 @@ namespace RetriX.UWP.Services
 
         private IFileProvider StreamProvider;
         private ICoreRunner CoreRunner;
+
+        private readonly GameSystemVM[] systems;
+        public IReadOnlyList<GameSystemVM> Systems => systems;
 
         public string GameID => CoreRunner?.GameID;
 
@@ -51,11 +43,18 @@ namespace RetriX.UWP.Services
             PlatformService = platformService;
 
             RootFrame.Navigated += OnNavigated;
-        }
 
-        public IReadOnlyList<string> GetSupportedExtensions(GameSystemTypes systemType)
-        {
-            return SystemCoreMapping[systemType].SupportedExtensions;
+            systems = new GameSystemVM[]
+            {
+                new GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118", FCEUMMRT.FCEUMMCore.Instance.SupportedExtensions),
+                new GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119", Snes9XRT.Snes9XCore.Instance.SupportedExtensions),
+                new GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b", GambatteRT.GambatteCore.Instance.SupportedExtensions),
+                new GameSystemVM(VBAMRT.VBAMCore.Instance, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115", VBAMRT.VBAMCore.Instance.SupportedExtensions),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", new string[]{ ".sg" }),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", new string[]{ ".sms" }),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", new string[]{ ".gg" }),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new string[]{ ".mds", ".md", ".smd", ".gen" }),
+            };
         }
 
         public Task<bool> StartGameAsync(IFile file)
@@ -65,8 +64,8 @@ namespace RetriX.UWP.Services
                 throw new ArgumentException();
             }
 
-            var fileExtension = System.IO.Path.GetExtension(file.Path);
-            foreach (var i in SystemCoreMapping.Values)
+            var fileExtension = Path.GetExtension(file.Path);
+            foreach (var i in Systems)
             {
                 if (i.SupportedExtensions.Contains(fileExtension))
                 {
@@ -77,15 +76,14 @@ namespace RetriX.UWP.Services
             throw new Exception("No compatible core found");
         }
 
-        public Task<bool> StartGameAsync(GameSystemTypes systemType, IFile file)
+        public Task<bool> StartGameAsync(GameSystemVM system, IFile file)
         {
             if (file == null)
             {
                 throw new ArgumentException();
             }
 
-            var core = SystemCoreMapping[systemType];
-            return StartGameAsync(core, file);
+            return StartGameAsync(system.Core, file);
         }
 
         private async Task<bool> StartGameAsync(ICore core, IFile file)

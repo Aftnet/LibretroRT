@@ -9,6 +9,8 @@ using Plugin.VersionTracking;
 using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
 using RetriX.UWP.Services;
+using RetriX.UWP.ViewModels;
+using System;
 
 namespace RetriX.UWP.Locator
 {
@@ -26,10 +28,10 @@ namespace RetriX.UWP.Locator
             ioc.Register<IAudioPlayer, AudioGraphPlayer>();
             ioc.Register<IInputManager, InputManager>();
             ioc.Register<IPlatformService, PlatformService>();
-            ioc.Register<IEmulationService, EmulationService>();
+            ioc.Register<IEmulationService<GameSystemVM>, EmulationService>();
             ioc.Register<ISaveStateService, SaveStateService>();
             ioc.Register<ILocalizationService, LocalizationService>();
-            ioc.Register<GameSystemSelectionVM>();
+            ioc.Register<GameSystemSelectionVM<GameSystemVM>>();
             ioc.Register<AboutVM>();
             ioc.Register<GamePlayerVM>();
 

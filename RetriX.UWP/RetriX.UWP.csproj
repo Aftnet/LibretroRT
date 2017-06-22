@@ -122,6 +122,7 @@
     <Compile Include="Services\EmulationService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\PlatformService.cs" />
+    <Compile Include="ViewModels\GameSystemVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
