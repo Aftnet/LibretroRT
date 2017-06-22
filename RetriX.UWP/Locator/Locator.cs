@@ -16,6 +16,17 @@ namespace RetriX.UWP.Locator
 {
     public class Locator
     {
+        private static Lazy<EmulationService> EmulationServiceLazy;
+
+        static Locator()
+        {
+            EmulationServiceLazy = new Lazy<EmulationService>(() =>
+            {
+                var ioc = SimpleIoc.Default;
+                return new EmulationService(ioc.GetInstance<ILocalizationService>(), ioc.GetInstance<IPlatformService>());
+            });
+        }
+
         public static void Initialize()
         {
             if (ServiceLocator.IsLocationProviderSet)
@@ -28,7 +39,8 @@ namespace RetriX.UWP.Locator
             ioc.Register<IAudioPlayer, AudioGraphPlayer>();
             ioc.Register<IInputManager, InputManager>();
             ioc.Register<IPlatformService, PlatformService>();
-            ioc.Register<IEmulationService<GameSystemVM>, EmulationService>();
+            ioc.Register<IEmulationService<GameSystemVM>>(() => EmulationServiceLazy.Value);
+            ioc.Register<IEmulationService>(() => EmulationServiceLazy.Value);
             ioc.Register<ISaveStateService, SaveStateService>();
             ioc.Register<ILocalizationService, LocalizationService>();
             ioc.Register<GameSystemSelectionVM<GameSystemVM>>();
