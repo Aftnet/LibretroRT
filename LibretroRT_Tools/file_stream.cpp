@@ -197,12 +197,9 @@ char *filestream_gets(RFILE *stream, char *s, size_t len)
 	reader->DetachStream();
 
 	auto converted = FileStreamTools::StringConverter.to_bytes(string->Data());
-	converted = converted.substr(len);
-	auto newLinePos = converted.find('\n');
-	if (newLinePos != string::npos)
-	{
-		converted = converted.substr(newLinePos);
-	}
+	converted = converted.substr(0, len);
+	converted = converted.substr(0, converted.find("\n", 0));
+	converted = converted.substr(0, converted.find("\r", 0));
 
 	strcpy_s(s, len, converted.c_str());
 	return s;

@@ -86,10 +86,17 @@ namespace RetriX.UWP.Services
         public async Task<IFolder> SelectFolderAsync()
         {
             var picker = new FolderPicker();
+            picker.FileTypeFilter.Add("*");
             picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
 
             var folder = await picker.PickSingleFolderAsync();
-            return folder == null ? null : new WinRTFolder(folder);
+            if (folder == null)
+            {
+                return null;
+            }
+
+            Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Add(folder);
+            return new WinRTFolder(folder);
         }
 
         public void CopyToClipboard(string content)
