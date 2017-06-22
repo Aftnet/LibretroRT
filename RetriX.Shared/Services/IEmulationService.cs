@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
 {
+    public delegate Task<IFolder> RequestGameFolderAsyncDelegate();
+
     public delegate void GameStartedDelegate(IEmulationService sender);
     public delegate void GameRuntimeExceptionOccurredDelegate(IEmulationService sender, Exception exception);
 
@@ -23,6 +25,8 @@ namespace RetriX.Shared.Services
 
         Task<byte[]> SaveGameStateAsync();
         Task<bool> LoadGameStateAsync(byte[] stateData);
+
+        RequestGameFolderAsyncDelegate RequestGameFolderAsync { get; set; }
 
         event GameStartedDelegate GameStarted;
         event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;

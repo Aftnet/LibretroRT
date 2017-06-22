@@ -9,9 +9,12 @@ namespace RetriX.UWP.ViewModels
     {
         public ICore Core { get; private set; }
 
-        public GameSystemVM(ICore core, ILocalizationService localizer, string nameResKey, string manufacturerResKey, string symbol, IReadOnlyList<string> supportedExtensions) : base(localizer, nameResKey, manufacturerResKey, symbol, supportedExtensions)
+        public IEnumerable<string> MultiFileExtensions { get; private set; }
+
+        public GameSystemVM(ICore core, ILocalizationService localizer, string nameResKey, string manufacturerResKey, string symbol, IEnumerable<string> supportedExtensions, IEnumerable<string> multiFileExtensions) : base(localizer, nameResKey, manufacturerResKey, symbol, supportedExtensions)
         {
             Core = core;
+            MultiFileExtensions = multiFileExtensions;
         }
     }
 }

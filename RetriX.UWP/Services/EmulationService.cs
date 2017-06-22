@@ -40,6 +40,8 @@ namespace RetriX.UWP.Services
 
         public string GameID => CoreRunner?.GameID;
 
+        public RequestGameFolderAsyncDelegate RequestGameFolderAsync { get; set; }
+
         public event GameStartedDelegate GameStarted;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
@@ -50,17 +52,18 @@ namespace RetriX.UWP.Services
 
             RootFrame.Navigated += OnNavigated;
 
+            var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso" };
             systems = new GameSystemVM[]
             {
-                new GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118", FCEUMMRT.FCEUMMCore.Instance.SupportedExtensions),
-                new GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119", Snes9XRT.Snes9XCore.Instance.SupportedExtensions),
-                new GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b", GambatteRT.GambatteCore.Instance.SupportedExtensions),
-                new GameSystemVM(VBAMRT.VBAMCore.Instance, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115", VBAMRT.VBAMCore.Instance.SupportedExtensions),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", new string[]{ ".sg" }),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", new string[]{ ".sms" }),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", new string[]{ ".gg" }),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new string[]{ ".mds", ".md", ".smd", ".gen" }),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", new string[]{ ".bin", ".cue", ".iso" }),
+                new GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118", FCEUMMRT.FCEUMMCore.Instance.SupportedExtensions, new string[0]),
+                new GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119", Snes9XRT.Snes9XCore.Instance.SupportedExtensions, new string[0]),
+                new GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b", GambatteRT.GambatteCore.Instance.SupportedExtensions, new string[0]),
+                new GameSystemVM(VBAMRT.VBAMCore.Instance, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115", VBAMRT.VBAMCore.Instance.SupportedExtensions, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", new HashSet<string>{ ".sg" }, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", new HashSet<string>{ ".sms" }, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", new HashSet<string>{ ".gg" }, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new HashSet<string>{ ".mds", ".md", ".smd", ".gen" }, new string[0]),
+                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", CDImageExtensions, CDImageExtensions),
             };
 
             fileDependencyImporters = new Lazy<FileImporterVM[]>(() =>
@@ -113,8 +116,25 @@ namespace RetriX.UWP.Services
 
         private async Task<bool> StartGameAsync(ICoreRunner runner, GameSystemVM system, IFile file)
         {
-            var mainGamePath = $"ROM\\{file.Name}";
-            StreamProvider = new SingleFileStreamProvider(mainGamePath, file);
+            var mainGamePath = VFS.RomPath + file.Name;
+
+            StreamProvider?.Dispose();
+            var folderRequired = system.MultiFileExtensions.Contains(Path.GetExtension(file.Name));
+            if (folderRequired)
+            {
+                var gameFolder = await RequestGameFolderAsync();
+                if (gameFolder == null)
+                {
+                    return false;
+                }
+
+                StreamProvider = new FolderStreamProvider(VFS.RomPath, gameFolder);
+            }
+            else
+            {              
+                StreamProvider = new SingleFileStreamProvider(mainGamePath, file);
+            }
+
             var core = system.Core;
             core.GetFileStream = (d, e) =>
             {
