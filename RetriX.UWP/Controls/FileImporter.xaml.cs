@@ -8,15 +8,6 @@ namespace RetriX.UWP.Controls
 {
     public sealed partial class FileImporter : UserControl
     {
-        public string Description
-        {
-            get { return (string)GetValue(DescriptionProperty); }
-            set { SetValue(DescriptionProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Description.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(nameof(Description), typeof(string), typeof(FileImporter), new PropertyMetadata(""));
-
         public FileImporterVM VM
         {
             get { return (FileImporterVM)GetValue(VMProperty); }

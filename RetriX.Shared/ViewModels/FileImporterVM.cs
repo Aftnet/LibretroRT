@@ -26,10 +26,13 @@ namespace RetriX.Shared.ViewModels
         private readonly string targetFileName;
         public string TargetFileName { get { return targetFileName; } }
 
-        public string SearchLink { get { return string.Format(SerachLinkFormat, TargetMD5); } }
+        private readonly string targetDescription;
+        public string TargetDescription { get { return targetDescription; } }
 
         private readonly string targetMD5;
         public string TargetMD5 { get { return targetMD5; } }
+
+        public string SearchLink => string.Format(SerachLinkFormat, TargetMD5);
 
         private bool fileAvailable = false;
         public bool FileAvailable
@@ -41,7 +44,7 @@ namespace RetriX.Shared.ViewModels
         public RelayCommand ImportCommand { get; private set; }
         public RelayCommand CopyMD5ToClipboardCommand { get; private set; }
 
-        public FileImporterVM(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IFolder folder, string fileName, string MD5)
+        public FileImporterVM(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IFolder folder, string fileName, string description, string MD5)
         {
             DialogsService = dialogsService;
             LocalizationService = localizationService;
@@ -50,6 +53,7 @@ namespace RetriX.Shared.ViewModels
 
             targetFolder = folder;
             targetFileName = fileName;
+            targetDescription = description;
             targetMD5 = MD5;
 
             ImportCommand = new RelayCommand(ImportHandler, () => !FileAvailable);

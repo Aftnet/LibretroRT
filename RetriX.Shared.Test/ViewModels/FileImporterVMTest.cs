@@ -13,7 +13,7 @@ namespace RetriX.Shared.Test.ViewModels
     {
         protected override FileImporterVM InstantiateTarget()
         {
-            return new FileImporterVM(DialogsServiceMock.Object, LocalizationServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "SomeMD5");
+            return new FileImporterVM(DialogsServiceMock.Object, LocalizationServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "Target file description", "SomeMD5");
         }
 
         [Theory]

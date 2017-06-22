@@ -10,7 +10,7 @@
 
     <StackPanel Orientation="Vertical"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock FontWeight="Bold" Margin="0,0,0,4">
-            <Run Text="{x:Bind Description, Mode=OneWay}"/> <Run Text="-"/> <Run Text="{x:Bind VM.TargetFileName}"/>
+            <Run Text="{x:Bind VM.TargetDescription, Mode=OneWay}"/> <Run Text="-"/> <Run Text="{x:Bind VM.TargetFileName}"/>
         </TextBlock>
         <TextBlock>
             <Run x:Uid="ExpectedFileMD5Label" Text="File MD5 design: "/>
