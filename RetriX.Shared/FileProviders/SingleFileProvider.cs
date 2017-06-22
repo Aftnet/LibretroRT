@@ -1,4 +1,5 @@
 ﻿using PCLStorage;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -18,6 +19,12 @@ namespace RetriX.Shared.FileProviders
         public void Dispose()
         {
 
+        }
+
+        public Task<IEnumerable<string>> ListEntriesAsync()
+        {
+            var output = new string[] { Path };
+            return Task.FromResult(output as IEnumerable<string>);
         }
 
         public Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)

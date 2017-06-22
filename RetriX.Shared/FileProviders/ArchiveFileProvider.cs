@@ -1,7 +1,8 @@
 ﻿using PCLStorage;
-using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.FileProviders
@@ -23,6 +24,17 @@ namespace RetriX.Shared.FileProviders
         public void Dispose()
         {
             Archive?.Dispose();
+        }
+
+        public async Task<IEnumerable<string>> ListEntriesAsync()
+        {
+            while (Archive == null)
+            {
+                await Task.Delay(50);
+            }
+
+            var output = Archive.Entries.Select(d => $"{HandledScheme}{d.FullName}").OrderBy(d => d).ToArray();
+            return output;
         }
 
         public async Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)

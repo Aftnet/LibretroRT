@@ -2,6 +2,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RetriX.Shared.FileProviders
 {
@@ -19,6 +21,13 @@ namespace RetriX.Shared.FileProviders
         public void Dispose()
         {
 
+        }
+
+        public async Task<IEnumerable<string>> ListEntriesAsync()
+        {
+            var files = await RootFolder.GetFilesAsync();
+            var output = files.Select(d => $"{HandledScheme}{d.Path.Substring(0, RootFolder.Path.Length)}").OrderBy(d => d).ToArray();
+            return output;
         }
 
         public async Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)

@@ -76,18 +76,13 @@ namespace RetriX.UWP.Services
             throw new Exception("No compatible core found");
         }
 
-        public Task<bool> StartGameAsync(GameSystemVM system, IFile file)
+        public async Task<bool> StartGameAsync(GameSystemVM system, IFile file)
         {
             if (file == null)
             {
                 throw new ArgumentException();
             }
 
-            return StartGameAsync(system.Core, file);
-        }
-
-        private async Task<bool> StartGameAsync(ICore core, IFile file)
-        {
             if (CoreRunner == null)
             {
                 RootFrame.Navigate(typeof(GamePlayerPage));
@@ -99,13 +94,14 @@ namespace RetriX.UWP.Services
                 await Task.Delay(100);
             }
 
-            return await StartGameAsync(CoreRunner, core, file);
+            return await StartGameAsync(CoreRunner, system, file);
         }
 
-        private async Task<bool> StartGameAsync(ICoreRunner runner, ICore core, IFile file)
+        private async Task<bool> StartGameAsync(ICoreRunner runner, GameSystemVM system, IFile file)
         {
             var mainGamePath = $"ROM\\{file.Name}";
             StreamProvider = new SingleFileProvider(mainGamePath, file);
+            var core = system.Core;
             core.GetFileStream = (d, e) => StreamProvider.GetFileStreamAsync(d, e.ToIOAccess()).Result?.AsRandomAccessStream();
 
             var loadSuccessful = await runner.LoadGameAsync(core, mainGamePath);

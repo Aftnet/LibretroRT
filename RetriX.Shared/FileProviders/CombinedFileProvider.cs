@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.FileProviders
@@ -19,6 +21,14 @@ namespace RetriX.Shared.FileProviders
             {
                 i.Dispose();
             }
+        }
+
+        public async Task<IEnumerable<string>> ListEntriesAsync()
+        {
+            var tasks = Providers.Select(d => d.ListEntriesAsync()).ToArray();
+            var results = await Task.WhenAll(tasks);
+            var output = results.SelectMany(d => d.ToArray()).OrderBy(d => d).ToArray();
+            return output;
         }
 
         public async Task<Stream> GetFileStreamAsync(string path, FileAccess accessType)
