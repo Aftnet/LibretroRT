@@ -4,7 +4,6 @@ using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
 using PCLStorage;
 using RetriX.Shared.FileProviders;
-using RetriX.Shared.Messages;
 using RetriX.Shared.Services;
 using RetriX.UWP.FileProviders;
 using RetriX.UWP.Pages;
@@ -38,7 +37,6 @@ namespace RetriX.UWP.Services
             { GameSystemTypes.MegaDrive, GPGXRT.GPGXCore.Instance },
         };
 
-        private readonly IMessenger Messenger;
         private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
@@ -50,9 +48,10 @@ namespace RetriX.UWP.Services
 
         public string GameID => CoreRunner?.GameID;
 
-        public EmulationService(IMessenger messenger, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService)
+        public event GameStartedDelegate GameStarted;
+
+        public EmulationService(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService)
         {
-            Messenger = messenger;
             DialogsService = dialogsService;
             LocalizationService = localizationService;
             PlatformService = platformService;
@@ -120,7 +119,7 @@ namespace RetriX.UWP.Services
             var loadSuccessful = await runner.LoadGameAsync(core, mainGamePath);
             if (loadSuccessful)
             {
-                Messenger.Send(new GameStartedMessage());
+                GameStarted(this);
             }
             else
             {

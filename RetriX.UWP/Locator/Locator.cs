@@ -1,6 +1,5 @@
 ﻿using Acr.UserDialogs;
 using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
 using LibretroRT.FrontendComponents.AudioGraphPlayer;
 using LibretroRT.FrontendComponents.Common;
 using LibretroRT.FrontendComponents.InputManager;
@@ -21,7 +20,6 @@ namespace RetriX.UWP.Locator
                 return;
 
             var ioc = SimpleIoc.Default;
-            ioc.Register(() => Messenger.Default);
             ioc.Register(() => UserDialogs.Instance);
             ioc.Register(() => CrossLocalNotifications.Current);
             ioc.Register(() => CrossVersionTracking.Current);
@@ -33,7 +31,7 @@ namespace RetriX.UWP.Locator
             ioc.Register<ILocalizationService, LocalizationService>();
             ioc.Register<GameSystemSelectionVM>();
             ioc.Register<AboutVM>();
-            ioc.Register<GamePlayerVM>();
+            ioc.Register<GamePlayerVM>(true);
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
         }

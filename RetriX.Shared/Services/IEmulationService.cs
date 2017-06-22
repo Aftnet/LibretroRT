@@ -6,6 +6,8 @@ namespace RetriX.Shared.Services
 {
     public enum GameSystemTypes { NES, SNES, GB, GBA, SG1000, MasterSystem, GameGear, MegaDrive };
 
+    public delegate void GameStartedDelegate(IEmulationService sender);
+
     public interface IEmulationService
     {
         string GameID { get; }
@@ -22,5 +24,7 @@ namespace RetriX.Shared.Services
 
         Task<byte[]> SaveGameStateAsync();
         Task<bool> LoadGameStateAsync(byte[] stateData);
+
+        event GameStartedDelegate GameStarted;
     }
 }
