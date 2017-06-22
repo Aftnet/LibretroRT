@@ -220,6 +220,7 @@
     <ClInclude Include="libretro_extra.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SystemTiming.h" />
+    <ClInclude Include="VFS.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />
@@ -235,6 +236,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SystemTiming.cpp" />
+    <ClCompile Include="VFS.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
