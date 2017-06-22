@@ -5,7 +5,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RetriX.Shared.FileProviders
+namespace RetriX.Shared.StreamProviders
 {
     /*public class ArchiveStreamProvider : IStreamProvider
     {

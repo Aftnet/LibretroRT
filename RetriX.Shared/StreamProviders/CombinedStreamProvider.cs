@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RetriX.Shared.FileProviders
+namespace RetriX.Shared.StreamProviders
 {
     public class CombinedStreamProvider : IStreamProvider
     {
@@ -31,7 +30,7 @@ namespace RetriX.Shared.FileProviders
             return output;
         }
 
-        public async Task<Stream> GetFileStreamAsync(string path, FileAccess accessType)
+        public async Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
         {
             foreach(var i in Providers)
             {

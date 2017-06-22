@@ -1,22 +1,26 @@
-﻿using RetriX.Shared.FileProviders;
-using System.IO;
+﻿using PCLStorage;
+using RetriX.Shared.StreamProviders;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace RetriX.Shared.Test.FileProviders
+namespace RetriX.Shared.Test.StreamProviders
 {
-    public abstract class StreamProviderTestBase<T> : TestBase<T> where T : class, IStreamProvider
+    public abstract class StreamProviderTestBase
     {
-        protected async Task ListingEntriesWorks(int numExpectedEntries)
+        protected abstract Task<IStreamProvider> GetTargetAsync();
+
+        protected async Task ListingEntriesWorksInternal(int numExpectedEntries)
         {
-            var entries = await Target.ListEntriesAsync();
+            var target = await GetTargetAsync();
+            var entries = await target.ListEntriesAsync();
             Assert.Equal(numExpectedEntries, entries.Count());
         }
 
         protected async Task OpeningFileWorksInternal(string path, bool expectedSuccess)
         {
-            var stream = await Target.GetFileStreamAsync(path, FileAccess.Read);
+            var target = await GetTargetAsync();
+            var stream = await target.GetFileStreamAsync(path, FileAccess.Read);
             if (expectedSuccess)
             {
                 Assert.NotNull(stream);
@@ -27,6 +31,11 @@ namespace RetriX.Shared.Test.FileProviders
             }
 
             stream?.Dispose();
+        }
+
+        protected Task<IFolder> GetTestFilesFolderAsync()
+        {
+            return FileSystem.Current.GetFolderFromPathAsync("TestFiles");
         }
     }
 }

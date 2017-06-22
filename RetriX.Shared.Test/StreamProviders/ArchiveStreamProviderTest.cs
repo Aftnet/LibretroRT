@@ -1,8 +1,7 @@
-﻿using RetriX.Shared.FileProviders;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
-namespace RetriX.Shared.Test.FileProviders
+namespace RetriX.Shared.Test.StreamProviders
 {
     /*public class ArchiveStreamProviderTest : FileProviderTestBase<ArchiveStreamProvider>
     {

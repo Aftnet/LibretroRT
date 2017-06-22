@@ -1,6 +1,6 @@
 ﻿{
   "frameworks": {
-    "net47": {}
+    "net461": {}
   },
   "runtimes": {
     "win": {}
@@ -9,7 +9,6 @@
     "Moq": "4.7.63",
     "PCLCrypto": "2.0.147",
     "PCLStorage": "1.0.2",
-    "System.IO.Compression.ZipFile": "4.3.0",
     "xunit": "2.2.0",
     "xunit.runner.visualstudio": "2.2.0"
   }

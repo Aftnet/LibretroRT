@@ -1,7 +1,7 @@
 ﻿using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
 using PCLStorage;
-using RetriX.Shared.FileProviders;
+using RetriX.Shared.StreamProviders;
 using RetriX.Shared.Services;
 using RetriX.UWP.FileProviders;
 using RetriX.UWP.Pages;
@@ -102,7 +102,12 @@ namespace RetriX.UWP.Services
             var mainGamePath = $"ROM\\{file.Name}";
             StreamProvider = new SingleFileStreamProvider(mainGamePath, file);
             var core = system.Core;
-            core.GetFileStream = (d, e) => StreamProvider.GetFileStreamAsync(d, e.ToIOAccess()).Result?.AsRandomAccessStream();
+            core.GetFileStream = (d, e) =>
+            {
+                var accessMode = e == Windows.Storage.FileAccessMode.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite;
+                var output = StreamProvider.GetFileStreamAsync(d, accessMode).Result?.AsRandomAccessStream();
+                return output;
+            };
 
             var loadSuccessful = await runner.LoadGameAsync(core, mainGamePath);
             if (loadSuccessful)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace RetriX.Shared.FileProviders
+namespace RetriX.Shared.StreamProviders
 {
     public class SingleFileStreamProvider : IStreamProvider
     {
@@ -27,11 +27,11 @@ namespace RetriX.Shared.FileProviders
             return Task.FromResult(output as IEnumerable<string>);
         }
 
-        public Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)
+        public Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
         {
             if (Path == path)
             {
-                return File.OpenAsync(accessType.ToPCLStorageAccess());
+                return File.OpenAsync(accessType);
             }
 
             return Task.FromResult(null as Stream);

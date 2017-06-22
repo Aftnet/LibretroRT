@@ -15,7 +15,6 @@
     <PackageReference Include="PCLCrypto" Version="2.0.147" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="Plugin.VersionTracking" Version="1.0.1" />
-    <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
     <PackageReference Include="Xam.Plugins.Notifier" Version="2.1.0" />
   </ItemGroup>
 

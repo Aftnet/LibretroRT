@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RetriX.Shared.FileProviders
+namespace RetriX.Shared.StreamProviders
 {
     public class FolderStreamProvider : IStreamProvider
     {
@@ -29,7 +29,7 @@ namespace RetriX.Shared.FileProviders
             return output;
         }
 
-        public async Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)
+        public async Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
         {
             if (!path.StartsWith(HandledScheme))
             {
@@ -46,7 +46,7 @@ namespace RetriX.Shared.FileProviders
             }
 
             var file = await RootFolder.GetFileAsync(path);
-            var output = await file.OpenAsync(accessType.ToPCLStorageAccess());
+            var output = await file.OpenAsync(accessType);
             return output;
         }
     }
