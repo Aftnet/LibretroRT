@@ -1,5 +1,6 @@
 ﻿using PCLStorage;
 using Plugin.LocalNotifications.Abstractions;
+using RetriX.Shared.ExtensionMethods;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -14,7 +15,7 @@ namespace RetriX.Shared.Services
         private readonly ILocalNotifications NotificationService;
         private readonly ILocalizationService LocalizationService;
 
-        public string GameId { get; set; }
+        private string GameId { get; set; }
 
         private bool OperationInProgress = false;
         private bool AllowOperations => !(OperationInProgress || SaveStatesFolder == null || string.IsNullOrEmpty(GameId) || string.IsNullOrWhiteSpace(GameId));
@@ -30,6 +31,11 @@ namespace RetriX.Shared.Services
             {
                 SaveStatesFolder = d.Result;
             });
+        }
+
+        public void SetGameId(string id)
+        {
+            GameId = id != null ? id.MD5() : null;
         }
 
         public async Task<byte[]> LoadStateAsync(uint slotId)

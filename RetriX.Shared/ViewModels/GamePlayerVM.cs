@@ -182,7 +182,7 @@ namespace RetriX.Shared.ViewModels
             var data = await EmulationService.SaveGameStateAsync();
             if (data != null)
             {
-                SaveStateService.GameId = EmulationService.GameID;
+                SaveStateService.SetGameId(EmulationService.GameID);
                 await SaveStateService.SaveStateAsync(slotID, data);
             }
 
@@ -193,7 +193,7 @@ namespace RetriX.Shared.ViewModels
         {
             CoreOperationsAllowed = false;
 
-            SaveStateService.GameId = EmulationService.GameID;
+            SaveStateService.SetGameId(EmulationService.GameID);
             var data = await SaveStateService.LoadStateAsync(slotID);
             if (data != null)
             {

@@ -20,7 +20,9 @@ namespace RetriX.Shared.Test.Services
 
         protected override SaveStateService InstantiateTarget()
         {
-            return new SaveStateService(NotificationServiceMock.Object, LocalizationServiceMock.Object) { GameId = GameId };
+            var output = new SaveStateService(NotificationServiceMock.Object, LocalizationServiceMock.Object);
+            output.SetGameId(GameId);
+            return output;
         }
 
         public SaveStateServiceTest()
@@ -37,7 +39,7 @@ namespace RetriX.Shared.Test.Services
         {
             await Task.Delay(InitializationDelayMs);
 
-            Target.GameId = gameId;
+            Target.SetGameId(gameId);
             var result = await Target.SlotHasDataAsync(SlotID);
             Assert.False(result);
 
@@ -130,7 +132,7 @@ namespace RetriX.Shared.Test.Services
 
             if(!saveSuccessful)
             {
-                Target.GameId = null;
+                Target.SetGameId(null);
             }
 
             var result = await Target.SaveStateAsync(SlotID, TestSavePayload);
