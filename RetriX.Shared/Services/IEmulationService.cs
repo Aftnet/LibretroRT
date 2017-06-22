@@ -11,6 +11,7 @@ namespace RetriX.Shared.Services
 
     public interface IEmulationService
     {
+        IReadOnlyList<FileImporterVM> FileDependencyImporters { get; }
         string GameID { get; }
 
         Task<bool> StartGameAsync(IFile file);

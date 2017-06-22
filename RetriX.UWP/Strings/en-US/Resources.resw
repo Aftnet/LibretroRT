@@ -263,4 +263,7 @@ Restart RetriX and try again.</value>
   <data name="ImportFileButtonLabel.Text" xml:space="preserve">
     <value>Import</value>
   </data>
+  <data name="SettingsNavItem.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>
