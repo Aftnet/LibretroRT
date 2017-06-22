@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.FileProviders
 {
-    public class CombinedFileProvider : IFileProvider
+    public class CombinedStreamProvider : IStreamProvider
     {
-        private readonly ISet<IFileProvider> Providers;
+        private readonly ISet<IStreamProvider> Providers;
 
-        public CombinedFileProvider(ISet<IFileProvider> providers)
+        public CombinedStreamProvider(ISet<IStreamProvider> providers)
         {
             Providers = providers;
         }

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace RetriX.Shared.Test.FileProviders
 {
-    public abstract class FileProviderTestBase<T> : TestBase<T> where T : class, IFileProvider
+    public abstract class StreamProviderTestBase<T> : TestBase<T> where T : class, IStreamProvider
     {
         protected async Task ListingEntriesWorks(int numExpectedEntries)
         {

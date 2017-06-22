@@ -1,27 +1,28 @@
 ﻿using RetriX.Shared.FileProviders;
+using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace RetriX.Shared.Test.FileProviders
 {
-    public class ArchiveFileProviderTest : FileProviderTestBase<ArchiveFileProvider>
+    public class SingleFileStreamProviderTest : StreamProviderTestBase<SingleFileStreamProvider>
     {
-        protected override ArchiveFileProvider InstantiateTarget()
+        private const string FilePath = "scheme:\\SomeFile.ext";
+
+        protected override SingleFileStreamProvider InstantiateTarget()
         {
-            var file = GetTestFilesFolderAsync().Result.GetFileAsync("Archive.zip").Result;
-            return new ArchiveFileProvider("scheme:\\", file);
+            var file = GetTestFilesFolderAsync().Result.GetFileAsync("TestFile.txt").Result;
+            return new SingleFileStreamProvider(FilePath, file);
         }
 
         [Fact]
         public Task ListingEntriesWorks()
         {
-            return ListingEntriesWorks(4);
+            return ListingEntriesWorks(1);
         }
 
         [Theory]
-        [InlineData("scheme:\\TestFile.txt", true)]
-        [InlineData("scheme:\\AnotherFile.cds", true)]
-        [InlineData("scheme:\\Afolder\\File.zzz", true)]
+        [InlineData(FilePath, true)]
         [InlineData("scheme2:\\SomeFile.ext", false)]
         [InlineData("scheme:\\SomeFi.ext", false)]
         [InlineData("scheme:\\Dir\\file.ext", false)]

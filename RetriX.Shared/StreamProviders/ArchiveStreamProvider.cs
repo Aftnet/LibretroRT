@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.FileProviders
 {
-    public class ArchiveFileProvider : IFileProvider
+    /*public class ArchiveStreamProvider : IStreamProvider
     {
         private readonly string HandledScheme;
         private ZipArchive Archive = null;
 
-        public ArchiveFileProvider(string handledScheme, IFile archiveFile)
+        public ArchiveStreamProvider(string handledScheme, IFile archiveFile)
         {
             HandledScheme = handledScheme;
             archiveFile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite).ContinueWith(d =>
@@ -53,5 +53,5 @@ namespace RetriX.Shared.FileProviders
             var entry = Archive.GetEntry(path);
             return entry.Open();
         }
-    }
+    }*/
 }

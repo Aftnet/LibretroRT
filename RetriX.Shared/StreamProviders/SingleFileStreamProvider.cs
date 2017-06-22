@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.FileProviders
 {
-    public class SingleFileProvider : IFileProvider
+    public class SingleFileStreamProvider : IStreamProvider
     {
         private readonly string Path;
         private readonly IFile File;
 
-        public SingleFileProvider(string path, IFile file)
+        public SingleFileStreamProvider(string path, IFile file)
         {
             Path = path;
             File = file;

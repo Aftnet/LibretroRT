@@ -26,7 +26,7 @@ namespace RetriX.UWP.Services
 
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
-        private IFileProvider StreamProvider;
+        private IStreamProvider StreamProvider;
         private ICoreRunner CoreRunner;
 
         private readonly GameSystemVM[] systems;
@@ -100,7 +100,7 @@ namespace RetriX.UWP.Services
         private async Task<bool> StartGameAsync(ICoreRunner runner, GameSystemVM system, IFile file)
         {
             var mainGamePath = $"ROM\\{file.Name}";
-            StreamProvider = new SingleFileProvider(mainGamePath, file);
+            StreamProvider = new SingleFileStreamProvider(mainGamePath, file);
             var core = system.Core;
             core.GetFileStream = (d, e) => StreamProvider.GetFileStreamAsync(d, e.ToIOAccess()).Result?.AsRandomAccessStream();
 

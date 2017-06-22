@@ -1,18 +1,17 @@
 ﻿using PCLStorage;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RetriX.Shared.FileProviders
 {
-    public class FolderFileProvider : IFileProvider
+    public class FolderStreamProvider : IStreamProvider
     {
         private readonly string HandledScheme;
         private readonly IFolder RootFolder;
 
-        public FolderFileProvider(string handledScheme, IFolder rootFolder)
+        public FolderStreamProvider(string handledScheme, IFolder rootFolder)
         {
             HandledScheme = handledScheme;
             RootFolder = rootFolder;
