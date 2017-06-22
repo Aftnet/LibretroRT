@@ -8,7 +8,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <StackPanel Orientation="Vertical"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel Orientation="Vertical"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,0,16">
         <TextBlock FontWeight="Bold" Margin="0,0,0,4">
             <Run Text="{x:Bind VM.TargetDescription, Mode=OneWay}"/> <Run Text="-"/> <Run Text="{x:Bind VM.TargetFileName}"/>
         </TextBlock>

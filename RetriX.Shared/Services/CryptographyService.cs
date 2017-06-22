@@ -17,7 +17,6 @@ namespace RetriX.Shared.Services
                 using (var cryptoStream = CryptoStream.WriteTo(nullStream, hasher))
                 {
                     await inputStream.CopyToAsync(cryptoStream);
-                    inputStream.Position = 0;
                     var hashBytes = hasher.GetValueAndReset();
                     var hashString = BitConverter.ToString(hashBytes);
                     return hashString.Replace("-", string.Empty);

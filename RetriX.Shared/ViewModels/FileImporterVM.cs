@@ -59,7 +59,7 @@ namespace RetriX.Shared.ViewModels
             ImportCommand = new RelayCommand(ImportHandler, () => !FileAvailable);
             CopyMD5ToClipboardCommand = new RelayCommand(() => PlatformService.CopyToClipboard(TargetMD5));
 
-            GetTargetFileAsync().ContinueWith(d => FileAvailable = d.Result != null);
+            GetTargetFileAsync().ContinueWith(d => PlatformService.RunOnUIThreadAsync(() => FileAvailable = d.Result != null));
         }
 
         public async Task<IFile> GetTargetFileAsync()
