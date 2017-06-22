@@ -266,4 +266,7 @@ Restart RetriX and try again.</value>
   <data name="SettingsNavItem.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="SettingsHeader.Text" xml:space="preserve">
+    <value>SETTINGS</value>
+  </data>
 </root>

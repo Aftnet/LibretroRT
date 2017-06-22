@@ -1,8 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using RetriX.Shared.Services;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RetriX.Shared.ViewModels
 {
