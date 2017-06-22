@@ -36,8 +36,8 @@ namespace RetriX.UWP.Services
         private readonly GameSystemVM[] systems;
         public IReadOnlyList<GameSystemVM> Systems => systems;
 
-        private readonly FileImporterVM[] dependencyImporters;
-        public IReadOnlyList<FileImporterVM> DependencyImporters => dependencyImporters;
+        private readonly Lazy<FileImporterVM[]> dependencyImporters;
+        public IReadOnlyList<FileImporterVM> DependencyImporters => dependencyImporters.Value;
 
         public string GameID => CoreRunner?.GameID;
 
@@ -63,9 +63,12 @@ namespace RetriX.UWP.Services
                 new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new string[]{ ".mds", ".md", ".smd", ".gen" }),
             };
 
-            dependencyImporters = AvailableCores.Where(d=>d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
-                .Select(d => new FileImporterVM(dialogsService, localizationService, platformService, cryptographyService,
-                new WinRTFolder(d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
+            dependencyImporters = new Lazy<FileImporterVM[]>(() =>
+            {
+                return AvailableCores.Where(d => d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
+                    .Select(d => new FileImporterVM(dialogsService, localizationService, platformService, cryptographyService,
+                    new WinRTFolder(d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
+            });
         }
 
         public Task<bool> StartGameAsync(IFile file)
