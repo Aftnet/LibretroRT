@@ -39,6 +39,15 @@ GPGXCoreInternal::~GPGXCoreInternal()
 	coreInstance = nullptr;
 }
 
+IVectorView<FileDependency^>^ GPGXCoreInternal::GenerateFileDependencies()
+{
+	auto output = ref new Vector<FileDependency^>();
+	output->Append(ref new FileDependency(L"BIOS_CD_E.bin", L"Mega-CD (Model 1 1.00 Europe)", L"e66fa1dc5820d254611fdcdba0662372"));
+	output->Append(ref new FileDependency(L"BIOS_CD_J.bin", L"Mega-CD (Model 1 1.00 Japan)", L"278a9397d192149e84e820ac621a8edd"));
+	output->Append(ref new FileDependency(L"BIOS_CD_U.bin", L"Mega-CD (Model 1 1.00 USA)", L"2efd74e3232ff260e371b99f84024f7f"));
+	return output->GetView();
+}
+
 bool GPGXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 {
 	if (CoreBase::EnvironmentHandler(cmd, data))
