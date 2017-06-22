@@ -71,7 +71,7 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	concurrency::create_task(rootFolder->CreateFolderAsync(systemFolderName, CreationCollisionOption::OpenIfExists)).then([=](StorageFolder^ d)
 	{
 		systemFolder = d;
-		auto envPath = supportsSystemFolderVirtualization ? VFS::SystemPath : d->Path;
+		auto envPath = supportsSystemFolderVirtualization ? VFS::SystemPath : systemFolder->Path;
 		coreEnvironmentSystemFolderPath.assign(Converter::PlatformToCPPString(envPath));
 	});
 
@@ -79,8 +79,8 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	concurrency::create_task(rootFolder->CreateFolderAsync(saveGameFolderName, CreationCollisionOption::OpenIfExists)).then([=](StorageFolder^ d)
 	{
 		saveGameFolder = d;
-		auto envPath = supportsSaveGameFolderVirtualization ? VFS::SavePath : d->Path;
-		coreEnvironmentSaveGameFolderPath.assign(Converter::PlatformToCPPString(d->Path));
+		auto envPath = supportsSaveGameFolderVirtualization ? VFS::SavePath : saveGameFolder->Path;
+		coreEnvironmentSaveGameFolderPath.assign(Converter::PlatformToCPPString(envPath));
 	});
 }
 
@@ -124,12 +124,20 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
 	{
 		auto dataPtr = reinterpret_cast<const char**>(data);
+		while (coreEnvironmentSystemFolderPath.empty())
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		}
 		*dataPtr = coreEnvironmentSystemFolderPath.c_str();
 		return true;
 	}
 	case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
 	{
 		auto dataPtr = reinterpret_cast<const char**>(data);
+		while (coreEnvironmentSystemFolderPath.empty())
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		}
 		*dataPtr = coreEnvironmentSaveGameFolderPath.c_str();
 		return true;
 	}
