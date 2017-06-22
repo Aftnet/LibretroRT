@@ -25,7 +25,7 @@ namespace RetriX.Shared.StreamProviders
         public async Task<IEnumerable<string>> ListEntriesAsync()
         {
             var files = await RootFolder.GetFilesAsync();
-            var output = files.Select(d => $"{HandledScheme}{d.Path.Substring(0, RootFolder.Path.Length)}").OrderBy(d => d).ToArray();
+            var output = files.Select(d => $"{HandledScheme}{d.Name}").OrderBy(d => d).ToArray();
             return output;
         }
 
@@ -37,7 +37,6 @@ namespace RetriX.Shared.StreamProviders
             }
 
             path = path.Substring(HandledScheme.Length);
-            path = Path.Combine(RootFolder.Path, path);
 
             var existenceCheck = await RootFolder.CheckExistsAsync(path);
             if (existenceCheck != ExistenceCheckResult.FileExists)

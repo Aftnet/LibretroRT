@@ -1,5 +1,4 @@
-﻿using PCLStorage;
-using RetriX.Shared.StreamProviders;
+﻿using RetriX.Shared.StreamProviders;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,7 +10,7 @@ namespace RetriX.Shared.Test.StreamProviders
 
         protected override async Task<IStreamProvider> GetTargetAsync()
         {
-            var folder = await FileSystem.Current.GetFolderFromPathAsync("TestFiles");
+            var folder = await GetTestFilesFolderAsync();
             var file = await folder.GetFileAsync("TestFile.txt");
             return new SingleFileStreamProvider(FilePath, file);
         }

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ExtensionMethods\StringHasherTest.cs" />
     <Compile Include="StreamProviders\ArchiveStreamProviderTest.cs" />
+    <Compile Include="StreamProviders\FolderStreamProviderTest.cs" />
     <Compile Include="StreamProviders\StreamProviderTestBase.cs" />
     <Compile Include="StreamProviders\SingleFileStreamProviderTest.cs" />
     <Compile Include="Services\CryptographyServiceTest.cs" />
