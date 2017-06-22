@@ -18,7 +18,7 @@ namespace RetriX.Shared.Services
         private string GameId { get; set; }
 
         private bool OperationInProgress = false;
-        private bool AllowOperations => !(OperationInProgress || SaveStatesFolder == null || string.IsNullOrEmpty(GameId) || string.IsNullOrWhiteSpace(GameId));
+        private bool AllowOperations => !(OperationInProgress || SaveStatesFolder == null || GameId == null);
 
         private IFolder SaveStatesFolder;
 
@@ -31,11 +31,19 @@ namespace RetriX.Shared.Services
             {
                 SaveStatesFolder = d.Result;
             });
+
+            GameId = null;
         }
 
         public void SetGameId(string id)
         {
-            GameId = id != null ? id.MD5() : null;
+            GameId = null;
+            if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id))
+            {
+                return;
+            }
+
+            GameId = id.MD5();
         }
 
         public async Task<byte[]> LoadStateAsync(uint slotId)
