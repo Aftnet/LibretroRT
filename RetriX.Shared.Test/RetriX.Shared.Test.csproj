@@ -59,6 +59,9 @@
     <Content Include="TestFiles\Archive.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestFiles\A\B\AnotherFile.cds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">

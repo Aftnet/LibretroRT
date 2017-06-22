@@ -18,7 +18,7 @@ namespace RetriX.Shared.Test.StreamProviders
         [Fact]
         public Task ListingEntriesWorks()
         {
-            return ListingEntriesWorksInternal(3);
+            return ListingEntriesWorksInternal(4);
         }
 
         [Theory]
