@@ -281,4 +281,10 @@ Restart RetriX and try again.</value>
   <data name="SelectFolderRequestAlertMessageKey" xml:space="preserve">
     <value>This game is made up of multiple files. Please select the folder that contains them to load it.</value>
   </data>
+  <data name="SystemUnmetDependenciesAlertMessageKey" xml:space="preserve">
+    <value>Some files required to run this game are missing. Install them using the settings page and try again.</value>
+  </data>
+  <data name="SystemUnmetDependenciesAlertTitleKey" xml:space="preserve">
+    <value>Required files missing</value>
+  </data>
 </root>

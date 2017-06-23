@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
 {
-    public delegate Task<IFolder> RequestGameFolderAsyncDelegate(IEmulationService sender);
-
     public delegate void GameStartedDelegate(IEmulationService sender);
     public delegate void GameRuntimeExceptionOccurredDelegate(IEmulationService sender, Exception exception);
 
@@ -16,7 +14,6 @@ namespace RetriX.Shared.Services
         IReadOnlyList<FileImporterVM> FileDependencyImporters { get; }
         string GameID { get; }
 
-        Task<bool> StartGameAsync(IFile file);
         Task ResetGameAsync();
         Task StopGameAsync();
 
@@ -26,8 +23,6 @@ namespace RetriX.Shared.Services
         Task<byte[]> SaveGameStateAsync();
         Task<bool> LoadGameStateAsync(byte[] stateData);
 
-        RequestGameFolderAsyncDelegate RequestGameFolderAsync { get; set; }
-
         event GameStartedDelegate GameStarted;
         event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
     }
@@ -35,6 +30,10 @@ namespace RetriX.Shared.Services
     public interface IEmulationService<T> : IEmulationService where T : GameSystemVMBase
     {
         IReadOnlyList<T> Systems { get; }
-        Task<bool> StartGameAsync(T system, IFile file);
+
+        T SuggestSystemForFile(IFile file);
+        bool CheckRootFolderRequired(T system, IFile file);
+        Task<bool> CheckDependenciesMetAsync(T system);
+        Task<bool> StartGameAsync(T system, IFile file, IFolder rootFolder = null);
     }
 }
