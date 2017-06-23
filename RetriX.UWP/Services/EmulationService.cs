@@ -32,6 +32,9 @@ namespace RetriX.UWP.Services
 
         private readonly ICore[] AvailableCores = { FCEUMMRT.FCEUMMCore.Instance, Snes9XRT.Snes9XCore.Instance, GambatteRT.GambatteCore.Instance, VBAMRT.VBAMCore.Instance, GPGXRT.GPGXCore.Instance };
 
+        private static readonly string[] archiveExtensions = { ".zip" };
+        public IReadOnlyList<string> ArchiveExtensions => archiveExtensions;
+
         private readonly GameSystemVM[] systems;
         public IReadOnlyList<GameSystemVM> Systems => systems;
 
@@ -114,15 +117,32 @@ namespace RetriX.UWP.Services
             }
 
             StreamProvider?.Dispose();
-            IStreamProvider streamProvider;
-            string virtualMainFilePath;
-            GetStreamProviderAndVirtualPath(system, file, rootFolder, out streamProvider, out virtualMainFilePath);
-            StreamProvider = streamProvider;
+            StreamProvider = null;
+            string virtualMainFilePath = null;
+            if (!ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
+            {
+                IStreamProvider streamProvider;
+                GetStreamProviderAndVirtualPath(system, file, rootFolder, out streamProvider, out virtualMainFilePath);
+                StreamProvider = streamProvider;
+            }
+            else
+            {
+                var archiveProvider = new ArchiveStreamProvider(VFS.RomPath, file);
+                await archiveProvider.InitializeAsync();
+                StreamProvider = archiveProvider;
+                var entries = await StreamProvider.ListEntriesAsync();
+                virtualMainFilePath = entries.FirstOrDefault(d => system.SupportedExtensions.Contains(Path.GetExtension(d)));
+            }
 
             //Navigation should cause the player page to load, which in turn should initialize the core runner
             while (CoreRunner == null)
             {
                 await Task.Delay(100);
+            }
+
+            if (virtualMainFilePath == null)
+            {
+                return false;
             }
 
             system.Core.GetFileStream = OnCoreGetFileStream;
@@ -221,7 +241,8 @@ namespace RetriX.UWP.Services
         private Windows.Storage.Streams.IRandomAccessStream OnCoreGetFileStream(string path, Windows.Storage.FileAccessMode fileAccess)
         {
             var accessMode = fileAccess == Windows.Storage.FileAccessMode.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite;
-            var output = StreamProvider.GetFileStreamAsync(path, accessMode).Result?.AsRandomAccessStream();
+            var stream = StreamProvider.GetFileStreamAsync(path, accessMode).Result;
+            var output = stream?.AsRandomAccessStream();
             return output;
         }
 

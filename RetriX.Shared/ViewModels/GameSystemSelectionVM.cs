@@ -6,6 +6,7 @@ using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
@@ -46,7 +47,7 @@ namespace RetriX.Shared.ViewModels
 
         public async void GameSystemSelected(T system)
         {
-            var extensions = system.SupportedExtensions;
+            var extensions = system.SupportedExtensions.Concat(EmulationService.ArchiveExtensions).ToArray();
             var file = await PlatformService.SelectFileAsync(extensions);
             if (file == null)
             {

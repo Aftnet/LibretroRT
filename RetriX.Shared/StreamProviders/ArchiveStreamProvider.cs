@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.StreamProviders
 {
-    /*public class ArchiveStreamProvider : IStreamProvider
+    public class ArchiveStreamProvider : IStreamProvider
     {
         private readonly string HandledScheme;
+        private readonly IFile ArchiveFile;
         private ZipArchive Archive = null;
+        private SortedSet<string> EntriesList;
 
         public ArchiveStreamProvider(string handledScheme, IFile archiveFile)
         {
             HandledScheme = handledScheme;
-            archiveFile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite).ContinueWith(d =>
-            {
-                Archive = new ZipArchive(d.Result);
-            });
+            ArchiveFile = archiveFile;
         }
 
         public void Dispose()
@@ -26,32 +25,34 @@ namespace RetriX.Shared.StreamProviders
             Archive?.Dispose();
         }
 
-        public async Task<IEnumerable<string>> ListEntriesAsync()
+        public async Task InitializeAsync()
         {
-            while (Archive == null)
-            {
-                await Task.Delay(50);
-            }
-
-            var output = Archive.Entries.Select(d => $"{HandledScheme}{d.FullName}").OrderBy(d => d).ToArray();
-            return output;
+            var stream = await ArchiveFile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite);
+            Archive = new ZipArchive(stream, ZipArchiveMode.Update);
+            EntriesList = new SortedSet<string>(Archive.Entries.Select(d => $"{HandledScheme}{d.FullName}"));
         }
 
-        public async Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)
+        public Task<IEnumerable<string>> ListEntriesAsync()
+        {
+            return Task.FromResult(EntriesList as IEnumerable<string>);
+        }
+
+        public Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
         {
             if (!path.StartsWith(HandledScheme))
             {
-                return null;
+                return Task.FromResult(null as Stream);
             }
 
             path = path.Substring(HandledScheme.Length);
-            while (Archive == null)
+            if (!EntriesList.Contains(path))
             {
-                await Task.Delay(50);
+                return Task.FromResult(null as Stream);
             }
 
             var entry = Archive.GetEntry(path);
-            return entry.Open();
+            var output = entry.Open();
+            return Task.FromResult(output);
         }
-    }*/
+    }
 }

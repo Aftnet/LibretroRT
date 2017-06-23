@@ -11,6 +11,8 @@ namespace RetriX.Shared.Services
 
     public interface IEmulationService
     {
+        IReadOnlyList<string> ArchiveExtensions { get; }
+
         IReadOnlyList<FileImporterVM> FileDependencyImporters { get; }
         string GameID { get; }
 
