@@ -5,13 +5,22 @@ using Windows.Storage.Streams;
 
 namespace LibretroRT.Test
 {
-    public class StreamProvider
+    public class StreamProvider : IDisposable
     {
+        private readonly List<IRandomAccessStream> OpenStreams = new List<IRandomAccessStream>();
         public IDictionary<string, IStorageFile> FileMappings { get; private set; }
 
         public StreamProvider()
         {
             FileMappings = new Dictionary<string, IStorageFile>();
+        }
+
+        public void Dispose()
+        {
+            foreach(var i in OpenStreams)
+            {
+                i.Dispose();
+            }
         }
 
         public string AddFile(IStorageFile file)
@@ -30,7 +39,18 @@ namespace LibretroRT.Test
 
             var file = FileMappings[path];
             var output = file.OpenAsync(fileAccess).AsTask().Result;
+            OpenStreams.Add(output);
             return output;
+        }
+
+        public void CloseFileStream(IRandomAccessStream stream)
+        {
+            if (OpenStreams.Contains(stream))
+            {
+                stream.Dispose();
+            }
+
+            OpenStreams.Remove(stream);
         }
     }
 }

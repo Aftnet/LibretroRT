@@ -145,7 +145,7 @@ namespace RetriX.UWP.Services
                 return false;
             }
 
-            system.Core.GetFileStream = OnCoreGetFileStream;
+            system.Core.OpenFileStream = OnCoreOpenFileStream;
             var loadSuccessful = false;
             try
             {
@@ -238,7 +238,7 @@ namespace RetriX.UWP.Services
             });
         }
 
-        private Windows.Storage.Streams.IRandomAccessStream OnCoreGetFileStream(string path, Windows.Storage.FileAccessMode fileAccess)
+        private Windows.Storage.Streams.IRandomAccessStream OnCoreOpenFileStream(string path, Windows.Storage.FileAccessMode fileAccess)
         {
             var accessMode = fileAccess == Windows.Storage.FileAccessMode.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite;
             var stream = StreamProvider.GetFileStreamAsync(path, accessMode).Result;
