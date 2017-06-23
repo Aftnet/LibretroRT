@@ -58,12 +58,12 @@ namespace RetriX.Shared.StreamProviders
             }
 
             var output = EntriesStreamMapping[path];
+            output.Position = 0;
             return Task.FromResult(output);
         }
 
         public void CloseStream(Stream stream)
         {
-            stream.Seek(0, SeekOrigin.Begin);
         }
     }
 }
