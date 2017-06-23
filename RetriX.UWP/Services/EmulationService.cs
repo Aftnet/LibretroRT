@@ -114,7 +114,10 @@ namespace RetriX.UWP.Services
             }
 
             StreamProvider?.Dispose();
-            StreamProvider = InitializeStreamProvider(system, file, rootFolder);
+            IStreamProvider streamProvider;
+            string virtualMainFilePath;
+            GetStreamProviderAndVirtualPath(system, file, rootFolder, out streamProvider, out virtualMainFilePath);
+            StreamProvider = streamProvider;
 
             //Navigation should cause the player page to load, which in turn should initialize the core runner
             while (CoreRunner == null)
@@ -123,7 +126,6 @@ namespace RetriX.UWP.Services
             }
 
             system.Core.GetFileStream = OnCoreGetFileStream;
-            var virtualMainFilePath = VFS.RomPath + file.Name;
             var loadSuccessful = false;
             try
             {
@@ -223,22 +225,25 @@ namespace RetriX.UWP.Services
             return output;
         }
 
-        private IStreamProvider InitializeStreamProvider(GameSystemVM system, IFile file, IFolder rootFolder)
+        private void GetStreamProviderAndVirtualPath(GameSystemVM system, IFile file, IFolder rootFolder, out IStreamProvider provider, out string mainFileVirtualPath)
         {
             IStreamProvider romProvider;
             if (rootFolder == null)
             {
-                romProvider = new SingleFileStreamProvider(VFS.RomPath + file.Name, file);
+                mainFileVirtualPath = VFS.RomPath + file.Name;
+                romProvider = new SingleFileStreamProvider(mainFileVirtualPath, file);
             }
             else
             {
+                mainFileVirtualPath = file.Path.Substring(rootFolder.Path.Length + 1);
+                mainFileVirtualPath = VFS.RomPath + mainFileVirtualPath;
                 romProvider = new FolderStreamProvider(VFS.RomPath, rootFolder);
             }
 
             var systemProvider = new FolderStreamProvider(VFS.SystemPath, new WinRTFolder(system.Core.SystemFolder));
             var saveProvider = new FolderStreamProvider(VFS.SavePath, new WinRTFolder(system.Core.SaveGameFolder));
-            var output = new CombinedStreamProvider(new HashSet<IStreamProvider> { romProvider, systemProvider, saveProvider });
-            return output;
+            var combinedProvider = new CombinedStreamProvider(new HashSet<IStreamProvider> { romProvider, systemProvider, saveProvider });
+            provider = combinedProvider;
         }
     }
 }
