@@ -146,6 +146,7 @@ namespace RetriX.UWP.Services
             }
 
             system.Core.OpenFileStream = OnCoreOpenFileStream;
+            system.Core.CloseFileStream = OnCoreCloseFileStream;
             var loadSuccessful = false;
             try
             {
@@ -241,9 +242,14 @@ namespace RetriX.UWP.Services
         private Windows.Storage.Streams.IRandomAccessStream OnCoreOpenFileStream(string path, Windows.Storage.FileAccessMode fileAccess)
         {
             var accessMode = fileAccess == Windows.Storage.FileAccessMode.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite;
-            var stream = StreamProvider.GetFileStreamAsync(path, accessMode).Result;
+            var stream = StreamProvider.OpenFileStreamAsync(path, accessMode).Result;
             var output = stream?.AsRandomAccessStream();
             return output;
+        }
+
+        private void OnCoreCloseFileStream(Windows.Storage.Streams.IRandomAccessStream stream)
+        {
+            StreamProvider.CloseStream(stream.AsStream());
         }
 
         private void GetStreamProviderAndVirtualPath(GameSystemVM system, IFile file, IFolder rootFolder, out IStreamProvider provider, out string mainFileVirtualPath)

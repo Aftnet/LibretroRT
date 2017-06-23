@@ -30,11 +30,11 @@ namespace RetriX.Shared.StreamProviders
             return output;
         }
 
-        public async Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
+        public async Task<Stream> OpenFileStreamAsync(string path, PCLStorage.FileAccess accessType)
         {
             foreach(var i in Providers)
             {
-                var stream = await i.GetFileStreamAsync(path, accessType);
+                var stream = await i.OpenFileStreamAsync(path, accessType);
                 if (stream != null)
                 {
                     return stream;
@@ -42,6 +42,14 @@ namespace RetriX.Shared.StreamProviders
             }
 
             return null;
+        }
+
+        public void CloseStream(Stream stream)
+        {
+            foreach (var i in Providers)
+            {
+                i.CloseStream(stream);
+            }
         }
     }
 }

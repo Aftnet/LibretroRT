@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.StreamProviders
 {
-    public class SingleFileStreamProvider : IStreamProvider
+    public class SingleFileStreamProvider : StreamProviderBase
     {
         private readonly string Path;
         private readonly IFile File;
@@ -17,18 +17,13 @@ namespace RetriX.Shared.StreamProviders
             File = file;
         }
 
-        public void Dispose()
-        {
-
-        }
-
-        public Task<IEnumerable<string>> ListEntriesAsync()
+        public override Task<IEnumerable<string>> ListEntriesAsync()
         {
             var output = new string[] { Path };
             return Task.FromResult(output as IEnumerable<string>);
         }
 
-        public Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
+        protected override Task<Stream> OpenFileStreamAsyncInternal(string path, PCLStorage.FileAccess accessType)
         {
             if (Path.Equals(path, StringComparison.OrdinalIgnoreCase))
             {

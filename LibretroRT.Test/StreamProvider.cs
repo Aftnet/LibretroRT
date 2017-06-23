@@ -48,9 +48,8 @@ namespace LibretroRT.Test
             if (OpenStreams.Contains(stream))
             {
                 stream.Dispose();
+                OpenStreams.Remove(stream);
             }
-
-            OpenStreams.Remove(stream);
         }
     }
 }
