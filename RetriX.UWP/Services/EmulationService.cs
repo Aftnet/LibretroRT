@@ -113,13 +113,7 @@ namespace RetriX.UWP.Services
                 await Task.Delay(100);
             }
 
-            system.Core.GetFileStream = (d, e) =>
-            {
-                var accessMode = e == Windows.Storage.FileAccessMode.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite;
-                var output = StreamProvider.GetFileStreamAsync(d, accessMode).Result?.AsRandomAccessStream();
-                return output;
-            };
-
+            system.Core.GetFileStream = OnCoreGetFileStream;
             var virtualMainFilePath = VFS.RomPath + file.Name;
             var loadSuccessful = await CoreRunner.LoadGameAsync(system.Core, virtualMainFilePath);
             if (loadSuccessful)
@@ -199,6 +193,13 @@ namespace RetriX.UWP.Services
                 RootFrame.GoBack();
                 GameRuntimeExceptionOccurred(this, e);
             });
+        }
+
+        private Windows.Storage.Streams.IRandomAccessStream OnCoreGetFileStream(string path, Windows.Storage.FileAccessMode fileAccess)
+        {
+            var accessMode = fileAccess == Windows.Storage.FileAccessMode.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite;
+            var output = StreamProvider.GetFileStreamAsync(path, accessMode).Result?.AsRandomAccessStream();
+            return output;
         }
 
         private IStreamProvider InitializeStreamProvider(GameSystemVM system, IFile file, IFolder rootFolder)
