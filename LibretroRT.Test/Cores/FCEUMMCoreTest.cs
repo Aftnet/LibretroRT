@@ -2,7 +2,7 @@
 {
     public class FCEUMMCoreTest : TestBase
     {
-        public FCEUMMCoreTest() : base(() => FCEUMMRT.FCEUMMCore.Instance, "Roms\\SMB3.nes")
+        public FCEUMMCoreTest() : base(() => FCEUMMRT.FCEUMMCore.Instance, StreamProvider.Scheme + "SMB3.nes")
         {
 
         }

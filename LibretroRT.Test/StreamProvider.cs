@@ -7,12 +7,14 @@ namespace LibretroRT.Test
 {
     public class StreamProvider : IDisposable
     {
-        private readonly List<IRandomAccessStream> OpenStreams = new List<IRandomAccessStream>();
-        public IDictionary<string, IStorageFile> FileMappings { get; private set; }
+        public const string Scheme = "ROM\\";
 
-        public StreamProvider()
+        private readonly IStorageFolder RootFolder;
+        private readonly List<IRandomAccessStream> OpenStreams = new List<IRandomAccessStream>();
+
+        public StreamProvider(IStorageFolder rootFolder)
         {
-            FileMappings = new Dictionary<string, IStorageFile>();
+            RootFolder = rootFolder;
         }
 
         public void Dispose()
@@ -23,21 +25,19 @@ namespace LibretroRT.Test
             }
         }
 
-        public string AddFile(IStorageFile file)
-        {
-            var key = $"ROM\\{file.Name}";
-            FileMappings.Add(key, file);
-            return key;
-        }
-
         public IRandomAccessStream OpenFileStream(string path, FileAccessMode fileAccess)
         {
-            if (!FileMappings.ContainsKey(path))
+            path = path.Substring(Scheme.Length);
+            IStorageFile file;
+            try
+            {
+                file = RootFolder.GetFileAsync(path).AsTask().Result;
+            }
+            catch
             {
                 return null;
             }
 
-            var file = FileMappings[path];
             var output = file.OpenAsync(fileAccess).AsTask().Result;
             OpenStreams.Add(output);
             return output;

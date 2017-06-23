@@ -2,7 +2,7 @@
 {
     public class GambetteCoreTest : TestBase
     {
-        public GambetteCoreTest() : base(() => GambatteRT.GambatteCore.Instance, "Roms\\PokemonSilver.gbc")
+        public GambetteCoreTest() : base(() => GambatteRT.GambatteCore.Instance, StreamProvider.Scheme + "PokemonSilver.gbc")
         {
 
         }

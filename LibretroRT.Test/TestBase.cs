@@ -45,13 +45,12 @@ namespace LibretroRT.Test
         [Fact]
         public async Task LoadingRomWorks()
         {
-            var file = await GetFileAsync(RomPath);
-            var provider = new StreamProvider();
-            var loadPath = provider.AddFile(file);
+            var romsFolder = await GetRomsFolderAsync();
+            var provider = new StreamProvider(romsFolder);
             Target.OpenFileStream = provider.OpenFileStream;
             Target.CloseFileStream = provider.CloseFileStream;
 
-            var loadResult = await Task.Run(() => Target.LoadGame(loadPath));
+            var loadResult = await Task.Run(() => Target.LoadGame(RomPath));
 
             Assert.True(loadResult);
             Assert.NotEqual(PixelFormats.FormatUknown, Target.PixelFormat);
@@ -99,13 +98,12 @@ namespace LibretroRT.Test
                 renderAudioFrameCalled = true;
             };
 
-            var file = await GetFileAsync(RomPath);
-            var provider = new StreamProvider();
-            var loadPath = provider.AddFile(file);
+            var romsFolder = await GetRomsFolderAsync();
+            var provider = new StreamProvider(romsFolder);
             Target.OpenFileStream = provider.OpenFileStream;
             Target.CloseFileStream = provider.CloseFileStream;
 
-            var loadResult = await Task.Run(() => Target.LoadGame(loadPath));
+            var loadResult = await Task.Run(() => Target.LoadGame(RomPath));
             Assert.True(loadResult);
 
             await Task.Run(() =>
@@ -119,10 +117,10 @@ namespace LibretroRT.Test
             Assert.True(renderAudioFrameCalled);
         }
 
-        private Task<StorageFile> GetFileAsync(string path)
+        private Task<StorageFolder> GetRomsFolderAsync()
         {
             var installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            return installedLocation.GetFileAsync(RomPath).AsTask();
+            return installedLocation.GetFolderAsync("Roms").AsTask();
         }
     }
 }

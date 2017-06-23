@@ -135,6 +135,8 @@
     <Content Include="Roms\PokemonSilver.gbc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Roms\Crash Bandicoot - Warped %28USA%29.bin" />
+    <None Include="Roms\Crash Bandicoot - Warped %28USA%29.cue" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\UnitTestApp.rd.xml" />
