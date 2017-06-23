@@ -287,4 +287,10 @@ Restart RetriX and try again.</value>
   <data name="SystemUnmetDependenciesAlertTitleKey" xml:space="preserve">
     <value>Required files missing</value>
   </data>
+  <data name="SelectFolderInvalidAlertMessageKey" xml:space="preserve">
+    <value>The folder you selected does not contain the game file you are trying to open. Try again.</value>
+  </data>
+  <data name="SelectFolderInvalidAlertTitleKey" xml:space="preserve">
+    <value>Invalid folder</value>
+  </data>
 </root>

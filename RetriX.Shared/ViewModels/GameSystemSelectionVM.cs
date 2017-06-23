@@ -5,6 +5,7 @@ using PCLStorage;
 using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
@@ -13,6 +14,8 @@ namespace RetriX.Shared.ViewModels
     {
         public const string SelectFolderRequestAlertTitleKey = nameof(SelectFolderRequestAlertTitleKey);
         public const string SelectFolderRequestAlertMessageKey = nameof(SelectFolderRequestAlertMessageKey);
+        public const string SelectFolderInvalidAlertTitleKey = nameof(SelectFolderInvalidAlertTitleKey);
+        public const string SelectFolderInvalidAlertMessageKey = nameof(SelectFolderInvalidAlertMessageKey);
 
         public const string GameLoadingFailAlertTitleKey = nameof(GameLoadingFailAlertTitleKey);
         public const string GameLoadingFailAlertMessageKey = nameof(GameLoadingFailAlertMessageKey);
@@ -74,6 +77,12 @@ namespace RetriX.Shared.ViewModels
                 folder = await PlatformService.SelectFolderAsync();
                 if (folder == null)
                 {
+                    return;
+                }
+
+                if (Path.GetDirectoryName(file.Path).StartsWith(folder.Path))
+                {
+                    await DisplayNotification(SelectFolderInvalidAlertTitleKey, SelectFolderInvalidAlertMessageKey);
                     return;
                 }
             }
