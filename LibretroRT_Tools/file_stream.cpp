@@ -3,6 +3,7 @@
 
 #include <codecvt>
 #include <string>
+#include <sstream>
 #include <collection.h>
 #include <ppltasks.h>
 
@@ -197,23 +198,31 @@ error:
 
 char *filestream_gets(RFILE *stream, char *s, size_t len)
 {
-	auto winstream = stream->Stream;
-	auto initialPos = winstream->Position;
-	auto validLen = min(len, winstream->Size - initialPos);
+	auto winStream = stream->Stream;
+	auto initialPos = winStream->Position;
+	if (initialPos == winStream->Size)
+	{
+		return NULL;
+	}
 
-	auto reader = ref new DataReader(stream->Stream);
-	concurrency::create_task(reader->LoadAsync(validLen)).wait();
+	auto reader = ref new DataReader(winStream);
+	len = concurrency::create_task(reader->LoadAsync(len)).get();
+	if (len < 1)
+	{
+		return NULL;
+	}
 
-	auto string = reader->ReadString(validLen);
+	auto winString = reader->ReadString(len);
 	reader->DetachStream();
 
-	auto converted = FileStreamTools::StringConverter.to_bytes(string->Data());
-	converted = converted.substr(0, len);
-	converted = converted.substr(0, converted.find("\n", 0));
-	winstream->Seek(initialPos + converted.length() + 1);
-	converted = converted.substr(0, converted.find("\r", 0));
+	auto converted = FileStreamTools::StringConverter.to_bytes(winString->Data());
+	std::istringstream stringStream(converted);
+	std::string line;
+	std::getline(stringStream, line);
+	strcpy_s(s, len, line.c_str());
 
-	strcpy_s(s, len, converted.c_str());
+	auto index = converted.find('\n');
+	winStream->Seek(min(winStream->Size, initialPos + index + 1));
 	return s;
 }
 
