@@ -87,10 +87,19 @@ namespace RetriX.UWP.Services
         public async Task<bool> CheckDependenciesMetAsync(GameSystemVM system)
         {
             var systemFolder = system.Core.SystemFolder;
-            var tasks = system.Core.FileDependencies.Select(d => system.Core.SystemFolder.GetFileAsync(d.Name).AsTask()).ToArray();
-            var results = await Task.WhenAll(tasks);
-            var output = !results.Any(d => d == null);
-            return output;
+            foreach(var i in system.Core.FileDependencies)
+            {
+                try
+                {
+                    await systemFolder.GetFileAsync(i.Name);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public async Task<bool> StartGameAsync(GameSystemVM system, IFile file, IFolder rootFolder = null)
