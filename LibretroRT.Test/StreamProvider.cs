@@ -21,7 +21,7 @@ namespace LibretroRT.Test
             return key;
         }
 
-        public IRandomAccessStream GetFileStream(string path, FileAccessMode fileAccess)
+        public IRandomAccessStream OpenFileStream(string path, FileAccessMode fileAccess)
         {
             if (!FileMappings.ContainsKey(path))
             {

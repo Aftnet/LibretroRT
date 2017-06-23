@@ -10,11 +10,17 @@ using namespace std;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
-retro_extra_get_file_t GetFileStreamViaFrontend;
+retro_extra_open_file_t OpenFileStreamViaFrontend;
+retro_extra_close_file_t CloseFileStreamViaFrontend;
 
-void retro_extra_set_get_file(retro_extra_get_file_t cb)
+void retro_extra_set_open_file(retro_extra_open_file_t cb)
 {
-	GetFileStreamViaFrontend = cb;
+	OpenFileStreamViaFrontend = cb;
+}
+
+void retro_extra_set_close_file(retro_extra_close_file_t cb)
+{
+	CloseFileStreamViaFrontend = cb;
 }
 
 struct RFILE
@@ -58,7 +64,7 @@ RFILE *filestream_open(const char *path, unsigned mode, ssize_t len)
 {
 	string pathStr(path);
 
-	if (GetFileStreamViaFrontend == nullptr)
+	if (OpenFileStreamViaFrontend == nullptr)
 	{
 		return nullptr;
 	}
@@ -67,7 +73,7 @@ RFILE *filestream_open(const char *path, unsigned mode, ssize_t len)
 	mode = mode & 0x0f;
 	auto accessMode = (mode == RFILE_MODE_READ || mode == RFILE_MODE_READ_TEXT) ? FileAccessMode::Read : FileAccessMode::ReadWrite;
 
-	auto stream = GetFileStreamViaFrontend(convertedPath, accessMode);
+	auto stream = OpenFileStreamViaFrontend(convertedPath, accessMode);
 	if (stream == nullptr)
 	{
 		return nullptr;
@@ -128,7 +134,7 @@ void filestream_rewind(RFILE *stream)
 
 int filestream_close(RFILE *stream)
 {
-	stream->Stream = nullptr;
+	CloseFileStreamViaFrontend(stream->Stream);
 	delete stream;
 	return 0;
 }

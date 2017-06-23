@@ -48,7 +48,7 @@ namespace LibretroRT.Test
             var file = await GetFileAsync(RomPath);
             var provider = new StreamProvider();
             var loadPath = provider.AddFile(file);
-            Target.GetFileStream = provider.GetFileStream;
+            Target.OpenFileStream = provider.OpenFileStream;
 
             var loadResult = await Task.Run(() => Target.LoadGame(loadPath));
 
