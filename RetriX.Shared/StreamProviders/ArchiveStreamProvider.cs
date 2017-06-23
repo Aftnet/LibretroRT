@@ -39,7 +39,7 @@ namespace RetriX.Shared.StreamProviders
                     {
                         var memoryStream = new MemoryStream();
                         await entryStream.CopyToAsync(memoryStream);
-                        EntriesStreamMapping.Add(i.FullName, memoryStream);
+                        EntriesStreamMapping.Add(HandledScheme + i.FullName, memoryStream);
                     }
                 }
             }
@@ -47,30 +47,23 @@ namespace RetriX.Shared.StreamProviders
 
         public Task<IEnumerable<string>> ListEntriesAsync()
         {
-            return Task.FromResult(EntriesStreamMapping.Keys.Select(d => HandledScheme + d).OrderBy(d => d) as IEnumerable<string>);
+            return Task.FromResult(EntriesStreamMapping.Keys.OrderBy(d => d) as IEnumerable<string>);
         }
 
         public Task<Stream> OpenFileStreamAsync(string path, PCLStorage.FileAccess accessType)
         {
-            if (!path.StartsWith(HandledScheme))
-            {
-                return Task.FromResult(null as Stream);
-            }
-
-            path = path.Substring(HandledScheme.Length);
-            if (!EntriesStreamMapping.Keys.Contains(path))
+            if (!EntriesStreamMapping.Keys.Contains(path, StringComparer.OrdinalIgnoreCase))
             {
                 return Task.FromResult(null as Stream);
             }
 
             var output = EntriesStreamMapping[path];
-            output.Seek(0, SeekOrigin.Begin);
             return Task.FromResult(output);
         }
 
         public void CloseStream(Stream stream)
         {
-            
+            stream.Seek(0, SeekOrigin.Begin);
         }
     }
 }
