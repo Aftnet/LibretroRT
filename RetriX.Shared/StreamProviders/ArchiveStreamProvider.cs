@@ -12,7 +12,7 @@ namespace RetriX.Shared.StreamProviders
         private readonly string HandledScheme;
         private readonly IFile ArchiveFile;
         private ZipArchive Archive = null;
-        private SortedSet<string> EntriesList;
+        private readonly Dictionary<string, ZipArchiveEntry> EntriesDictionary = new Dictionary<string, ZipArchiveEntry>();
 
         public ArchiveStreamProvider(string handledScheme, IFile archiveFile)
         {
@@ -27,14 +27,17 @@ namespace RetriX.Shared.StreamProviders
 
         public async Task InitializeAsync()
         {
-            var stream = await ArchiveFile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite);
-            Archive = new ZipArchive(stream, ZipArchiveMode.Update);
-            EntriesList = new SortedSet<string>(Archive.Entries.Select(d => $"{HandledScheme}{d.FullName}"));
+            var stream = await ArchiveFile.OpenAsync(PCLStorage.FileAccess.Read);
+            Archive = new ZipArchive(stream, ZipArchiveMode.Read);
+            foreach (var i in Archive.Entries)
+            {
+                EntriesDictionary.Add(i.FullName, i);
+            }
         }
 
         public Task<IEnumerable<string>> ListEntriesAsync()
         {
-            return Task.FromResult(EntriesList as IEnumerable<string>);
+            return Task.FromResult(EntriesDictionary.Keys.Select(d => HandledScheme + d).OrderBy(d => d) as IEnumerable<string>);
         }
 
         public Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
@@ -45,12 +48,12 @@ namespace RetriX.Shared.StreamProviders
             }
 
             path = path.Substring(HandledScheme.Length);
-            if (!EntriesList.Contains(path))
+            if (!EntriesDictionary.Keys.Contains(path))
             {
                 return Task.FromResult(null as Stream);
             }
 
-            var entry = Archive.GetEntry(path);
+            var entry = EntriesDictionary[path];
             var output = entry.Open();
             return Task.FromResult(output);
         }
