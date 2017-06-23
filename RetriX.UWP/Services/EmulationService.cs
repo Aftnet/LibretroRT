@@ -209,6 +209,8 @@ namespace RetriX.UWP.Services
         {
             var task = PlatformService.RunOnUIThreadAsync(() =>
             {
+                StreamProvider?.Dispose();
+                StreamProvider = null;
                 RootFrame.GoBack();
                 GameRuntimeExceptionOccurred(this, e);
             });
