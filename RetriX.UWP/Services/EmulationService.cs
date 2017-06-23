@@ -115,14 +115,24 @@ namespace RetriX.UWP.Services
 
             system.Core.GetFileStream = OnCoreGetFileStream;
             var virtualMainFilePath = VFS.RomPath + file.Name;
-            var loadSuccessful = await CoreRunner.LoadGameAsync(system.Core, virtualMainFilePath);
+            var loadSuccessful = false;
+            try
+            {
+                loadSuccessful = await CoreRunner.LoadGameAsync(system.Core, virtualMainFilePath);
+            }
+            catch
+            {
+                await StopGameAsync();
+                return false;
+            }
+
             if (loadSuccessful)
             {
                 GameStarted(this);
             }
             else
             {
-                RootFrame.GoBack();
+                await StopGameAsync();
                 return false;
             }
 
