@@ -53,8 +53,7 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	{
 	case RETRO_ENVIRONMENT_GET_VARIABLE:
 		auto varptr = (retro_variable*)data;
-		varptr->value = "";
-		return true;
+		return false;
 	}
 
 	return false;

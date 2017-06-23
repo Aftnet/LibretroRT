@@ -293,4 +293,10 @@ Restart RetriX and try again.</value>
   <data name="SelectFolderInvalidAlertTitleKey" xml:space="preserve">
     <value>Invalid folder</value>
   </data>
+  <data name="ManufacturerNameSony" xml:space="preserve">
+    <value>Sony</value>
+  </data>
+  <data name="SystemNamePlayStation" xml:space="preserve">
+    <value>PlayStation</value>
+  </data>
 </root>
