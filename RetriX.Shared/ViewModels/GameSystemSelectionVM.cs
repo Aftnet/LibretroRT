@@ -80,7 +80,7 @@ namespace RetriX.Shared.ViewModels
                     return;
                 }
 
-                if (Path.GetDirectoryName(file.Path).StartsWith(folder.Path))
+                if (!Path.GetDirectoryName(file.Path).StartsWith(folder.Path))
                 {
                     await DisplayNotification(SelectFolderInvalidAlertTitleKey, SelectFolderInvalidAlertMessageKey);
                     return;
