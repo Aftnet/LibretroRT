@@ -18,6 +18,15 @@ At minimum, I would need:
 - An Authenticode certificate to do binary releases
 - An Xbox One to develop/test on
 
+## Building from source
+
+The project makes extensive use of [Git submodules](https://git-scm.com/docs/git-submodule), to include Libretro cores code, which means some extra care needs to be taken when cloning.
+
+1. Do a *recursive* clone (add `--recursive` after `git clone`). Or just clone from Team Explorer in Visual Studio
+2. Select either x86, x64 or ARM as the architecture, `Any CPU` won't work, then your preferred build config (Debug/Release)
+3. Select `Retrix.UWP` as the startup project in Visual Studio to run from there with debugger attached
+4. Right click on the Retrix.UWP node in solution explorer, select Store->Create app packages and follow the wizard to create your own .appx binaries
+
 ## Design goals
 
 - Full compliance with UWP sandboxing
