@@ -3,6 +3,7 @@
 
 #include <codecvt>
 #include <string>
+#include <sstream>
 #include <collection.h>
 #include <ppltasks.h>
 
@@ -10,11 +11,17 @@ using namespace std;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
-retro_extra_get_file_t GetFileStreamViaFrontend;
+retro_extra_open_file_t OpenFileStreamViaFrontend;
+retro_extra_close_file_t CloseFileStreamViaFrontend;
 
-void retro_extra_set_get_file(retro_extra_get_file_t cb)
+void retro_extra_set_open_file(retro_extra_open_file_t cb)
 {
-	GetFileStreamViaFrontend = cb;
+	OpenFileStreamViaFrontend = cb;
+}
+
+void retro_extra_set_close_file(retro_extra_close_file_t cb)
+{
+	CloseFileStreamViaFrontend = cb;
 }
 
 struct RFILE
@@ -58,7 +65,7 @@ RFILE *filestream_open(const char *path, unsigned mode, ssize_t len)
 {
 	string pathStr(path);
 
-	if (GetFileStreamViaFrontend == nullptr)
+	if (OpenFileStreamViaFrontend == nullptr)
 	{
 		return nullptr;
 	}
@@ -67,7 +74,7 @@ RFILE *filestream_open(const char *path, unsigned mode, ssize_t len)
 	mode = mode & 0x0f;
 	auto accessMode = (mode == RFILE_MODE_READ || mode == RFILE_MODE_READ_TEXT) ? FileAccessMode::Read : FileAccessMode::ReadWrite;
 
-	auto stream = GetFileStreamViaFrontend(convertedPath, accessMode);
+	auto stream = OpenFileStreamViaFrontend(convertedPath, accessMode);
 	if (stream == nullptr)
 	{
 		return nullptr;
@@ -128,7 +135,7 @@ void filestream_rewind(RFILE *stream)
 
 int filestream_close(RFILE *stream)
 {
-	stream->Stream = nullptr;
+	CloseFileStreamViaFrontend(stream->Stream);
 	delete stream;
 	return 0;
 }
@@ -191,23 +198,31 @@ error:
 
 char *filestream_gets(RFILE *stream, char *s, size_t len)
 {
-	auto winstream = stream->Stream;
-	auto initialPos = winstream->Position;
-	auto validLen = min(len, winstream->Size - initialPos);
+	auto winStream = stream->Stream;
+	auto initialPos = winStream->Position;
+	if (initialPos == winStream->Size)
+	{
+		return NULL;
+	}
 
-	auto reader = ref new DataReader(stream->Stream);
-	concurrency::create_task(reader->LoadAsync(validLen)).wait();
+	auto reader = ref new DataReader(winStream);
+	len = concurrency::create_task(reader->LoadAsync(len)).get();
+	if (len < 1)
+	{
+		return NULL;
+	}
 
-	auto string = reader->ReadString(validLen);
+	auto winString = reader->ReadString(len);
 	reader->DetachStream();
 
-	auto converted = FileStreamTools::StringConverter.to_bytes(string->Data());
-	converted = converted.substr(0, len);
-	converted = converted.substr(0, converted.find("\n", 0));
-	winstream->Seek(initialPos + converted.length() + 1);
-	converted = converted.substr(0, converted.find("\r", 0));
+	auto converted = FileStreamTools::StringConverter.to_bytes(winString->Data());
+	std::istringstream stringStream(converted);
+	std::string line;
+	std::getline(stringStream, line);
+	strcpy_s(s, len, line.c_str());
 
-	strcpy_s(s, len, converted.c_str());
+	auto index = converted.find('\n');
+	winStream->Seek(min(winStream->Size, initialPos + index + 1));
 	return s;
 }
 

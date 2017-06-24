@@ -1,4 +1,4 @@
-# LibretroRT
+# LibretroRT & RetriX
 
 LibretroRT is a framework to enable porting of Libretro cores to WinRT components.
 
@@ -29,9 +29,10 @@ Click image to play video
 - Ported GenesisPlusGX, Snes9x, FCEUMM, Nestopia (doesn't work well, using FCEUMM instead), VBAM, Ganbatte (unstable)
 - Created audio player WinRT components to interop between Libretro's audio rendering interface and Windows 10's [AudioGraph](https://docs.microsoft.com/en-us/windows/uwp/audio-video-camera/audio-graphs) API
 - Created input manager WinRT component to interop between Libretro's input polling interface and Windows 10's [Gamepad APIs](https://docs.microsoft.com/en-us/uwp/api/windows.gaming.input.gamepad)
-- Created Win2D based video renderer. Supports software based Libretro cores.
+- Created [Win2D](https://github.com/Microsoft/Win2D) based video renderer. Supports software based Libretro cores.
 - Created RetriX, a native XAML based Libretro front end, with an UI optimized for mouse, touch as well as gamepad interaction: it scales from phones to tablets, traditional PC form factors as well as the Xbox One.
-- Working on porting Bettle-PSX, a PlayStation core
+- Implemented a way to virtualize file system access from within cores: allows opening zipped games and those made up of multiple files
+- Working on PlayStation support
 
 ## Roadmap
 

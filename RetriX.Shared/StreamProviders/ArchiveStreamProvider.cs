@@ -4,54 +4,66 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace RetriX.Shared.StreamProviders
 {
-    /*public class ArchiveStreamProvider : IStreamProvider
+    public class ArchiveStreamProvider : IStreamProvider
     {
         private readonly string HandledScheme;
-        private ZipArchive Archive = null;
+        private readonly IFile ArchiveFile;
+        private readonly Dictionary<string, Stream> EntriesStreamMapping = new Dictionary<string, Stream>();
 
         public ArchiveStreamProvider(string handledScheme, IFile archiveFile)
         {
             HandledScheme = handledScheme;
-            archiveFile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite).ContinueWith(d =>
-            {
-                Archive = new ZipArchive(d.Result);
-            });
+            ArchiveFile = archiveFile;
         }
 
         public void Dispose()
         {
-            Archive?.Dispose();
+            foreach(var i in EntriesStreamMapping.Values)
+            {
+                i.Dispose();
+            }
         }
 
-        public async Task<IEnumerable<string>> ListEntriesAsync()
+        public async Task InitializeAsync()
         {
-            while (Archive == null)
+            var stream = await ArchiveFile.OpenAsync(PCLStorage.FileAccess.Read);
+            using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
             {
-                await Task.Delay(50);
+                foreach (var i in archive.Entries)
+                {
+                    using (var entryStream = i.Open())
+                    {
+                        var memoryStream = new MemoryStream();
+                        await entryStream.CopyToAsync(memoryStream);
+                        EntriesStreamMapping.Add(HandledScheme + i.FullName, memoryStream);
+                    }
+                }
             }
-
-            var output = Archive.Entries.Select(d => $"{HandledScheme}{d.FullName}").OrderBy(d => d).ToArray();
-            return output;
         }
 
-        public async Task<Stream> GetFileStreamAsync(string path, System.IO.FileAccess accessType)
+        public Task<IEnumerable<string>> ListEntriesAsync()
         {
-            if (!path.StartsWith(HandledScheme))
-            {
-                return null;
-            }
-
-            path = path.Substring(HandledScheme.Length);
-            while (Archive == null)
-            {
-                await Task.Delay(50);
-            }
-
-            var entry = Archive.GetEntry(path);
-            return entry.Open();
+            return Task.FromResult(EntriesStreamMapping.Keys.OrderBy(d => d) as IEnumerable<string>);
         }
-    }*/
+
+        public Task<Stream> OpenFileStreamAsync(string path, PCLStorage.FileAccess accessType)
+        {
+            if (!EntriesStreamMapping.Keys.Contains(path, StringComparer.OrdinalIgnoreCase))
+            {
+                return Task.FromResult(null as Stream);
+            }
+
+            var output = EntriesStreamMapping[path];
+            output.Position = 0;
+            return Task.FromResult(output);
+        }
+
+        public void CloseStream(Stream stream)
+        {
+        }
+    }
 }

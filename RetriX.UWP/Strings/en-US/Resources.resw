@@ -281,4 +281,22 @@ Restart RetriX and try again.</value>
   <data name="SelectFolderRequestAlertMessageKey" xml:space="preserve">
     <value>This game is made up of multiple files. Please select the folder that contains them to load it.</value>
   </data>
+  <data name="SystemUnmetDependenciesAlertMessageKey" xml:space="preserve">
+    <value>Some files required to run this game are missing. Install them using the settings page and try again.</value>
+  </data>
+  <data name="SystemUnmetDependenciesAlertTitleKey" xml:space="preserve">
+    <value>Required files missing</value>
+  </data>
+  <data name="SelectFolderInvalidAlertMessageKey" xml:space="preserve">
+    <value>The folder you selected does not contain the game file you are trying to open. Try again.</value>
+  </data>
+  <data name="SelectFolderInvalidAlertTitleKey" xml:space="preserve">
+    <value>Invalid folder</value>
+  </data>
+  <data name="ManufacturerNameSony" xml:space="preserve">
+    <value>Sony</value>
+  </data>
+  <data name="SystemNamePlayStation" xml:space="preserve">
+    <value>PlayStation</value>
+  </data>
 </root>

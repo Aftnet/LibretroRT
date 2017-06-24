@@ -2,7 +2,7 @@
 {
     public class VBAMCoreTest : TestBase
     {
-        public VBAMCoreTest() : base(() => VBAMRT.VBAMCore.Instance, "Roms\\PokemonFireRed.gba")
+        public VBAMCoreTest() : base(() => VBAMRT.VBAMCore.Instance, StreamProvider.Scheme + "PokemonFireRed.gba")
         {
 
         }

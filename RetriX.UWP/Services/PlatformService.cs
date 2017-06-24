@@ -95,7 +95,9 @@ namespace RetriX.UWP.Services
                 return null;
             }
 
-            Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Add(folder);
+            var accessList = Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList;
+            accessList.Clear();
+            accessList.Add(folder);
             return new WinRTFolder(folder);
         }
 

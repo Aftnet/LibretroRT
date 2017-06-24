@@ -20,7 +20,7 @@ namespace RetriX.Shared.Test.StreamProviders
         protected async Task OpeningFileWorksInternal(string path, bool expectedSuccess)
         {
             var target = await GetTargetAsync();
-            var stream = await target.GetFileStreamAsync(path, FileAccess.Read);
+            var stream = await target.OpenFileStreamAsync(path, FileAccess.Read);
             if (expectedSuccess)
             {
                 Assert.NotNull(stream);

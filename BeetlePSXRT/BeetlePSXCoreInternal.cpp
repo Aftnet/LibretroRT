@@ -22,7 +22,8 @@ BeetlePSXCoreInternal^ BeetlePSXCoreInternal::Instance::get()
 		retro_set_audio_sample([](int16_t left, int16_t right) { coreInstance->SingleAudioFrameHandler(left, right); });
 		retro_set_audio_sample_batch([](const int16_t* data, size_t numFrames) { return coreInstance->RaiseRenderAudioFrames(data, numFrames); });
 		retro_set_video_refresh([](const void *data, unsigned width, unsigned height, size_t pitch) { coreInstance->RaiseRenderVideoFrame(data, width, height, pitch); });
-		retro_extra_set_get_file([](String^ filePath, FileAccessMode accessMode) { return coreInstance->GetFileStream(filePath, accessMode); });
+		retro_extra_set_open_file([](String^ filePath, FileAccessMode accessMode) { return coreInstance->OpenFileStream(filePath, accessMode); });
+		retro_extra_set_close_file([](IRandomAccessStream^ stream) { coreInstance->CloseFileStream(stream); });
 		retro_init();
 	}
 
@@ -52,8 +53,7 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	{
 	case RETRO_ENVIRONMENT_GET_VARIABLE:
 		auto varptr = (retro_variable*)data;
-		varptr->value = "";
-		return true;
+		return false;
 	}
 
 	return false;

@@ -90,13 +90,14 @@ CoreBase::~CoreBase()
 
 void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)
 {
-	auto stream = GetFileStream(filePath, Windows::Storage::FileAccessMode::Read);
+	auto stream = OpenFileStream(filePath, Windows::Storage::FileAccessMode::Read);
 	data.resize(stream->Size);
 	auto dataArray = Platform::ArrayReference<unsigned char>(data.data(), stream->Size);
 
 	auto reader = ref new Windows::Storage::Streams::DataReader(stream);
 	concurrency::create_task(reader->LoadAsync(stream->Size)).get();
 	reader->ReadBytes(dataArray);
+	CloseFileStream(stream);
 }
 
 bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)

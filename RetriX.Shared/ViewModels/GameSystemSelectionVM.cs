@@ -5,6 +5,8 @@ using PCLStorage;
 using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
@@ -13,11 +15,15 @@ namespace RetriX.Shared.ViewModels
     {
         public const string SelectFolderRequestAlertTitleKey = nameof(SelectFolderRequestAlertTitleKey);
         public const string SelectFolderRequestAlertMessageKey = nameof(SelectFolderRequestAlertMessageKey);
+        public const string SelectFolderInvalidAlertTitleKey = nameof(SelectFolderInvalidAlertTitleKey);
+        public const string SelectFolderInvalidAlertMessageKey = nameof(SelectFolderInvalidAlertMessageKey);
 
         public const string GameLoadingFailAlertTitleKey = nameof(GameLoadingFailAlertTitleKey);
         public const string GameLoadingFailAlertMessageKey = nameof(GameLoadingFailAlertMessageKey);
         public const string GameRunningFailAlertTitleKey = nameof(GameRunningFailAlertTitleKey);
         public const string GameRunningFailAlertMessageKey = nameof(GameRunningFailAlertMessageKey);
+        public const string SystemUnmetDependenciesAlertTitleKey = nameof(SystemUnmetDependenciesAlertTitleKey);
+        public const string SystemUnmetDependenciesAlertMessageKey = nameof(SystemUnmetDependenciesAlertMessageKey);
 
         private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
@@ -36,40 +42,65 @@ namespace RetriX.Shared.ViewModels
 
             GameSystemSelectedCommand = new RelayCommand<T>(GameSystemSelected);
 
-            EmulationService.RequestGameFolderAsync = OnRequestGameFolderAsync;
             EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
         }
 
-        public async void GameSystemSelected(T selectedSystem)
+        public async void GameSystemSelected(T system)
         {
-            var extensions = selectedSystem.SupportedExtensions;
+            var extensions = system.SupportedExtensions.Concat(EmulationService.ArchiveExtensions).ToArray();
             var file = await PlatformService.SelectFileAsync(extensions);
             if (file == null)
             {
                 return;
             }
 
-            var result = await EmulationService.StartGameAsync(selectedSystem, file);
-            if (!result)
-            {
-                await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
-            }
+            await StartGameAsync(system, file);
         }
 
-        public async Task StartGameFromFileAsync(IFile file)
+        public Task StartGameFromFileAsync(IFile file)
         {
-            var result = await EmulationService.StartGameAsync(file);
-            if (!result)
+            var system = EmulationService.SuggestSystemForFile(file);
+            if (system == null)
             {
-                await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
+                return Task.CompletedTask;
             }
+
+            return StartGameAsync(system, file);
         }
 
-        private async Task<IFolder> OnRequestGameFolderAsync(IEmulationService sender)
+        private async Task StartGameAsync(T system, IFile file)
         {
-            await DisplayNotification(SelectFolderRequestAlertTitleKey, SelectFolderRequestAlertMessageKey);
-            var folder = await PlatformService.SelectFolderAsync();
-            return folder;
+            var folderNeeded = EmulationService.CheckRootFolderRequired(system, file);
+            IFolder folder = null;
+            if (folderNeeded)
+            {
+                await DisplayNotification(SelectFolderRequestAlertTitleKey, SelectFolderRequestAlertMessageKey);
+                folder = await PlatformService.SelectFolderAsync();
+                if (folder == null)
+                {
+                    return;
+                }
+
+                if (!Path.GetDirectoryName(file.Path).StartsWith(folder.Path))
+                {
+                    await DisplayNotification(SelectFolderInvalidAlertTitleKey, SelectFolderInvalidAlertMessageKey);
+                    return;
+                }
+            }
+
+            var startSuccess = await EmulationService.StartGameAsync(system, file, folder);
+            if (!startSuccess)
+            {
+                var dependenciesMet = await EmulationService.CheckDependenciesMetAsync(system);
+                if (dependenciesMet)
+                {
+                    await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
+                }
+                else
+                {
+                    await DisplayNotification(SystemUnmetDependenciesAlertTitleKey, SystemUnmetDependenciesAlertMessageKey);
+                }
+            }
         }
 
         private void OnGameRuntimeExceptionOccurred(IEmulationService sender, Exception e)

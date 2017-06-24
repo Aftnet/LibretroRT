@@ -2,7 +2,7 @@
 {
     public class NestopiaCoreTest : TestBase
     {
-        public NestopiaCoreTest() : base(() => NestopiaRT.NestopiaCore.Instance, "Roms\\SMB3.nes")
+        public NestopiaCoreTest() : base(() => NestopiaRT.NestopiaCore.Instance, StreamProvider.Scheme + "SMB3.nes")
         {
 
         }

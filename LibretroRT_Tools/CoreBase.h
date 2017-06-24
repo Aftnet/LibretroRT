@@ -7,6 +7,7 @@ using namespace Platform;
 using namespace Platform::Collections;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Storage;
+using namespace Windows::Storage::Streams;
 
 namespace LibretroRT_Tools
 {
@@ -109,7 +110,8 @@ namespace LibretroRT_Tools
 		virtual property GeometryChangedDelegate^ GeometryChanged;
 		virtual property TimingChangedDelegate^ TimingChanged;
 		virtual property PixelFormatChangedDelegate^ PixelFormatChanged;
-		virtual property GetFileStreamDelegate^ GetFileStream;
+		virtual property OpenFileStreamDelegate^ OpenFileStream;
+		virtual property CloseFileStreamDelegate^ CloseFileStream;
 
 		virtual ~CoreBase();
 

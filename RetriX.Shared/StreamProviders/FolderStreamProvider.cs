@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.StreamProviders
 {
-    public class FolderStreamProvider : IStreamProvider
+    public class FolderStreamProvider : StreamProviderBase
     {
         private readonly string HandledScheme;
         private readonly IFolder RootFolder;
@@ -17,19 +17,14 @@ namespace RetriX.Shared.StreamProviders
             RootFolder = rootFolder;
         }
 
-        public void Dispose()
-        {
-
-        }
-
-        public async Task<IEnumerable<string>> ListEntriesAsync()
+        public override async Task<IEnumerable<string>> ListEntriesAsync()
         {
             var files = await ListFilesRecursiveAsync(RootFolder);
             var output = files.Select(d => HandledScheme + d.Path.Substring(RootFolder.Path.Length + 1)).OrderBy(d => d).ToArray();
             return output;
         }
 
-        public async Task<Stream> GetFileStreamAsync(string path, PCLStorage.FileAccess accessType)
+        protected override async Task<Stream> OpenFileStreamAsyncInternal(string path, PCLStorage.FileAccess accessType)
         {
             if (!path.StartsWith(HandledScheme, System.StringComparison.OrdinalIgnoreCase))
             {
