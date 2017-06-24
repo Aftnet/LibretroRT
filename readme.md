@@ -10,6 +10,14 @@ This should enable creating native UWP emulator front ends using high the high q
 
 Click image to play video
 
+## Help wanted
+
+I am accepting donations on [gofundme](https://www.gofundme.com/retrix) to help with development costs.
+At minimum, I would need:
+
+- An Authenticode certificate to do binary releases
+- An Xbox One to develop/test on
+
 ## Design goals
 
 - Full compliance with UWP sandboxing
