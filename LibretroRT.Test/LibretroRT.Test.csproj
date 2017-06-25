@@ -119,7 +119,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="LibretroRT.Test_TemporaryKey.pfx" />
     <Content Include="Roms\Sonic2.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
