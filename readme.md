@@ -18,6 +18,12 @@ At minimum, I would need:
 - An Authenticode certificate to do binary releases
 - An Xbox One to develop/test on
 
+## Installing
+
+1. Check the [releases](https://github.com/Aftnet/LibretroRT/releases) section for the latest binary build
+2. If installing for the first time, download the [RetriX.Certificate.cer](https://github.com/Aftnet/LibretroRT/releases/download/Initial/RetriX.Certificate.cer), also linked in the releases section, and install it in the local or machine trusted CA store. Instructions for doing so [here](https://blogs.technet.microsoft.com/sbs/2008/05/08/installing-a-self-signed-certificate-as-a-trusted-root-ca-in-windows-vista/)
+3. Download and double click on the .appxbundle file, follow the instructions
+
 ## Building from source
 
 The project makes extensive use of [Git submodules](https://git-scm.com/docs/git-submodule), to include Libretro cores code, which means some extra care needs to be taken when cloning.
