@@ -30,19 +30,20 @@ namespace RetriX.UWP.Services
         private IStreamProvider StreamProvider;
         private ICoreRunner CoreRunner;
 
-        private readonly ICore[] AvailableCores = { FCEUMMRT.FCEUMMCore.Instance, Snes9XRT.Snes9XCore.Instance, GambatteRT.GambatteCore.Instance, VBAMRT.VBAMCore.Instance, GPGXRT.GPGXCore.Instance };
+        private ICore[] AvailableCores;
 
         private static readonly string[] archiveExtensions = { ".zip" };
         public IReadOnlyList<string> ArchiveExtensions => archiveExtensions;
 
-        private readonly GameSystemVM[] systems;
+        private GameSystemVM[] systems = new GameSystemVM[0];
         public IReadOnlyList<GameSystemVM> Systems => systems;
 
-        private readonly Lazy<FileImporterVM[]> fileDependencyImporters;
-        public IReadOnlyList<FileImporterVM> FileDependencyImporters => fileDependencyImporters.Value;
+        private FileImporterVM[] fileDependencyImporters = new FileImporterVM[0];
+        public IReadOnlyList<FileImporterVM> FileDependencyImporters => fileDependencyImporters;
 
         public string GameID => CoreRunner?.GameID;
 
+        public event CoresInitializedDelegate CoresInitialized;
         public event GameStartedDelegate GameStarted;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
@@ -53,9 +54,13 @@ namespace RetriX.UWP.Services
 
             RootFrame.Navigated += OnNavigated;
 
-            var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso" };
-            systems = new GameSystemVM[]
+            Task.Run(() =>
             {
+                AvailableCores = new ICore[] { FCEUMMRT.FCEUMMCore.Instance, Snes9XRT.Snes9XCore.Instance, GambatteRT.GambatteCore.Instance, VBAMRT.VBAMCore.Instance, GPGXRT.GPGXCore.Instance };
+
+                var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso" };
+                systems = new GameSystemVM[]
+                {
                 new GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118", FCEUMMRT.FCEUMMCore.Instance.SupportedExtensions, new string[0]),
                 new GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119", Snes9XRT.Snes9XCore.Instance.SupportedExtensions, new string[0]),
                 new GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b", GambatteRT.GambatteCore.Instance.SupportedExtensions, new string[0]),
@@ -65,17 +70,16 @@ namespace RetriX.UWP.Services
                 new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", new HashSet<string>{ ".gg" }, new string[0]),
                 new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new HashSet<string>{ ".mds", ".md", ".smd", ".gen" }, new string[0]),
                 new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", CDImageExtensions, CDImageExtensions),
-                //new GameSystemVM(BeetlePSXRT.BeetlePSXCore.Instance, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", CDImageExtensions, CDImageExtensions),
-            };
+                    //new GameSystemVM(BeetlePSXRT.BeetlePSXCore.Instance, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", CDImageExtensions, CDImageExtensions),
+                };
 
-            fileDependencyImporters = new Lazy<FileImporterVM[]>(() =>
-            {
-                return AvailableCores.Where(d => d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
-                    .Select(d => new FileImporterVM(dialogsService, localizationService, platformService, cryptographyService,
-                    new WinRTFolder(d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
-            });
+                fileDependencyImporters = AvailableCores.Where(d => d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
+                        .Select(d => new FileImporterVM(dialogsService, localizationService, platformService, cryptographyService,
+                        new WinRTFolder(d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
+            }).ContinueWith(d => PlatformService.RunOnUIThreadAsync(() => CoresInitialized(this)));
         }
 
+        
         public GameSystemVM SuggestSystemForFile(IFile file)
         {
             var extension = Path.GetExtension(file.Name);

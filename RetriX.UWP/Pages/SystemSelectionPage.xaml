@@ -91,14 +91,14 @@
                             <TextBlock x:Uid="GameSystemsHeader" Style="{StaticResource PageHeaderTextBlockStyle}"/>
                         </nmu:PageHeader.HeaderContent>
                     </nmu:PageHeader>
-                    <ListView x:Name="GameSystemsList" ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemListItemDT}" Style="{StaticResource RootListStyle}">
+                    <ListView x:Name="GameSystemsList" ItemsSource="{x:Bind VM.GameSystems, Mode=OneWay}" ItemTemplate="{StaticResource GameSystemListItemDT}" Style="{StaticResource RootListStyle}">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="ItemClick">
                                 <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelectedCommand}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>
                             </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
                     </ListView>
-                    <GridView x:Name="GameSystemsGrid" ItemsSource="{x:Bind VM.GameSystems}" ItemTemplate="{StaticResource GameSystemGridItemDT}" Style="{StaticResource RootListStyle}" Visibility="Collapsed" Margin="8,0,0,0">
+                    <GridView x:Name="GameSystemsGrid" ItemsSource="{x:Bind VM.GameSystems, Mode=OneWay}" ItemTemplate="{StaticResource GameSystemGridItemDT}" Style="{StaticResource RootListStyle}" Visibility="Collapsed" Margin="8,0,0,0">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="ItemClick">
                                 <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelectedCommand}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>
