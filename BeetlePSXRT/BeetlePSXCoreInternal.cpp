@@ -60,17 +60,22 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 		}
 		else if(!strcmp(varptr->key, "beetle_psx_cdimagecache"))
 		{
-			varptr->value = "disable";
+			varptr->value = "enable";
 			return true;
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_cpu_overclock"))
 		{
-			varptr->value = "enabled";
+			varptr->value = "disabled";
 			return true;
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_skipbios"))
 		{
-			varptr->value = "enabled";
+			varptr->value = "disabled";
+			return true;
+		}
+		else if (!strcmp(varptr->key, "beetle_psx_skipbios"))
+		{
+			varptr->value = "disabled";
 			return true;
 		}
 		else if (!strcmp(varptr->key, "option_internal_resolution"))
