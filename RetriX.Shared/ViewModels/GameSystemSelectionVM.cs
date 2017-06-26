@@ -42,6 +42,7 @@ namespace RetriX.Shared.ViewModels
 
             GameSystemSelectedCommand = new RelayCommand<T>(GameSystemSelected);
 
+            EmulationService.CoresInitialized += OnCoresInitialized;
             EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
         }
 
@@ -101,6 +102,11 @@ namespace RetriX.Shared.ViewModels
                     await DisplayNotification(SystemUnmetDependenciesAlertTitleKey, SystemUnmetDependenciesAlertMessageKey);
                 }
             }
+        }
+
+        private void OnCoresInitialized(IEmulationService sender)
+        {
+            RaisePropertyChanged(nameof(GameSystems));
         }
 
         private void OnGameRuntimeExceptionOccurred(IEmulationService sender, Exception e)

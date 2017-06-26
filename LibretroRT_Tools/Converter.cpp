@@ -6,44 +6,6 @@ using namespace Platform;
 using namespace LibretroRT;
 using namespace LibretroRT_Tools;
 
-std::wstring_convert<std::codecvt_byname<wchar_t, char, std::mbstate_t>> Converter::StringConverter(new std::codecvt_byname<wchar_t, char, std::mbstate_t>("en_US"));
-
-std::wstring Converter::CToWString(const char* string)
-{
-	return StringConverter.from_bytes(string);
-}
-
-Platform::String^ Converter::CToPlatformString(const char* string)
-{
-	auto wstring = CToWString(string);
-	return ref new String(wstring.c_str());
-}
-
-Platform::String^ Converter::CPPToPlatformString(const std::string string)
-{
-	auto wstring = StringConverter.from_bytes(string);
-	return ref new String(wstring.c_str());
-}
-
-std::string Converter::PlatformToCPPString(Platform::String^ string)
-{
-	auto cstring = StringConverter.to_bytes(string->Data());
-	return cstring;
-}
-
-std::vector<std::string> Converter::SplitString(const std::string input, char delimiter)
-{
-	std::stringstream iss(input);
-	std::string s;
-	std::vector<std::string> tokens;
-	while (getline(iss, s, delimiter))
-	{
-		tokens.push_back(s);
-	}
-
-	return tokens;
-}
-
 GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
 {
 	return ref new GameGeometry(geometry.base_width, geometry.base_height, geometry.max_width, geometry.max_height, geometry.aspect_ratio);

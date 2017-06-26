@@ -1,10 +1,28 @@
-﻿namespace LibretroRT.Test.Cores
+﻿using System.Threading.Tasks;
+using Xunit;
+
+namespace LibretroRT.Test.Cores
 {
     public class GPGXCoreTest : TestBase
     {
-        public GPGXCoreTest() : base(() => GPGXRT.GPGXCore.Instance, StreamProvider.Scheme + "Sonic2.md")
-        {
+        protected const string RomName = "Sonic 2.md";
 
+        public GPGXCoreTest() : base(() => GPGXRT.GPGXCore.Instance)
+        {
+        }
+
+        [Theory]
+        [InlineData(RomName)]
+        public override Task LoadingRomWorks(string romName)
+        {
+            return LoadingRomWorksInternal(romName);
+        }
+
+        [Theory]
+        [InlineData(RomName)]
+        public override Task ExecutionWorks(string romName)
+        {
+            return ExecutionWorksInternal(romName);
         }
     }
 }

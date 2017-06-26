@@ -7,13 +7,10 @@ namespace LibretroRT.Test
 {
     public abstract class TestBase
     {
-        protected string RomPath { get; private set; }
-
         protected ICore Target { get; private set; }
 
-        protected TestBase(Func<ICore> coreInstancer, string romPath)
+        protected TestBase(Func<ICore> coreInstancer)
         {
-            RomPath = romPath;
             Target = coreInstancer();
         }
 
@@ -42,15 +39,16 @@ namespace LibretroRT.Test
             }
         }
 
-        [Fact]
-        public async Task LoadingRomWorks()
+        public abstract Task LoadingRomWorks(string romName);
+
+        protected async Task LoadingRomWorksInternal(string romName)
         {
             var romsFolder = await GetRomsFolderAsync();
-            var provider = new StreamProvider(romsFolder);
+            var provider = new StreamProvider(VFS.SystemPath, romsFolder);
             Target.OpenFileStream = provider.OpenFileStream;
             Target.CloseFileStream = provider.CloseFileStream;
 
-            var loadResult = await Task.Run(() => Target.LoadGame(RomPath));
+            var loadResult = await Task.Run(() => Target.LoadGame(VFS.SystemPath + romName));
 
             Assert.True(loadResult);
             Assert.NotEqual(PixelFormats.FormatUknown, Target.PixelFormat);
@@ -67,8 +65,9 @@ namespace LibretroRT.Test
             Assert.NotEqual(0, timing.SampleRate);
         }
 
-        [Fact]
-        public async Task ExecutionWorks()
+        public abstract Task ExecutionWorks(string romName);
+
+        protected async Task ExecutionWorksInternal(string romName)
         {
             var pollInputCalled = false;
             Target.PollInput = () => pollInputCalled = true;
@@ -99,11 +98,11 @@ namespace LibretroRT.Test
             };
 
             var romsFolder = await GetRomsFolderAsync();
-            var provider = new StreamProvider(romsFolder);
+            var provider = new StreamProvider(VFS.SystemPath, romsFolder);
             Target.OpenFileStream = provider.OpenFileStream;
             Target.CloseFileStream = provider.CloseFileStream;
 
-            var loadResult = await Task.Run(() => Target.LoadGame(RomPath));
+            var loadResult = await Task.Run(() => Target.LoadGame(VFS.SystemPath + romName));
             Assert.True(loadResult);
 
             await Task.Run(() =>

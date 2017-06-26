@@ -13,6 +13,12 @@ namespace RetriX.Shared.ViewModels
         public SettingsVM(IEmulationService emulationService)
         {
             EmulationService = emulationService;
+            EmulationService.CoresInitialized += OnCoresInitialized;
+        }
+
+        private void OnCoresInitialized(IEmulationService sender)
+        {
+            RaisePropertyChanged(nameof(FileDependencyImporters));
         }
     }
 }

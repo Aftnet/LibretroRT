@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CoreBase.h"
 #include "Converter.h"
+#include "StringConverter.h"
 #include "../LibretroRT/libretro.h"
 
 using namespace LibretroRT_Tools;
@@ -17,8 +18,8 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 	vsnprintf_s(logBuffer, bufLen, fmt, args);
 	va_end(args);
 
-	auto debugMsg = Converter::CToWString(logBuffer);
-	OutputDebugString(debugMsg.c_str());
+	auto debugMsg = StringConverter::CPPToPlatformString(logBuffer);
+	OutputDebugString(debugMsg->Data());
 #endif // DEBUG
 }
 
@@ -51,14 +52,14 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	retro_system_info info;
 	LibretroGetSystemInfo(&info);
 
-	name = Converter::CToPlatformString(info.library_name);
-	version = Converter::CToPlatformString(info.library_version);
+	name = StringConverter::CPPToPlatformString(info.library_name);
+	version = StringConverter::CPPToPlatformString(info.library_version);
 
-	auto extensions = Converter::SplitString(info.valid_extensions, '|');
+	auto extensions = StringConverter::SplitString(info.valid_extensions, '|');
 	auto extensionsVector = ref new Platform::Collections::Vector<String^>();
 	for (auto i : extensions)
 	{
-		extensionsVector->Append(Converter::CPPToPlatformString("." + i));
+		extensionsVector->Append(StringConverter::CPPToPlatformString("." + i));
 	}
 	supportedExtensions = extensionsVector->GetView();
 
@@ -67,20 +68,14 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	auto rootFolder = ApplicationData::Current->LocalFolder;
 
 	auto systemFolderName = name->Concat(name, L"_System");
-	concurrency::create_task(rootFolder->CreateFolderAsync(systemFolderName, CreationCollisionOption::OpenIfExists)).then([=](StorageFolder^ d)
-	{
-		systemFolder = d;
-		auto envPath = supportsSystemFolderVirtualization ? VFS::SystemPath : systemFolder->Path;
-		coreEnvironmentSystemFolderPath.assign(Converter::PlatformToCPPString(envPath));
-	});
+	systemFolder = concurrency::create_task(rootFolder->CreateFolderAsync(systemFolderName, CreationCollisionOption::OpenIfExists)).get();
+	auto envPath = supportsSystemFolderVirtualization ? VFS::SystemPath : systemFolder->Path;
+	coreEnvironmentSystemFolderPath.assign(StringConverter::PlatformToCPPString(envPath));
 
 	auto saveGameFolderName = name->Concat(name, L"_Saves");
-	concurrency::create_task(rootFolder->CreateFolderAsync(saveGameFolderName, CreationCollisionOption::OpenIfExists)).then([=](StorageFolder^ d)
-	{
-		saveGameFolder = d;
-		auto envPath = supportsSaveGameFolderVirtualization ? VFS::SavePath : saveGameFolder->Path;
-		coreEnvironmentSaveGameFolderPath.assign(Converter::PlatformToCPPString(envPath));
-	});
+	saveGameFolder = concurrency::create_task(rootFolder->CreateFolderAsync(saveGameFolderName, CreationCollisionOption::OpenIfExists)).get();
+	envPath = supportsSaveGameFolderVirtualization ? VFS::SavePath : saveGameFolder->Path;
+	coreEnvironmentSaveGameFolderPath.assign(StringConverter::PlatformToCPPString(envPath));
 }
 
 CoreBase::~CoreBase()
@@ -119,20 +114,12 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	case RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY:
 	{
 		auto dataPtr = reinterpret_cast<const char**>(data);
-		while (coreEnvironmentSystemFolderPath.empty())
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		}
 		*dataPtr = coreEnvironmentSystemFolderPath.c_str();
 		return true;
 	}
 	case RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY:
 	{
 		auto dataPtr = reinterpret_cast<const char**>(data);
-		while (coreEnvironmentSystemFolderPath.empty())
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		}
 		*dataPtr = coreEnvironmentSaveGameFolderPath.c_str();
 		return true;
 	}
@@ -221,7 +208,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 
 	try
 	{
-		static auto gamePathStr = Converter::PlatformToCPPString(mainGameFilePath);
+		static auto gamePathStr = StringConverter::PlatformToCPPString(mainGameFilePath);
 		retro_game_info gameInfo;
 		gameInfo.data = nullptr;
 		gameInfo.path = gamePathStr.c_str();

@@ -7,13 +7,13 @@ namespace LibretroRT.Test
 {
     public class StreamProvider : IDisposable
     {
-        public const string Scheme = "ROM\\";
-
+        private readonly string HandledScheme;
         private readonly IStorageFolder RootFolder;
         private readonly List<IRandomAccessStream> OpenStreams = new List<IRandomAccessStream>();
 
-        public StreamProvider(IStorageFolder rootFolder)
+        public StreamProvider(string handledScheme, IStorageFolder rootFolder)
         {
+            HandledScheme = handledScheme;
             RootFolder = rootFolder;
         }
 
@@ -27,7 +27,7 @@ namespace LibretroRT.Test
 
         public IRandomAccessStream OpenFileStream(string path, FileAccessMode fileAccess)
         {
-            path = path.Substring(Scheme.Length);
+            path = path.Substring(HandledScheme.Length);
             IStorageFile file;
             try
             {
