@@ -24,6 +24,8 @@ namespace LibretroRT.FrontendComponents.InputManager
             { InputTypes.DeviceIdJoypadR, VirtualKey.W },
             { InputTypes.DeviceIdJoypadL2, VirtualKey.E },
             { InputTypes.DeviceIdJoypadR2, VirtualKey.R },
+            { InputTypes.DeviceIdJoypadL3, VirtualKey.T },
+            { InputTypes.DeviceIdJoypadR3, VirtualKey.Y },
             { InputTypes.DeviceIdJoypadSelect, VirtualKey.O },
             { InputTypes.DeviceIdJoypadStart, VirtualKey.P },
         };
@@ -42,6 +44,8 @@ namespace LibretroRT.FrontendComponents.InputManager
             { InputTypes.DeviceIdJoypadR, GamepadButtons.RightShoulder },
             { InputTypes.DeviceIdJoypadL2, GamepadButtons.Paddle1 },
             { InputTypes.DeviceIdJoypadR2, GamepadButtons.Paddle2 },
+            { InputTypes.DeviceIdJoypadL3, GamepadButtons.LeftThumbstick },
+            { InputTypes.DeviceIdJoypadR3, GamepadButtons.RightThumbstick },
             { InputTypes.DeviceIdJoypadSelect, GamepadButtons.View },
             { InputTypes.DeviceIdJoypadStart, GamepadButtons.Menu },
         };
@@ -88,6 +92,11 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         private static bool GetKeyboardKeyState(Dictionary<VirtualKey, bool> keyStates, InputTypes button)
         {
+            if (!LibretroGamepadToWindowsGamepadMapping.ContainsKey(button))
+            {
+                return false;
+            }
+
             var nativeKey = LibretroGamepadToKeyboardKeyMapping[button];
             var output = keyStates.ContainsKey(nativeKey) && keyStates[nativeKey];
             return output;
@@ -95,6 +104,11 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         private static bool GetGamepadButtonState(GamepadReading reading, InputTypes button)
         {
+            if (!LibretroGamepadToWindowsGamepadMapping.ContainsKey(button))
+            {
+                return false;
+            }
+
             var nativeButton = LibretroGamepadToWindowsGamepadMapping[button];
             var output = (reading.Buttons & nativeButton) == nativeButton;
             return output;
