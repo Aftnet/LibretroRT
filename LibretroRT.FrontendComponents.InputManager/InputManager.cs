@@ -10,6 +10,8 @@ namespace LibretroRT.FrontendComponents.InputManager
 {
     public sealed class InputManager : IInputManager
     {
+        private const double GamepadAnalogDeadZoneSquareRadius = 0.0;
+
         private static readonly IReadOnlyDictionary<InputTypes, VirtualKey> LibretroGamepadToKeyboardKeyMapping = new Dictionary<InputTypes, VirtualKey>()
         {
             { InputTypes.DeviceIdJoypadUp, VirtualKey.Up },
@@ -30,7 +32,15 @@ namespace LibretroRT.FrontendComponents.InputManager
             { InputTypes.DeviceIdJoypadStart, VirtualKey.P },
         };
 
-        private static readonly IReadOnlyDictionary<InputTypes, GamepadButtons> LibretroGamepadToWindowsGamepadMapping = new Dictionary<InputTypes, GamepadButtons>()
+        private static readonly IReadOnlyDictionary<InputTypes, Func<GamepadReading, short>> LibretroGamepadAnalogValueReadingsFunctionMapping = new Dictionary<InputTypes, Func<GamepadReading, short>>()
+        {
+            { InputTypes.DeviceIdAnalogLeftX, d => GetAnalogAxisValue(d.LeftThumbstickX, d.LeftThumbstickY) },
+            { InputTypes.DeviceIdAnalogLeftY, d => GetAnalogAxisValue(d.LeftThumbstickY, d.LeftThumbstickX) },
+            { InputTypes.DeviceIdAnalogRightX, d => GetAnalogAxisValue(d.RightThumbstickX, d.RightThumbstickY) },
+            { InputTypes.DeviceIdAnalogRightY, d => GetAnalogAxisValue(d.RightThumbstickY, d.RightThumbstickX) },
+        };
+
+        private static readonly IReadOnlyDictionary<InputTypes, GamepadButtons> LibretroGamepadToWindowsGamepadButtonMapping = new Dictionary<InputTypes, GamepadButtons>()
         {
             { InputTypes.DeviceIdJoypadUp, GamepadButtons.DPadUp },
             { InputTypes.DeviceIdJoypadDown, GamepadButtons.DPadDown },
@@ -76,6 +86,11 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         public short GetInputState(uint port, InputTypes inputType)
         {
+            if (LibretroGamepadAnalogValueReadingsFunctionMapping.ContainsKey(inputType) && port < GamepadReadings.Length)
+            {
+                return LibretroGamepadAnalogValueReadingsFunctionMapping[inputType](GamepadReadings[port]);
+            }
+
             var output = false;
             if (port == 0)
             {
@@ -92,7 +107,7 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         private static bool GetKeyboardKeyState(Dictionary<VirtualKey, bool> keyStates, InputTypes button)
         {
-            if (!LibretroGamepadToWindowsGamepadMapping.ContainsKey(button))
+            if (!LibretroGamepadToWindowsGamepadButtonMapping.ContainsKey(button))
             {
                 return false;
             }
@@ -104,14 +119,25 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         private static bool GetGamepadButtonState(GamepadReading reading, InputTypes button)
         {
-            if (!LibretroGamepadToWindowsGamepadMapping.ContainsKey(button))
+            if (!LibretroGamepadToWindowsGamepadButtonMapping.ContainsKey(button))
             {
                 return false;
             }
 
-            var nativeButton = LibretroGamepadToWindowsGamepadMapping[button];
+            var nativeButton = LibretroGamepadToWindowsGamepadButtonMapping[button];
             var output = (reading.Buttons & nativeButton) == nativeButton;
             return output;
+        }
+
+        private static short GetAnalogAxisValue(double axisValue, double perpendicularAxisValue)
+        {
+            if (axisValue * axisValue + perpendicularAxisValue * perpendicularAxisValue < GamepadAnalogDeadZoneSquareRadius)
+            {
+                return 0;
+            }
+
+            var scaledValue = axisValue * (double)short.MaxValue;
+            return (short)scaledValue;
         }
 
         private void WindowKeyUpHandler(CoreWindow sender, KeyEventArgs args)
