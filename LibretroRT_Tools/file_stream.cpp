@@ -11,8 +11,14 @@ using namespace std;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
-retro_extra_open_file_t OpenFileStreamViaFrontend;
-retro_extra_close_file_t CloseFileStreamViaFrontend;
+namespace FileStreamTools
+{
+	typedef codecvt_byname<wchar_t, char, mbstate_t> localCodecvt;
+	wstring_convert<localCodecvt> StringConverter(new localCodecvt("en_US"));
+}
+
+retro_extra_open_file_t OpenFileStreamViaFrontend = nullptr;
+retro_extra_close_file_t CloseFileStreamViaFrontend = nullptr;
 
 void retro_extra_set_open_file(retro_extra_open_file_t cb)
 {
@@ -30,26 +36,21 @@ struct RFILE
 	string FileType;
 	IRandomAccessStream^ Stream;
 
-	RFILE()
+	RFILE() :
+		Path(nullptr),
+		FileType(nullptr),
+		Stream(nullptr)
 	{
-		Path = nullptr;
-		Stream = nullptr;
 	}
 
-	RFILE(string path, IRandomAccessStream^ stream)
+	RFILE(string path, IRandomAccessStream^ stream) :
+		Path(path),
+		Stream(stream)
 	{
-		Path = path;
 		auto extStartIx = path.find_last_of('.');
 		FileType = path.substr(extStartIx);
-		Stream = stream;
 	}
 };
-
-namespace FileStreamTools
-{
-	typedef codecvt_byname<wchar_t, char, mbstate_t> localCodecvt;
-	wstring_convert<localCodecvt> StringConverter(new localCodecvt("en_US"));
-}
 
 long long int filestream_get_size(RFILE *stream)
 {
