@@ -121,23 +121,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="Roms\Sonic2.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Roms\SMW.sfc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Roms\PokemonFireRed.gba">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Roms\SMB3.nes">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Roms\PokemonSilver.gbc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="Roms\Crash Bandicoot - Warped %28USA%29.bin" />
-    <None Include="Roms\Crash Bandicoot - Warped %28USA%29.cue" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\UnitTestApp.rd.xml" />
@@ -196,6 +179,28 @@
       <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
       <Name>VBAMRT</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\Crash Bandicoot 3.bin" />
+    <Content Include="Roms\Crash Bandicoot 3.cue" />
+    <Content Include="Roms\Pokemon Fire Red.gba" />
+    <Content Include="Roms\Pokemon Silver.gbc" />
+    <Content Include="Roms\SCPH5500.bin" />
+    <Content Include="Roms\SCPH5501.bin" />
+    <Content Include="Roms\SCPH5502.bin" />
+    <Content Include="Roms\Sonic 2.md" />
+    <Content Include="Roms\Sonic CD.bin" />
+    <Content Include="Roms\Sonic CD.cue" />
+    <Content Include="Roms\Super Mario Bros 3.nes" />
+    <Content Include="Roms\Super Mario World.sfc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\BIOS_CD_E.bin" />
+    <Content Include="Roms\BIOS_CD_J.bin" />
+    <Content Include="Roms\BIOS_CD_U.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\Sonic 3K.md" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -1,9 +1,28 @@
-﻿namespace LibretroRT.Test.Cores
+﻿using System.Threading.Tasks;
+using Xunit;
+
+namespace LibretroRT.Test.Cores
 {
     public class BeetlePSXCoreTest : TestBase
     {
-        public BeetlePSXCoreTest() : base(() => BeetlePSXRT.BeetlePSXCore.Instance, StreamProvider.Scheme + "Crash Bandicoot - Warped (USA)")
+        protected const string RomName = "Crash Bandicoot 3.cue";
+
+        public BeetlePSXCoreTest() : base(() => BeetlePSXRT.BeetlePSXCore.Instance)
         {
+        }
+
+        [Theory]
+        [InlineData(RomName)]
+        public override Task LoadingRomWorks(string romName)
+        {
+            return LoadingRomWorksInternal(romName);
+        }
+
+        [Theory]
+        [InlineData(RomName)]
+        public override Task ExecutionWorks(string romName)
+        {
+            return ExecutionWorksInternal(romName);
         }
     }
 }
