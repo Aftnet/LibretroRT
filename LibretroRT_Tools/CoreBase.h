@@ -110,6 +110,7 @@ namespace LibretroRT_Tools
 		virtual property GeometryChangedDelegate^ GeometryChanged;
 		virtual property TimingChangedDelegate^ TimingChanged;
 		virtual property PixelFormatChangedDelegate^ PixelFormatChanged;
+		virtual property GetStorageItemDelegate^ GetStorageItem;
 		virtual property OpenFileStreamDelegate^ OpenFileStream;
 		virtual property CloseFileStreamDelegate^ CloseFileStream;
 
