@@ -21,7 +21,7 @@ At minimum, I would need:
 ## Installing
 
 1. Check the [releases](https://github.com/Aftnet/LibretroRT/releases) section for the latest binary build
-2. If installing for the first time, download the [RetriX.Certificate.cer](https://github.com/Aftnet/LibretroRT/releases/download/Initial/RetriX.Certificate.cer), also linked in the releases section, and install it in the local or machine trusted CA store. Instructions for doing so [here](https://blogs.technet.microsoft.com/sbs/2008/05/08/installing-a-self-signed-certificate-as-a-trusted-root-ca-in-windows-vista/)
+2. If installing for the first time, download the [RetriX.Certificate.cer](https://github.com/Aftnet/LibretroRT/releases/download/Initial/RetriX.Certificate.cer), also linked in the releases section, and install it in the local or machine trusted CA store. Instructions for doing so [here](http://www.sqlservermart.com/HowTo/Windows_Import_Certificate.aspx)
 3. Download and double click on the .appxbundle file, follow the instructions
 
 ## Building from source
