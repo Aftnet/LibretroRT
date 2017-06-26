@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "../LibretroRT/libretro_extra.h"
+#include "../LibretroRT_Tools/StringConverter.h"
 
 using namespace Platform;
 using namespace Windows::Storage;
@@ -16,14 +17,25 @@ bool path_is_character_special_internal(const char *path)
 
 bool path_is_valid_internal(const char *path)
 {
-	return true;
+	auto winPath = LibretroRT_Tools::StringConverter::CPPToPlatformString(path);
+	auto stream = OpenFileStreamViaFrontend(winPath, FileAccessMode::Read);
+	bool fileFound = stream != nullptr;
+	if (fileFound)
+	{
+		CloseFileStreamViaFrontend(stream);
+
+	}
+
+	return fileFound;
 }
 
 int32_t path_get_size_internal(const char *path)
 {
-	//auto winPath = ExtraTools::StringConverter.from_B
-	//auto stream = OpenFileStreamViaFrontend(winPath, FileAccessMode::Read);
-	throw ref new Platform::NotImplementedException("path_get_size_internal");
+	auto winPath = LibretroRT_Tools::StringConverter::CPPToPlatformString(path);
+	auto stream = OpenFileStreamViaFrontend(winPath, FileAccessMode::Read);
+	int32_t output = stream->Size;
+	CloseFileStreamViaFrontend(stream);
+	return output;
 }
 
 bool mkdir_norecurse_internal(const char *dir)
