@@ -8,17 +8,6 @@ using namespace LibretroRT_Tools;
 
 std::wstring_convert<std::codecvt_byname<wchar_t, char, std::mbstate_t>> Converter::StringConverter(new std::codecvt_byname<wchar_t, char, std::mbstate_t>("en_US"));
 
-std::wstring Converter::CToWString(const char* string)
-{
-	return StringConverter.from_bytes(string);
-}
-
-Platform::String^ Converter::CToPlatformString(const char* string)
-{
-	auto wstring = CToWString(string);
-	return ref new String(wstring.c_str());
-}
-
 Platform::String^ Converter::CPPToPlatformString(const std::string string)
 {
 	auto wstring = StringConverter.from_bytes(string);

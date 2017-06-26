@@ -15,8 +15,6 @@ namespace LibretroRT_Tools
 	class SUPPORT_API Converter
 	{
 	public:
-		static std::wstring CToWString(const char* string);
-		static String^ CToPlatformString(const char* string);
 		static String^ CPPToPlatformString(const std::string string);
 		static std::string PlatformToCPPString(Platform::String^ string);
 		static std::vector<std::string> SplitString(const std::string input, char delimiter);

@@ -17,8 +17,8 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 	vsnprintf_s(logBuffer, bufLen, fmt, args);
 	va_end(args);
 
-	auto debugMsg = Converter::CToWString(logBuffer);
-	OutputDebugString(debugMsg.c_str());
+	auto debugMsg = Converter::CPPToPlatformString(logBuffer);
+	OutputDebugString(debugMsg->Data());
 #endif // DEBUG
 }
 
@@ -51,8 +51,8 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	retro_system_info info;
 	LibretroGetSystemInfo(&info);
 
-	name = Converter::CToPlatformString(info.library_name);
-	version = Converter::CToPlatformString(info.library_version);
+	name = Converter::CPPToPlatformString(info.library_name);
+	version = Converter::CPPToPlatformString(info.library_version);
 
 	auto extensions = Converter::SplitString(info.valid_extensions, '|');
 	auto extensionsVector = ref new Platform::Collections::Vector<String^>();
