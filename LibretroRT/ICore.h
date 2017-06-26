@@ -22,7 +22,6 @@ namespace LibretroRT
 	public delegate void TimingChangedDelegate(SystemTiming^ timing);
 	public delegate void PixelFormatChangedDelegate(PixelFormats format);
 
-	public delegate IStorageItem^ GetStorageItemDelegate(String^ path);
 	public delegate IRandomAccessStream^ OpenFileStreamDelegate(String^ path, FileAccessMode fileAccess);
 	public delegate void CloseFileStreamDelegate(IRandomAccessStream^ stream);
 
@@ -61,7 +60,6 @@ namespace LibretroRT
 		property GeometryChangedDelegate^ GeometryChanged;
 		property TimingChangedDelegate^ TimingChanged;
 		property PixelFormatChangedDelegate^ PixelFormatChanged;
-		property GetStorageItemDelegate^ GetStorageItem;
 		property OpenFileStreamDelegate^ OpenFileStream;
 		property CloseFileStreamDelegate^ CloseFileStream;
 	};
