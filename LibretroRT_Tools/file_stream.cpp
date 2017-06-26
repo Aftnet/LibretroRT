@@ -1,7 +1,7 @@
 #include "streams/file_stream.h"
+#include "../LibretroRT_Tools/StringConverter.h"
 #include "../LibretroRT/libretro_extra.h"
 
-#include <codecvt>
 #include <string>
 #include <sstream>
 #include <collection.h>
@@ -10,12 +10,6 @@
 using namespace std;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
-
-namespace FileStreamTools
-{
-	typedef codecvt_byname<wchar_t, char, mbstate_t> localCodecvt;
-	wstring_convert<localCodecvt> StringConverter(new localCodecvt("en_US"));
-}
 
 retro_extra_open_file_t OpenFileStreamViaFrontend = nullptr;
 retro_extra_close_file_t CloseFileStreamViaFrontend = nullptr;
@@ -71,7 +65,7 @@ RFILE *filestream_open(const char *path, unsigned mode, ssize_t len)
 		return nullptr;
 	}
 
-	auto convertedPath = ref new String(FileStreamTools::StringConverter.from_bytes(pathStr).data());
+	auto convertedPath = LibretroRT_Tools::StringConverter::CPPToPlatformString(pathStr);
 	mode = mode & 0x0f;
 	auto accessMode = (mode == RFILE_MODE_READ || mode == RFILE_MODE_READ_TEXT) ? FileAccessMode::Read : FileAccessMode::ReadWrite;
 
@@ -216,7 +210,7 @@ char *filestream_gets(RFILE *stream, char *s, size_t len)
 	auto winString = reader->ReadString(len);
 	reader->DetachStream();
 
-	auto converted = FileStreamTools::StringConverter.to_bytes(winString->Data());
+	auto converted = LibretroRT_Tools::StringConverter::PlatformToCPPString(winString);
 	std::istringstream stringStream(converted);
 	std::string line;
 	std::getline(stringStream, line);

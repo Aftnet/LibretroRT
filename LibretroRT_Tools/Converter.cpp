@@ -6,37 +6,6 @@ using namespace Platform;
 using namespace LibretroRT;
 using namespace LibretroRT_Tools;
 
-Platform::String^ Converter::CPPToPlatformString(const std::string string)
-{
-	std::vector<wchar_t> buffer(string.length() + 1);
-	size_t numConverted = 0;
-	mbstowcs_s(&numConverted, buffer.data(), buffer.size(), string.c_str(), string.length());
-	auto pstring = ref new String(buffer.data());
-	return pstring;
-}
-
-std::string Converter::PlatformToCPPString(Platform::String^ string)
-{
-	std::vector<char> buffer(string->Length() + 1);
-	size_t numConverted = 0;
-	wcstombs_s(&numConverted, buffer.data(), buffer.size(), string->Data(), string->Length());
-	std::string cstring(buffer.data());
-	return cstring;
-}
-
-std::vector<std::string> Converter::SplitString(const std::string input, char delimiter)
-{
-	std::stringstream iss(input);
-	std::string s;
-	std::vector<std::string> tokens;
-	while (getline(iss, s, delimiter))
-	{
-		tokens.push_back(s);
-	}
-
-	return tokens;
-}
-
 GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
 {
 	return ref new GameGeometry(geometry.base_width, geometry.base_height, geometry.max_width, geometry.max_height, geometry.aspect_ratio);

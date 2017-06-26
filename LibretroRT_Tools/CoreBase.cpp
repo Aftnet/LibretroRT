@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CoreBase.h"
 #include "Converter.h"
+#include "StringConverter.h"
 #include "../LibretroRT/libretro.h"
 
 using namespace LibretroRT_Tools;
@@ -17,7 +18,7 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 	vsnprintf_s(logBuffer, bufLen, fmt, args);
 	va_end(args);
 
-	auto debugMsg = Converter::CPPToPlatformString(logBuffer);
+	auto debugMsg = StringConverter::CPPToPlatformString(logBuffer);
 	OutputDebugString(debugMsg->Data());
 #endif // DEBUG
 }
@@ -51,14 +52,14 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	retro_system_info info;
 	LibretroGetSystemInfo(&info);
 
-	name = Converter::CPPToPlatformString(info.library_name);
-	version = Converter::CPPToPlatformString(info.library_version);
+	name = StringConverter::CPPToPlatformString(info.library_name);
+	version = StringConverter::CPPToPlatformString(info.library_version);
 
-	auto extensions = Converter::SplitString(info.valid_extensions, '|');
+	auto extensions = StringConverter::SplitString(info.valid_extensions, '|');
 	auto extensionsVector = ref new Platform::Collections::Vector<String^>();
 	for (auto i : extensions)
 	{
-		extensionsVector->Append(Converter::CPPToPlatformString("." + i));
+		extensionsVector->Append(StringConverter::CPPToPlatformString("." + i));
 	}
 	supportedExtensions = extensionsVector->GetView();
 
@@ -69,12 +70,12 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	auto systemFolderName = name->Concat(name, L"_System");
 	systemFolder = concurrency::create_task(rootFolder->CreateFolderAsync(systemFolderName, CreationCollisionOption::OpenIfExists)).get();
 	auto envPath = supportsSystemFolderVirtualization ? VFS::SystemPath : systemFolder->Path;
-	coreEnvironmentSystemFolderPath.assign(Converter::PlatformToCPPString(envPath));
+	coreEnvironmentSystemFolderPath.assign(StringConverter::PlatformToCPPString(envPath));
 
 	auto saveGameFolderName = name->Concat(name, L"_Saves");
 	saveGameFolder = concurrency::create_task(rootFolder->CreateFolderAsync(saveGameFolderName, CreationCollisionOption::OpenIfExists)).get();
 	envPath = supportsSaveGameFolderVirtualization ? VFS::SavePath : saveGameFolder->Path;
-	coreEnvironmentSaveGameFolderPath.assign(Converter::PlatformToCPPString(envPath));
+	coreEnvironmentSaveGameFolderPath.assign(StringConverter::PlatformToCPPString(envPath));
 }
 
 CoreBase::~CoreBase()
@@ -207,7 +208,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 
 	try
 	{
-		static auto gamePathStr = Converter::PlatformToCPPString(mainGameFilePath);
+		static auto gamePathStr = StringConverter::PlatformToCPPString(mainGameFilePath);
 		retro_game_info gameInfo;
 		gameInfo.data = nullptr;
 		gameInfo.path = gamePathStr.c_str();
