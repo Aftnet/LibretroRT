@@ -50,7 +50,7 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 		return true;
 
 	static std::string EnabledValue("enabled");
-	static std::string DisabledValue("enabled");
+	static std::string DisabledValue("disabled");
 
 	switch (cmd)
 	{
@@ -59,6 +59,16 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 		if (!strcmp(varptr->key, "beetle_psx_renderer"))
 		{
 			varptr->value = "software";
+			return true;
+		}
+		else if (!strcmp(varptr->key, "beetle_psx_internal_resolution"))
+		{
+			varptr->value = "2x";
+			return true;
+		}
+		else if (!strcmp(varptr->key, "beetle_psx_frame_duping_enable"))
+		{
+			varptr->value = EnabledValue.c_str();
 			return true;
 		}
 		else if(!strcmp(varptr->key, "beetle_psx_cdimagecache"))
@@ -76,12 +86,12 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 			varptr->value = DisabledValue.c_str();
 			return true;
 		}
-		else if (!strcmp(varptr->key, "option_internal_resolution"))
+		else if (!strcmp(varptr->key, "beetle_psx_analog_toggle"))
 		{
-			varptr->value = "1";
+			varptr->value = DisabledValue.c_str();
 			return true;
 		}
-		else if (!strcmp(varptr->key, "beetle_psx_analog_toggle"))
+		else if (!strcmp(varptr->key, "beetle_psx_analog_calibration"))
 		{
 			varptr->value = EnabledValue.c_str();
 			return true;
