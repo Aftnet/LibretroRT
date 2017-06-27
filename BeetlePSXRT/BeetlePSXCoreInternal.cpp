@@ -49,6 +49,9 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 	if (CoreBase::EnvironmentHandler(cmd, data))
 		return true;
 
+	static std::string EnabledValue("enabled");
+	static std::string DisabledValue("enabled");
+
 	switch (cmd)
 	{
 	case RETRO_ENVIRONMENT_GET_VARIABLE:
@@ -60,27 +63,37 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 		}
 		else if(!strcmp(varptr->key, "beetle_psx_cdimagecache"))
 		{
-			varptr->value = "enable";
+			varptr->value = EnabledValue.c_str();
 			return true;
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_cpu_overclock"))
 		{
-			varptr->value = "disabled";
+			varptr->value = DisabledValue.c_str();
 			return true;
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_skipbios"))
 		{
-			varptr->value = "disabled";
-			return true;
-		}
-		else if (!strcmp(varptr->key, "beetle_psx_skipbios"))
-		{
-			varptr->value = "disabled";
+			varptr->value = DisabledValue.c_str();
 			return true;
 		}
 		else if (!strcmp(varptr->key, "option_internal_resolution"))
 		{
 			varptr->value = "1";
+			return true;
+		}
+		else if (!strcmp(varptr->key, "beetle_psx_analog_toggle"))
+		{
+			varptr->value = EnabledValue.c_str();
+			return true;
+		}
+		else if (!strcmp(varptr->key, "beetle_psx_crop_overscan"))
+		{
+			varptr->value = EnabledValue.c_str();
+			return true;
+		}
+		else if (!strcmp(varptr->key, "beetle_psx_enable_memcard1"))
+		{
+			varptr->value = EnabledValue.c_str();
 			return true;
 		}
 	}
