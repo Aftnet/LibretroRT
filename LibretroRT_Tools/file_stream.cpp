@@ -1,5 +1,6 @@
 #include "streams/file_stream.h"
 #include "../LibretroRT_Tools/StringConverter.h"
+#include "../LibretroRT_Tools/NativeBuffer.h"
 #include "../LibretroRT/libretro_extra.h"
 
 #include <string>
@@ -100,11 +101,12 @@ ssize_t filestream_seek(RFILE *stream, ssize_t offset, int whence)
 
 ssize_t filestream_read(RFILE *stream, void *data, size_t len)
 {
-	auto dataArray = Platform::ArrayReference<unsigned char>((unsigned char*)data, len);
-	auto reader = ref new DataReader(stream->Stream);
-	auto output = concurrency::create_task(reader->LoadAsync(len)).get();
-	reader->ReadBytes(dataArray);
-	reader->DetachStream();
+	auto winStream = stream->Stream;
+	auto remaining = winStream->Size - winStream->Position;
+	auto output = min(len, remaining);
+
+	auto buffer = LibretroRT_Tools::CreateNativeBuffer(data, len);
+	concurrency::create_task(winStream->ReadAsync(buffer, output, InputStreamOptions::None)).wait();
 	return output;
 }
 
