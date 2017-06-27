@@ -24,6 +24,8 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         private CanvasBitmap RenderTarget = null;
         private byte[] RenderTargetBuffer = null;
         private Rect RenderTargetViewport = new Rect();
+        //This may be different from viewport's width/haight.
+        private float RenderTargetAspectRatio = 1.0f;
 
         private PixelFormats currentCorePixelFormat = PixelFormats.FormatUknown;
         public PixelFormats CurrentCorePixelFormat
@@ -50,7 +52,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
             lock (RenderTargetLock)
             {
-                var destinationRect = ComputeBestFittingSize(canvasSize, (float)(viewportWidth / viewportHeight));
+                var destinationRect = ComputeBestFittingSize(canvasSize, RenderTargetAspectRatio);
                 drawingSession.DrawImage(RenderTarget, destinationRect, RenderTargetViewport);
             }
         }
@@ -81,6 +83,12 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public void UpdateRenderTargetSize(ICanvasResourceCreator resourceCreator, GameGeometry geometry)
         {
+            RenderTargetAspectRatio = geometry.AspectRatio;
+            if (RenderTargetAspectRatio < 0.1f)
+            {
+                RenderTargetAspectRatio = (float)(geometry.BaseWidth) / geometry.BaseHeight;
+            }
+
             if (RenderTarget != null)
             {
                 var currentSize = RenderTarget.Size;
