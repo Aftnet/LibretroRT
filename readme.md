@@ -6,9 +6,11 @@ This should enable creating native UWP emulator front ends using high the high q
 
 ## Demo
 
-[![Youtube link](https://img.youtube.com/vi/1mzS54HhcEM/0.jpg)](https://youtu.be/1mzS54HhcEM)
+[![Youtube link](https://img.youtube.com/vi/212kBK0IB1w/0.jpg)](https://youtu.be/212kBK0IB1w)
 
 Click image to play video
+
+Original demo video [here](https://youtu.be/1mzS54HhcEM)
 
 ## Help wanted
 
