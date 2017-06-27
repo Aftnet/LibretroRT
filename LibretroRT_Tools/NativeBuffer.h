@@ -20,7 +20,7 @@ namespace LibretroRT_Tools
 		{
 		}
 
-		STDMETHODIMP RuntimeClassInitialize(byte *buffer, size_t totalSize)
+		STDMETHODIMP RuntimeClassInitialize(byte *buffer, UINT32 totalSize)
 		{
 			m_length = totalSize;
 			m_buffer = buffer;
@@ -35,21 +35,21 @@ namespace LibretroRT_Tools
 			return S_OK;
 		}
 
-		STDMETHODIMP get_Capacity(size_t *value)
+		STDMETHODIMP get_Capacity(UINT32  *value)
 		{
 			*value = m_length;
 
 			return S_OK;
 		}
 
-		STDMETHODIMP get_Length(size_t *value)
+		STDMETHODIMP get_Length(UINT32  *value)
 		{
 			*value = m_length;
 
 			return S_OK;
 		}
 
-		STDMETHODIMP put_Length(size_t value)
+		STDMETHODIMP put_Length(UINT32  value)
 		{
 			m_length = value;
 
@@ -57,7 +57,7 @@ namespace LibretroRT_Tools
 		}
 
 	private:
-		size_t m_length;
+		UINT32  m_length;
 		byte *m_buffer;
 	};
 

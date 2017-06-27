@@ -12,7 +12,7 @@ namespace RetriX.Shared.StreamProviders
     {
         private readonly string HandledScheme;
         private readonly IFile ArchiveFile;
-        private readonly Dictionary<string, Stream> EntriesStreamMapping = new Dictionary<string, Stream>();
+        private readonly Dictionary<string, byte[]> EntriesBufferMapping = new Dictionary<string, byte[]>();
 
         public ArchiveStreamProvider(string handledScheme, IFile archiveFile)
         {
@@ -22,10 +22,6 @@ namespace RetriX.Shared.StreamProviders
 
         public void Dispose()
         {
-            foreach(var i in EntriesStreamMapping.Values)
-            {
-                i.Dispose();
-            }
         }
 
         public async Task InitializeAsync()
@@ -39,7 +35,7 @@ namespace RetriX.Shared.StreamProviders
                     {
                         var memoryStream = new MemoryStream();
                         await entryStream.CopyToAsync(memoryStream);
-                        EntriesStreamMapping.Add(HandledScheme + i.FullName, memoryStream);
+                        EntriesBufferMapping.Add(HandledScheme + i.FullName, memoryStream.ToArray());
                     }
                 }
             }
@@ -47,19 +43,18 @@ namespace RetriX.Shared.StreamProviders
 
         public Task<IEnumerable<string>> ListEntriesAsync()
         {
-            return Task.FromResult(EntriesStreamMapping.Keys.OrderBy(d => d) as IEnumerable<string>);
+            return Task.FromResult(EntriesBufferMapping.Keys.OrderBy(d => d) as IEnumerable<string>);
         }
 
         public Task<Stream> OpenFileStreamAsync(string path, PCLStorage.FileAccess accessType)
         {
-            if (!EntriesStreamMapping.Keys.Contains(path, StringComparer.OrdinalIgnoreCase))
+            if (!EntriesBufferMapping.Keys.Contains(path, StringComparer.OrdinalIgnoreCase))
             {
                 return Task.FromResult(null as Stream);
             }
 
-            var output = EntriesStreamMapping[path];
-            output.Position = 0;
-            return Task.FromResult(output);
+            var output = new MemoryStream(EntriesBufferMapping[path]);
+            return Task.FromResult(output as Stream);
         }
 
         public void CloseStream(Stream stream)
