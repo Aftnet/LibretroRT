@@ -63,7 +63,7 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_internal_resolution"))
 		{
-			varptr->value = "2x";
+			varptr->value = "1x";
 			return true;
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_frame_duping_enable"))
@@ -83,12 +83,12 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_skipbios"))
 		{
-			varptr->value = DisabledValue.c_str();
+			varptr->value = EnabledValue.c_str();
 			return true;
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_analog_toggle"))
 		{
-			varptr->value = DisabledValue.c_str();
+			varptr->value = EnabledValue.c_str();
 			return true;
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_analog_calibration"))
@@ -98,7 +98,7 @@ bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_crop_overscan"))
 		{
-			varptr->value = EnabledValue.c_str();
+			varptr->value = DisabledValue.c_str();
 			return true;
 		}
 		else if (!strcmp(varptr->key, "beetle_psx_enable_memcard1"))
