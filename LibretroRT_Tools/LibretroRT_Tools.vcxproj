@@ -202,6 +202,7 @@
   <ItemGroup>
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Export.h" />
+    <ClInclude Include="NativeBuffer.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="StringConverter.h" />
     <ClInclude Include="targetver.h" />

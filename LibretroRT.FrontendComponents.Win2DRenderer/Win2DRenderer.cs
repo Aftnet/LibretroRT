@@ -212,7 +212,6 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         private void RenderPanelDraw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-
             RenderTargetManager.Render(args.DrawingSession, sender.Size);
         }
 

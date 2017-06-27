@@ -32,12 +32,12 @@ namespace LibretroRT.FrontendComponents.InputManager
             { InputTypes.DeviceIdJoypadStart, VirtualKey.P },
         };
 
-        private static readonly IReadOnlyDictionary<InputTypes, Func<GamepadReading, short>> LibretroGamepadAnalogValueReadingsFunctionMapping = new Dictionary<InputTypes, Func<GamepadReading, short>>()
+        private static readonly ISet<InputTypes> LibretroGamepadAnalogTypes = new HashSet<InputTypes>()
         {
-            { InputTypes.DeviceIdAnalogLeftX, d => GetAnalogAxisValue(d.LeftThumbstickX, d.LeftThumbstickY) },
-            { InputTypes.DeviceIdAnalogLeftY, d => GetAnalogAxisValue(d.LeftThumbstickY, d.LeftThumbstickX) },
-            { InputTypes.DeviceIdAnalogRightX, d => GetAnalogAxisValue(d.RightThumbstickX, d.RightThumbstickY) },
-            { InputTypes.DeviceIdAnalogRightY, d => GetAnalogAxisValue(d.RightThumbstickY, d.RightThumbstickX) },
+            { InputTypes.DeviceIdAnalogLeftX },
+            { InputTypes.DeviceIdAnalogLeftY },
+            { InputTypes.DeviceIdAnalogRightX },
+            { InputTypes.DeviceIdAnalogRightY },
         };
 
         private static readonly IReadOnlyDictionary<InputTypes, GamepadButtons> LibretroGamepadToWindowsGamepadButtonMapping = new Dictionary<InputTypes, GamepadButtons>()
@@ -86,9 +86,20 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         public short GetInputState(uint port, InputTypes inputType)
         {
-            if (LibretroGamepadAnalogValueReadingsFunctionMapping.ContainsKey(inputType) && port < GamepadReadings.Length)
+            if (LibretroGamepadAnalogTypes.Contains(inputType) && port < GamepadReadings.Length)
             {
-                return LibretroGamepadAnalogValueReadingsFunctionMapping[inputType](GamepadReadings[port]);
+                var reading = GamepadReadings[port];
+                switch(inputType)
+                {
+                    case InputTypes.DeviceIdAnalogLeftX:
+                        return ConvertAxisReading(reading.LeftThumbstickX, reading.LeftThumbstickY);
+                    case InputTypes.DeviceIdAnalogLeftY:
+                        return ConvertAxisReading(reading.LeftThumbstickY, reading.LeftThumbstickX);
+                    case InputTypes.DeviceIdAnalogRightX:
+                        return ConvertAxisReading(reading.RightThumbstickX, reading.RightThumbstickY);
+                    case InputTypes.DeviceIdAnalogRightY:
+                        return ConvertAxisReading(reading.RightThumbstickY, reading.RightThumbstickX);
+                }
             }
 
             var output = false;
@@ -129,15 +140,11 @@ namespace LibretroRT.FrontendComponents.InputManager
             return output;
         }
 
-        private static short GetAnalogAxisValue(double axisValue, double perpendicularAxisValue)
+        private static short ConvertAxisReading(double mainValue, double transverseValue)
         {
-            if (axisValue * axisValue + perpendicularAxisValue * perpendicularAxisValue < GamepadAnalogDeadZoneSquareRadius)
-            {
-                return 0;
-            }
-
-            var scaledValue = axisValue * (double)short.MaxValue;
-            return (short)scaledValue;
+            var isInDeadZone = (mainValue * mainValue) + (transverseValue * transverseValue) < GamepadAnalogDeadZoneSquareRadius;
+            var output = isInDeadZone ? 0 : mainValue * short.MaxValue;
+            return (short)output;
         }
 
         private void WindowKeyUpHandler(CoreWindow sender, KeyEventArgs args)

@@ -17,5 +17,6 @@
     <ClInclude Include="Export.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="StringConverter.h" />
+    <ClInclude Include="NativeBuffer.h" />
   </ItemGroup>
 </Project>
