@@ -57,10 +57,12 @@ The project makes extensive use of [Git submodules](https://git-scm.com/docs/git
 - Created [Win2D](https://github.com/Microsoft/Win2D) based video renderer. Supports software based Libretro cores.
 - Created RetriX, a native XAML based Libretro front end, with an UI optimized for mouse, touch as well as gamepad interaction: it scales from phones to tablets, traditional PC form factors as well as the Xbox One.
 - Implemented a way to virtualize file system access from within cores: allows opening zipped games and those made up of multiple files
-- Working on PlayStation support
+- Added support for some CD based game systems: Mega CD and PlayStation
 
 ## Roadmap
 
 - Expand framework to allow porting of OpenGL based cores to WinRT using [Angle](https://github.com/Microsoft/angle) while still allowing front ends to be written in languages other than C++
 - Port more Libretro cores
 - Split LibretroRT (Libretro core ports to UWP) from RetriX, distribute the former via Nuget package, the latter via direct appx downlad in addition to source availability
+- Create signed appx packages with a valid Authenticode certificate to make installation as easy as traditional desktop apps
+- Complete Xbox UI (create an in game menu to allow for saving/loading and quitting game without quitting RetriX)
