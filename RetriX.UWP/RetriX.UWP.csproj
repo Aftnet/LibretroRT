@@ -298,6 +298,10 @@
       <Project>{0555a467-b1b2-4301-901c-0489f63b8ecc}</Project>
       <Name>LibretroRT.FrontendComponents.InputManager</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LibretroRT.FrontendComponents.Renderer\LibretroRT.FrontendComponents.Renderer.vcxproj">
+      <Project>{70a8cb20-70cf-4351-b62d-e0755dfc15f0}</Project>
+      <Name>LibretroRT.FrontendComponents.Renderer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LibretroRT.FrontendComponents.Win2DRenderer\LibretroRT.FrontendComponents.Win2DRenderer.csproj">
       <Project>{cc7fb684-776f-4902-be3b-d354933ef2dc}</Project>
       <Name>LibretroRT.FrontendComponents.Win2DRenderer</Name>

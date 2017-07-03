@@ -57,8 +57,7 @@ IAsyncOperation<bool>^ Renderer::LoadGameAsync(ICore^ core, String^ mainGameFile
 		}
 
 		GameID = mainGameFilePath;
-		RenderManager->SetGameGeometry(core->Geometry);
-		RenderManager->SetPixelFormat(core->PixelFormat);
+		RenderManager->UpdateFormat(core->Geometry, core->PixelFormat);
 		CoreIsExecuting = true;
 		return true;
 	});
@@ -149,12 +148,12 @@ void Renderer::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int wid
 
 void Renderer::GeometryChanged(GameGeometry^ geometry)
 {
-	RenderManager->SetGameGeometry(geometry);
+	RenderManager->UpdateFormat(geometry, Coordinator->Core->PixelFormat);
 }
 
 void Renderer::PixelFormatChanged(PixelFormats format)
 {
-	RenderManager->SetPixelFormat(format);
+	RenderManager->UpdateFormat(Coordinator->Core->Geometry, format);
 }
 
 void Renderer::OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args)

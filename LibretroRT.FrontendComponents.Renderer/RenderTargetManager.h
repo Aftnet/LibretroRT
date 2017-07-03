@@ -17,20 +17,21 @@ namespace LibretroRT_FrontendComponents_Renderer
 		RenderTargetManager(CanvasAnimatedControl^ canvas);
 		~RenderTargetManager();
 
-		void SetGameGeometry(GameGeometry^ geometry);
-		void SetPixelFormat(PixelFormats pixelFormat);
+		void UpdateFormat(GameGeometry^ geometry, PixelFormats pixelFormat);
 		void UpdateFromCoreOutput(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch);
 		void Render(CanvasDrawingSession^ drawingSession, Size canvasSize);
 
 	private:
 		static const unsigned int RenderTargetMinSize = 1024;
+		static const std::map<PixelFormats, DXGI_FORMAT> LibretroToDXGITextureFormatsMapping;
 
 		CanvasAnimatedControl^ const Canvas;
 		ComPtr<ID3D11Device> Device;
-		ComPtr<ID3D11DeviceContext> DeviceContext;
+		ComPtr<ID3D11Texture2D> D3DRenderTarget;
 		Rect RenderTargetViewport;
-		float RenderTargetAspectRatio = 1.0f;
+		float RenderTargetAspectRatio = 0.0f;
 
+		static ComPtr<ID3D11Texture2D> CreateD3DTexture(ComPtr<ID3D11Device> device, DXGI_FORMAT format, unsigned int width, unsigned int height);
 		static Rect ComputeBestFittingSize(Size viewportSize, float aspectRatio);
 		static unsigned int ClosestGreaterPowerTwo(unsigned int value);
 	};
