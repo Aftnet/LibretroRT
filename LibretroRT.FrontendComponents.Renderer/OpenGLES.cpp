@@ -251,6 +251,17 @@ EGLSurface OpenGLES::CreateSurface(ComPtr<ID3D11Texture2D> d3dTexture)
 	return output;
 }
 
+GLuint OpenGLES::CreateTextureFromSurface(EGLSurface surface)
+{
+	GLuint output;
+	glGenTextures(1, &output);
+	glBindTexture(GL_TEXTURE_2D, output);
+	eglBindTexImage(mEglDisplay, surface, EGL_BACK_BUFFER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	return output;
+}
+
 void OpenGLES::GetSurfaceDimensions(const EGLSurface surface, EGLint* width, EGLint* height)
 {
     eglQuerySurface(mEglDisplay, surface, EGL_WIDTH, width);

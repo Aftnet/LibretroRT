@@ -14,6 +14,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 		static std::shared_ptr<OpenGLES>& GetInstance();
 		EGLSurface CreateSurface(SwapChainPanel^ panel, const Size* renderSurfaceSize, const float* renderResolutionScale);
 		EGLSurface CreateSurface(ComPtr<ID3D11Texture2D> d3dTexture);
+		GLuint CreateTextureFromSurface(EGLSurface surface);
 		void GetSurfaceDimensions(const EGLSurface surface, EGLint *width, EGLint *height);
 		void DestroySurface(const EGLSurface surface);
 		void MakeCurrent(const EGLSurface surface);
