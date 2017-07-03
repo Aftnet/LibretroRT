@@ -6,10 +6,28 @@ using namespace LibretroRT_FrontendComponents_Win2DRendererNative;
 RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 	Canvas(canvas)
 {
+	auto device = GetWrappedResource<ID2D1Device1>(canvas->Device);
+	
 }
 
 
 RenderTargetManager::~RenderTargetManager()
+{
+}
+
+void RenderTargetManager::SetGameGeometry(GameGeometry^ geometry)
+{
+}
+
+void RenderTargetManager::SetPixelFormat(PixelFormats pixelFormat)
+{
+}
+
+void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
+{
+}
+
+void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canvasSize)
 {
 }
 
