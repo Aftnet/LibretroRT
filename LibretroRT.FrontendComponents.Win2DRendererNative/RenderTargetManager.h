@@ -4,8 +4,10 @@ using namespace LibretroRT;
 
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI::Xaml;
+using namespace Microsoft::WRL;
 using namespace Platform;
 using namespace Windows::Foundation;
+using namespace Windows::Graphics::DirectX::Direct3D11;
 
 namespace LibretroRT_FrontendComponents_Win2DRendererNative
 {
@@ -24,6 +26,8 @@ namespace LibretroRT_FrontendComponents_Win2DRendererNative
 		static const unsigned int RenderTargetMinSize = 1024;
 
 		CanvasAnimatedControl^ const Canvas;
+		ComPtr<ID3D11Device> Device;
+		ComPtr<ID3D11DeviceContext> DeviceContext;
 		Rect RenderTargetViewport;
 		float RenderTargetAspectRatio = 1.0f;
 

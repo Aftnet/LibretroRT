@@ -3,11 +3,12 @@
 
 using namespace LibretroRT_FrontendComponents_Win2DRendererNative;
 
+using namespace Windows::Graphics::DirectX::Direct3D11;
+
 RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 	Canvas(canvas)
 {
-	auto device = GetWrappedResource<ID2D1Device1>(canvas->Device);
-	
+	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, Device.GetAddressOf()));
 }
 
 
@@ -57,5 +58,26 @@ unsigned int RenderTargetManager::ClosestGreaterPowerTwo(unsigned int value)
 		output *= 2;
 	}
 
+	return output;
+}
+
+
+ComPtr<ID3D11Texture2D> CreateTexture(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height)
+{
+	D3D11_TEXTURE2D_DESC texDesc = { 0 };
+	texDesc.Width = width;
+	texDesc.Height = height;
+	texDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	texDesc.MipLevels = 1;
+	texDesc.ArraySize = 1;
+	texDesc.SampleDesc.Count = 1;
+	texDesc.SampleDesc.Quality = 0;
+	texDesc.Usage = D3D11_USAGE_DEFAULT;
+	texDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE; 
+	texDesc.CPUAccessFlags = 0;
+	texDesc.MiscFlags = D3D11_RESOURCE_MISC_SHARED;
+
+	ComPtr<ID3D11Texture2D> output;
+	__abi_ThrowIfFailed(device->CreateTexture2D(&texDesc, nullptr, output.GetAddressOf()));
 	return output;
 }
