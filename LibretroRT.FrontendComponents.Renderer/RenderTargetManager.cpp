@@ -42,7 +42,7 @@ void RenderTargetManager::UpdateFormat(GameGeometry^ geometry, PixelFormats pixe
 	{
 		auto dimension = max(maxDimension, RenderTargetMinSize);
 		dimension = ClosestGreaterPowerTwo(dimension);
-		CreateD3DTexture(Device, requestedFormat, dimension, dimension);
+		D3DRenderTarget = CreateD3DTexture(Device, requestedFormat, dimension, dimension);
 	}
 }
 
