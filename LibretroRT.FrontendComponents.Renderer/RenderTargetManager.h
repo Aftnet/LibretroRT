@@ -9,7 +9,7 @@ using namespace Platform;
 using namespace Windows::Foundation;
 using namespace Windows::Graphics::DirectX::Direct3D11;
 
-namespace LibretroRT_FrontendComponents_Win2DRendererNative
+namespace LibretroRT_FrontendComponents_Renderer
 {
 	class RenderTargetManager
 	{

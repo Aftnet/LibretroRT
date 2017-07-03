@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "RenderTargetManager.h"
 
-using namespace LibretroRT_FrontendComponents_Win2DRendererNative;
+using namespace LibretroRT_FrontendComponents_Renderer;
 
 using namespace Windows::Graphics::DirectX::Direct3D11;
 

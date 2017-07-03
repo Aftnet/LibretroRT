@@ -1,11 +1,11 @@
 #include "pch.h"
-#include "Win2DRenderer.h"
+#include "Renderer.h"
 
-using namespace LibretroRT_FrontendComponents_Win2DRendererNative;
+using namespace LibretroRT_FrontendComponents_Renderer;
 
 using namespace Windows::UI;
 
-Win2DRenderer::Win2DRenderer(CanvasAnimatedControl^ renderPanel, IAudioPlayer^ audioPlayer, IInputManager^ inputManager):
+Renderer::Renderer(CanvasAnimatedControl^ renderPanel, IAudioPlayer^ audioPlayer, IInputManager^ inputManager):
 	RenderPanel(renderPanel)
 {
 	Coordinator = ref new CoreCoordinator();
@@ -16,13 +16,13 @@ Win2DRenderer::Win2DRenderer(CanvasAnimatedControl^ renderPanel, IAudioPlayer^ a
 	Color clearColor;
 	RenderPanel->ClearColor = clearColor;
 
-	OnRenderPanelCreateResourcesToken = RenderPanel->CreateResources += ref new TypedEventHandler<CanvasAnimatedControl^, CanvasCreateResourcesEventArgs^>(this, &Win2DRenderer::OnRenderPanelCreateResources);
-	OnRenderPanelUpdateToken = RenderPanel->Update += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedUpdateEventArgs^>(this, &Win2DRenderer::OnRenderPanelUpdate);
-	OnRenderPanelDrawToken = RenderPanel->Draw += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedDrawEventArgs ^>(this, &Win2DRenderer::OnRenderPanelDraw);
-	OnRenderPanelUnloadedToken = RenderPanel->Unloaded += ref new RoutedEventHandler(this, &Win2DRenderer::OnRenderPanelUnloaded);
+	OnRenderPanelCreateResourcesToken = RenderPanel->CreateResources += ref new TypedEventHandler<CanvasAnimatedControl^, CanvasCreateResourcesEventArgs^>(this, &Renderer::OnRenderPanelCreateResources);
+	OnRenderPanelUpdateToken = RenderPanel->Update += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedUpdateEventArgs^>(this, &Renderer::OnRenderPanelUpdate);
+	OnRenderPanelDrawToken = RenderPanel->Draw += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedDrawEventArgs ^>(this, &Renderer::OnRenderPanelDraw);
+	OnRenderPanelUnloadedToken = RenderPanel->Unloaded += ref new RoutedEventHandler(this, &Renderer::OnRenderPanelUnloaded);
 }
 
-Win2DRenderer::~Win2DRenderer()
+Renderer::~Renderer()
 {
 	critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
@@ -35,7 +35,7 @@ Win2DRenderer::~Win2DRenderer()
 	if (core) { core->UnloadGame(); }
 }
 
-IAsyncOperation<bool>^ Win2DRenderer::LoadGameAsync(ICore^ core, String^ mainGameFilePath)
+IAsyncOperation<bool>^ Renderer::LoadGameAsync(ICore^ core, String^ mainGameFilePath)
 {
 	return create_async([=]()-> bool
 	{
@@ -64,7 +64,7 @@ IAsyncOperation<bool>^ Win2DRenderer::LoadGameAsync(ICore^ core, String^ mainGam
 	});
 }
 
-IAsyncAction^ Win2DRenderer::UnloadGameAsync()
+IAsyncAction^ Renderer::UnloadGameAsync()
 {
 	return create_async([this]()
 	{
@@ -81,7 +81,7 @@ IAsyncAction^ Win2DRenderer::UnloadGameAsync()
 	});
 }
 
-IAsyncAction^ Win2DRenderer::ResetGameAsync()
+IAsyncAction^ Renderer::ResetGameAsync()
 {
 	return create_async([this]()
 	{
@@ -95,7 +95,7 @@ IAsyncAction^ Win2DRenderer::ResetGameAsync()
 	});
 }
 
-IAsyncAction^ Win2DRenderer::PauseCoreExecutionAsync()
+IAsyncAction^ Renderer::PauseCoreExecutionAsync()
 {
 	return create_async([this]()
 	{
@@ -108,7 +108,7 @@ IAsyncAction^ Win2DRenderer::PauseCoreExecutionAsync()
 	});
 }
 
-IAsyncAction^ Win2DRenderer::ResumeCoreExecutionAsync()
+IAsyncAction^ Renderer::ResumeCoreExecutionAsync()
 {
 	return create_async([this]()
 	{
@@ -116,7 +116,7 @@ IAsyncAction^ Win2DRenderer::ResumeCoreExecutionAsync()
 	});
 }
 
-IAsyncOperation<bool>^ Win2DRenderer::SaveGameStateAsync(WriteOnlyArray<byte>^ stateData)
+IAsyncOperation<bool>^ Renderer::SaveGameStateAsync(WriteOnlyArray<byte>^ stateData)
 {
 	return create_async([=]()
 	{
@@ -129,7 +129,7 @@ IAsyncOperation<bool>^ Win2DRenderer::SaveGameStateAsync(WriteOnlyArray<byte>^ s
 	});
 }
 
-IAsyncOperation<bool>^ Win2DRenderer::LoadGameStateAsync(const Array<byte>^ stateData)
+IAsyncOperation<bool>^ Renderer::LoadGameStateAsync(const Array<byte>^ stateData)
 {
 	return create_async([=]()
 	{
@@ -142,27 +142,27 @@ IAsyncOperation<bool>^ Win2DRenderer::LoadGameStateAsync(const Array<byte>^ stat
 	});
 }
 
-void Win2DRenderer::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
+void Renderer::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
 	RenderManager->UpdateFromCoreOutput(frameBuffer, width, height, pitch);
 }
 
-void Win2DRenderer::GeometryChanged(GameGeometry^ geometry)
+void Renderer::GeometryChanged(GameGeometry^ geometry)
 {
 	RenderManager->SetGameGeometry(geometry);
 }
 
-void Win2DRenderer::PixelFormatChanged(PixelFormats format)
+void Renderer::PixelFormatChanged(PixelFormats format)
 {
 	RenderManager->SetPixelFormat(format);
 }
 
-void Win2DRenderer::OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args)
+void Renderer::OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args)
 {
 	RenderManager = std::make_unique<RenderTargetManager>(sender);
 }
 
-void Win2DRenderer::OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAnimatedUpdateEventArgs^ args)
+void Renderer::OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAnimatedUpdateEventArgs^ args)
 {
 	critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
@@ -187,12 +187,12 @@ void Win2DRenderer::OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAn
 	}
 }
 
-void Win2DRenderer::OnRenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args)
+void Renderer::OnRenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args)
 {
 	RenderManager->Render(args->DrawingSession, sender->Size);
 }
 
-void Win2DRenderer::OnRenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e)
+void Renderer::OnRenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e)
 {
 	RenderManager.reset();
 

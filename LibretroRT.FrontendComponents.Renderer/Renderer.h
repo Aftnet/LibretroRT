@@ -11,9 +11,9 @@ using namespace Microsoft::Graphics::Canvas::UI::Xaml;
 using namespace Platform;
 using namespace Windows::UI::Xaml;
 
-namespace LibretroRT_FrontendComponents_Win2DRendererNative
+namespace LibretroRT_FrontendComponents_Renderer
 {
-	public ref class Win2DRenderer sealed : IRenderer, ICoreRunner
+	public ref class Renderer sealed : IRenderer, ICoreRunner
 	{
 	private:
 		CanvasAnimatedControl^ RenderPanel;
@@ -61,8 +61,8 @@ namespace LibretroRT_FrontendComponents_Win2DRendererNative
 			}
 		}
 
-		Win2DRenderer(CanvasAnimatedControl^ renderPanel, IAudioPlayer^ audioPlayer, IInputManager^ inputManager);
-		virtual ~Win2DRenderer();
+		Renderer(CanvasAnimatedControl^ renderPanel, IAudioPlayer^ audioPlayer, IInputManager^ inputManager);
+		virtual ~Renderer();
 
 		virtual IAsyncOperation<bool>^ LoadGameAsync(ICore^ core, String^ mainGameFilePath);
 		virtual IAsyncAction^ UnloadGameAsync();
