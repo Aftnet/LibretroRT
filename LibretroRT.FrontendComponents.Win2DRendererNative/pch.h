@@ -6,3 +6,5 @@
 
 #include <chrono>
 #include <thread>
+
+#include <Microsoft.Graphics.Canvas.native.h>

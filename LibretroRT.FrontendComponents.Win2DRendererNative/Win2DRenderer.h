@@ -9,7 +9,6 @@ using namespace Concurrency;
 using namespace Microsoft::Graphics::Canvas::UI;
 using namespace Microsoft::Graphics::Canvas::UI::Xaml;
 using namespace Platform;
-using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
 
 namespace LibretroRT_FrontendComponents_Win2DRendererNative
@@ -26,13 +25,13 @@ namespace LibretroRT_FrontendComponents_Win2DRendererNative
 		critical_section CoordinatorCriticalSection;
 
 		void OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args);
-		EventRegistrationToken OnRenderPanelCreateResourcesToken;
+		Windows::Foundation::EventRegistrationToken OnRenderPanelCreateResourcesToken;
 		void OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAnimatedUpdateEventArgs^ args);
-		EventRegistrationToken OnRenderPanelUpdateToken;
+		Windows::Foundation::EventRegistrationToken OnRenderPanelUpdateToken;
 		void OnRenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args);
-		EventRegistrationToken OnRenderPanelDrawToken;
+		Windows::Foundation::EventRegistrationToken OnRenderPanelDrawToken;
 		void OnRenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e);
-		EventRegistrationToken OnRenderPanelUnloadedToken;
+		Windows::Foundation::EventRegistrationToken OnRenderPanelUnloadedToken;
 
 	public:
 		virtual event CoreRunExceptionOccurredDelegate^ CoreRunExceptionOccurred;
