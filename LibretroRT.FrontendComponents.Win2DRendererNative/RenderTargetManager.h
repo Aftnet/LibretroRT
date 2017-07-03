@@ -1,6 +1,9 @@
 #pragma once
 
+using namespace LibretroRT;
+
 using namespace Microsoft::Graphics::Canvas::UI::Xaml;
+using namespace Platform;
 using namespace Windows::Foundation;
 
 namespace LibretroRT_FrontendComponents_Win2DRendererNative
@@ -10,6 +13,10 @@ namespace LibretroRT_FrontendComponents_Win2DRendererNative
 	public:
 		RenderTargetManager(CanvasAnimatedControl^ canvas);
 		~RenderTargetManager();
+
+		void SetGameGeometry(GameGeometry^ geometry);
+		void SetPixelFormat(PixelFormats pixelFormat);
+		void UpdateFromCoreOutput(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch);
 
 	private:
 		static const unsigned int RenderTargetMinSize = 1024;

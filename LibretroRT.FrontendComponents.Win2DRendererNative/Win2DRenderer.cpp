@@ -57,7 +57,8 @@ IAsyncOperation<bool>^ Win2DRenderer::LoadGameAsync(ICore^ core, String^ mainGam
 		}
 
 		GameID = mainGameFilePath;
-		//RenderTargetManager->CurrentCorePixelFormat = core->PixelFormat;
+		RenderManager->SetGameGeometry(core->Geometry);
+		RenderManager->SetPixelFormat(core->PixelFormat);
 		CoreIsExecuting = true;
 		return true;
 	});
@@ -143,17 +144,17 @@ IAsyncOperation<bool>^ Win2DRenderer::LoadGameStateAsync(const Array<byte>^ stat
 
 void Win2DRenderer::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
-
+	RenderManager->UpdateFromCoreOutput(frameBuffer, width, height, pitch);
 }
 
 void Win2DRenderer::GeometryChanged(GameGeometry^ geometry)
 {
-
+	RenderManager->SetGameGeometry(geometry);
 }
 
 void Win2DRenderer::PixelFormatChanged(PixelFormats format)
 {
-
+	RenderManager->SetPixelFormat(format);
 }
 
 void Win2DRenderer::OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args)
