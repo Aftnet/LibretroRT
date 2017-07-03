@@ -39,7 +39,7 @@ IAsyncOperation<bool>^ Win2DRenderer::LoadGameAsync(ICore^ core, String^ mainGam
 {
 	return create_async([=]()-> bool
 	{
-		while (!RenderPanelInitialized)
+		while (!RenderManager)
 		{
 			//Ensure core doesn't try rendering before Win2D is ready.
 			//Some games load faster than the Win2D canvas is initialized
@@ -158,7 +158,7 @@ void Win2DRenderer::PixelFormatChanged(PixelFormats format)
 
 void Win2DRenderer::OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args)
 {
-
+	RenderManager = std::make_unique<RenderTargetManager>(sender);
 }
 
 void Win2DRenderer::OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAnimatedUpdateEventArgs^ args)
@@ -173,5 +173,11 @@ void Win2DRenderer::OnRenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnim
 
 void Win2DRenderer::OnRenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e)
 {
+	RenderManager.reset();
 
+	RenderPanel->CreateResources -= OnRenderPanelCreateResourcesToken;
+	RenderPanel->Update -= OnRenderPanelUpdateToken;
+	RenderPanel->Draw -= OnRenderPanelDrawToken;
+	RenderPanel->Unloaded -= OnRenderPanelUnloadedToken;
+	RenderPanel = nullptr;
 }

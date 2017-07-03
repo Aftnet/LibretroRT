@@ -17,10 +17,8 @@ namespace LibretroRT_FrontendComponents_Win2DRendererNative
 	public ref class Win2DRenderer sealed : IRenderer, ICoreRunner
 	{
 	private:
-		CanvasAnimatedControl^ RenderPanel = nullptr;
-		bool RenderPanelInitialized = false;
-
-		RenderTargetManager RenderManager;
+		CanvasAnimatedControl^ RenderPanel;
+		std::unique_ptr<RenderTargetManager> RenderManager;
 
 		String^ gameID = nullptr;
 		bool coreIsExecuting = false;

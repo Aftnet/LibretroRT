@@ -3,7 +3,8 @@
 
 using namespace LibretroRT_FrontendComponents_Win2DRendererNative;
 
-RenderTargetManager::RenderTargetManager()
+RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
+	Canvas(canvas)
 {
 }
 
