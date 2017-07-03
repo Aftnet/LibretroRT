@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "RenderTargetManager.h"
 
+using namespace LibretroRT_FrontendComponents_Win2DRendererNative;
 
 RenderTargetManager::RenderTargetManager()
 {
