@@ -19,7 +19,7 @@ Win2DRenderer::Win2DRenderer(CanvasAnimatedControl^ renderPanel, IAudioPlayer^ a
 	OnRenderPanelCreateResourcesToken = RenderPanel->CreateResources += ref new TypedEventHandler<CanvasAnimatedControl^, CanvasCreateResourcesEventArgs^>(this, &OnRenderPanelCreateResources);
 	OnRenderPanelUpdateToken = RenderPanel->Update += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedUpdateEventArgs^>(this, &OnRenderPanelUpdate);
 	OnRenderPanelDrawToken = RenderPanel->Draw += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedDrawEventArgs ^>(this, &Win2DRenderer::OnRenderPanelDraw);
-	OnRenderPanelUnloadedToken = RenderPanel->Unloaded += ref new TypedEventHandler<Object^, RoutedEventArgs^>(this, &Win2DRenderer::OnRenderPanelUnloaded);
+	OnRenderPanelUnloadedToken = RenderPanel->Unloaded += ref new RoutedEventHandler(this, &OnRenderPanelUnloaded);
 }
 
 Win2DRenderer::~Win2DRenderer()
