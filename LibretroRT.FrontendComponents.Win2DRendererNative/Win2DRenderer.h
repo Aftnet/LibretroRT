@@ -27,10 +27,14 @@ namespace LibretroRT_FrontendComponents_Win2DRendererNative
 		CoreCoordinator^ Coordinator;
 		critical_section CoordinatorCriticalSection;
 
-		void RenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e);
-		void RenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args);
-		void RenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAnimatedUpdateEventArgs^ args);
-		void RenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args);
+		void OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args);
+		EventRegistrationToken OnRenderPanelCreateResourcesToken;
+		void OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAnimatedUpdateEventArgs^ args);
+		EventRegistrationToken OnRenderPanelUpdateToken;
+		void OnRenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args);
+		EventRegistrationToken OnRenderPanelDrawToken;
+		void OnRenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e);
+		EventRegistrationToken OnRenderPanelUnloadedToken;
 
 	public:
 		virtual event CoreRunExceptionOccurredDelegate^ CoreRunExceptionOccurred;

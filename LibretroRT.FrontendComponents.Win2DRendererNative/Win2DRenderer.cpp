@@ -15,11 +15,21 @@ Win2DRenderer::Win2DRenderer(CanvasAnimatedControl^ renderPanel, IAudioPlayer^ a
 
 	Color clearColor;
 	RenderPanel->ClearColor = clearColor;
+
+	OnRenderPanelCreateResourcesToken = RenderPanel->CreateResources += ref new TypedEventHandler<CanvasAnimatedControl^, CanvasCreateResourcesEventArgs^>(this, &OnRenderPanelCreateResources);
+	OnRenderPanelUpdateToken = RenderPanel->Update += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedUpdateEventArgs^>(this, &OnRenderPanelUpdate);
+	OnRenderPanelDrawToken = RenderPanel->Draw += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedDrawEventArgs ^>(this, &Win2DRenderer::OnRenderPanelDraw);
+	OnRenderPanelUnloadedToken = RenderPanel->Unloaded += ref new TypedEventHandler<Object^, RoutedEventArgs^>(this, &Win2DRenderer::OnRenderPanelUnloaded);
 }
 
 Win2DRenderer::~Win2DRenderer()
 {
 	critical_section::scoped_lock lock(CoordinatorCriticalSection);
+
+	RenderPanel->CreateResources -= OnRenderPanelCreateResourcesToken;
+	RenderPanel->Update -= OnRenderPanelUpdateToken;
+	RenderPanel->Draw -= OnRenderPanelDrawToken;
+	RenderPanel->Unloaded -= OnRenderPanelUnloadedToken;
 
 	auto core = Coordinator->Core;
 	if (core) { core->UnloadGame(); }
