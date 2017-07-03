@@ -3,7 +3,6 @@
 
 using namespace LibretroRT_FrontendComponents_Renderer;
 
-using namespace Microsoft::WRL;
 using namespace Platform;
 using namespace Windows::Foundation::Collections;
 
@@ -231,7 +230,7 @@ EGLSurface OpenGLES::CreateSurface(SwapChainPanel^ panel, const Size* renderSurf
     return surface;
 }
 
-EGLSurface CreateSurface(ComPtr<ID3D11Texture2D> d3dTexture)
+EGLSurface OpenGLES::CreateSurface(ComPtr<ID3D11Texture2D> d3dTexture)
 {
 	D3D11_TEXTURE2D_DESC textureDescription;
 	d3dTexture->GetDesc(&textureDescription);
@@ -243,7 +242,13 @@ EGLSurface CreateSurface(ComPtr<ID3D11Texture2D> d3dTexture)
 
 	EGLSurface output = EGL_NO_SURFACE;
 	EGLint pBufferAttributes[] = { EGL_WIDTH, textureDescription.Width, EGL_HEIGHT, textureDescription.Height, EGL_TEXTURE_TARGET, EGL_TEXTURE_2D, EGL_TEXTURE_FORMAT, EGL_TEXTURE_RGBA, EGL_NONE };
-	//surface = eglCreatePbufferFromClientBuffer(mEglDisplay, EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE, sharedHandle, mEglConfig, pBufferAttributes); if (surface == EGL_NO_SURFACE) { // error handling code }
+	output = eglCreatePbufferFromClientBuffer(mEglDisplay, EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE, sharedHandle, mEglConfig, pBufferAttributes);
+	if (output == EGL_NO_SURFACE)
+	{
+		throw Exception::CreateException(E_FAIL, L"Failed to create EGL surface");
+	}
+
+	return output;
 }
 
 void OpenGLES::GetSurfaceDimensions(const EGLSurface surface, EGLint* width, EGLint* height)
