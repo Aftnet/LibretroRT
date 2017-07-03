@@ -14,7 +14,8 @@ const std::map<PixelFormats, DXGI_FORMAT> RenderTargetManager::LibretroToDXGITex
 };
 
 RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
-	Canvas(canvas)
+	Canvas(canvas),
+	OpenGLESManager(OpenGLES::GetInstance())
 {
 	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, Device.GetAddressOf()));
 }
@@ -22,6 +23,7 @@ RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 
 RenderTargetManager::~RenderTargetManager()
 {
+	OpenGLESManager->DestroySurface(OpenGLESRenderTarget);
 }
 
 void RenderTargetManager::UpdateFormat(GameGeometry^ geometry, PixelFormats pixelFormat)
@@ -42,7 +44,7 @@ void RenderTargetManager::UpdateFormat(GameGeometry^ geometry, PixelFormats pixe
 	{
 		auto dimension = max(maxDimension, RenderTargetMinSize);
 		dimension = ClosestGreaterPowerTwo(dimension);
-		CreateD3DTexture(Device, dimension, dimension);
+		CreateLinkedTextures(Device, dimension, dimension);
 	}
 }
 
@@ -57,7 +59,7 @@ void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canv
 {
 }
 
-void RenderTargetManager::CreateD3DTexture(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height)
+void RenderTargetManager::CreateLinkedTextures(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height)
 {
 	D3D11_TEXTURE2D_DESC texDesc = { 0 };
 	texDesc.Width = width;
@@ -76,14 +78,7 @@ void RenderTargetManager::CreateD3DTexture(ComPtr<ID3D11Device> device, unsigned
 	__abi_ThrowIfFailed(device->CreateTexture2D(&texDesc, nullptr, d3dTexture.GetAddressOf()));
 	D3DRenderTarget = d3dTexture;
 
-	ComPtr<IDXGIResource> dxgiResource;
-	HANDLE sharedHandle;
-	__abi_ThrowIfFailed(D3DRenderTarget.As(&dxgiResource));
-	__abi_ThrowIfFailed(dxgiResource->GetSharedHandle(&sharedHandle));
-
-	AngleRenderTarget = EGL_NO_SURFACE;
-	EGLint pBufferAttributes[] = { EGL_WIDTH, width, EGL_HEIGHT, height, EGL_TEXTURE_TARGET, EGL_TEXTURE_2D, EGL_TEXTURE_FORMAT, EGL_TEXTURE_RGBA, EGL_NONE };
-	//surface = eglCreatePbufferFromClientBuffer(mEglDisplay, EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE, sharedHandle, mEglConfig, pBufferAttributes); if (surface == EGL_NO_SURFACE) { // error handling code }
+	OpenGLESRenderTarget = OpenGLESManager->CreateSurface(D3DRenderTarget);
 }
 
 Rect RenderTargetManager::ComputeBestFittingSize(Size viewportSize, float aspectRatio)

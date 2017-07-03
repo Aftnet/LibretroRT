@@ -17,7 +17,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 	{
 	private:
 		CanvasAnimatedControl^ RenderPanel;
-		std::unique_ptr<RenderTargetManager> RenderManager;
+		RenderTargetManager^ RenderManager;
 
 		String^ gameID = nullptr;
 		bool coreIsExecuting = false;

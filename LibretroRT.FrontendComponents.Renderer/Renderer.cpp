@@ -158,7 +158,7 @@ void Renderer::PixelFormatChanged(PixelFormats format)
 
 void Renderer::OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args)
 {
-	RenderManager = std::make_unique<RenderTargetManager>(sender);
+	RenderManager = ref new RenderTargetManager(sender);
 }
 
 void Renderer::OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAnimatedUpdateEventArgs^ args)
@@ -193,7 +193,7 @@ void Renderer::OnRenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedD
 
 void Renderer::OnRenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e)
 {
-	RenderManager.reset();
+	RenderManager = nullptr;
 
 	RenderPanel->CreateResources -= OnRenderPanelCreateResourcesToken;
 	RenderPanel->Update -= OnRenderPanelUpdateToken;
