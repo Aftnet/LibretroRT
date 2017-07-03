@@ -28,10 +28,11 @@ namespace LibretroRT_FrontendComponents_Renderer
 		CanvasAnimatedControl^ const Canvas;
 		ComPtr<ID3D11Device> Device;
 		ComPtr<ID3D11Texture2D> D3DRenderTarget;
+		EGLSurface AngleRenderTarget;
 		Rect RenderTargetViewport;
 		float RenderTargetAspectRatio = 0.0f;
 
-		static ComPtr<ID3D11Texture2D> CreateD3DTexture(ComPtr<ID3D11Device> device, DXGI_FORMAT format, unsigned int width, unsigned int height);
+		void CreateD3DTexture(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height);
 		static Rect ComputeBestFittingSize(Size viewportSize, float aspectRatio);
 		static unsigned int ClosestGreaterPowerTwo(unsigned int value);
 	};

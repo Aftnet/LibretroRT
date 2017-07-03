@@ -42,24 +42,27 @@ void RenderTargetManager::UpdateFormat(GameGeometry^ geometry, PixelFormats pixe
 	{
 		auto dimension = max(maxDimension, RenderTargetMinSize);
 		dimension = ClosestGreaterPowerTwo(dimension);
-		D3DRenderTarget = CreateD3DTexture(Device, requestedFormat, dimension, dimension);
+		CreateD3DTexture(Device, dimension, dimension);
 	}
 }
 
 void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
+	ID3D11DeviceContext* context;
+	Device->GetImmediateContext(&context);
+	
 }
 
 void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canvasSize)
 {
 }
 
-ComPtr<ID3D11Texture2D> RenderTargetManager::CreateD3DTexture(ComPtr<ID3D11Device> device, DXGI_FORMAT format, unsigned int width, unsigned int height)
+void RenderTargetManager::CreateD3DTexture(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height)
 {
 	D3D11_TEXTURE2D_DESC texDesc = { 0 };
 	texDesc.Width = width;
 	texDesc.Height = height;
-	texDesc.Format = format;
+	texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	texDesc.MipLevels = 1;
 	texDesc.ArraySize = 1;
 	texDesc.SampleDesc.Count = 1;
@@ -69,9 +72,18 @@ ComPtr<ID3D11Texture2D> RenderTargetManager::CreateD3DTexture(ComPtr<ID3D11Devic
 	texDesc.CPUAccessFlags = 0;
 	texDesc.MiscFlags = D3D11_RESOURCE_MISC_SHARED;
 
-	ComPtr<ID3D11Texture2D> output;
-	__abi_ThrowIfFailed(device->CreateTexture2D(&texDesc, nullptr, output.GetAddressOf()));
-	return output;
+	ComPtr<ID3D11Texture2D> d3dTexture;
+	__abi_ThrowIfFailed(device->CreateTexture2D(&texDesc, nullptr, d3dTexture.GetAddressOf()));
+	D3DRenderTarget = d3dTexture;
+
+	ComPtr<IDXGIResource> dxgiResource;
+	HANDLE sharedHandle;
+	__abi_ThrowIfFailed(D3DRenderTarget.As(&dxgiResource));
+	__abi_ThrowIfFailed(dxgiResource->GetSharedHandle(&sharedHandle));
+
+	AngleRenderTarget = EGL_NO_SURFACE;
+	EGLint pBufferAttributes[] = { EGL_WIDTH, width, EGL_HEIGHT, height, EGL_TEXTURE_TARGET, EGL_TEXTURE_2D, EGL_TEXTURE_FORMAT, EGL_TEXTURE_RGBA, EGL_NONE };
+	//surface = eglCreatePbufferFromClientBuffer(mEglDisplay, EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE, sharedHandle, mEglConfig, pBufferAttributes); if (surface == EGL_NO_SURFACE) { // error handling code }
 }
 
 Rect RenderTargetManager::ComputeBestFittingSize(Size viewportSize, float aspectRatio)
