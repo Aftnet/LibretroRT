@@ -163,7 +163,27 @@ void Win2DRenderer::OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, 
 
 void Win2DRenderer::OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAnimatedUpdateEventArgs^ args)
 {
+	critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
+	if (CoreIsExecuting && !Coordinator->AudioPlayerRequestsFrameDelay)
+	{
+		auto core = Coordinator->Core;
+		try
+		{
+			if (core) { core->RunFrame(); }
+		}
+		catch (Exception^ e)
+		{
+			GameID = nullptr;
+			CoreIsExecuting = false;
+			auto audioPlayer = Coordinator->AudioPlayer;
+			if (audioPlayer) { audioPlayer->Stop(); }
+
+			HResult hresult;
+			hresult.Value = e->HResult;
+			CoreRunExceptionOccurred(core, hresult);
+		}
+	}
 }
 
 void Win2DRenderer::OnRenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args)
