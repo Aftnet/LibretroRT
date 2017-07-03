@@ -155,3 +155,23 @@ void Win2DRenderer::PixelFormatChanged(PixelFormats format)
 {
 
 }
+
+void Win2DRenderer::OnRenderPanelCreateResources(CanvasAnimatedControl^ sender, CanvasCreateResourcesEventArgs^ args)
+{
+
+}
+
+void Win2DRenderer::OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAnimatedUpdateEventArgs^ args)
+{
+
+}
+
+void Win2DRenderer::OnRenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args)
+{
+
+}
+
+void Win2DRenderer::OnRenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e)
+{
+
+}
