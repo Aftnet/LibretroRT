@@ -189,7 +189,7 @@ void Win2DRenderer::OnRenderPanelUpdate(ICanvasAnimatedControl^ sender, CanvasAn
 
 void Win2DRenderer::OnRenderPanelDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args)
 {
-
+	RenderManager->Render(args->DrawingSession, sender->Size);
 }
 
 void Win2DRenderer::OnRenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e)
