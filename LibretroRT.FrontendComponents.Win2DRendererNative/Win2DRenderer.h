@@ -20,7 +20,7 @@ namespace LibretroRT_FrontendComponents_Win2DRendererNative
 		CanvasAnimatedControl^ RenderPanel = nullptr;
 		bool RenderPanelInitialized = false;
 
-		RenderTargetManager RenderTargetManager;
+		RenderTargetManager RenderManager;
 
 		String^ gameID = nullptr;
 		bool coreIsExecuting = false;

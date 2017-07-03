@@ -55,7 +55,7 @@ IAsyncOperation<bool>^ Win2DRenderer::LoadGameAsync(ICore^ core, String^ mainGam
 
 IAsyncAction^ Win2DRenderer::UnloadGameAsync()
 {
-	return create_async([=]()
+	return create_async([this]()
 	{
 		critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
@@ -72,7 +72,7 @@ IAsyncAction^ Win2DRenderer::UnloadGameAsync()
 
 IAsyncAction^ Win2DRenderer::ResetGameAsync()
 {
-	return create_async([=]()
+	return create_async([this]()
 	{
 		critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
@@ -86,22 +86,49 @@ IAsyncAction^ Win2DRenderer::ResetGameAsync()
 
 IAsyncAction^ Win2DRenderer::PauseCoreExecutionAsync()
 {
+	return create_async([this]()
+	{
+		critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
+		auto audioPlayer = Coordinator->AudioPlayer;
+		if (audioPlayer) { audioPlayer->Stop(); }
+
+		CoreIsExecuting = false;
+	});
 }
 
 IAsyncAction^ Win2DRenderer::ResumeCoreExecutionAsync()
 {
-
+	return create_async([this]()
+	{
+		CoreIsExecuting = false;
+	});
 }
 
 IAsyncOperation<bool>^ Win2DRenderer::SaveGameStateAsync(WriteOnlyArray<byte>^ stateData)
 {
+	return create_async([=]()
+	{
+		critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
+		auto core = Coordinator->Core;
+		if (!core) { return false; }
+
+		return core->Serialize(stateData);
+	});
 }
 
 IAsyncOperation<bool>^ Win2DRenderer::LoadGameStateAsync(const Array<byte>^ stateData)
 {
+	return create_async([=]()
+	{
+		critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
+		auto core = Coordinator->Core;
+		if (!core) { return false; }
+
+		return core->Unserialize(stateData);
+	});
 }
 
 void Win2DRenderer::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
