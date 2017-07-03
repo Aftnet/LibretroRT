@@ -16,10 +16,10 @@ Win2DRenderer::Win2DRenderer(CanvasAnimatedControl^ renderPanel, IAudioPlayer^ a
 	Color clearColor;
 	RenderPanel->ClearColor = clearColor;
 
-	OnRenderPanelCreateResourcesToken = RenderPanel->CreateResources += ref new TypedEventHandler<CanvasAnimatedControl^, CanvasCreateResourcesEventArgs^>(this, &OnRenderPanelCreateResources);
-	OnRenderPanelUpdateToken = RenderPanel->Update += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedUpdateEventArgs^>(this, &OnRenderPanelUpdate);
+	OnRenderPanelCreateResourcesToken = RenderPanel->CreateResources += ref new TypedEventHandler<CanvasAnimatedControl^, CanvasCreateResourcesEventArgs^>(this, &Win2DRenderer::OnRenderPanelCreateResources);
+	OnRenderPanelUpdateToken = RenderPanel->Update += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedUpdateEventArgs^>(this, &Win2DRenderer::OnRenderPanelUpdate);
 	OnRenderPanelDrawToken = RenderPanel->Draw += ref new TypedEventHandler<ICanvasAnimatedControl^, CanvasAnimatedDrawEventArgs ^>(this, &Win2DRenderer::OnRenderPanelDraw);
-	OnRenderPanelUnloadedToken = RenderPanel->Unloaded += ref new RoutedEventHandler(this, &OnRenderPanelUnloaded);
+	OnRenderPanelUnloadedToken = RenderPanel->Unloaded += ref new RoutedEventHandler(this, &Win2DRenderer::OnRenderPanelUnloaded);
 }
 
 Win2DRenderer::~Win2DRenderer()
@@ -46,7 +46,7 @@ IAsyncOperation<bool>^ Win2DRenderer::LoadGameAsync(ICore^ core, String^ mainGam
 			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		}
 
-		create_task(UnloadGameAsync()).wait;
+		create_task(UnloadGameAsync()).wait();
 
 		critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
