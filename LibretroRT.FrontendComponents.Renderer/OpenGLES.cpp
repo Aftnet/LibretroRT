@@ -236,8 +236,8 @@ EGLSurface OpenGLES::CreateSurface(ComPtr<ID3D11Texture2D> d3dTexture)
 	d3dTexture->GetDesc(&textureDescription);
 
 	ComPtr<IDXGIResource> dxgiResource;
-	HANDLE sharedHandle;
 	__abi_ThrowIfFailed(d3dTexture.As(&dxgiResource));
+	HANDLE sharedHandle;
 	__abi_ThrowIfFailed(dxgiResource->GetSharedHandle(&sharedHandle));
 
 	EGLSurface output = EGL_NO_SURFACE;

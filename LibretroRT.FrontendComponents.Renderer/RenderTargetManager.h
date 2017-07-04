@@ -45,8 +45,8 @@ namespace LibretroRT_FrontendComponents_Renderer
 		CanvasAnimatedControl^ const Canvas;
 		critical_section RenderTargetCriticalSection;
 
-		ComPtr<ID3D11Device> Device;
 		ComPtr<ID3D11Texture2D> D3DTexture;
+		CanvasBitmap^ Win2DTexture;
 
 		std::shared_ptr<OpenGLES> OpenGLESManager;
 		EGLSurface OpenGLESSurface = EGL_NO_SURFACE;
@@ -54,7 +54,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 		Rect RenderTargetViewport;
 
 		void UpdateFormat();
-		void CreateRenderTargets(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height);
+		void CreateRenderTargets(CanvasAnimatedControl^ canvas, unsigned int width, unsigned int height);
 		void DestroyRenderTargets();
 		static Rect ComputeBestFittingSize(Size viewportSize, float aspectRatio);
 		static unsigned int ClosestGreaterPowerTwo(unsigned int value);

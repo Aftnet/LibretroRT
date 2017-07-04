@@ -17,7 +17,6 @@ RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 	Canvas(canvas),
 	OpenGLESManager(OpenGLES::GetInstance())
 {
-	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, Device.GetAddressOf()));
 }
 
 
@@ -48,16 +47,13 @@ void RenderTargetManager::UpdateFormat()
 		auto dimension = max(geometry->MaxWidth, geometry->MaxHeight);
 		dimension = max(dimension, RenderTargetMinSize);
 		dimension = ClosestGreaterPowerTwo(dimension);
-		CreateRenderTargets(Device, dimension, dimension);
+		CreateRenderTargets(Canvas, dimension, dimension);
 	}
 }
 
 void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
-
-	ID3D11DeviceContext* context;
-	Device->GetImmediateContext(&context);
 	
 }
 
@@ -71,12 +67,15 @@ void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canv
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 
 	auto destinationRect = ComputeBestFittingSize(canvasSize, Geometry->AspectRatio);
-	drawingSession->DrawImage(RenderTarget, destinationRect, RenderTargetViewport);
+	drawingSession->DrawImage(Win2DTexture, destinationRect, RenderTargetViewport);
 }
 
-void RenderTargetManager::CreateRenderTargets(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height)
+void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, unsigned int width, unsigned int height)
 {
 	DestroyRenderTargets();
+
+	ComPtr<ID3D11Device> d3dDevice;
+	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, d3dDevice.GetAddressOf()));
 
 	D3D11_TEXTURE2D_DESC texDesc = { 0 };
 	texDesc.Width = width;
@@ -92,8 +91,14 @@ void RenderTargetManager::CreateRenderTargets(ComPtr<ID3D11Device> device, unsig
 	texDesc.MiscFlags = D3D11_RESOURCE_MISC_SHARED;
 
 	ComPtr<ID3D11Texture2D> d3dTexture;
-	__abi_ThrowIfFailed(device->CreateTexture2D(&texDesc, nullptr, d3dTexture.GetAddressOf()));
+	__abi_ThrowIfFailed(d3dDevice->CreateTexture2D(&texDesc, nullptr, d3dTexture.GetAddressOf()));
 	D3DTexture = d3dTexture;
+
+	ComPtr<IDXGISurface> dxgiResource;
+	__abi_ThrowIfFailed(d3dTexture.As(&dxgiResource));
+
+	auto d3dsurface = CreateDirect3DSurface(dxgiResource.Get());
+	Win2DTexture = CanvasBitmap::CreateFromDirect3D11Surface(canvas->Device, d3dsurface);
 
 	OpenGLESSurface = OpenGLESManager->CreateSurface(D3DTexture);
 	OpenGLESTexture = OpenGLESManager->CreateTextureFromSurface(OpenGLESSurface);
@@ -101,6 +106,8 @@ void RenderTargetManager::CreateRenderTargets(ComPtr<ID3D11Device> device, unsig
 
 void RenderTargetManager::DestroyRenderTargets()
 {
+	Win2DTexture = nullptr;
+
 	if (OpenGLESTexture != EGL_NO_TEXTURE)
 	{
 		OpenGLESManager->DestroyTexture(OpenGLESTexture);
