@@ -26,23 +26,25 @@ RenderTargetManager::~RenderTargetManager()
 	OpenGLESManager->DestroySurface(OpenGLESRenderTarget);
 }
 
-void RenderTargetManager::UpdateFormat(GameGeometry^ geometry, PixelFormats pixelFormat)
+void RenderTargetManager::UpdateFormat()
 {
-	RenderTargetAspectRatio = geometry->AspectRatio;
-	auto maxDimension = max(geometry->MaxWidth, geometry->MaxHeight);
-	auto requestedFormat = LibretroToDXGITextureFormatsMapping.find(pixelFormat)->second;
+	if (Geometry == nullptr)
+	{
+		return;
+	}
 
 	bool shouldUpdate = true;
 	if (D3DRenderTarget)
 	{
 		D3D11_TEXTURE2D_DESC description;
 		D3DRenderTarget->GetDesc(&description);
-		shouldUpdate = (description.Format != requestedFormat || description.Width < maxDimension);
+		shouldUpdate = (description.Width < geometry->MaxWidth || description.Height < geometry->MaxHeight);
 	}
 
 	if (shouldUpdate)
 	{
-		auto dimension = max(maxDimension, RenderTargetMinSize);
+		auto dimension = max(geometry->MaxWidth, geometry->MaxHeight);
+		dimension = max(dimension, RenderTargetMinSize);
 		dimension = ClosestGreaterPowerTwo(dimension);
 		CreateLinkedTextures(Device, dimension, dimension);
 	}
