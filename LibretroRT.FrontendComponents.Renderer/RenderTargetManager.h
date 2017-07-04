@@ -4,6 +4,7 @@
 
 using namespace LibretroRT;
 
+using namespace Concurrency;
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI::Xaml;
 using namespace Microsoft::WRL;
@@ -42,6 +43,8 @@ namespace LibretroRT_FrontendComponents_Renderer
 		PixelFormats pixelFormat = PixelFormats::FormatUknown;
 
 		CanvasAnimatedControl^ const Canvas;
+		critical_section RenderTargetCriticalSection;
+
 		ComPtr<ID3D11Device> Device;
 		ComPtr<ID3D11Texture2D> D3DRenderTarget;
 

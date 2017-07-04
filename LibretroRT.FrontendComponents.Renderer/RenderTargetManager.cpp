@@ -33,6 +33,8 @@ void RenderTargetManager::UpdateFormat()
 		return;
 	}
 
+	critical_section::scoped_lock lock(RenderTargetCriticalSection);
+
 	bool shouldUpdate = true;
 	if (D3DRenderTarget)
 	{
@@ -52,6 +54,8 @@ void RenderTargetManager::UpdateFormat()
 
 void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
+	critical_section::scoped_lock lock(RenderTargetCriticalSection);
+
 	ID3D11DeviceContext* context;
 	Device->GetImmediateContext(&context);
 	
@@ -59,6 +63,7 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 
 void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canvasSize)
 {
+	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 }
 
 void RenderTargetManager::CreateLinkedTextures(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height)
