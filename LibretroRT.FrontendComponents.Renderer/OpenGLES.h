@@ -17,6 +17,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 		GLuint CreateTextureFromSurface(EGLSurface surface);
 		void GetSurfaceDimensions(const EGLSurface surface, EGLint *width, EGLint *height);
 		void DestroySurface(const EGLSurface surface);
+		void DestroyTexture(const GLuint texture);
 		void MakeCurrent(const EGLSurface surface);
 		EGLBoolean SwapBuffers(const EGLSurface surface);
 		void Reset();

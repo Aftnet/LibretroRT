@@ -276,6 +276,16 @@ void OpenGLES::DestroySurface(const EGLSurface surface)
     }
 }
 
+void OpenGLES::DestroyTexture(const GLuint texture)
+{
+	if (texture != EGL_NO_TEXTURE)
+	{
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glDeleteTextures(1, &texture);
+	}
+}
+
+
 void OpenGLES::MakeCurrent(const EGLSurface surface)
 {
     if (eglMakeCurrent(mEglDisplay, surface, surface, mEglContext) == EGL_FALSE)

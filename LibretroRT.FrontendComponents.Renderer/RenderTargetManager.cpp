@@ -96,11 +96,17 @@ void RenderTargetManager::CreateRenderTargets(ComPtr<ID3D11Device> device, unsig
 	D3DTexture = d3dTexture;
 
 	OpenGLESSurface = OpenGLESManager->CreateSurface(D3DTexture);
-	OpenGLESManager->CreateTextureFromSurface(OpenGLESSurface);
+	OpenGLESTexture = OpenGLESManager->CreateTextureFromSurface(OpenGLESSurface);
 }
 
 void RenderTargetManager::DestroyRenderTargets()
 {
+	if (OpenGLESTexture != EGL_NO_TEXTURE)
+	{
+		OpenGLESManager->DestroyTexture(OpenGLESTexture);
+		OpenGLESTexture = EGL_NO_TEXTURE;
+	}
+
 	if (OpenGLESSurface != EGL_NO_SURFACE)
 	{
 		OpenGLESManager->DestroySurface(OpenGLESSurface);

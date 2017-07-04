@@ -50,7 +50,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 
 		std::shared_ptr<OpenGLES> OpenGLESManager;
 		EGLSurface OpenGLESSurface = EGL_NO_SURFACE;
-		GLint OpenGLESTexture = EGL_NO_TEXTURE;
+		GLuint OpenGLESTexture = EGL_NO_TEXTURE;
 		Rect RenderTargetViewport;
 
 		void UpdateFormat();
