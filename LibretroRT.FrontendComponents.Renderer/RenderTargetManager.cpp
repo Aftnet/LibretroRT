@@ -23,7 +23,7 @@ RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 
 RenderTargetManager::~RenderTargetManager()
 {
-	OpenGLESManager->DestroySurface(OpenGLESRenderTarget);
+	DestroyRenderTargets();
 }
 
 void RenderTargetManager::UpdateFormat()
@@ -36,10 +36,10 @@ void RenderTargetManager::UpdateFormat()
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 
 	bool shouldUpdate = true;
-	if (D3DRenderTarget)
+	if (D3DTexture)
 	{
 		D3D11_TEXTURE2D_DESC description;
-		D3DRenderTarget->GetDesc(&description);
+		D3DTexture->GetDesc(&description);
 		shouldUpdate = (description.Width < geometry->MaxWidth || description.Height < geometry->MaxHeight);
 	}
 
@@ -48,7 +48,7 @@ void RenderTargetManager::UpdateFormat()
 		auto dimension = max(geometry->MaxWidth, geometry->MaxHeight);
 		dimension = max(dimension, RenderTargetMinSize);
 		dimension = ClosestGreaterPowerTwo(dimension);
-		CreateLinkedTextures(Device, dimension, dimension);
+		CreateRenderTargets(Device, dimension, dimension);
 	}
 }
 
@@ -63,11 +63,21 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 
 void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canvasSize)
 {
+	if (D3DTexture == nullptr || RenderTargetViewport.Width <= 0 || RenderTargetViewport.Height <= 0)
+	{
+		return;
+	}
+
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
+
+	auto destinationRect = ComputeBestFittingSize(canvasSize, Geometry->AspectRatio);
+	drawingSession->DrawImage(RenderTarget, destinationRect, RenderTargetViewport);
 }
 
-void RenderTargetManager::CreateLinkedTextures(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height)
+void RenderTargetManager::CreateRenderTargets(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height)
 {
+	DestroyRenderTargets();
+
 	D3D11_TEXTURE2D_DESC texDesc = { 0 };
 	texDesc.Width = width;
 	texDesc.Height = height;
@@ -83,9 +93,21 @@ void RenderTargetManager::CreateLinkedTextures(ComPtr<ID3D11Device> device, unsi
 
 	ComPtr<ID3D11Texture2D> d3dTexture;
 	__abi_ThrowIfFailed(device->CreateTexture2D(&texDesc, nullptr, d3dTexture.GetAddressOf()));
-	D3DRenderTarget = d3dTexture;
+	D3DTexture = d3dTexture;
 
-	OpenGLESRenderTarget = OpenGLESManager->CreateSurface(D3DRenderTarget);
+	OpenGLESSurface = OpenGLESManager->CreateSurface(D3DTexture);
+	OpenGLESManager->CreateTextureFromSurface(OpenGLESSurface);
+}
+
+void RenderTargetManager::DestroyRenderTargets()
+{
+	if (OpenGLESSurface != EGL_NO_SURFACE)
+	{
+		OpenGLESManager->DestroySurface(OpenGLESSurface);
+		OpenGLESSurface = EGL_NO_SURFACE;
+	}
+
+	D3DTexture.Reset();
 }
 
 Rect RenderTargetManager::ComputeBestFittingSize(Size viewportSize, float aspectRatio)

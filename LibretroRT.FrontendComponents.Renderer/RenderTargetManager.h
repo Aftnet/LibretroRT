@@ -46,14 +46,16 @@ namespace LibretroRT_FrontendComponents_Renderer
 		critical_section RenderTargetCriticalSection;
 
 		ComPtr<ID3D11Device> Device;
-		ComPtr<ID3D11Texture2D> D3DRenderTarget;
+		ComPtr<ID3D11Texture2D> D3DTexture;
 
 		std::shared_ptr<OpenGLES> OpenGLESManager;
-		EGLSurface OpenGLESRenderTarget;
+		EGLSurface OpenGLESSurface = EGL_NO_SURFACE;
+		GLint OpenGLESTexture = EGL_NO_TEXTURE;
 		Rect RenderTargetViewport;
 
 		void UpdateFormat();
-		void CreateLinkedTextures(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height);
+		void CreateRenderTargets(ComPtr<ID3D11Device> device, unsigned int width, unsigned int height);
+		void DestroyRenderTargets();
 		static Rect ComputeBestFittingSize(Size viewportSize, float aspectRatio);
 		static unsigned int ClosestGreaterPowerTwo(unsigned int value);
 	};
