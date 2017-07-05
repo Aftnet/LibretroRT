@@ -185,7 +185,6 @@
     <ClCompile Include="src\libretro-common\file\file_path.c" />
     <ClCompile Include="src\libretro-common\file\retro_stat.c" />
     <ClCompile Include="src\libretro-common\lists\string_list.c" />
-    <ClCompile Include="src\libretro-common\string\stdstring.c" />
     <ClCompile Include="src\Graphics\RSP\gSP_funcs_C.c" />
     <ClCompile Include="src\Graphics\RSP\RSP_state.c" />
     <ClCompile Include="src\Graphics\3dmaths.c" />
@@ -202,5 +201,6 @@
     <ClCompile Include="src\mupen64plus-core\src\rsp\rsp_core.c" />
     <ClCompile Include="src\mupen64plus-core\src\r4300\empty_dynarec.c" />
     <ClCompile Include="src\mupen64plus-rsp-hle\src\audio.c" />
+    <ClCompile Include="src\libretro-common\string\stdstring.c" />
   </ItemGroup>
 </Project>
