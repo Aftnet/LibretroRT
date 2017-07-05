@@ -70,6 +70,8 @@
     <ClInclude Include="src\mupen64plus-core\src\pi\flashram.h" />
     <ClInclude Include="src\mupen64plus-core\src\pi\pi_controller.h" />
     <ClInclude Include="src\mupen64plus-core\src\pi\sram.h" />
+    <ClInclude Include="src\mupen64plus-core\src\plugin\audio_libretro\audio_plugin.h" />
+    <ClInclude Include="src\mupen64plus-core\src\plugin\audio_libretro\boolean.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mupen64plus-rsp-hle\src\alist.c" />
@@ -142,5 +144,30 @@
     <ClCompile Include="src\mupen64plus-core\src\pi\flashram.c" />
     <ClCompile Include="src\mupen64plus-core\src\pi\pi_controller.c" />
     <ClCompile Include="src\mupen64plus-core\src\pi\sram.c" />
+    <ClCompile Include="src\libretro\libretro.c" />
+    <ClCompile Include="src\mupen64plus-core\src\plugin\emulate_game_controller_via_libretro.c" />
+    <ClCompile Include="src\libretro-common\memmap\memalign.c" />
+    <ClCompile Include="src\libretro-common\encodings\encoding_crc32.c" />
+    <ClCompile Include="src\mupen64plus-core\src\plugin\audio_libretro\audio_backend_libretro.c" />
+    <ClCompile Include="src\libretro-common\file\config_file.c" />
+    <ClCompile Include="src\libretro-common\file\config_file_userdata.c" />
+    <ClCompile Include="src\libretro-common\audio\resampler\drivers\nearest_resampler.c" />
+    <ClCompile Include="src\libretro-common\audio\resampler\drivers\null_resampler.c" />
+    <ClCompile Include="src\libretro-common\audio\resampler\drivers\sinc_resampler.c" />
+    <ClCompile Include="src\libretro-common\audio\resampler\audio_resampler.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
+    <ClCompile Include="src\libretro-common\audio\conversion\float_to_s16.c" />
+    <ClCompile Include="src\libretro-common\audio\conversion\s16_to_float.c" />
+    <ClCompile Include="src\libretro-common\features\features_cpu.c" />
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libretro-common\hash\rhash.c" />
+    <ClCompile Include="src\libretro-common\file\file_path.c" />
+    <ClCompile Include="src\libretro-common\file\retro_stat.c" />
+    <ClCompile Include="src\libretro-common\lists\string_list.c" />
+    <ClCompile Include="src\libretro-common\string\stdstring.c" />
+    <ClCompile Include="src\libretro\brumme_crc.c" />
+    <ClCompile Include="src\libretro\libretro_crc.c" />
   </ItemGroup>
 </Project>
