@@ -127,7 +127,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,7 +141,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,7 +155,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,7 +169,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -183,7 +183,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -197,7 +197,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996</AdditionalOptions>
-      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
