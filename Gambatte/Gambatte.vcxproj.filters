@@ -68,6 +68,5 @@
     <ClCompile Include="src\libgambatte\src\video\ppu.cpp" />
     <ClCompile Include="src\libgambatte\src\video\sprite_mapper.cpp" />
     <ClCompile Include="src\libgambatte\libretro-common\streams\file_stream.c" />
-    <ClCompile Include="src\libgambatte\libretro-common\string\stdstring.c" />
   </ItemGroup>
 </Project>
