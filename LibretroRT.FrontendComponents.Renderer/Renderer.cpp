@@ -14,6 +14,7 @@ Renderer::Renderer(CanvasAnimatedControl^ renderPanel, IAudioPlayer^ audioPlayer
 	Coordinator->InputManager = inputManager;
 
 	Color clearColor;
+	clearColor.A = 0xFF;
 	RenderPanel->ClearColor = clearColor;
 
 	OnRenderPanelCreateResourcesToken = RenderPanel->CreateResources += ref new TypedEventHandler<CanvasAnimatedControl^, CanvasCreateResourcesEventArgs^>(this, &Renderer::OnRenderPanelCreateResources);

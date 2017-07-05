@@ -263,8 +263,14 @@ EGLSurface OpenGLES::CreateSurface(ComPtr<ID3D11Texture2D> d3dTexture)
 
 HANDLE OpenGLES::GetSurfaceShareHandle(EGLSurface surface)
 {
-	HANDLE output;
+	HANDLE output = nullptr;
 	eglQuerySurfacePointerANGLE(mEglDisplay, surface, EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE, &output);
+
+	if (output == nullptr)
+	{
+		throw Exception::CreateException(E_FAIL, L"Failed to get surface handle");
+	}
+
 	return output;
 }
 
@@ -276,6 +282,7 @@ GLuint OpenGLES::CreateTextureFromSurface(EGLSurface surface)
 	eglBindTexImage(mEglDisplay, surface, EGL_BACK_BUFFER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
 	return output;
 }
 

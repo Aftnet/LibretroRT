@@ -57,6 +57,7 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 	
+	GLenum glError;
 	glBindTexture(GL_TEXTURE_2D, OpenGLESTexture);
 	if (PixelFormat == PixelFormats::FormatRGB565)
 	{
@@ -67,6 +68,12 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 	{
 		glPixelStorei(GL_UNPACK_ROW_LENGTH_EXT, pitch / 4);
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, frameBuffer->Data);
+	}
+
+	glError = glGetError();
+	if (glError)
+	{
+		throw Exception::CreateException(E_FAIL, L"Failed to write to texture");
 	}
 
 	glPixelStorei(GL_UNPACK_ROW_LENGTH_EXT, 0);
