@@ -183,6 +183,16 @@ void OpenGLES::Reset()
     Initialize();
 }
 
+EGLSurface OpenGLES::CreateSurface(EGLint width, EGLint height, EGLint format)
+{
+	EGLint pBufferAttributes[] = { EGL_WIDTH, width, EGL_HEIGHT, height, EGL_TEXTURE_TARGET, EGL_TEXTURE_2D, EGL_TEXTURE_FORMAT, format, EGL_NONE };
+	auto output = eglCreatePbufferSurface(mEglDisplay, mEglConfig, pBufferAttributes);
+	if (output == EGL_NO_SURFACE)
+	{
+		throw Exception::CreateException(E_FAIL, L"Failed to create EGL surface");
+	}
+}
+
 EGLSurface OpenGLES::CreateSurface(SwapChainPanel^ panel, const Size* renderSurfaceSize, const float* resolutionScale)
 {
     if (!panel)
