@@ -178,8 +178,6 @@
     <ClCompile Include="src\libretro-common\file\retro_stat.c" />
     <ClCompile Include="src\libretro-common\lists\string_list.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
-    <ClCompile Include="src\libretro\brumme_crc.c" />
-    <ClCompile Include="src\libretro\libretro_crc.c" />
     <ClCompile Include="src\Graphics\RSP\gSP_funcs_C.c" />
     <ClCompile Include="src\Graphics\RSP\RSP_state.c" />
     <ClCompile Include="src\Graphics\3dmaths.c" />
@@ -192,5 +190,6 @@
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video_main.c" />
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video_vi.c" />
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video.c" />
+    <ClCompile Include="src\libretro\libretro_crc.c" />
   </ItemGroup>
 </Project>
