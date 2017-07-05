@@ -281,8 +281,14 @@
     <ClInclude Include="src\mupen64plus-core\src\vi\vi_controller.h" />
     <ClInclude Include="src\mupen64plus-rsp-cxd4\rsp.h" />
     <ClInclude Include="src\mupen64plus-rsp-hle\src\alist.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\arithmetics.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\audio.h" />
     <ClInclude Include="src\mupen64plus-rsp-hle\src\common.h" />
     <ClInclude Include="src\mupen64plus-rsp-hle\src\hle.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\hle_external.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\hle_internal.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\memory.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\ucodes.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +389,7 @@
     <ClCompile Include="src\mupen64plus-rsp-hle\src\alist_audio.c" />
     <ClCompile Include="src\mupen64plus-rsp-hle\src\alist_naudio.c" />
     <ClCompile Include="src\mupen64plus-rsp-hle\src\alist_nead.c" />
+    <ClCompile Include="src\mupen64plus-rsp-hle\src\audio.c" />
     <ClCompile Include="src\mupen64plus-rsp-hle\src\cicx105.c" />
     <ClCompile Include="src\mupen64plus-rsp-hle\src\hle.c" />
     <ClCompile Include="src\mupen64plus-rsp-hle\src\hle_memory.c" />

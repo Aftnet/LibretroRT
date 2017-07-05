@@ -85,6 +85,12 @@
     <ClInclude Include="src\Graphics\plugin.h" />
     <ClInclude Include="src\mupen64plus-core\src\osal\preproc.h" />
     <ClInclude Include="src\mupen64plus-core\src\rsp\rsp_core.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\arithmetics.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\audio.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\hle_internal.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\hle_external.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\memory.h" />
+    <ClInclude Include="src\mupen64plus-rsp-hle\src\ucodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mupen64plus-rsp-hle\src\alist.c" />
@@ -195,5 +201,6 @@
     <ClCompile Include="src\libretro\libretro_crc.c" />
     <ClCompile Include="src\mupen64plus-core\src\rsp\rsp_core.c" />
     <ClCompile Include="src\mupen64plus-core\src\r4300\empty_dynarec.c" />
+    <ClCompile Include="src\mupen64plus-rsp-hle\src\audio.c" />
   </ItemGroup>
 </Project>
