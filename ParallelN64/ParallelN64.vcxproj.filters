@@ -83,6 +83,7 @@
     <ClInclude Include="src\Graphics\RDP\gDP_funcs_prot.h" />
     <ClInclude Include="src\Graphics\HLE\Microcode\Fast3D.h" />
     <ClInclude Include="src\Graphics\plugin.h" />
+    <ClInclude Include="src\mupen64plus-core\src\osal\preproc.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mupen64plus-rsp-hle\src\alist.c" />

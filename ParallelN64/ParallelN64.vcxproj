@@ -235,6 +235,7 @@
     <ClInclude Include="src\mupen64plus-core\src\main\savestates.h" />
     <ClInclude Include="src\mupen64plus-core\src\main\util.h" />
     <ClInclude Include="src\mupen64plus-core\src\memory\memory.h" />
+    <ClInclude Include="src\mupen64plus-core\src\osal\preproc.h" />
     <ClInclude Include="src\mupen64plus-core\src\pi\cart_rom.h" />
     <ClInclude Include="src\mupen64plus-core\src\pi\flashram.h" />
     <ClInclude Include="src\mupen64plus-core\src\pi\pi_controller.h" />
