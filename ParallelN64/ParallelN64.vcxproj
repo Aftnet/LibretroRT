@@ -350,6 +350,7 @@
     <ClCompile Include="src\mupen64plus-core\src\r4300\cached_interp.c" />
     <ClCompile Include="src\mupen64plus-core\src\r4300\cp0.c" />
     <ClCompile Include="src\mupen64plus-core\src\r4300\cp1.c" />
+    <ClCompile Include="src\mupen64plus-core\src\r4300\empty_dynarec.c" />
     <ClCompile Include="src\mupen64plus-core\src\r4300\exception.c" />
     <ClCompile Include="src\mupen64plus-core\src\r4300\instr_counters.c" />
     <ClCompile Include="src\mupen64plus-core\src\r4300\interrupt.c" />

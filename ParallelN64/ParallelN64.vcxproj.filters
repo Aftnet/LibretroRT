@@ -194,5 +194,6 @@
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video.c" />
     <ClCompile Include="src\libretro\libretro_crc.c" />
     <ClCompile Include="src\mupen64plus-core\src\rsp\rsp_core.c" />
+    <ClCompile Include="src\mupen64plus-core\src\r4300\empty_dynarec.c" />
   </ItemGroup>
 </Project>
