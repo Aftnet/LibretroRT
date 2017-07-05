@@ -52,8 +52,25 @@ void RenderTargetManager::UpdateFormat()
 
 void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
+	RenderTargetViewport.Width = width;
+	RenderTargetViewport.Height = height;
+
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 	
+	glBindTexture(GL_TEXTURE_2D, OpenGLESTexture);
+	if (PixelFormat == PixelFormats::FormatRGB565)
+	{
+		glPixelStorei(GL_UNPACK_ROW_LENGTH_EXT, pitch / 2);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_SHORT_5_6_5, frameBuffer->Data);
+	}
+	else if (PixelFormat == PixelFormats::FormatXRGB8888)
+	{
+		glPixelStorei(GL_UNPACK_ROW_LENGTH_EXT, pitch / 4);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, frameBuffer->Data);
+	}
+
+	glPixelStorei(GL_UNPACK_ROW_LENGTH_EXT, 0);
+	glFlush();
 }
 
 void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canvasSize)
