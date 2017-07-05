@@ -35,11 +35,10 @@ void RenderTargetManager::UpdateFormat()
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 
 	bool shouldUpdate = true;
-	if (D3DTexture)
+	if (Win2DTexture)
 	{
-		D3D11_TEXTURE2D_DESC description;
-		D3DTexture->GetDesc(&description);
-		shouldUpdate = (description.Width < geometry->MaxWidth || description.Height < geometry->MaxHeight);
+		auto size = Win2DTexture->SizeInPixels;
+		shouldUpdate = (size.Width < geometry->MaxWidth || size.Height < geometry->MaxHeight);
 	}
 
 	if (shouldUpdate)
@@ -59,7 +58,7 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 
 void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canvasSize)
 {
-	if (D3DTexture == nullptr || RenderTargetViewport.Width <= 0 || RenderTargetViewport.Height <= 0)
+	if (Win2DTexture == nullptr || RenderTargetViewport.Width <= 0 || RenderTargetViewport.Height <= 0)
 	{
 		return;
 	}
@@ -104,8 +103,6 @@ void RenderTargetManager::DestroyRenderTargets()
 		OpenGLESManager->DestroySurface(OpenGLESSurface);
 		OpenGLESSurface = EGL_NO_SURFACE;
 	}
-
-	D3DTexture.Reset();
 }
 
 Rect RenderTargetManager::ComputeBestFittingSize(Size viewportSize, float aspectRatio)

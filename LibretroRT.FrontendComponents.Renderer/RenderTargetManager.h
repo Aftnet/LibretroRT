@@ -45,7 +45,6 @@ namespace LibretroRT_FrontendComponents_Renderer
 		CanvasAnimatedControl^ const Canvas;
 		critical_section RenderTargetCriticalSection;
 
-		ComPtr<ID3D11Texture2D> D3DTexture;
 		CanvasBitmap^ Win2DTexture;
 
 		std::shared_ptr<OpenGLES> OpenGLESManager;
