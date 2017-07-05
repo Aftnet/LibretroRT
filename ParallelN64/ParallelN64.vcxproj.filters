@@ -84,6 +84,7 @@
     <ClInclude Include="src\Graphics\HLE\Microcode\Fast3D.h" />
     <ClInclude Include="src\Graphics\plugin.h" />
     <ClInclude Include="src\mupen64plus-core\src\osal\preproc.h" />
+    <ClInclude Include="src\mupen64plus-core\src\rsp\rsp_core.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mupen64plus-rsp-hle\src\alist.c" />
@@ -192,5 +193,6 @@
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video_vi.c" />
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video.c" />
     <ClCompile Include="src\libretro\libretro_crc.c" />
+    <ClCompile Include="src\mupen64plus-core\src\rsp\rsp_core.c" />
   </ItemGroup>
 </Project>
