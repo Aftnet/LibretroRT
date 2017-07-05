@@ -82,7 +82,6 @@ namespace LibretroRT.Test
             var renderVideoFrameCalled = false;
             Target.RenderVideoFrame = (d, e, f, g) =>
             {
-                Assert.NotEmpty(d);
                 Assert.True(e > 0);
                 Assert.True(f > 0);
                 Assert.True(g > 0);
