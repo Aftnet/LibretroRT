@@ -125,6 +125,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +139,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +153,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +167,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,6 +181,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,6 +195,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\mupen64plus-core\src;$(ProjectDir)src\mupen64plus-core\src\api;$(ProjectDir)src\mupen64plus-core\src\plugin\audio_libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <PreprocessorDefinitions>__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;WIN32;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -188,6 +206,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Graphics\3dmath.h" />
+    <ClInclude Include="src\Graphics\HLE\Microcode\Fast3D.h" />
+    <ClInclude Include="src\Graphics\plugin.h" />
+    <ClInclude Include="src\Graphics\RDP\gDP_funcs_C.h" />
+    <ClInclude Include="src\Graphics\RDP\gDP_funcs_prot.h" />
+    <ClInclude Include="src\Graphics\RDP\gDP_state.h" />
+    <ClInclude Include="src\Graphics\RDP\RDP_state.h" />
+    <ClInclude Include="src\Graphics\RSP\gSP_funcs_C.h" />
+    <ClInclude Include="src\Graphics\RSP\gSP_funcs_prot.h" />
+    <ClInclude Include="src\Graphics\RSP\gSP_state.h" />
+    <ClInclude Include="src\Graphics\RSP\RSP_state.h" />
     <ClInclude Include="src\mupen64plus-core\src\ai\ai_controller.h" />
     <ClInclude Include="src\mupen64plus-core\src\api\callbacks.h" />
     <ClInclude Include="src\mupen64plus-core\src\api\config.h" />
@@ -255,6 +284,15 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Graphics\3dmaths.c" />
+    <ClCompile Include="src\Graphics\HLE\Microcode\Fast3D.c" />
+    <ClCompile Include="src\Graphics\plugins.c" />
+    <ClCompile Include="src\Graphics\RDP\gDP_funcs_C.c" />
+    <ClCompile Include="src\Graphics\RDP\gDP_state.c" />
+    <ClCompile Include="src\Graphics\RDP\RDP_state.c" />
+    <ClCompile Include="src\Graphics\RSP\gSP_funcs_C.c" />
+    <ClCompile Include="src\Graphics\RSP\gSP_state.c" />
+    <ClCompile Include="src\Graphics\RSP\RSP_state.c" />
     <ClCompile Include="src\libretro-common\audio\conversion\float_to_s16.c" />
     <ClCompile Include="src\libretro-common\audio\conversion\s16_to_float.c" />
     <ClCompile Include="src\libretro-common\audio\resampler\audio_resampler.c" />
@@ -350,6 +388,9 @@
     <ClCompile Include="src\mupen64plus-rsp-hle\src\mp3.c" />
     <ClCompile Include="src\mupen64plus-rsp-hle\src\musyx.c" />
     <ClCompile Include="src\mupen64plus-rsp-hle\src\re2.c" />
+    <ClCompile Include="src\mupen64plus-video-angrylion\n64video.c" />
+    <ClCompile Include="src\mupen64plus-video-angrylion\n64video_main.c" />
+    <ClCompile Include="src\mupen64plus-video-angrylion\n64video_vi.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
