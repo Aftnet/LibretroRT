@@ -20,6 +20,7 @@
 
 // Enable function definitions in the GL headers below
 #define GL_GLEXT_PROTOTYPES
+#define EGL_EGLEXT_PROTOTYPES
 
 // OpenGL ES includes
 #include <GLES2/gl2.h>

@@ -74,6 +74,9 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 {
 	DestroyRenderTargets();
 
+	OpenGLESSurface = OpenGLESManager->CreateSurface(width, height, EGL_TEXTURE_RGBA);
+	auto surfaceHandle = OpenGLESManager->GetSurfaceShareHandle(OpenGLESSurface);
+
 	ComPtr<ID3D11Device> d3dDevice;
 	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, d3dDevice.GetAddressOf()));
 

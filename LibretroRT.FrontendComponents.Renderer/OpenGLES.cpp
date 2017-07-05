@@ -261,6 +261,13 @@ EGLSurface OpenGLES::CreateSurface(ComPtr<ID3D11Texture2D> d3dTexture)
 	return output;
 }
 
+HANDLE OpenGLES::GetSurfaceShareHandle(EGLSurface surface)
+{
+	HANDLE output;
+	eglQuerySurfacePointerANGLE(mEglDisplay, surface, EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE, &output);
+	return output;
+}
+
 GLuint OpenGLES::CreateTextureFromSurface(EGLSurface surface)
 {
 	GLuint output;
