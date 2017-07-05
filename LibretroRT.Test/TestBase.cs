@@ -5,6 +5,7 @@ using Xunit;
 
 namespace LibretroRT.Test
 {
+    [Collection(nameof(TestBase))]
     public abstract class TestBase
     {
         protected ICore Target { get; private set; }
