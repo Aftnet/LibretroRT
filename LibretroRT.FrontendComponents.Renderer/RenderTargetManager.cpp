@@ -75,36 +75,18 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 	DestroyRenderTargets();
 
 	OpenGLESSurface = OpenGLESManager->CreateSurface(width, height, EGL_TEXTURE_RGBA);
+	OpenGLESTexture = OpenGLESManager->CreateTextureFromSurface(OpenGLESSurface);
+
 	auto surfaceHandle = OpenGLESManager->GetSurfaceShareHandle(OpenGLESSurface);
 
 	ComPtr<ID3D11Device> d3dDevice;
 	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, d3dDevice.GetAddressOf()));
 
-	D3D11_TEXTURE2D_DESC texDesc = { 0 };
-	texDesc.Width = width;
-	texDesc.Height = height;
-	texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	texDesc.MipLevels = 1;
-	texDesc.ArraySize = 1;
-	texDesc.SampleDesc.Count = 1;
-	texDesc.SampleDesc.Quality = 0;
-	texDesc.Usage = D3D11_USAGE_DEFAULT;
-	texDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-	texDesc.CPUAccessFlags = 0;
-	texDesc.MiscFlags = D3D11_RESOURCE_MISC_SHARED;
+	ComPtr<IDXGISurface> d3dSurface;
+	__abi_ThrowIfFailed(d3dDevice->OpenSharedResource(surfaceHandle, __uuidof(IDXGISurface), (void**)d3dSurface.GetAddressOf()));
 
-	ComPtr<ID3D11Texture2D> d3dTexture;
-	__abi_ThrowIfFailed(d3dDevice->CreateTexture2D(&texDesc, nullptr, d3dTexture.GetAddressOf()));
-	D3DTexture = d3dTexture;
-
-	ComPtr<IDXGISurface> dxgiResource;
-	__abi_ThrowIfFailed(d3dTexture.As(&dxgiResource));
-
-	auto d3dsurface = CreateDirect3DSurface(dxgiResource.Get());
-	Win2DTexture = CanvasBitmap::CreateFromDirect3D11Surface(canvas->Device, d3dsurface);
-
-	OpenGLESSurface = OpenGLESManager->CreateSurface(D3DTexture);
-	OpenGLESTexture = OpenGLESManager->CreateTextureFromSurface(OpenGLESSurface);
+	auto winRTSurface = CreateDirect3DSurface(d3dSurface.Get());
+	Win2DTexture = CanvasBitmap::CreateFromDirect3D11Surface(canvas->Device, winRTSurface);
 }
 
 void RenderTargetManager::DestroyRenderTargets()
