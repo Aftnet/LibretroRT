@@ -100,6 +100,16 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 {
 	switch (cmd)
 	{
+	case RETRO_ENVIRONMENT_SET_VARIABLES:
+	{
+		auto dataPtr = reinterpret_cast<retro_variable*>(data);
+		while (dataPtr->key)
+		{
+			auto description = Converter::RetroVariableToCoreOptionDescription(*dataPtr);
+			optionDescriptions->Append(description);
+		}
+		return true;
+	}
 	case RETRO_ENVIRONMENT_GET_OVERSCAN:
 	{
 		auto dataPtr = reinterpret_cast<bool*>(data);
