@@ -57,7 +57,7 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 	
-	GLenum glError;
+	OpenGLESManager->MakeCurrent(OpenGLESSurface);
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
@@ -82,8 +82,6 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 
 	OpenGLESSurface = OpenGLESManager->CreateSurface(width, height, EGL_TEXTURE_RGBA);
 	auto surfaceHandle = OpenGLESManager->GetSurfaceShareHandle(OpenGLESSurface);
-	OpenGLESManager->MakeCurrent(OpenGLESSurface);
-	auto err = glGetError();
 
 	ComPtr<ID3D11Device> d3dDevice;
 	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, d3dDevice.GetAddressOf()));
