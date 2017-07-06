@@ -45,7 +45,7 @@ namespace LibretroRT_Tools
 		std::string coreEnvironmentSaveGameFolderPath;
 		const bool supportsSaveGameFolderVirtualization;
 		IVectorView<String^>^ supportedExtensions;
-		IVector<CoreOptionDescription^>^ const optionDescriptions;
+		IMap<String^, CoreOption^>^ const options;
 		PixelFormats pixelFormat;
 		GameGeometry^ geometry;
 		SystemTiming^ timing;
@@ -78,7 +78,7 @@ namespace LibretroRT_Tools
 		virtual property IStorageFolder^ SystemFolder { IStorageFolder^ get() { return systemFolder; } }
 		virtual property IStorageFolder^ SaveGameFolder { IStorageFolder^ get() { return saveGameFolder; } }
 		virtual property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get() { return supportedExtensions; } }
-		virtual property IVectorView<CoreOptionDescription^>^ OptionDescriptions { IVectorView<CoreOptionDescription^>^ get() { return optionDescriptions->GetView(); } }
+		virtual property IMapView<String^, CoreOption^>^ Options { IMapView<String^, CoreOption^>^ get() { return options->GetView(); } };
 		virtual property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get() { return fileDependencies->GetView(); } }
 
 		virtual property PixelFormats PixelFormat

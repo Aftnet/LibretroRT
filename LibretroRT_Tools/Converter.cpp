@@ -19,12 +19,10 @@ SystemTiming^ Converter::CToRTSystemTiming(const retro_system_timing & timing)
 	return ref new SystemTiming(timing.fps, timing.sample_rate);
 }
 
-CoreOptionDescription^ Converter::RetroVariableToCoreOptionDescription(const retro_variable& variable)
+CoreOption^ Converter::RetroVariableToCoreOptionDescription(const std::string payload)
 {
-	auto key = StringConverter::CPPToPlatformString(variable.key);
-	std::string nativeValue(variable.value);
-	auto description = nativeValue.substr(0, nativeValue.find(';'));
-	auto allowedValuesConcat = nativeValue.substr(description.length() + 2);
+	auto description = payload.substr(0, payload.find(';'));
+	auto allowedValuesConcat = payload.substr(description.length() + 2);
 	auto allowedValues = StringConverter::SplitString(allowedValuesConcat, '|');
 	auto valuesVec = ref new Vector<String^>();
 	for (auto i : allowedValues)
@@ -32,7 +30,7 @@ CoreOptionDescription^ Converter::RetroVariableToCoreOptionDescription(const ret
 		valuesVec->Append(StringConverter::CPPToPlatformString(i));
 	}
 
-	auto output = ref new CoreOptionDescription(StringConverter::CPPToPlatformString(variable.key), StringConverter::CPPToPlatformString(description), valuesVec->GetView());
+	auto output = ref new CoreOption(StringConverter::CPPToPlatformString(description), valuesVec->GetView(), 0);
 	return output;
 }
 

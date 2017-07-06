@@ -40,7 +40,7 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	LibretroDeinit(libretroDeinit),
 	supportsSystemFolderVirtualization(supportsSystemFolderVirtualization),
 	supportsSaveGameFolderVirtualization(supportsSaveGameFolderVirtualization),
-	optionDescriptions(ref new Vector<CoreOptionDescription^>()),
+	options(ref new Map<String^, CoreOption^>()),
 	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
 	geometry(ref new GameGeometry),
 	timing(ref new SystemTiming),
@@ -105,8 +105,8 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 		auto dataPtr = reinterpret_cast<retro_variable*>(data);
 		while (dataPtr->key)
 		{
-			auto description = Converter::RetroVariableToCoreOptionDescription(*dataPtr);
-			optionDescriptions->Append(description);
+			auto option = Converter::RetroVariableToCoreOptionDescription(dataPtr->value);
+			options->Insert(StringConverter::CPPToPlatformString(dataPtr->key), option);
 			dataPtr++;
 		}
 		return true;

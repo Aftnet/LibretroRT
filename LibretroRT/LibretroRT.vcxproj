@@ -212,7 +212,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CoreOptionDescription.h" />
+    <ClInclude Include="CoreOption.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="FileDependency.h" />
     <ClInclude Include="GameGeometry.h" />
@@ -224,7 +224,7 @@
     <ClInclude Include="VFS.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CoreOptionDescription.cpp" />
+    <ClCompile Include="CoreOption.cpp" />
     <ClCompile Include="Enums.cpp" />
     <ClCompile Include="FileDependency.cpp" />
     <ClCompile Include="GameGeometry.cpp" />
