@@ -38,11 +38,9 @@ void ColorConverter::ConvertFrameBufferRGB565ToXRGB8888(uint16* input, unsigned 
 	}
 
 	auto inLineStart = (unsigned char*)input;
-
 	for (auto i = 0; i < height; i++)
 	{
 		auto inShortPtr = (uint16*)inLineStart;
-
 		for (auto j = 0; j < width; j++)
 		{
 			*output = RGB565LookupTable[inShortPtr[j]];
