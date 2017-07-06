@@ -5,7 +5,7 @@ namespace LibretroRT.Test.Cores
 {
     public class ParallelN64CoreTest : TestBase
     {
-        protected const string RomName = "Super Mario Bros 3.nes";
+        protected const string RomName = "Star Wars Rogue Squadron.n64";
 
         public ParallelN64CoreTest() : base(() => ParallelN64RT.ParallelN64Core.Instance)
         {
