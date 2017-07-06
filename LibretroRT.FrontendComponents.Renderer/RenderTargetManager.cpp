@@ -57,10 +57,17 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 	
-	OpenGLESManager->MakeCurrent(OpenGLESSurface);
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glFlush();
+	if (usingHardwareRendering)
+	{
+		OpenGLESManager->MakeCurrent(OpenGLESSurface);
+		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glFlush();
+	}
+	else
+	{
+
+	}
 }
 
 void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canvasSize)

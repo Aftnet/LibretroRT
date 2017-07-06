@@ -39,6 +39,8 @@ namespace LibretroRT_FrontendComponents_Renderer
 		static const unsigned int RenderTargetMinSize = 1024;
 		static const std::map<PixelFormats, DXGI_FORMAT> LibretroToDXGITextureFormatsMapping;
 
+		bool usingHardwareRendering = false;
+
 		GameGeometry^ geometry = nullptr;
 		PixelFormats pixelFormat = PixelFormats::FormatUknown;
 
