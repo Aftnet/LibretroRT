@@ -111,6 +111,22 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 		}
 		return true;
 	}
+	case RETRO_ENVIRONMENT_GET_VARIABLE:
+	{
+		auto dataPtr = reinterpret_cast<retro_variable*>(data);
+		dataPtr->value = nullptr;
+
+		auto key = StringConverter::CPPToPlatformString(dataPtr->key);
+		if (options->HasKey(key))
+		{
+			auto option = options->Lookup(key);
+			auto selectedValue = option->Values->GetAt(option->SelectedValueIx);
+			static std::string valueStr = StringConverter::PlatformToCPPString(selectedValue);
+			dataPtr->value = valueStr.c_str();
+			return true;
+		}
+		return false;
+	}
 	case RETRO_ENVIRONMENT_GET_OVERSCAN:
 	{
 		auto dataPtr = reinterpret_cast<bool*>(data);
