@@ -13,9 +13,6 @@ namespace GPGXRT
 	protected private:
 		GPGXCoreInternal();
 
-	internal:
-		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
-
 	public:
 		static property GPGXCoreInternal^ Instance { GPGXCoreInternal^ get(); }
 		virtual ~GPGXCoreInternal();

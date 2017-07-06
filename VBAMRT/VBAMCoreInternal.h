@@ -13,9 +13,6 @@ namespace VBAMRT
 	protected private:
 		VBAMCoreInternal();
 
-	internal:
-		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
-
 	public:
 		static property VBAMCoreInternal^ Instance { VBAMCoreInternal^ get(); }
 		virtual ~VBAMCoreInternal();

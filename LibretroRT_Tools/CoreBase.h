@@ -64,7 +64,7 @@ namespace LibretroRT_Tools
 		void ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data);
 
 	internal:
-		virtual bool EnvironmentHandler(unsigned cmd, void *data);
+		bool EnvironmentHandler(unsigned cmd, void *data);
 		void SingleAudioFrameHandler(int16_t left, int16_t right);
 
 		void RaisePollInput();

@@ -13,9 +13,6 @@ namespace BeetlePSXRT
 	protected private:
 		BeetlePSXCoreInternal();
 
-	internal:
-		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
-
 	public:
 		static property BeetlePSXCoreInternal^ Instance { BeetlePSXCoreInternal^ get(); }
 		virtual ~BeetlePSXCoreInternal();

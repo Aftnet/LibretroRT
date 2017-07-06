@@ -13,9 +13,6 @@ namespace ParallelN64RT
 	protected private:
 		ParallelN64CoreInternal();
 
-	internal:
-		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
-
 	public:
 		static property ParallelN64CoreInternal^ Instance { ParallelN64CoreInternal^ get(); }
 		virtual ~ParallelN64CoreInternal();
