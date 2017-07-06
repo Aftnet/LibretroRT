@@ -23,6 +23,7 @@
     </ClCompile>
     <ClCompile Include="FileDependency.cpp" />
     <ClCompile Include="VFS.cpp" />
+    <ClCompile Include="CoreOption.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -40,5 +41,6 @@
     <ClInclude Include="libretro_extra.h" />
     <ClInclude Include="FileDependency.h" />
     <ClInclude Include="VFS.h" />
+    <ClInclude Include="CoreOption.h" />
   </ItemGroup>
 </Project>

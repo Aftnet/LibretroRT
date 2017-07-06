@@ -30,6 +30,8 @@ namespace RetriX.UWP.Services
         private IStreamProvider StreamProvider;
         private ICoreRunner CoreRunner;
 
+        private bool InitializationComplete = false;
+
         private ICore[] AvailableCores;
 
         private static readonly string[] archiveExtensions = { ".zip" };
@@ -76,12 +78,21 @@ namespace RetriX.UWP.Services
                 fileDependencyImporters = AvailableCores.Where(d => d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
                         .Select(d => new FileImporterVM(dialogsService, localizationService, platformService, cryptographyService,
                         new WinRTFolder(d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
-            }).ContinueWith(d => PlatformService.RunOnUIThreadAsync(() => CoresInitialized(this)));
+            }).ContinueWith(d =>
+            {
+                InitializationComplete = true;
+                PlatformService.RunOnUIThreadAsync(() => CoresInitialized(this));
+            });
         }
 
         
-        public GameSystemVM SuggestSystemForFile(IFile file)
+        public async Task<GameSystemVM> SuggestSystemForFileAsync(IFile file)
         {
+            while (!InitializationComplete)
+            {
+                await Task.Delay(100);
+            }
+
             var extension = Path.GetExtension(file.Name);
             return Systems.FirstOrDefault(d => d.SupportedExtensions.Contains(extension));
         }

@@ -44,69 +44,9 @@ BeetlePSXCoreInternal::~BeetlePSXCoreInternal()
 	coreInstance = nullptr;
 }
 
-bool BeetlePSXCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
+void BeetlePSXCoreInternal::OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options)
 {
-	if (CoreBase::EnvironmentHandler(cmd, data))
-		return true;
-
-	static std::string EnabledValue("enabled");
-	static std::string DisabledValue("disabled");
-
-	switch (cmd)
-	{
-	case RETRO_ENVIRONMENT_GET_VARIABLE:
-		auto varptr = (retro_variable*)data;
-		if (!strcmp(varptr->key, "beetle_psx_renderer"))
-		{
-			varptr->value = "software";
-			return true;
-		}
-		else if (!strcmp(varptr->key, "beetle_psx_internal_resolution"))
-		{
-			varptr->value = "1x";
-			return true;
-		}
-		else if (!strcmp(varptr->key, "beetle_psx_frame_duping_enable"))
-		{
-			varptr->value = EnabledValue.c_str();
-			return true;
-		}
-		else if(!strcmp(varptr->key, "beetle_psx_cdimagecache"))
-		{
-			varptr->value = EnabledValue.c_str();
-			return true;
-		}
-		else if (!strcmp(varptr->key, "beetle_psx_cpu_overclock"))
-		{
-			varptr->value = DisabledValue.c_str();
-			return true;
-		}
-		else if (!strcmp(varptr->key, "beetle_psx_skipbios"))
-		{
-			varptr->value = EnabledValue.c_str();
-			return true;
-		}
-		else if (!strcmp(varptr->key, "beetle_psx_analog_toggle"))
-		{
-			varptr->value = EnabledValue.c_str();
-			return true;
-		}
-		else if (!strcmp(varptr->key, "beetle_psx_analog_calibration"))
-		{
-			varptr->value = EnabledValue.c_str();
-			return true;
-		}
-		else if (!strcmp(varptr->key, "beetle_psx_crop_overscan"))
-		{
-			varptr->value = DisabledValue.c_str();
-			return true;
-		}
-		else if (!strcmp(varptr->key, "beetle_psx_enable_memcard1"))
-		{
-			varptr->value = EnabledValue.c_str();
-			return true;
-		}
-	}
-
-	return false;
+	options->Lookup(L"beetle_psx_frame_duping_enable")->SelectedValueIx = 1;
+	options->Lookup(L"beetle_psx_analog_calibration")->SelectedValueIx = 1;
+	options->Lookup(L"beetle_psx_skipbios")->SelectedValueIx = 1;
 }

@@ -13,9 +13,6 @@ namespace FCEUMMRT
 	protected private:
 		FCEUMMCoreInternal();
 
-	internal:
-		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
-
 	public:
 		static property FCEUMMCoreInternal^ Instance { FCEUMMCoreInternal^ get(); }
 		virtual ~FCEUMMCoreInternal();
