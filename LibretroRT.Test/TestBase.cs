@@ -31,6 +31,21 @@ namespace LibretroRT.Test
             Assert.NotNull(Target.SaveGameFolder);
             Assert.NotEmpty(Target.SaveGameFolder.Path);
 
+            Assert.NotNull(Target.Options);
+            foreach(var i in Target.Options)
+            {
+                Assert.NotEmpty(i.Key);
+
+                var value = i.Value;
+                Assert.NotNull(value);
+                Assert.NotEmpty(value.Description);
+                Assert.NotEmpty(value.Values);
+                foreach(var j in value.Values)
+                {
+                    Assert.NotEmpty(j);
+                }
+            }
+
             Assert.NotNull(Target.FileDependencies);
             foreach(var i in Target.FileDependencies)
             {
