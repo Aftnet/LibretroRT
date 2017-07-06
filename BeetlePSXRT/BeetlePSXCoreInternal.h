@@ -11,10 +11,9 @@ namespace BeetlePSXRT
 	private ref class BeetlePSXCoreInternal sealed : public CoreBase
 	{
 	protected private:
-		BeetlePSXCoreInternal();
+		virtual void OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options) override;
 
-	internal:
-		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
+		BeetlePSXCoreInternal();
 
 	public:
 		static property BeetlePSXCoreInternal^ Instance { BeetlePSXCoreInternal^ get(); }

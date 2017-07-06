@@ -35,7 +35,7 @@ namespace RetriX.Shared.Services
     {
         IReadOnlyList<T> Systems { get; }
 
-        T SuggestSystemForFile(IFile file);
+        Task<T> SuggestSystemForFileAsync(IFile file);
         bool CheckRootFolderRequired(T system, IFile file);
         Task<bool> CheckDependenciesMetAsync(T system);
         Task<bool> StartGameAsync(T system, IFile file, IFolder rootFolder = null);

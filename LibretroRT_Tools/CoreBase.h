@@ -45,13 +45,15 @@ namespace LibretroRT_Tools
 		std::string coreEnvironmentSaveGameFolderPath;
 		const bool supportsSaveGameFolderVirtualization;
 		IVectorView<String^>^ supportedExtensions;
-
+		IMap<String^, CoreOption^>^ const options;
 		PixelFormats pixelFormat;
 		GameGeometry^ geometry;
 		SystemTiming^ timing;
 
 		bool coreRequiresGameFilePath;
 		bool gameLoaded;
+
+		std::string lastResolvedEnvironmentVariable;
 
 	protected private:
 		CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
@@ -62,9 +64,10 @@ namespace LibretroRT_Tools
 
 		Vector<FileDependency^>^ fileDependencies;
 		void ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data);
+		virtual void OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options) { }
 
 	internal:
-		virtual bool EnvironmentHandler(unsigned cmd, void *data);
+		bool EnvironmentHandler(unsigned cmd, void *data);
 		void SingleAudioFrameHandler(int16_t left, int16_t right);
 
 		void RaisePollInput();
@@ -78,6 +81,7 @@ namespace LibretroRT_Tools
 		virtual property IStorageFolder^ SystemFolder { IStorageFolder^ get() { return systemFolder; } }
 		virtual property IStorageFolder^ SaveGameFolder { IStorageFolder^ get() { return saveGameFolder; } }
 		virtual property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get() { return supportedExtensions; } }
+		virtual property IMapView<String^, CoreOption^>^ Options { IMapView<String^, CoreOption^>^ get() { return options->GetView(); } };
 		virtual property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get() { return fileDependencies->GetView(); } }
 
 		virtual property PixelFormats PixelFormat

@@ -58,15 +58,15 @@ namespace RetriX.Shared.ViewModels
             await StartGameAsync(system, file);
         }
 
-        public Task StartGameFromFileAsync(IFile file)
+        public async Task StartGameFromFileAsync(IFile file)
         {
-            var system = EmulationService.SuggestSystemForFile(file);
+            var system = await EmulationService.SuggestSystemForFileAsync(file);
             if (system == null)
             {
-                return Task.CompletedTask;
+                return;
             }
 
-            return StartGameAsync(system, file);
+            await StartGameAsync(system, file);
         }
 
         private async Task StartGameAsync(T system, IFile file)

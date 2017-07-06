@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "Converter.h"
+#include "StringConverter.h"
 #include "../LibretroRT/libretro.h"
 
-using namespace Platform;
 using namespace LibretroRT;
 using namespace LibretroRT_Tools;
+
+using namespace Platform;
+using namespace Platform::Collections;
 
 GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
 {
@@ -14,6 +17,21 @@ GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
 SystemTiming^ Converter::CToRTSystemTiming(const retro_system_timing & timing)
 {
 	return ref new SystemTiming(timing.fps, timing.sample_rate);
+}
+
+CoreOption^ Converter::RetroVariableToCoreOptionDescription(const std::string payload)
+{
+	auto description = payload.substr(0, payload.find(';'));
+	auto allowedValuesConcat = payload.substr(description.length() + 2);
+	auto allowedValues = StringConverter::SplitString(allowedValuesConcat, '|');
+	auto valuesVec = ref new Vector<String^>();
+	for (auto i : allowedValues)
+	{
+		valuesVec->Append(StringConverter::CPPToPlatformString(i));
+	}
+
+	auto output = ref new CoreOption(StringConverter::CPPToPlatformString(description), valuesVec->GetView(), 0);
+	return output;
 }
 
 PixelFormats Converter::ConvertToPixelFormat(enum retro_pixel_format format)

@@ -37,19 +37,3 @@ Snes9XCoreInternal::~Snes9XCoreInternal()
 {
 	coreInstance = nullptr;
 }
-
-bool Snes9XCoreInternal::EnvironmentHandler(unsigned cmd, void *data)
-{
-	if (CoreBase::EnvironmentHandler(cmd, data))
-		return true;
-
-	switch (cmd)
-	{
-	case RETRO_ENVIRONMENT_GET_VARIABLE:
-		auto varptr = (retro_variable*)data;
-		varptr->value = "";
-		return true;
-	}
-
-	return false;
-}

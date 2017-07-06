@@ -38,14 +38,15 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	LibretroSerialize(libretroSerialize),
 	LibretroUnserialize(libretroUnserialize),
 	LibretroDeinit(libretroDeinit),
-	timing(ref new SystemTiming),
-	geometry(ref new GameGeometry),
-	gameLoaded(false),
-	coreRequiresGameFilePath(true),
-	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
-	systemFolder(nullptr),
 	supportsSystemFolderVirtualization(supportsSystemFolderVirtualization),
 	supportsSaveGameFolderVirtualization(supportsSaveGameFolderVirtualization),
+	options(ref new Map<String^, CoreOption^>()),
+	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
+	geometry(ref new GameGeometry),
+	timing(ref new SystemTiming),
+	coreRequiresGameFilePath(true),
+	gameLoaded(false),
+	systemFolder(nullptr),
 	saveGameFolder(nullptr),
 	fileDependencies(ref new Vector<FileDependency^>)
 {
@@ -99,6 +100,35 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 {
 	switch (cmd)
 	{
+	case RETRO_ENVIRONMENT_SET_VARIABLES:
+	{
+		auto dataPtr = reinterpret_cast<retro_variable*>(data);
+		while (dataPtr->key)
+		{
+			auto option = Converter::RetroVariableToCoreOptionDescription(dataPtr->value);
+			options->Insert(StringConverter::CPPToPlatformString(dataPtr->key), option);
+			dataPtr++;
+		}
+
+		OverrideDefaultOptions(Options);
+		return true;
+	}
+	case RETRO_ENVIRONMENT_GET_VARIABLE:
+	{
+		auto dataPtr = reinterpret_cast<retro_variable*>(data);
+		dataPtr->value = nullptr;
+
+		auto key = StringConverter::CPPToPlatformString(dataPtr->key);
+		if (options->HasKey(key))
+		{
+			auto option = options->Lookup(key);
+			auto selectedValue = option->Values->GetAt(option->SelectedValueIx);
+			lastResolvedEnvironmentVariable = StringConverter::PlatformToCPPString(selectedValue);
+			dataPtr->value = lastResolvedEnvironmentVariable.c_str();
+			return true;
+		}
+		return false;
+	}
 	case RETRO_ENVIRONMENT_GET_OVERSCAN:
 	{
 		auto dataPtr = reinterpret_cast<bool*>(data);

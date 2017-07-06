@@ -13,9 +13,6 @@ namespace NestopiaRT
 	protected private:
 		NestopiaCoreInternal();
 
-	internal:
-		virtual bool EnvironmentHandler(unsigned cmd, void *data) override;
-
 	public:
 		static property NestopiaCoreInternal^ Instance { NestopiaCoreInternal^ get(); }
 		virtual ~NestopiaCoreInternal();

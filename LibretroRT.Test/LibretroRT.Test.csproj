@@ -101,6 +101,7 @@
     <Compile Include="Cores\GambatteCoreTest.cs" />
     <Compile Include="Cores\FCEUMMCoreTest.cs" />
     <Compile Include="Cores\NestopiaCoreTest.cs" />
+    <Compile Include="Cores\ParallelN64CoreTest.cs" />
     <Compile Include="Cores\VBAMCoreTest.cs" />
     <Compile Include="Cores\GPGXCoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -171,6 +172,10 @@
       <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
       <Name>NestopiaRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ParallelN64RT\ParallelN64RT.vcxproj">
+      <Project>{13ee8617-b7cd-4a72-bb58-f196c345286e}</Project>
+      <Name>ParallelN64RT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
       <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>
       <Name>Snes9XRT</Name>
@@ -201,6 +206,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Roms\Sonic 3K.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\Star Wars Rogue Squadron.n64" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
