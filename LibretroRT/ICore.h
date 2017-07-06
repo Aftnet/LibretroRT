@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Enums.h"
+#include "CoreOptionDescription.h"
 #include "FileDependency.h"
 #include "GameGeometry.h"
 #include "SystemTiming.h"
@@ -36,6 +37,7 @@ namespace LibretroRT
 		property IStorageFolder^ SystemFolder { IStorageFolder^ get(); };
 		property IStorageFolder^ SaveGameFolder { IStorageFolder^ get(); };
 		property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get(); };
+		property IVectorView<CoreOptionDescription^>^ OptionDescriptions { IVectorView<CoreOptionDescription^>^ get(); };
 		property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get(); };
 
 		property PixelFormats PixelFormat { PixelFormats get(); }
