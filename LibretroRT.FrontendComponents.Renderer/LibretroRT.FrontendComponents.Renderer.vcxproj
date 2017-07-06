@@ -206,12 +206,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="OpenGLES.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderTargetManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

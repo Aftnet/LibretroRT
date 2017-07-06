@@ -7,6 +7,8 @@
 #include <chrono>
 #include <thread>
 
+#include <math.h>
+
 // DirectX headers.
 #include <d3d11.h>
 #include <d2d1_3.h>
