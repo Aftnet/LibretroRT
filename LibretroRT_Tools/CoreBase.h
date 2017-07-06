@@ -53,6 +53,8 @@ namespace LibretroRT_Tools
 		bool coreRequiresGameFilePath;
 		bool gameLoaded;
 
+		std::string lastResolvedEnvironmentVariable;
+
 	protected private:
 		CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
 			LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame, LibretroRunPtr libretroRun,

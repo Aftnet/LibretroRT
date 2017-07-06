@@ -123,8 +123,8 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 		{
 			auto option = options->Lookup(key);
 			auto selectedValue = option->Values->GetAt(option->SelectedValueIx);
-			static std::string valueStr = StringConverter::PlatformToCPPString(selectedValue);
-			dataPtr->value = valueStr.c_str();
+			lastResolvedEnvironmentVariable = StringConverter::PlatformToCPPString(selectedValue);
+			dataPtr->value = lastResolvedEnvironmentVariable.c_str();
 			return true;
 		}
 		return false;
