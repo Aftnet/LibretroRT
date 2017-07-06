@@ -274,18 +274,6 @@ HANDLE OpenGLES::GetSurfaceShareHandle(EGLSurface surface)
 	return output;
 }
 
-GLuint OpenGLES::CreateTextureFromSurface(EGLSurface surface)
-{
-	GLuint output;
-	glGenTextures(1, &output);
-	glBindTexture(GL_TEXTURE_2D, output);
-	eglBindTexImage(mEglDisplay, surface, EGL_BACK_BUFFER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	return output;
-}
-
 void OpenGLES::GetSurfaceDimensions(const EGLSurface surface, EGLint* width, EGLint* height)
 {
     eglQuerySurface(mEglDisplay, surface, EGL_WIDTH, width);
@@ -299,16 +287,6 @@ void OpenGLES::DestroySurface(const EGLSurface surface)
         eglDestroySurface(mEglDisplay, surface);
     }
 }
-
-void OpenGLES::DestroyTexture(const GLuint texture)
-{
-	if (texture != EGL_NO_TEXTURE)
-	{
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glDeleteTextures(1, &texture);
-	}
-}
-
 
 void OpenGLES::MakeCurrent(const EGLSurface surface)
 {

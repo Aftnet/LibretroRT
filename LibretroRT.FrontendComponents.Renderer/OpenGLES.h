@@ -16,10 +16,8 @@ namespace LibretroRT_FrontendComponents_Renderer
 		EGLSurface CreateSurface(SwapChainPanel^ panel, const Size* renderSurfaceSize, const float* renderResolutionScale);
 		EGLSurface CreateSurface(ComPtr<ID3D11Texture2D> d3dTexture);
 		HANDLE GetSurfaceShareHandle(EGLSurface surface);
-		GLuint CreateTextureFromSurface(EGLSurface surface);
 		void GetSurfaceDimensions(const EGLSurface surface, EGLint *width, EGLint *height);
 		void DestroySurface(const EGLSurface surface);
-		void DestroyTexture(const GLuint texture);
 		void MakeCurrent(const EGLSurface surface);
 		EGLBoolean SwapBuffers(const EGLSurface surface);
 		void Reset();

@@ -58,25 +58,8 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 	
 	GLenum glError;
-	glBindTexture(GL_TEXTURE_2D, OpenGLESTexture);
-	if (PixelFormat == PixelFormats::FormatRGB565)
-	{
-		glPixelStorei(GL_UNPACK_ROW_LENGTH_EXT, pitch / 2);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_SHORT_5_6_5, frameBuffer->Data);
-	}
-	else if (PixelFormat == PixelFormats::FormatXRGB8888)
-	{
-		glPixelStorei(GL_UNPACK_ROW_LENGTH_EXT, pitch / 4);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, frameBuffer->Data);
-	}
-
-	glError = glGetError();
-	if (glError)
-	{
-		throw Exception::CreateException(E_FAIL, L"Failed to write to texture");
-	}
-
-	glPixelStorei(GL_UNPACK_ROW_LENGTH_EXT, 0);
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
 }
 
@@ -98,9 +81,9 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 	DestroyRenderTargets();
 
 	OpenGLESSurface = OpenGLESManager->CreateSurface(width, height, EGL_TEXTURE_RGBA);
-	OpenGLESTexture = OpenGLESManager->CreateTextureFromSurface(OpenGLESSurface);
-
 	auto surfaceHandle = OpenGLESManager->GetSurfaceShareHandle(OpenGLESSurface);
+	OpenGLESManager->MakeCurrent(OpenGLESSurface);
+	auto err = glGetError();
 
 	ComPtr<ID3D11Device> d3dDevice;
 	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, d3dDevice.GetAddressOf()));
@@ -115,12 +98,6 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 void RenderTargetManager::DestroyRenderTargets()
 {
 	Win2DTexture = nullptr;
-
-	if (OpenGLESTexture != EGL_NO_TEXTURE)
-	{
-		OpenGLESManager->DestroyTexture(OpenGLESTexture);
-		OpenGLESTexture = EGL_NO_TEXTURE;
-	}
 
 	if (OpenGLESSurface != EGL_NO_SURFACE)
 	{
