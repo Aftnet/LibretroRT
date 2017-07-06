@@ -107,6 +107,7 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 		{
 			auto description = Converter::RetroVariableToCoreOptionDescription(*dataPtr);
 			optionDescriptions->Append(description);
+			dataPtr++;
 		}
 		return true;
 	}

@@ -23,8 +23,8 @@ CoreOptionDescription^ Converter::RetroVariableToCoreOptionDescription(const ret
 {
 	auto key = StringConverter::CPPToPlatformString(variable.key);
 	std::string nativeValue(variable.value);
-	auto description = nativeValue.substr(nativeValue.find(';'));
-	auto allowedValuesConcat = nativeValue.substr(description.length() + 1);
+	auto description = nativeValue.substr(0, nativeValue.find(';'));
+	auto allowedValuesConcat = nativeValue.substr(description.length() + 2);
 	auto allowedValues = StringConverter::SplitString(allowedValuesConcat, '|');
 	auto valuesVec = ref new Vector<String^>();
 	for (auto i : allowedValues)
