@@ -62,6 +62,7 @@ namespace LibretroRT_Tools
 
 		Vector<FileDependency^>^ fileDependencies;
 		void ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data);
+		virtual void OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options) { }
 
 	internal:
 		bool EnvironmentHandler(unsigned cmd, void *data);

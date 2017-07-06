@@ -109,6 +109,8 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 			options->Insert(StringConverter::CPPToPlatformString(dataPtr->key), option);
 			dataPtr++;
 		}
+
+		OverrideDefaultOptions(Options);
 		return true;
 	}
 	case RETRO_ENVIRONMENT_GET_VARIABLE:
