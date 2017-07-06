@@ -3,9 +3,11 @@
 #include "StringConverter.h"
 #include "../LibretroRT/libretro.h"
 
-using namespace Platform;
 using namespace LibretroRT;
 using namespace LibretroRT_Tools;
+
+using namespace Platform;
+using namespace Platform::Collections;
 
 GameGeometry^ Converter::CToRTGameGeometry(const retro_game_geometry & geometry)
 {
@@ -20,7 +22,18 @@ SystemTiming^ Converter::CToRTSystemTiming(const retro_system_timing & timing)
 CoreOptionDescription^ Converter::RetroVariableToCoreOptionDescription(const retro_variable& variable)
 {
 	auto key = StringConverter::CPPToPlatformString(variable.key);
-	return ref new CoreOptionDescription(key, nullptr, nullptr);
+	std::string nativeValue(variable.value);
+	auto description = nativeValue.substr(nativeValue.find(';'));
+	auto allowedValuesConcat = nativeValue.substr(description.length() + 1);
+	auto allowedValues = StringConverter::SplitString(allowedValuesConcat, '|');
+	auto valuesVec = ref new Vector<String^>();
+	for (auto i : allowedValues)
+	{
+		valuesVec->Append(StringConverter::CPPToPlatformString(i));
+	}
+
+	auto output = ref new CoreOptionDescription(StringConverter::CPPToPlatformString(variable.key), StringConverter::CPPToPlatformString(description), valuesVec->GetView());
+	return output;
 }
 
 PixelFormats Converter::ConvertToPixelFormat(enum retro_pixel_format format)
