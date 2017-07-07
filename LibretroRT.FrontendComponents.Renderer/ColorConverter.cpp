@@ -30,18 +30,6 @@ void ColorConverter::InitializeLookupTable()
 	Initialized = true;
 }
 
-void ColorConverter::ConvertRGB565ToXRGB8888(byte* output, byte* input, size_t numPixels)
-{
-	auto castInput = (uint16*)input;
-	auto castOutput = (uint32*)output;
-	for (auto i = 0; i < numPixels; i++)
-	{
-		*castOutput = RGB565LookupTable[*castInput];
-		castInput++;
-		castOutput++;
-	}
-}
-
 ColorConverter::ColorConverter()
 {
 }
