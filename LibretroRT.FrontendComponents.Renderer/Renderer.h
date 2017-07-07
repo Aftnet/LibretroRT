@@ -33,6 +33,8 @@ namespace LibretroRT_FrontendComponents_Renderer
 		void OnRenderPanelUnloaded(Object^ sender, RoutedEventArgs^ e);
 		Windows::Foundation::EventRegistrationToken OnRenderPanelUnloadedToken;
 
+		void UnloadGame();
+
 	public:
 		virtual event CoreRunExceptionOccurredDelegate^ CoreRunExceptionOccurred;
 

@@ -27,10 +27,21 @@ Renderer::~Renderer()
 {
 	critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
+	UnloadGame();
+
 	RenderPanel->CreateResources -= OnRenderPanelCreateResourcesToken;
 	RenderPanel->Update -= OnRenderPanelUpdateToken;
 	RenderPanel->Draw -= OnRenderPanelDrawToken;
 	RenderPanel->Unloaded -= OnRenderPanelUnloadedToken;
+}
+
+void Renderer::UnloadGame()
+{
+	GameID = nullptr;
+	CoreIsExecuting = false;
+
+	auto audioPlayer = Coordinator->AudioPlayer;
+	if (audioPlayer) { audioPlayer->Stop(); }
 
 	auto core = Coordinator->Core;
 	if (core) { core->UnloadGame(); }
@@ -71,14 +82,7 @@ IAsyncAction^ Renderer::UnloadGameAsync()
 	{
 		critical_section::scoped_lock lock(CoordinatorCriticalSection);
 
-		GameID = nullptr;
-		CoreIsExecuting = false;
-
-		auto audioPlayer = Coordinator->AudioPlayer;
-		if (audioPlayer) { audioPlayer->Stop(); }
-
-		auto core = Coordinator->Core;
-		if (core) { core->UnloadGame(); }
+		UnloadGame();
 	});
 }
 
