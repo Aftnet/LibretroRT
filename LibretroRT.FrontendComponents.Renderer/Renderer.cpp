@@ -113,7 +113,7 @@ IAsyncAction^ Renderer::ResumeCoreExecutionAsync()
 {
 	return create_async([this]()
 	{
-		CoreIsExecuting = false;
+		CoreIsExecuting = true;
 	});
 }
 
