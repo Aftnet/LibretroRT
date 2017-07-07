@@ -24,7 +24,7 @@ void ColorConverter::InitializeLookupTable()
 		g = (unsigned int)std::round(g * 255.0 / 63.0);
 		b = (unsigned int)std::round(b * 255.0 / 31.0);
 
-		RGB565LookupTable[i] = 0xFF000000 | r << 16 | g << 8 | b;
+		RGB565LookupTable[i] = r << 24 | g << 16 | b << 8 | 0x000000FF;
 	}
 
 	Initialized = true;
