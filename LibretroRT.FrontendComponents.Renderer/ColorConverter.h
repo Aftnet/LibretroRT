@@ -8,7 +8,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 	{
 	public:
 		static void InitializeLookupTable();
-		static void ConvertFrameBufferRGB565ToXRGB8888(uint16* input, unsigned int width, unsigned int height, unsigned int pitch, uint32* output);
+		static void ConvertRGB565ToXRGB8888(byte* output, byte* input, size_t numPixels);
 
 	private:
 		static const uint32 LookupTableSize = 65536;

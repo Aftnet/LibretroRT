@@ -30,24 +30,18 @@ void ColorConverter::InitializeLookupTable()
 	Initialized = true;
 }
 
-void ColorConverter::ConvertFrameBufferRGB565ToXRGB8888(uint16* input, unsigned int width, unsigned int height, unsigned int pitch, uint32* output)
+void ColorConverter::ConvertRGB565ToXRGB8888(byte* output, byte* input, size_t numPixels)
 {
 	if (!Initialized)
 	{
 		InitializeLookupTable();
 	}
 
-	auto inLineStart = (unsigned char*)input;
-	for (auto i = 0; i < height; i++)
+	auto castInput = (uint16*)input;
+	auto castOutput = (uint32*)output;
+	for (auto i = 0; i < numPixels; i++)
 	{
-		auto inShortPtr = (uint16*)inLineStart;
-		for (auto j = 0; j < width; j++)
-		{
-			*output = RGB565LookupTable[inShortPtr[j]];
-			output++;
-		}
-
-		inLineStart += pitch;
+		castOutput[i] = RGB565LookupTable[castInput[i]];
 	}
 }
 

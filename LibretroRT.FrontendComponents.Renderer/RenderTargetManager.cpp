@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "RenderTargetManager.h"
+#include "ColorConverter.h"
 
 using namespace LibretroRT_FrontendComponents_Renderer;
 
@@ -69,28 +70,31 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 		__abi_ThrowIfFailed(d3dContext->Map(d3dR3source.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
 
 		auto pSrc = frameBuffer->Data;
-		auto pDest = (unsigned char*)mappedResource.pData;
-		const size_t rgba8888bpp = 4;
+		auto pDest = (byte*)mappedResource.pData;
 		for (auto i = 0; i < height; i++)
 		{
 			switch (PixelFormat)
 			{
 			case PixelFormats::FormatXRGB8888:
 			{
+				static const size_t rgba8888bpp = 4;
 				memcpy(pDest, pSrc, width * rgba8888bpp);
-				pSrc += pitch;
-				pDest += mappedResource.RowPitch;
 			}
 			break;
 			case PixelFormats::FormatRGB565:
 			{
-
+				for (auto i = 0; i < height; i++)
+				{
+					ColorConverter::ConvertRGB565ToXRGB8888(pDest, pSrc, width);
+				}
 			}
 			break;
 			}
+
+			pSrc += pitch;
+			pDest += mappedResource.RowPitch;
 		}
 		
-
 		d3dContext->Unmap(d3dR3source.Get(), 0);
 	}
 }
