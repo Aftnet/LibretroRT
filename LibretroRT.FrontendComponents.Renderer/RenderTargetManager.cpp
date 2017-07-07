@@ -10,6 +10,8 @@ RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 	Canvas(canvas),
 	OpenGLESManager(OpenGLES::GetInstance())
 {
+	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, Direct3DDevice.GetAddressOf()));
+
 	ColorConverter::InitializeLookupTable();
 }
 
@@ -60,10 +62,8 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 	}
 	else
 	{
-		ComPtr<ID3D11Device> d3dDevice;
-		__abi_ThrowIfFailed(GetDXGIInterface(Canvas->Device, d3dDevice.GetAddressOf()));
 		ComPtr<ID3D11DeviceContext> d3dContext;
-		d3dDevice->GetImmediateContext(d3dContext.GetAddressOf());
+		Direct3DDevice->GetImmediateContext(d3dContext.GetAddressOf());
 
 		D3D11_MAPPED_SUBRESOURCE mappedResource;
 		__abi_ThrowIfFailed(d3dContext->Map(Direct3DTexture.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
@@ -119,9 +119,6 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 {
 	DestroyRenderTargets();
 
-	ComPtr<ID3D11Device> d3dDevice;
-	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, d3dDevice.GetAddressOf()));
-
 	ComPtr<IDXGISurface> d3dSurface;
 
 	if (usingHardwareRendering)
@@ -129,7 +126,7 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 		OpenGLESSurface = OpenGLESManager->CreateSurface(width, height, EGL_TEXTURE_RGBA);
 		auto surfaceHandle = OpenGLESManager->GetSurfaceShareHandle(OpenGLESSurface);
 
-		__abi_ThrowIfFailed(d3dDevice->OpenSharedResource(surfaceHandle, __uuidof(IDXGISurface), (void**)d3dSurface.GetAddressOf()));
+		__abi_ThrowIfFailed(Direct3DDevice->OpenSharedResource(surfaceHandle, __uuidof(IDXGISurface), (void**)d3dSurface.GetAddressOf()));
 	}
 	else
 	{
@@ -146,7 +143,7 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 		texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		texDesc.MiscFlags = 0;
 
-		__abi_ThrowIfFailed(d3dDevice->CreateTexture2D(&texDesc, nullptr, Direct3DTexture.GetAddressOf()));
+		__abi_ThrowIfFailed(Direct3DDevice->CreateTexture2D(&texDesc, nullptr, Direct3DTexture.GetAddressOf()));
 		__abi_ThrowIfFailed(Direct3DTexture.As(&d3dSurface));
 	}
 

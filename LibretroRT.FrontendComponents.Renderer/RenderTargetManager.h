@@ -44,6 +44,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 		PixelFormats pixelFormat = PixelFormats::FormatUknown;
 
 		CanvasAnimatedControl^ const Canvas;
+		ComPtr<ID3D11Device> Direct3DDevice;
 		critical_section RenderTargetCriticalSection;
 
 		CanvasBitmap^ Win2DTexture;
