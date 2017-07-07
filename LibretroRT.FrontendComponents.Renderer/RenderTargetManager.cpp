@@ -68,19 +68,28 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 		D3D11_MAPPED_SUBRESOURCE mappedResource;
 		__abi_ThrowIfFailed(d3dContext->Map(d3dR3source.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
 
-		switch (PixelFormat)
+		auto pSrc = frameBuffer->Data;
+		auto pDest = (unsigned char*)mappedResource.pData;
+		const size_t rgba8888bpp = 4;
+		for (auto i = 0; i < height; i++)
 		{
-		case PixelFormats::FormatXRGB8888:
-		{
-			auto virtualWidth = pitch / 4; //(RGBA, int32 = 4 bytes)
-		}
-		break;
-		case PixelFormats::FormatRGB565:
-		{
+			switch (PixelFormat)
+			{
+			case PixelFormats::FormatXRGB8888:
+			{
+				memcpy(pDest, pSrc, width * rgba8888bpp);
+				pSrc += pitch;
+				pDest += mappedResource.RowPitch;
+			}
+			break;
+			case PixelFormats::FormatRGB565:
+			{
 
+			}
+			break;
+			}
 		}
-		break;
-		}
+		
 
 		d3dContext->Unmap(d3dR3source.Get(), 0);
 	}
@@ -131,7 +140,6 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 		texDesc.MiscFlags = 0;
 
 		__abi_ThrowIfFailed(d3dDevice->CreateTexture2D(&texDesc, nullptr, Direct3DTexture.GetAddressOf()));
-
 		__abi_ThrowIfFailed(Direct3DTexture.As(&d3dSurface));
 	}
 
