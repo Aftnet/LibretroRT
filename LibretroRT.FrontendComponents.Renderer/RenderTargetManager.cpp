@@ -64,10 +64,10 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 		ComPtr<ID3D11DeviceContext> d3dContext;
 		d3dDevice->GetImmediateContext(d3dContext.GetAddressOf());
 
-		ComPtr<ID3D11Resource> d3dR3source;
-		__abi_ThrowIfFailed(Direct3DTexture.As(&d3dR3source));
+		ComPtr<ID3D11Resource> d3dResource;
+		__abi_ThrowIfFailed(Direct3DTexture.As(&d3dResource));
 		D3D11_MAPPED_SUBRESOURCE mappedResource;
-		__abi_ThrowIfFailed(d3dContext->Map(d3dR3source.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
+		__abi_ThrowIfFailed(d3dContext->Map(d3dResource.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
 
 		auto pSrc = frameBuffer->Data;
 		auto pDest = (byte*)mappedResource.pData;
@@ -95,7 +95,7 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 			pDest += mappedResource.RowPitch;
 		}
 		
-		d3dContext->Unmap(d3dR3source.Get(), 0);
+		d3dContext->Unmap(d3dResource.Get(), 0);
 	}
 }
 
