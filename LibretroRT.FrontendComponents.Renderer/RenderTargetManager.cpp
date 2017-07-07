@@ -87,14 +87,38 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 {
 	DestroyRenderTargets();
 
-	OpenGLESSurface = OpenGLESManager->CreateSurface(width, height, EGL_TEXTURE_RGBA);
-	auto surfaceHandle = OpenGLESManager->GetSurfaceShareHandle(OpenGLESSurface);
-
 	ComPtr<ID3D11Device> d3dDevice;
 	__abi_ThrowIfFailed(GetDXGIInterface(canvas->Device, d3dDevice.GetAddressOf()));
 
 	ComPtr<IDXGISurface> d3dSurface;
-	__abi_ThrowIfFailed(d3dDevice->OpenSharedResource(surfaceHandle, __uuidof(IDXGISurface), (void**)d3dSurface.GetAddressOf()));
+
+	if (usingHardwareRendering)
+	{
+		OpenGLESSurface = OpenGLESManager->CreateSurface(width, height, EGL_TEXTURE_RGBA);
+		auto surfaceHandle = OpenGLESManager->GetSurfaceShareHandle(OpenGLESSurface);
+
+		__abi_ThrowIfFailed(d3dDevice->OpenSharedResource(surfaceHandle, __uuidof(IDXGISurface), (void**)d3dSurface.GetAddressOf()));
+	}
+	else
+	{
+		D3D11_TEXTURE2D_DESC texDesc = { 0 };
+		texDesc.Width = width;
+		texDesc.Height = height;
+		texDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+		texDesc.MipLevels = 1;
+		texDesc.ArraySize = 1;
+		texDesc.SampleDesc.Count = 1;
+		texDesc.SampleDesc.Quality = 0;
+		texDesc.Usage = D3D11_USAGE_DYNAMIC;
+		texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		texDesc.MiscFlags = 0;
+
+		ComPtr<ID3D11Texture2D> d3dTex;
+		__abi_ThrowIfFailed(d3dDevice->CreateTexture2D(&texDesc, nullptr, d3dTex.GetAddressOf()));
+
+		__abi_ThrowIfFailed(d3dTex.As(&d3dSurface));
+	}
 
 	auto winRTSurface = CreateDirect3DSurface(d3dSurface.Get());
 	Win2DTexture = CanvasBitmap::CreateFromDirect3D11Surface(canvas->Device, winRTSurface);
