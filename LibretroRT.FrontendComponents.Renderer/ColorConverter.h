@@ -13,7 +13,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 	private:
 		static const uint32 LookupTableSize = 65536;
 		static bool Initialized;
-		static vector<uint32> RGB565LookupTable;
+		static uint32 RGB565LookupTable[LookupTableSize];
 
 		ColorConverter();
 	};

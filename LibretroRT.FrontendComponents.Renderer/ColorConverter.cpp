@@ -4,7 +4,7 @@
 using namespace LibretroRT_FrontendComponents_Renderer;
 
 bool ColorConverter::Initialized = false;
-vector<uint32> ColorConverter::RGB565LookupTable(LookupTableSize);
+uint32 ColorConverter::RGB565LookupTable[LookupTableSize];
 
 void ColorConverter::InitializeLookupTable()
 {
@@ -24,7 +24,7 @@ void ColorConverter::InitializeLookupTable()
 		g = (unsigned int)std::round(g * 255.0 / 63.0);
 		b = (unsigned int)std::round(b * 255.0 / 31.0);
 
-		RGB565LookupTable[i] = r << 24 | g << 16 | b << 8 | 0x000000FF;
+		RGB565LookupTable[i] = 0xFF000000 | r << 16 | g << 8 | b;
 	}
 
 	Initialized = true;
@@ -32,16 +32,13 @@ void ColorConverter::InitializeLookupTable()
 
 void ColorConverter::ConvertRGB565ToXRGB8888(byte* output, byte* input, size_t numPixels)
 {
-	if (!Initialized)
-	{
-		InitializeLookupTable();
-	}
-
 	auto castInput = (uint16*)input;
 	auto castOutput = (uint32*)output;
 	for (auto i = 0; i < numPixels; i++)
 	{
-		castOutput[i] = RGB565LookupTable[castInput[i]];
+		*castOutput = RGB565LookupTable[*castInput];
+		castInput++;
+		castOutput++;
 	}
 }
 

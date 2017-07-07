@@ -10,6 +10,7 @@ RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 	Canvas(canvas),
 	OpenGLESManager(OpenGLES::GetInstance())
 {
+	ColorConverter::InitializeLookupTable();
 }
 
 
@@ -71,28 +72,32 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 
 		auto pSrc = frameBuffer->Data;
 		auto pDest = (byte*)mappedResource.pData;
-		for (auto i = 0; i < height; i++)
+
+		switch (PixelFormat)
 		{
-			switch (PixelFormat)
-			{
-			case PixelFormats::FormatXRGB8888:
+		case PixelFormats::FormatXRGB8888:
+		{
+			for (auto i = 0; i < height; i++)
 			{
 				static const size_t rgba8888bpp = 4;
 				memcpy(pDest, pSrc, width * rgba8888bpp);
-			}
-			break;
-			case PixelFormats::FormatRGB565:
-			{
-				for (auto i = 0; i < height; i++)
-				{
-					ColorConverter::ConvertRGB565ToXRGB8888(pDest, pSrc, width);
-				}
-			}
-			break;
-			}
 
-			pSrc += pitch;
-			pDest += mappedResource.RowPitch;
+				pSrc += pitch;
+				pDest += mappedResource.RowPitch;
+			}
+		}
+		break;
+		case PixelFormats::FormatRGB565:
+		{
+			for (auto i = 0; i < height; i++)
+			{
+				ColorConverter::ConvertRGB565ToXRGB8888(pDest, pSrc, width);
+
+				pSrc += pitch;
+				pDest += mappedResource.RowPitch;
+			}			
+		}
+		break;
 		}
 		
 		d3dContext->Unmap(d3dResource.Get(), 0);
