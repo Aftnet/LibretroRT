@@ -5,14 +5,6 @@ using namespace LibretroRT_FrontendComponents_Renderer;
 
 using namespace Windows::Graphics::DirectX::Direct3D11;
 
-const std::map<PixelFormats, DXGI_FORMAT> RenderTargetManager::LibretroToDXGITextureFormatsMapping
-{
-	{ PixelFormats::FormatRGB565, DXGI_FORMAT::DXGI_FORMAT_B5G6R5_UNORM },
-	{ PixelFormats::FormatXRGB8888, DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM },
-	{ PixelFormats::Format0RGB1555, DXGI_FORMAT::DXGI_FORMAT_UNKNOWN },
-	{ PixelFormats::FormatUknown, DXGI_FORMAT::DXGI_FORMAT_UNKNOWN },
-};
-
 RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 	Canvas(canvas),
 	OpenGLESManager(OpenGLES::GetInstance())
@@ -66,7 +58,31 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 	}
 	else
 	{
+		ComPtr<ID3D11Device> d3dDevice;
+		__abi_ThrowIfFailed(GetDXGIInterface(Canvas->Device, d3dDevice.GetAddressOf()));
+		ComPtr<ID3D11DeviceContext> d3dContext;
+		d3dDevice->GetImmediateContext(d3dContext.GetAddressOf());
 
+		ComPtr<ID3D11Resource> d3dR3source;
+		__abi_ThrowIfFailed(Direct3DTexture.As(&d3dR3source));
+		D3D11_MAPPED_SUBRESOURCE mappedResource;
+		__abi_ThrowIfFailed(d3dContext->Map(d3dR3source.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
+
+		switch (PixelFormat)
+		{
+		case PixelFormats::FormatXRGB8888:
+		{
+			auto virtualWidth = pitch / 4; //(RGBA, int32 = 4 bytes)
+		}
+		break;
+		case PixelFormats::FormatRGB565:
+		{
+
+		}
+		break;
+		}
+
+		d3dContext->Unmap(d3dR3source.Get(), 0);
 	}
 }
 
@@ -114,10 +130,9 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 		texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		texDesc.MiscFlags = 0;
 
-		ComPtr<ID3D11Texture2D> d3dTex;
-		__abi_ThrowIfFailed(d3dDevice->CreateTexture2D(&texDesc, nullptr, d3dTex.GetAddressOf()));
+		__abi_ThrowIfFailed(d3dDevice->CreateTexture2D(&texDesc, nullptr, Direct3DTexture.GetAddressOf()));
 
-		__abi_ThrowIfFailed(d3dTex.As(&d3dSurface));
+		__abi_ThrowIfFailed(Direct3DTexture.As(&d3dSurface));
 	}
 
 	auto winRTSurface = CreateDirect3DSurface(d3dSurface.Get());
@@ -127,6 +142,7 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 void RenderTargetManager::DestroyRenderTargets()
 {
 	Win2DTexture = nullptr;
+	Direct3DTexture.Reset();
 
 	if (OpenGLESSurface != EGL_NO_SURFACE)
 	{

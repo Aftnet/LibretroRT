@@ -37,7 +37,6 @@ namespace LibretroRT_FrontendComponents_Renderer
 
 	private:
 		static const unsigned int RenderTargetMinSize = 1024;
-		static const std::map<PixelFormats, DXGI_FORMAT> LibretroToDXGITextureFormatsMapping;
 
 		bool usingHardwareRendering = false;
 
@@ -48,6 +47,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 		critical_section RenderTargetCriticalSection;
 
 		CanvasBitmap^ Win2DTexture;
+		ComPtr<ID3D11Texture2D> Direct3DTexture;
 
 		std::shared_ptr<OpenGLES> OpenGLESManager;
 		EGLSurface OpenGLESSurface = EGL_NO_SURFACE;
