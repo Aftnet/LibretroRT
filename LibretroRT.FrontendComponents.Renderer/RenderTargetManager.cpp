@@ -48,6 +48,12 @@ void RenderTargetManager::UpdateFormat()
 
 void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
+	//Duped frame or no initialization perormed
+	if (frameBuffer == nullptr || frameBuffer->Length < 1 || Direct3DTexture == nullptr || PixelFormat == PixelFormats::FormatUknown)
+	{
+		return;
+	}
+
 	RenderTargetViewport.Width = width;
 	RenderTargetViewport.Height = height;
 

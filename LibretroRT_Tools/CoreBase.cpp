@@ -240,6 +240,20 @@ void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned 
 	if (RenderVideoFrame == nullptr)
 		return;
 
+	//Duped frame
+	if (data == nullptr)
+	{
+		RenderVideoFrame(ref new Platform::Array<uint8>(0), width, height, pitch);
+		return;
+	}
+
+	//Hardware rendering
+	if (data == RETRO_HW_FRAME_BUFFER_VALID)
+	{
+		RenderVideoFrame(ref new Platform::Array<uint8>(0), width, height, pitch);
+		return;
+	}
+
 	auto dataPtr = reinterpret_cast<uint8*>(const_cast<void*>(data));
 	//See retro_video_refresh_t for why buffer size is computed that way
 	auto dataArray = Platform::ArrayReference<uint8>(dataPtr, height * pitch);
