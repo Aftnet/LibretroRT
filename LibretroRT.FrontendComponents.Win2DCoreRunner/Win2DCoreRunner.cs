@@ -13,7 +13,10 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
     {
         public event CoreRunExceptionOccurredDelegate CoreRunExceptionOccurred;
 
-        private readonly CoreCoordinator Coordinator;
+        private readonly IAudioPlayer AudioPlayer;
+        private readonly IInputManager InputManager;
+
+        private CoreCoordinator Coordinator;
 
         public string GameID { get; private set; }
         public bool CoreIsExecuting { get; private set; }
@@ -31,33 +34,19 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
         }
 
         private CanvasAnimatedControl RenderPanel;
-        private bool RenderPanelInitialized = false;
 
-        private readonly RenderTargetManager RenderTargetManager;
+        private RenderTargetManager RenderTargetManager;
 
         public Win2DCoreRunner(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
         {
-            RenderTargetManager = new RenderTargetManager(renderPanel);
-
-            Coordinator = new CoreCoordinator
-            {
-                Renderer = RenderTargetManager,
-                AudioPlayer = audioPlayer,
-                InputManager = inputManager
-            };
+            RenderPanel = renderPanel;
+            AudioPlayer = audioPlayer;
+            InputManager = inputManager;
 
             CoreIsExecuting = false;
 
-            RenderPanel = renderPanel;
-            RenderPanel.ClearColor = Color.FromArgb(0xff, 0, 0, 0);
-            RenderPanel.Update -= RenderPanelUpdate;
-            RenderPanel.Update += RenderPanelUpdate;
             RenderPanel.CreateResources -= RenderPanelCreateResources;
             RenderPanel.CreateResources += RenderPanelCreateResources;
-            RenderPanel.Draw -= RenderTargetManager.CanvasDraw;
-            RenderPanel.Draw += RenderTargetManager.CanvasDraw;
-            RenderPanel.Unloaded -= RenderPanelUnloaded;
-            RenderPanel.Unloaded += RenderPanelUnloaded;
         }
 
         public void Dispose()
@@ -74,7 +63,7 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
         {
             return Task.Run(async () =>
             {
-                while (!RenderPanelInitialized)
+                while (Coordinator == null)
                 {
                     //Ensure core doesn't try rendering before Win2D is ready.
                     //Some games load faster than the Win2D canvas is initialized
@@ -179,6 +168,7 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
 
         private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            RenderPanel.CreateResources -= RenderPanelCreateResources;
             RenderPanel.Update -= RenderPanelUpdate;
             RenderPanel.Draw -= RenderTargetManager.CanvasDraw;
             RenderPanel.Unloaded -= RenderPanelUnloaded;
@@ -187,7 +177,22 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
 
         private void RenderPanelCreateResources(CanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
         {
-            RenderPanelInitialized = true;
+            RenderTargetManager = new RenderTargetManager(RenderPanel);
+
+            Coordinator = new CoreCoordinator
+            {
+                Renderer = RenderTargetManager,
+                AudioPlayer = AudioPlayer,
+                InputManager = InputManager
+            };
+
+            RenderPanel.ClearColor = Color.FromArgb(0xff, 0, 0, 0);
+            RenderPanel.Update -= RenderPanelUpdate;
+            RenderPanel.Update += RenderPanelUpdate;
+            RenderPanel.Draw -= RenderTargetManager.CanvasDraw;
+            RenderPanel.Draw += RenderTargetManager.CanvasDraw;
+            RenderPanel.Unloaded -= RenderPanelUnloaded;
+            RenderPanel.Unloaded += RenderPanelUnloaded;
         }
 
         private void RenderPanelUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
