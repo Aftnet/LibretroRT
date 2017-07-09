@@ -1,10 +1,10 @@
 ﻿using LibretroRT.FrontendComponents.Common;
+using LibretroRT_FrontendComponents_Renderer;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Storage;
 using Windows.UI;
 
 namespace LibretroRT.FrontendComponents.Win2DCoreRunner
@@ -33,13 +33,15 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
         private CanvasAnimatedControl RenderPanel;
         private bool RenderPanelInitialized = false;
 
-        private readonly RenderTargetManager RenderTargetManager = new RenderTargetManager();
+        private readonly RenderTargetManager RenderTargetManager;
 
         public Win2DCoreRunner(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
         {
+            RenderTargetManager = new RenderTargetManager(renderPanel);
+
             Coordinator = new CoreCoordinator
             {
-                Renderer = this,
+                Renderer = RenderTargetManager,
                 AudioPlayer = audioPlayer,
                 InputManager = inputManager
             };
@@ -52,8 +54,8 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
             RenderPanel.Update += RenderPanelUpdate;
             RenderPanel.CreateResources -= RenderPanelCreateResources;
             RenderPanel.CreateResources += RenderPanelCreateResources;
-            RenderPanel.Draw -= RenderPanelDraw;
-            RenderPanel.Draw += RenderPanelDraw;
+            RenderPanel.Draw -= RenderTargetManager.CanvasDraw;
+            RenderPanel.Draw += RenderTargetManager.CanvasDraw;
             RenderPanel.Unloaded -= RenderPanelUnloaded;
             RenderPanel.Unloaded += RenderPanelUnloaded;
         }
@@ -90,7 +92,6 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
                     }
 
                     GameID = mainGameFilePath;
-                    RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
                     CoreIsExecuting = true;
                     return true;
                 }
@@ -179,7 +180,7 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
         private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             RenderPanel.Update -= RenderPanelUpdate;
-            RenderPanel.Draw -= RenderPanelDraw;
+            RenderPanel.Draw -= RenderTargetManager.CanvasDraw;
             RenderPanel.Unloaded -= RenderPanelUnloaded;
             RenderPanel = null;
         }
@@ -208,11 +209,6 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
                     }
                 }
             }
-        }
-
-        private void RenderPanelDraw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
-        {
-            RenderTargetManager.Render(args.DrawingSession, sender.Size);
         }
     }
 }

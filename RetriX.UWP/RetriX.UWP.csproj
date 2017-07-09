@@ -302,6 +302,10 @@
       <Project>{70a8cb20-70cf-4351-b62d-e0755dfc15f0}</Project>
       <Name>LibretroRT.FrontendComponents.Renderer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LibretroRT.FrontendComponents.Win2DCoreRunner\LibretroRT.FrontendComponents.Win2DCoreRunner.csproj">
+      <Project>{AF8ACEB6-36A7-4A72-8002-4682413A9103}</Project>
+      <Name>LibretroRT.FrontendComponents.Win2DCoreRunner</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LibretroRT.FrontendComponents.Win2DRenderer\LibretroRT.FrontendComponents.Win2DRenderer.csproj">
       <Project>{cc7fb684-776f-4902-be3b-d354933ef2dc}</Project>
       <Name>LibretroRT.FrontendComponents.Win2DRenderer</Name>
