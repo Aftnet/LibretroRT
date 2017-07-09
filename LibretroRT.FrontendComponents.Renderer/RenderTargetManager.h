@@ -21,6 +21,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 		RenderTargetManager(CanvasAnimatedControl^ canvas);
 		virtual ~RenderTargetManager();
 
+		void InitializeVideoParameters(ICore^ core);
 		virtual void GeometryChanged(GameGeometry^ geometry);
 		virtual void PixelFormatChanged(PixelFormats format);
 

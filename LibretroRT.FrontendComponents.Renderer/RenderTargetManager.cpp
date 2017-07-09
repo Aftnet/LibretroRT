@@ -15,10 +15,16 @@ RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 	ColorConverter::InitializeLookupTable();
 }
 
-
 RenderTargetManager::~RenderTargetManager()
 {
 	DestroyRenderTargets();
+}
+
+
+void RenderTargetManager::InitializeVideoParameters(ICore^ core)
+{
+	GeometryChanged(core->Geometry);
+	PixelFormatChanged(core->PixelFormat);
 }
 
 void RenderTargetManager::GeometryChanged(GameGeometry^ geometry)

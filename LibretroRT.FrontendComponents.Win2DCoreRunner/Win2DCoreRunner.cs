@@ -80,6 +80,7 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
                         return false;
                     }
 
+                    RenderTargetManager.InitializeVideoParameters(core);
                     GameID = mainGameFilePath;
                     CoreIsExecuting = true;
                     return true;
