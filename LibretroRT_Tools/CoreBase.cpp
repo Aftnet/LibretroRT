@@ -161,23 +161,40 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	}
 	case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
 	{
-		auto pix = reinterpret_cast<enum retro_pixel_format*>(data);
-		PixelFormat = Converter::ConvertToPixelFormat(*pix);
+		auto dataPtr = reinterpret_cast<enum retro_pixel_format*>(data);
+		PixelFormat = Converter::ConvertToPixelFormat(*dataPtr);
 		return true;
 	}
 	case RETRO_ENVIRONMENT_SET_GEOMETRY:
 	{
-		auto geom = reinterpret_cast<retro_game_geometry*>(data);
-		Geometry = Converter::CToRTGameGeometry(*geom);
+		auto dataPtr = reinterpret_cast<retro_game_geometry*>(data);
+		Geometry = Converter::CToRTGameGeometry(*dataPtr);
 		return true;
 	}
 	case RETRO_ENVIRONMENT_SET_SYSTEM_AV_INFO:
 	{
-		auto avInfo = reinterpret_cast<retro_system_av_info*>(data);
-		Geometry = Converter::CToRTGameGeometry(avInfo->geometry);
-		Timing = Converter::CToRTSystemTiming(avInfo->timing);
+		auto dataPtr = reinterpret_cast<retro_system_av_info*>(data);
+		Geometry = Converter::CToRTGameGeometry(dataPtr->geometry);
+		Timing = Converter::CToRTSystemTiming(dataPtr->timing);
 		return true;
 	}
+	/*case RETRO_ENVIRONMENT_SET_HW_RENDER:
+	{
+		auto dataPtr = reinterpret_cast<retro_hw_render_callback*>(data);
+		dataPtr->context_type = retro_hw_context_type::RETRO_HW_CONTEXT_OPENGLES2;
+		dataPtr->context_reset = nullptr; //need
+		dataPtr->get_current_framebuffer = nullptr;
+		dataPtr->get_proc_address = nullptr; //need
+		dataPtr->depth = false;
+		dataPtr->stencil = false;
+		dataPtr->bottom_left_origin = false; //need
+		dataPtr->version_major = 2; //need
+		dataPtr->version_minor = 0; //need
+		dataPtr->cache_context = true; //need
+		dataPtr->context_destroy = nullptr; //need
+		dataPtr->debug_context = false; //need
+		return true;
+	}*/
 	}
 	return false;
 }
@@ -222,6 +239,20 @@ void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned 
 {
 	if (RenderVideoFrame == nullptr)
 		return;
+
+	//Duped frame
+	if (data == nullptr)
+	{
+		RenderVideoFrame(ref new Platform::Array<uint8>(0), width, height, pitch);
+		return;
+	}
+
+	//Hardware rendering
+	if (data == RETRO_HW_FRAME_BUFFER_VALID)
+	{
+		RenderVideoFrame(ref new Platform::Array<uint8>(0), width, height, pitch);
+		return;
+	}
 
 	auto dataPtr = reinterpret_cast<uint8*>(const_cast<void*>(data));
 	//See retro_video_refresh_t for why buffer size is computed that way
