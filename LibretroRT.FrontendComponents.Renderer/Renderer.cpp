@@ -61,8 +61,14 @@ void Renderer::PixelFormatChanged(PixelFormats format)
 
 void Renderer::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
-	//Duped frame or no initialization perormed
-	if (frameBuffer == nullptr || frameBuffer->Length < 1 || Direct3DTexture == nullptr || PixelFormat == PixelFormats::FormatUknown)
+	//Incomplete initialization
+	if (PixelFormat == PixelFormats::FormatUknown || Win2DTexture == nullptr)
+	{
+		return;
+	}
+
+	//Duped frame
+	if (frameBuffer == nullptr || frameBuffer->Length < 1)
 	{
 		return;
 	}
