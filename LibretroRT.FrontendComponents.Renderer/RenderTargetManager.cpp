@@ -21,8 +21,10 @@ RenderTargetManager::~RenderTargetManager()
 	DestroyRenderTargets();
 }
 
-void RenderTargetManager::UpdateFormat()
+void RenderTargetManager::GeometryChanged(GameGeometry^ geometry)
 {
+	Geometry = geometry;
+
 	if (Geometry == nullptr)
 	{
 		return;
@@ -34,19 +36,24 @@ void RenderTargetManager::UpdateFormat()
 	if (Win2DTexture)
 	{
 		auto size = Win2DTexture->SizeInPixels;
-		shouldUpdate = (size.Width < geometry->MaxWidth || size.Height < geometry->MaxHeight);
+		shouldUpdate = (size.Width < Geometry->MaxWidth || size.Height < Geometry->MaxHeight);
 	}
 
 	if (shouldUpdate)
 	{
-		auto dimension = max(geometry->MaxWidth, geometry->MaxHeight);
+		auto dimension = max(Geometry->MaxWidth, Geometry->MaxHeight);
 		dimension = max(dimension, RenderTargetMinSize);
 		dimension = ClosestGreaterPowerTwo(dimension);
 		CreateRenderTargets(Canvas, dimension, dimension);
 	}
 }
 
-void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
+void RenderTargetManager::PixelFormatChanged(PixelFormats format)
+{
+	PixelFormat = format;
+}
+
+void RenderTargetManager::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
 	//Duped frame or no initialization perormed
 	if (frameBuffer == nullptr || frameBuffer->Length < 1 || Direct3DTexture == nullptr || PixelFormat == PixelFormats::FormatUknown)
@@ -108,8 +115,11 @@ void RenderTargetManager::UpdateFromCoreOutput(const Array<byte>^ frameBuffer, u
 	}
 }
 
-void RenderTargetManager::Render(CanvasDrawingSession^ drawingSession, Size canvasSize)
+void RenderTargetManager::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args)
 {
+	auto drawingSession = args->DrawingSession;
+	auto canvasSize = sender->Size;
+
 	if (Win2DTexture == nullptr || RenderTargetViewport.Width <= 0 || RenderTargetViewport.Height <= 0)
 	{
 		return;
