@@ -1,12 +1,12 @@
 #include "pch.h"
-#include "RenderTargetManager.h"
+#include "Renderer.h"
 #include "ColorConverter.h"
 
 using namespace LibretroRT_FrontendComponents_Renderer;
 
 using namespace Windows::Graphics::DirectX::Direct3D11;
 
-RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
+Renderer::Renderer(CanvasAnimatedControl^ canvas) :
 	Canvas(canvas),
 	OpenGLESManager(OpenGLES::GetInstance())
 {
@@ -15,19 +15,19 @@ RenderTargetManager::RenderTargetManager(CanvasAnimatedControl^ canvas) :
 	ColorConverter::InitializeLookupTable();
 }
 
-RenderTargetManager::~RenderTargetManager()
+Renderer::~Renderer()
 {
 	DestroyRenderTargets();
 }
 
 
-void RenderTargetManager::InitializeVideoParameters(ICore^ core)
+void Renderer::InitializeVideoParameters(ICore^ core)
 {
 	GeometryChanged(core->Geometry);
 	PixelFormatChanged(core->PixelFormat);
 }
 
-void RenderTargetManager::GeometryChanged(GameGeometry^ geometry)
+void Renderer::GeometryChanged(GameGeometry^ geometry)
 {
 	Geometry = geometry;
 
@@ -54,12 +54,12 @@ void RenderTargetManager::GeometryChanged(GameGeometry^ geometry)
 	}
 }
 
-void RenderTargetManager::PixelFormatChanged(PixelFormats format)
+void Renderer::PixelFormatChanged(PixelFormats format)
 {
 	PixelFormat = format;
 }
 
-void RenderTargetManager::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
+void Renderer::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)
 {
 	//Duped frame or no initialization perormed
 	if (frameBuffer == nullptr || frameBuffer->Length < 1 || Direct3DTexture == nullptr || PixelFormat == PixelFormats::FormatUknown)
@@ -121,7 +121,7 @@ void RenderTargetManager::RenderVideoFrame(const Array<byte>^ frameBuffer, unsig
 	}
 }
 
-void RenderTargetManager::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args)
+void Renderer::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args)
 {
 	auto drawingSession = args->DrawingSession;
 	auto canvasSize = sender->Size;
@@ -137,7 +137,7 @@ void RenderTargetManager::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnima
 	drawingSession->DrawImage(Win2DTexture, destinationRect, RenderTargetViewport);
 }
 
-void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, unsigned int width, unsigned int height)
+void Renderer::CreateRenderTargets(CanvasAnimatedControl^ canvas, unsigned int width, unsigned int height)
 {
 	DestroyRenderTargets();
 
@@ -173,7 +173,7 @@ void RenderTargetManager::CreateRenderTargets(CanvasAnimatedControl^ canvas, uns
 	Win2DTexture = CanvasBitmap::CreateFromDirect3D11Surface(canvas->Device, winRTSurface);
 }
 
-void RenderTargetManager::DestroyRenderTargets()
+void Renderer::DestroyRenderTargets()
 {
 	Win2DTexture = nullptr;
 	Direct3DTexture.Reset();
@@ -185,7 +185,7 @@ void RenderTargetManager::DestroyRenderTargets()
 	}
 }
 
-Rect RenderTargetManager::ComputeBestFittingSize(Size viewportSize, float aspectRatio)
+Rect Renderer::ComputeBestFittingSize(Size viewportSize, float aspectRatio)
 {
 	auto candidateWidth = std::floor(viewportSize.Height * aspectRatio);
 	if (viewportSize.Width >= candidateWidth)
@@ -203,7 +203,7 @@ Rect RenderTargetManager::ComputeBestFittingSize(Size viewportSize, float aspect
 	}
 }
 
-unsigned int RenderTargetManager::ClosestGreaterPowerTwo(unsigned int value)
+unsigned int Renderer::ClosestGreaterPowerTwo(unsigned int value)
 {
 	unsigned int output = 1;
 	while (output < value)

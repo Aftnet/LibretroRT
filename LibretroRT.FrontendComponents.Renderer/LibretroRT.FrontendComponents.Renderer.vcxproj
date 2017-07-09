@@ -209,7 +209,7 @@
     <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="OpenGLES.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="RenderTargetManager.h" />
+    <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorConverter.cpp" />
@@ -222,7 +222,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="RenderTargetManager.cpp" />
+    <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

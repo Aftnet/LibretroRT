@@ -8,15 +8,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="RenderTargetManager.cpp" />
     <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="ColorConverter.cpp" />
+    <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="RenderTargetManager.h" />
     <ClInclude Include="OpenGLES.h" />
     <ClInclude Include="ColorConverter.h" />
+    <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

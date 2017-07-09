@@ -35,7 +35,7 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
 
         private CanvasAnimatedControl RenderPanel;
 
-        private RenderTargetManager RenderTargetManager;
+        private Renderer RenderTargetManager;
 
         public Win2DCoreRunner(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
         {
@@ -178,7 +178,7 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
 
         private void RenderPanelCreateResources(CanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
         {
-            RenderTargetManager = new RenderTargetManager(RenderPanel);
+            RenderTargetManager = new Renderer(RenderPanel);
 
             Coordinator = new CoreCoordinator
             {

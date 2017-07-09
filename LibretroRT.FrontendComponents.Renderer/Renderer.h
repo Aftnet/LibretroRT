@@ -15,11 +15,11 @@ using namespace Windows::Graphics::DirectX::Direct3D11;
 
 namespace LibretroRT_FrontendComponents_Renderer
 {
-	public ref class RenderTargetManager sealed : IRenderer
+	public ref class Renderer sealed : IRenderer
 	{
 	public:
-		RenderTargetManager(CanvasAnimatedControl^ canvas);
-		virtual ~RenderTargetManager();
+		Renderer(CanvasAnimatedControl^ canvas);
+		virtual ~Renderer();
 
 		void InitializeVideoParameters(ICore^ core);
 		virtual void GeometryChanged(GameGeometry^ geometry);
