@@ -44,6 +44,7 @@
     <ClInclude Include="src\yabause\src\yabause.h" />
     <ClInclude Include="src\yabause\src\titan\titan.h" />
     <ClInclude Include="src\libretro\libretro.h" />
+    <ClInclude Include="src\yabause\src\c68k\c68k.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yabause\src\bios.c" />
@@ -82,5 +83,7 @@
     <ClCompile Include="src\yabause\src\titan\titan.c" />
     <ClCompile Include="src\yabause\src\thr-dummy.c" />
     <ClCompile Include="src\libretro\libretro.c" />
+    <ClCompile Include="src\yabause\src\c68k\c68k.c" />
+    <ClCompile Include="src\yabause\src\c68k\c68kexec.c" />
   </ItemGroup>
 </Project>
