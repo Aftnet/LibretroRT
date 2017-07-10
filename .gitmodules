@@ -30,3 +30,7 @@
 	path = ParallelN64/src
 	url = https://github.com/Aftnet/parallel-n64.git
 	branch = master
+[submodule "Yabause/src"]
+	path = Yabause/src
+	url = https://github.com/libretro/yabause.git
+	branch = master
