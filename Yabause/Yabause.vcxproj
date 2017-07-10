@@ -126,7 +126,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;C68K_NO_JUMP_TABLE;C68K_GEN;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;C68K_NO_JUMP_TABLE;C68K_GEN;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -154,7 +154,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;C68K_NO_JUMP_TABLE;C68K_GEN;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -168,7 +168,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;C68K_NO_JUMP_TABLE;C68K_GEN;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -182,7 +182,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;C68K_NO_JUMP_TABLE;C68K_GEN;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -196,7 +196,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;C68K_NO_JUMP_TABLE;C68K_GEN;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -206,6 +206,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\libretro-common\include\compat\apple_compat.h" />
+    <ClInclude Include="src\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\libretro-common\include\compat\getopt.h" />
+    <ClInclude Include="src\libretro-common\include\compat\ifaddrs.h" />
+    <ClInclude Include="src\libretro-common\include\compat\intrinsics.h" />
+    <ClInclude Include="src\libretro-common\include\compat\msvc.h" />
+    <ClInclude Include="src\libretro-common\include\compat\msvc\stdint.h" />
+    <ClInclude Include="src\libretro-common\include\compat\posix_string.h" />
+    <ClInclude Include="src\libretro-common\include\compat\strcasestr.h" />
+    <ClInclude Include="src\libretro-common\include\compat\strl.h" />
+    <ClInclude Include="src\libretro-common\include\compat\zconf.h" />
+    <ClInclude Include="src\libretro-common\include\compat\zlib.h" />
+    <ClInclude Include="src\libretro-common\include\compat\zutil.h" />
+    <ClInclude Include="src\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
     <ClInclude Include="src\libretro\libretro.h" />
     <ClInclude Include="src\yabause\src\bios.h" />
     <ClInclude Include="src\yabause\src\c68k\c68k.h" />
@@ -246,6 +266,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro\libretro.c" />
     <ClCompile Include="src\yabause\src\bios.c" />
     <ClCompile Include="src\yabause\src\c68k\c68k.c" />

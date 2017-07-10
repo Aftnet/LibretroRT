@@ -45,6 +45,26 @@
     <ClInclude Include="src\yabause\src\titan\titan.h" />
     <ClInclude Include="src\libretro\libretro.h" />
     <ClInclude Include="src\yabause\src\c68k\c68k.h" />
+    <ClInclude Include="src\libretro-common\include\compat\msvc\stdint.h" />
+    <ClInclude Include="src\libretro-common\include\compat\apple_compat.h" />
+    <ClInclude Include="src\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\libretro-common\include\compat\getopt.h" />
+    <ClInclude Include="src\libretro-common\include\compat\ifaddrs.h" />
+    <ClInclude Include="src\libretro-common\include\compat\intrinsics.h" />
+    <ClInclude Include="src\libretro-common\include\compat\msvc.h" />
+    <ClInclude Include="src\libretro-common\include\compat\posix_string.h" />
+    <ClInclude Include="src\libretro-common\include\compat\strcasestr.h" />
+    <ClInclude Include="src\libretro-common\include\compat\strl.h" />
+    <ClInclude Include="src\libretro-common\include\compat\zconf.h" />
+    <ClInclude Include="src\libretro-common\include\compat\zlib.h" />
+    <ClInclude Include="src\libretro-common\include\compat\zutil.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yabause\src\bios.c" />
@@ -85,5 +105,6 @@
     <ClCompile Include="src\libretro\libretro.c" />
     <ClCompile Include="src\yabause\src\c68k\c68k.c" />
     <ClCompile Include="src\yabause\src\c68k\c68kexec.c" />
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
   </ItemGroup>
 </Project>
