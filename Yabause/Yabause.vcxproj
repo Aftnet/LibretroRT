@@ -239,6 +239,7 @@
     <ClInclude Include="src\yabause\src\debug.h" />
     <ClInclude Include="src\yabause\src\dx.h" />
     <ClInclude Include="src\yabause\src\error.h" />
+    <ClInclude Include="src\yabause\src\fileio.h" />
     <ClInclude Include="src\yabause\src\japmodem.h" />
     <ClInclude Include="src\yabause\src\m68kc68k.h" />
     <ClInclude Include="src\yabause\src\m68kcore.h" />

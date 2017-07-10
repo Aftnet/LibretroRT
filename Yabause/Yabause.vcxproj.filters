@@ -65,6 +65,7 @@
     <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
     <ClInclude Include="src\libretro-common\include\retro_inline.h" />
     <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\yabause\src\fileio.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yabause\src\bios.c" />
