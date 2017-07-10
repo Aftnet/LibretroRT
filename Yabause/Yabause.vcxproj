@@ -123,8 +123,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,8 +136,10 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,8 +149,10 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,8 +162,10 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,6 +177,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,6 +190,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -188,7 +200,81 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\libretro\libretro.h" />
+    <ClInclude Include="src\yabause\src\bios.h" />
+    <ClInclude Include="src\yabause\src\cdbase.h" />
+    <ClInclude Include="src\yabause\src\cheat.h" />
+    <ClInclude Include="src\yabause\src\coffelf.h" />
+    <ClInclude Include="src\yabause\src\core.h" />
+    <ClInclude Include="src\yabause\src\cs0.h" />
+    <ClInclude Include="src\yabause\src\cs1.h" />
+    <ClInclude Include="src\yabause\src\cs2.h" />
+    <ClInclude Include="src\yabause\src\debug.h" />
+    <ClInclude Include="src\yabause\src\dx.h" />
+    <ClInclude Include="src\yabause\src\error.h" />
+    <ClInclude Include="src\yabause\src\japmodem.h" />
+    <ClInclude Include="src\yabause\src\m68kc68k.h" />
+    <ClInclude Include="src\yabause\src\m68kcore.h" />
+    <ClInclude Include="src\yabause\src\memory.h" />
+    <ClInclude Include="src\yabause\src\movie.h" />
+    <ClInclude Include="src\yabause\src\netlink.h" />
+    <ClInclude Include="src\yabause\src\osdcore.h" />
+    <ClInclude Include="src\yabause\src\peripheral.h" />
+    <ClInclude Include="src\yabause\src\profile.h" />
+    <ClInclude Include="src\yabause\src\scsp2.h" />
+    <ClInclude Include="src\yabause\src\scspdsp.h" />
+    <ClInclude Include="src\yabause\src\scu.h" />
+    <ClInclude Include="src\yabause\src\sh2core.h" />
+    <ClInclude Include="src\yabause\src\sh2d.h" />
+    <ClInclude Include="src\yabause\src\sh2idle.h" />
+    <ClInclude Include="src\yabause\src\sh2int.h" />
+    <ClInclude Include="src\yabause\src\sh2trace.h" />
+    <ClInclude Include="src\yabause\src\smpc.h" />
+    <ClInclude Include="src\yabause\src\titan\titan.h" />
+    <ClInclude Include="src\yabause\src\vdp1.h" />
+    <ClInclude Include="src\yabause\src\vdp2.h" />
+    <ClInclude Include="src\yabause\src\vidshared.h" />
+    <ClInclude Include="src\yabause\src\vidsoft.h" />
+    <ClInclude Include="src\yabause\src\yabause.h" />
     <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\libretro\libretro.c" />
+    <ClCompile Include="src\yabause\src\bios.c" />
+    <ClCompile Include="src\yabause\src\cdbase.c" />
+    <ClCompile Include="src\yabause\src\cheat.c" />
+    <ClCompile Include="src\yabause\src\coffelf.c" />
+    <ClCompile Include="src\yabause\src\cs0.c" />
+    <ClCompile Include="src\yabause\src\cs1.c" />
+    <ClCompile Include="src\yabause\src\cs2.c" />
+    <ClCompile Include="src\yabause\src\debug.c" />
+    <ClCompile Include="src\yabause\src\error.c" />
+    <ClCompile Include="src\yabause\src\japmodem.c" />
+    <ClCompile Include="src\yabause\src\m68kc68k.c" />
+    <ClCompile Include="src\yabause\src\m68kcore.c" />
+    <ClCompile Include="src\yabause\src\memory.c" />
+    <ClCompile Include="src\yabause\src\movie.c" />
+    <ClCompile Include="src\yabause\src\netlink.c" />
+    <ClCompile Include="src\yabause\src\osdcore.c" />
+    <ClCompile Include="src\yabause\src\peripheral.c" />
+    <ClCompile Include="src\yabause\src\profile.c" />
+    <ClCompile Include="src\yabause\src\scsp2.c" />
+    <ClCompile Include="src\yabause\src\scspdsp.c" />
+    <ClCompile Include="src\yabause\src\scu.c" />
+    <ClCompile Include="src\yabause\src\sh2core.c" />
+    <ClCompile Include="src\yabause\src\sh2d.c" />
+    <ClCompile Include="src\yabause\src\sh2idle.c" />
+    <ClCompile Include="src\yabause\src\sh2int.c" />
+    <ClCompile Include="src\yabause\src\sh2trace.c" />
+    <ClCompile Include="src\yabause\src\smpc.c" />
+    <ClCompile Include="src\yabause\src\snddummy.c" />
+    <ClCompile Include="src\yabause\src\thr-dummy.c" />
+    <ClCompile Include="src\yabause\src\titan\titan.c" />
+    <ClCompile Include="src\yabause\src\vdp1.c" />
+    <ClCompile Include="src\yabause\src\vdp2.c" />
+    <ClCompile Include="src\yabause\src\vidshared.c" />
+    <ClCompile Include="src\yabause\src\vidsoft.c" />
+    <ClCompile Include="src\yabause\src\yabause.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
