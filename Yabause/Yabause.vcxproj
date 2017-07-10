@@ -125,8 +125,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,8 +139,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,8 +153,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,8 +167,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -177,8 +181,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -190,8 +195,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;HAVE_GETTIMEOFDAY;VERSION=\"0.9.12\";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;HAVE_STRICMP;_CRT_SECURE_NO_WARNINGS;__LIBRETRO__;SIZEOF_DOUBLE=8;USE_16BPP=1;USE_RGB_565=1;USE_SCSP2=1;NO_CLI;HAVE_SYS_TIME_H;VERSION="0.9.12";HAVE_STRCASECMP;INLINE=inline;HAVE_WFOPEN;HAVE_C99_VARIADIC_MACROS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\yabause\src;$(ProjectDir)src\libretro;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4996 /wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
