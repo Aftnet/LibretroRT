@@ -106,6 +106,7 @@
     <ClCompile Include="src\libretro\libretro.c" />
     <ClCompile Include="src\yabause\src\c68k\c68k.c" />
     <ClCompile Include="src\yabause\src\c68k\c68kexec.c" />
-    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\retro_stat.cpp" />
   </ItemGroup>
 </Project>
