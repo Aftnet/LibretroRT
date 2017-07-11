@@ -265,12 +265,22 @@ int filestream_wprintf(RFILE* stream, wchar_t const* const format, ...)
 
 int filestream_scanf(RFILE* stream, char const* const format, ...)
 {
+	va_list vl = NULL;
+	va_start(vl, format);
 
+	filestream_gets(stream, IntermediateStringBuffer, StaticBufferLen);
+	return sscanf_s(IntermediateStringBuffer, format, vl);
 }
 
 int filestream_wscanf(RFILE* stream, wchar_t const* const format, ...)
 {
+	va_list vl = NULL;
+	va_start(vl, format);
 
+	filestream_gets(stream, IntermediateStringBuffer, StaticBufferLen);
+	size_t numConverted = 0;
+	mbstowcs_s(&numConverted, IntermediateWStringBuffer, IntermediateStringBuffer, _TRUNCATE);
+	return swscanf_s(IntermediateWStringBuffer, format, vl);
 }
 
 int filestream_eof(RFILE *stream)
