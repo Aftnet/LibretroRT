@@ -26,7 +26,6 @@
 	path = BeetlePSX/src
 	url = https://github.com/libretro/beetle-psx-libretro.git
 	branch = master
-
 [submodule "Yabause/src"]
 	path = Yabause/src
 	url = https://github.com/Aftnet/yabause.git
