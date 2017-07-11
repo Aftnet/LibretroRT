@@ -11,8 +11,6 @@ namespace YabauseRT
 	private ref class YabauseCoreInternal sealed : public CoreBase
 	{
 	protected private:
-		virtual void OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options) override;
-
 		YabauseCoreInternal();
 
 	public:
