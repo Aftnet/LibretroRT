@@ -12,6 +12,11 @@ using namespace std;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
+const size_t StaticBufferLen = 4096;
+
+char IntermediateStringBuffer[StaticBufferLen];
+wchar_t IntermediateWStringBuffer[StaticBufferLen];
+
 retro_extra_open_file_t OpenFileStreamViaFrontend = nullptr;
 retro_extra_close_file_t CloseFileStreamViaFrontend = nullptr;
 
@@ -232,6 +237,40 @@ int filestream_getc(RFILE *stream)
 	auto output = reader->ReadByte();
 	reader->DetachStream();
 	return output;
+}
+
+int filestream_printf(RFILE* stream, char const* const format, ...)
+{
+	va_list vl = NULL;
+	va_start(vl, format);
+
+	auto stringSize = _snprintf_s(IntermediateStringBuffer, 1, _TRUNCATE, format, vl);
+	auto writeSize = stringSize + 1;
+	filestream_write(stream, IntermediateStringBuffer, writeSize);
+	return writeSize;
+}
+
+int filestream_wprintf(RFILE* stream, wchar_t const* const format, ...)
+{
+	va_list vl = NULL;
+	va_start(vl, format);
+
+	auto stringSize = _snwprintf_s(IntermediateWStringBuffer, 1, _TRUNCATE, format, vl);
+
+	size_t numConverted = 0;
+	wcstombs_s(&numConverted, IntermediateStringBuffer, IntermediateWStringBuffer, _TRUNCATE);
+	filestream_write(stream, IntermediateStringBuffer, numConverted);
+	return numConverted;
+}
+
+int filestream_scanf(RFILE* stream, char const* const format, ...)
+{
+
+}
+
+int filestream_wscanf(RFILE* stream, wchar_t const* const format, ...)
+{
+
 }
 
 int filestream_eof(RFILE *stream)
