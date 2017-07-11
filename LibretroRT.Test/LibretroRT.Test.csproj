@@ -101,6 +101,7 @@
     <Compile Include="Cores\GambatteCoreTest.cs" />
     <Compile Include="Cores\FCEUMMCoreTest.cs" />
     <Compile Include="Cores\NestopiaCoreTest.cs" />
+    <Compile Include="Cores\YabauseCoreTest.cs" />
     <Compile Include="Cores\VBAMCoreTest.cs" />
     <Compile Include="Cores\GPGXCoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,6 +180,10 @@
       <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
       <Name>VBAMRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YabauseRT\YabauseRT.vcxproj">
+      <Project>{a8f6202b-b329-4888-ba1a-8c841993b195}</Project>
+      <Name>YabauseRT</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Roms\Crash Bandicoot 3.bin" />
@@ -204,6 +209,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Roms\Star Wars Rogue Squadron.n64" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\Radiant Silvergun.bin" />
+    <Content Include="Roms\Radiant Silvergun.cue" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
