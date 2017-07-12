@@ -239,50 +239,6 @@ int filestream_getc(RFILE *stream)
 	return output;
 }
 
-int filestream_printf(RFILE* stream, char const* const format, ...)
-{
-	va_list vl = NULL;
-	va_start(vl, format);
-
-	auto stringSize = _snprintf_s(IntermediateStringBuffer, 1, _TRUNCATE, format, vl);
-	auto writeSize = stringSize + 1;
-	filestream_write(stream, IntermediateStringBuffer, writeSize);
-	return writeSize;
-}
-
-int filestream_wprintf(RFILE* stream, wchar_t const* const format, ...)
-{
-	va_list vl = NULL;
-	va_start(vl, format);
-
-	auto stringSize = _snwprintf_s(IntermediateWStringBuffer, 1, _TRUNCATE, format, vl);
-
-	size_t numConverted = 0;
-	wcstombs_s(&numConverted, IntermediateStringBuffer, IntermediateWStringBuffer, _TRUNCATE);
-	filestream_write(stream, IntermediateStringBuffer, numConverted);
-	return numConverted;
-}
-
-int filestream_scanf(RFILE* stream, char const* const format, ...)
-{
-	va_list vl = NULL;
-	va_start(vl, format);
-
-	filestream_gets(stream, IntermediateStringBuffer, StaticBufferLen);
-	return sscanf_s(IntermediateStringBuffer, format, vl);
-}
-
-int filestream_wscanf(RFILE* stream, wchar_t const* const format, ...)
-{
-	va_list vl = NULL;
-	va_start(vl, format);
-
-	filestream_gets(stream, IntermediateStringBuffer, StaticBufferLen);
-	size_t numConverted = 0;
-	mbstowcs_s(&numConverted, IntermediateWStringBuffer, IntermediateStringBuffer, _TRUNCATE);
-	return swscanf_s(IntermediateWStringBuffer, format, vl);
-}
-
 int filestream_eof(RFILE *stream)
 {
 	size_t current_position = filestream_tell(stream);
