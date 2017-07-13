@@ -302,4 +302,7 @@ Restart RetriX and try again.</value>
   <data name="PlayStationRomDescription.Text" xml:space="preserve">
     <value>Sony PlayStation Rom</value>
   </data>
+  <data name="SystemNameSaturn" xml:space="preserve">
+    <value>Saturn</value>
+  </data>
 </root>

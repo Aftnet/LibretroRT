@@ -12,6 +12,11 @@ using namespace std;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
+const size_t StaticBufferLen = 4096;
+
+char IntermediateStringBuffer[StaticBufferLen];
+wchar_t IntermediateWStringBuffer[StaticBufferLen];
+
 retro_extra_open_file_t OpenFileStreamViaFrontend = nullptr;
 retro_extra_close_file_t CloseFileStreamViaFrontend = nullptr;
 

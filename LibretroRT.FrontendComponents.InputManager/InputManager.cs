@@ -86,6 +86,11 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         public short GetInputState(uint port, InputTypes inputType)
         {
+            if (!Enum.IsDefined(typeof(InputTypes), inputType))
+            {
+                return 0;
+            }
+
             if (LibretroGamepadAnalogTypes.Contains(inputType) && port < GamepadReadings.Length)
             {
                 var reading = GamepadReadings[port];
@@ -149,12 +154,20 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         private void WindowKeyUpHandler(CoreWindow sender, KeyEventArgs args)
         {
-            KeyStates[args.VirtualKey] = false;
+            var key = args.VirtualKey;
+            if (Enum.IsDefined(typeof(VirtualKey), key))
+            {
+                KeyStates[args.VirtualKey] = false;
+            }
         }
 
         private void WindowKeyDownHandler(CoreWindow sender, KeyEventArgs args)
         {
-            KeyStates[args.VirtualKey] = true;
+            var key = args.VirtualKey;
+            if (Enum.IsDefined(typeof(VirtualKey), key))
+            {
+                KeyStates[args.VirtualKey] = true;
+            }
         }
     }
 }
