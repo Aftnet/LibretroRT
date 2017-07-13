@@ -60,7 +60,7 @@ namespace RetriX.UWP.Services
             {
                 AvailableCores = new ICore[] { BeetlePSXRT.BeetlePSXCore.Instance, FCEUMMRT.FCEUMMCore.Instance, Snes9XRT.Snes9XCore.Instance, GambatteRT.GambatteCore.Instance, VBAMRT.VBAMCore.Instance, GPGXRT.GPGXCore.Instance };
 
-                var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso" };
+                var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso", ".mds", ".mdf" };
                 systems = new GameSystemVM[]
                 {
                 new GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118", FCEUMMRT.FCEUMMCore.Instance.SupportedExtensions, new string[0]),
