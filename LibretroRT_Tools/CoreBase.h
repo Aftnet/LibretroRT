@@ -51,8 +51,8 @@ namespace LibretroRT_Tools
 		SystemTiming^ timing;
 
 		bool coreRequiresGameFilePath;
-		bool gameLoaded;
-
+		
+		std::string gameFilePath;
 		std::string lastResolvedEnvironmentVariable;
 
 	protected private:
