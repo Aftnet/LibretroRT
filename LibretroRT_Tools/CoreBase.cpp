@@ -45,7 +45,6 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	geometry(ref new GameGeometry),
 	timing(ref new SystemTiming),
 	coreRequiresGameFilePath(true),
-	gameLoaded(false),
 	systemFolder(nullptr),
 	saveGameFolder(nullptr),
 	fileDependencies(ref new Vector<FileDependency^>)
@@ -262,17 +261,17 @@ void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned 
 
 bool CoreBase::LoadGame(String^ mainGameFilePath)
 {
-	if (gameLoaded)
+	if (!gameFilePath.empty())
 	{
 		UnloadGame();
 	}
 
 	try
 	{
-		static auto gamePathStr = StringConverter::PlatformToCPPString(mainGameFilePath);
+		gameFilePath = StringConverter::PlatformToCPPString(mainGameFilePath);
 		retro_game_info gameInfo;
 		gameInfo.data = nullptr;
-		gameInfo.path = gamePathStr.c_str();
+		gameInfo.path = gameFilePath.c_str();
 		gameInfo.size = 0;
 		gameInfo.meta = nullptr;
 
@@ -284,34 +283,37 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 			gameInfo.size = gameData.size();
 		}
 
-		gameLoaded = retro_load_game(&gameInfo);
-		if (gameLoaded)
+		auto loadSuccessful = retro_load_game(&gameInfo);
+		if (loadSuccessful)
 		{
 			retro_system_av_info info;
 			LibretroGetSystemAVInfo(&info);
 
 			Geometry = Converter::CToRTGameGeometry(info.geometry);
 			Timing = Converter::CToRTSystemTiming(info.timing);
-		}		
+		}	
+		else
+		{
+			gameFilePath.clear();
+		}
 	}
 	catch (const std::exception& e)
 	{
 		UnloadGame();
-		gameLoaded = false;
 	}
 
-	return gameLoaded;
+	return !gameFilePath.empty();
 }
 
 void CoreBase::UnloadGame()
 {
-	if (!gameLoaded)
+	if (gameFilePath.empty())
 	{
 		return;
 	}
 
 	LibretroUnloadGame();
-	gameLoaded = false;
+	gameFilePath.clear();
 }
 
 void CoreBase::RunFrame()
