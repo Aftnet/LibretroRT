@@ -33,13 +33,16 @@ namespace RetriX.Shared.StreamProviders
 
             path = path.Substring(HandledScheme.Length);
 
-            var existenceCheck = await RootFolder.CheckExistsAsync(path);
-            if (existenceCheck != ExistenceCheckResult.FileExists)
+            if (accessType == PCLStorage.FileAccess.Read)
             {
-                return null;
+                var existenceCheck = await RootFolder.CheckExistsAsync(path);
+                if (existenceCheck != ExistenceCheckResult.FileExists)
+                {
+                    return null;
+                }
             }
 
-            var file = await RootFolder.GetFileAsync(path);
+            var file = await RootFolder.CreateFileAsync(path, CreationCollisionOption.OpenIfExists);
             var output = await file.OpenAsync(accessType);
             return output;
         }
