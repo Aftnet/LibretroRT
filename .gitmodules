@@ -30,3 +30,7 @@
 	path = Yabause/src
 	url = https://github.com/Aftnet/yabause.git
 	branch = master
+[submodule "MelonDS/src"]
+	path = MelonDS/src
+	url = https://github.com/Aftnet/melonDS.git
+	branch = master

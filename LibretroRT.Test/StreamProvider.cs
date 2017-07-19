@@ -27,6 +27,13 @@ namespace LibretroRT.Test
 
         public IRandomAccessStream OpenFileStream(string path, FileAccessMode fileAccess)
         {
+            if (fileAccess == FileAccessMode.ReadWrite)
+            {
+                var memoryStream = new InMemoryRandomAccessStream();
+                OpenStreams.Add(memoryStream);
+                return memoryStream;
+            }
+
             path = path.Substring(HandledScheme.Length);
             IStorageFile file;
             try

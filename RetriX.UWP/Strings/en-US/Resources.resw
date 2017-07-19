@@ -305,4 +305,7 @@ Restart RetriX and try again.</value>
   <data name="SystemNameSaturn" xml:space="preserve">
     <value>Saturn</value>
   </data>
+  <data name="SystemNameDS" xml:space="preserve">
+    <value>Nintendo DS</value>
+  </data>
 </root>

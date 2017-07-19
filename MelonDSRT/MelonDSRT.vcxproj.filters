@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>7965f9e6-35d4-41f4-86a3-cb33bb65f84e</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="MelonDSCore.cpp" />
+    <ClCompile Include="MelonDSCoreInternal.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="MelonDSCore.h" />
+    <ClInclude Include="MelonDSCoreInternal.h" />
+    <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
+  </ItemGroup>
+</Project>
