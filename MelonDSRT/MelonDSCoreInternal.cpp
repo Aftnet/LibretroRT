@@ -36,7 +36,7 @@ MelonDSCoreInternal::MelonDSCoreInternal() : LibretroRT_Tools::CoreBase(retro_ge
 {
 	fileDependencies->Append(ref new FileDependency(L"biosnds7.rom", L"Nintendo DS ARM7 BIOS", L"df692a80a5b1bc90728bc3dfc76cd948"));
 	fileDependencies->Append(ref new FileDependency(L"biosnds9.rom", L"Nintendo DS ARM9 BIOS", L"a392174eb3e572fed6447e956bde4b25"));
-	fileDependencies->Append(ref new FileDependency(L"firmware.bin", L"Nintendo DS Firmware", L"e45033d9b0fa6b0de071292bba7c9d13"));
+	fileDependencies->Append(ref new FileDependency(L"firmware.bin", L"Nintendo DS Firmware", L"b10f39a8a5a573753406f9da2e7232c8"));
 }
 
 MelonDSCoreInternal::~MelonDSCoreInternal()

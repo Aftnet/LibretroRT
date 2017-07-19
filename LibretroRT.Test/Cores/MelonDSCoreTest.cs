@@ -5,7 +5,7 @@ namespace LibretroRT.Test.Cores
 {
     public class MelonDSCoreTest : TestBase
     {
-        protected const string RomName = "Crash Bandicoot 3.cue";
+        protected const string RomName = "Devil Survivor 2.nds";
 
         public MelonDSCoreTest() : base(() => MelonDSRT.MelonDSCore.Instance)
         {
