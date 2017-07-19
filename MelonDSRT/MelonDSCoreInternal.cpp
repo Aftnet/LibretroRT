@@ -34,9 +34,9 @@ MelonDSCoreInternal::MelonDSCoreInternal() : LibretroRT_Tools::CoreBase(retro_ge
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
 	true, true)
 {
-	fileDependencies->Append(ref new FileDependency(L"BIOS_CD_E.bin", L"Mega-CD (Model 1 1.00 Europe) BIOS", L"e66fa1dc5820d254611fdcdba0662372"));
-	fileDependencies->Append(ref new FileDependency(L"BIOS_CD_J.bin", L"Mega-CD (Model 1 1.00 Japan) BIOS", L"278a9397d192149e84e820ac621a8edd"));
-	fileDependencies->Append(ref new FileDependency(L"BIOS_CD_U.bin", L"Mega-CD (Model 1 1.00 USA) BIOS", L"2efd74e3232ff260e371b99f84024f7f"));
+	fileDependencies->Append(ref new FileDependency(L"biosnds7.rom", L"Nintendo DS ARM7 BIOS", L"df692a80a5b1bc90728bc3dfc76cd948"));
+	fileDependencies->Append(ref new FileDependency(L"biosnds9.rom", L"Nintendo DS ARM9 BIOS", L"a392174eb3e572fed6447e956bde4b25"));
+	fileDependencies->Append(ref new FileDependency(L"firmware.bin", L"Nintendo DS Firmware", L"e45033d9b0fa6b0de071292bba7c9d13"));
 }
 
 MelonDSCoreInternal::~MelonDSCoreInternal()
