@@ -27,18 +27,18 @@ namespace LibretroRT.Test
 
         public IRandomAccessStream OpenFileStream(string path, FileAccessMode fileAccess)
         {
+            if (fileAccess == FileAccessMode.ReadWrite)
+            {
+                var memoryStream = new InMemoryRandomAccessStream();
+                OpenStreams.Add(memoryStream);
+                return memoryStream;
+            }
+
             path = path.Substring(HandledScheme.Length);
             IStorageFile file;
             try
             {
-                if(fileAccess == FileAccessMode.ReadWrite)
-                {
-                    file = RootFolder.CreateFileAsync(path, CreationCollisionOption.OpenIfExists).AsTask().Result;
-                }
-                else
-                {
-                    file = RootFolder.GetFileAsync(path).AsTask().Result;
-                }
+                file = RootFolder.GetFileAsync(path).AsTask().Result;
             }
             catch
             {
