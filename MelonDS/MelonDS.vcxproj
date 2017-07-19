@@ -214,6 +214,7 @@
     <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
     <ClInclude Include="src\libretro-common\include\rthreads\rthreads.h" />
     <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
     <ClInclude Include="src\src\ARM.h" />
     <ClInclude Include="src\src\ARMInterpreter.h" />
     <ClInclude Include="src\src\ARMInterpreter_ALU.h" />
