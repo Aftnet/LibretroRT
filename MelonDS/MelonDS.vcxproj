@@ -125,6 +125,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +139,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +153,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +167,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,6 +181,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,6 +195,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd4146</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -188,7 +206,60 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\libretro-common\include\retro_assert.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\libretro-common\include\rthreads\rthreads.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\src\ARM.h" />
+    <ClInclude Include="src\src\ARMInterpreter.h" />
+    <ClInclude Include="src\src\ARMInterpreter_ALU.h" />
+    <ClInclude Include="src\src\ARMInterpreter_Branch.h" />
+    <ClInclude Include="src\src\ARMInterpreter_LoadStore.h" />
+    <ClInclude Include="src\src\ARM_InstrTable.h" />
+    <ClInclude Include="src\src\Config.h" />
+    <ClInclude Include="src\src\CP15.h" />
+    <ClInclude Include="src\src\DMA.h" />
+    <ClInclude Include="src\src\FIFO.h" />
+    <ClInclude Include="src\src\GPU.h" />
+    <ClInclude Include="src\src\GPU2D.h" />
+    <ClInclude Include="src\src\GPU3D.h" />
+    <ClInclude Include="src\src\libretro.h" />
+    <ClInclude Include="src\src\NDS.h" />
+    <ClInclude Include="src\src\NDSCart.h" />
+    <ClInclude Include="src\src\Platform.h" />
+    <ClInclude Include="src\src\RTC.h" />
+    <ClInclude Include="src\src\SPI.h" />
+    <ClInclude Include="src\src\SPU.h" />
+    <ClInclude Include="src\src\types.h" />
+    <ClInclude Include="src\src\version.h" />
+    <ClInclude Include="src\src\Wifi.h" />
     <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\src\ARM.cpp" />
+    <ClCompile Include="src\src\ARMInterpreter.cpp" />
+    <ClCompile Include="src\src\ARMInterpreter_ALU.cpp" />
+    <ClCompile Include="src\src\ARMInterpreter_Branch.cpp" />
+    <ClCompile Include="src\src\ARMInterpreter_LoadStore.cpp" />
+    <ClCompile Include="src\src\Config.cpp" />
+    <ClCompile Include="src\src\CP15.cpp" />
+    <ClCompile Include="src\src\DMA.cpp" />
+    <ClCompile Include="src\src\GPU.cpp" />
+    <ClCompile Include="src\src\GPU2D.cpp" />
+    <ClCompile Include="src\src\GPU3D.cpp" />
+    <ClCompile Include="src\src\GPU3D_Soft.cpp" />
+    <ClCompile Include="src\src\libretro.cpp" />
+    <ClCompile Include="src\src\NDS.cpp" />
+    <ClCompile Include="src\src\NDSCart.cpp" />
+    <ClCompile Include="src\src\RTC.cpp" />
+    <ClCompile Include="src\src\SPI.cpp" />
+    <ClCompile Include="src\src\SPU.cpp" />
+    <ClCompile Include="src\src\Wifi.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
