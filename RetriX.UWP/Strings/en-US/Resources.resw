@@ -308,4 +308,7 @@ Restart RetriX and try again.</value>
   <data name="SystemNameDS" xml:space="preserve">
     <value>Nintendo DS</value>
   </data>
+  <data name="DSRomDescription.Text" xml:space="preserve">
+    <value>Nintendo DSRom</value>
+  </data>
 </root>
