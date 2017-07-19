@@ -220,8 +220,8 @@
     <Content Include="Roms\Radiant Silvergun.cue" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Roms\biosnds7.rom" />
-    <Content Include="Roms\biosnds9.rom" />
+    <Content Include="Roms\bios7.bin" />
+    <Content Include="Roms\bios9.bin" />
     <Content Include="Roms\firmware.bin" />
   </ItemGroup>
   <ItemGroup>

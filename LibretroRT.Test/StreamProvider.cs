@@ -31,7 +31,14 @@ namespace LibretroRT.Test
             IStorageFile file;
             try
             {
-                file = RootFolder.GetFileAsync(path).AsTask().Result;
+                if(fileAccess == FileAccessMode.ReadWrite)
+                {
+                    file = RootFolder.CreateFileAsync(path, CreationCollisionOption.OpenIfExists).AsTask().Result;
+                }
+                else
+                {
+                    file = RootFolder.GetFileAsync(path).AsTask().Result;
+                }
             }
             catch
             {
