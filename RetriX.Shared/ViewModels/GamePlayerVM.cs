@@ -201,6 +201,11 @@ namespace RetriX.Shared.ViewModels
             }
 
             CoreOperationsAllowed = true;
+
+            if (GameIsPaused)
+            {
+                TogglePause(true);
+            }
         }
 
         private async void LoadState(uint slotID)
@@ -215,6 +220,11 @@ namespace RetriX.Shared.ViewModels
             }
 
             CoreOperationsAllowed = true;
+
+            if (GameIsPaused)
+            {
+                TogglePause(true);
+            }
         }
 
         private void OnGameStarted(IEmulationService sender)
