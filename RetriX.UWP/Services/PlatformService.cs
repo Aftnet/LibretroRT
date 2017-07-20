@@ -38,6 +38,8 @@ namespace RetriX.UWP.Services
 
         public event FullScreenChangeRequestedDelegate FullScreenChangeRequested;
 
+        public event PauseToggleRequestedDelegate PauseToggleRequested;
+
         public event GameStateOperationRequestedDelegate GameStateOperationRequested;
 
         public bool ChangeFullScreenState(FullScreenChangeType changeType)
@@ -137,6 +139,10 @@ namespace RetriX.UWP.Services
                 case VirtualKey.Escape:
                     FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Exit));
                     args.Handled = true;
+                    break;
+
+                case VirtualKey.Space:
+                    PauseToggleRequested(this);
                     break;
 
                 case VirtualKey.F1:
