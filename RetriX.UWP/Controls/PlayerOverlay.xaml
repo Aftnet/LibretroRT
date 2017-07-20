@@ -136,7 +136,7 @@
         <Button Grid.Column="2" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.StopCommand}">
             <TextBlock Text="&#xe003;" Style="{StaticResource GlyphStyle}"/>
         </Button>
-        <Button Grid.Column="3" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}">
+        <Button Grid.Column="3" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}" TabIndex="-1">
             <TextBlock Text="{x:Bind ViewModel.GameIsPaused, Mode=OneWay, Converter={StaticResource PlayPauseSymbolConverter}, FallbackValue=&#xe103;}" Style="{StaticResource GlyphStyle}" FontSize="24"/>
         </Button>
         <Button Grid.Column="4" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ResetCommand}">

@@ -1,6 +1,7 @@
 ﻿using RetriX.Shared.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -20,7 +21,13 @@ namespace RetriX.UWP.Controls
 
         public PlayerOverlay()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            IsEnabledChanged += OnEnabledChanged;
+        }
+        
+        private void OnEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            FocusManager.TryMoveFocus(FocusNavigationDirection.Next);
         }
     }
 }

@@ -25,6 +25,7 @@
             </interactivity:Interaction.Behaviors>
         </canvas:CanvasAnimatedControl>
         <controls:PlayerOverlay ViewModel="{x:Bind VM}" VerticalAlignment="Bottom"
-                                Visibility="{x:Bind VM.DisplayPlayerUI, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                Visibility="{x:Bind VM.DisplayPlayerUI, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                IsEnabled="{x:Bind VM.DisplayPlayerUI, Mode=OneWay}"/>
     </Grid>
 </Page>
