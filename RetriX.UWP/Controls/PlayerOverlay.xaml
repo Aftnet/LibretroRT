@@ -92,7 +92,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid VerticalAlignment="Bottom" Background="{StaticResource BackgroundBrush}" Padding="24,24">
+    <Grid VerticalAlignment="Bottom" Background="{StaticResource BackgroundBrush}" Padding="24,24" XYFocusKeyboardNavigation="Enabled">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
