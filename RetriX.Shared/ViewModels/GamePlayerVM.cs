@@ -116,6 +116,7 @@ namespace RetriX.Shared.ViewModels
 
             EmulationService.GameStarted += OnGameStarted;
             PlatformService.FullScreenChangeRequested += (d, e) => RequestFullScreenChange(e.Type);
+            PlatformService.PauseToggleRequested += d => TogglePauseCommand.Execute(null);
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
         }
 
