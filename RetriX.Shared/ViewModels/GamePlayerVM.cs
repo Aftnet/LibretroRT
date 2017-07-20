@@ -189,6 +189,11 @@ namespace RetriX.Shared.ViewModels
             CoreOperationsAllowed = false;
             await EmulationService.ResetGameAsync();
             CoreOperationsAllowed = true;
+
+            if (GameIsPaused)
+            {
+                await TogglePause(true);
+            }
         }
 
         private async void Stop()
