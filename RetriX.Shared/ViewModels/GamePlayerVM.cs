@@ -158,6 +158,7 @@ namespace RetriX.Shared.ViewModels
 
             GameIsPaused = !GameIsPaused;
             CoreOperationsAllowed = true;
+            ReactToUserUIActivity();
         }
 
         private async void Reset()
@@ -232,6 +233,11 @@ namespace RetriX.Shared.ViewModels
 
         private void HideUIIfUserInactive()
         {
+            if (GameIsPaused)
+            {
+                return;
+            }
+
             if (DateTimeOffset.UtcNow.Subtract(LastUIActivityTime).CompareTo(UIHidingTime) >= 0)
             {
                 PlatformService.RunOnUIThreadAsync(() => DisplayPlayerUI = false);
