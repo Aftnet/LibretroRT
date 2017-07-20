@@ -11,6 +11,8 @@ namespace RetriX.Shared.Services
 
     public delegate void FullScreenChangeRequestedDelegate(IPlatformService sender, FullScreenChangeEventArgs args);
 
+    public delegate void PauseToggleRequestedDelegate(IPlatformService sender);
+
     public delegate void GameStateOperationRequestedDelegate(IPlatformService sender, GameStateOperationEventArgs args);
 
     public interface IPlatformService
@@ -20,6 +22,7 @@ namespace RetriX.Shared.Services
 
         bool ChangeFullScreenState(FullScreenChangeType changeType);
         void ChangeMousePointerVisibility(MousePointerVisibility visibility);
+        void ForceUIElementFocus();
 
         Task<IFile> SelectFileAsync(IEnumerable<string> extensionsFilter);
         Task<IFolder> SelectFolderAsync();
@@ -28,6 +31,8 @@ namespace RetriX.Shared.Services
         Task RunOnUIThreadAsync(Action action);
 
         event FullScreenChangeRequestedDelegate FullScreenChangeRequested;
+
+        event PauseToggleRequestedDelegate PauseToggleRequested;
 
         event GameStateOperationRequestedDelegate GameStateOperationRequested;
     }

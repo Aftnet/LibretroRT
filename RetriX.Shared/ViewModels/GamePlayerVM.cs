@@ -73,7 +73,7 @@ namespace RetriX.Shared.ViewModels
             {
                 if (Set(ref displayPlayerUI, value))
                 {
-                    PlatformService.ChangeMousePointerVisibility(value? MousePointerVisibility.Visible : MousePointerVisibility.Hidden);
+                    PlatformService.ChangeMousePointerVisibility(value ? MousePointerVisibility.Visible : MousePointerVisibility.Hidden);
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace RetriX.Shared.ViewModels
             PointerMovedCommand = new RelayCommand(ReactToUserUIActivity);
             ToggleFullScreenCommand = new RelayCommand(() => RequestFullScreenChange(FullScreenChangeType.Toggle));
 
-            TogglePauseCommand = new RelayCommand(TogglePause, () => CoreOperationsAllowed);
+            TogglePauseCommand = new RelayCommand(() => { var task = TogglePause(false); }, () => CoreOperationsAllowed);
             ResetCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
             StopCommand = new RelayCommand(Stop, () => CoreOperationsAllowed);
 
@@ -116,6 +116,7 @@ namespace RetriX.Shared.ViewModels
 
             EmulationService.GameStarted += OnGameStarted;
             PlatformService.FullScreenChangeRequested += (d, e) => RequestFullScreenChange(e.Type);
+            PlatformService.PauseToggleRequested += d => OnPauseToggleKey();
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
         }
 
@@ -143,21 +144,44 @@ namespace RetriX.Shared.ViewModels
             DisplayPlayerUI = true;
         }
 
-        private async void TogglePause()
+        private async Task TogglePause(bool dismissOverlayImmediately)
         {
+            if (!CoreOperationsAllowed)
+            {
+                return;
+            }
+
             CoreOperationsAllowed = false;
 
             if (GameIsPaused)
             {
                 await EmulationService.ResumeGameAsync();
+                if (dismissOverlayImmediately)
+                {
+                    DisplayPlayerUI = false;
+                }
+                else
+                {
+                    ReactToUserUIActivity();
+                }
             }
             else
             {
                 await EmulationService.PauseGameAsync();
+                ReactToUserUIActivity();
             }
 
             GameIsPaused = !GameIsPaused;
             CoreOperationsAllowed = true;
+        }
+
+        private async void OnPauseToggleKey()
+        {
+            await TogglePause(true);
+            if (GameIsPaused)
+            {
+                PlatformService.ForceUIElementFocus();
+            }
         }
 
         private async void Reset()
@@ -186,6 +210,11 @@ namespace RetriX.Shared.ViewModels
             }
 
             CoreOperationsAllowed = true;
+
+            if (GameIsPaused)
+            {
+                await TogglePause(true);
+            }
         }
 
         private async void LoadState(uint slotID)
@@ -200,6 +229,11 @@ namespace RetriX.Shared.ViewModels
             }
 
             CoreOperationsAllowed = true;
+
+            if (GameIsPaused)
+            {
+                await TogglePause(true);
+            }
         }
 
         private void OnGameStarted(IEmulationService sender)
@@ -232,6 +266,11 @@ namespace RetriX.Shared.ViewModels
 
         private void HideUIIfUserInactive()
         {
+            if (GameIsPaused)
+            {
+                return;
+            }
+
             if (DateTimeOffset.UtcNow.Subtract(LastUIActivityTime).CompareTo(UIHidingTime) >= 0)
             {
                 PlatformService.RunOnUIThreadAsync(() => DisplayPlayerUI = false);

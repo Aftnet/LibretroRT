@@ -10,6 +10,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace RetriX.UWP.Services
 {
@@ -37,6 +38,8 @@ namespace RetriX.UWP.Services
         }
 
         public event FullScreenChangeRequestedDelegate FullScreenChangeRequested;
+
+        public event PauseToggleRequestedDelegate PauseToggleRequested;
 
         public event GameStateOperationRequestedDelegate GameStateOperationRequested;
 
@@ -68,6 +71,11 @@ namespace RetriX.UWP.Services
         {
             var pointer = visibility == MousePointerVisibility.Hidden ? null : new CoreCursor(CoreCursorType.Arrow, 0);
             Window.Current.CoreWindow.PointerCursor = pointer;
+        }
+
+        public void ForceUIElementFocus()
+        {
+            FocusManager.TryMoveFocus(FocusNavigationDirection.Next);
         }
 
         public async Task<IFile> SelectFileAsync(IEnumerable<string> extensionsFilter)
@@ -116,6 +124,9 @@ namespace RetriX.UWP.Services
             var altState = sender.GetKeyState(VirtualKey.LeftMenu);
             var altIsDown = (altState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
 
+            var gamepadViewState = sender.GetKeyState(VirtualKey.GamepadView);
+            var gamepadViewIsDown = (gamepadViewState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
             switch (args.VirtualKey)
             {
                 //By default the gamepad's B button is treated as a hardware back button.
@@ -137,6 +148,19 @@ namespace RetriX.UWP.Services
                 case VirtualKey.Escape:
                     FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Exit));
                     args.Handled = true;
+                    break;
+
+                case VirtualKey.Space:
+                    PauseToggleRequested(this);
+                    args.Handled = true;
+                    break;
+
+                case VirtualKey.GamepadMenu:
+                    if(gamepadViewIsDown)
+                    {
+                        PauseToggleRequested(this);
+                        args.Handled = true;
+                    }
                     break;
 
                 case VirtualKey.F1:

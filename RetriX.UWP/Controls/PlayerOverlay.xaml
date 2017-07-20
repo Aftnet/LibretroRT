@@ -17,9 +17,8 @@
             <GradientStop Color="#00000000" Offset="0"/>
             <GradientStop Color="#FF000000" Offset="1"/>
         </LinearGradientBrush>
-        
+
         <Style x:Key="ControlButtonStyle" TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
-            <Setter Property="IsTabStop" Value="False"/>
             <Setter Property="Margin" Value="6,0"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -93,55 +92,58 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid VerticalAlignment="Bottom" Background="{StaticResource BackgroundBrush}" Padding="24,24">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Style="{StaticResource ControlButtonStyle}">
-                <TextBlock Text="&#xE105;" Style="{StaticResource GlyphStyle}"/>
-                <Button.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutSubItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6">
-                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot6}"/>
-                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot6}"/>
-                        </MenuFlyoutSubItem>
-                        <MenuFlyoutSubItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5">
-                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot5}"/>
-                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot5}"/>
-                        </MenuFlyoutSubItem>
-                        <MenuFlyoutSubItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4">
-                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot4}"/>
-                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot4}"/>
-                        </MenuFlyoutSubItem>
-                        <MenuFlyoutSubItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3">
-                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot3}"/>
-                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot3}"/>
-                        </MenuFlyoutSubItem>
-                        <MenuFlyoutSubItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2">
-                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot2}"/>
-                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot2}"/>
-                        </MenuFlyoutSubItem>
-                        <MenuFlyoutSubItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1">
-                            <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot1}"/>
-                            <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot1}"/>
-                        </MenuFlyoutSubItem>
-                    </MenuFlyout>
-                </Button.Flyout>
-            </Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.StopCommand}">
-                <TextBlock Text="&#xe003;" Style="{StaticResource GlyphStyle}"/>
-            </Button>
-            <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}">
-                <TextBlock Text="{x:Bind ViewModel.GameIsPaused, Mode=OneWay, Converter={StaticResource PlayPauseSymbolConverter}, FallbackValue=&#xe103;}" Style="{StaticResource GlyphStyle}" FontSize="24"/>
-            </Button>
-            <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ResetCommand}">
-                <TextBlock Text="&#xe72c;" Style="{StaticResource GlyphStyle}"/>
-            </Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ToggleFullScreenCommand}">
-                <TextBlock Text="{x:Bind ViewModel.IsFullScreenMode, Mode=OneWay, Converter={StaticResource FullScreenSymbolConverter}, FallbackValue=&#xe740;}" Style="{StaticResource GlyphStyle}"/>
-            </Button>
-        </StackPanel>
+    <Grid VerticalAlignment="Bottom" Background="{StaticResource BackgroundBrush}" Padding="24,24" XYFocusKeyboardNavigation="Enabled">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Style="{StaticResource ControlButtonStyle}">
+            <TextBlock Text="&#xE105;" Style="{StaticResource GlyphStyle}"/>
+            <Button.Flyout>
+                <MenuFlyout>
+                    <MenuFlyoutSubItem x:Uid="Slot6MenuFlyoutItem" Text="Design 6">
+                        <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot6}"/>
+                        <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot6}"/>
+                    </MenuFlyoutSubItem>
+                    <MenuFlyoutSubItem x:Uid="Slot5MenuFlyoutItem" Text="Design 5">
+                        <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot5}"/>
+                        <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot5}"/>
+                    </MenuFlyoutSubItem>
+                    <MenuFlyoutSubItem x:Uid="Slot4MenuFlyoutItem" Text="Design 4">
+                        <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot4}"/>
+                        <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot4}"/>
+                    </MenuFlyoutSubItem>
+                    <MenuFlyoutSubItem x:Uid="Slot3MenuFlyoutItem" Text="Design 3">
+                        <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot3}"/>
+                        <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot3}"/>
+                    </MenuFlyoutSubItem>
+                    <MenuFlyoutSubItem x:Uid="Slot2MenuFlyoutItem" Text="Design 2">
+                        <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot2}"/>
+                        <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot2}"/>
+                    </MenuFlyoutSubItem>
+                    <MenuFlyoutSubItem x:Uid="Slot1MenuFlyoutItem" Text="Design 1">
+                        <MenuFlyoutItem x:Uid="LoadMenuFlyoutItem" Command="{x:Bind ViewModel.LoadStateSlot1}"/>
+                        <MenuFlyoutItem x:Uid="SaveMenuFlyoutItem" Command="{x:Bind ViewModel.SaveStateSlot1}"/>
+                    </MenuFlyoutSubItem>
+                </MenuFlyout>
+            </Button.Flyout>
+        </Button>
+        <Button Grid.Column="2" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.StopCommand}">
+            <TextBlock Text="&#xe003;" Style="{StaticResource GlyphStyle}"/>
+        </Button>
+        <Button Grid.Column="3" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.TogglePauseCommand}" TabIndex="-1">
+            <TextBlock Text="{x:Bind ViewModel.GameIsPaused, Mode=OneWay, Converter={StaticResource PlayPauseSymbolConverter}, FallbackValue=&#xe103;}" Style="{StaticResource GlyphStyle}" FontSize="24"/>
+        </Button>
+        <Button Grid.Column="4" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ResetCommand}">
+            <TextBlock Text="&#xe72c;" Style="{StaticResource GlyphStyle}"/>
+        </Button>
+        <Button Grid.Column="6" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ToggleFullScreenCommand}">
+            <TextBlock Text="{x:Bind ViewModel.IsFullScreenMode, Mode=OneWay, Converter={StaticResource FullScreenSymbolConverter}, FallbackValue=&#xe740;}" Style="{StaticResource GlyphStyle}"/>
+        </Button>
     </Grid>
 </UserControl>
