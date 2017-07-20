@@ -22,12 +22,6 @@ namespace RetriX.UWP.Controls
         public PlayerOverlay()
         {
             InitializeComponent();
-            IsEnabledChanged += OnEnabledChanged;
-        }
-        
-        private void OnEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            FocusManager.TryMoveFocus(FocusNavigationDirection.Next);
         }
     }
 }

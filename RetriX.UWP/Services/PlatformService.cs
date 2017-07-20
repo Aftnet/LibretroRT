@@ -10,6 +10,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace RetriX.UWP.Services
 {
@@ -70,6 +71,11 @@ namespace RetriX.UWP.Services
         {
             var pointer = visibility == MousePointerVisibility.Hidden ? null : new CoreCursor(CoreCursorType.Arrow, 0);
             Window.Current.CoreWindow.PointerCursor = pointer;
+        }
+
+        public void ForceUIElementFocus()
+        {
+            FocusManager.TryMoveFocus(FocusNavigationDirection.Next);
         }
 
         public async Task<IFile> SelectFileAsync(IEnumerable<string> extensionsFilter)
@@ -145,14 +151,14 @@ namespace RetriX.UWP.Services
                     break;
 
                 case VirtualKey.Space:
-                    PauseToggleRequested(this, true);
+                    PauseToggleRequested(this);
                     args.Handled = true;
                     break;
 
                 case VirtualKey.GamepadMenu:
                     if(gamepadViewIsDown)
                     {
-                        PauseToggleRequested(this, true);
+                        PauseToggleRequested(this);
                         args.Handled = true;
                     }
                     break;

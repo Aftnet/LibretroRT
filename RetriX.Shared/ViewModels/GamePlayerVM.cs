@@ -73,7 +73,7 @@ namespace RetriX.Shared.ViewModels
             {
                 if (Set(ref displayPlayerUI, value))
                 {
-                    PlatformService.ChangeMousePointerVisibility(value? MousePointerVisibility.Visible : MousePointerVisibility.Hidden);
+                    PlatformService.ChangeMousePointerVisibility(value ? MousePointerVisibility.Visible : MousePointerVisibility.Hidden);
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace RetriX.Shared.ViewModels
             PointerMovedCommand = new RelayCommand(ReactToUserUIActivity);
             ToggleFullScreenCommand = new RelayCommand(() => RequestFullScreenChange(FullScreenChangeType.Toggle));
 
-            TogglePauseCommand = new RelayCommand(() => TogglePause(false), () => CoreOperationsAllowed);
+            TogglePauseCommand = new RelayCommand(() => { var task = TogglePause(false); }, () => CoreOperationsAllowed);
             ResetCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
             StopCommand = new RelayCommand(Stop, () => CoreOperationsAllowed);
 
@@ -116,7 +116,7 @@ namespace RetriX.Shared.ViewModels
 
             EmulationService.GameStarted += OnGameStarted;
             PlatformService.FullScreenChangeRequested += (d, e) => RequestFullScreenChange(e.Type);
-            PlatformService.PauseToggleRequested += (d, e) => TogglePause(e);
+            PlatformService.PauseToggleRequested += d => OnPauseToggleKey();
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
         }
 
@@ -144,7 +144,7 @@ namespace RetriX.Shared.ViewModels
             DisplayPlayerUI = true;
         }
 
-        private async void TogglePause(bool dismissOverlayImmediately)
+        private async Task TogglePause(bool dismissOverlayImmediately)
         {
             if (!CoreOperationsAllowed)
             {
@@ -172,7 +172,16 @@ namespace RetriX.Shared.ViewModels
             }
 
             GameIsPaused = !GameIsPaused;
-            CoreOperationsAllowed = true;           
+            CoreOperationsAllowed = true;
+        }
+
+        private async void OnPauseToggleKey()
+        {
+            await TogglePause(true);
+            if (GameIsPaused)
+            {
+                PlatformService.ForceUIElementFocus();
+            }
         }
 
         private async void Reset()
@@ -204,7 +213,7 @@ namespace RetriX.Shared.ViewModels
 
             if (GameIsPaused)
             {
-                TogglePause(true);
+                await TogglePause(true);
             }
         }
 
@@ -223,7 +232,7 @@ namespace RetriX.Shared.ViewModels
 
             if (GameIsPaused)
             {
-                TogglePause(true);
+                await TogglePause(true);
             }
         }
 
