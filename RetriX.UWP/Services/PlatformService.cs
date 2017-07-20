@@ -145,14 +145,14 @@ namespace RetriX.UWP.Services
                     break;
 
                 case VirtualKey.Space:
-                    PauseToggleRequested(this);
+                    PauseToggleRequested(this, true);
                     args.Handled = true;
                     break;
 
                 case VirtualKey.GamepadMenu:
                     if(gamepadViewIsDown)
                     {
-                        PauseToggleRequested(this);
+                        PauseToggleRequested(this, true);
                         args.Handled = true;
                     }
                     break;

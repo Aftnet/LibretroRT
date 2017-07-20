@@ -91,7 +91,7 @@ namespace RetriX.Shared.ViewModels
             PointerMovedCommand = new RelayCommand(ReactToUserUIActivity);
             ToggleFullScreenCommand = new RelayCommand(() => RequestFullScreenChange(FullScreenChangeType.Toggle));
 
-            TogglePauseCommand = new RelayCommand(TogglePause, () => CoreOperationsAllowed);
+            TogglePauseCommand = new RelayCommand(() => TogglePause(false), () => CoreOperationsAllowed);
             ResetCommand = new RelayCommand(Reset, () => CoreOperationsAllowed);
             StopCommand = new RelayCommand(Stop, () => CoreOperationsAllowed);
 
@@ -116,7 +116,7 @@ namespace RetriX.Shared.ViewModels
 
             EmulationService.GameStarted += OnGameStarted;
             PlatformService.FullScreenChangeRequested += (d, e) => RequestFullScreenChange(e.Type);
-            PlatformService.PauseToggleRequested += d => TogglePauseCommand.Execute(null);
+            PlatformService.PauseToggleRequested += (d, e) => TogglePause(e);
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
         }
 
@@ -144,22 +144,35 @@ namespace RetriX.Shared.ViewModels
             DisplayPlayerUI = true;
         }
 
-        private async void TogglePause()
+        private async void TogglePause(bool dismissOverlayImmediately)
         {
+            if (!CoreOperationsAllowed)
+            {
+                return;
+            }
+
             CoreOperationsAllowed = false;
 
             if (GameIsPaused)
             {
                 await EmulationService.ResumeGameAsync();
+                if (dismissOverlayImmediately)
+                {
+                    DisplayPlayerUI = false;
+                }
+                else
+                {
+                    ReactToUserUIActivity();
+                }
             }
             else
             {
                 await EmulationService.PauseGameAsync();
+                ReactToUserUIActivity();
             }
 
             GameIsPaused = !GameIsPaused;
-            CoreOperationsAllowed = true;
-            ReactToUserUIActivity();
+            CoreOperationsAllowed = true;           
         }
 
         private async void Reset()
