@@ -118,6 +118,9 @@ namespace RetriX.UWP.Services
             var altState = sender.GetKeyState(VirtualKey.LeftMenu);
             var altIsDown = (altState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
 
+            var gamepadViewState = sender.GetKeyState(VirtualKey.GamepadView);
+            var gamepadViewIsDown = (gamepadViewState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
             switch (args.VirtualKey)
             {
                 //By default the gamepad's B button is treated as a hardware back button.
@@ -143,6 +146,15 @@ namespace RetriX.UWP.Services
 
                 case VirtualKey.Space:
                     PauseToggleRequested(this);
+                    args.Handled = true;
+                    break;
+
+                case VirtualKey.GamepadMenu:
+                    if(gamepadViewIsDown)
+                    {
+                        PauseToggleRequested(this);
+                        args.Handled = true;
+                    }
                     break;
 
                 case VirtualKey.F1:
