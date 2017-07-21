@@ -324,7 +324,7 @@ void CoreBase::RunFrame()
 	}
 	catch (...)
 	{
-		throw ref new Platform::FailureException(L"Core runtime error");
+		//throw ref new Platform::FailureException(L"Core runtime error");
 	}
 }
 
