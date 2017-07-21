@@ -142,7 +142,7 @@
         <Button Grid.Column="4" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ResetCommand}">
             <TextBlock Text="&#xe72c;" Style="{StaticResource GlyphStyle}"/>
         </Button>
-        <Button Grid.Column="6" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ToggleFullScreenCommand}">
+        <Button Grid.Column="6" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ToggleFullScreenCommand}" Visibility="{x:Bind ViewModel.FullScreenChangingPossible, Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock Text="{x:Bind ViewModel.IsFullScreenMode, Mode=OneWay, Converter={StaticResource FullScreenSymbolConverter}, FallbackValue=&#xe740;}" Style="{StaticResource GlyphStyle}"/>
         </Button>
     </Grid>

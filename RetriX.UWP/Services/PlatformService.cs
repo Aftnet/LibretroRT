@@ -7,6 +7,7 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Pickers;
 using Windows.System;
+using Windows.System.Profile;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -16,8 +17,22 @@ namespace RetriX.UWP.Services
 {
     public class PlatformService : IPlatformService
     {
+        private static readonly ISet<string> DeviceFamiliesAllowingFullScreenChange = new HashSet<string>
+        {
+            "Windows.Desktop", "Windows.Team"
+        };
+
         private ApplicationView AppView => ApplicationView.GetForCurrentView();
         private CoreWindow CoreWindow => CoreWindow.GetForCurrentThread();
+
+        public bool FullScreenChangingPossible
+        {
+            get
+            {
+                var output = DeviceFamiliesAllowingFullScreenChange.Contains(AnalyticsInfo.VersionInfo.DeviceFamily);
+                return output;
+            }
+        }
 
         public bool IsFullScreenMode => AppView.IsFullScreenMode;
 
