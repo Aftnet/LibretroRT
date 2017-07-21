@@ -56,6 +56,7 @@ namespace RetriX.Shared.ViewModels
             }
         }
 
+        public bool FullScreenChangingPossible => PlatformService.FullScreenChangingPossible;
         public bool IsFullScreenMode => PlatformService.IsFullScreenMode;
 
         private bool gameIsPaused;

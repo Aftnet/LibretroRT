@@ -17,6 +17,7 @@ namespace RetriX.Shared.Services
 
     public interface IPlatformService
     {
+        bool FullScreenChangingPossible { get; }
         bool IsFullScreenMode { get; }
         bool HandleGameplayKeyShortcuts { get; set; }
 
