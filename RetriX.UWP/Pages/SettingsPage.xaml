@@ -29,10 +29,10 @@
                             <TextBlock x:Uid="SettingsHeader" Style="{StaticResource PageHeaderTextBlockStyle}"/>
                         </nmu:PageHeader.HeaderContent>
                     </nmu:PageHeader>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" IsFocusEngagementEnabled="True">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
                         <StackPanel Orientation="Vertical" Margin="{StaticResource DafaultContentMargin}">
                             <TextBlock x:Uid="BiosFilesHeader" Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,0,0,16"/>
-                            <ItemsControl ItemsSource="{x:Bind VM.FileDependencyImporters, Mode=OneWay}" ItemTemplate="{StaticResource FileImporterDT}" XYFocusKeyboardNavigation="Enabled"/>
+                            <ItemsControl ItemsSource="{x:Bind VM.FileDependencyImporters, Mode=OneWay}" ItemTemplate="{StaticResource FileImporterDT}" XYFocusKeyboardNavigation="Enabled" IsFocusEngagementEnabled="True"/>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
