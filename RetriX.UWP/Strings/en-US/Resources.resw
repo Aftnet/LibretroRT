@@ -157,7 +157,7 @@
     <value>Super Nintendo Entertainment System Rom</value>
   </data>
   <data name="SystemNameGameBoy" xml:space="preserve">
-    <value>Game Boy</value>
+    <value>Game Boy Color</value>
   </data>
   <data name="SystemNameGameBoyAdvance" xml:space="preserve">
     <value>Game Boy Advance</value>
