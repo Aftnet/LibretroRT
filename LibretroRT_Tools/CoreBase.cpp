@@ -283,7 +283,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 			gameInfo.size = gameData.size();
 		}
 
-		auto loadSuccessful = retro_load_game(&gameInfo);
+		auto loadSuccessful = LibretroLoadGame(&gameInfo);
 		if (loadSuccessful)
 		{
 			retro_system_av_info info;
@@ -312,7 +312,15 @@ void CoreBase::UnloadGame()
 		return;
 	}
 
-	LibretroUnloadGame();
+	try
+	{
+		LibretroUnloadGame();
+	}
+	catch (...)
+	{
+		//throw ref new Platform::FailureException(L"Core runtime error");
+	}
+
 	gameFilePath.clear();
 }
 
