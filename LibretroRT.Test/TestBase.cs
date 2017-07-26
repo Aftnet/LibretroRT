@@ -64,7 +64,8 @@ namespace LibretroRT.Test
             Target.OpenFileStream = provider.OpenFileStream;
             Target.CloseFileStream = provider.CloseFileStream;
 
-            var loadResult = await Task.Run(() => Target.LoadGame(VFS.SystemPath + romName));
+            var romPath = VFS.SystemPath + romName;
+            var loadResult = await Task.Run(() => Target.LoadGame(romPath));
 
             Assert.True(loadResult);
             Assert.NotEqual(PixelFormats.FormatUknown, Target.PixelFormat);
@@ -79,6 +80,10 @@ namespace LibretroRT.Test
             var timing = Target.Timing;
             Assert.NotEqual(0, timing.FPS);
             Assert.NotEqual(0, timing.SampleRate);
+
+            await Task.Run(() => Target.UnloadGame());
+            loadResult = await Task.Run(() => Target.LoadGame(romPath));
+            Assert.True(loadResult);
         }
 
         public abstract Task ExecutionWorks(string romName);
