@@ -318,7 +318,6 @@ void CoreBase::UnloadGame()
 	}
 	catch (...)
 	{
-		//throw ref new Platform::FailureException(L"Core runtime error");
 	}
 
 	gameFilePath.clear();
