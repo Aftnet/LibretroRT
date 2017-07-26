@@ -17,14 +17,12 @@ Original demo video [here](https://youtu.be/1mzS54HhcEM)
 I am accepting donations on [gofundme](https://www.gofundme.com/retrix) to help with development costs.
 At minimum, I would need:
 
-- An Authenticode certificate to do binary releases
 - An Xbox One to develop/test on
 
 ## Installing
 
 1. Check the [releases](https://github.com/Aftnet/LibretroRT/releases) section for the latest binary build
-2. If installing for the first time, download the [RetriX.Certificate.cer](https://github.com/Aftnet/LibretroRT/releases/download/Initial/RetriX.Certificate.cer), also linked in the releases section, and install it in the local or machine trusted CA store. Instructions for doing so [here](http://www.sqlservermart.com/HowTo/Windows_Import_Certificate.aspx)
-3. Download and double click on the .appxbundle file, follow the instructions
+2. Download and double click on the .appxbundle file, follow the instructions
 
 ## Building from source
 
@@ -51,18 +49,18 @@ The project makes extensive use of [Git submodules](https://git-scm.com/docs/git
 ## Current state
 
 - Created a framework to speed up porting of software rendering based Libretro cores to WinRT components
-- Ported GenesisPlusGX, Snes9x, FCEUMM, Nestopia (doesn't work well, using FCEUMM instead), VBAM, Ganbatte (unstable)
+- Ported GenesisPlusGX, Snes9x, FCEUMM, Nestopia (doesn't work well, using FCEUMM instead), VBAM, Ganbatte, BeetlePSX and MelonDS
 - Created audio player WinRT components to interop between Libretro's audio rendering interface and Windows 10's [AudioGraph](https://docs.microsoft.com/en-us/windows/uwp/audio-video-camera/audio-graphs) API
 - Created input manager WinRT component to interop between Libretro's input polling interface and Windows 10's [Gamepad APIs](https://docs.microsoft.com/en-us/uwp/api/windows.gaming.input.gamepad)
-- Created [Win2D](https://github.com/Microsoft/Win2D) based video renderer. Supports software based Libretro cores.
+- Created [Win2D/Angle](https://github.com/Microsoft/Win2D) based video renderer. Supports software based Libretro cores.
 - Created RetriX, a native XAML based Libretro front end, with an UI optimized for mouse, touch as well as gamepad interaction: it scales from phones to tablets, traditional PC form factors as well as the Xbox One.
 - Implemented a way to virtualize file system access from within cores: allows opening zipped games and those made up of multiple files
 - Added support for some CD based game systems: Mega CD and PlayStation
+- Created signed appx packages with a valid Authenticode certificate to make installation as easy as traditional desktop apps
+- Completed Xbox UI: RetriX can now be fully used with only a gamepad as input device
 
 ## Roadmap
 
 - Expand framework to allow porting of OpenGL based cores to WinRT using [Angle](https://github.com/Microsoft/angle) while still allowing front ends to be written in languages other than C++
 - Port more Libretro cores
 - Split LibretroRT (Libretro core ports to UWP) from RetriX, distribute the former via Nuget package, the latter via direct appx downlad in addition to source availability
-- Create signed appx packages with a valid Authenticode certificate to make installation as easy as traditional desktop apps
-- Complete Xbox UI (create an in game menu to allow for saving/loading and quitting game without quitting RetriX)
