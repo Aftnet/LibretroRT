@@ -72,8 +72,8 @@
     <ClCompile Include="src\core\system.c" />
     <ClCompile Include="src\core\vdp_ctrl.c" />
     <ClCompile Include="src\core\vdp_render.c" />
-    <ClCompile Include="src\libretro-common\memmap\memmap.c" />
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
+    <ClCompile Include="src\libretro\libretro-common\memmap\memmap.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
@@ -161,13 +161,26 @@
     <ClInclude Include="src\core\vdp_ctrl.h" />
     <ClInclude Include="src\core\vdp_render.h" />
     <ClInclude Include="src\libretro\libretro.h" />
-    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
-    <ClInclude Include="src\libretro-common\include\boolean.h" />
-    <ClInclude Include="src\libretro-common\include\memmap.h" />
-    <ClInclude Include="src\libretro-common\include\retro_common.h" />
-    <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
-    <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
-    <ClInclude Include="src\libretro-common\include\retro_inline.h" />
-    <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\msvc\stdint.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\apple_compat.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\getopt.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\ifaddrs.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\intrinsics.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\msvc.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\posix_string.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\strcasestr.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\strl.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\zconf.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\zlib.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\zutil.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\retro_miscellaneous.h" />
   </ItemGroup>
 </Project>
