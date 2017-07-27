@@ -1,6 +1,6 @@
 [submodule "GPGX/src"]
 	path = GPGX/src
-	url = https://github.com/libretro/Genesis-Plus-GX.git
+	url = https://github.com/Aftnet/Genesis-Plus-GX.git
 	branch = master
 [submodule "Snes9X/src"]
 	path = Snes9X/src
@@ -33,4 +33,8 @@
 [submodule "MelonDS/src"]
 	path = MelonDS/src
 	url = https://github.com/Aftnet/melonDS.git
+	branch = master
+[submodule "ParallelN64/src"]
+	path = ParallelN64/src
+	url = https://github.com/Aftnet/parallel-n64.git
 	branch = master

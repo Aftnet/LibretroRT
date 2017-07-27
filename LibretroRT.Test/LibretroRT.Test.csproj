@@ -97,6 +97,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cores\ParallelN64CoreTest.cs" />
     <Compile Include="Cores\MelonDSCoreTest.cs" />
     <Compile Include="Cores\BeetlePSXCoreTest.cs" />
     <Compile Include="Cores\GambatteCoreTest.cs" />
@@ -176,6 +177,10 @@
     <ProjectReference Include="..\NestopiaRT\NestopiaRT.vcxproj">
       <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
       <Name>NestopiaRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParallelN64RT\ParallelN64RT.vcxproj">
+      <Project>{95540631-8e61-475d-bd82-bafb7874eaca}</Project>
+      <Name>ParallelN64RT</Name>
     </ProjectReference>
     <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
       <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>

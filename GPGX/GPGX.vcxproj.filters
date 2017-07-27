@@ -74,6 +74,7 @@
     <ClCompile Include="src\core\vdp_render.c" />
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
     <ClCompile Include="src\libretro\libretro-common\memmap\memmap.c" />
+    <ClCompile Include="src\libretro\libretro-common\streams\file_stream_transforms.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
