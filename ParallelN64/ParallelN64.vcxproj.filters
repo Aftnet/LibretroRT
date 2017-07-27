@@ -164,6 +164,7 @@
     <ClInclude Include="src\mupen64plus-video-angrylion\vi.h" />
     <ClInclude Include="src\mupen64plus-video-angrylion\z64.h" />
     <ClInclude Include="src\mupen64plus-video-angrylion\Gfx #1.3.h" />
+    <ClInclude Include="src\mupen64plus-core\src\pifbootrom\pifbootrom.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mupen64plus-rsp-hle\src\alist.c" />
@@ -278,5 +279,6 @@
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video.c" />
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video_vi.c" />
     <ClCompile Include="src\libretro-common\libco\fiber.c" />
+    <ClCompile Include="src\mupen64plus-core\src\pifbootrom\pifbootrom.c" />
   </ItemGroup>
 </Project>

@@ -301,6 +301,7 @@
     <ClInclude Include="src\mupen64plus-core\src\main\util.h" />
     <ClInclude Include="src\mupen64plus-core\src\main\version.h" />
     <ClInclude Include="src\mupen64plus-core\src\memory\memory.h" />
+    <ClInclude Include="src\mupen64plus-core\src\pifbootrom\pifbootrom.h" />
     <ClInclude Include="src\mupen64plus-core\src\pi\cart_rom.h" />
     <ClInclude Include="src\mupen64plus-core\src\pi\flashram.h" />
     <ClInclude Include="src\mupen64plus-core\src\pi\pi_controller.h" />
@@ -420,6 +421,7 @@
     <ClCompile Include="src\mupen64plus-core\src\main\savestates.c" />
     <ClCompile Include="src\mupen64plus-core\src\main\util.c" />
     <ClCompile Include="src\mupen64plus-core\src\memory\m64p_memory.c" />
+    <ClCompile Include="src\mupen64plus-core\src\pifbootrom\pifbootrom.c" />
     <ClCompile Include="src\mupen64plus-core\src\pi\cart_rom.c" />
     <ClCompile Include="src\mupen64plus-core\src\pi\flashram.c" />
     <ClCompile Include="src\mupen64plus-core\src\pi\pi_controller.c" />
