@@ -34,3 +34,7 @@
 	path = MelonDS/src
 	url = https://github.com/Aftnet/melonDS.git
 	branch = master
+[submodule "ParallelN64/src"]
+	path = ParallelN64/src
+	url = https://github.com/libretro/parallel-n64.git
+	branch = master
