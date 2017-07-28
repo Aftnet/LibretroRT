@@ -68,6 +68,8 @@
     <ClInclude Include="src\mednafen\state.h" />
     <ClInclude Include="src\mednafen\video.h" />
     <ClInclude Include="src\libretro.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\ngp\biosHLE.cpp" />
@@ -104,5 +106,7 @@
     <ClCompile Include="src\mednafen\state.cpp" />
     <ClCompile Include="src\mednafen\sound\Blip_Buffer.cpp" />
     <ClCompile Include="src\libretro.cpp" />
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
   </ItemGroup>
 </Project>
