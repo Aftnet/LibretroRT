@@ -77,5 +77,6 @@
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
   </ItemGroup>
 </Project>
