@@ -203,6 +203,7 @@
   <ItemGroup>
     <Content Include="Roms\Crash Bandicoot 3.bin" />
     <Content Include="Roms\Crash Bandicoot 3.cue" />
+    <Content Include="Roms\Mr Driller.wsc" />
     <Content Include="Roms\Pokemon Fire Red.gba" />
     <Content Include="Roms\Pokemon Silver.gbc" />
     <Content Include="Roms\SCPH5500.bin" />

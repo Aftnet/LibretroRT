@@ -5,7 +5,7 @@ namespace LibretroRT.Test.Cores
 {
     public class BeetleWswanCoreTest : TestBase
     {
-        protected const string RomName = "Crash Bandicoot 3.cue";
+        protected const string RomName = "Mr Driller.wsc";
 
         public BeetleWswanCoreTest() : base(() => BeetleWswanRT.BeetleWswanCore.Instance)
         {
