@@ -38,3 +38,11 @@
 	path = ParallelN64/src
 	url = https://github.com/Aftnet/parallel-n64.git
 	branch = master
+[submodule "BeetleWswan/src"]
+	path = BeetleWswan/src
+	url = https://github.com/Aftnet/beetle-wswan-libretro.git
+	branch = master
+[submodule "BeetleNGP/src"]
+	path = BeetleNGP/src
+	url = https://github.com/Aftnet/beetle-ngp-libretro.git
+	branch = master

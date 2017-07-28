@@ -309,6 +309,21 @@ Restart RetriX and try again.</value>
     <value>Nintendo DS</value>
   </data>
   <data name="DSRomDescription.Text" xml:space="preserve">
-    <value>Nintendo DSRom</value>
+    <value>Nintendo DS Rom</value>
+  </data>
+  <data name="ManufacturerNameBandai" xml:space="preserve">
+    <value>Bandai</value>
+  </data>
+  <data name="SystemNameWonderSwan" xml:space="preserve">
+    <value>WonderSwan Color</value>
+  </data>
+  <data name="ManufacturerNameSNK" xml:space="preserve">
+    <value>SNK</value>
+  </data>
+  <data name="SystemNameNeoGeoPocket" xml:space="preserve">
+    <value>Neo Geo Pocket Color</value>
+  </data>
+  <data name="NeoGeoPocketRomDescription.Text" xml:space="preserve">
+    <value>SNK Neo Geo Pocket Rom</value>
   </data>
 </root>

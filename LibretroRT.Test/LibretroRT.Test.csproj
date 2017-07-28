@@ -97,6 +97,8 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cores\BeetleNGPCoreTest.cs" />
+    <Compile Include="Cores\BeetleWswanCoreTest.cs" />
     <Compile Include="Cores\ParallelN64CoreTest.cs" />
     <Compile Include="Cores\MelonDSCoreTest.cs" />
     <Compile Include="Cores\BeetlePSXCoreTest.cs" />
@@ -150,9 +152,17 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BeetleNGPRT\BeetleNGPRT.vcxproj">
+      <Project>{07645043-df95-4bd8-84fe-dc74eaeae3bf}</Project>
+      <Name>BeetleNGPRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
       <Name>BeetlePSXRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BeetleWswanRT\BeetleWswanRT.vcxproj">
+      <Project>{514bebc4-127b-4894-9905-d0f7a09b0287}</Project>
+      <Name>BeetleWswanRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\FCEUMMRT\FCEUMMRT.vcxproj">
       <Project>{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}</Project>
@@ -198,6 +208,7 @@
   <ItemGroup>
     <Content Include="Roms\Crash Bandicoot 3.bin" />
     <Content Include="Roms\Crash Bandicoot 3.cue" />
+    <Content Include="Roms\Mr Driller.wsc" />
     <Content Include="Roms\Pokemon Fire Red.gba" />
     <Content Include="Roms\Pokemon Silver.gbc" />
     <Content Include="Roms\SCPH5500.bin" />
@@ -231,6 +242,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Roms\Devil Survivor 2.nds" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\Sonic Pocket Adventure.ngc" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
