@@ -11,8 +11,6 @@ namespace BeetleWswanRT
 	private ref class BeetleWswanCoreInternal sealed : public CoreBase
 	{
 	protected private:
-		virtual void OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options) override;
-
 		BeetleWswanCoreInternal();
 
 	public:

@@ -34,19 +34,9 @@ BeetleNGPCoreInternal::BeetleNGPCoreInternal() : LibretroRT_Tools::CoreBase(retr
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
 	true, true)
 {
-	fileDependencies->Append(ref new FileDependency(L"scph5500.bin", L"PlayStation (v3.0 09/09/96 J) BIOS", L"8dd7d5296a650fac7319bce665a6a53c"));
-	fileDependencies->Append(ref new FileDependency(L"scph5501.bin", L"PlayStation (v3.0 11/18/96 A) BIOS", L"490f666e1afb15b7362b406ed1cea246"));
-	fileDependencies->Append(ref new FileDependency(L"scph5502.bin", L"PlayStation (v3.0 01/06/97 E) BIOS", L"32736f17079d0b2b7024407c39bd3050"));
 }
 
 BeetleNGPCoreInternal::~BeetleNGPCoreInternal()
 {
 	coreInstance = nullptr;
-}
-
-void BeetleNGPCoreInternal::OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options)
-{
-	options->Lookup(L"beetle_psx_frame_duping_enable")->SelectedValueIx = 1;
-	options->Lookup(L"beetle_psx_analog_calibration")->SelectedValueIx = 1;
-	options->Lookup(L"beetle_psx_skipbios")->SelectedValueIx = 1;
 }

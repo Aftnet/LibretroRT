@@ -11,8 +11,6 @@ namespace BeetleNGPRT
 	private ref class BeetleNGPCoreInternal sealed : public CoreBase
 	{
 	protected private:
-		virtual void OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options) override;
-
 		BeetleNGPCoreInternal();
 
 	public:
