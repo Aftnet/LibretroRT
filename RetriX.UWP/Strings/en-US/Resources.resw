@@ -315,6 +315,12 @@ Restart RetriX and try again.</value>
     <value>Bandai</value>
   </data>
   <data name="SystemNameWonderSwan" xml:space="preserve">
-    <value>WonderSwan</value>
+    <value>WonderSwan Color</value>
+  </data>
+  <data name="ManufacturerNameSNK" xml:space="preserve">
+    <value>SNK</value>
+  </data>
+  <data name="SystemNameNeoGeoPocket" xml:space="preserve">
+    <value>Neo Geo Pocket Color</value>
   </data>
 </root>

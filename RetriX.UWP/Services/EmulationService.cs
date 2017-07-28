@@ -58,7 +58,7 @@ namespace RetriX.UWP.Services
 
             Task.Run(() =>
             {
-                AvailableCores = new ICore[] { BeetlePSXRT.BeetlePSXCore.Instance, BeetleWswanRT.BeetleWswanCore.Instance, FCEUMMRT.FCEUMMCore.Instance, Snes9XRT.Snes9XCore.Instance, GambatteRT.GambatteCore.Instance, VBAMRT.VBAMCore.Instance, GPGXRT.GPGXCore.Instance, MelonDSRT.MelonDSCore.Instance, YabauseRT.YabauseCore.Instance };
+                AvailableCores = new ICore[] { BeetleNGPRT.BeetleNGPCore.Instance, BeetlePSXRT.BeetlePSXCore.Instance, BeetleWswanRT.BeetleWswanCore.Instance, FCEUMMRT.FCEUMMCore.Instance, Snes9XRT.Snes9XCore.Instance, GambatteRT.GambatteCore.Instance, VBAMRT.VBAMCore.Instance, GPGXRT.GPGXCore.Instance, MelonDSRT.MelonDSCore.Instance, YabauseRT.YabauseCore.Instance };
 
                 var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso", ".mds", ".mdf" };
                 systems = new GameSystemVM[]
@@ -76,6 +76,7 @@ namespace RetriX.UWP.Services
                 //new GameSystemVM(YabauseRT.YabauseCore.Instance, LocalizationService, "SystemNameSaturn", "ManufacturerNameSega", "\uf124", YabauseRT.YabauseCore.Instance.SupportedExtensions, CDImageExtensions),
                 new GameSystemVM(BeetlePSXRT.BeetlePSXCore.Instance, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", CDImageExtensions, CDImageExtensions),
                 new GameSystemVM(BeetleWswanRT.BeetleWswanCore.Instance, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129", BeetleWswanRT.BeetleWswanCore.Instance.SupportedExtensions, new string[0]),
+                new GameSystemVM(BeetleNGPRT.BeetleNGPCore.Instance, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129", BeetleNGPRT.BeetleNGPCore.Instance.SupportedExtensions, new string[0]),
                 };
 
                 fileDependencyImporters = AvailableCores.Where(d => d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
