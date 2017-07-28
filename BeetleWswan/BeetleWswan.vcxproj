@@ -259,6 +259,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\mednafen\mempatcher.cpp" />
