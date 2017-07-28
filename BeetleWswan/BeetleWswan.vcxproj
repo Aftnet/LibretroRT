@@ -267,7 +267,6 @@
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
     </ClCompile>
-    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\mednafen\file.c" />
