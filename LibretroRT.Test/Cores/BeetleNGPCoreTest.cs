@@ -5,7 +5,7 @@ namespace LibretroRT.Test.Cores
 {
     public class BeetleNGPCoreTest : TestBase
     {
-        protected const string RomName = "Mr Driller.wsc";
+        protected const string RomName = "Sonic Pocket Adventure.ngc";
 
         public BeetleNGPCoreTest() : base(() => BeetleNGPRT.BeetleNGPCore.Instance)
         {

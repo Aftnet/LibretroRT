@@ -243,6 +243,9 @@
   <ItemGroup>
     <Content Include="Roms\Devil Survivor 2.nds" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\Sonic Pocket Adventure.ngc" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
