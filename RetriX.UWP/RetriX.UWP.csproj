@@ -274,6 +274,10 @@
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
       <Name>BeetlePSXRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BeetleWswanRT\BeetleWswanRT.vcxproj">
+      <Project>{514bebc4-127b-4894-9905-d0f7a09b0287}</Project>
+      <Name>BeetleWswanRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FCEUMMRT\FCEUMMRT.vcxproj">
       <Project>{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}</Project>
       <Name>FCEUMMRT</Name>

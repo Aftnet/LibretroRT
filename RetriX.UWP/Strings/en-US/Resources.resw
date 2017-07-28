@@ -311,4 +311,10 @@ Restart RetriX and try again.</value>
   <data name="DSRomDescription.Text" xml:space="preserve">
     <value>Nintendo DSRom</value>
   </data>
+  <data name="ManufacturerNameBandai" xml:space="preserve">
+    <value>Bandai</value>
+  </data>
+  <data name="SystemNameWonderSwan" xml:space="preserve">
+    <value>WonderSwan</value>
+  </data>
 </root>
