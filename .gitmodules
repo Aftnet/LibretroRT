@@ -1,0 +1,48 @@
+[submodule "GPGX/src"]
+	path = GPGX/src
+	url = https://github.com/libretro/Genesis-Plus-GX.git
+	branch = master
+[submodule "Snes9X/src"]
+	path = Snes9X/src
+	url = https://github.com/libretro/snes9x.git
+	branch = master
+[submodule "VBAM/src"]
+	path = VBAM/src
+	url = https://github.com/libretro/vbam-libretro.git
+	branch = master
+[submodule "Nestopia/src"]
+	path = Nestopia/src
+	url = https://github.com/libretro/nestopia.git
+	branch = master
+[submodule "FCEUMM/src"]
+	path = FCEUMM/src
+	url = https://github.com/libretro/libretro-fceumm.git
+	branch = master
+[submodule "Gambatte/src"]
+	path = Gambatte/src
+	url = https://github.com/libretro/gambatte-libretro.git
+	branch = master
+[submodule "BeetlePSX/src"]
+	path = BeetlePSX/src
+	url = https://github.com/Aftnet/beetle-psx-libretro.git
+	branch = master
+[submodule "Yabause/src"]
+	path = Yabause/src
+	url = https://github.com/Aftnet/yabause.git
+	branch = master
+[submodule "MelonDS/src"]
+	path = MelonDS/src
+	url = https://github.com/libretro/melonDS.git
+	branch = master
+[submodule "ParallelN64/src"]
+	path = ParallelN64/src
+	url = https://github.com/Aftnet/parallel-n64.git
+	branch = master
+[submodule "BeetleWswan/src"]
+	path = BeetleWswan/src
+	url = https://github.com/Aftnet/beetle-wswan-libretro.git
+	branch = master
+[submodule "BeetleNGP/src"]
+	path = BeetleNGP/src
+	url = https://github.com/Aftnet/beetle-ngp-libretro.git
+	branch = master

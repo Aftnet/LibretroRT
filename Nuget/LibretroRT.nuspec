@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+    <id>LibretroRT</id>
+    <version>$version$</version>
+    <title>LibretroRT</title>
+    <authors>Alberto Fustinoni</authors>
+    <owners>Alberto Fustinoni</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/aftnet/LibretroRT</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Aftnet/LibretroRT/master/LibretroRTLogo.png</iconUrl>
+    <description>Port of Libretro to UWP WinRT components</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Libretro WinRT UWP native</tags>
+    </metadata>
+    <files>
+        <!-- WinMd and IntelliSense files -->
+        <file src="..\$configuration$\LibretroRT\LibretroRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\LibretroRT\LibretroRT.xml" target="lib\uap10.0"/>
+        <file src="..\$configuration$\FCEUMMRT\FCEUMMRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\GambatteRT\GambatteRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\GPGXRT\GPGXRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\NestopiaRT\NestopiaRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\Snes9XRT\Snes9XRT.winmd" target="lib\uap10.0"/>
+        <file src="..\$configuration$\VBAMRT\VBAMRT.winmd" target="lib\uap10.0"/>
+
+        <!-- DLLs and resources -->
+        <file src="..\ARM\$configuration$\LibretroRT\LibretroRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\LibretroRT\LibretroRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\LibretroRT_Tools\LibretroRT_Tools.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\LibretroRT_Tools\LibretroRT_Tools.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\FCEUMM\FCEUMM.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\FCEUMM\FCEUMM.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\FCEUMMRT\FCEUMMRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\FCEUMMRT\FCEUMMRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\Gambatte\Gambatte.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\Gambatte\Gambatte.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\GambatteRT\GambatteRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\GambatteRT\GambatteRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\GPGX\GPGX.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\GPGX\GPGX.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\GPGXRT\GPGXRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\GPGXRT\GPGXRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\Nestopia\Nestopia.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\Nestopia\Nestopia.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\NestopiaRT\NestopiaRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\NestopiaRT\NestopiaRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\Snes9X\Snes9X.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\Snes9X\Snes9X.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\Snes9XRT\Snes9XRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\Snes9XRT\Snes9XRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\VBAM\VBAM.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\VBAM\VBAM.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\VBAMRT\VBAMRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\ARM\$configuration$\VBAMRT\VBAMRT.pri" target="runtimes\win10-arm\native"/>
+
+        <file src="..\x64\$configuration$\LibretroRT\LibretroRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\LibretroRT\LibretroRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\LibretroRT_Tools\LibretroRT_Tools.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\LibretroRT_Tools\LibretroRT_Tools.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\FCEUMM\FCEUMM.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\FCEUMM\FCEUMM.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\FCEUMMRT\FCEUMMRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\FCEUMMRT\FCEUMMRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\Gambatte\Gambatte.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\Gambatte\Gambatte.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\GambatteRT\GambatteRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\GambatteRT\GambatteRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\GPGX\GPGX.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\GPGX\GPGX.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\GPGXRT\GPGXRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\GPGXRT\GPGXRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\Nestopia\Nestopia.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\Nestopia\Nestopia.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\NestopiaRT\NestopiaRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\NestopiaRT\NestopiaRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\Snes9X\Snes9X.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\Snes9X\Snes9X.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\Snes9XRT\Snes9XRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\Snes9XRT\Snes9XRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\VBAM\VBAM.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\VBAM\VBAM.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\VBAMRT\VBAMRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\x64\$configuration$\VBAMRT\VBAMRT.pri" target="runtimes\win10-arm\native"/>
+
+        <file src="..\$configuration$\LibretroRT\LibretroRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\LibretroRT\LibretroRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\LibretroRT_Tools\LibretroRT_Tools.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\LibretroRT_Tools\LibretroRT_Tools.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\FCEUMM\FCEUMM.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\FCEUMM\FCEUMM.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\FCEUMMRT\FCEUMMRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\FCEUMMRT\FCEUMMRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\Gambatte\Gambatte.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\Gambatte\Gambatte.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\GambatteRT\GambatteRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\GambatteRT\GambatteRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\GPGX\GPGX.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\GPGX\GPGX.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\GPGXRT\GPGXRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\GPGXRT\GPGXRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\Nestopia\Nestopia.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\Nestopia\Nestopia.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\NestopiaRT\NestopiaRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\NestopiaRT\NestopiaRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\Snes9X\Snes9X.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\Snes9X\Snes9X.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\Snes9XRT\Snes9XRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\Snes9XRT\Snes9XRT.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\VBAM\VBAM.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\VBAM\VBAM.pri" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\VBAMRT\VBAMRT.dll" target="runtimes\win10-arm\native"/>
+        <file src="..\$configuration$\VBAMRT\VBAMRT.pri" target="runtimes\win10-arm\native"/>
+
+        <!-- .targets -->
+        <file src="LibretroRT.targets" target="build\native"/>
+    </files>
+</package>

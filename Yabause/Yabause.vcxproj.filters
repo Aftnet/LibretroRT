@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="src\yabause\src\bios.h" />
+    <ClInclude Include="src\yabause\src\cdbase.h" />
+    <ClInclude Include="src\yabause\src\cheat.h" />
+    <ClInclude Include="src\yabause\src\coffelf.h" />
+    <ClInclude Include="src\yabause\src\core.h" />
+    <ClInclude Include="src\yabause\src\cs0.h" />
+    <ClInclude Include="src\yabause\src\cs1.h" />
+    <ClInclude Include="src\yabause\src\cs2.h" />
+    <ClInclude Include="src\yabause\src\debug.h" />
+    <ClInclude Include="src\yabause\src\dx.h" />
+    <ClInclude Include="src\yabause\src\error.h" />
+    <ClInclude Include="src\yabause\src\japmodem.h" />
+    <ClInclude Include="src\yabause\src\m68kc68k.h" />
+    <ClInclude Include="src\yabause\src\m68kcore.h" />
+    <ClInclude Include="src\yabause\src\memory.h" />
+    <ClInclude Include="src\yabause\src\movie.h" />
+    <ClInclude Include="src\yabause\src\netlink.h" />
+    <ClInclude Include="src\yabause\src\osdcore.h" />
+    <ClInclude Include="src\yabause\src\peripheral.h" />
+    <ClInclude Include="src\yabause\src\profile.h" />
+    <ClInclude Include="src\yabause\src\scsp2.h" />
+    <ClInclude Include="src\yabause\src\scspdsp.h" />
+    <ClInclude Include="src\yabause\src\scu.h" />
+    <ClInclude Include="src\yabause\src\sh2core.h" />
+    <ClInclude Include="src\yabause\src\sh2d.h" />
+    <ClInclude Include="src\yabause\src\sh2idle.h" />
+    <ClInclude Include="src\yabause\src\sh2int.h" />
+    <ClInclude Include="src\yabause\src\sh2trace.h" />
+    <ClInclude Include="src\yabause\src\smpc.h" />
+    <ClInclude Include="src\yabause\src\vdp1.h" />
+    <ClInclude Include="src\yabause\src\vdp2.h" />
+    <ClInclude Include="src\yabause\src\vidshared.h" />
+    <ClInclude Include="src\yabause\src\vidsoft.h" />
+    <ClInclude Include="src\yabause\src\yabause.h" />
+    <ClInclude Include="src\yabause\src\titan\titan.h" />
+    <ClInclude Include="src\libretro\libretro.h" />
+    <ClInclude Include="src\yabause\src\c68k\c68k.h" />
+    <ClInclude Include="src\libretro-common\include\compat\msvc\stdint.h" />
+    <ClInclude Include="src\libretro-common\include\compat\apple_compat.h" />
+    <ClInclude Include="src\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\libretro-common\include\compat\getopt.h" />
+    <ClInclude Include="src\libretro-common\include\compat\ifaddrs.h" />
+    <ClInclude Include="src\libretro-common\include\compat\intrinsics.h" />
+    <ClInclude Include="src\libretro-common\include\compat\msvc.h" />
+    <ClInclude Include="src\libretro-common\include\compat\posix_string.h" />
+    <ClInclude Include="src\libretro-common\include\compat\strcasestr.h" />
+    <ClInclude Include="src\libretro-common\include\compat\strl.h" />
+    <ClInclude Include="src\libretro-common\include\compat\zconf.h" />
+    <ClInclude Include="src\libretro-common\include\compat\zlib.h" />
+    <ClInclude Include="src\libretro-common\include\compat\zutil.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\yabause\src\fileio.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\yabause\src\bios.c" />
+    <ClCompile Include="src\yabause\src\cdbase.c" />
+    <ClCompile Include="src\yabause\src\cheat.c" />
+    <ClCompile Include="src\yabause\src\coffelf.c" />
+    <ClCompile Include="src\yabause\src\cs0.c" />
+    <ClCompile Include="src\yabause\src\cs1.c" />
+    <ClCompile Include="src\yabause\src\cs2.c" />
+    <ClCompile Include="src\yabause\src\debug.c" />
+    <ClCompile Include="src\yabause\src\error.c" />
+    <ClCompile Include="src\yabause\src\japmodem.c" />
+    <ClCompile Include="src\yabause\src\m68kc68k.c" />
+    <ClCompile Include="src\yabause\src\m68kcore.c" />
+    <ClCompile Include="src\yabause\src\memory.c" />
+    <ClCompile Include="src\yabause\src\movie.c" />
+    <ClCompile Include="src\yabause\src\netlink.c" />
+    <ClCompile Include="src\yabause\src\osdcore.c" />
+    <ClCompile Include="src\yabause\src\peripheral.c" />
+    <ClCompile Include="src\yabause\src\profile.c" />
+    <ClCompile Include="src\yabause\src\scsp2.c" />
+    <ClCompile Include="src\yabause\src\scspdsp.c" />
+    <ClCompile Include="src\yabause\src\scu.c" />
+    <ClCompile Include="src\yabause\src\sh2core.c" />
+    <ClCompile Include="src\yabause\src\sh2d.c" />
+    <ClCompile Include="src\yabause\src\sh2idle.c" />
+    <ClCompile Include="src\yabause\src\sh2int.c" />
+    <ClCompile Include="src\yabause\src\sh2trace.c" />
+    <ClCompile Include="src\yabause\src\smpc.c" />
+    <ClCompile Include="src\yabause\src\snddummy.c" />
+    <ClCompile Include="src\yabause\src\vdp1.c" />
+    <ClCompile Include="src\yabause\src\vdp2.c" />
+    <ClCompile Include="src\yabause\src\vidshared.c" />
+    <ClCompile Include="src\yabause\src\vidsoft.c" />
+    <ClCompile Include="src\yabause\src\yabause.c" />
+    <ClCompile Include="src\yabause\src\titan\titan.c" />
+    <ClCompile Include="src\yabause\src\thr-dummy.c" />
+    <ClCompile Include="src\libretro\libretro.c" />
+    <ClCompile Include="src\yabause\src\c68k\c68k.c" />
+    <ClCompile Include="src\yabause\src\c68k\c68kexec.c" />
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\retro_stat.cpp" />
+  </ItemGroup>
+</Project>

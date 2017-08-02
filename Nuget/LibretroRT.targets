@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <LibretroRT-Platform Condition="'$(Platform)' == 'Win32'">x86</LibretroRT-Platform>
+        <LibretroRT-Platform Condition="'$(Platform)' != 'Win32'">$(Platform)</LibretroRT-Platform>
+    </PropertyGroup>
+    <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'UAP'">
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\LibretroRT.winmd"><Implementation>LibretroRT.dll</Implementation></Reference>
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\FCEUMMRT.winmd"><Implementation>FCEUMMRT.dll</Implementation></Reference>
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\GambatteRT.winmd"><Implementation>GambatteRT.dll</Implementation></Reference>
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\GPGXRT.winmd"><Implementation>GPGXRT.dll</Implementation></Reference>
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\NestopiaRT.winmd"><Implementation>NestopiaRT.dll</Implementation></Reference>
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\Snes9XRT.winmd"><Implementation>Snes9XRT.dll</Implementation></Reference>
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\VBAMRT.winmd"><Implementation>VBAMRT.dll</Implementation></Reference>
+        
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\LibretroRT.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\LibretroRT_Tools.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\FCEUMM.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\FCEUMMRT.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\Gambatte.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\GambatteRT.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\GPGX.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\GPGXRT.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\Nestopia.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\NestopiaRT.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\Snes9X.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\Snes9XRT.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\VBAM.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(LibretroRT-Platform)\native\VBAMRT.dll" />
+    </ItemGroup>
+</Project>

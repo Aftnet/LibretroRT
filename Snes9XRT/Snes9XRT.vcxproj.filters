@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>33b07d77-34d3-46d5-b62a-cfeecf745a3d</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Snes9XCoreInternal.cpp" />
+    <ClCompile Include="Snes9XCore.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Snes9XCoreInternal.h" />
+    <ClInclude Include="Snes9XCore.h" />
+    <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
+  </ItemGroup>
+</Project>

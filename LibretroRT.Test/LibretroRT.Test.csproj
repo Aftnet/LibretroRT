@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{AE7BE95F-6D28-4E0A-9051-732F47A8E8A6}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LibretroRT.Test</RootNamespace>
+    <AssemblyName>LibretroRT.Test</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>
+    </PackageCertificateKeyFile>
+    <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">$(VisualStudioVersion)</UnitTestPlatformVersion>
+    <PackageCertificateThumbprint>E41AD44652F74B64772FE79EEFA90CFBBC766A65</PackageCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cores\BeetleNGPCoreTest.cs" />
+    <Compile Include="Cores\BeetleWswanCoreTest.cs" />
+    <Compile Include="Cores\ParallelN64CoreTest.cs" />
+    <Compile Include="Cores\MelonDSCoreTest.cs" />
+    <Compile Include="Cores\BeetlePSXCoreTest.cs" />
+    <Compile Include="Cores\GambatteCoreTest.cs" />
+    <Compile Include="Cores\FCEUMMCoreTest.cs" />
+    <Compile Include="Cores\NestopiaCoreTest.cs" />
+    <Compile Include="Cores\YabauseCoreTest.cs" />
+    <Compile Include="Cores\VBAMCoreTest.cs" />
+    <Compile Include="Cores\GPGXCoreTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Cores\Snes9XCoreTest.cs" />
+    <Compile Include="StreamProvider.cs" />
+    <Compile Include="UnitTestApp.xaml.cs">
+      <DependentUpon>UnitTestApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="UnitTestApp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\UnitTestApp.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Roms\bios7.bin" />
+    <Content Include="Roms\bios9.bin" />
+    <Content Include="Roms\BIOS_CD_E.bin" />
+    <Content Include="Roms\BIOS_CD_J.bin" />
+    <Content Include="Roms\BIOS_CD_U.bin" />
+    <Content Include="Roms\firmware.bin" />
+    <Content Include="Roms\GBAGame.gba" />
+    <Content Include="Roms\GBCGame.gbc" />
+    <Content Include="Roms\GenesisGame.md" />
+    <Content Include="Roms\MegaCDGame.bin" />
+    <Content Include="Roms\MegaCDGame.cue" />
+    <Content Include="Roms\N64Game.n64" />
+    <Content Include="Roms\NDSGame.nds" />
+    <Content Include="Roms\NeoGeoPocketGame.ngc" />
+    <Content Include="Roms\NESGame.nes" />
+    <Content Include="Roms\PlayStationGame.bin" />
+    <Content Include="Roms\PlayStationGame.cue" />
+    <Content Include="Roms\SaturnGame.bin" />
+    <Content Include="Roms\SaturnGame.cue" />
+    <Content Include="Roms\SCPH5500.bin" />
+    <Content Include="Roms\SCPH5501.bin" />
+    <Content Include="Roms\SCPH5502.bin" />
+    <Content Include="Roms\SNESGame.sfc" />
+    <Content Include="Roms\WonderSwanGame.wsc" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.3.3</Version>
+    </PackageReference>
+    <PackageReference Include="xunit">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio">
+      <Version>2.2.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BeetleNGPRT\BeetleNGPRT.vcxproj">
+      <Project>{07645043-df95-4bd8-84fe-dc74eaeae3bf}</Project>
+      <Name>BeetleNGPRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
+      <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
+      <Name>BeetlePSXRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BeetleWswanRT\BeetleWswanRT.vcxproj">
+      <Project>{514bebc4-127b-4894-9905-d0f7a09b0287}</Project>
+      <Name>BeetleWswanRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FCEUMMRT\FCEUMMRT.vcxproj">
+      <Project>{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}</Project>
+      <Name>FCEUMMRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GambatteRT\GambatteRT.vcxproj">
+      <Project>{d19bfce3-0233-4b39-8ea5-fa0ee0d4a753}</Project>
+      <Name>GambatteRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GPGXRT\GPGXRT.vcxproj">
+      <Project>{82569d80-5620-4012-8314-26bfecb7c9d8}</Project>
+      <Name>GPGXRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
+      <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
+      <Name>LibretroRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MelonDSRT\MelonDSRT.vcxproj">
+      <Project>{196b484a-2687-410b-a17e-3cf1f000a471}</Project>
+      <Name>MelonDSRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NestopiaRT\NestopiaRT.vcxproj">
+      <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
+      <Name>NestopiaRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParallelN64RT\ParallelN64RT.vcxproj">
+      <Project>{95540631-8e61-475d-bd82-bafb7874eaca}</Project>
+      <Name>ParallelN64RT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
+      <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>
+      <Name>Snes9XRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VBAMRT\VBAMRT.vcxproj">
+      <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
+      <Name>VBAMRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YabauseRT\YabauseRT.vcxproj">
+      <Project>{a8f6202b-b329-4888-ba1a-8c841993b195}</Project>
+      <Name>YabauseRT</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
