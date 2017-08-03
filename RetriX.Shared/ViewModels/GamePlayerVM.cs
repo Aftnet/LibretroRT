@@ -38,6 +38,8 @@ namespace RetriX.Shared.ViewModels
         public RelayCommand LoadStateSlot5 { get; private set; }
         public RelayCommand LoadStateSlot6 { get; private set; }
 
+        public RelayCommand<InjectedInputTypes> InjectInputCommand { get; set; }
+
         private RelayCommand[] AllCoreCommands;
 
         private bool coreOperationsAllowed = false;
@@ -121,6 +123,8 @@ namespace RetriX.Shared.ViewModels
             LoadStateSlot4 = new RelayCommand(() => LoadState(4), () => CoreOperationsAllowed);
             LoadStateSlot5 = new RelayCommand(() => LoadState(5), () => CoreOperationsAllowed);
             LoadStateSlot6 = new RelayCommand(() => LoadState(6), () => CoreOperationsAllowed);
+
+            InjectInputCommand = new RelayCommand<InjectedInputTypes>(d => EmulationService.InjectInputPlayer1(d));
 
             AllCoreCommands = new RelayCommand[] { TogglePauseCommand, ResetCommand, StopCommand,
                 SaveStateSlot1, SaveStateSlot2, SaveStateSlot3, SaveStateSlot4, SaveStateSlot5, SaveStateSlot6,

@@ -109,6 +109,9 @@
     <Compile Include="Controls\PlayerOverlay.xaml.cs">
       <DependentUpon>PlayerOverlay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\VirtualPad.xaml.cs">
+      <DependentUpon>VirtualPad.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ItemClickEventArgsConverter.cs" />
     <Compile Include="FileProviders\FileAccessExtensions.cs" />
     <Compile Include="Locator\Locator.cs" />
@@ -211,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PlayerOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VirtualPad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

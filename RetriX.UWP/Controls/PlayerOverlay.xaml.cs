@@ -18,7 +18,6 @@ namespace RetriX.UWP.Controls
         // Using a DependencyProperty as the backing store for VM.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty VMProperty = DependencyProperty.Register(nameof(ViewModel), typeof(GamePlayerVM), typeof(PlayerOverlay), new PropertyMetadata(null));
 
-
         public PlayerOverlay()
         {
             InitializeComponent();
