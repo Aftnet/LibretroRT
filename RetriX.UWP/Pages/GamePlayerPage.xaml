@@ -8,10 +8,15 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    RequestedTheme="Dark"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <canvas:CanvasAnimatedControl x:Name="PlayerPanel">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <canvas:CanvasAnimatedControl x:Name="PlayerPanel" Grid.Row="0">
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="DoubleTapped">
                     <core:InvokeCommandAction Command="{x:Bind VM.ToggleFullScreenCommand}"/>
@@ -24,7 +29,9 @@
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </canvas:CanvasAnimatedControl>
-        <controls:PlayerOverlay ViewModel="{x:Bind VM}" VerticalAlignment="Bottom"
+        <controls:PlayerOverlay ViewModel="{x:Bind VM}" VerticalAlignment="Bottom" Grid.Row="0"
                                 Visibility="{x:Bind VM.DisplayPlayerUI, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
+        <controls:VirtualPad ViewModel="{x:Bind VM}" Grid.Row="1" HorizontalAlignment="Left"/>
+        <controls:VirtualPad ViewModel="{x:Bind VM}" Grid.Row="1" HorizontalAlignment="Right"/>
     </Grid>
 </Page>
