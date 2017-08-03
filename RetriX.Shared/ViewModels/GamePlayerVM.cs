@@ -72,15 +72,17 @@ namespace RetriX.Shared.ViewModels
             get { return displayPlayerUI; }
             set
             {
-                if (Set(ref displayPlayerUI, value))
+                Set(ref displayPlayerUI, value);
+                if(value)
                 {
-                    PlatformService.ChangeMousePointerVisibility(value ? MousePointerVisibility.Visible : MousePointerVisibility.Hidden);
+                    PlayerUIDisplayTime = DateTimeOffset.UtcNow;
                 }
             }
         }
 
         private Timer PlayerUIInactivityTimer;
-        private DateTimeOffset LastUIActivityTime = DateTimeOffset.UtcNow;
+        private DateTimeOffset PlayerUIDisplayTime = DateTimeOffset.UtcNow;
+        private DateTimeOffset LastPointerMoveTime = DateTimeOffset.UtcNow;
 
         public GamePlayerVM(IPlatformService platformService, IEmulationService emulationService, ISaveStateService saveStateService)
         {
@@ -88,8 +90,18 @@ namespace RetriX.Shared.ViewModels
             EmulationService = emulationService;
             SaveStateService = saveStateService;
 
-            TappedCommand = new RelayCommand(ReactToUserUIActivity);
-            PointerMovedCommand = new RelayCommand(ReactToUserUIActivity);
+            TappedCommand = new RelayCommand(() =>
+            {
+                DisplayPlayerUI = !DisplayPlayerUI;
+            });
+
+            PointerMovedCommand = new RelayCommand(() =>
+            {
+                PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Visible);
+                LastPointerMoveTime = DateTimeOffset.UtcNow;
+                DisplayPlayerUI = true;
+            });
+
             ToggleFullScreenCommand = new RelayCommand(() => RequestFullScreenChange(FullScreenChangeType.Toggle));
 
             TogglePauseCommand = new RelayCommand(() => { var task = TogglePause(false); }, () => CoreOperationsAllowed);
@@ -134,6 +146,7 @@ namespace RetriX.Shared.ViewModels
         {
             CoreOperationsAllowed = true;
             PlatformService.HandleGameplayKeyShortcuts = true;
+            DisplayPlayerUI = true;
             PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
         }
 
@@ -142,7 +155,7 @@ namespace RetriX.Shared.ViewModels
             PlayerUIInactivityTimer.Dispose();
             CoreOperationsAllowed = false;
             PlatformService.HandleGameplayKeyShortcuts = false;
-            DisplayPlayerUI = true;
+            PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Visible);
         }
 
         private async Task TogglePause(bool dismissOverlayImmediately)
@@ -161,15 +174,11 @@ namespace RetriX.Shared.ViewModels
                 {
                     DisplayPlayerUI = false;
                 }
-                else
-                {
-                    ReactToUserUIActivity();
-                }
             }
             else
             {
                 await EmulationService.PauseGameAsync();
-                ReactToUserUIActivity();
+                DisplayPlayerUI = true;
             }
 
             GameIsPaused = !GameIsPaused;
@@ -264,12 +273,6 @@ namespace RetriX.Shared.ViewModels
             }
         }
 
-        private void ReactToUserUIActivity()
-        {
-            DisplayPlayerUI = true;
-            LastUIActivityTime = DateTimeOffset.UtcNow;
-        }
-
         private void HideUIIfUserInactive()
         {
             if (GameIsPaused)
@@ -277,7 +280,14 @@ namespace RetriX.Shared.ViewModels
                 return;
             }
 
-            if (DateTimeOffset.UtcNow.Subtract(LastUIActivityTime).CompareTo(UIHidingTime) >= 0)
+            var currentTime = DateTimeOffset.UtcNow;
+
+            if (currentTime.Subtract(LastPointerMoveTime).CompareTo(UIHidingTime) >= 0)
+            {
+                PlatformService.RunOnUIThreadAsync(() => PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Hidden));
+            }
+
+            if (currentTime.Subtract(PlayerUIDisplayTime).CompareTo(UIHidingTime) >= 0)
             {
                 PlatformService.RunOnUIThreadAsync(() => DisplayPlayerUI = false);
             }
