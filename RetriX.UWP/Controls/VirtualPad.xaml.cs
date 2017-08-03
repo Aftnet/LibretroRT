@@ -15,6 +15,7 @@ namespace RetriX.UWP.Controls
             set { SetValue(VMProperty, value); }
         }
 
+        // Using a DependencyProperty as the backing store for UpButtonInput.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty VMProperty = DependencyProperty.Register(nameof(ViewModel), typeof(GamePlayerVM), typeof(PlayerOverlay), new PropertyMetadata(null));
 
         public InjectedInputTypes UpButtonInputType
@@ -65,6 +66,31 @@ namespace RetriX.UWP.Controls
         public VirtualPad()
         {
             this.InitializeComponent();
+        }
+
+        private void UpButtonClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.InjectInputCommand.Execute(UpButtonInputType);
+        }
+
+        private void DownButtonClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.InjectInputCommand.Execute(DownButtonInputType);
+        }
+
+        private void LeftButtonClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.InjectInputCommand.Execute(LeftButtonInputType);
+        }
+
+        private void RightButtonClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.InjectInputCommand.Execute(RightButtonInputType);
+        }
+
+        private void CenterButtonClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.InjectInputCommand.Execute(CenterButtonInputType);
         }
     }
 }
