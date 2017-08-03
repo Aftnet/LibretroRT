@@ -6,6 +6,20 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
 {
+    public enum InjectedInputTypes
+    {
+        DeviceIdJoypadB = 0,
+        DeviceIdJoypadY = 1,
+        DeviceIdJoypadSelect = 2,
+        DeviceIdJoypadStart = 3,
+        DeviceIdJoypadUp = 4,
+        DeviceIdJoypadDown = 5,
+        DeviceIdJoypadLeft = 6,
+        DeviceIdJoypadRight = 7,
+        DeviceIdJoypadA = 8,
+        DeviceIdJoypadX = 9,
+    };
+
     public delegate void CoresInitializedDelegate(IEmulationService sender);
     public delegate void GameStartedDelegate(IEmulationService sender);
     public delegate void GameRuntimeExceptionOccurredDelegate(IEmulationService sender, Exception exception);
@@ -25,6 +39,8 @@ namespace RetriX.Shared.Services
 
         Task<byte[]> SaveGameStateAsync();
         Task<bool> LoadGameStateAsync(byte[] stateData);
+
+        void InjectInputPlayer1(InjectedInputTypes inputType);
 
         event CoresInitializedDelegate CoresInitialized;
         event GameStartedDelegate GameStarted;

@@ -21,9 +21,23 @@ namespace RetriX.UWP.Services
     public class EmulationService : IEmulationService<GameSystemVM>
     {
         private const char CoreExtensionDelimiter = '|';
+        private static readonly IReadOnlyDictionary<InjectedInputTypes, InputTypes> InjectedInputMapping = new Dictionary<InjectedInputTypes, InputTypes>
+        {
+            { InjectedInputTypes.DeviceIdJoypadA, InputTypes.DeviceIdJoypadA },
+            { InjectedInputTypes.DeviceIdJoypadB, InputTypes.DeviceIdJoypadB },
+            { InjectedInputTypes.DeviceIdJoypadDown, InputTypes.DeviceIdJoypadDown },
+            { InjectedInputTypes.DeviceIdJoypadLeft, InputTypes.DeviceIdJoypadLeft },
+            { InjectedInputTypes.DeviceIdJoypadRight, InputTypes.DeviceIdJoypadRight },
+            { InjectedInputTypes.DeviceIdJoypadSelect, InputTypes.DeviceIdJoypadSelect },
+            { InjectedInputTypes.DeviceIdJoypadStart, InputTypes.DeviceIdJoypadStart },
+            { InjectedInputTypes.DeviceIdJoypadUp, InputTypes.DeviceIdJoypadUp },
+            { InjectedInputTypes.DeviceIdJoypadX, InputTypes.DeviceIdJoypadX },
+            { InjectedInputTypes.DeviceIdJoypadY, InputTypes.DeviceIdJoypadY },
+        };
 
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
+        private readonly IInputManager InputManager;
 
         private readonly Frame RootFrame = Window.Current.Content as Frame;
 
@@ -49,10 +63,11 @@ namespace RetriX.UWP.Services
         public event GameStartedDelegate GameStarted;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
-        public EmulationService(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService)
+        public EmulationService(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IInputManager inputManager)
         {
             LocalizationService = localizationService;
             PlatformService = platformService;
+            InputManager = inputManager;
 
             RootFrame.Navigated += OnNavigated;
 
@@ -234,6 +249,11 @@ namespace RetriX.UWP.Services
             }
 
             return CoreRunner.LoadGameStateAsync(stateData).AsTask();
+        }
+
+        public void InjectInputPlayer1(InjectedInputTypes inputType)
+        {
+            InputManager.InjectInputPlayer1(InjectedInputMapping[inputType]);
         }
 
         private void OnNavigated(object sender, NavigationEventArgs e)

@@ -60,6 +60,7 @@ namespace LibretroRT.FrontendComponents.InputManager
             { InputTypes.DeviceIdJoypadStart, GamepadButtons.Menu },
         };
 
+        private readonly ISet<InputTypes> InjectedInput = new HashSet<InputTypes>();
         private readonly Dictionary<VirtualKey, bool> KeyStates = new Dictionary<VirtualKey, bool>();
         private readonly Dictionary<VirtualKey, bool> KeySnapshot = new Dictionary<VirtualKey, bool>();
 
@@ -72,6 +73,11 @@ namespace LibretroRT.FrontendComponents.InputManager
             window.KeyDown += WindowKeyDownHandler;
             window.KeyUp -= WindowKeyUpHandler;
             window.KeyUp += WindowKeyUpHandler;
+        }
+
+        public void InjectInputPlayer1(InputTypes inputType)
+        {
+            InjectedInput.Add(inputType);
         }
 
         public void PollInput()
@@ -111,6 +117,7 @@ namespace LibretroRT.FrontendComponents.InputManager
             if (port == 0)
             {
                 output = GetKeyboardKeyState(KeySnapshot, inputType);
+                output = output || GetInjectedInputState(inputType);
             }
 
             if (port < GamepadReadings.Length)
@@ -119,6 +126,17 @@ namespace LibretroRT.FrontendComponents.InputManager
             }
 
             return output ? (short)1 : (short)0;
+        }
+
+        private bool GetInjectedInputState(InputTypes inputType)
+        {
+            var output = InjectedInput.Contains(inputType);
+            if (output)
+            {
+                InjectedInput.Remove(inputType);
+            }
+
+            return output;
         }
 
         private static bool GetKeyboardKeyState(Dictionary<VirtualKey, bool> keyStates, InputTypes button)
