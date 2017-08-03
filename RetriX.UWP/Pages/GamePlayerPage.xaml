@@ -11,7 +11,31 @@
     RequestedTheme="Dark"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <Style x:Key="LeftVirtualPadStyle" TargetType="controls:VirtualPad">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="UpButtonInputType" Value="DeviceIdJoypadUp"/>
+            <Setter Property="DownButtonInputType" Value="DeviceIdJoypadDown"/>
+            <Setter Property="LeftButtonInputType" Value="DeviceIdJoypadLeft"/>
+            <Setter Property="RightButtonInputType" Value="DeviceIdJoypadRight"/>
+            <Setter Property="CenterButtonInputType" Value="DeviceIdJoypadSelect"/>
+        </Style>
+        <Style x:Key="RightVirtualPadStyle" TargetType="controls:VirtualPad">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="UpButtonInputType" Value="DeviceIdJoypadX"/>
+            <Setter Property="DownButtonInputType" Value="DeviceIdJoypadB"/>
+            <Setter Property="LeftButtonInputType" Value="DeviceIdJoypadY"/>
+            <Setter Property="RightButtonInputType" Value="DeviceIdJoypadA"/>
+            <Setter Property="CenterButtonInputType" Value="DeviceIdJoypadStart"/>
+        </Style>
+    </Page.Resources>
+        
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <interactivity:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="PointerMoved">
+                <core:InvokeCommandAction Command="{x:Bind VM.PointerMovedCommand}"/>
+            </core:EventTriggerBehavior>
+        </interactivity:Interaction.Behaviors>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -24,14 +48,11 @@
                 <core:EventTriggerBehavior EventName="Tapped">
                     <core:InvokeCommandAction Command="{x:Bind VM.TappedCommand}"/>
                 </core:EventTriggerBehavior>
-                <core:EventTriggerBehavior EventName="PointerMoved">
-                    <core:InvokeCommandAction Command="{x:Bind VM.PointerMovedCommand}"/>
-                </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </canvas:CanvasAnimatedControl>
         <controls:PlayerOverlay ViewModel="{x:Bind VM}" VerticalAlignment="Bottom" Grid.Row="0"
                                 Visibility="{x:Bind VM.DisplayPlayerUI, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
-        <controls:VirtualPad ViewModel="{x:Bind VM}" Grid.Row="1" HorizontalAlignment="Left"/>
-        <controls:VirtualPad ViewModel="{x:Bind VM}" Grid.Row="1" HorizontalAlignment="Right"/>
+        <controls:VirtualPad Style="{StaticResource LeftVirtualPadStyle}" ViewModel="{x:Bind VM}" Grid.Row="1"/>
+        <controls:VirtualPad Style="{StaticResource RightVirtualPadStyle}" ViewModel="{x:Bind VM}" Grid.Row="1"/>
     </Grid>
 </Page>

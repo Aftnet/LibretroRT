@@ -61,7 +61,7 @@ namespace RetriX.UWP.Controls
         }
 
         // Using a DependencyProperty as the backing store for CenterButtonInput.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CenterButtonInputTypeProperty = DependencyProperty.Register(nameof(CenterButtonInputType), typeof(InjectedInputTypes), typeof(VirtualPad), new PropertyMetadata(InjectedInputTypes.DeviceIdJoypadStart));
+        public static readonly DependencyProperty CenterButtonInputTypeProperty = DependencyProperty.Register(nameof(CenterButtonInputType), typeof(InjectedInputTypes), typeof(VirtualPad), new PropertyMetadata(InjectedInputTypes.DeviceIdJoypadSelect));
 
         public VirtualPad()
         {
