@@ -19,7 +19,7 @@ namespace RetriX.UWP.Services
     {
         private static readonly ISet<string> DeviceFamiliesAllowingFullScreenChange = new HashSet<string>
         {
-            "Windows.Desktop", "Windows.Team"
+            "Windows.Desktop", "Windows.Team", "Windows.Mobile"
         };
 
         private ApplicationView AppView => ApplicationView.GetForCurrentView();
