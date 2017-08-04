@@ -60,7 +60,13 @@ namespace RetriX.Shared.ViewModels
 
         public bool FullScreenChangingPossible => PlatformService.FullScreenChangingPossible;
         public bool IsFullScreenMode => PlatformService.IsFullScreenMode;
-        public bool ShouldDisplayTouchGamepad => PlatformService.ShouldDisplayTouchGamepad;
+
+        private bool shouldDisplayTouchGamepad;
+        public bool ShouldDisplayTouchGamepad
+        {
+            get { return shouldDisplayTouchGamepad; }
+            private set { Set(ref shouldDisplayTouchGamepad, value); }
+        }
 
         private bool gameIsPaused;
         public bool GameIsPaused
@@ -92,6 +98,8 @@ namespace RetriX.Shared.ViewModels
             PlatformService = platformService;
             EmulationService = emulationService;
             SaveStateService = saveStateService;
+
+            ShouldDisplayTouchGamepad = PlatformService.ShouldDisplayTouchGamepad;
 
             TappedCommand = new RelayCommand(() =>
             {
@@ -280,6 +288,12 @@ namespace RetriX.Shared.ViewModels
 
         private void PeriodicChecks()
         {
+            var displayTouchGamepad = PlatformService.ShouldDisplayTouchGamepad;
+            if (ShouldDisplayTouchGamepad != displayTouchGamepad)
+            {
+                PlatformService.RunOnUIThreadAsync(() => ShouldDisplayTouchGamepad = displayTouchGamepad);
+            }
+
             if (GameIsPaused)
             {
                 return;
