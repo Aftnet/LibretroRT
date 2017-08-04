@@ -2,9 +2,12 @@
 using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Devices.Input;
+using Windows.Gaming.Input;
 using Windows.Storage.Pickers;
 using Windows.System;
 using Windows.System.Profile;
@@ -40,7 +43,24 @@ namespace RetriX.UWP.Services
         {
             get
             {
-                return false;
+                var touchCapabilities = new TouchCapabilities();
+                if (touchCapabilities.TouchPresent == 0)
+                {
+                    return false;
+                }
+
+                var keyboardCapabilities = new KeyboardCapabilities();
+                if (keyboardCapabilities.KeyboardPresent != 0)
+                {
+                    return false;
+                }
+
+                if (Gamepad.Gamepads.Any())
+                {
+                    return false;
+                }
+
+                return true;
             }
         }
 
