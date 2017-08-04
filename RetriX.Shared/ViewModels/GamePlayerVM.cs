@@ -9,8 +9,8 @@ namespace RetriX.Shared.ViewModels
 {
     public class GamePlayerVM : ViewModelBase
     {
-        private static readonly TimeSpan UIInactivityCheckInterval = TimeSpan.FromSeconds(0.5);
-        private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(3);
+        private static readonly TimeSpan PriodicChecksInterval = TimeSpan.FromSeconds(2);
+        private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(4);
 
         private readonly IPlatformService PlatformService;
         private readonly IEmulationService EmulationService;
@@ -38,6 +38,8 @@ namespace RetriX.Shared.ViewModels
         public RelayCommand LoadStateSlot5 { get; private set; }
         public RelayCommand LoadStateSlot6 { get; private set; }
 
+        public RelayCommand<InjectedInputTypes> InjectInputCommand { get; set; }
+
         private RelayCommand[] AllCoreCommands;
 
         private bool coreOperationsAllowed = false;
@@ -59,6 +61,13 @@ namespace RetriX.Shared.ViewModels
         public bool FullScreenChangingPossible => PlatformService.FullScreenChangingPossible;
         public bool IsFullScreenMode => PlatformService.IsFullScreenMode;
 
+        private bool shouldDisplayTouchGamepad;
+        public bool ShouldDisplayTouchGamepad
+        {
+            get { return shouldDisplayTouchGamepad; }
+            private set { Set(ref shouldDisplayTouchGamepad, value); }
+        }
+
         private bool gameIsPaused;
         public bool GameIsPaused
         {
@@ -72,15 +81,17 @@ namespace RetriX.Shared.ViewModels
             get { return displayPlayerUI; }
             set
             {
-                if (Set(ref displayPlayerUI, value))
+                Set(ref displayPlayerUI, value);
+                if(value)
                 {
-                    PlatformService.ChangeMousePointerVisibility(value ? MousePointerVisibility.Visible : MousePointerVisibility.Hidden);
+                    PlayerUIDisplayTime = DateTimeOffset.UtcNow;
                 }
             }
         }
 
-        private Timer PlayerUIInactivityTimer;
-        private DateTimeOffset LastUIActivityTime = DateTimeOffset.UtcNow;
+        private Timer PeriodicChecksTimer;
+        private DateTimeOffset PlayerUIDisplayTime = DateTimeOffset.UtcNow;
+        private DateTimeOffset LastPointerMoveTime = DateTimeOffset.UtcNow;
 
         public GamePlayerVM(IPlatformService platformService, IEmulationService emulationService, ISaveStateService saveStateService)
         {
@@ -88,8 +99,20 @@ namespace RetriX.Shared.ViewModels
             EmulationService = emulationService;
             SaveStateService = saveStateService;
 
-            TappedCommand = new RelayCommand(ReactToUserUIActivity);
-            PointerMovedCommand = new RelayCommand(ReactToUserUIActivity);
+            ShouldDisplayTouchGamepad = PlatformService.ShouldDisplayTouchGamepad;
+
+            TappedCommand = new RelayCommand(() =>
+            {
+                DisplayPlayerUI = !DisplayPlayerUI;
+            });
+
+            PointerMovedCommand = new RelayCommand(() =>
+            {
+                PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Visible);
+                LastPointerMoveTime = DateTimeOffset.UtcNow;
+                DisplayPlayerUI = true;
+            });
+
             ToggleFullScreenCommand = new RelayCommand(() => RequestFullScreenChange(FullScreenChangeType.Toggle));
 
             TogglePauseCommand = new RelayCommand(() => { var task = TogglePause(false); }, () => CoreOperationsAllowed);
@@ -109,6 +132,8 @@ namespace RetriX.Shared.ViewModels
             LoadStateSlot4 = new RelayCommand(() => LoadState(4), () => CoreOperationsAllowed);
             LoadStateSlot5 = new RelayCommand(() => LoadState(5), () => CoreOperationsAllowed);
             LoadStateSlot6 = new RelayCommand(() => LoadState(6), () => CoreOperationsAllowed);
+
+            InjectInputCommand = new RelayCommand<InjectedInputTypes>(d => EmulationService.InjectInputPlayer1(d));
 
             AllCoreCommands = new RelayCommand[] { TogglePauseCommand, ResetCommand, StopCommand,
                 SaveStateSlot1, SaveStateSlot2, SaveStateSlot3, SaveStateSlot4, SaveStateSlot5, SaveStateSlot6,
@@ -134,15 +159,16 @@ namespace RetriX.Shared.ViewModels
         {
             CoreOperationsAllowed = true;
             PlatformService.HandleGameplayKeyShortcuts = true;
-            PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
+            DisplayPlayerUI = true;
+            PeriodicChecksTimer = new Timer(d => PeriodicChecks(), null, PriodicChecksInterval, PriodicChecksInterval);
         }
 
         public void Deactivated()
         {
-            PlayerUIInactivityTimer.Dispose();
+            PeriodicChecksTimer.Dispose();
             CoreOperationsAllowed = false;
             PlatformService.HandleGameplayKeyShortcuts = false;
-            DisplayPlayerUI = true;
+            PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Visible);
         }
 
         private async Task TogglePause(bool dismissOverlayImmediately)
@@ -161,15 +187,11 @@ namespace RetriX.Shared.ViewModels
                 {
                     DisplayPlayerUI = false;
                 }
-                else
-                {
-                    ReactToUserUIActivity();
-                }
             }
             else
             {
                 await EmulationService.PauseGameAsync();
-                ReactToUserUIActivity();
+                DisplayPlayerUI = true;
             }
 
             GameIsPaused = !GameIsPaused;
@@ -264,20 +286,27 @@ namespace RetriX.Shared.ViewModels
             }
         }
 
-        private void ReactToUserUIActivity()
+        private void PeriodicChecks()
         {
-            DisplayPlayerUI = true;
-            LastUIActivityTime = DateTimeOffset.UtcNow;
-        }
+            var displayTouchGamepad = PlatformService.ShouldDisplayTouchGamepad;
+            if (ShouldDisplayTouchGamepad != displayTouchGamepad)
+            {
+                PlatformService.RunOnUIThreadAsync(() => ShouldDisplayTouchGamepad = displayTouchGamepad);
+            }
 
-        private void HideUIIfUserInactive()
-        {
             if (GameIsPaused)
             {
                 return;
             }
 
-            if (DateTimeOffset.UtcNow.Subtract(LastUIActivityTime).CompareTo(UIHidingTime) >= 0)
+            var currentTime = DateTimeOffset.UtcNow;
+
+            if (currentTime.Subtract(LastPointerMoveTime).CompareTo(UIHidingTime) >= 0)
+            {
+                PlatformService.RunOnUIThreadAsync(() => PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Hidden));
+            }
+
+            if (currentTime.Subtract(PlayerUIDisplayTime).CompareTo(UIHidingTime) >= 0)
             {
                 PlatformService.RunOnUIThreadAsync(() => DisplayPlayerUI = false);
             }

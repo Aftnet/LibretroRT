@@ -2,9 +2,12 @@
 using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Devices.Input;
+using Windows.Gaming.Input;
 using Windows.Storage.Pickers;
 using Windows.System;
 using Windows.System.Profile;
@@ -19,7 +22,7 @@ namespace RetriX.UWP.Services
     {
         private static readonly ISet<string> DeviceFamiliesAllowingFullScreenChange = new HashSet<string>
         {
-            "Windows.Desktop", "Windows.Team"
+            "Windows.Desktop", "Windows.Team", "Windows.Mobile"
         };
 
         private ApplicationView AppView => ApplicationView.GetForCurrentView();
@@ -35,6 +38,31 @@ namespace RetriX.UWP.Services
         }
 
         public bool IsFullScreenMode => AppView.IsFullScreenMode;
+
+        public bool ShouldDisplayTouchGamepad
+        {
+            get
+            {
+                var touchCapabilities = new TouchCapabilities();
+                if (touchCapabilities.TouchPresent == 0)
+                {
+                    return false;
+                }
+
+                var keyboardCapabilities = new KeyboardCapabilities();
+                if (keyboardCapabilities.KeyboardPresent != 0)
+                {
+                    return false;
+                }
+
+                if (Gamepad.Gamepads.Any())
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
 
         private bool handleGameplayKeyShortcuts = false;
         public bool HandleGameplayKeyShortcuts

@@ -31,7 +31,7 @@ namespace RetriX.Shared.StreamProviders
                 return null;
             }
 
-            path = path.Substring(HandledScheme.Length);
+            path = path.Substring(HandledScheme.Length + 1);
 
             if (accessType == PCLStorage.FileAccess.Read)
             {

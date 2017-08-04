@@ -6,7 +6,7 @@ namespace RetriX.Shared.Test.StreamProviders
 {
     public class SingleFileStreamProviderTest : StreamProviderTestBase
     {
-        private const string FilePath = "scheme:\\SomeFile.ext";
+        private const string FilePath = "SCHEME\\SomeFile.ext";
 
         protected override async Task<IStreamProvider> GetTargetAsync()
         {
@@ -23,9 +23,9 @@ namespace RetriX.Shared.Test.StreamProviders
 
         [Theory]
         [InlineData(FilePath, true)]
-        [InlineData("scheme2:\\SomeFile.ext", false)]
-        [InlineData("scheme:\\SomeFi.ext", false)]
-        [InlineData("scheme:\\Dir\\file.ext", false)]
+        [InlineData("SCHEME2\\SomeFile.ext", false)]
+        [InlineData("SCHEME\\SomeFi.ext", false)]
+        [InlineData("SCHEME\\Dir\\file.ext", false)]
         public Task OpeningFileWorks(string path, bool expectedSuccess)
         {
             return OpeningFileWorksInternal(path, expectedSuccess);

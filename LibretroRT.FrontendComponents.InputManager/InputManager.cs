@@ -10,6 +10,7 @@ namespace LibretroRT.FrontendComponents.InputManager
 {
     public sealed class InputManager : IInputManager
     {
+        private const uint InjectedInputFramePermamence = 4;
         private const double GamepadAnalogDeadZoneSquareRadius = 0.0;
 
         private static readonly IReadOnlyDictionary<InputTypes, VirtualKey> LibretroGamepadToKeyboardKeyMapping = new Dictionary<InputTypes, VirtualKey>()
@@ -60,6 +61,7 @@ namespace LibretroRT.FrontendComponents.InputManager
             { InputTypes.DeviceIdJoypadStart, GamepadButtons.Menu },
         };
 
+        private readonly Dictionary<InputTypes, uint> InjectedInput = new Dictionary<InputTypes, uint>();
         private readonly Dictionary<VirtualKey, bool> KeyStates = new Dictionary<VirtualKey, bool>();
         private readonly Dictionary<VirtualKey, bool> KeySnapshot = new Dictionary<VirtualKey, bool>();
 
@@ -72,6 +74,11 @@ namespace LibretroRT.FrontendComponents.InputManager
             window.KeyDown += WindowKeyDownHandler;
             window.KeyUp -= WindowKeyUpHandler;
             window.KeyUp += WindowKeyUpHandler;
+        }
+
+        public void InjectInputPlayer1(InputTypes inputType)
+        {
+            InjectedInput[inputType] = InjectedInputFramePermamence;
         }
 
         public void PollInput()
@@ -111,6 +118,7 @@ namespace LibretroRT.FrontendComponents.InputManager
             if (port == 0)
             {
                 output = GetKeyboardKeyState(KeySnapshot, inputType);
+                output = output || GetInjectedInputState(inputType);
             }
 
             if (port < GamepadReadings.Length)
@@ -119,6 +127,21 @@ namespace LibretroRT.FrontendComponents.InputManager
             }
 
             return output ? (short)1 : (short)0;
+        }
+
+        private bool GetInjectedInputState(InputTypes inputType)
+        {
+            var output = InjectedInput.Keys.Contains(inputType);
+            if (output)
+            {
+                output = InjectedInput[inputType] > 0;
+                if (output)
+                {
+                    InjectedInput[inputType] -= 1;
+                }
+            }
+
+            return output;
         }
 
         private static bool GetKeyboardKeyState(Dictionary<VirtualKey, bool> keyStates, InputTypes button)

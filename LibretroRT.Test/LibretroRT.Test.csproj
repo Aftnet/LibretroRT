@@ -97,6 +97,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cores\BeetlePCEFastCoreTest.cs" />
     <Compile Include="Cores\BeetleNGPCoreTest.cs" />
     <Compile Include="Cores\BeetleWswanCoreTest.cs" />
     <Compile Include="Cores\ParallelN64CoreTest.cs" />
@@ -180,6 +181,10 @@
       <Project>{07645043-df95-4bd8-84fe-dc74eaeae3bf}</Project>
       <Name>BeetleNGPRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BeetlePCEFastRT\BeetlePCEFastRT.vcxproj">
+      <Project>{7a0eb6b5-801e-469e-b9b4-1f3cb68cc900}</Project>
+      <Name>BeetlePCEFastRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
       <Name>BeetlePSXRT</Name>
@@ -228,6 +233,9 @@
       <Project>{a8f6202b-b329-4888-ba1a-8c841993b195}</Project>
       <Name>YabauseRT</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\PCEngineGame.pce" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

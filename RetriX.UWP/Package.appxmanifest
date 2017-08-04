@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="15612Aftnet.RetriX" Publisher="CN=Alberto Fustinoni, O=AlbertoFustinoni, L=Kawasaki, S=Kanagawa, C=JP" Version="1.4.10.0" />
+  <Identity Name="15612Aftnet.RetriX" Publisher="CN=Alberto Fustinoni, O=AlbertoFustinoni, L=Kawasaki, S=Kanagawa, C=JP" Version="1.5.11.0" />
   <mp:PhoneIdentity PhoneProductId="efc54b08-6566-4c74-810c-e9437145cdf4" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>ms-resource:AppName\Text</DisplayName>
@@ -146,6 +146,16 @@
             <uap:SupportedFileTypes>
               <uap:FileType>.ngp</uap:FileType>
               <uap:FileType>.ngc</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="pcengineroms">
+            <uap:DisplayName>ms-resource:PCEngineRomDescription\Text</uap:DisplayName>
+            <uap:Logo>Assets\FileIcon.png</uap:Logo>
+            <uap:InfoTip>ms-resource:PCEngineRomDescription\Text</uap:InfoTip>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.pce</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>

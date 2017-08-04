@@ -23,7 +23,7 @@ namespace RetriX.UWP.Locator
             EmulationServiceLazy = new Lazy<EmulationService>(() =>
             {
                 var ioc = SimpleIoc.Default;
-                return new EmulationService(ioc.GetInstance<IUserDialogs>(), ioc.GetInstance<ILocalizationService>(), ioc.GetInstance<IPlatformService>(), ioc.GetInstance<ICryptographyService>());
+                return new EmulationService(ioc.GetInstance<IUserDialogs>(), ioc.GetInstance<ILocalizationService>(), ioc.GetInstance<IPlatformService>(), ioc.GetInstance<ICryptographyService>(), ioc.GetInstance<IInputManager>());
             });
         }
 

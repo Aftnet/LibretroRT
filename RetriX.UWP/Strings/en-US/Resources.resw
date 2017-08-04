@@ -326,4 +326,13 @@ Restart RetriX and try again.</value>
   <data name="NeoGeoPocketRomDescription.Text" xml:space="preserve">
     <value>SNK Neo Geo Pocket Rom</value>
   </data>
+  <data name="ManufacturerNameNEC" xml:space="preserve">
+    <value>NEC</value>
+  </data>
+  <data name="SystemNamePCEngine" xml:space="preserve">
+    <value>PC Engine</value>
+  </data>
+  <data name="PCEngineRomDescription.Text" xml:space="preserve">
+    <value>NEC PC Engine Rom</value>
+  </data>
 </root>
