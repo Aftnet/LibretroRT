@@ -296,13 +296,13 @@ namespace RetriX.UWP.Services
             IStreamProvider romProvider;
             if (rootFolder == null)
             {
-                mainFileVirtualPath = VFS.RomPath + file.Name;
+                mainFileVirtualPath = $"{VFS.RomPath}{Path.DirectorySeparatorChar}{file.Name}";
                 romProvider = new SingleFileStreamProvider(mainFileVirtualPath, file);
             }
             else
             {
                 mainFileVirtualPath = file.Path.Substring(rootFolder.Path.Length + 1);
-                mainFileVirtualPath = VFS.RomPath + mainFileVirtualPath;
+                mainFileVirtualPath = $"{VFS.RomPath}{Path.DirectorySeparatorChar}{mainFileVirtualPath}";
                 romProvider = new FolderStreamProvider(VFS.RomPath, rootFolder);
             }
 

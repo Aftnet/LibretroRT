@@ -35,7 +35,7 @@ namespace RetriX.Shared.StreamProviders
                     {
                         var memoryStream = new MemoryStream();
                         await entryStream.CopyToAsync(memoryStream);
-                        EntriesBufferMapping.Add(HandledScheme + i.FullName, memoryStream.ToArray());
+                        EntriesBufferMapping.Add(Path.Combine(HandledScheme,i.FullName), memoryStream.ToArray());
                     }
                 }
             }

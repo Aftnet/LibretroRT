@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Xunit;
@@ -64,7 +65,7 @@ namespace LibretroRT.Test
             Target.OpenFileStream = provider.OpenFileStream;
             Target.CloseFileStream = provider.CloseFileStream;
 
-            var romPath = VFS.SystemPath + romName;
+            var romPath = $"{VFS.SystemPath}{Path.DirectorySeparatorChar}{romName}";
             var loadResult = await Task.Run(() => Target.LoadGame(romPath));
 
             Assert.True(loadResult);
@@ -122,7 +123,7 @@ namespace LibretroRT.Test
             Target.OpenFileStream = provider.OpenFileStream;
             Target.CloseFileStream = provider.CloseFileStream;
 
-            var loadResult = await Task.Run(() => Target.LoadGame(VFS.SystemPath + romName));
+            var loadResult = await Task.Run(() => Target.LoadGame($"{VFS.SystemPath}{Path.DirectorySeparatorChar}{romName}"));
             Assert.True(loadResult);
 
             await Task.Run(() =>
