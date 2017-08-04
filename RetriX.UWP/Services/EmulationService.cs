@@ -46,8 +46,6 @@ namespace RetriX.UWP.Services
 
         private bool InitializationComplete = false;
 
-        private ICore[] AvailableCores;
-
         private static readonly string[] archiveExtensions = { ".zip" };
         public IReadOnlyList<string> ArchiveExtensions => archiveExtensions;
 
@@ -73,9 +71,8 @@ namespace RetriX.UWP.Services
 
             Task.Run(() =>
             {
-                AvailableCores = new ICore[] { BeetleNGPRT.BeetleNGPCore.Instance, BeetlePSXRT.BeetlePSXCore.Instance, BeetleWswanRT.BeetleWswanCore.Instance, FCEUMMRT.FCEUMMCore.Instance, Snes9XRT.Snes9XCore.Instance, GambatteRT.GambatteCore.Instance, VBAMRT.VBAMCore.Instance, GPGXRT.GPGXCore.Instance, MelonDSRT.MelonDSCore.Instance, YabauseRT.YabauseCore.Instance };
-
                 var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso", ".mds", ".mdf" };
+
                 systems = new GameSystemVM[]
                 {
                 new GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118", FCEUMMRT.FCEUMMCore.Instance.SupportedExtensions, new string[0]),
@@ -90,11 +87,13 @@ namespace RetriX.UWP.Services
                 new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", CDImageExtensions, CDImageExtensions),
                 //new GameSystemVM(YabauseRT.YabauseCore.Instance, LocalizationService, "SystemNameSaturn", "ManufacturerNameSega", "\uf124", YabauseRT.YabauseCore.Instance.SupportedExtensions, CDImageExtensions),
                 new GameSystemVM(BeetlePSXRT.BeetlePSXCore.Instance, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", CDImageExtensions, CDImageExtensions),
+                new GameSystemVM(BeetlePCEFastRT.BeetlePCEFastCore.Instance, LocalizationService, "SystemNamePCEngine", "ManufacturerNameNEC", "\uf124", BeetlePCEFastRT.BeetlePCEFastCore.Instance.SupportedExtensions, CDImageExtensions),
                 new GameSystemVM(BeetleWswanRT.BeetleWswanCore.Instance, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129", BeetleWswanRT.BeetleWswanCore.Instance.SupportedExtensions, new string[0]),
                 new GameSystemVM(BeetleNGPRT.BeetleNGPCore.Instance, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129", BeetleNGPRT.BeetleNGPCore.Instance.SupportedExtensions, new string[0]),
                 };
 
-                fileDependencyImporters = AvailableCores.Where(d => d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
+                var allCores = systems.Select(d => d.Core).Distinct().ToArray();
+                fileDependencyImporters = allCores.Where(d => d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
                         .Select(d => new FileImporterVM(dialogsService, localizationService, platformService, cryptographyService,
                         new WinRTFolder(d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
             }).ContinueWith(d =>
