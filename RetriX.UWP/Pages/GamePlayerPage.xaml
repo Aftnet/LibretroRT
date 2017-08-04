@@ -8,6 +8,7 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:triggers="using:WindowsStateTriggers"
     RequestedTheme="Dark"
     mc:Ignorable="d">
 
@@ -60,7 +61,31 @@
         </canvas:CanvasAnimatedControl>
         <controls:PlayerOverlay ViewModel="{x:Bind VM}" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1"
                                 Visibility="{x:Bind VM.DisplayPlayerUI, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
-        <controls:VirtualPad Style="{StaticResource LeftVirtualPadStyle}" ViewModel="{x:Bind VM}" Grid.Row="0" Grid.Column="0"/>
-        <controls:VirtualPad Style="{StaticResource RightVirtualPadStyle}" ViewModel="{x:Bind VM}" Grid.Row="0" Grid.Column="2"/>
+        <controls:VirtualPad x:Name="LeftVirtualPad" Style="{StaticResource LeftVirtualPadStyle}" ViewModel="{x:Bind VM}" Grid.Row="0" Grid.Column="0"/>
+        <controls:VirtualPad x:Name="RightVirtualPad" Style="{StaticResource RightVirtualPadStyle}" ViewModel="{x:Bind VM}" Grid.Row="0" Grid.Column="2"/>
+        
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="LeftVirtualPad.(Grid.Row)" Value="0"/>
+                        <Setter Target="LeftVirtualPad.(Grid.Column)" Value="0"/>
+                        <Setter Target="RightVirtualPad.(Grid.Row)" Value="0"/>
+                        <Setter Target="LeftVirtualPad.(Grid.Column)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <triggers:OrientationStateTrigger Orientation="Portrait"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LeftVirtualPad.(Grid.Row)" Value="1"/>
+                        <Setter Target="LeftVirtualPad.(Grid.Column)" Value="1"/>
+                        <Setter Target="RightVirtualPad.(Grid.Row)" Value="1"/>
+                        <Setter Target="LeftVirtualPad.(Grid.Column)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
