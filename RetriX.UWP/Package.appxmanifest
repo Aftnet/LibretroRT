@@ -28,60 +28,63 @@
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="ndsroms">
-            <uap:DisplayName>ms-resource:DSRomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="pcengineroms">
+            <uap:DisplayName>ms-resource:PCEngineRomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:DSRomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:PCEngineRomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.nds</uap:FileType>
+              <uap:FileType>.pce</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="snesroms">
-            <uap:DisplayName>ms-resource:SNESRomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="ngproms">
+            <uap:DisplayName>ms-resource:NeoGeoPocketRomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:SNESRomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:NeoGeoPocketRomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.smc</uap:FileType>
-              <uap:FileType>.sfc</uap:FileType>
-              <uap:FileType>.swc</uap:FileType>
-              <uap:FileType>.fig</uap:FileType>
+              <uap:FileType>.ngp</uap:FileType>
+              <uap:FileType>.ngc</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="nesrom">
-            <uap:DisplayName>ms-resource:NESRomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="ps1roms">
+            <uap:DisplayName>ms-resource:PlayStationRomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:NESRomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:PlayStationRomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.fds</uap:FileType>
-              <uap:FileType>.nes</uap:FileType>
-              <uap:FileType>.unf</uap:FileType>
-              <uap:FileType>.unif</uap:FileType>
+              <uap:FileType>.pbp</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="gbroms">
-            <uap:DisplayName>ms-resource:GameBoyRomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="sgroms">
+            <uap:DisplayName>ms-resource:SG1000RomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:GameBoyRomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:SG1000RomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.gb</uap:FileType>
-              <uap:FileType>.gbc</uap:FileType>
-              <uap:FileType>.dmg</uap:FileType>
+              <uap:FileType>.sg</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="gbaroms">
-            <uap:DisplayName>ms-resource:GameBoyAdvanceRomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="gamegearroms">
+            <uap:DisplayName>ms-resource:GameGearRomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:GameBoyAdvanceRomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:GameGearRomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.gba</uap:FileType>
+              <uap:FileType>.gg</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="mastersystemroms">
+            <uap:DisplayName>ms-resource:MasterSystemRomDescription\Text</uap:DisplayName>
+            <uap:Logo>Assets\FileIcon.png</uap:Logo>
+            <uap:InfoTip>ms-resource:MasterSystemRomDescription\Text</uap:InfoTip>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.sms</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
@@ -99,53 +102,60 @@
           </uap:FileTypeAssociation>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="mastersystemroms">
-            <uap:DisplayName>ms-resource:MasterSystemRomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="gbaroms">
+            <uap:DisplayName>ms-resource:GameBoyAdvanceRomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:MasterSystemRomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:GameBoyAdvanceRomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.sms</uap:FileType>
+              <uap:FileType>.gba</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="gamegearroms">
-            <uap:DisplayName>ms-resource:GameGearRomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="gbroms">
+            <uap:DisplayName>ms-resource:GameBoyRomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:GameGearRomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:GameBoyRomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.gg</uap:FileType>
+              <uap:FileType>.gb</uap:FileType>
+              <uap:FileType>.gbc</uap:FileType>
+              <uap:FileType>.dmg</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="sgroms">
-            <uap:DisplayName>ms-resource:SG1000RomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="nesrom">
+            <uap:DisplayName>ms-resource:NESRomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:SG1000RomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:NESRomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.sg</uap:FileType>
+              <uap:FileType>.fds</uap:FileType>
+              <uap:FileType>.nes</uap:FileType>
+              <uap:FileType>.unf</uap:FileType>
+              <uap:FileType>.unif</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="ps1roms">
-            <uap:DisplayName>ms-resource:PlayStationRomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="snesroms">
+            <uap:DisplayName>ms-resource:SNESRomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:PlayStationRomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:SNESRomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.pbp</uap:FileType>
+              <uap:FileType>.smc</uap:FileType>
+              <uap:FileType>.sfc</uap:FileType>
+              <uap:FileType>.swc</uap:FileType>
+              <uap:FileType>.fig</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="ngproms">
-            <uap:DisplayName>ms-resource:NeoGeoPocketRomDescription\Text</uap:DisplayName>
+          <uap:FileTypeAssociation Name="ndsroms">
+            <uap:DisplayName>ms-resource:DSRomDescription\Text</uap:DisplayName>
             <uap:Logo>Assets\FileIcon.png</uap:Logo>
-            <uap:InfoTip>ms-resource:NeoGeoPocketRomDescription\Text</uap:InfoTip>
+            <uap:InfoTip>ms-resource:DSRomDescription\Text</uap:InfoTip>
             <uap:SupportedFileTypes>
-              <uap:FileType>.ngp</uap:FileType>
-              <uap:FileType>.ngc</uap:FileType>
+              <uap:FileType>.nds</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>

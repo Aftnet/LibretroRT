@@ -332,4 +332,7 @@ Restart RetriX and try again.</value>
   <data name="SystemNamePCEngine" xml:space="preserve">
     <value>PC Engine</value>
   </data>
+  <data name="PCEngineRomDescription.Text" xml:space="preserve">
+    <value>NEC PC Engine Rom</value>
+  </data>
 </root>
