@@ -10,6 +10,7 @@ namespace LibretroRT.FrontendComponents.InputManager
 {
     public sealed class InputManager : IInputManager
     {
+        private const uint InjectedInputFramePermamence = 4;
         private const double GamepadAnalogDeadZoneSquareRadius = 0.0;
 
         private static readonly IReadOnlyDictionary<InputTypes, VirtualKey> LibretroGamepadToKeyboardKeyMapping = new Dictionary<InputTypes, VirtualKey>()
@@ -60,7 +61,7 @@ namespace LibretroRT.FrontendComponents.InputManager
             { InputTypes.DeviceIdJoypadStart, GamepadButtons.Menu },
         };
 
-        private readonly ISet<InputTypes> InjectedInput = new HashSet<InputTypes>();
+        private readonly Dictionary<InputTypes, uint> InjectedInput = new Dictionary<InputTypes, uint>();
         private readonly Dictionary<VirtualKey, bool> KeyStates = new Dictionary<VirtualKey, bool>();
         private readonly Dictionary<VirtualKey, bool> KeySnapshot = new Dictionary<VirtualKey, bool>();
 
@@ -77,7 +78,7 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         public void InjectInputPlayer1(InputTypes inputType)
         {
-            InjectedInput.Add(inputType);
+            InjectedInput[inputType] = InjectedInputFramePermamence;
         }
 
         public void PollInput()
@@ -130,10 +131,14 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         private bool GetInjectedInputState(InputTypes inputType)
         {
-            var output = InjectedInput.Contains(inputType);
+            var output = InjectedInput.Keys.Contains(inputType);
             if (output)
             {
-                InjectedInput.Remove(inputType);
+                output = InjectedInput[inputType] > 0;
+                if (output)
+                {
+                    InjectedInput[inputType] -= 1;
+                }
             }
 
             return output;
