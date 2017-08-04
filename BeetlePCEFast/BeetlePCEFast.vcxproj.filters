@@ -94,6 +94,7 @@
     <ClInclude Include="src\mednafen\tremor\window_lookup.h" />
     <ClInclude Include="src\libretro.h" />
     <ClInclude Include="src\mednafen\hw_misc\arcade_card\arcade_card.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\pce_fast\huc6280.cpp" />
@@ -127,7 +128,6 @@
     <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\mednafen\mednafen-endian.c" />
     <ClCompile Include="src\libretro-common\file\file_path.c" />
-    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
     <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
@@ -151,5 +151,7 @@
     <ClCompile Include="src\mednafen\tremor\window.c" />
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\mednafen\hw_misc\arcade_card\arcade_card.cpp" />
+    <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
   </ItemGroup>
 </Project>
