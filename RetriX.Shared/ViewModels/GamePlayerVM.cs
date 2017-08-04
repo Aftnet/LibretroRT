@@ -9,8 +9,8 @@ namespace RetriX.Shared.ViewModels
 {
     public class GamePlayerVM : ViewModelBase
     {
-        private static readonly TimeSpan UIInactivityCheckInterval = TimeSpan.FromSeconds(0.5);
-        private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(3);
+        private static readonly TimeSpan PriodicChecksInterval = TimeSpan.FromSeconds(2);
+        private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(4);
 
         private readonly IPlatformService PlatformService;
         private readonly IEmulationService EmulationService;
@@ -83,7 +83,7 @@ namespace RetriX.Shared.ViewModels
             }
         }
 
-        private Timer PlayerUIInactivityTimer;
+        private Timer PeriodicChecksTimer;
         private DateTimeOffset PlayerUIDisplayTime = DateTimeOffset.UtcNow;
         private DateTimeOffset LastPointerMoveTime = DateTimeOffset.UtcNow;
 
@@ -152,12 +152,12 @@ namespace RetriX.Shared.ViewModels
             CoreOperationsAllowed = true;
             PlatformService.HandleGameplayKeyShortcuts = true;
             DisplayPlayerUI = true;
-            PlayerUIInactivityTimer = new Timer(d => HideUIIfUserInactive(), null, UIInactivityCheckInterval, UIInactivityCheckInterval);
+            PeriodicChecksTimer = new Timer(d => PeriodicChecks(), null, PriodicChecksInterval, PriodicChecksInterval);
         }
 
         public void Deactivated()
         {
-            PlayerUIInactivityTimer.Dispose();
+            PeriodicChecksTimer.Dispose();
             CoreOperationsAllowed = false;
             PlatformService.HandleGameplayKeyShortcuts = false;
             PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Visible);
@@ -278,7 +278,7 @@ namespace RetriX.Shared.ViewModels
             }
         }
 
-        private void HideUIIfUserInactive()
+        private void PeriodicChecks()
         {
             if (GameIsPaused)
             {
