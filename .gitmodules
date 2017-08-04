@@ -46,3 +46,7 @@
 	path = BeetleNGP/src
 	url = https://github.com/Aftnet/beetle-ngp-libretro.git
 	branch = master
+[submodule "BeetlePCEFast/src"]
+	path = BeetlePCEFast/src
+	url = https://github.com/Aftnet/beetle-pce-fast-libretro.git
+	branch = master
