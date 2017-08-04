@@ -36,6 +36,14 @@ namespace RetriX.UWP.Services
 
         public bool IsFullScreenMode => AppView.IsFullScreenMode;
 
+        public bool ShouldDisplayTouchGamepad
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         private bool handleGameplayKeyShortcuts = false;
         public bool HandleGameplayKeyShortcuts
         {
