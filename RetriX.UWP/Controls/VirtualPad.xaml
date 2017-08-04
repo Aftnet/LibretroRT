@@ -5,8 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Height="160"
-    Width="160">
+    Height="120"
+    Width="120">
 
     <UserControl.Resources>
         <Style x:Name="ButtonStyle" TargetType="RepeatButton" BasedOn="{StaticResource TextBlockButtonStyle}">
@@ -20,7 +20,7 @@
         </Style>
         <Style x:Name="ButtonLabelStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}"/>
-            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="FontSize" Value="40"/>
         </Style>
     </UserControl.Resources>
     <Grid>
