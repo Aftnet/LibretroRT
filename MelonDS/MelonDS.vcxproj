@@ -127,7 +127,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/wd4146</AdditionalOptions>
+      <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,7 +141,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/wd4146</AdditionalOptions>
+      <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,7 +155,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/wd4146</AdditionalOptions>
+      <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,7 +169,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/wd4146</AdditionalOptions>
+      <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -183,7 +183,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/wd4146</AdditionalOptions>
+      <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -197,7 +197,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/wd4146</AdditionalOptions>
+      <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
