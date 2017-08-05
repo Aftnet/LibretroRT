@@ -34,7 +34,7 @@ BeetlePCEFastCoreInternal::BeetlePCEFastCoreInternal() : LibretroRT_Tools::CoreB
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
 	true, true)
 {
-	fileDependencies->Append(ref new FileDependency(L"syscard3.pce", L"PC Engine BIOS Japan", L"ff1a674273fe3540ccef576376407d1d"));
+	fileDependencies->Append(ref new FileDependency(L"syscard3.pce", L"PC Engine CD BIOS", L"ff1a674273fe3540ccef576376407d1d"));
 }
 
 BeetlePCEFastCoreInternal::~BeetlePCEFastCoreInternal()
