@@ -258,6 +258,7 @@
     <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
     <ClInclude Include="src\libretro-common\include\string\stdstring.h" />
     <ClInclude Include="src\libretro_cbs.h" />
+    <ClInclude Include="src\libretro_options.h" />
     <ClInclude Include="src\mednafen\cdrom\audioreader.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess_CCD.h" />
@@ -271,12 +272,20 @@
     <ClInclude Include="src\mednafen\cdrom\lec.h" />
     <ClInclude Include="src\mednafen\cdrom\misc.h" />
     <ClInclude Include="src\mednafen\cdrom\recover-raw.h" />
+    <ClInclude Include="src\mednafen\clamp.h" />
+    <ClInclude Include="src\mednafen\driver.h" />
     <ClInclude Include="src\mednafen\error.h" />
     <ClInclude Include="src\mednafen\file.h" />
     <ClInclude Include="src\mednafen\FileStream.h" />
     <ClInclude Include="src\mednafen\general.h" />
+    <ClInclude Include="src\mednafen\git.h" />
+    <ClInclude Include="src\mednafen\masmem.h" />
+    <ClInclude Include="src\mednafen\math_ops.h" />
     <ClInclude Include="src\mednafen\md5.h" />
+    <ClInclude Include="src\mednafen\mednafen-driver.h" />
     <ClInclude Include="src\mednafen\mednafen-endian.h" />
+    <ClInclude Include="src\mednafen\mednafen-types.h" />
+    <ClInclude Include="src\mednafen\mednafen.h" />
     <ClInclude Include="src\mednafen\MemoryStream.h" />
     <ClInclude Include="src\mednafen\mempatcher-driver.h" />
     <ClInclude Include="src\mednafen\mempatcher.h" />
@@ -284,6 +293,7 @@
     <ClInclude Include="src\mednafen\psx\cpu.h" />
     <ClInclude Include="src\mednafen\psx\dis.h" />
     <ClInclude Include="src\mednafen\psx\dma.h" />
+    <ClInclude Include="src\mednafen\psx\FastFIFO.h" />
     <ClInclude Include="src\mednafen\psx\frontio.h" />
     <ClInclude Include="src\mednafen\psx\gpu.h" />
     <ClInclude Include="src\mednafen\psx\gte.h" />
@@ -298,9 +308,12 @@
     <ClInclude Include="src\mednafen\psx\input\negcon.h" />
     <ClInclude Include="src\mednafen\psx\irq.h" />
     <ClInclude Include="src\mednafen\psx\mdec.h" />
+    <ClInclude Include="src\mednafen\psx\psx.h" />
     <ClInclude Include="src\mednafen\psx\sio.h" />
     <ClInclude Include="src\mednafen\psx\spu.h" />
     <ClInclude Include="src\mednafen\psx\timer.h" />
+    <ClInclude Include="src\mednafen\settings-common.h" />
+    <ClInclude Include="src\mednafen\settings-driver.h" />
     <ClInclude Include="src\mednafen\settings.h" />
     <ClInclude Include="src\mednafen\state.h" />
     <ClInclude Include="src\mednafen\Stream.h" />
@@ -309,6 +322,7 @@
     <ClInclude Include="src\mednafen\tremor\mdct.h" />
     <ClInclude Include="src\mednafen\tremor\registry.h" />
     <ClInclude Include="src\mednafen\tremor\window.h" />
+    <ClInclude Include="src\mednafen\video.h" />
     <ClInclude Include="src\mednafen\video\Deinterlacer.h" />
     <ClInclude Include="src\mednafen\video\surface.h" />
     <ClInclude Include="src\pgxp\pgxp_cpu.h" />
