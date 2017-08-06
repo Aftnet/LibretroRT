@@ -24,7 +24,7 @@
 	branch = master
 [submodule "BeetlePSX/src"]
 	path = BeetlePSX/src
-	url = https://github.com/Aftnet/beetle-psx-libretro.git
+	url = https://github.com/libretro/beetle-psx-libretro.git
 	branch = master
 [submodule "Yabause/src"]
 	path = Yabause/src
@@ -40,13 +40,13 @@
 	branch = master
 [submodule "BeetleWswan/src"]
 	path = BeetleWswan/src
-	url = https://github.com/Aftnet/beetle-wswan-libretro.git
+	url = https://github.com/libretro/beetle-wswan-libretro.git
 	branch = master
 [submodule "BeetleNGP/src"]
 	path = BeetleNGP/src
-	url = https://github.com/Aftnet/beetle-ngp-libretro.git
+	url = https://github.com/libretro/beetle-ngp-libretro.git
 	branch = master
 [submodule "BeetlePCEFast/src"]
 	path = BeetlePCEFast/src
-	url = https://github.com/Aftnet/beetle-pce-fast-libretro.git
+	url = https://github.com/libretro/beetle-pce-fast-libretro.git
 	branch = master

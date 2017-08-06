@@ -124,6 +124,20 @@
     <ClInclude Include="src\libretro-common\include\retro_environment.h" />
     <ClInclude Include="src\libretro-common\include\retro_inline.h" />
     <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\mednafen\driver.h" />
+    <ClInclude Include="src\mednafen\clamp.h" />
+    <ClInclude Include="src\mednafen\git.h" />
+    <ClInclude Include="src\mednafen\masmem.h" />
+    <ClInclude Include="src\mednafen\math_ops.h" />
+    <ClInclude Include="src\mednafen\mednafen.h" />
+    <ClInclude Include="src\mednafen\mednafen-driver.h" />
+    <ClInclude Include="src\mednafen\mednafen-types.h" />
+    <ClInclude Include="src\mednafen\settings-common.h" />
+    <ClInclude Include="src\mednafen\settings-driver.h" />
+    <ClInclude Include="src\mednafen\video.h" />
+    <ClInclude Include="src\libretro_options.h" />
+    <ClInclude Include="src\mednafen\psx\FastFIFO.h" />
+    <ClInclude Include="src\mednafen\psx\psx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libretro.cpp" />
