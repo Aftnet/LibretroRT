@@ -284,6 +284,7 @@
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
     </ClCompile>
+    <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="src\libretro\libretro.c" />
     <ClCompile Include="src\yabause\src\bios.c" />
     <ClCompile Include="src\yabause\src\c68k\c68k.c" />
