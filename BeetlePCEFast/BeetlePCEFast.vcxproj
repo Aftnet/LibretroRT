@@ -244,7 +244,6 @@
     <ClInclude Include="src\mednafen\cdrom\lec.h" />
     <ClInclude Include="src\mednafen\cdrom\SimpleFIFO.h" />
     <ClInclude Include="src\mednafen\driver.h" />
-    <ClInclude Include="src\mednafen\error.h" />
     <ClInclude Include="src\mednafen\file.h" />
     <ClInclude Include="src\mednafen\FileStream.h" />
     <ClInclude Include="src\mednafen\general.h" />
@@ -324,7 +323,6 @@
     <ClCompile Include="src\mednafen\cdrom\l-ec.cpp" />
     <ClCompile Include="src\mednafen\cdrom\lec.cpp" />
     <ClCompile Include="src\mednafen\cdrom\recover-raw.cpp" />
-    <ClCompile Include="src\mednafen\error.cpp" />
     <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\mednafen\FileStream.cpp" />
     <ClCompile Include="src\mednafen\general.cpp" />

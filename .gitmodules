@@ -28,7 +28,7 @@
 	branch = master
 [submodule "Yabause/src"]
 	path = Yabause/src
-	url = https://github.com/Aftnet/yabause.git
+	url = https://github.com/libretro/yabause.git
 	branch = master
 [submodule "MelonDS/src"]
 	path = MelonDS/src
