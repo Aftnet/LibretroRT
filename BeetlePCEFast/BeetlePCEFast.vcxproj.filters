@@ -27,7 +27,6 @@
     <ClInclude Include="src\mednafen\cdrom\lec.h" />
     <ClInclude Include="src\mednafen\cdrom\SimpleFIFO.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess.h" />
-    <ClInclude Include="src\mednafen\error.h" />
     <ClInclude Include="src\mednafen\general.h" />
     <ClInclude Include="src\mednafen\settings.h" />
     <ClInclude Include="src\mednafen\MemoryStream.h" />
@@ -116,7 +115,6 @@
     <ClCompile Include="src\mednafen\cdrom\l-ec.cpp" />
     <ClCompile Include="src\mednafen\cdrom\edc_crc32.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAccess.cpp" />
-    <ClCompile Include="src\mednafen\error.cpp" />
     <ClCompile Include="src\mednafen\general.cpp" />
     <ClCompile Include="src\mednafen\settings.cpp" />
     <ClCompile Include="src\mednafen\MemoryStream.cpp" />
