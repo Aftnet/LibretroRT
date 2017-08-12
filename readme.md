@@ -4,6 +4,25 @@ LibretroRT is a framework to enable porting of Libretro cores to WinRT component
 
 This should enable creating native UWP emulator front ends using high the high quality open source Libretro cores available.
 
+## Supported systems
+
+Libretro core used in parentheses
+
+- NES (FCEUMM)
+- SNES (Snex9x)
+- Game Boy (Ganbatte)
+- Game Boy Advance (Visual Boy Advance)
+- DS (Melon DS)
+- SG1000 (Genesis Plus GX)
+- Master System (Genesis Plus GX)
+- Game Gear (Genesis Plus GX)
+- Mega Drive (Genesis Plus GX)
+- PlayStation (Genesis Plus GX)
+- NeoGeo Pocket (BeetleNGP)
+- Wonderswan (BeetleWSwan)
+- PC Engine (BeetlePCEFast)
+- PlayStation (BeetlePSX)
+
 ## Demo
 
 [![Youtube link](https://img.youtube.com/vi/212kBK0IB1w/0.jpg)](https://youtu.be/212kBK0IB1w)
@@ -11,6 +30,10 @@ This should enable creating native UWP emulator front ends using high the high q
 Click image to play video
 
 Original demo video [here](https://youtu.be/1mzS54HhcEM)
+
+## How to use
+
+Check thee [wiki](https://github.com/Aftnet/LibretroRT/wiki)
 
 ## Help wanted
 
