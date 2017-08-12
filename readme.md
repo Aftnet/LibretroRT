@@ -33,7 +33,7 @@ Original demo video [here](https://youtu.be/1mzS54HhcEM)
 
 ## How to use
 
-Check thee [wiki](https://github.com/Aftnet/LibretroRT/wiki)
+Check the [wiki](https://github.com/Aftnet/LibretroRT/wiki)
 
 ## Help wanted
 
