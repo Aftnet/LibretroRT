@@ -35,12 +35,9 @@ Original demo video [here](https://youtu.be/1mzS54HhcEM)
 
 Check the [wiki](https://github.com/Aftnet/LibretroRT/wiki)
 
-## Help wanted
+## Want to support RetriX's development?
 
-I am accepting donations on [gofundme](https://www.gofundme.com/retrix) to help with development costs.
-At minimum, I would need:
-
-- An Xbox One to develop/test on
+Consider [donating via Patreon](https://www.patreon.com/aftnet). Thank you in advance :)
 
 ## Installing
 
