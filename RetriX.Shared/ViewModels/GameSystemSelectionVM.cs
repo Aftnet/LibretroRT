@@ -71,6 +71,13 @@ namespace RetriX.Shared.ViewModels
 
         private async Task StartGameAsync(GameSystemVM system, IFile file)
         {
+            var dependenciesMet = await system.CheckDependenciesMetAsync();
+            if (!dependenciesMet)
+            {
+                await DisplayNotification(SystemUnmetDependenciesAlertTitleKey, SystemUnmetDependenciesAlertMessageKey);
+                return;
+            }
+
             var folderNeeded = system.CheckRootFolderRequired(file);
             IFolder folder = null;
             if (folderNeeded)
@@ -92,15 +99,7 @@ namespace RetriX.Shared.ViewModels
             var startSuccess = await EmulationService.StartGameAsync(system, file, folder);
             if (!startSuccess)
             {
-                var dependenciesMet = await system.CheckDependenciesMetAsync();
-                if (dependenciesMet)
-                {
-                    await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
-                }
-                else
-                {
-                    await DisplayNotification(SystemUnmetDependenciesAlertTitleKey, SystemUnmetDependenciesAlertMessageKey);
-                }
+                await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
             }
         }
 
