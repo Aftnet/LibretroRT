@@ -295,6 +295,14 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\LibretroRT_Tools\file_path.cpp">
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
+    </ClCompile>
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp">
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
@@ -307,7 +315,6 @@
     <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
-    <ClCompile Include="src\libretro-common\file\file_path.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
     <ClCompile Include="src\libretro.cpp" />
