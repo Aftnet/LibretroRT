@@ -26,10 +26,14 @@ namespace RetriX.Shared.Services
 
     public interface IEmulationService
     {
+        IReadOnlyList<GameSystemVM> Systems { get; }
         IReadOnlyList<string> ArchiveExtensions { get; }
-
         IReadOnlyList<FileImporterVM> FileDependencyImporters { get; }
+
         string GameID { get; }
+
+        Task<GameSystemVM> SuggestSystemForFileAsync(IFile file);
+        Task<bool> StartGameAsync(GameSystemVM system, IFile file, IFolder rootFolder = null);
 
         Task ResetGameAsync();
         Task StopGameAsync();
@@ -45,15 +49,5 @@ namespace RetriX.Shared.Services
         event CoresInitializedDelegate CoresInitialized;
         event GameStartedDelegate GameStarted;
         event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
-    }
-
-    public interface IEmulationService<T> : IEmulationService where T : GameSystemVMBase
-    {
-        IReadOnlyList<T> Systems { get; }
-
-        Task<T> SuggestSystemForFileAsync(IFile file);
-        bool CheckRootFolderRequired(T system, IFile file);
-        Task<bool> CheckDependenciesMetAsync(T system);
-        Task<bool> StartGameAsync(T system, IFile file, IFolder rootFolder = null);
     }
 }

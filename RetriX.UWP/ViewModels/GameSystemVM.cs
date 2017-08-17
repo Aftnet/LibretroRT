@@ -1,11 +1,15 @@
 ﻿using LibretroRT;
+using PCLStorage;
 using RetriX.Shared.Services;
-using RetriX.Shared.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RetriX.UWP.ViewModels
 {
-    public class GameSystemVM : GameSystemVMBase
+    public class GameSystemVM : RetriX.Shared.ViewModels.GameSystemVM
     {
         public ICore Core { get; private set; }
         public IEnumerable<string> MultiFileExtensions { get; private set; }
@@ -15,6 +19,30 @@ namespace RetriX.UWP.ViewModels
         {
             Core = core;
             MultiFileExtensions = multiFileExtensions == null ? new string[0] : multiFileExtensions;
+        }
+
+        public override bool CheckRootFolderRequired(IFile file)
+        {
+            var extension = Path.GetExtension(file.Name);
+            return MultiFileExtensions.Contains(extension);
+        }
+
+        public override async Task<bool> CheckDependenciesMetAsync()
+        {
+            var systemFolder = Core.SystemFolder;
+            foreach (var i in Core.FileDependencies)
+            {
+                try
+                {
+                    await systemFolder.GetFileAsync(i.Name);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

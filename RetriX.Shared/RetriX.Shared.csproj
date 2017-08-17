@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="ViewModels\GameSystemVMBase.cs" />
+    <None Include="ViewModels\GameSystemVM.cs" />
   </ItemGroup>
 
   <ItemGroup>

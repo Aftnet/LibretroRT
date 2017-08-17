@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class GameSystemSelectionVM<T> : ViewModelBase where T : GameSystemVMBase
+    public class GameSystemSelectionVM : ViewModelBase
     {
         public const string SelectFolderRequestAlertTitleKey = nameof(SelectFolderRequestAlertTitleKey);
         public const string SelectFolderRequestAlertMessageKey = nameof(SelectFolderRequestAlertMessageKey);
@@ -28,25 +28,25 @@ namespace RetriX.Shared.ViewModels
         private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
-        private readonly IEmulationService<T> EmulationService;
+        private readonly IEmulationService EmulationService;
 
-        public IReadOnlyList<T> GameSystems => EmulationService.Systems;
-        public RelayCommand<T> GameSystemSelectedCommand { get; private set; }
+        public IReadOnlyList<GameSystemVM> GameSystems => EmulationService.Systems;
+        public RelayCommand<GameSystemVM> GameSystemSelectedCommand { get; private set; }
 
-        public GameSystemSelectionVM(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, IEmulationService<T> emulationService)
+        public GameSystemSelectionVM(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, IEmulationService emulationService)
         {
             DialogsService = dialogsService;
             LocalizationService = localizationService;
             PlatformService = platformService;
             EmulationService = emulationService;
 
-            GameSystemSelectedCommand = new RelayCommand<T>(GameSystemSelected);
+            GameSystemSelectedCommand = new RelayCommand<GameSystemVM>(GameSystemSelected);
 
             EmulationService.CoresInitialized += OnCoresInitialized;
             EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
         }
 
-        public async void GameSystemSelected(T system)
+        public async void GameSystemSelected(GameSystemVM system)
         {
             var extensions = system.SupportedExtensions.Concat(EmulationService.ArchiveExtensions).ToArray();
             var file = await PlatformService.SelectFileAsync(extensions);
@@ -69,9 +69,9 @@ namespace RetriX.Shared.ViewModels
             await StartGameAsync(system, file);
         }
 
-        private async Task StartGameAsync(T system, IFile file)
+        private async Task StartGameAsync(GameSystemVM system, IFile file)
         {
-            var folderNeeded = EmulationService.CheckRootFolderRequired(system, file);
+            var folderNeeded = system.CheckRootFolderRequired(file);
             IFolder folder = null;
             if (folderNeeded)
             {
@@ -92,7 +92,7 @@ namespace RetriX.Shared.ViewModels
             var startSuccess = await EmulationService.StartGameAsync(system, file, folder);
             if (!startSuccess)
             {
-                var dependenciesMet = await EmulationService.CheckDependenciesMetAsync(system);
+                var dependenciesMet = await system.CheckDependenciesMetAsync();
                 if (dependenciesMet)
                 {
                     await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);

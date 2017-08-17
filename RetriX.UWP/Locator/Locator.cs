@@ -9,24 +9,11 @@ using Plugin.VersionTracking;
 using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
 using RetriX.UWP.Services;
-using RetriX.UWP.ViewModels;
-using System;
 
 namespace RetriX.UWP.Locator
 {
     public class Locator
     {
-        private static Lazy<EmulationService> EmulationServiceLazy;
-
-        static Locator()
-        {
-            EmulationServiceLazy = new Lazy<EmulationService>(() =>
-            {
-                var ioc = SimpleIoc.Default;
-                return new EmulationService(ioc.GetInstance<IUserDialogs>(), ioc.GetInstance<ILocalizationService>(), ioc.GetInstance<IPlatformService>(), ioc.GetInstance<ICryptographyService>(), ioc.GetInstance<IInputManager>());
-            });
-        }
-
         public static void Initialize()
         {
             if (ServiceLocator.IsLocationProviderSet)
@@ -40,11 +27,10 @@ namespace RetriX.UWP.Locator
             ioc.Register<IInputManager, InputManager>();
             ioc.Register<IPlatformService, PlatformService>();
             ioc.Register<ICryptographyService, CryptographyService>();
-            ioc.Register<IEmulationService<GameSystemVM>>(() => EmulationServiceLazy.Value);
-            ioc.Register<IEmulationService>(() => EmulationServiceLazy.Value);
+            ioc.Register<IEmulationService, EmulationService>();
             ioc.Register<ISaveStateService, SaveStateService>();
             ioc.Register<ILocalizationService, LocalizationService>();
-            ioc.Register<GameSystemSelectionVM<GameSystemVM>>();
+            ioc.Register<GameSystemSelectionVM>();
             ioc.Register<AboutVM>();
             ioc.Register<GamePlayerVM>();
             ioc.Register<SettingsVM>();

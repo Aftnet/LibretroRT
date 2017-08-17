@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace RetriX.UWP.Services
 {
-    public class EmulationService : IEmulationService<GameSystemVM>
+    public class EmulationService : IEmulationService
     {
         private const char CoreExtensionDelimiter = '|';
         private static readonly IReadOnlyDictionary<InjectedInputTypes, InputTypes> InjectedInputMapping = new Dictionary<InjectedInputTypes, InputTypes>
@@ -49,8 +49,8 @@ namespace RetriX.UWP.Services
         private static readonly string[] archiveExtensions = { ".zip" };
         public IReadOnlyList<string> ArchiveExtensions => archiveExtensions;
 
-        private GameSystemVM[] systems = new GameSystemVM[0];
-        public IReadOnlyList<GameSystemVM> Systems => systems;
+        private ViewModels.GameSystemVM[] systems = new ViewModels.GameSystemVM[0];
+        public IReadOnlyList<Shared.ViewModels.GameSystemVM> Systems => systems;
 
         private FileImporterVM[] fileDependencyImporters = new FileImporterVM[0];
         public IReadOnlyList<FileImporterVM> FileDependencyImporters => fileDependencyImporters;
@@ -73,23 +73,23 @@ namespace RetriX.UWP.Services
             {
                 var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso", ".mds", ".mdf" };
 
-                systems = new GameSystemVM[]
+                systems = new ViewModels.GameSystemVM[]
                 {
-                new GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
-                new GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
-                new GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
-                new GameSystemVM(VBAMRT.VBAMCore.Instance, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
-                new GameSystemVM(MelonDSRT.MelonDSCore.Instance, LocalizationService, "SystemNameDS", "ManufacturerNameNintendo", "\uf117"),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", new HashSet<string>{ ".sg" }),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", new HashSet<string>{ ".sms" }),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", new HashSet<string>{ ".gg" }),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new HashSet<string>{ ".mds", ".md", ".smd", ".gen" }),
-                new GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", new HashSet<string>{ ".bin", ".cue", ".iso" }, CDImageExtensions),
+                new ViewModels.GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
+                new ViewModels.GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
+                new ViewModels.GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
+                new ViewModels.GameSystemVM(VBAMRT.VBAMCore.Instance, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
+                new ViewModels.GameSystemVM(MelonDSRT.MelonDSCore.Instance, LocalizationService, "SystemNameDS", "ManufacturerNameNintendo", "\uf117"),
+                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", new HashSet<string>{ ".sg" }),
+                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", new HashSet<string>{ ".sms" }),
+                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", new HashSet<string>{ ".gg" }),
+                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", new HashSet<string>{ ".mds", ".md", ".smd", ".gen" }),
+                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", new HashSet<string>{ ".bin", ".cue", ".iso" }, CDImageExtensions),
                 //new GameSystemVM(YabauseRT.YabauseCore.Instance, LocalizationService, "SystemNameSaturn", "ManufacturerNameSega", "\uf124", null, CDImageExtensions),
-                new GameSystemVM(BeetlePSXRT.BeetlePSXCore.Instance, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", null, CDImageExtensions),
-                new GameSystemVM(BeetlePCEFastRT.BeetlePCEFastCore.Instance, LocalizationService, "SystemNamePCEngine", "ManufacturerNameNEC", "\uf124", null, CDImageExtensions),
-                new GameSystemVM(BeetleWswanRT.BeetleWswanCore.Instance, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
-                new GameSystemVM(BeetleNGPRT.BeetleNGPCore.Instance, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
+                new ViewModels.GameSystemVM(BeetlePSXRT.BeetlePSXCore.Instance, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", null, CDImageExtensions),
+                new ViewModels.GameSystemVM(BeetlePCEFastRT.BeetlePCEFastCore.Instance, LocalizationService, "SystemNamePCEngine", "ManufacturerNameNEC", "\uf124", null, CDImageExtensions),
+                new ViewModels.GameSystemVM(BeetleWswanRT.BeetleWswanCore.Instance, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
+                new ViewModels.GameSystemVM(BeetleNGPRT.BeetleNGPCore.Instance, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
                 };
 
                 var allCores = systems.Select(d => d.Core).Distinct().ToArray();
@@ -104,7 +104,7 @@ namespace RetriX.UWP.Services
         }
 
         
-        public async Task<GameSystemVM> SuggestSystemForFileAsync(IFile file)
+        public async Task<Shared.ViewModels.GameSystemVM> SuggestSystemForFileAsync(IFile file)
         {
             while (!InitializationComplete)
             {
@@ -115,32 +115,10 @@ namespace RetriX.UWP.Services
             return Systems.FirstOrDefault(d => d.SupportedExtensions.Contains(extension));
         }
 
-        public bool CheckRootFolderRequired(GameSystemVM system, IFile file)
+        public async Task<bool> StartGameAsync(Shared.ViewModels.GameSystemVM system, IFile file, IFolder rootFolder = null)
         {
-            var extension = Path.GetExtension(file.Name);
-            return system.MultiFileExtensions.Contains(extension);
-        }
+            ViewModels.GameSystemVM nativeSystem = (ViewModels.GameSystemVM)system;
 
-        public async Task<bool> CheckDependenciesMetAsync(GameSystemVM system)
-        {
-            var systemFolder = system.Core.SystemFolder;
-            foreach(var i in system.Core.FileDependencies)
-            {
-                try
-                {
-                    await systemFolder.GetFileAsync(i.Name);
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public async Task<bool> StartGameAsync(GameSystemVM system, IFile file, IFolder rootFolder = null)
-        {
             if (CoreRunner == null)
             {
                 RootFrame.Navigate(typeof(GamePlayerPage));
@@ -156,7 +134,7 @@ namespace RetriX.UWP.Services
             if (!ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
             {
                 IStreamProvider streamProvider;
-                GetStreamProviderAndVirtualPath(system, file, rootFolder, out streamProvider, out virtualMainFilePath);
+                GetStreamProviderAndVirtualPath(nativeSystem, file, rootFolder, out streamProvider, out virtualMainFilePath);
                 StreamProvider = streamProvider;
             }
             else
@@ -165,7 +143,7 @@ namespace RetriX.UWP.Services
                 await archiveProvider.InitializeAsync();
                 StreamProvider = archiveProvider;
                 var entries = await StreamProvider.ListEntriesAsync();
-                virtualMainFilePath = entries.FirstOrDefault(d => system.SupportedExtensions.Contains(Path.GetExtension(d)));
+                virtualMainFilePath = entries.FirstOrDefault(d => nativeSystem.SupportedExtensions.Contains(Path.GetExtension(d)));
             }
 
             //Navigation should cause the player page to load, which in turn should initialize the core runner
@@ -179,12 +157,12 @@ namespace RetriX.UWP.Services
                 return false;
             }
 
-            system.Core.OpenFileStream = OnCoreOpenFileStream;
-            system.Core.CloseFileStream = OnCoreCloseFileStream;
+            nativeSystem.Core.OpenFileStream = OnCoreOpenFileStream;
+            nativeSystem.Core.CloseFileStream = OnCoreCloseFileStream;
             var loadSuccessful = false;
             try
             {
-                loadSuccessful = await CoreRunner.LoadGameAsync(system.Core, virtualMainFilePath);
+                loadSuccessful = await CoreRunner.LoadGameAsync(nativeSystem.Core, virtualMainFilePath);
             }
             catch
             {
@@ -291,7 +269,7 @@ namespace RetriX.UWP.Services
             StreamProvider.CloseStream(stream.AsStream());
         }
 
-        private void GetStreamProviderAndVirtualPath(GameSystemVM system, IFile file, IFolder rootFolder, out IStreamProvider provider, out string mainFileVirtualPath)
+        private void GetStreamProviderAndVirtualPath(ViewModels.GameSystemVM system, IFile file, IFolder rootFolder, out IStreamProvider provider, out string mainFileVirtualPath)
         {
             IStreamProvider romProvider;
             if (rootFolder == null)
