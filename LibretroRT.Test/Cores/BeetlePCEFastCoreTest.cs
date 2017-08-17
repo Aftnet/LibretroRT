@@ -5,21 +5,24 @@ namespace LibretroRT.Test.Cores
 {
     public class BeetlePCEFastCoreTest : TestBase
     {
-        protected const string RomName = "PCEngineGame.pce";
+        protected const string PCERomName = "PCEngineGame.pce";
+        protected const string PCECDRomName = "PCEngineCDGame.cue";
 
         public BeetlePCEFastCoreTest() : base(() => BeetleNGPRT.BeetleNGPCore.Instance)
         {
         }
 
         [Theory]
-        [InlineData(RomName)]
+        [InlineData(PCERomName)]
+        [InlineData(PCECDRomName)]
         public override Task LoadingRomWorks(string romName)
         {
             return LoadingRomWorksInternal(romName);
         }
 
         [Theory]
-        [InlineData(RomName)]
+        [InlineData(PCERomName)]
+        [InlineData(PCECDRomName)]
         public override Task ExecutionWorks(string romName)
         {
             return ExecutionWorksInternal(romName);

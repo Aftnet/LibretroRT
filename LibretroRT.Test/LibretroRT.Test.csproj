@@ -152,6 +152,7 @@
     <Content Include="Roms\NDSGame.nds" />
     <Content Include="Roms\NeoGeoPocketGame.ngc" />
     <Content Include="Roms\NESGame.nes" />
+    <Content Include="Roms\PCEngineGame.pce" />
     <Content Include="Roms\PlayStationGame.bin" />
     <Content Include="Roms\PlayStationGame.cue" />
     <Content Include="Roms\SaturnGame.bin" />
@@ -235,7 +236,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Roms\PCEngineGame.pce" />
+    <Content Include="Roms\PCEngineCDGame.cue" />
+    <Content Include="Roms\PCEngineCDGame.iso" />
+    <Content Include="Roms\syscard3.pce" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

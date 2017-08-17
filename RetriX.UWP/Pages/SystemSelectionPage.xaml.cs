@@ -10,9 +10,9 @@ namespace RetriX.UWP.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SystemSelectionPage : Page, ITypedViewModel<GameSystemSelectionVM<GameSystemVM>>
+    public sealed partial class SystemSelectionPage : Page, ITypedViewModel<GameSystemSelectionVM>
     {
-        public GameSystemSelectionVM<GameSystemVM> VM => ServiceLocator.Current.GetInstance<GameSystemSelectionVM<GameSystemVM>>();
+        public GameSystemSelectionVM VM => ServiceLocator.Current.GetInstance<GameSystemSelectionVM>();
 
         public SystemSelectionPage()
         {

@@ -48,7 +48,7 @@ namespace RetriX.UWP
         protected override void OnFileActivated(FileActivatedEventArgs args)
         {
             InitializeApp(args.PreviousExecutionState, false);
-            var mainVM = ServiceLocator.Current.GetInstance<GameSystemSelectionVM<GameSystemVM>>();
+            var mainVM = ServiceLocator.Current.GetInstance<GameSystemSelectionVM>();
             var file = args.Files.First(d => d as IStorageFile != null);
             var wrappedFile = new WinRTFile(file as IStorageFile);
             var task = mainVM.StartGameFromFileAsync(wrappedFile);

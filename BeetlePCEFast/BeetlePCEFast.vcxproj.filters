@@ -125,7 +125,6 @@
     <ClCompile Include="src\mednafen\okiadpcm.cpp" />
     <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\mednafen\mednafen-endian.c" />
-    <ClCompile Include="src\libretro-common\file\file_path.c" />
     <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
     <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
@@ -151,5 +150,6 @@
     <ClCompile Include="src\mednafen\hw_misc\arcade_card\arcade_card.cpp" />
     <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\file_path.cpp" />
   </ItemGroup>
 </Project>
