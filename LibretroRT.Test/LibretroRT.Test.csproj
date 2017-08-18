@@ -245,6 +245,9 @@
     <Content Include="Roms\PCEngineCDGame.iso" />
     <Content Include="Roms\syscard3.pce" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\sega_101.bin" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
