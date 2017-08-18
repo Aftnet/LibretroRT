@@ -54,3 +54,7 @@
 	path = BeetleSaturn/src
 	url = https://github.com/Aftnet/beetle-saturn-libretro.git
 	branch = master
+[submodule "BeetlePCFX/src"]
+	path = BeetlePCFX/src
+	url = https://github.com/Aftnet/beetle-pcfx-libretro.git
+	branch = master
