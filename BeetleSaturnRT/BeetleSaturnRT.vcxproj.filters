@@ -9,9 +9,13 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
+    <ClCompile Include="BeetleSaturnCore.cpp" />
+    <ClCompile Include="BeetleSaturnCoreInternal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
+    <ClInclude Include="BeetleSaturnCore.h" />
+    <ClInclude Include="BeetleSaturnCoreInternal.h" />
   </ItemGroup>
 </Project>
