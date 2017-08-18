@@ -34,6 +34,7 @@ BeetleSaturnCoreInternal::BeetleSaturnCoreInternal() : LibretroRT_Tools::CoreBas
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
 	true, true)
 {
+	fileDependencies->Append(ref new FileDependency(L"sega_101.bin ", L"Saturn BIOS", L"85ec9ca47d8f6807718151cbcca8b964"));
 }
 
 BeetleSaturnCoreInternal::~BeetleSaturnCoreInternal()
