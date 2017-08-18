@@ -266,6 +266,7 @@
     <ClInclude Include="src\mednafen\mempatcher-driver.h" />
     <ClInclude Include="src\mednafen\mempatcher.h" />
     <ClInclude Include="src\mednafen\msvc_compat.h" />
+    <ClInclude Include="src\mednafen\pcfx\huc6273.h" />
     <ClInclude Include="src\mednafen\pcfx\input.h" />
     <ClInclude Include="src\mednafen\pcfx\input\gamepad.h" />
     <ClInclude Include="src\mednafen\pcfx\input\mouse.h" />
@@ -300,6 +301,8 @@
     <ClInclude Include="src\mednafen\tremor\window.h" />
     <ClInclude Include="src\mednafen\tremor\window_lookup.h" />
     <ClInclude Include="src\mednafen\video.h" />
+    <ClInclude Include="src\mednafen\video\Deinterlacer.h" />
+    <ClInclude Include="src\mednafen\video\surface.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +337,7 @@
     <ClCompile Include="src\mednafen\mednafen_md5.c" />
     <ClCompile Include="src\mednafen\MemoryStream.cpp" />
     <ClCompile Include="src\mednafen\mempatcher.cpp" />
+    <ClCompile Include="src\mednafen\pcfx\huc6273.cpp" />
     <ClCompile Include="src\mednafen\pcfx\input.cpp" />
     <ClCompile Include="src\mednafen\pcfx\input\gamepad.cpp" />
     <ClCompile Include="src\mednafen\pcfx\input\mouse.cpp" />
@@ -363,6 +367,8 @@
     <ClCompile Include="src\mednafen\tremor\synthesis.c" />
     <ClCompile Include="src\mednafen\tremor\vorbisfile.c" />
     <ClCompile Include="src\mednafen\tremor\window.c" />
+    <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
+    <ClCompile Include="src\mednafen\video\surface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mednafen\hw_cpu\v810\v810_oploop.inc" />

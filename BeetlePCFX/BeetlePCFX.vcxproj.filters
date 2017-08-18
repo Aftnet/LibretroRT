@@ -102,6 +102,9 @@
     <ClInclude Include="src\mednafen\video.h" />
     <ClInclude Include="src\mednafen\file.h" />
     <ClInclude Include="src\libretro.h" />
+    <ClInclude Include="src\mednafen\pcfx\huc6273.h" />
+    <ClInclude Include="src\mednafen\video\Deinterlacer.h" />
+    <ClInclude Include="src\mednafen\video\surface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\pcfx\input.cpp" />
@@ -164,6 +167,9 @@
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\libretro-common\file\retro_stat.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
+    <ClCompile Include="src\mednafen\pcfx\huc6273.cpp" />
+    <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
+    <ClCompile Include="src\mednafen\video\surface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mednafen\hw_cpu\v810\v810_op_table.inc" />
