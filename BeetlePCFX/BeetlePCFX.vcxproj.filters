@@ -106,6 +106,9 @@
     <ClInclude Include="src\mednafen\video\Deinterlacer.h" />
     <ClInclude Include="src\mednafen\video\surface.h" />
     <ClInclude Include="src\mednafen\pcfx\fxscsi.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\libretro-common\include\file\file_path.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\pcfx\input.cpp" />
@@ -166,12 +169,14 @@
     <ClCompile Include="src\mednafen\mednafen_md5.c" />
     <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\libretro.cpp" />
-    <ClCompile Include="src\libretro-common\file\retro_stat.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
     <ClCompile Include="src\mednafen\pcfx\huc6273.cpp" />
     <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
     <ClCompile Include="src\mednafen\video\surface.cpp" />
     <ClCompile Include="src\mednafen\pcfx\fxscsi.cpp" />
+    <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
+    <ClCompile Include="..\LibretroRT_Tools\file_path.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mednafen\hw_cpu\v810\v810_op_table.inc" />
