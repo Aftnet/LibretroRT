@@ -253,6 +253,10 @@
   <ItemGroup>
     <Content Include="Roms\sega_101.bin" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\PCFXGame.bin" />
+    <Content Include="Roms\PCFXGame.cue" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
