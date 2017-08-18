@@ -154,7 +154,11 @@
     <Content Include="Roms\NDSGame.nds" />
     <Content Include="Roms\NeoGeoPocketGame.ngc" />
     <Content Include="Roms\NESGame.nes" />
+    <Content Include="Roms\PCEngineCDGame.cue" />
+    <Content Include="Roms\PCEngineCDGame.iso" />
     <Content Include="Roms\PCEngineGame.pce" />
+    <Content Include="Roms\PCFXGame.bin" />
+    <Content Include="Roms\PCFXGame.cue" />
     <Content Include="Roms\PlayStationGame.bin" />
     <Content Include="Roms\PlayStationGame.cue" />
     <Content Include="Roms\SaturnGame.bin" />
@@ -162,7 +166,9 @@
     <Content Include="Roms\SCPH5500.bin" />
     <Content Include="Roms\SCPH5501.bin" />
     <Content Include="Roms\SCPH5502.bin" />
+    <Content Include="Roms\sega_101.bin" />
     <Content Include="Roms\SNESGame.sfc" />
+    <Content Include="Roms\syscard3.pce" />
     <Content Include="Roms\WonderSwanGame.wsc" />
   </ItemGroup>
   <ItemGroup>
@@ -246,16 +252,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Roms\PCEngineCDGame.cue" />
-    <Content Include="Roms\PCEngineCDGame.iso" />
-    <Content Include="Roms\syscard3.pce" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Roms\sega_101.bin" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Roms\PCFXGame.bin" />
-    <Content Include="Roms\PCFXGame.cue" />
+    <Content Include="Roms\pcfx.rom" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
