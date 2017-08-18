@@ -338,4 +338,7 @@ Restart RetriX and try again.</value>
   <data name="SystemNamePCEngineCD" xml:space="preserve">
     <value>PC Engine CD</value>
   </data>
+  <data name="SystemNamePCFX" xml:space="preserve">
+    <value>PC-FX</value>
+  </data>
 </root>
