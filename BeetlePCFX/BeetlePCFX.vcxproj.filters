@@ -105,6 +105,7 @@
     <ClInclude Include="src\mednafen\pcfx\huc6273.h" />
     <ClInclude Include="src\mednafen\video\Deinterlacer.h" />
     <ClInclude Include="src\mednafen\video\surface.h" />
+    <ClInclude Include="src\mednafen\pcfx\fxscsi.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\pcfx\input.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\mednafen\pcfx\huc6273.cpp" />
     <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
     <ClCompile Include="src\mednafen\video\surface.cpp" />
+    <ClCompile Include="src\mednafen\pcfx\fxscsi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mednafen\hw_cpu\v810\v810_op_table.inc" />
