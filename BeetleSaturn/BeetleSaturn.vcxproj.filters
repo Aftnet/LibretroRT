@@ -228,9 +228,9 @@
     <ClCompile Include="src\mednafen\video\surface.cpp" />
     <ClCompile Include="src\mednafen\hash\md5.cpp" />
     <ClCompile Include="src\mednafen\hash\sha256.cpp" />
-    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
-    <ClCompile Include="src\libretro-common\file\retro_stat.c" />
     <ClCompile Include="src\libretro-common\rthreads\rthreads.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
+    <ClCompile Include="..\LibretroRT_Tools\file_path.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
   </ItemGroup>
 </Project>
