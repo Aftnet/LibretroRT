@@ -97,6 +97,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cores\BeetlePCFXCoreTest.cs" />
     <Compile Include="Cores\BeetlePCEFastCoreTest.cs" />
     <Compile Include="Cores\BeetleNGPCoreTest.cs" />
     <Compile Include="Cores\BeetleSaturnCoreTest.cs" />
@@ -186,6 +187,10 @@
     <ProjectReference Include="..\BeetlePCEFastRT\BeetlePCEFastRT.vcxproj">
       <Project>{7a0eb6b5-801e-469e-b9b4-1f3cb68cc900}</Project>
       <Name>BeetlePCEFastRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BeetlePCFXRT\BeetlePCFXRT.vcxproj">
+      <Project>{2901b352-ba31-4bef-bd0c-ba6b4e671feb}</Project>
+      <Name>BeetlePCFXRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
