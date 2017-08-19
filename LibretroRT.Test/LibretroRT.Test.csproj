@@ -97,8 +97,10 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cores\BeetlePCFXCoreTest.cs" />
     <Compile Include="Cores\BeetlePCEFastCoreTest.cs" />
     <Compile Include="Cores\BeetleNGPCoreTest.cs" />
+    <Compile Include="Cores\BeetleSaturnCoreTest.cs" />
     <Compile Include="Cores\BeetleWswanCoreTest.cs" />
     <Compile Include="Cores\ParallelN64CoreTest.cs" />
     <Compile Include="Cores\MelonDSCoreTest.cs" />
@@ -152,7 +154,11 @@
     <Content Include="Roms\NDSGame.nds" />
     <Content Include="Roms\NeoGeoPocketGame.ngc" />
     <Content Include="Roms\NESGame.nes" />
+    <Content Include="Roms\PCEngineCDGame.cue" />
+    <Content Include="Roms\PCEngineCDGame.iso" />
     <Content Include="Roms\PCEngineGame.pce" />
+    <Content Include="Roms\PCFXGame.bin" />
+    <Content Include="Roms\PCFXGame.cue" />
     <Content Include="Roms\PlayStationGame.bin" />
     <Content Include="Roms\PlayStationGame.cue" />
     <Content Include="Roms\SaturnGame.bin" />
@@ -160,7 +166,9 @@
     <Content Include="Roms\SCPH5500.bin" />
     <Content Include="Roms\SCPH5501.bin" />
     <Content Include="Roms\SCPH5502.bin" />
+    <Content Include="Roms\sega_101.bin" />
     <Content Include="Roms\SNESGame.sfc" />
+    <Content Include="Roms\syscard3.pce" />
     <Content Include="Roms\WonderSwanGame.wsc" />
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +194,17 @@
       <Project>{7a0eb6b5-801e-469e-b9b4-1f3cb68cc900}</Project>
       <Name>BeetlePCEFastRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BeetlePCFXRT\BeetlePCFXRT.vcxproj">
+      <Project>{2901b352-ba31-4bef-bd0c-ba6b4e671feb}</Project>
+      <Name>BeetlePCFXRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
       <Name>BeetlePSXRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BeetleSaturnRT\BeetleSaturnRT.vcxproj">
+      <Project>{63d18a8e-2580-47d0-854c-5b693ab774bf}</Project>
+      <Name>BeetleSaturnRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\BeetleWswanRT\BeetleWswanRT.vcxproj">
       <Project>{514bebc4-127b-4894-9905-d0f7a09b0287}</Project>
@@ -236,9 +252,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Roms\PCEngineCDGame.cue" />
-    <Content Include="Roms\PCEngineCDGame.iso" />
-    <Content Include="Roms\syscard3.pce" />
+    <Content Include="Roms\pcfx.rom" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{21304977-4e0d-41b1-bba9-c716c9bde052}</ProjectGuid>
+    <Keyword>DynamicLibrary</Keyword>
+    <RootNamespace>BeetleSaturn</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.14393.0</WindowsTargetPlatformMinVersion>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;INLINE=__inline;NOMINMAX;WANT_THREADING;HAVE_THREADS;NEED_DEINTERLACER;WANT_32BPP;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE__MKDIR;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.44.1;PACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=9441;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;_STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd 4996 /wd4146</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;INLINE=__inline;NOMINMAX;WANT_THREADING;HAVE_THREADS;NEED_DEINTERLACER;WANT_32BPP;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE__MKDIR;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.44.1;PACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=9441;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;_STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd 4996 /wd4146</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;INLINE=__inline;NOMINMAX;WANT_THREADING;HAVE_THREADS;NEED_DEINTERLACER;WANT_32BPP;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE__MKDIR;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.44.1;PACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=9441;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;_STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd 4996 /wd4146</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;INLINE=__inline;NOMINMAX;WANT_THREADING;HAVE_THREADS;NEED_DEINTERLACER;WANT_32BPP;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE__MKDIR;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.44.1;PACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=9441;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;_STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd 4996 /wd4146</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;INLINE=__inline;NOMINMAX;WANT_THREADING;HAVE_THREADS;NEED_DEINTERLACER;WANT_32BPP;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE__MKDIR;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.44.1;PACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=9441;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;_STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd 4996 /wd4146</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;INLINE=__inline;NOMINMAX;WANT_THREADING;HAVE_THREADS;NEED_DEINTERLACER;WANT_32BPP;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE__MKDIR;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.44.1;PACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=9441;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;_STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;__STDC_CONSTANT_MACROS_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/wd 4996 /wd4146</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\deps\zlib\crc32.h" />
+    <ClInclude Include="src\deps\zlib\deflate.h" />
+    <ClInclude Include="src\deps\zlib\gzguts.h" />
+    <ClInclude Include="src\deps\zlib\inffast.h" />
+    <ClInclude Include="src\deps\zlib\inffixed.h" />
+    <ClInclude Include="src\deps\zlib\inflate.h" />
+    <ClInclude Include="src\deps\zlib\inftrees.h" />
+    <ClInclude Include="src\deps\zlib\trees.h" />
+    <ClInclude Include="src\deps\zlib\zconf.h" />
+    <ClInclude Include="src\deps\zlib\zlib.h" />
+    <ClInclude Include="src\deps\zlib\zutil.h" />
+    <ClInclude Include="src\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\libretro-common\include\compat\apple_compat.h" />
+    <ClInclude Include="src\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\libretro-common\include\compat\getopt.h" />
+    <ClInclude Include="src\libretro-common\include\compat\ifaddrs.h" />
+    <ClInclude Include="src\libretro-common\include\compat\intrinsics.h" />
+    <ClInclude Include="src\libretro-common\include\compat\msvc.h" />
+    <ClInclude Include="src\libretro-common\include\compat\msvc\stdint.h" />
+    <ClInclude Include="src\libretro-common\include\compat\posix_string.h" />
+    <ClInclude Include="src\libretro-common\include\compat\strcasestr.h" />
+    <ClInclude Include="src\libretro-common\include\compat\strl.h" />
+    <ClInclude Include="src\libretro-common\include\glsm\glsm.h" />
+    <ClInclude Include="src\libretro-common\include\glsm\glsmsym.h" />
+    <ClInclude Include="src\libretro-common\include\glsym\glsym.h" />
+    <ClInclude Include="src\libretro-common\include\glsym\glsym_es2.h" />
+    <ClInclude Include="src\libretro-common\include\glsym\glsym_gl.h" />
+    <ClInclude Include="src\libretro-common\include\glsym\rglgen.h" />
+    <ClInclude Include="src\libretro-common\include\glsym\rglgen_headers.h" />
+    <ClInclude Include="src\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\libretro-common\include\retro_stat.h" />
+    <ClInclude Include="src\libretro-common\include\rthreads\async_job.h" />
+    <ClInclude Include="src\libretro-common\include\rthreads\rsemaphore.h" />
+    <ClInclude Include="src\libretro-common\include\rthreads\rthreads.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libretro-common\include\string\stdstring.h" />
+    <ClInclude Include="src\libretro.h" />
+    <ClInclude Include="src\libretro_cbs.h" />
+    <ClInclude Include="src\mednafen\cdrom\CDAccess.h" />
+    <ClInclude Include="src\mednafen\cdrom\CDAccess_CCD.h" />
+    <ClInclude Include="src\mednafen\cdrom\CDAccess_Image.h" />
+    <ClInclude Include="src\mednafen\cdrom\CDAFReader.h" />
+    <ClInclude Include="src\mednafen\cdrom\CDAFReader_Vorbis.h" />
+    <ClInclude Include="src\mednafen\cdrom\cdromif.h" />
+    <ClInclude Include="src\mednafen\cdrom\CDUtility.h" />
+    <ClInclude Include="src\mednafen\cdrom\dvdisaster.h" />
+    <ClInclude Include="src\mednafen\cdrom\galois-inlines.h" />
+    <ClInclude Include="src\mednafen\cdrom\lec.h" />
+    <ClInclude Include="src\mednafen\cdrom\SimpleFIFO.h" />
+    <ClInclude Include="src\mednafen\clamp.h" />
+    <ClInclude Include="src\mednafen\driver.h" />
+    <ClInclude Include="src\mednafen\error.h" />
+    <ClInclude Include="src\mednafen\file.h" />
+    <ClInclude Include="src\mednafen\FileStream.h" />
+    <ClInclude Include="src\mednafen\general.h" />
+    <ClInclude Include="src\mednafen\git.h" />
+    <ClInclude Include="src\mednafen\hash\md5.h" />
+    <ClInclude Include="src\mednafen\hash\sha256.h" />
+    <ClInclude Include="src\mednafen\hw_cpu\m68k\m68k.h" />
+    <ClInclude Include="src\mednafen\masmem.h" />
+    <ClInclude Include="src\mednafen\math_ops.h" />
+    <ClInclude Include="src\mednafen\mednafen-driver.h" />
+    <ClInclude Include="src\mednafen\mednafen-endian.h" />
+    <ClInclude Include="src\mednafen\mednafen-types.h" />
+    <ClInclude Include="src\mednafen\mednafen.h" />
+    <ClInclude Include="src\mednafen\MemoryStream.h" />
+    <ClInclude Include="src\mednafen\mempatcher-driver.h" />
+    <ClInclude Include="src\mednafen\mempatcher.h" />
+    <ClInclude Include="src\mednafen\settings-common.h" />
+    <ClInclude Include="src\mednafen\settings-driver.h" />
+    <ClInclude Include="src\mednafen\settings.h" />
+    <ClInclude Include="src\mednafen\ss\cart.h" />
+    <ClInclude Include="src\mednafen\ss\cart\backup.h" />
+    <ClInclude Include="src\mednafen\ss\cart\common.h" />
+    <ClInclude Include="src\mednafen\ss\cart\cs1ram.h" />
+    <ClInclude Include="src\mednafen\ss\cart\debug.h" />
+    <ClInclude Include="src\mednafen\ss\cart\extram.h" />
+    <ClInclude Include="src\mednafen\ss\cart\rom.h" />
+    <ClInclude Include="src\mednafen\ss\cdb.h" />
+    <ClInclude Include="src\mednafen\ss\db.h" />
+    <ClInclude Include="src\mednafen\ss\input\3dpad.h" />
+    <ClInclude Include="src\mednafen\ss\input\common.h" />
+    <ClInclude Include="src\mednafen\ss\input\gamepad.h" />
+    <ClInclude Include="src\mednafen\ss\input\gun.h" />
+    <ClInclude Include="src\mednafen\ss\input\keyboard.h" />
+    <ClInclude Include="src\mednafen\ss\input\mission.h" />
+    <ClInclude Include="src\mednafen\ss\input\mouse.h" />
+    <ClInclude Include="src\mednafen\ss\input\multitap.h" />
+    <ClInclude Include="src\mednafen\ss\input\wheel.h" />
+    <ClInclude Include="src\mednafen\ss\scu.h" />
+    <ClInclude Include="src\mednafen\ss\sh7095.h" />
+    <ClInclude Include="src\mednafen\ss\smpc.h" />
+    <ClInclude Include="src\mednafen\ss\smpc_iodevice.h" />
+    <ClInclude Include="src\mednafen\ss\sound.h" />
+    <ClInclude Include="src\mednafen\ss\ss.h" />
+    <ClInclude Include="src\mednafen\ss\ss_endian.h" />
+    <ClInclude Include="src\mednafen\ss\ss_memory.h" />
+    <ClInclude Include="src\mednafen\ss\vdp1.h" />
+    <ClInclude Include="src\mednafen\ss\vdp1_common.h" />
+    <ClInclude Include="src\mednafen\ss\vdp2.h" />
+    <ClInclude Include="src\mednafen\ss\vdp2_common.h" />
+    <ClInclude Include="src\mednafen\ss\vdp2_render.h" />
+    <ClInclude Include="src\mednafen\state.h" />
+    <ClInclude Include="src\mednafen\Stream.h" />
+    <ClInclude Include="src\mednafen\tremor\asm_arm.h" />
+    <ClInclude Include="src\mednafen\tremor\backends.h" />
+    <ClInclude Include="src\mednafen\tremor\block.h" />
+    <ClInclude Include="src\mednafen\tremor\codebook.h" />
+    <ClInclude Include="src\mednafen\tremor\codec_internal.h" />
+    <ClInclude Include="src\mednafen\tremor\config_types.h" />
+    <ClInclude Include="src\mednafen\tremor\ivorbiscodec.h" />
+    <ClInclude Include="src\mednafen\tremor\ivorbisfile.h" />
+    <ClInclude Include="src\mednafen\tremor\lsp_lookup.h" />
+    <ClInclude Include="src\mednafen\tremor\mdct.h" />
+    <ClInclude Include="src\mednafen\tremor\mdct_lookup.h" />
+    <ClInclude Include="src\mednafen\tremor\misc.h" />
+    <ClInclude Include="src\mednafen\tremor\ogg.h" />
+    <ClInclude Include="src\mednafen\tremor\os.h" />
+    <ClInclude Include="src\mednafen\tremor\os_types.h" />
+    <ClInclude Include="src\mednafen\tremor\registry.h" />
+    <ClInclude Include="src\mednafen\tremor\tremor_shared.h" />
+    <ClInclude Include="src\mednafen\tremor\window.h" />
+    <ClInclude Include="src\mednafen\tremor\window_lookup.h" />
+    <ClInclude Include="src\mednafen\video.h" />
+    <ClInclude Include="src\mednafen\video\Deinterlacer.h" />
+    <ClInclude Include="src\mednafen\video\surface.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\LibretroRT_Tools\file_path.cpp">
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
+    </ClCompile>
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp">
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
+      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
+    </ClCompile>
+    <ClCompile Include="src\deps\zlib\adler32.c" />
+    <ClCompile Include="src\deps\zlib\compress.c" />
+    <ClCompile Include="src\deps\zlib\crc32.c" />
+    <ClCompile Include="src\deps\zlib\deflate.c" />
+    <ClCompile Include="src\deps\zlib\gzclose.c" />
+    <ClCompile Include="src\deps\zlib\gzlib.c" />
+    <ClCompile Include="src\deps\zlib\gzread.c" />
+    <ClCompile Include="src\deps\zlib\gzwrite.c" />
+    <ClCompile Include="src\deps\zlib\infback.c" />
+    <ClCompile Include="src\deps\zlib\inffast.c" />
+    <ClCompile Include="src\deps\zlib\inflate.c" />
+    <ClCompile Include="src\deps\zlib\inftrees.c" />
+    <ClCompile Include="src\deps\zlib\trees.c" />
+    <ClCompile Include="src\deps\zlib\uncompr.c" />
+    <ClCompile Include="src\deps\zlib\zutil.c" />
+    <ClCompile Include="src\libretro-common\rthreads\rthreads.c" />
+    <ClCompile Include="src\libretro-common\string\stdstring.c" />
+    <ClCompile Include="src\libretro.cpp" />
+    <ClCompile Include="src\libretro_cbs.c" />
+    <ClCompile Include="src\mednafen\cdrom\CDAccess.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\CDAccess_CCD.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\CDAccess_Image.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\CDAFReader.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\CDAFReader_Vorbis.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\cdromif.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\CDUtility.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\edc_crc32.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\galois.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\l-ec.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\lec.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\recover-raw.cpp" />
+    <ClCompile Include="src\mednafen\error.cpp" />
+    <ClCompile Include="src\mednafen\file.c" />
+    <ClCompile Include="src\mednafen\FileStream.cpp" />
+    <ClCompile Include="src\mednafen\general.cpp" />
+    <ClCompile Include="src\mednafen\git.cpp" />
+    <ClCompile Include="src\mednafen\hash\md5.cpp" />
+    <ClCompile Include="src\mednafen\hash\sha256.cpp" />
+    <ClCompile Include="src\mednafen\hw_cpu\m68k\m68k.cpp" />
+    <ClCompile Include="src\mednafen\mednafen-endian.c" />
+    <ClCompile Include="src\mednafen\MemoryStream.cpp" />
+    <ClCompile Include="src\mednafen\mempatcher.cpp" />
+    <ClCompile Include="src\mednafen\settings.cpp" />
+    <ClCompile Include="src\mednafen\ss\cart.cpp" />
+    <ClCompile Include="src\mednafen\ss\cart\backup.cpp" />
+    <ClCompile Include="src\mednafen\ss\cart\cs1ram.cpp" />
+    <ClCompile Include="src\mednafen\ss\cart\debug.cpp" />
+    <ClCompile Include="src\mednafen\ss\cart\extram.cpp" />
+    <ClCompile Include="src\mednafen\ss\cart\rom.cpp" />
+    <ClCompile Include="src\mednafen\ss\cdb.cpp" />
+    <ClCompile Include="src\mednafen\ss\db.cpp" />
+    <ClCompile Include="src\mednafen\ss\input\3dpad.cpp" />
+    <ClCompile Include="src\mednafen\ss\input\gamepad.cpp" />
+    <ClCompile Include="src\mednafen\ss\input\gun.cpp" />
+    <ClCompile Include="src\mednafen\ss\input\keyboard.cpp" />
+    <ClCompile Include="src\mednafen\ss\input\mission.cpp" />
+    <ClCompile Include="src\mednafen\ss\input\mouse.cpp" />
+    <ClCompile Include="src\mednafen\ss\input\multitap.cpp" />
+    <ClCompile Include="src\mednafen\ss\input\wheel.cpp" />
+    <ClCompile Include="src\mednafen\ss\scu_dsp_gen.cpp" />
+    <ClCompile Include="src\mednafen\ss\scu_dsp_jmp.cpp" />
+    <ClCompile Include="src\mednafen\ss\scu_dsp_misc.cpp" />
+    <ClCompile Include="src\mednafen\ss\scu_dsp_mvi.cpp" />
+    <ClCompile Include="src\mednafen\ss\smpc.cpp" />
+    <ClCompile Include="src\mednafen\ss\sound.cpp" />
+    <ClCompile Include="src\mednafen\ss\vdp1.cpp" />
+    <ClCompile Include="src\mednafen\ss\vdp1_line.cpp" />
+    <ClCompile Include="src\mednafen\ss\vdp1_poly.cpp" />
+    <ClCompile Include="src\mednafen\ss\vdp1_sprite.cpp" />
+    <ClCompile Include="src\mednafen\ss\vdp2.cpp" />
+    <ClCompile Include="src\mednafen\ss\vdp2_render.cpp" />
+    <ClCompile Include="src\mednafen\state.cpp" />
+    <ClCompile Include="src\mednafen\Stream.cpp" />
+    <ClCompile Include="src\mednafen\tremor\bitwise.c" />
+    <ClCompile Include="src\mednafen\tremor\block.c" />
+    <ClCompile Include="src\mednafen\tremor\codebook.c" />
+    <ClCompile Include="src\mednafen\tremor\floor0.c" />
+    <ClCompile Include="src\mednafen\tremor\floor1.c" />
+    <ClCompile Include="src\mednafen\tremor\framing.c" />
+    <ClCompile Include="src\mednafen\tremor\info.c" />
+    <ClCompile Include="src\mednafen\tremor\mapping0.c" />
+    <ClCompile Include="src\mednafen\tremor\mdct.c" />
+    <ClCompile Include="src\mednafen\tremor\registry.c" />
+    <ClCompile Include="src\mednafen\tremor\res012.c" />
+    <ClCompile Include="src\mednafen\tremor\sharedbook.c" />
+    <ClCompile Include="src\mednafen\tremor\synthesis.c" />
+    <ClCompile Include="src\mednafen\tremor\vorbisfile.c" />
+    <ClCompile Include="src\mednafen\tremor\window.c" />
+    <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
+    <ClCompile Include="src\mednafen\video\surface.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibretroRT_Tools\LibretroRT_Tools.vcxproj">
+      <Project>{e64ed7da-f5bc-413b-a80d-a95111894139}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

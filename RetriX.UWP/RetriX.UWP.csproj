@@ -288,9 +288,17 @@
       <Project>{7a0eb6b5-801e-469e-b9b4-1f3cb68cc900}</Project>
       <Name>BeetlePCEFastRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BeetlePCFXRT\BeetlePCFXRT.vcxproj">
+      <Project>{2901b352-ba31-4bef-bd0c-ba6b4e671feb}</Project>
+      <Name>BeetlePCFXRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
       <Name>BeetlePSXRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BeetleSaturnRT\BeetleSaturnRT.vcxproj">
+      <Project>{63d18a8e-2580-47d0-854c-5b693ab774bf}</Project>
+      <Name>BeetleSaturnRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\BeetleWswanRT\BeetleWswanRT.vcxproj">
       <Project>{514bebc4-127b-4894-9905-d0f7a09b0287}</Project>

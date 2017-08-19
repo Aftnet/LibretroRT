@@ -107,7 +107,7 @@ ssize_t filestream_seek(RFILE *stream, ssize_t offset, int whence)
 ssize_t filestream_read(RFILE *stream, void *data, size_t len)
 {
 	auto winStream = stream->Stream;
-	auto remaining = winStream->Size - winStream->Position;
+	size_t remaining = winStream->Size - winStream->Position;
 	auto output = min(len, remaining);
 
 	auto buffer = LibretroRT_Tools::CreateNativeBuffer(data, len);

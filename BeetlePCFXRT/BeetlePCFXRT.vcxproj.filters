@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>8ba1cd1f-cea0-445f-9be8-0a0b5a1c9e0a</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
+    <ClCompile Include="BeetlePCFXCore.cpp" />
+    <ClCompile Include="BeetlePCFXCoreInternal.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
+    <ClInclude Include="BeetlePCFXCore.h" />
+    <ClInclude Include="BeetlePCFXCoreInternal.h" />
+  </ItemGroup>
+</Project>
