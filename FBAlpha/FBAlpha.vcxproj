@@ -125,9 +125,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4703</AdditionalOptions>
+      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,9 +139,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4703</AdditionalOptions>
+      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,9 +153,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4703</AdditionalOptions>
+      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,9 +167,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4703</AdditionalOptions>
+      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -181,9 +181,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4703</AdditionalOptions>
+      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -195,9 +195,9 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4703</AdditionalOptions>
+      <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -275,11 +275,6 @@
     <ClInclude Include="src\src\burn\drv\konami\konamiic.h" />
     <ClInclude Include="src\src\burn\drv\konami\timeplt_snd.h" />
     <ClInclude Include="src\src\burn\drv\megadrive\megadrive.h" />
-    <ClInclude Include="src\src\burn\drv\midway\dcs2k.h" />
-    <ClInclude Include="src\src\burn\drv\midway\ide.h" />
-    <ClInclude Include="src\src\burn\drv\midway\midtunit_dma.h" />
-    <ClInclude Include="src\src\burn\drv\midway\midwayic.h" />
-    <ClInclude Include="src\src\burn\drv\midway\midwunit.h" />
     <ClInclude Include="src\src\burn\drv\neogeo\neogeo.h" />
     <ClInclude Include="src\src\burn\drv\neogeo\neo_sprite_render.h" />
     <ClInclude Include="src\src\burn\drv\neogeo\neo_text_render.h" />
@@ -375,9 +370,6 @@
     <ClInclude Include="src\src\burn\timer.h" />
     <ClInclude Include="src\src\burn\vector.h" />
     <ClInclude Include="src\src\burn\version.h" />
-    <ClInclude Include="src\src\cpu\adsp2100\adsp2100.h" />
-    <ClInclude Include="src\src\cpu\adsp2100\adsp2100_defs.h" />
-    <ClInclude Include="src\src\cpu\adsp2100\cpuintrf.h" />
     <ClInclude Include="src\src\cpu\adsp2100_intf.h" />
     <ClInclude Include="src\src\cpu\arm7\arm7core.h" />
     <ClInclude Include="src\src\cpu\arm7_intf.h" />
@@ -409,30 +401,6 @@
     <ClInclude Include="src\src\cpu\m68k\m68kconf.h" />
     <ClInclude Include="src\src\cpu\m68k\m68kcpu.h" />
     <ClInclude Include="src\src\cpu\m68k\m68kops.h" />
-    <ClInclude Include="src\src\cpu\mips3\mips3.h" />
-    <ClInclude Include="src\src\cpu\mips3\mips3_arithm.h" />
-    <ClInclude Include="src\src\cpu\mips3\mips3_bitops.h" />
-    <ClInclude Include="src\src\cpu\mips3\mips3_branch.h" />
-    <ClInclude Include="src\src\cpu\mips3\mips3_common.h" />
-    <ClInclude Include="src\src\cpu\mips3\mips3_memory.h" />
-    <ClInclude Include="src\src\cpu\mips3\mips3_misc.h" />
-    <ClInclude Include="src\src\cpu\mips3\mips3_rw.h" />
-    <ClInclude Include="src\src\cpu\mips3\mips3_shift.h" />
-    <ClInclude Include="src\src\cpu\mips3\mipsdef.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64_arithm.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64_bitops.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64_branch.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64_cop0.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64_cop1.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64_defs.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64_misc.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64_rw.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\mips3_x64_shift.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\xbyak\xbyak.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\xbyak\xbyak_bin2hex.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\xbyak\xbyak_mnemonic.h" />
-    <ClInclude Include="src\src\cpu\mips3\x64\xbyak\xbyak_util.h" />
     <ClInclude Include="src\src\cpu\mips3_intf.h" />
     <ClInclude Include="src\src\cpu\nec\nec.h" />
     <ClInclude Include="src\src\cpu\nec\necea.h" />
@@ -450,15 +418,6 @@
     <ClInclude Include="src\src\cpu\sh2_intf.h" />
     <ClInclude Include="src\src\cpu\tlcs90_intf.h" />
     <ClInclude Include="src\src\cpu\tms32010\tms32010.h" />
-    <ClInclude Include="src\src\cpu\tms34010\tms34010.h" />
-    <ClInclude Include="src\src\cpu\tms34010\tms34010_arithm.h" />
-    <ClInclude Include="src\src\cpu\tms34010\tms34010_ctrl.h" />
-    <ClInclude Include="src\src\cpu\tms34010\tms34010_defs.h" />
-    <ClInclude Include="src\src\cpu\tms34010\tms34010_gfx.h" />
-    <ClInclude Include="src\src\cpu\tms34010\tms34010_jump.h" />
-    <ClInclude Include="src\src\cpu\tms34010\tms34010_memacc.h" />
-    <ClInclude Include="src\src\cpu\tms34010\tms34010_mov.h" />
-    <ClInclude Include="src\src\cpu\tms34010\tms34010_shift.h" />
     <ClInclude Include="src\src\cpu\tms34010_intf.h" />
     <ClInclude Include="src\src\cpu\upd7725\upd7725.h" />
     <ClInclude Include="src\src\cpu\upd7810\upd7810.h" />
@@ -700,12 +659,6 @@
     <ClCompile Include="src\src\burn\drv\konami\timeplt_snd.cpp" />
     <ClCompile Include="src\src\burn\drv\megadrive\d_megadrive.cpp" />
     <ClCompile Include="src\src\burn\drv\megadrive\megadrive.cpp" />
-    <ClCompile Include="src\src\burn\drv\midway\dcs2k.cpp" />
-    <ClCompile Include="src\src\burn\drv\midway\d_kinst.cpp" />
-    <ClCompile Include="src\src\burn\drv\midway\d_wunit.cpp" />
-    <ClCompile Include="src\src\burn\drv\midway\ide.cpp" />
-    <ClCompile Include="src\src\burn\drv\midway\midwayic.cpp" />
-    <ClCompile Include="src\src\burn\drv\midway\midwunit.cpp" />
     <ClCompile Include="src\src\burn\drv\msx\d_msx.cpp" />
     <ClCompile Include="src\src\burn\drv\neogeo\d_neogeo.cpp" />
     <ClCompile Include="src\src\burn\drv\neogeo\neogeo.cpp" />
@@ -1145,9 +1098,6 @@
     <ClCompile Include="src\src\burn\vector.cpp" />
     <ClCompile Include="src\src\cpu\a68k\fba_make68k.c" />
     <ClCompile Include="src\src\cpu\a68k\mips\fba_make68k.c" />
-    <ClCompile Include="src\src\cpu\adsp2100\2100dasm.cpp" />
-    <ClCompile Include="src\src\cpu\adsp2100\adsp2100.cpp" />
-    <ClCompile Include="src\src\cpu\adsp2100_intf.cpp" />
     <ClCompile Include="src\src\cpu\arm7\arm7.cpp" />
     <ClCompile Include="src\src\cpu\arm7_intf.cpp" />
     <ClCompile Include="src\src\cpu\arm\arm.cpp" />
@@ -1171,11 +1121,6 @@
     <ClCompile Include="src\src\cpu\m6809_intf.cpp" />
     <ClCompile Include="src\src\cpu\m68k\m68kcpu.c" />
     <ClCompile Include="src\src\cpu\m68k\m68kops.c" />
-    <ClCompile Include="src\src\cpu\mips3\cop0.cpp" />
-    <ClCompile Include="src\src\cpu\mips3\cop1.cpp" />
-    <ClCompile Include="src\src\cpu\mips3\mips3.cpp" />
-    <ClCompile Include="src\src\cpu\mips3\x64\mips3_x64.cpp" />
-    <ClCompile Include="src\src\cpu\mips3_intf.cpp" />
     <ClCompile Include="src\src\cpu\nec\nec.cpp" />
     <ClCompile Include="src\src\cpu\nec\v25.cpp" />
     <ClCompile Include="src\src\cpu\nec_intf.cpp" />
@@ -1187,9 +1132,6 @@
     <ClCompile Include="src\src\cpu\tlcs90\tlcs90.cpp" />
     <ClCompile Include="src\src\cpu\tlcs90_intf.cpp" />
     <ClCompile Include="src\src\cpu\tms32010\tms32010.cpp" />
-    <ClCompile Include="src\src\cpu\tms34010\tms34010.cpp" />
-    <ClCompile Include="src\src\cpu\tms34010\tms34010_optable.cpp" />
-    <ClCompile Include="src\src\cpu\tms34010_intf.cpp" />
     <ClCompile Include="src\src\cpu\upd7725\upd7725.cpp" />
     <ClCompile Include="src\src\cpu\upd7810\7810dasm.c" />
     <ClCompile Include="src\src\cpu\upd7810\upd7810.cpp" />
