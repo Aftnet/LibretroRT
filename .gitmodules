@@ -60,5 +60,5 @@
 	branch = master
 [submodule "FBAlpha/src"]
 	path = FBAlpha/src
-	url = https://github.com/libretro/fbalpha.git
+	url = https://github.com/Aftnet/fbalpha.git
 	branch = master
