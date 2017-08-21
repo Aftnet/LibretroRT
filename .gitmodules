@@ -58,3 +58,7 @@
 	path = BeetlePCFX/src
 	url = https://github.com/libretro/beetle-pcfx-libretro.git
 	branch = master
+[submodule "FBAlpha/src"]
+	path = FBAlpha/src
+	url = https://github.com/libretro/fbalpha.git
+	branch = master
