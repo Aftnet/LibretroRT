@@ -438,6 +438,8 @@
     <ClInclude Include="src\src\dep\libs\zlib\zconf.h" />
     <ClInclude Include="src\src\dep\libs\zlib\zlib.h" />
     <ClInclude Include="src\src\dep\libs\zlib\zutil.h" />
+    <ClInclude Include="src\src\intf\audio\aud_dsp.h" />
+    <ClInclude Include="src\src\intf\audio\lowpass2.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -1152,6 +1154,8 @@
     <ClCompile Include="src\src\dep\libs\zlib\trees.c" />
     <ClCompile Include="src\src\dep\libs\zlib\uncompr.c" />
     <ClCompile Include="src\src\dep\libs\zlib\zutil.c" />
+    <ClCompile Include="src\src\intf\audio\aud_dsp.cpp" />
+    <ClCompile Include="src\src\intf\audio\lowpass2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\src\burn\burn_sound_a.asm" />

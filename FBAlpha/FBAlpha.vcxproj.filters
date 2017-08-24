@@ -240,6 +240,8 @@
     <ClInclude Include="src\src\burn\timer.h" />
     <ClInclude Include="src\src\burn\vector.h" />
     <ClInclude Include="src\src\burn\version.h" />
+    <ClInclude Include="src\src\intf\audio\aud_dsp.h" />
+    <ClInclude Include="src\src\intf\audio\lowpass2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\dep\libs\zlib\adler32.c" />
@@ -953,6 +955,8 @@
     <ClCompile Include="src\src\burn\tiles_generic.cpp" />
     <ClCompile Include="src\src\burn\timer.cpp" />
     <ClCompile Include="src\src\burn\vector.cpp" />
+    <ClCompile Include="src\src\intf\audio\aud_dsp.cpp" />
+    <ClCompile Include="src\src\intf\audio\lowpass2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\src\cpu\a68k\mips\a68ktbl.inc" />
