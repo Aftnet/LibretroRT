@@ -403,7 +403,6 @@
     <ClCompile Include="src\src\burn\drv\capcom\cpsrd.cpp" />
     <ClCompile Include="src\src\burn\drv\capcom\cpst.cpp" />
     <ClCompile Include="src\src\burn\drv\capcom\ctv.cpp" />
-    <ClCompile Include="src\src\burn\drv\capcom\ctv_make.cpp" />
     <ClCompile Include="src\src\burn\drv\capcom\d_cps1.cpp" />
     <ClCompile Include="src\src\burn\drv\capcom\d_cps2.cpp" />
     <ClCompile Include="src\src\burn\drv\capcom\fcrash_snd.cpp" />
@@ -578,7 +577,6 @@
     <ClCompile Include="src\src\burn\drv\pgm\pgm_crypt.cpp" />
     <ClCompile Include="src\src\burn\drv\pgm\pgm_draw.cpp" />
     <ClCompile Include="src\src\burn\drv\pgm\pgm_run.cpp" />
-    <ClCompile Include="src\src\burn\drv\pgm\pgm_sprite_create.cpp" />
     <ClCompile Include="src\src\burn\drv\pre90s\d_4enraya.cpp" />
     <ClCompile Include="src\src\burn\drv\pre90s\d_1942.cpp" />
     <ClCompile Include="src\src\burn\drv\pre90s\d_1943.cpp" />
