@@ -988,7 +988,7 @@
     <ClCompile Include="src\src\intf\audio\aud_dsp.cpp" />
     <ClCompile Include="src\src\intf\audio\lowpass2.cpp" />
     <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream_transforms.c" />
-    <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\src\cpu\a68k\mips\a68ktbl.inc" />

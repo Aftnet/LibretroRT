@@ -276,6 +276,28 @@ int filestream_putc(RFILE *stream, int c)
 	return c;
 }
 
+int filestream_printf(RFILE *stream, const char* format, ...)
+{
+	va_list vl;
+	va_start(vl, format);
+	int result = filestream_vprintf(stream, format, vl);
+	va_end(vl);
+	return result;
+}
+
+int filestream_vprintf(RFILE *stream, const char* format, va_list args)
+{
+	static char buffer[8 * 1024];
+	int numChars = vsprintf(buffer, format, args);
+
+	if (numChars < 0)
+		return -1;
+	else if (numChars == 0)
+		return 0;
+
+	return filestream_write(stream, buffer, numChars);
+}
+
 int filestream_flush(RFILE *stream)
 {
 	concurrency::create_task(stream->Stream->FlushAsync()).wait();
