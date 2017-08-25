@@ -242,6 +242,36 @@
     <ClInclude Include="src\src\burn\version.h" />
     <ClInclude Include="src\src\intf\audio\aud_dsp.h" />
     <ClInclude Include="src\src\intf\audio\lowpass2.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\msvc\stdint.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\apple_compat.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\getopt.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\ifaddrs.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\intrinsics.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\msvc.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\posix_string.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\strcasestr.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\strl.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\glsm\glsm.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\glsm\glsmsym.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\glsym\glsym.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\glsym\glsym_es2.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\glsym\glsym_gl.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\glsym\rglgen.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\glsym\rglgen_headers.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\rthreads\async_job.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\rthreads\rsemaphore.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\rthreads\rthreads.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\string\stdstring.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\retro_stat.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\streams\file_stream_transforms.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\dep\libs\zlib\adler32.c" />
@@ -957,6 +987,9 @@
     <ClCompile Include="src\src\burn\vector.cpp" />
     <ClCompile Include="src\src\intf\audio\aud_dsp.cpp" />
     <ClCompile Include="src\src\intf\audio\lowpass2.cpp" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\file\retro_stat.c" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream_transforms.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\src\cpu\a68k\mips\a68ktbl.inc" />
