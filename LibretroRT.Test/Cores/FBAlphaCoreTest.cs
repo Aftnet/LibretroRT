@@ -3,7 +3,7 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
-    public class FBAlphaCoreTest : TestBase
+    /*public class FBAlphaCoreTest : TestBase
     {
         protected const string RomName = "ArcadeGame.zip";
 
@@ -24,5 +24,5 @@ namespace LibretroRT.Test.Cores
         {
             return ExecutionWorksInternal(romName);
         }
-    }
+    }*/
 }
