@@ -353,6 +353,7 @@
     <ClCompile Include="src\src\boards\novel.c" />
     <ClCompile Include="src\src\boards\onebus.c" />
     <ClCompile Include="src\src\boards\pec-586.c" />
+    <ClCompile Include="src\src\boards\rt-01.c" />
     <ClCompile Include="src\src\boards\SA-9602B.c" />
     <ClCompile Include="src\src\boards\sachen.c" />
     <ClCompile Include="src\src\boards\sc-127.c" />

@@ -394,7 +394,7 @@
     <ClCompile Include="src\libretro-common\file\file_path.c" />
     <ClCompile Include="src\libretro-common\file\retro_stat.c" />
     <ClCompile Include="src\libretro-common\hash\rhash.c" />
-    <ClCompile Include="src\libretro-common\libco\fiber.c" />
+    <ClCompile Include="src\libretro-common\libco\libco.c" />
     <ClCompile Include="src\libretro-common\lists\string_list.c" />
     <ClCompile Include="src\libretro-common\memmap\memalign.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />

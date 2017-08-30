@@ -278,7 +278,7 @@
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video_main.c" />
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video.c" />
     <ClCompile Include="src\mupen64plus-video-angrylion\n64video_vi.c" />
-    <ClCompile Include="src\libretro-common\libco\fiber.c" />
     <ClCompile Include="src\mupen64plus-core\src\pifbootrom\pifbootrom.c" />
+    <ClCompile Include="src\libretro-common\libco\libco.c" />
   </ItemGroup>
 </Project>
