@@ -206,5 +206,6 @@
     <ClCompile Include="src\src\unif.c" />
     <ClCompile Include="src\src\x6502.c" />
     <ClCompile Include="src\src\drivers\libretro\griffin.c" />
+    <ClCompile Include="src\src\boards\rt-01.c" />
   </ItemGroup>
 </Project>
