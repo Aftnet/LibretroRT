@@ -259,6 +259,9 @@
   <ItemGroup>
     <Content Include="Roms\pcfx.rom" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\ArcadeGame.zip" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

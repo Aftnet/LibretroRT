@@ -5,7 +5,7 @@ namespace LibretroRT.Test.Cores
 {
     public class FBAlphaCoreTest : TestBase
     {
-        protected const string RomName = "NeoGeoPocketGame.ngc";
+        protected const string RomName = "ArcadeGame.zip";
 
         public FBAlphaCoreTest() : base(() => FBAlphaRT.FBAlphaCore.Instance)
         {
