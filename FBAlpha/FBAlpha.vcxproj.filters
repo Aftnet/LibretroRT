@@ -298,7 +298,6 @@
     <ClCompile Include="src\src\burner\statec.cpp" />
     <ClCompile Include="src\src\burner\unzip.c" />
     <ClCompile Include="src\src\burner\zipfn.cpp" />
-    <ClCompile Include="src\src\cpu\a68k\mips\fba_make68k.c" />
     <ClCompile Include="src\src\cpu\a68k\fba_make68k.c" />
     <ClCompile Include="src\src\cpu\arm\arm.cpp" />
     <ClCompile Include="src\src\cpu\arm7\arm7.cpp" />
