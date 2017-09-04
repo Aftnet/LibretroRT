@@ -26,7 +26,6 @@
     <ClInclude Include="src\src\burner\libretro\libretro.h" />
     <ClInclude Include="src\src\burner\libretro\libretro_private.h" />
     <ClInclude Include="src\src\burner\libretro\net.h" />
-    <ClInclude Include="src\src\burner\libretro\tchar.h" />
     <ClInclude Include="src\src\burner\burner.h" />
     <ClInclude Include="src\src\burner\gameinp.h" />
     <ClInclude Include="src\src\burner\ioapi.h" />
@@ -272,6 +271,7 @@
     <ClInclude Include="src\src\burner\libretro\libretro-common\include\retro_miscellaneous.h" />
     <ClInclude Include="src\src\burner\libretro\libretro-common\include\retro_stat.h" />
     <ClInclude Include="src\src\burner\libretro\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\src\burner\libretro\fba_tchar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\dep\libs\zlib\adler32.c" />
@@ -988,7 +988,7 @@
     <ClCompile Include="src\src\intf\audio\aud_dsp.cpp" />
     <ClCompile Include="src\src\intf\audio\lowpass2.cpp" />
     <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream_transforms.c" />
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\src\cpu\a68k\mips\a68ktbl.inc" />

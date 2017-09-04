@@ -127,7 +127,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\libretro-common\include;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LIBRETRO_FILE32API;LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,7 +141,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\libretro-common\include;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LIBRETRO_FILE32API;LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,7 +155,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\libretro-common\include;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LIBRETRO_FILE32API;LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,7 +169,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\libretro-common\include;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LIBRETRO_FILE32API;LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -183,7 +183,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\libretro-common\include;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LIBRETRO_FILE32API;LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -197,7 +197,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalOptions>/wd 4996 /wd 4146 /wd 4308 /wd 4700 /wd 4703</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src\burn;$(ProjectDir)src\src\burn\drv\capcom;$(ProjectDir)src\src\burn\drv\konami;$(ProjectDir)src\src\burn\drv\dataeast;$(ProjectDir)src\src\burn\drv\cave;$(ProjectDir)src\src\burn\drv\neogeo;$(ProjectDir)src\src\burn\drv\psikyo;$(ProjectDir)src\src\burn\drv\sega;$(ProjectDir)src\src\burn\drv\toaplan;$(ProjectDir)src\src\burn\drv\taito;$(ProjectDir)src\src\burn\snd;$(ProjectDir)src\src\burn\devices;$(ProjectDir)src\src\burner;$(ProjectDir)src\src\burner\win32;$(ProjectDir)src\src\burner\libretro;$(ProjectDir)src\src\burner\libretro\libretro-common\include;$(ProjectDir)src\src\burner\libretro\tchar;$(ProjectDir)src\src\cpu;$(ProjectDir)src\src\cpu\i8039;$(ProjectDir)src\src\cpu\i8051;$(ProjectDir)src\src\cpu\tms32010;$(ProjectDir)src\src\cpu\upd7725;$(ProjectDir)src\src\cpu\upd7810;$(ProjectDir)src\src\cpu\v60;$(ProjectDir)src\src\intf;$(ProjectDir)src\src\intf\input;$(ProjectDir)src\src\intf\cd;$(ProjectDir)src\src\intf\audio;$(ProjectDir)src\src\dep\libs\zlib;$(ProjectDir)src\src\dep\libs\lib7z;$(ProjectDir)src\src\dep\generated;$(ProjectDir)src\src\dep\libs;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LIBRETRO_FILE32API;LSB_FIRST;FRONTEND_SUPPORTS_RGB565;PTR64;__LIBRETRO__;__LIBRETRO_OPTIMIZATIONS__;USE_SPEEDHACKS;WANT_NEOGEOCD;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -246,7 +246,7 @@
     <ClInclude Include="src\src\burner\libretro\libretro.h" />
     <ClInclude Include="src\src\burner\libretro\libretro_private.h" />
     <ClInclude Include="src\src\burner\libretro\net.h" />
-    <ClInclude Include="src\src\burner\libretro\tchar.h" />
+    <ClInclude Include="src\src\burner\libretro\fba_tchar.h" />
     <ClInclude Include="src\src\burner\neocdlist.h" />
     <ClInclude Include="src\src\burner\title.h" />
     <ClInclude Include="src\src\burner\unzip.h" />
@@ -473,18 +473,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp">
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
-    </ClCompile>
     <ClCompile Include="src\src\burner\ioapi.c" />
     <ClCompile Include="src\src\burner\libretro\bind_map.cpp" />
     <ClCompile Include="src\src\burner\libretro\gamc.cpp" />
     <ClCompile Include="src\src\burner\libretro\gami.cpp" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="src\src\burner\libretro\libretro.cpp" />
     <ClCompile Include="src\src\burner\libretro\neocdlist.cpp" />
