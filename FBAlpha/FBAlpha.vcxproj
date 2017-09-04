@@ -246,7 +246,7 @@
     <ClInclude Include="src\src\burner\libretro\libretro.h" />
     <ClInclude Include="src\src\burner\libretro\libretro_private.h" />
     <ClInclude Include="src\src\burner\libretro\net.h" />
-    <ClInclude Include="src\src\burner\libretro\fba_tchar.h" />
+    <ClInclude Include="src\src\burner\libretro\tchar.h" />
     <ClInclude Include="src\src\burner\neocdlist.h" />
     <ClInclude Include="src\src\burner\title.h" />
     <ClInclude Include="src\src\burner\unzip.h" />
