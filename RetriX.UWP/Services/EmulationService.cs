@@ -135,7 +135,7 @@ namespace RetriX.UWP.Services
             StreamProvider?.Dispose();
             StreamProvider = null;
             string virtualMainFilePath = null;
-            if (!ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
+            if (nativeSystem.Core.NativeArchiveSupport || !ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
             {
                 IStreamProvider streamProvider;
                 GetStreamProviderAndVirtualPath(nativeSystem, file, rootFolder, out streamProvider, out virtualMainFilePath);
