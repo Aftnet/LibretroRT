@@ -37,6 +37,7 @@ namespace LibretroRT
 		property IStorageFolder^ SystemFolder { IStorageFolder^ get(); };
 		property IStorageFolder^ SaveGameFolder { IStorageFolder^ get(); };
 		property IVectorView<String^>^ SupportedExtensions { IVectorView<String^>^ get(); };
+		property bool NativeArchiveSupport { bool get(); };
 		property IMapView<String^, CoreOption^>^ Options { IMapView<String^, CoreOption^>^ get(); };
 		property IVectorView<FileDependency^>^ FileDependencies { IVectorView<FileDependency^>^ get(); };
 

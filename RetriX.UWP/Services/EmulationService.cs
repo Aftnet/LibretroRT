@@ -93,6 +93,7 @@ namespace RetriX.UWP.Services
                 new ViewModels.GameSystemVM(BeetlePCFXRT.BeetlePCFXCore.Instance, LocalizationService, "SystemNamePCFX", "ManufacturerNameNEC", "\uf124", false, new HashSet<string>{ ".cue", ".ccd", ".toc" }, CDImageExtensions),
                 new ViewModels.GameSystemVM(BeetleWswanRT.BeetleWswanCore.Instance, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
                 new ViewModels.GameSystemVM(BeetleNGPRT.BeetleNGPCore.Instance, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
+                new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102"),
                 };
 
                 var allCores = systems.Select(d => d.Core).Distinct().ToArray();
@@ -134,7 +135,7 @@ namespace RetriX.UWP.Services
             StreamProvider?.Dispose();
             StreamProvider = null;
             string virtualMainFilePath = null;
-            if (!ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
+            if (nativeSystem.Core.NativeArchiveSupport || !ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
             {
                 IStreamProvider streamProvider;
                 GetStreamProviderAndVirtualPath(nativeSystem, file, rootFolder, out streamProvider, out virtualMainFilePath);

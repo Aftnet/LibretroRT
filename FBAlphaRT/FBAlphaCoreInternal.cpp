@@ -32,8 +32,9 @@ FBAlphaCoreInternal^ FBAlphaCoreInternal::Instance::get()
 
 FBAlphaCoreInternal::FBAlphaCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
-	true, true)
+	true, true, true)
 {
+	fileDependencies->Append(ref new FileDependency(L"neogeo.zip", L"NeoGeo BIOS collection", L"93adcaa22d652417cbc3927d46b11806"));
 }
 
 FBAlphaCoreInternal::~FBAlphaCoreInternal()

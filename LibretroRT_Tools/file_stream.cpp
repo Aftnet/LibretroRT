@@ -298,6 +298,11 @@ int filestream_printf(RFILE *stream, const char* format, ...)
 	return result;
 }
 
+int filestream_error(RFILE *stream)
+{
+	return 0;
+}
+
 int filestream_flush(RFILE *stream)
 {
 	concurrency::create_task(stream->Stream->FlushAsync()).wait();

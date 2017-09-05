@@ -174,7 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.3.3</Version>
+      <Version>5.4.0</Version>
     </PackageReference>
     <PackageReference Include="xunit">
       <Version>2.2.0</Version>
@@ -210,6 +210,10 @@
     <ProjectReference Include="..\BeetleWswanRT\BeetleWswanRT.vcxproj">
       <Project>{514bebc4-127b-4894-9905-d0f7a09b0287}</Project>
       <Name>BeetleWswanRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FBAlphaRT\FBAlphaRT.vcxproj">
+      <Project>{7fafc809-282a-4c3a-b1ac-5d4d7ffd613b}</Project>
+      <Name>FBAlphaRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\FCEUMMRT\FCEUMMRT.vcxproj">
       <Project>{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}</Project>
@@ -254,6 +258,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Roms\pcfx.rom" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\3wondersu.zip" />
+    <Content Include="Roms\mslug.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\neogeo.zip" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

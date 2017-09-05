@@ -26,7 +26,6 @@
     <ClInclude Include="src\src\burner\libretro\libretro.h" />
     <ClInclude Include="src\src\burner\libretro\libretro_private.h" />
     <ClInclude Include="src\src\burner\libretro\net.h" />
-    <ClInclude Include="src\src\burner\libretro\tchar.h" />
     <ClInclude Include="src\src\burner\burner.h" />
     <ClInclude Include="src\src\burner\gameinp.h" />
     <ClInclude Include="src\src\burner\ioapi.h" />
@@ -272,6 +271,42 @@
     <ClInclude Include="src\src\burner\libretro\libretro-common\include\retro_miscellaneous.h" />
     <ClInclude Include="src\src\burner\libretro\libretro-common\include\retro_stat.h" />
     <ClInclude Include="src\src\burner\libretro\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\src\burner\libretro\tchar.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\7z.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\7zAlloc.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\7zBuf.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\7zCrc.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\7zFile.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\7zTypes.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\7zVersion.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Aes.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Alloc.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Bcj2.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Bra.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Compiler.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\CpuArch.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Delta.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\LzFind.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\LzFindMt.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\LzHash.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Lzma2Dec.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Lzma2Enc.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Lzma86.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\LzmaDec.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\LzmaEnc.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\LzmaLib.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\MtCoder.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Ppmd.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Ppmd7.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Precomp.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\RotateDefs.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Sha256.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Sort.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Threads.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\Xz.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\XzCrc64.h" />
+    <ClInclude Include="src\src\dep\libs\lib7z\XzEnc.h" />
+    <ClInclude Include="src\src\burner\un7z.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\dep\libs\zlib\adler32.c" />
@@ -298,7 +333,6 @@
     <ClCompile Include="src\src\burner\statec.cpp" />
     <ClCompile Include="src\src\burner\unzip.c" />
     <ClCompile Include="src\src\burner\zipfn.cpp" />
-    <ClCompile Include="src\src\cpu\a68k\mips\fba_make68k.c" />
     <ClCompile Include="src\src\cpu\a68k\fba_make68k.c" />
     <ClCompile Include="src\src\cpu\arm\arm.cpp" />
     <ClCompile Include="src\src\cpu\arm7\arm7.cpp" />
@@ -989,9 +1023,47 @@
     <ClCompile Include="src\src\intf\audio\lowpass2.cpp" />
     <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
+    <ClCompile Include="src\src\dep\libs\lib7z\7zAlloc.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\7zArcIn.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\7zBuf.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\7zBuf2.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\7zCrc.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\7zCrcOpt.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\7zDec.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\7zFile.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\7zStream.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Aes.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\AesOpt.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Alloc.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Bcj2.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Bra.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Bra86.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\BraIA64.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\CpuArch.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Delta.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\LzFind.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Lzma2Dec.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Lzma86Dec.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\LzmaDec.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Ppmd7.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Ppmd7Dec.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Ppmd7Enc.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Sha256.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Sort.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\Xz.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\XzCrc64.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\XzCrc64Opt.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\XzDec.c" />
+    <ClCompile Include="src\src\dep\libs\lib7z\XzIn.c" />
+    <ClCompile Include="src\src\burner\un7z.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\src\cpu\a68k\mips\a68ktbl.inc" />
     <None Include="src\src\burn\burn_sound_a.asm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\src\dep\libs\lib7z\7zVersion.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

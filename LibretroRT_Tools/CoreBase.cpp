@@ -27,7 +27,7 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame,
 	LibretroRunPtr libretroRun, LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
 	LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
-	bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization) :
+	bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport) :
 	LibretroGetSystemInfo(libretroGetSystemInfo),
 	LibretroGetSystemAVInfo(libretroGetSystemAVInfo),
 	LibretroLoadGame(libretroLoadGame),
@@ -40,6 +40,7 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	LibretroDeinit(libretroDeinit),
 	supportsSystemFolderVirtualization(supportsSystemFolderVirtualization),
 	supportsSaveGameFolderVirtualization(supportsSaveGameFolderVirtualization),
+	nativeArchiveSupport(nativeArchiveSupport),
 	options(ref new Map<String^, CoreOption^>()),
 	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
 	geometry(ref new GameGeometry),
