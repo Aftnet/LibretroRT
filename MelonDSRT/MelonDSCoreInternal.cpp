@@ -32,7 +32,7 @@ MelonDSCoreInternal^ MelonDSCoreInternal::Instance::get()
 
 MelonDSCoreInternal::MelonDSCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
-	true, true)
+	true, true, false)
 {
 	fileDependencies->Append(ref new FileDependency(L"bios7.bin", L"Nintendo DS ARM7 BIOS", L"df692a80a5b1bc90728bc3dfc76cd948"));
 	fileDependencies->Append(ref new FileDependency(L"bios9.bin", L"Nintendo DS ARM9 BIOS", L"a392174eb3e572fed6447e956bde4b25"));

@@ -3,9 +3,9 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
-    /*public class FBAlphaCoreTest : TestBase
+    public class FBAlphaCoreTest : TestBase
     {
-        protected const string RomName = "ArcadeGame.zip";
+        protected const string RomName = "3wondersu.zip";
 
         public FBAlphaCoreTest() : base(() => FBAlphaRT.FBAlphaCore.Instance)
         {
@@ -24,5 +24,5 @@ namespace LibretroRT.Test.Cores
         {
             return ExecutionWorksInternal(romName);
         }
-    }*/
+    }
 }

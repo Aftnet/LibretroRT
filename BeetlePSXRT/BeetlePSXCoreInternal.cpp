@@ -32,7 +32,7 @@ BeetlePSXCoreInternal^ BeetlePSXCoreInternal::Instance::get()
 
 BeetlePSXCoreInternal::BeetlePSXCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
-	true, true)
+	true, true, false)
 {
 	fileDependencies->Append(ref new FileDependency(L"scph5500.bin", L"PlayStation (v3.0 09/09/96 J) BIOS", L"8dd7d5296a650fac7319bce665a6a53c"));
 	fileDependencies->Append(ref new FileDependency(L"scph5501.bin", L"PlayStation (v3.0 11/18/96 A) BIOS", L"490f666e1afb15b7362b406ed1cea246"));

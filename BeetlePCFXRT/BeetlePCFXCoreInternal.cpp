@@ -32,7 +32,7 @@ BeetlePCFXCoreInternal^ BeetlePCFXCoreInternal::Instance::get()
 
 BeetlePCFXCoreInternal::BeetlePCFXCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
-	true, true)
+	true, true, false)
 {
 	fileDependencies->Append(ref new FileDependency(L"pcfx.rom", L"PC-FX BIOS", L"08e36edbea28a017f79f8d4f7ff9b6d7"));
 }

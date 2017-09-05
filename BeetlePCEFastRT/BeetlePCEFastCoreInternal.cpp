@@ -32,7 +32,7 @@ BeetlePCEFastCoreInternal^ BeetlePCEFastCoreInternal::Instance::get()
 
 BeetlePCEFastCoreInternal::BeetlePCEFastCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
-	true, true)
+	true, true, false)
 {
 	fileDependencies->Append(ref new FileDependency(L"syscard3.pce", L"PC Engine CD BIOS", L"ff1a674273fe3540ccef576376407d1d"));
 }

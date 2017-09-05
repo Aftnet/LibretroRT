@@ -344,4 +344,10 @@ Restart RetriX and try again.</value>
   <data name="SystemNameNintendo64" xml:space="preserve">
     <value>Nintendo 64</value>
   </data>
+  <data name="ManufacturerNameFBAlpha" xml:space="preserve">
+    <value>FinalBurn Alpha</value>
+  </data>
+  <data name="SystemNameArcade" xml:space="preserve">
+    <value>Arcade</value>
+  </data>
 </root>
