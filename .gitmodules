@@ -36,7 +36,7 @@
 	branch = master
 [submodule "ParallelN64/src"]
 	path = ParallelN64/src
-	url = https://github.com/Aftnet/parallel-n64.git
+	url = https://github.com/libretro/parallel-n64.git
 	branch = master
 [submodule "BeetleWswan/src"]
 	path = BeetleWswan/src
@@ -60,5 +60,5 @@
 	branch = master
 [submodule "FBAlpha/src"]
 	path = FBAlpha/src
-	url = https://github.com/Aftnet/fbalpha.git
+	url = https://github.com/libretro/fbalpha.git
 	branch = master
