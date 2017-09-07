@@ -18,10 +18,13 @@ Libretro core used in parentheses
 - Game Gear (Genesis Plus GX)
 - Mega Drive (Genesis Plus GX)
 - PlayStation (Genesis Plus GX)
-- NeoGeo Pocket (BeetleNGP)
+- Neo Geo (Final Burn Alpha)
+- Neo Geo Pocket (BeetleNGP)
 - Wonderswan (BeetleWSwan)
 - PC Engine (BeetlePCEFast)
+- PC-FX (Beetle PCFX)
 - PlayStation (BeetlePSX)
+- Arcade (Final Burn Alpha)
 
 ## Demo
 
@@ -69,7 +72,7 @@ The project makes extensive use of [Git submodules](https://git-scm.com/docs/git
 ## Current state
 
 - Created a framework to speed up porting of software rendering based Libretro cores to WinRT components
-- Ported GenesisPlusGX, Snes9x, FCEUMM, Nestopia (doesn't work well, using FCEUMM instead), VBAM, Ganbatte, BeetlePSX and MelonDS
+- Ported GenesisPlusGX, Snes9x, FCEUMM, Nestopia (doesn't work well, using FCEUMM instead), VBAM, Ganbatte, BeetlePSX, Beetle PCEFast, Beetle PCFX, Final Burn Alpha, MelonDS
 - Created audio player WinRT components to interop between Libretro's audio rendering interface and Windows 10's [AudioGraph](https://docs.microsoft.com/en-us/windows/uwp/audio-video-camera/audio-graphs) API
 - Created input manager WinRT component to interop between Libretro's input polling interface and Windows 10's [Gamepad APIs](https://docs.microsoft.com/en-us/uwp/api/windows.gaming.input.gamepad)
 - Created [Win2D/Angle](https://github.com/Microsoft/Win2D) based video renderer. Supports software based Libretro cores.
