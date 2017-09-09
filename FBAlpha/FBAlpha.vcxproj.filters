@@ -19,7 +19,6 @@
     <ClInclude Include="src\src\dep\libs\zlib\zconf.h" />
     <ClInclude Include="src\src\dep\libs\zlib\zlib.h" />
     <ClInclude Include="src\src\dep\libs\zlib\zutil.h" />
-    <ClInclude Include="src\src\burner\libretro\bind_map.h" />
     <ClInclude Include="src\src\burner\libretro\burn_endian.h" />
     <ClInclude Include="src\src\burner\libretro\burn_libretro_opts.h" />
     <ClInclude Include="src\src\burner\libretro\burner_libretro.h" />
@@ -324,7 +323,6 @@
     <ClCompile Include="src\src\dep\libs\zlib\trees.c" />
     <ClCompile Include="src\src\dep\libs\zlib\uncompr.c" />
     <ClCompile Include="src\src\dep\libs\zlib\zutil.c" />
-    <ClCompile Include="src\src\burner\libretro\bind_map.cpp" />
     <ClCompile Include="src\src\burner\libretro\gamc.cpp" />
     <ClCompile Include="src\src\burner\libretro\gami.cpp" />
     <ClCompile Include="src\src\burner\libretro\libretro.cpp" />

@@ -209,7 +209,6 @@
     <ClInclude Include="src\src\burner\burner.h" />
     <ClInclude Include="src\src\burner\gameinp.h" />
     <ClInclude Include="src\src\burner\ioapi.h" />
-    <ClInclude Include="src\src\burner\libretro\bind_map.h" />
     <ClInclude Include="src\src\burner\libretro\burner_libretro.h" />
     <ClInclude Include="src\src\burner\libretro\burn_endian.h" />
     <ClInclude Include="src\src\burner\libretro\burn_libretro_opts.h" />
@@ -517,7 +516,6 @@
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
     </ClCompile>
     <ClCompile Include="src\src\burner\ioapi.c" />
-    <ClCompile Include="src\src\burner\libretro\bind_map.cpp" />
     <ClCompile Include="src\src\burner\libretro\gamc.cpp" />
     <ClCompile Include="src\src\burner\libretro\gami.cpp" />
     <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream_transforms.c" />
