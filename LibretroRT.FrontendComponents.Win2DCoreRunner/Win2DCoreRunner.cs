@@ -70,11 +70,18 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
                     await Task.Delay(100);
                 }
 
-                await UnloadGameAsync();
-
                 lock (Coordinator)
                 {
-                    Coordinator.Core = core;
+                    GameID = null;
+                    CoreIsExecuting = false;
+                    Coordinator.AudioPlayer?.Stop();
+
+                    if (Coordinator.Core != core)
+                    {
+                        Coordinator.Core?.UnloadGame();
+                        Coordinator.Core = core;
+                    }
+
                     if (core.LoadGame(mainGameFilePath) == false)
                     {
                         return false;
