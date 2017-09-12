@@ -27,7 +27,7 @@ FCEUMMCoreInternal^ FCEUMMCoreInternal::Instance::get()
 	return coreInstance;
 }
 
-FCEUMMCoreInternal::FCEUMMCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
+FCEUMMCoreInternal::FCEUMMCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info, retro_set_controller_port_device,
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
 	false, false, false)
 {

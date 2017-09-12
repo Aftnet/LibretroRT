@@ -23,13 +23,14 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 #endif // DEBUG
 }
 
-CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
+CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo, LibretroSetControllerPortDevicePtr libretroSetControllerPortDevice,
 	LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame,
 	LibretroRunPtr libretroRun, LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
 	LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
 	bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport) :
 	LibretroGetSystemInfo(libretroGetSystemInfo),
 	LibretroGetSystemAVInfo(libretroGetSystemAVInfo),
+	LibretroSetControllerPortDevice(libretroSetControllerPortDevice),
 	LibretroLoadGame(libretroLoadGame),
 	LibretroUnloadGame(libretroUnloadGame),
 	LibretroRun(libretroRun),
@@ -52,6 +53,10 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 {
 	retro_system_info info;
 	LibretroGetSystemInfo(&info);
+	for (unsigned int i = 0; i < 4; i++)
+	{
+		LibretroSetControllerPortDevice(i, RETRO_DEVICE_ANALOG);
+	}
 
 	name = StringConverter::CPPToPlatformString(info.library_name);
 	version = StringConverter::CPPToPlatformString(info.library_version);

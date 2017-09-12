@@ -13,6 +13,7 @@ namespace LibretroRT_Tools
 {
 	typedef void (*LibretroGetSystemInfoPtr)(struct retro_system_info *info);
 	typedef void (*LibretroGetSystemAVInfoPtr)(struct retro_system_av_info *info);
+	typedef void (*LibretroSetControllerPortDevicePtr)(unsigned port, unsigned device);
 	typedef bool (*LibretroLoadGamePtr)(const struct retro_game_info *game);
 	typedef void (*LibretroUnloadGamePtr)(void);
 	typedef void (*LibretroRunPtr)(void);
@@ -27,6 +28,7 @@ namespace LibretroRT_Tools
 	private:
 		const LibretroGetSystemInfoPtr LibretroGetSystemInfo;
 		const LibretroGetSystemAVInfoPtr LibretroGetSystemAVInfo;
+		const LibretroSetControllerPortDevicePtr LibretroSetControllerPortDevice;
 		const LibretroLoadGamePtr LibretroLoadGame;
 		const LibretroUnloadGamePtr LibretroUnloadGame;
 		const LibretroRunPtr LibretroRun;
@@ -57,7 +59,7 @@ namespace LibretroRT_Tools
 		std::string lastResolvedEnvironmentVariable;
 
 	protected private:
-		CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
+		CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo, LibretroSetControllerPortDevicePtr libretroSetControllerPortDevice,
 			LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame, LibretroRunPtr libretroRun,
 			LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
 			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
