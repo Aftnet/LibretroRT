@@ -64,10 +64,11 @@ namespace LibretroRT_Tools
 		void UnloadGameNoDeinit();
 
 	protected private:
-		CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo, LibretroSetControllerPortDevicePtr libretroSetControllerPortDevice,
-			LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame, LibretroRunPtr libretroRun,
-			LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
-			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
+		CoreBase(LibretroInitPtr libretroInit, LibretroDeinitPtr libretroDeinit,
+			LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo, LibretroSetControllerPortDevicePtr libretroSetControllerPortDevice,
+			LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame,
+			LibretroRunPtr libretroRun, LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
+			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize,
 			bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport);
 
 		Vector<FileDependency^>^ fileDependencies;

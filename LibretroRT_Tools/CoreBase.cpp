@@ -23,12 +23,13 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 #endif // DEBUG
 }
 
-CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo, LibretroSetControllerPortDevicePtr libretroSetControllerPortDevice,
+CoreBase::CoreBase(LibretroInitPtr libretroInit, LibretroDeinitPtr libretroDeinit,
+	LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo, LibretroSetControllerPortDevicePtr libretroSetControllerPortDevice,
 	LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame,
 	LibretroRunPtr libretroRun, LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
-	LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
+	LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize,
 	bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport) :
-	LibretroInit(nullptr),
+	LibretroInit(libretroInit),
 	LibretroDeinit(libretroDeinit),
 	LibretroGetSystemInfo(libretroGetSystemInfo),
 	LibretroGetSystemAVInfo(libretroGetSystemAVInfo),
