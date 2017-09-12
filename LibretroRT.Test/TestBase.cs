@@ -6,7 +6,6 @@ using Xunit;
 
 namespace LibretroRT.Test
 {
-    [Collection(nameof(TestBase))]
     public abstract class TestBase
     {
         protected ICore Target { get; private set; }
@@ -66,7 +65,8 @@ namespace LibretroRT.Test
             Target.CloseFileStream = provider.CloseFileStream;
 
             var romPath = $"{VFS.SystemPath}{Path.DirectorySeparatorChar}{romName}";
-            var loadResult = await Task.Run(() => Target.LoadGame(romPath));
+            //Cold load, with initialization
+            var loadResult = Target.LoadGame(romPath);
 
             Assert.True(loadResult);
             Assert.NotEqual(PixelFormats.FormatUknown, Target.PixelFormat);
@@ -82,8 +82,15 @@ namespace LibretroRT.Test
             Assert.NotEqual(0, timing.FPS);
             Assert.NotEqual(0, timing.SampleRate);
 
-            await Task.Run(() => Target.UnloadGame());
-            loadResult = await Task.Run(() => Target.LoadGame(romPath));
+            //Load other game without reinitializing
+            loadResult = Target.LoadGame(romPath);
+            Assert.True(loadResult);
+
+            //Unload and deinit
+            Target.UnloadGame();
+
+            //Reload with initialization
+            loadResult = Target.LoadGame(romPath);
             Assert.True(loadResult);
         }
 
@@ -123,13 +130,11 @@ namespace LibretroRT.Test
             Target.OpenFileStream = provider.OpenFileStream;
             Target.CloseFileStream = provider.CloseFileStream;
 
-            var loadResult = await Task.Run(() => Target.LoadGame($"{VFS.SystemPath}{Path.DirectorySeparatorChar}{romName}"));
+            var romPath = $"{VFS.SystemPath}{Path.DirectorySeparatorChar}{romName}";
+            var loadResult = Target.LoadGame(romPath);
             Assert.True(loadResult);
 
-            await Task.Run(() =>
-            {
-                Target.RunFrame();
-            });
+            Target.RunFrame();
 
             Assert.True(pollInputCalled);
             Assert.True(getInputStateCalled);
