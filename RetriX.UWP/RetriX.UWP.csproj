@@ -353,6 +353,10 @@
       <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
       <Name>NestopiaRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ParallelN64RT\ParallelN64RT.vcxproj">
+      <Project>{95540631-8e61-475d-bd82-bafb7874eaca}</Project>
+      <Name>ParallelN64RT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">
       <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>
       <Name>RetriX.Shared</Name>
