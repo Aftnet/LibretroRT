@@ -65,6 +65,7 @@ namespace LibretroRT.FrontendComponents.InputManager
         private readonly Dictionary<VirtualKey, bool> KeyStates = new Dictionary<VirtualKey, bool>();
         private readonly Dictionary<VirtualKey, bool> KeySnapshot = new Dictionary<VirtualKey, bool>();
 
+        private readonly object GamepadReadingsLock = new object();
         private GamepadReading[] GamepadReadings;
 
         public InputManager()
@@ -95,7 +96,10 @@ namespace LibretroRT.FrontendComponents.InputManager
                 }
             }
 
-            GamepadReadings = Gamepad.Gamepads.Select(d => d.GetCurrentReading()).ToArray();
+            lock (GamepadReadingsLock)
+            {
+                GamepadReadings = Gamepad.Gamepads.Select(d => d.GetCurrentReading()).ToArray();
+            }
         }
 
         public short GetInputState(uint port, InputTypes inputType)
@@ -105,38 +109,41 @@ namespace LibretroRT.FrontendComponents.InputManager
                 return 0;
             }
 
-            if (LibretroGamepadAnalogTypes.Contains(inputType) && port < GamepadReadings.Length)
+            lock (GamepadReadingsLock)
             {
-                var reading = GamepadReadings[port];
-                switch(inputType)
+                if (LibretroGamepadAnalogTypes.Contains(inputType) && port < GamepadReadings.Length)
                 {
-                    case InputTypes.DeviceIdAnalogLeftX:
-                        return ConvertAxisReading(reading.LeftThumbstickX, reading.LeftThumbstickY);
-                    case InputTypes.DeviceIdAnalogLeftY:
-                        return ConvertAxisReading(reading.LeftThumbstickY, reading.LeftThumbstickX);
-                    case InputTypes.DeviceIdAnalogRightX:
-                        return ConvertAxisReading(reading.RightThumbstickX, reading.RightThumbstickY);
-                    case InputTypes.DeviceIdAnalogRightY:
-                        return ConvertAxisReading(reading.RightThumbstickY, reading.RightThumbstickX);
+                    var reading = GamepadReadings[port];
+                    switch (inputType)
+                    {
+                        case InputTypes.DeviceIdAnalogLeftX:
+                            return ConvertAxisReading(reading.LeftThumbstickX, reading.LeftThumbstickY);
+                        case InputTypes.DeviceIdAnalogLeftY:
+                            return ConvertAxisReading(reading.LeftThumbstickY, reading.LeftThumbstickX);
+                        case InputTypes.DeviceIdAnalogRightX:
+                            return ConvertAxisReading(reading.RightThumbstickX, reading.RightThumbstickY);
+                        case InputTypes.DeviceIdAnalogRightY:
+                            return ConvertAxisReading(reading.RightThumbstickY, reading.RightThumbstickX);
+                    }
                 }
-            }
 
-            var output = false;
-            if (port == 0)
-            {
-                lock (KeySnapshot)
+                var output = false;
+                if (port == 0)
                 {
-                    output = GetKeyboardKeyState(KeySnapshot, inputType);
+                    lock (KeySnapshot)
+                    {
+                        output = GetKeyboardKeyState(KeySnapshot, inputType);
+                    }
+                    output = output || GetInjectedInputState(inputType);
                 }
-                output = output || GetInjectedInputState(inputType);
-            }
 
-            if (port < GamepadReadings.Length)
-            {
-                output = output || GetGamepadButtonState(GamepadReadings[port], inputType);
-            }
+                if (port < GamepadReadings.Length)
+                {
+                    output = output || GetGamepadButtonState(GamepadReadings[port], inputType);
+                }
 
-            return output ? (short)1 : (short)0;
+                return output ? (short)1 : (short)0;
+            }
         }
 
         private bool GetInjectedInputState(InputTypes inputType)
