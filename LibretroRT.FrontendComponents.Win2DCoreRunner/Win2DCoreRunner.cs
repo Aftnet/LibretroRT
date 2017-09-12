@@ -16,6 +16,8 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
         private readonly IAudioPlayer AudioPlayer;
         private readonly IInputManager InputManager;
 
+        private TaskCompletionSource<bool> RequestedCoreOperationTCS;
+
         private CoreCoordinator Coordinator;
 
         public string GameID { get; private set; }
@@ -61,64 +63,74 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
 
         public IAsyncOperation<bool> LoadGameAsync(ICore core, string mainGameFilePath)
         {
-            return Task.Run(async () =>
+            if (RequestedCoreOperationTCS != null)
             {
-                while (Coordinator == null)
+                return Task.FromResult(false).AsAsyncOperation();
+            }
+
+            Func<bool> state = () =>
+            {
+                GameID = null;
+                CoreIsExecuting = false;
+                Coordinator.AudioPlayer?.Stop();
+
+                if (Coordinator.Core != core)
                 {
-                    //Ensure core doesn't try rendering before Win2D is ready.
-                    //Some games load faster than the Win2D canvas is initialized
-                    await Task.Delay(100);
+                    Coordinator.Core?.UnloadGame();
+                    Coordinator.Core = core;
                 }
 
-                lock (Coordinator)
+                if (core.LoadGame(mainGameFilePath) == false)
                 {
-                    GameID = null;
-                    CoreIsExecuting = false;
-                    Coordinator.AudioPlayer?.Stop();
-
-                    if (Coordinator.Core != core)
-                    {
-                        Coordinator.Core?.UnloadGame();
-                        Coordinator.Core = core;
-                    }
-
-                    if (core.LoadGame(mainGameFilePath) == false)
-                    {
-                        return false;
-                    }
-
-                    RenderTargetManager.InitializeVideoParameters(core);
-                    GameID = mainGameFilePath;
-                    CoreIsExecuting = true;
-                    return true;
+                    return false;
                 }
-            }).AsAsyncOperation();
+
+                RenderTargetManager.InitializeVideoParameters(core);
+                GameID = mainGameFilePath;
+                CoreIsExecuting = true;
+                return true;
+            };
+
+            RequestedCoreOperationTCS = new TaskCompletionSource<bool>(state);
+            return RequestedCoreOperationTCS.Task.AsAsyncOperation();
         }
 
         public IAsyncAction UnloadGameAsync()
         {
-            return Task.Run(() =>
+            if (RequestedCoreOperationTCS != null)
             {
-                lock (Coordinator)
-                {
-                    GameID = null;
-                    CoreIsExecuting = false;
-                    Coordinator.Core?.UnloadGame();
-                    Coordinator.AudioPlayer?.Stop();
-                }
-            }).AsAsyncAction();
+                return Task.FromResult(false).AsAsyncAction();
+            }
+
+            Func<bool> state = () =>
+            {
+                GameID = null;
+                CoreIsExecuting = false;
+                Coordinator.Core?.UnloadGame();
+                Coordinator.AudioPlayer?.Stop();
+                return true;
+            };
+
+            RequestedCoreOperationTCS = new TaskCompletionSource<bool>(state);
+            return RequestedCoreOperationTCS.Task.AsAsyncAction();
         }
 
         public IAsyncAction ResetGameAsync()
         {
-            return Task.Run(() =>
+            if (RequestedCoreOperationTCS != null)
             {
-                lock (Coordinator)
-                {
-                    Coordinator.AudioPlayer?.Stop();
-                    Coordinator.Core?.Reset();
-                }
-            }).AsAsyncAction();
+                return Task.FromResult(false).AsAsyncAction();
+            }
+
+            Func<bool> state = () =>
+            {
+                Coordinator.AudioPlayer?.Stop();
+                Coordinator.Core?.Reset();
+                return true;
+            };
+
+            RequestedCoreOperationTCS = new TaskCompletionSource<bool>(state);
+            return RequestedCoreOperationTCS.Task.AsAsyncAction();
         }
 
         public IAsyncAction PauseCoreExecutionAsync()
@@ -146,32 +158,42 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
 
         public IAsyncOperation<bool> SaveGameStateAsync([WriteOnlyArray] byte[] stateData)
         {
-            return Task.Run(() =>
+            if (RequestedCoreOperationTCS != null)
             {
-                lock (Coordinator)
-                {
-                    var core = Coordinator.Core;
-                    if (core == null)
-                        return false;
+                return Task.FromResult(false).AsAsyncOperation();
+            }
 
-                    return core.Serialize(stateData);
-                }
-            }).AsAsyncOperation();
+            Func<bool> state = () =>
+            {
+                var core = Coordinator.Core;
+                if (core == null)
+                    return false;
+
+                return core.Serialize(stateData);
+            };
+
+            RequestedCoreOperationTCS = new TaskCompletionSource<bool>(state);
+            return RequestedCoreOperationTCS.Task.AsAsyncOperation();
         }
 
         public IAsyncOperation<bool> LoadGameStateAsync([ReadOnlyArray] byte[] stateData)
         {
-            return Task.Run(() =>
+            if (RequestedCoreOperationTCS != null)
             {
-                lock (Coordinator)
-                {
-                    var core = Coordinator.Core;
-                    if (core == null)
-                        return false;
+                return Task.FromResult(false).AsAsyncOperation();
+            }
 
-                    return core.Unserialize(stateData);
-                }
-            }).AsAsyncOperation();
+            Func<bool> state = () =>
+            {
+                var core = Coordinator.Core;
+                if (core == null)
+                    return false;
+
+                return core.Unserialize(stateData);
+            };
+
+            RequestedCoreOperationTCS = new TaskCompletionSource<bool>(state);
+            return RequestedCoreOperationTCS.Task.AsAsyncOperation();
         }
 
         private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -207,6 +229,14 @@ namespace LibretroRT.FrontendComponents.Win2DCoreRunner
         {
             lock (Coordinator)
             {
+                if (RequestedCoreOperationTCS != null)
+                {
+                    var requestedOperation = (Func<bool>)RequestedCoreOperationTCS.Task.AsyncState;
+                    var result = requestedOperation.Invoke();
+                    RequestedCoreOperationTCS.SetResult(result);
+                    RequestedCoreOperationTCS = null;
+                }
+
                 if (CoreIsExecuting && !Coordinator.AudioPlayerRequestsFrameDelay)
                 {
                     try
