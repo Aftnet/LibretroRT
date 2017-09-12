@@ -11,6 +11,8 @@ namespace ParallelN64RT
 	private ref class ParallelN64CoreInternal sealed : public CoreBase
 	{
 	protected private:
+		virtual void OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options) override;
+
 		ParallelN64CoreInternal();
 
 	public:
