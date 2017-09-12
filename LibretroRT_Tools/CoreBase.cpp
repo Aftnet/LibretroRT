@@ -23,13 +23,17 @@ void LogHandler(enum retro_log_level level, const char *fmt, ...)
 #endif // DEBUG
 }
 
-CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
+CoreBase::CoreBase(LibretroInitPtr libretroInit, LibretroDeinitPtr libretroDeinit,
+	LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo, LibretroSetControllerPortDevicePtr libretroSetControllerPortDevice,
 	LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame,
 	LibretroRunPtr libretroRun, LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
-	LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
+	LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize,
 	bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport) :
+	LibretroInit(libretroInit),
+	LibretroDeinit(libretroDeinit),
 	LibretroGetSystemInfo(libretroGetSystemInfo),
 	LibretroGetSystemAVInfo(libretroGetSystemAVInfo),
+	LibretroSetControllerPortDevice(libretroSetControllerPortDevice),
 	LibretroLoadGame(libretroLoadGame),
 	LibretroUnloadGame(libretroUnloadGame),
 	LibretroRun(libretroRun),
@@ -37,7 +41,6 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	LibretroSerializeSize(libretroSerializeSize),
 	LibretroSerialize(libretroSerialize),
 	LibretroUnserialize(libretroUnserialize),
-	LibretroDeinit(libretroDeinit),
 	supportsSystemFolderVirtualization(supportsSystemFolderVirtualization),
 	supportsSaveGameFolderVirtualization(supportsSaveGameFolderVirtualization),
 	nativeArchiveSupport(nativeArchiveSupport),
@@ -48,7 +51,8 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 	coreRequiresGameFilePath(true),
 	systemFolder(nullptr),
 	saveGameFolder(nullptr),
-	fileDependencies(ref new Vector<FileDependency^>)
+	fileDependencies(ref new Vector<FileDependency^>),
+	isInitialized(false)
 {
 	retro_system_info info;
 	LibretroGetSystemInfo(&info);
@@ -81,7 +85,6 @@ CoreBase::CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSy
 
 CoreBase::~CoreBase()
 {
-	LibretroDeinit();
 }
 
 void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)
@@ -262,9 +265,15 @@ void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned 
 
 bool CoreBase::LoadGame(String^ mainGameFilePath)
 {
+	if (!isInitialized)
+	{
+		LibretroInit();
+		isInitialized = true;
+	}
+
 	if (!gameFilePath.empty())
 	{
-		UnloadGame();
+		UnloadGameNoDeinit();
 	}
 
 	try
@@ -292,6 +301,8 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 
 			Geometry = Converter::CToRTGameGeometry(info.geometry);
 			Timing = Converter::CToRTSystemTiming(info.timing);
+
+			LibretroSetControllerPortDevice(0, RETRO_DEVICE_ANALOG);
 		}	
 		else
 		{
@@ -300,13 +311,13 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 	}
 	catch (const std::exception& e)
 	{
-		UnloadGame();
+		UnloadGameNoDeinit();
 	}
 
 	return !gameFilePath.empty();
 }
 
-void CoreBase::UnloadGame()
+void CoreBase::UnloadGameNoDeinit()
 {
 	if (gameFilePath.empty())
 	{
@@ -322,6 +333,17 @@ void CoreBase::UnloadGame()
 	}
 
 	gameFilePath.clear();
+}
+
+void CoreBase::UnloadGame()
+{
+	UnloadGameNoDeinit();
+
+	if (isInitialized)
+	{
+		LibretroDeinit();
+		isInitialized = false;
+	}
 }
 
 void CoreBase::RunFrame()

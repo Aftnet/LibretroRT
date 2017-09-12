@@ -11,8 +11,11 @@ using namespace Windows::Storage::Streams;
 
 namespace LibretroRT_Tools
 {
+	typedef void (*LibretroInitPtr)(void);
+	typedef void (*LibretroDeinitPtr)(void);
 	typedef void (*LibretroGetSystemInfoPtr)(struct retro_system_info *info);
 	typedef void (*LibretroGetSystemAVInfoPtr)(struct retro_system_av_info *info);
+	typedef void (*LibretroSetControllerPortDevicePtr)(unsigned port, unsigned device);
 	typedef bool (*LibretroLoadGamePtr)(const struct retro_game_info *game);
 	typedef void (*LibretroUnloadGamePtr)(void);
 	typedef void (*LibretroRunPtr)(void);
@@ -20,13 +23,15 @@ namespace LibretroRT_Tools
 	typedef size_t (*LibretroSerializeSizePtr)(void);
 	typedef bool (*LibretroSerializePtr)(void *data, size_t size);
 	typedef bool (*LibretroUnserializePtr)(const void *data, size_t size);
-	typedef void (*LibretroDeinitPtr)(void);
 
 	private ref class CoreBase : public ICore
 	{
 	private:
+		const LibretroInitPtr LibretroInit;
+		const LibretroDeinitPtr LibretroDeinit;
 		const LibretroGetSystemInfoPtr LibretroGetSystemInfo;
 		const LibretroGetSystemAVInfoPtr LibretroGetSystemAVInfo;
+		const LibretroSetControllerPortDevicePtr LibretroSetControllerPortDevice;
 		const LibretroLoadGamePtr LibretroLoadGame;
 		const LibretroUnloadGamePtr LibretroUnloadGame;
 		const LibretroRunPtr LibretroRun;
@@ -34,7 +39,6 @@ namespace LibretroRT_Tools
 		const LibretroSerializeSizePtr LibretroSerializeSize;
 		const LibretroSerializePtr LibretroSerialize;
 		const LibretroUnserializePtr LibretroUnserialize;
-		const LibretroDeinitPtr LibretroDeinit;
 
 		String^ name;
 		String^ version;
@@ -53,14 +57,18 @@ namespace LibretroRT_Tools
 
 		bool coreRequiresGameFilePath;
 		
+		bool isInitialized;
 		std::string gameFilePath;
 		std::string lastResolvedEnvironmentVariable;
 
+		void UnloadGameNoDeinit();
+
 	protected private:
-		CoreBase(LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo,
-			LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame, LibretroRunPtr libretroRun,
-			LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
-			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize, LibretroDeinitPtr libretroDeinit,
+		CoreBase(LibretroInitPtr libretroInit, LibretroDeinitPtr libretroDeinit,
+			LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo, LibretroSetControllerPortDevicePtr libretroSetControllerPortDevice,
+			LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame,
+			LibretroRunPtr libretroRun, LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
+			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize,
 			bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport);
 
 		Vector<FileDependency^>^ fileDependencies;

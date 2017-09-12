@@ -3,6 +3,7 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
+    [Collection(nameof(TestBase))]
     public class GPGXCoreTest : TestBase
     {
         protected const string GenesisRomName = "GenesisGame.md";

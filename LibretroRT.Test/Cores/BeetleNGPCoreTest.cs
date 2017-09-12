@@ -3,6 +3,7 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
+    [Collection(nameof(TestBase))]
     public class BeetleNGPCoreTest : TestBase
     {
         protected const string RomName = "NeoGeoPocketGame.ngc";

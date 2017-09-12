@@ -24,14 +24,14 @@ BeetleNGPCoreInternal^ BeetleNGPCoreInternal::Instance::get()
 		retro_set_video_refresh([](const void *data, unsigned width, unsigned height, size_t pitch) { coreInstance->RaiseRenderVideoFrame(data, width, height, pitch); });
 		retro_extra_set_open_file([](String^ filePath, FileAccessMode accessMode) { return coreInstance->OpenFileStream(filePath, accessMode); });
 		retro_extra_set_close_file([](IRandomAccessStream^ stream) { coreInstance->CloseFileStream(stream); });
-		retro_init();
 	}
 
 	return coreInstance;
 }
 
-BeetleNGPCoreInternal::BeetleNGPCoreInternal() : LibretroRT_Tools::CoreBase(retro_get_system_info, retro_get_system_av_info,
-	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize, retro_deinit,
+BeetleNGPCoreInternal::BeetleNGPCoreInternal() : LibretroRT_Tools::CoreBase(retro_init, retro_deinit,
+	retro_get_system_info, retro_get_system_av_info, retro_set_controller_port_device,
+	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize,
 	true, true, false)
 {
 }

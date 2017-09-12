@@ -3,6 +3,7 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
+    [Collection(nameof(TestBase))]
     public class BeetlePCEFastCoreTest : TestBase
     {
         protected const string PCERomName = "PCEngineGame.pce";

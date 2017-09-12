@@ -3,6 +3,7 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
+    [Collection(nameof(TestBase))]
     public class YabauseCoreTest : TestBase
     {
         protected const string RomName = "SaturnGame.cue";
