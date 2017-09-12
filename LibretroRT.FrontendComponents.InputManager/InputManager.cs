@@ -78,14 +78,21 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         public void InjectInputPlayer1(InputTypes inputType)
         {
-            InjectedInput[inputType] = InjectedInputFramePermamence;
+            lock (InjectedInput)
+            {
+                InjectedInput[inputType] = InjectedInputFramePermamence;
+            }
         }
 
         public void PollInput()
         {
-            foreach (var i in KeyStates.Keys)
+            lock (KeyStates)
+            lock (KeySnapshot)
             {
-                KeySnapshot[i] = KeyStates[i];
+                foreach (var i in KeyStates.Keys)
+                {
+                    KeySnapshot[i] = KeyStates[i];
+                }
             }
 
             GamepadReadings = Gamepad.Gamepads.Select(d => d.GetCurrentReading()).ToArray();
@@ -117,7 +124,10 @@ namespace LibretroRT.FrontendComponents.InputManager
             var output = false;
             if (port == 0)
             {
-                output = GetKeyboardKeyState(KeySnapshot, inputType);
+                lock (KeySnapshot)
+                {
+                    output = GetKeyboardKeyState(KeySnapshot, inputType);
+                }
                 output = output || GetInjectedInputState(inputType);
             }
 
@@ -131,17 +141,20 @@ namespace LibretroRT.FrontendComponents.InputManager
 
         private bool GetInjectedInputState(InputTypes inputType)
         {
-            var output = InjectedInput.Keys.Contains(inputType);
-            if (output)
+            lock (InjectedInput)
             {
-                output = InjectedInput[inputType] > 0;
+                var output = InjectedInput.Keys.Contains(inputType);
                 if (output)
                 {
-                    InjectedInput[inputType] -= 1;
+                    output = InjectedInput[inputType] > 0;
+                    if (output)
+                    {
+                        InjectedInput[inputType] -= 1;
+                    }
                 }
-            }
 
-            return output;
+                return output;
+            }
         }
 
         private static bool GetKeyboardKeyState(Dictionary<VirtualKey, bool> keyStates, InputTypes button)
@@ -180,7 +193,10 @@ namespace LibretroRT.FrontendComponents.InputManager
             var key = args.VirtualKey;
             if (Enum.IsDefined(typeof(VirtualKey), key))
             {
-                KeyStates[args.VirtualKey] = false;
+                lock (KeyStates)
+                {
+                    KeyStates[args.VirtualKey] = false;
+                }
             }
         }
 
@@ -189,7 +205,10 @@ namespace LibretroRT.FrontendComponents.InputManager
             var key = args.VirtualKey;
             if (Enum.IsDefined(typeof(VirtualKey), key))
             {
-                KeyStates[args.VirtualKey] = true;
+                lock (KeyStates)
+                {
+                    KeyStates[args.VirtualKey] = true;
+                }
             }
         }
     }
