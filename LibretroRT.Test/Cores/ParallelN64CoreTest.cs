@@ -3,6 +3,7 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
+    [Collection(nameof(TestBase))]
     public class ParallelN64CoreTest : TestBase
     {
         protected const string RomName = "N64Game.n64";

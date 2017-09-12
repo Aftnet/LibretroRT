@@ -269,11 +269,6 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 	{
 		LibretroInit();
 		isInitialized = true;
-
-		for (unsigned int i = 0; i < 4; i++)
-		{
-			LibretroSetControllerPortDevice(i, RETRO_DEVICE_ANALOG);
-		}
 	}
 
 	if (!gameFilePath.empty())
@@ -306,6 +301,8 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 
 			Geometry = Converter::CToRTGameGeometry(info.geometry);
 			Timing = Converter::CToRTSystemTiming(info.timing);
+
+			LibretroSetControllerPortDevice(0, RETRO_DEVICE_ANALOG);
 		}	
 		else
 		{
