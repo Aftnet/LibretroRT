@@ -77,7 +77,7 @@ namespace RetriX.UWP.Services
                 {
                 new ViewModels.GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
                 new ViewModels.GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
-                //new ViewModels.GameSystemVM(ParallelN64RT.ParallelN64Core.Instance, LocalizationService, "SystemNameNintendo64", "ManufacturerNameNintendo", "\uf116"),
+                new ViewModels.GameSystemVM(ParallelN64RT.ParallelN64Core.Instance, LocalizationService, "SystemNameNintendo64", "ManufacturerNameNintendo", "\uf116"),
                 new ViewModels.GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
                 new ViewModels.GameSystemVM(VBAMRT.VBAMCore.Instance, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
                 new ViewModels.GameSystemVM(MelonDSRT.MelonDSCore.Instance, LocalizationService, "SystemNameDS", "ManufacturerNameNintendo", "\uf117"),

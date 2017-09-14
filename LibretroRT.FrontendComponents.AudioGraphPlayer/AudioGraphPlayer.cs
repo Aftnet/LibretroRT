@@ -11,6 +11,7 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
 {
     public sealed class AudioGraphPlayer : IDisposable, IAudioPlayer
     {
+        private const uint MaxSamplesQueueSize = 44100 * 4;
         private const uint NumChannels = 2;
         private const float PlaybackDelaySeconds = 0.1f; //Have some buffer to avoid crackling
         private const float MaxAllowedDelaySeconds = 0.3f; //Limit maximum delay
@@ -87,9 +88,9 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
 
             lock (SamplesBuffer)
             {
-                foreach (var i in samples)
+                for (var i = 0; i < Math.Min(samples.Length, Math.Max(0, MaxSamplesQueueSize - SamplesBuffer.Count)); i++)
                 {
-                    SamplesBuffer.Enqueue(i);
+                    SamplesBuffer.Enqueue(samples[i]);
                 }
 
                 if (SamplesBuffer.Count >= MinNumSamplesForPlayback)

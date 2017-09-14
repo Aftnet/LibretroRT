@@ -37,3 +37,8 @@ ParallelN64CoreInternal::~ParallelN64CoreInternal()
 {
 	coreInstance = nullptr;
 }
+
+void ParallelN64CoreInternal::OverrideDefaultOptions(IMapView<String^, CoreOption^>^ options)
+{
+	options->Lookup(L"parallel-n64-framerate")->SelectedValueIx = 1;
+}
