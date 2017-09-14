@@ -297,10 +297,6 @@
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
       <Name>BeetlePSXRT</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BeetleSaturnRT\BeetleSaturnRT.vcxproj">
-      <Project>{63d18a8e-2580-47d0-854c-5b693ab774bf}</Project>
-      <Name>BeetleSaturnRT</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BeetleWswanRT\BeetleWswanRT.vcxproj">
       <Project>{514bebc4-127b-4894-9905-d0f7a09b0287}</Project>
       <Name>BeetleWswanRT</Name>
@@ -353,10 +349,6 @@
       <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
       <Name>NestopiaRT</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ParallelN64RT\ParallelN64RT.vcxproj">
-      <Project>{95540631-8e61-475d-bd82-bafb7874eaca}</Project>
-      <Name>ParallelN64RT</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">
       <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>
       <Name>RetriX.Shared</Name>
@@ -368,10 +360,6 @@
     <ProjectReference Include="..\VBAMRT\VBAMRT.vcxproj">
       <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
       <Name>VBAMRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YabauseRT\YabauseRT.vcxproj">
-      <Project>{a8f6202b-b329-4888-ba1a-8c841993b195}</Project>
-      <Name>YabauseRT</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
