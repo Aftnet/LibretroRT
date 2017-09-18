@@ -516,8 +516,6 @@
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
     </ClCompile>
     <ClCompile Include="src\src\burner\ioapi.c" />
-    <ClCompile Include="src\src\burner\libretro\gamc.cpp" />
-    <ClCompile Include="src\src\burner\libretro\gami.cpp" />
     <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="src\src\burner\libretro\libretro.cpp" />
     <ClCompile Include="src\src\burner\libretro\neocdlist.cpp" />

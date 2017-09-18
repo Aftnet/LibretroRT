@@ -323,8 +323,6 @@
     <ClCompile Include="src\src\dep\libs\zlib\trees.c" />
     <ClCompile Include="src\src\dep\libs\zlib\uncompr.c" />
     <ClCompile Include="src\src\dep\libs\zlib\zutil.c" />
-    <ClCompile Include="src\src\burner\libretro\gamc.cpp" />
-    <ClCompile Include="src\src\burner\libretro\gami.cpp" />
     <ClCompile Include="src\src\burner\libretro\libretro.cpp" />
     <ClCompile Include="src\src\burner\libretro\neocdlist.cpp" />
     <ClCompile Include="src\src\burner\ioapi.c" />
