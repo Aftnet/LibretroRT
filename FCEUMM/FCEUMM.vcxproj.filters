@@ -179,7 +179,6 @@
     <ClCompile Include="src\src\boards\vrc1.c" />
     <ClCompile Include="src\src\boards\vrc2and4.c" />
     <ClCompile Include="src\src\boards\vrc3.c" />
-    <ClCompile Include="src\src\boards\vrc5.c" />
     <ClCompile Include="src\src\boards\vrc6.c" />
     <ClCompile Include="src\src\boards\vrc7.c" />
     <ClCompile Include="src\src\boards\vrc7p.c" />
@@ -195,7 +194,6 @@
     <ClCompile Include="src\src\input\mahjong.c" />
     <ClCompile Include="src\src\input\mouse.c" />
     <ClCompile Include="src\src\input\oekakids.c" />
-    <ClCompile Include="src\src\input\pads.c" />
     <ClCompile Include="src\src\input\pec586kb.c" />
     <ClCompile Include="src\src\input\powerpad.c" />
     <ClCompile Include="src\src\input\quiz.c" />
