@@ -262,6 +262,7 @@
     <ClInclude Include="src\core\sound\sound.h" />
     <ClInclude Include="src\core\sound\ym2413.h" />
     <ClInclude Include="src\core\sound\ym2612.h" />
+    <ClInclude Include="src\core\sound\ym3438.h" />
     <ClInclude Include="src\core\state.h" />
     <ClInclude Include="src\core\system.h" />
     <ClInclude Include="src\core\tremor\asm_arm.h" />
@@ -365,6 +366,7 @@
     <ClCompile Include="src\core\sound\sound.c" />
     <ClCompile Include="src\core\sound\ym2413.c" />
     <ClCompile Include="src\core\sound\ym2612.c" />
+    <ClCompile Include="src\core\sound\ym3438.c" />
     <ClCompile Include="src\core\state.c" />
     <ClCompile Include="src\core\system.c" />
     <ClCompile Include="src\core\tremor\bitwise.c" />

@@ -75,6 +75,7 @@
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
     <ClCompile Include="src\libretro\libretro-common\memmap\memmap.c" />
     <ClCompile Include="src\libretro\libretro-common\streams\file_stream_transforms.c" />
+    <ClCompile Include="src\core\sound\ym3438.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
@@ -183,5 +184,6 @@
     <ClInclude Include="src\libretro\libretro-common\include\retro_common_api.h" />
     <ClInclude Include="src\libretro\libretro-common\include\retro_inline.h" />
     <ClInclude Include="src\libretro\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\core\sound\ym3438.h" />
   </ItemGroup>
 </Project>

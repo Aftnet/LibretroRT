@@ -125,7 +125,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -139,7 +139,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -153,7 +153,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -167,7 +167,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -181,7 +181,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -195,7 +195,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalOptions>/wd4996</AdditionalOptions>
+      <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
