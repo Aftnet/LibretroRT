@@ -239,5 +239,6 @@
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
     <ClCompile Include="..\LibretroRT_Tools\file_path.cpp" />
+    <ClCompile Include="src\libretro-common\hash\rhash.c" />
   </ItemGroup>
 </Project>

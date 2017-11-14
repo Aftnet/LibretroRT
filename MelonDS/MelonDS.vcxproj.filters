@@ -33,13 +33,36 @@
     <ClInclude Include="src\src\SPU.h" />
     <ClInclude Include="src\src\Config.h" />
     <ClInclude Include="src\src\Wifi.h" />
-    <ClInclude Include="src\src\libretro.h" />
     <ClInclude Include="src\src\Platform.h" />
     <ClInclude Include="src\src\types.h" />
     <ClInclude Include="src\src\version.h" />
     <ClInclude Include="src\src\NDS.h" />
     <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
     <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\src\libretro\libretro.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\msvc\stdint.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\apple_compat.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\getopt.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\ifaddrs.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\intrinsics.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\msvc.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\posix_string.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\strcasestr.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\strl.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\zconf.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\zlib.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\zutil.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\rthreads\rthreads.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_assert.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_miscellaneous.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\ARM.cpp" />
@@ -59,8 +82,10 @@
     <ClCompile Include="src\src\SPU.cpp" />
     <ClCompile Include="src\src\Config.cpp" />
     <ClCompile Include="src\src\Wifi.cpp" />
-    <ClCompile Include="src\src\libretro.cpp" />
     <ClCompile Include="src\src\NDS.cpp" />
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
+    <ClCompile Include="src\src\libretro\libretro.cpp" />
+    <ClCompile Include="src\src\libretro\libretro-common\rthreads\rthreads.c" />
+    <ClCompile Include="src\src\libretro\libretro-common\streams\file_stream.c" />
   </ItemGroup>
 </Project>

@@ -35,7 +35,7 @@
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.14393.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformMinVersion>10.0.15063.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -377,6 +377,7 @@
     <ClCompile Include="src\deps\zlib\trees.c" />
     <ClCompile Include="src\deps\zlib\uncompr.c" />
     <ClCompile Include="src\deps\zlib\zutil.c" />
+    <ClCompile Include="src\libretro-common\hash\rhash.c" />
     <ClCompile Include="src\libretro-common\rthreads\rthreads.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
     <ClCompile Include="src\libretro.cpp" />
