@@ -285,7 +285,6 @@
     <ClCompile Include="src\src\GPU3D.cpp" />
     <ClCompile Include="src\src\GPU3D_Soft.cpp" />
     <ClCompile Include="src\src\libretro\libretro-common\rthreads\rthreads.c" />
-    <ClCompile Include="src\src\libretro\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\src\libretro\libretro.cpp" />
     <ClCompile Include="src\src\NDS.cpp" />
     <ClCompile Include="src\src\NDSCart.cpp" />

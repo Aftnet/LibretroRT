@@ -86,6 +86,5 @@
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
     <ClCompile Include="src\src\libretro\libretro.cpp" />
     <ClCompile Include="src\src\libretro\libretro-common\rthreads\rthreads.c" />
-    <ClCompile Include="src\src\libretro\libretro-common\streams\file_stream.c" />
   </ItemGroup>
 </Project>
