@@ -244,7 +244,7 @@
       <Version>6.5.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.4.0</Version>
+      <Version>6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>2.0.0</Version>
@@ -265,7 +265,7 @@
       <Version>1.0.2</Version>
     </PackageReference>
     <PackageReference Include="Plugin.VersionTracking">
-      <Version>1.0.1</Version>
+      <Version>2.1.0</Version>
     </PackageReference>
     <PackageReference Include="System.IO.Compression.ZipFile">
       <Version>4.3.0</Version>
