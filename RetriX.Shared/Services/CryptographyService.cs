@@ -12,16 +12,13 @@ namespace RetriX.Shared.Services
         {
             using (var inputStream = await file.OpenAsync(PCLStorage.FileAccess.Read))
             using (var hasher = IncrementalHash.CreateHash(HashAlgorithmName.MD5))
-            using (var nullStream = Stream.Null)
             {
                 var buffer = new byte[1024 * 1024];
-                var numRead = 0;
-                do
+                while (inputStream.Position < inputStream.Length)
                 {
-                    numRead = await inputStream.ReadAsync(buffer, numRead, buffer.Length);
-                    hasher.AppendData(buffer, 0, numRead);
+                    var bytesRead = await inputStream.ReadAsync(buffer, 0, buffer.Length);
+                    hasher.AppendData(buffer, 0, bytesRead);
                 }
-                while (numRead > 0);
 
                 var hashBytes = hasher.GetHashAndReset();
                 var hashString = BitConverter.ToString(hashBytes);

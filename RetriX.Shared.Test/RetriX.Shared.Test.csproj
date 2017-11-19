@@ -80,9 +80,6 @@
     <PackageReference Include="Moq">
       <Version>4.7.145</Version>
     </PackageReference>
-    <PackageReference Include="PCLCrypto">
-      <Version>2.0.147</Version>
-    </PackageReference>
     <PackageReference Include="PCLStorage">
       <Version>1.0.2</Version>
     </PackageReference>
