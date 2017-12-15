@@ -184,6 +184,8 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 
 	case RETRO_ENVIRONMENT_GET_VFS_INTERFACE:
 	{
+		auto in = 0;
+		in++;
 	}
 
 	/*case RETRO_ENVIRONMENT_SET_HW_RENDER:
