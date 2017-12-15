@@ -117,10 +117,10 @@ namespace LibretroRT_Shared
 
 		virtual property unsigned int SerializationSize { unsigned int get() { return LibretroSerializeSize(); } }
 
-		virtual property RenderVideoFrameDelegate ^ RenderVideoFrame;
-		virtual property RenderAudioFramesDelegate ^ RenderAudioFrames;
-		virtual property PollInputDelegate ^ PollInput;
-		virtual property GetInputStateDelegate ^ GetInputState;
+		virtual property RenderVideoFrameDelegate^ RenderVideoFrame;
+		virtual property RenderAudioFramesDelegate^ RenderAudioFrames;
+		virtual property PollInputDelegate^ PollInput;
+		virtual property GetInputStateDelegate^ GetInputState;
 		virtual property GeometryChangedDelegate^ GeometryChanged;
 		virtual property TimingChangedDelegate^ TimingChanged;
 		virtual property PixelFormatChangedDelegate^ PixelFormatChanged;

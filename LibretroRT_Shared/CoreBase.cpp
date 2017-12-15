@@ -181,6 +181,11 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 		Timing = Converter::CToRTSystemTiming(dataPtr->timing);
 		return true;
 	}
+
+	case RETRO_ENVIRONMENT_GET_VFS_INTERFACE:
+	{
+	}
+
 	/*case RETRO_ENVIRONMENT_SET_HW_RENDER:
 	{
 	auto dataPtr = reinterpret_cast<retro_hw_render_callback*>(data);
