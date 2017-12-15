@@ -1,4 +1,4 @@
-﻿using PCLStorage;
+﻿using Plugin.FileSystem.Abstractions;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -8,9 +8,9 @@ namespace RetriX.Shared.Services
 {
     public class CryptographyService : ICryptographyService
     {
-        public async Task<string> ComputeMD5Async(IFile file)
+        public async Task<string> ComputeMD5Async(IFileInfo file)
         {
-            using (var inputStream = await file.OpenAsync(PCLStorage.FileAccess.Read))
+            using (var inputStream = await file.OpenAsync(FileAccess.Read))
             using (var hasher = IncrementalHash.CreateHash(HashAlgorithmName.MD5))
             {
                 var buffer = new byte[1024 * 1024];

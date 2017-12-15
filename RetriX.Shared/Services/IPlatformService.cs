@@ -1,6 +1,4 @@
-﻿using PCLStorage;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -26,8 +24,6 @@ namespace RetriX.Shared.Services
         void ChangeMousePointerVisibility(MousePointerVisibility visibility);
         void ForceUIElementFocus();
 
-        Task<IFile> SelectFileAsync(IEnumerable<string> extensionsFilter);
-        Task<IFolder> SelectFolderAsync();
         void CopyToClipboard(string content);
 
         Task RunOnUIThreadAsync(Action action);

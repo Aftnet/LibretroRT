@@ -1,9 +1,10 @@
 ﻿using Acr.UserDialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using PCLStorage;
+using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
@@ -15,13 +16,14 @@ namespace RetriX.Shared.ViewModels
         public const string FileHashMismatchTitleKey = nameof(FileHashMismatchTitleKey);
         public const string FileHashMismatchMessageKey = nameof(FileHashMismatchMessageKey);
 
+        private readonly IFileSystem FileSystem;
         private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
         private readonly ICryptographyService CryptographyService;
 
-        private readonly IFolder targetFolder;
-        public IFolder TargetFolder { get { return targetFolder; } }
+        private readonly IDirectoryInfo targetFolder;
+        public IDirectoryInfo TargetFolder { get { return targetFolder; } }
 
         private readonly string targetFileName;
         public string TargetFileName { get { return targetFileName; } }
@@ -44,8 +46,9 @@ namespace RetriX.Shared.ViewModels
         public RelayCommand ImportCommand { get; private set; }
         public RelayCommand CopyMD5ToClipboardCommand { get; private set; }
 
-        public FileImporterVM(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IFolder folder, string fileName, string description, string MD5)
+        public FileImporterVM(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
         {
+            FileSystem = fileSystem;
             DialogsService = dialogsService;
             LocalizationService = localizationService;
             PlatformService = platformService;
@@ -62,22 +65,16 @@ namespace RetriX.Shared.ViewModels
             GetTargetFileAsync().ContinueWith(d => PlatformService.RunOnUIThreadAsync(() => FileAvailable = d.Result != null));
         }
 
-        public async Task<IFile> GetTargetFileAsync()
+        public async Task<IFileInfo> GetTargetFileAsync()
         {
-            var result = await TargetFolder.CheckExistsAsync(TargetFileName);
-            if (result != ExistenceCheckResult.FileExists)
-            {
-                return null;
-            }
-
-            var output = await TargetFolder.GetFileAsync(TargetFileName);
-            return output;
+            var result = (await TargetFolder.EnumerateFilesAsync()).FirstOrDefault(d => d.Name == TargetFileName);
+            return result;
         }
 
         private async void ImportHandler()
         {
             var fileExt = Path.GetExtension(TargetFileName);
-            var sourceFile = await PlatformService.SelectFileAsync(new string[] { fileExt });
+            var sourceFile = await FileSystem.PickFileAsync(new string[] { fileExt });
             if (sourceFile == null)
             {
                 return;
@@ -92,10 +89,10 @@ namespace RetriX.Shared.ViewModels
                 return;
             }
 
-            using (var inStream = await sourceFile.OpenAsync(PCLStorage.FileAccess.Read))
+            using (var inStream = await sourceFile.OpenAsync(FileAccess.Read))
             {
-                var targetFile = await TargetFolder.CreateFileAsync(targetFileName, CreationCollisionOption.ReplaceExisting);
-                using (var outStream = await targetFile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
+                var targetFile = await TargetFolder.CreateFileAsync(targetFileName);
+                using (var outStream = await targetFile.OpenAsync(FileAccess.ReadWrite))
                 {
                     await inStream.CopyToAsync(outStream);
                     await outStream.FlushAsync();

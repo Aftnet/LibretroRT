@@ -1,4 +1,4 @@
-﻿using PCLStorage;
+﻿using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -32,8 +32,8 @@ namespace RetriX.Shared.Services
 
         string GameID { get; }
 
-        Task<GameSystemVM> SuggestSystemForFileAsync(IFile file);
-        Task<bool> StartGameAsync(GameSystemVM system, IFile file, IFolder rootFolder = null);
+        Task<GameSystemVM> SuggestSystemForFileAsync(IFileInfo file);
+        Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder = null);
 
         Task ResetGameAsync();
         Task StopGameAsync();

@@ -1,5 +1,5 @@
 ﻿using LibretroRT;
-using PCLStorage;
+using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace RetriX.UWP.ViewModels
             MultiFileExtensions = multiFileExtensions == null ? new string[0] : multiFileExtensions;
         }
 
-        public override bool CheckRootFolderRequired(IFile file)
+        public override bool CheckRootFolderRequired(IFileInfo file)
         {
             var extension = Path.GetExtension(file.Name);
             return MultiFileExtensions.Contains(extension);

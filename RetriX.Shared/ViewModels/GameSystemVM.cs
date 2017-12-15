@@ -1,4 +1,4 @@
-﻿using PCLStorage;
+﻿using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace RetriX.Shared.ViewModels
             return Task.FromResult(true);
         }
 
-        public virtual bool CheckRootFolderRequired(IFile file)
+        public virtual bool CheckRootFolderRequired(IFileInfo file)
         {
             return false;
         }

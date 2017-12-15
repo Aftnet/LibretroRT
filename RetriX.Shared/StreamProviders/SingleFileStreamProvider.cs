@@ -1,4 +1,4 @@
-﻿using PCLStorage;
+﻿using Plugin.FileSystem.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,9 +9,9 @@ namespace RetriX.Shared.StreamProviders
     public class SingleFileStreamProvider : StreamProviderBase
     {
         private readonly string Path;
-        private readonly IFile File;
+        private readonly IFileInfo File;
 
-        public SingleFileStreamProvider(string path, IFile file)
+        public SingleFileStreamProvider(string path, IFileInfo file)
         {
             Path = path;
             File = file;
@@ -23,7 +23,7 @@ namespace RetriX.Shared.StreamProviders
             return Task.FromResult(output as IEnumerable<string>);
         }
 
-        protected override Task<Stream> OpenFileStreamAsyncInternal(string path, PCLStorage.FileAccess accessType)
+        protected override Task<Stream> OpenFileStreamAsyncInternal(string path, FileAccess accessType)
         {
             if (Path.Equals(path, StringComparison.OrdinalIgnoreCase))
             {

@@ -1,6 +1,7 @@
-﻿using PCLStorage;
+﻿using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.ExtensionMethods;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -12,6 +13,7 @@ namespace RetriX.Shared.Services
         public const string StateSavedToSlotMessageTitleKey = "StateSavedToSlotMessageTitleKey";
         public const string StateSavedToSlotMessageBodyKey = "StateSavedToSlotMessageBodyKey";
 
+        private readonly IFileSystem FileSystem;
         private readonly ILocalNotifications NotificationService;
         private readonly ILocalizationService LocalizationService;
 
@@ -20,14 +22,15 @@ namespace RetriX.Shared.Services
         private bool OperationInProgress = false;
         private bool AllowOperations => !(OperationInProgress || SaveStatesFolder == null || GameId == null);
 
-        private IFolder SaveStatesFolder;
+        private IDirectoryInfo SaveStatesFolder;
 
-        public SaveStateService(ILocalNotifications notificationService, ILocalizationService localizationService)
+        public SaveStateService(IFileSystem fileSystem, ILocalNotifications notificationService, ILocalizationService localizationService)
         {
+            FileSystem = fileSystem;
             NotificationService = notificationService;
             LocalizationService = localizationService;
 
-            GetSubfolderAsync(FileSystem.Current.LocalStorage, SaveStatesFolderName).ContinueWith(d =>
+            GetSubfolderAsync(FileSystem.LocalStorage, SaveStatesFolderName).ContinueWith(d =>
             {
                 SaveStatesFolder = d.Result;
             });
@@ -57,15 +60,14 @@ namespace RetriX.Shared.Services
 
             var statesFolder = await GetGameSaveStatesFolderAsync();
             var fileName = GenerateSaveFileName(slotId);
-            var fileExistence = await statesFolder.CheckExistsAsync(fileName);
-            if (fileExistence == ExistenceCheckResult.NotFound)
+            var file = (await statesFolder.EnumerateFilesAsync()).FirstOrDefault(d => d.Name == fileName);
+            if (file == null)
             {
                 OperationInProgress = false;
                 return null;
             }
 
-            var file = await statesFolder.GetFileAsync(fileName);
-            using (var stream = await file.OpenAsync(FileAccess.Read))
+            using (var stream = await file.OpenAsync(System.IO.FileAccess.Read))
             {
                 var output = new byte[stream.Length];
                 await stream.ReadAsync(output, 0, output.Length);
@@ -86,8 +88,14 @@ namespace RetriX.Shared.Services
 
             var statesFolder = await GetGameSaveStatesFolderAsync();
             var fileName = GenerateSaveFileName(slotId);
-            var file = await statesFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-            using (var stream = await file.OpenAsync(FileAccess.ReadAndWrite))
+
+            var file = (await statesFolder.EnumerateFilesAsync()).FirstOrDefault(d => d.Name == fileName);
+            if (file == null)
+            {
+                file = await statesFolder.CreateFileAsync(fileName);
+            }
+
+            using (var stream = await file.OpenAsync(System.IO.FileAccess.ReadWrite))
             {
                 await stream.WriteAsync(data, 0, data.Length);
             }
@@ -112,10 +120,10 @@ namespace RetriX.Shared.Services
 
             var statesFolder = await GetGameSaveStatesFolderAsync();
             var fileName = GenerateSaveFileName(slotId);
-            var result = await statesFolder.CheckExistsAsync(fileName);
+            var file = (await statesFolder.EnumerateFilesAsync()).FirstOrDefault(d => d.Name == fileName);
 
             OperationInProgress = false;
-            return result == ExistenceCheckResult.FileExists;
+            return file != null;
         }
 
         public async Task ClearSavesAsync()
@@ -139,22 +147,17 @@ namespace RetriX.Shared.Services
             return $"{GameId}_S{slotId}.sav";
         }
 
-        private Task<IFolder> GetGameSaveStatesFolderAsync()
+        private Task<IDirectoryInfo> GetGameSaveStatesFolderAsync()
         {
             return GetSubfolderAsync(SaveStatesFolder, GameId);
         }
 
-        private static async Task<IFolder> GetSubfolderAsync(IFolder parent, string name)
+        private static async Task<IDirectoryInfo> GetSubfolderAsync(IDirectoryInfo parent, string name)
         {
-            IFolder output;
-            var folderExistence = await parent.CheckExistsAsync(name);
-            if (folderExistence == ExistenceCheckResult.FolderExists)
+            IDirectoryInfo output = (await parent.EnumerateDirectoriesAsync()).FirstOrDefault(d => d.Name == name);
+            if (output == null)
             {
-                output = await parent.GetFolderAsync(name);
-            }
-            else
-            {
-                output = await parent.CreateFolderAsync(name, CreationCollisionOption.ReplaceExisting);
+                output = await parent.CreateDirectoryAsync(name);
             }
 
             return output;
