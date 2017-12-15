@@ -218,7 +218,6 @@
     <ClInclude Include="GameGeometry.h" />
     <ClInclude Include="ICore.h" />
     <ClInclude Include="libretro.h" />
-    <ClInclude Include="libretro_extra.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SystemTiming.h" />
     <ClInclude Include="VFS.h" />
