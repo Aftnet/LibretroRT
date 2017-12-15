@@ -8,7 +8,7 @@
 
 // todo: namespace
 
-namespace LibretroRT_Tools
+namespace LibretroRT_Shared
 {
 	class NativeBuffer :
 		public Microsoft::WRL::RuntimeClass<Microsoft::WRL::RuntimeClassFlags<Microsoft::WRL::RuntimeClassType::WinRtClassicComMix>,

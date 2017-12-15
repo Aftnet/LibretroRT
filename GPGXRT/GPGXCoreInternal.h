@@ -3,7 +3,7 @@
 #include "../LibretroRT_Shared/CoreBase.h"
 
 using namespace Platform;
-using namespace LibretroRT_Tools;
+using namespace LibretroRT_Shared;
 using namespace Windows::Storage;
 
 namespace GPGXRT

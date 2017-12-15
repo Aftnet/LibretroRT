@@ -5,7 +5,7 @@
 
 using namespace Platform;
 
-namespace LibretroRT_Tools
+namespace LibretroRT_Shared
 {
 	class StringConverter
 	{

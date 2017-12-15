@@ -9,7 +9,7 @@ using namespace Windows::Foundation::Collections;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
-namespace LibretroRT_Tools
+namespace LibretroRT_Shared
 {
 	typedef void(*LibretroInitPtr)(void);
 	typedef void(*LibretroDeinitPtr)(void);

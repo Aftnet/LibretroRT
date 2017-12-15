@@ -4,7 +4,7 @@
 #include "StringConverter.h"
 #include "libretro.h"
 
-using namespace LibretroRT_Tools;
+using namespace LibretroRT_Shared;
 using namespace Windows::Storage;
 
 void LogHandler(enum retro_log_level level, const char *fmt, ...)

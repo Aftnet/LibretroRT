@@ -8,7 +8,7 @@ enum retro_pixel_format;
 using namespace Platform;
 using namespace LibretroRT;
 
-namespace LibretroRT_Tools
+namespace LibretroRT_Shared
 {
 	class Converter
 	{

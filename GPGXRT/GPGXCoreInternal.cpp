@@ -4,7 +4,7 @@
 #include "libretro.h"
 
 using namespace GPGXRT;
-using namespace LibretroRT_Tools;
+using namespace LibretroRT_Shared;
 
 GPGXCoreInternal^ coreInstance = nullptr;
 
@@ -25,7 +25,7 @@ GPGXCoreInternal^ GPGXCoreInternal::Instance::get()
 	return coreInstance;
 }
 
-GPGXCoreInternal::GPGXCoreInternal() : LibretroRT_Tools::CoreBase(retro_init, retro_deinit,
+GPGXCoreInternal::GPGXCoreInternal() : CoreBase(retro_init, retro_deinit,
 	retro_get_system_info, retro_get_system_av_info, retro_set_controller_port_device,
 	retro_load_game, retro_unload_game, retro_run, retro_reset, retro_serialize_size, retro_serialize, retro_unserialize,
 	true, true, false)
