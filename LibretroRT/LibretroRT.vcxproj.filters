@@ -28,7 +28,6 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="ICore.h" />
-    <ClInclude Include="libretro.h" />
     <ClInclude Include="GameGeometry.h">
       <Filter>DataTypes</Filter>
     </ClInclude>

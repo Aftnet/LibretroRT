@@ -2,7 +2,7 @@
 #include "CoreBase.h"
 #include "Converter.h"
 #include "StringConverter.h"
-#include "../LibretroRT/libretro.h"
+#include "libretro.h"
 
 using namespace LibretroRT_Tools;
 using namespace Windows::Storage;
@@ -183,20 +183,20 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	}
 	/*case RETRO_ENVIRONMENT_SET_HW_RENDER:
 	{
-		auto dataPtr = reinterpret_cast<retro_hw_render_callback*>(data);
-		dataPtr->context_type = retro_hw_context_type::RETRO_HW_CONTEXT_OPENGLES2;
-		dataPtr->context_reset = nullptr; //need
-		dataPtr->get_current_framebuffer = nullptr;
-		dataPtr->get_proc_address = nullptr; //need
-		dataPtr->depth = false;
-		dataPtr->stencil = false;
-		dataPtr->bottom_left_origin = false; //need
-		dataPtr->version_major = 2; //need
-		dataPtr->version_minor = 0; //need
-		dataPtr->cache_context = true; //need
-		dataPtr->context_destroy = nullptr; //need
-		dataPtr->debug_context = false; //need
-		return true;
+	auto dataPtr = reinterpret_cast<retro_hw_render_callback*>(data);
+	dataPtr->context_type = retro_hw_context_type::RETRO_HW_CONTEXT_OPENGLES2;
+	dataPtr->context_reset = nullptr; //need
+	dataPtr->get_current_framebuffer = nullptr;
+	dataPtr->get_proc_address = nullptr; //need
+	dataPtr->depth = false;
+	dataPtr->stencil = false;
+	dataPtr->bottom_left_origin = false; //need
+	dataPtr->version_major = 2; //need
+	dataPtr->version_minor = 0; //need
+	dataPtr->cache_context = true; //need
+	dataPtr->context_destroy = nullptr; //need
+	dataPtr->debug_context = false; //need
+	return true;
 	}*/
 	}
 	return false;
@@ -303,7 +303,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 			Timing = Converter::CToRTSystemTiming(info.timing);
 
 			LibretroSetControllerPortDevice(0, RETRO_DEVICE_ANALOG);
-		}	
+		}
 		else
 		{
 			gameFilePath.clear();

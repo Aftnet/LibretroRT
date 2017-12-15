@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../LibretroRT/libretro.h"
+#include "libretro.h"
 
 using namespace LibretroRT;
 using namespace Platform;
@@ -11,18 +11,18 @@ using namespace Windows::Storage::Streams;
 
 namespace LibretroRT_Tools
 {
-	typedef void (*LibretroInitPtr)(void);
-	typedef void (*LibretroDeinitPtr)(void);
-	typedef void (*LibretroGetSystemInfoPtr)(struct retro_system_info *info);
-	typedef void (*LibretroGetSystemAVInfoPtr)(struct retro_system_av_info *info);
-	typedef void (*LibretroSetControllerPortDevicePtr)(unsigned port, unsigned device);
-	typedef bool (*LibretroLoadGamePtr)(const struct retro_game_info *game);
-	typedef void (*LibretroUnloadGamePtr)(void);
-	typedef void (*LibretroRunPtr)(void);
-	typedef void (*LibretroResetPtr)(void);
-	typedef size_t (*LibretroSerializeSizePtr)(void);
-	typedef bool (*LibretroSerializePtr)(void *data, size_t size);
-	typedef bool (*LibretroUnserializePtr)(const void *data, size_t size);
+	typedef void(*LibretroInitPtr)(void);
+	typedef void(*LibretroDeinitPtr)(void);
+	typedef void(*LibretroGetSystemInfoPtr)(struct retro_system_info *info);
+	typedef void(*LibretroGetSystemAVInfoPtr)(struct retro_system_av_info *info);
+	typedef void(*LibretroSetControllerPortDevicePtr)(unsigned port, unsigned device);
+	typedef bool(*LibretroLoadGamePtr)(const struct retro_game_info *game);
+	typedef void(*LibretroUnloadGamePtr)(void);
+	typedef void(*LibretroRunPtr)(void);
+	typedef void(*LibretroResetPtr)(void);
+	typedef size_t(*LibretroSerializeSizePtr)(void);
+	typedef bool(*LibretroSerializePtr)(void *data, size_t size);
+	typedef bool(*LibretroUnserializePtr)(const void *data, size_t size);
 
 	private ref class CoreBase : public ICore
 	{
@@ -56,7 +56,7 @@ namespace LibretroRT_Tools
 		SystemTiming^ timing;
 
 		bool coreRequiresGameFilePath;
-		
+
 		bool isInitialized;
 		std::string gameFilePath;
 		std::string lastResolvedEnvironmentVariable;
@@ -138,5 +138,3 @@ namespace LibretroRT_Tools
 		virtual bool Unserialize(const Array<uint8>^ stateData);
 	};
 }
-
-

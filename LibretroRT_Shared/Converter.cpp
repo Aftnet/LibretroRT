@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Converter.h"
 #include "StringConverter.h"
-#include "../LibretroRT/libretro.h"
+#include "libretro.h"
 
 using namespace LibretroRT;
 using namespace LibretroRT_Tools;

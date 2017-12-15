@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{ca149c62-5ba2-45f8-bf2f-bc616f434696}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Converter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CoreBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringConverter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Converter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CoreBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NativeBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringConverter.h" />
+  </ItemGroup>
+</Project>

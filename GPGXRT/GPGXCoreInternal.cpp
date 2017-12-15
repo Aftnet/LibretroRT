@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "GPGXCoreInternal.h"
 
-#include "../LibretroRT/libretro.h"
-#include "../LibretroRT_Tools/Converter.h"
+#include "libretro.h"
 
 using namespace GPGXRT;
 using namespace LibretroRT_Tools;

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Export.h"
-
 #include <string>
 #include <vector>
 
@@ -9,7 +7,7 @@ using namespace Platform;
 
 namespace LibretroRT_Tools
 {
-	class SUPPORT_API StringConverter
+	class StringConverter
 	{
 	public:
 		static String^ CPPToPlatformString(const std::string string);
