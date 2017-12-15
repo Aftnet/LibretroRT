@@ -138,6 +138,7 @@
     <ClInclude Include="src\libretro_options.h" />
     <ClInclude Include="src\mednafen\psx\FastFIFO.h" />
     <ClInclude Include="src\mednafen\psx\psx.h" />
+    <ClInclude Include="src\input.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libretro.cpp" />
@@ -239,5 +240,7 @@
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
     <ClCompile Include="..\LibretroRT_Tools\file_path.cpp" />
+    <ClCompile Include="src\libretro-common\hash\rhash.c" />
+    <ClCompile Include="src\input.cpp" />
   </ItemGroup>
 </Project>

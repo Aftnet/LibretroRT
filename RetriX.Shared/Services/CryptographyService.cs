@@ -1,7 +1,7 @@
-﻿using PCLCrypto;
-using PCLStorage;
+﻿using PCLStorage;
 using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -11,16 +11,18 @@ namespace RetriX.Shared.Services
         public async Task<string> ComputeMD5Async(IFile file)
         {
             using (var inputStream = await file.OpenAsync(PCLStorage.FileAccess.Read))
-            using (var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Md5).CreateHash())
-            using (var nullStream = Stream.Null)
+            using (var hasher = IncrementalHash.CreateHash(HashAlgorithmName.MD5))
             {
-                using (var cryptoStream = CryptoStream.WriteTo(nullStream, hasher))
+                var buffer = new byte[1024 * 1024];
+                while (inputStream.Position < inputStream.Length)
                 {
-                    await inputStream.CopyToAsync(cryptoStream);
-                    var hashBytes = hasher.GetValueAndReset();
-                    var hashString = BitConverter.ToString(hashBytes);
-                    return hashString.Replace("-", string.Empty);
+                    var bytesRead = await inputStream.ReadAsync(buffer, 0, buffer.Length);
+                    hasher.AppendData(buffer, 0, bytesRead);
                 }
+
+                var hashBytes = hasher.GetHashAndReset();
+                var hashString = BitConverter.ToString(hashBytes);
+                return hashString.Replace("-", string.Empty);
             }            
         }
     }

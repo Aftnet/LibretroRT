@@ -94,6 +94,17 @@
     <ClInclude Include="src\libretro.h" />
     <ClInclude Include="src\mednafen\hw_misc\arcade_card\arcade_card.h" />
     <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\deps\zlib\crc32.h" />
+    <ClInclude Include="src\deps\zlib\zutil.h" />
+    <ClInclude Include="src\deps\zlib\deflate.h" />
+    <ClInclude Include="src\deps\zlib\gzguts.h" />
+    <ClInclude Include="src\deps\zlib\inffast.h" />
+    <ClInclude Include="src\deps\zlib\inffixed.h" />
+    <ClInclude Include="src\deps\zlib\inflate.h" />
+    <ClInclude Include="src\deps\zlib\inftrees.h" />
+    <ClInclude Include="src\deps\zlib\trees.h" />
+    <ClInclude Include="src\deps\zlib\zconf.h" />
+    <ClInclude Include="src\deps\zlib\zlib.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\pce_fast\huc6280.cpp" />
@@ -151,5 +162,20 @@
     <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
     <ClCompile Include="..\LibretroRT_Tools\file_path.cpp" />
+    <ClCompile Include="src\deps\zlib\crc32.c" />
+    <ClCompile Include="src\deps\zlib\zutil.c" />
+    <ClCompile Include="src\deps\zlib\adler32.c" />
+    <ClCompile Include="src\deps\zlib\compress.c" />
+    <ClCompile Include="src\deps\zlib\deflate.c" />
+    <ClCompile Include="src\deps\zlib\gzclose.c" />
+    <ClCompile Include="src\deps\zlib\gzlib.c" />
+    <ClCompile Include="src\deps\zlib\gzread.c" />
+    <ClCompile Include="src\deps\zlib\gzwrite.c" />
+    <ClCompile Include="src\deps\zlib\infback.c" />
+    <ClCompile Include="src\deps\zlib\inffast.c" />
+    <ClCompile Include="src\deps\zlib\inflate.c" />
+    <ClCompile Include="src\deps\zlib\inftrees.c" />
+    <ClCompile Include="src\deps\zlib\trees.c" />
+    <ClCompile Include="src\deps\zlib\uncompr.c" />
   </ItemGroup>
 </Project>

@@ -35,7 +35,7 @@
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.14393.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformMinVersion>10.0.15063.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -125,7 +125,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(ProjectDir)src\src\libretro\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
@@ -139,7 +139,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(ProjectDir)src\src\libretro\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
@@ -153,7 +153,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(ProjectDir)src\src\libretro\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
@@ -167,7 +167,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(ProjectDir)src\src\libretro\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
@@ -181,7 +181,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(ProjectDir)src\src\libretro\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
@@ -195,7 +195,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src\src;$(ProjectDir)src\src\libretro\libretro-common\include;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__LIBRETRO__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd4146 /wd4703</AdditionalOptions>
     </ClCompile>
@@ -228,7 +228,30 @@
     <ClInclude Include="src\src\GPU.h" />
     <ClInclude Include="src\src\GPU2D.h" />
     <ClInclude Include="src\src\GPU3D.h" />
-    <ClInclude Include="src\src\libretro.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\apple_compat.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\getopt.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\ifaddrs.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\intrinsics.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\msvc.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\msvc\stdint.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\posix_string.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\strcasestr.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\strl.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\zconf.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\zlib.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\zutil.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_assert.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_common.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\rthreads\rthreads.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\src\libretro\libretro.h" />
     <ClInclude Include="src\src\NDS.h" />
     <ClInclude Include="src\src\NDSCart.h" />
     <ClInclude Include="src\src\Platform.h" />
@@ -261,7 +284,8 @@
     <ClCompile Include="src\src\GPU2D.cpp" />
     <ClCompile Include="src\src\GPU3D.cpp" />
     <ClCompile Include="src\src\GPU3D_Soft.cpp" />
-    <ClCompile Include="src\src\libretro.cpp" />
+    <ClCompile Include="src\src\libretro\libretro-common\rthreads\rthreads.c" />
+    <ClCompile Include="src\src\libretro\libretro.cpp" />
     <ClCompile Include="src\src\NDS.cpp" />
     <ClCompile Include="src\src\NDSCart.cpp" />
     <ClCompile Include="src\src\RTC.cpp" />

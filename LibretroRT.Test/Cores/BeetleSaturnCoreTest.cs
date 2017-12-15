@@ -3,7 +3,7 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
-    [Collection(nameof(TestBase))]
+    /*[Collection(nameof(TestBase))]
     public class BeetleSaturnCoreTest : TestBase
     {
         protected const string RomName = "SaturnGame.cue";
@@ -25,5 +25,5 @@ namespace LibretroRT.Test.Cores
         {
             return ExecutionWorksInternal(romName);
         }
-    }
+    }*/
 }
