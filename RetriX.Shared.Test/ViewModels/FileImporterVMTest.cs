@@ -1,5 +1,5 @@
 ﻿using Moq;
-using PCLStorage;
+using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.ViewModels;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ namespace RetriX.Shared.Test.ViewModels
     {
         protected override FileImporterVM InstantiateTarget()
         {
-            return new FileImporterVM(DialogsServiceMock.Object, LocalizationServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "Target file description", "SomeMD5");
+            return new FileImporterVM(FileSystemMock.Object, DialogsServiceMock.Object, LocalizationServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "Target file description", "SomeMD5");
         }
 
         [Theory]
@@ -27,8 +27,8 @@ namespace RetriX.Shared.Test.ViewModels
             Assert.True(Target.ImportCommand.CanExecute(null));
 
             var folder = await GetTestFilesFolderAsync();
-            var pickedFile = await folder.GetFileAsync("TestFile.txt");
-            PlatformServiceMock.Setup(d => d.SelectFileAsync(It.Is<IEnumerable<string>>(e => e.Contains(Path.GetExtension(Target.TargetFileName))))).Returns(Task.FromResult(pickedFile));
+            var pickedFile = (await folder.EnumerateFilesAsync()).First(d => d.Name == "TestFile.txt");
+            FileSystemMock.Setup(d => d.PickFileAsync(It.Is<IEnumerable<string>>(e => e.Contains(Path.GetExtension(Target.TargetFileName))))).Returns(Task.FromResult(pickedFile));
 
             var computedHash = providedFileMD5Matches ? Target.TargetMD5.ToUpperInvariant() : "otherHash";
             CryptographyServiceMock.Setup(d => d.ComputeMD5Async(pickedFile)).Returns(Task.FromResult(computedHash));
@@ -59,9 +59,9 @@ namespace RetriX.Shared.Test.ViewModels
             await Task.Delay(50);
             Assert.False(Target.FileAvailable);
 
-            PlatformServiceMock.Setup(d => d.SelectFileAsync(It.Is<IEnumerable<string>>(e => e.Contains(Path.GetExtension(Target.TargetFileName))))).Returns(Task.FromResult(null as IFile));
+            FileSystemMock.Setup(d => d.PickFileAsync(It.Is<IEnumerable<string>>(e => e.Contains(Path.GetExtension(Target.TargetFileName))))).Returns(Task.FromResult(default(IFileInfo)));
 
-            CryptographyServiceMock.Verify(d => d.ComputeMD5Async(It.IsAny<IFile>()), Times.Never);
+            CryptographyServiceMock.Verify(d => d.ComputeMD5Async(It.IsAny<IFileInfo>()), Times.Never);
             LocalizationServiceMock.Verify(d => d.GetLocalizedString(It.IsAny<string>()), Times.Never);
             DialogsServiceMock.Verify(d => d.AlertAsync(It.IsAny<string>(), It.IsAny<string>(), null, null), Times.Never);
 

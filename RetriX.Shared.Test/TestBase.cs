@@ -1,6 +1,6 @@
 ﻿using Acr.UserDialogs;
 using Moq;
-using PCLStorage;
+using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.Services;
 using System.Threading.Tasks;
@@ -13,6 +13,7 @@ namespace RetriX.Shared.Test
 
         protected readonly T Target;
 
+        protected readonly Mock<IFileSystem> FileSystemMock = new Mock<IFileSystem>();
         protected readonly Mock<IUserDialogs> DialogsServiceMock = new Mock<IUserDialogs>();
         protected readonly Mock<ILocalizationService> LocalizationServiceMock = new Mock<ILocalizationService>();
         protected readonly Mock<IPlatformService> PlatformServiceMock = new Mock<IPlatformService>();
@@ -24,9 +25,9 @@ namespace RetriX.Shared.Test
             Target = InstantiateTarget();
         }
 
-        protected Task<IFolder> GetTestFilesFolderAsync()
+        protected Task<IDirectoryInfo> GetTestFilesFolderAsync()
         {
-            return FileSystem.Current.GetFolderFromPathAsync("TestFiles");
+            return Plugin.FileSystem.CrossFileSystem.Current.GetDirectoryFromPathAsync("TestFiles");
         }
     }
 }

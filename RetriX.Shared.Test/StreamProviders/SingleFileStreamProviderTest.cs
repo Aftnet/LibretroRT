@@ -1,4 +1,5 @@
 ﻿using RetriX.Shared.StreamProviders;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,7 +12,7 @@ namespace RetriX.Shared.Test.StreamProviders
         protected override async Task<IStreamProvider> GetTargetAsync()
         {
             var folder = await GetTestFilesFolderAsync();
-            var file = await folder.GetFileAsync("TestFile.txt");
+            var file = (await folder.EnumerateFilesAsync()).First(d => d.Name == "TestFile.txt");
             return new SingleFileStreamProvider(FilePath, file);
         }
 
