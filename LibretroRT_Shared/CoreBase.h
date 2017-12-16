@@ -1,7 +1,5 @@
 #pragma once
 
-#include "libretro.h"
-
 using namespace LibretroRT;
 using namespace Platform;
 using namespace Platform::Collections;
@@ -84,7 +82,7 @@ namespace LibretroRT_Shared
 			void set(SystemTiming^ value) { timing = value; if (TimingChanged != nullptr) { TimingChanged(timing); } }
 		}
 
-		virtual property unsigned int SerializationSize { unsigned int get() { return retro_serialize_size(); } }
+		virtual property unsigned int SerializationSize { unsigned int get(); }
 
 		virtual property RenderVideoFrameDelegate^ RenderVideoFrame;
 		virtual property RenderAudioFramesDelegate^ RenderAudioFrames;

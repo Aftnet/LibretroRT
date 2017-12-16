@@ -70,6 +70,11 @@ CoreBase::~CoreBase()
 {
 }
 
+unsigned int CoreBase::SerializationSize::get()
+{
+	return retro_serialize_size();
+}
+
 void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)
 {
 	auto stream = OpenFileStream(filePath, Windows::Storage::FileAccessMode::Read);
