@@ -27,7 +27,7 @@ namespace RetriX.Shared.Test.ViewModels
             Assert.True(Target.ImportCommand.CanExecute(null));
 
             var folder = await GetTestFilesFolderAsync();
-            var pickedFile = (await folder.EnumerateFilesAsync()).First(d => d.Name == "TestFile.txt");
+            var pickedFile = await folder.GetFileAsync("TestFile.txt");
             FileSystemMock.Setup(d => d.PickFileAsync(It.Is<IEnumerable<string>>(e => e.Contains(Path.GetExtension(Target.TargetFileName))))).Returns(Task.FromResult(pickedFile));
 
             var computedHash = providedFileMD5Matches ? Target.TargetMD5.ToUpperInvariant() : "otherHash";

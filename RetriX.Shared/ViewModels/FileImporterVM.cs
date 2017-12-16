@@ -67,7 +67,7 @@ namespace RetriX.Shared.ViewModels
 
         public async Task<IFileInfo> GetTargetFileAsync()
         {
-            var result = (await TargetFolder.EnumerateFilesAsync()).FirstOrDefault(d => d.Name == TargetFileName);
+            var result = await TargetFolder.GetFileAsync(TargetFileName);
             return result;
         }
 

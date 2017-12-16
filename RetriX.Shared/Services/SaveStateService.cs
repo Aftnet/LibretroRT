@@ -1,7 +1,6 @@
 ﻿using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.ExtensionMethods;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -60,7 +59,7 @@ namespace RetriX.Shared.Services
 
             var statesFolder = await GetGameSaveStatesFolderAsync();
             var fileName = GenerateSaveFileName(slotId);
-            var file = (await statesFolder.EnumerateFilesAsync()).FirstOrDefault(d => d.Name == fileName);
+            var file = await statesFolder.GetFileAsync(fileName);
             if (file == null)
             {
                 OperationInProgress = false;
@@ -89,7 +88,7 @@ namespace RetriX.Shared.Services
             var statesFolder = await GetGameSaveStatesFolderAsync();
             var fileName = GenerateSaveFileName(slotId);
 
-            var file = (await statesFolder.EnumerateFilesAsync()).FirstOrDefault(d => d.Name == fileName);
+            var file = await statesFolder.GetFileAsync(fileName);
             if (file == null)
             {
                 file = await statesFolder.CreateFileAsync(fileName);
@@ -120,7 +119,7 @@ namespace RetriX.Shared.Services
 
             var statesFolder = await GetGameSaveStatesFolderAsync();
             var fileName = GenerateSaveFileName(slotId);
-            var file = (await statesFolder.EnumerateFilesAsync()).FirstOrDefault(d => d.Name == fileName);
+            var file = await statesFolder.GetFileAsync(fileName);
 
             OperationInProgress = false;
             return file != null;
@@ -154,7 +153,7 @@ namespace RetriX.Shared.Services
 
         private static async Task<IDirectoryInfo> GetSubfolderAsync(IDirectoryInfo parent, string name)
         {
-            IDirectoryInfo output = (await parent.EnumerateDirectoriesAsync()).FirstOrDefault(d => d.Name == name);
+            IDirectoryInfo output = await parent.GetDirectoryAsync(name);
             if (output == null)
             {
                 output = await parent.CreateDirectoryAsync(name);

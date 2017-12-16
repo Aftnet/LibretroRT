@@ -1,6 +1,4 @@
 ﻿using RetriX.Shared.Services;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -18,7 +16,7 @@ namespace RetriX.Shared.Test.Services
         public async Task MD5ComputingWorks(string fileName, string expectedMD5)
         {
             var folder = await GetTestFilesFolderAsync();
-            var file = (await folder.EnumerateFilesAsync()).First(d => d.Name == fileName);
+            var file = await folder.GetFileAsync(fileName);
             var md5 = await Target.ComputeMD5Async(file);
 
             Assert.Equal(expectedMD5.ToLowerInvariant(), md5.ToLowerInvariant());
