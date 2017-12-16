@@ -4,6 +4,7 @@ using LibretroRT.FrontendComponents.AudioGraphPlayer;
 using LibretroRT.FrontendComponents.Common;
 using LibretroRT.FrontendComponents.InputManager;
 using Microsoft.Practices.ServiceLocation;
+using Plugin.FileSystem;
 using Plugin.LocalNotifications;
 using Plugin.VersionTracking;
 using RetriX.Shared.Services;
@@ -21,6 +22,7 @@ namespace RetriX.UWP.Locator
 
             var ioc = SimpleIoc.Default;
             ioc.Register(() => UserDialogs.Instance);
+            ioc.Register(() => CrossFileSystem.Current);
             ioc.Register(() => CrossLocalNotifications.Current);
             ioc.Register(() => CrossVersionTracking.Current);
             ioc.Register<IAudioPlayer, AudioGraphPlayer>();
