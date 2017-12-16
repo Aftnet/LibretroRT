@@ -10,6 +10,7 @@ namespace RetriX.Shared.StreamProviders
     {
         private readonly string HandledScheme;
         private readonly IDirectoryInfo RootFolder;
+        private IDictionary<string, IFileInfo> Contents;
 
         public FolderStreamProvider(string handledScheme, IDirectoryInfo rootFolder)
         {
@@ -19,32 +20,47 @@ namespace RetriX.Shared.StreamProviders
 
         public override async Task<IEnumerable<string>> ListEntriesAsync()
         {
-            var files = await ListFilesRecursiveAsync(RootFolder);
-            var output = files.Select(d => HandledScheme + d.FullName.Substring(RootFolder.FullName.Length + 1)).OrderBy(d => d).ToArray();
-            return output;
+            var contents = await GetContents();
+            return contents.Keys;
         }
 
         protected override async Task<Stream> OpenFileStreamAsyncInternal(string path, FileAccess accessType)
         {
-            if (!path.StartsWith(HandledScheme, System.StringComparison.OrdinalIgnoreCase))
-            {
-                return null;
-            }
-
-            path = path.Substring(HandledScheme.Length + 1);
-            var file = (await RootFolder.EnumerateFilesAsync()).FirstOrDefault(d => d.FullName == path);
-            if (accessType == FileAccess.Read && file==null)
+            var contents = await GetContents();
+            contents.TryGetValue(path, out var file);
+            if (accessType == FileAccess.Read && file == null)
             {
                 return null;
             }
 
             if (file == null)
             {
-                await RootFolder.CreateFileAsync(path);
+                file = await RootFolder.CreateFileAsync(path);
+                Contents.Add(GenerateSchemaName(file), file);
             }
 
             var output = await file.OpenAsync(accessType);
             return output;
+        }
+
+        private string GenerateSchemaName(IFileInfo file)
+        {
+            return $"{HandledScheme}{file.FullName.Substring(RootFolder.FullName.Length)}";
+        }
+
+        private async Task<IDictionary<string, IFileInfo>> GetContents()
+        {
+            if (Contents == null)
+            {
+                Contents = new SortedDictionary<string, IFileInfo>();
+                var list = await ListFilesRecursiveAsync(RootFolder);
+                foreach (var i in list)
+                {
+                    Contents.Add(GenerateSchemaName(i), i);
+                }
+            }
+
+            return Contents;
         }
 
         private async Task<IEnumerable<IFileInfo>> ListFilesRecursiveAsync(IDirectoryInfo folder)
