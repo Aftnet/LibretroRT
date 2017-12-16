@@ -304,6 +304,7 @@
     <ClInclude Include="src\libretro\libretro-common\include\compat\zlib.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\zutil.h" />
     <ClInclude Include="src\libretro\libretro-common\include\encodings\utf.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\libretro.h" />
     <ClInclude Include="src\libretro\libretro-common\include\memmap.h" />
     <ClInclude Include="src\libretro\libretro-common\include\retro_common.h" />
     <ClInclude Include="src\libretro\libretro-common\include\retro_common_api.h" />
