@@ -4,9 +4,11 @@ using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.Services;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace RetriX.Shared.Test
 {
+    [Collection(nameof(Test))]
     public abstract class TestBase<T> where T : class
     {
         protected abstract T InstantiateTarget();
