@@ -90,18 +90,6 @@ unsigned int CoreBase::SerializationSize::get()
 	return retro_serialize_size();
 }
 
-void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)
-{
-	auto stream = OpenFileStream(filePath, Windows::Storage::FileAccessMode::Read);
-	data.resize((size_t)stream->Size);
-	auto dataArray = Platform::ArrayReference<unsigned char>(data.data(), (size_t)stream->Size);
-
-	auto reader = ref new Windows::Storage::Streams::DataReader(stream);
-	concurrency::create_task(reader->LoadAsync(stream->Size)).get();
-	reader->ReadBytes(dataArray);
-	CloseFileStream(stream);
-}
-
 bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 {
 	switch (cmd)
@@ -430,9 +418,13 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 		std::vector<unsigned char> gameData;
 		if (!coreRequiresGameFilePath)
 		{
-			ReadFileToMemory(mainGameFilePath, gameData);
+			auto stream = VFSOpen(gameFilePath.data(), RETRO_VFS_FILE_ACCESS_READ, RETRO_VFS_FILE_ACCESS_HINT_NONE);
+			auto size = VFSGetSize(stream);
+			gameData.resize(size);
+			auto readBytes = VFSRead(stream, gameData.data(), size);
+
 			gameInfo.data = gameData.data();
-			gameInfo.size = gameData.size();
+			gameInfo.size = size;
 		}
 
 		auto loadSuccessful = retro_load_game(&gameInfo);
