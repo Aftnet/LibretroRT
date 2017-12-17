@@ -214,7 +214,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BeetlePSXCore.h" />
-    <ClInclude Include="pch.h" />
     <ClInclude Include="BeetlePSXCoreInternal.h" />
   </ItemGroup>
   <ItemGroup>

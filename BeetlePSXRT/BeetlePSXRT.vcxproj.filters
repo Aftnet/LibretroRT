@@ -12,7 +12,6 @@
     <ClCompile Include="BeetlePSXCore.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="BeetlePSXCoreInternal.h" />
     <ClInclude Include="BeetlePSXCore.h" />
   </ItemGroup>

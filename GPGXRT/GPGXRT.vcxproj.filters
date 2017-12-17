@@ -12,7 +12,6 @@
     <ClCompile Include="GPGXCore.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="GPGXCoreInternal.h" />
     <ClInclude Include="GPGXCore.h" />
   </ItemGroup>

@@ -215,7 +215,6 @@
   <ItemGroup>
     <ClInclude Include="GPGXCore.h" />
     <ClInclude Include="GPGXCoreInternal.h" />
-    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GPGXCore.cpp" />

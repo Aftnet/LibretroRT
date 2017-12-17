@@ -296,6 +296,10 @@
       <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>
       <Name>RetriX.Shared</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VBAMRT\VBAMRT.vcxproj">
+      <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
+      <Name>VBAMRT</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

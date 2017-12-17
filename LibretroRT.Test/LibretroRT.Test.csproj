@@ -199,6 +199,10 @@
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
       <Name>LibretroRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VBAMRT\VBAMRT.vcxproj">
+      <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
+      <Name>VBAMRT</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Roms\pcfx.rom" />

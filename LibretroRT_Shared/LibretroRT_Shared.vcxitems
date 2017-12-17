@@ -23,6 +23,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Converter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CoreBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NativeBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConverter.h" />
   </ItemGroup>
 </Project>
