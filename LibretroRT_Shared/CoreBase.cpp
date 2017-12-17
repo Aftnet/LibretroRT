@@ -190,7 +190,17 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 		const uint32_t SupportedVFSVersion = 1;
 		static struct retro_vfs_interface vfsInterface =
 		{
-			[](retro_vfs_file_handle* stream) { return SingletonInstance->VFSGetPath(stream); }
+			[](struct retro_vfs_file_handle* stream) { return SingletonInstance->VFSGetPath(stream); },
+			[](const char* path, unsigned mode, unsigned hints) { return SingletonInstance->VFSOpen(path, mode, hints); },
+			[](struct retro_vfs_file_handle* stream) { return SingletonInstance->VFSClose(stream); },
+			[](struct retro_vfs_file_handle* stream) { return SingletonInstance->VFSGetSize(stream); },
+			[](struct retro_vfs_file_handle* stream) { return SingletonInstance->VFSGetPosition(stream); },
+			[](struct retro_vfs_file_handle* stream, int64_t offset, int seek_position) { return SingletonInstance->VFSSeek(stream, offset, seek_position); },
+			[](struct retro_vfs_file_handle* stream, void* s, uint64_t len) { return SingletonInstance->VFSRead(stream, s, len); },
+			[](struct retro_vfs_file_handle* stream, const void* s, uint64_t len) { return SingletonInstance->VFSWrite(stream, s, len); },
+			[](struct retro_vfs_file_handle* stream) { return SingletonInstance->VFSFlush(stream); },
+			[](const char* path) { return SingletonInstance->VFSDelete(path); },
+			[](const char* old_path, const char* new_path) { return SingletonInstance->VFSRename(old_path, new_path); },
 		};
 
 		auto dataPtr = reinterpret_cast<retro_vfs_interface_info*>(data);
