@@ -174,7 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.1</Version>
+      <Version>6.0.5</Version>
     </PackageReference>
     <PackageReference Include="xunit">
       <Version>2.3.1</Version>
@@ -187,37 +187,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BeetleNGPRT\BeetleNGPRT.vcxproj">
-      <Project>{07645043-df95-4bd8-84fe-dc74eaeae3bf}</Project>
-      <Name>BeetleNGPRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BeetlePCEFastRT\BeetlePCEFastRT.vcxproj">
-      <Project>{7a0eb6b5-801e-469e-b9b4-1f3cb68cc900}</Project>
-      <Name>BeetlePCEFastRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BeetlePCFXRT\BeetlePCFXRT.vcxproj">
-      <Project>{2901b352-ba31-4bef-bd0c-ba6b4e671feb}</Project>
-      <Name>BeetlePCFXRT</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
       <Name>BeetlePSXRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BeetleWswanRT\BeetleWswanRT.vcxproj">
-      <Project>{514bebc4-127b-4894-9905-d0f7a09b0287}</Project>
-      <Name>BeetleWswanRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FBAlphaRT\FBAlphaRT.vcxproj">
-      <Project>{7fafc809-282a-4c3a-b1ac-5d4d7ffd613b}</Project>
-      <Name>FBAlphaRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FCEUMMRT\FCEUMMRT.vcxproj">
-      <Project>{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}</Project>
-      <Name>FCEUMMRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GambatteRT\GambatteRT.vcxproj">
-      <Project>{d19bfce3-0233-4b39-8ea5-fa0ee0d4a753}</Project>
-      <Name>GambatteRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\GPGXRT\GPGXRT.vcxproj">
       <Project>{82569d80-5620-4012-8314-26bfecb7c9d8}</Project>
@@ -226,30 +198,6 @@
     <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
       <Name>LibretroRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MelonDSRT\MelonDSRT.vcxproj">
-      <Project>{196b484a-2687-410b-a17e-3cf1f000a471}</Project>
-      <Name>MelonDSRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NestopiaRT\NestopiaRT.vcxproj">
-      <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
-      <Name>NestopiaRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ParallelN64RT\ParallelN64RT.vcxproj">
-      <Project>{95540631-8e61-475d-bd82-bafb7874eaca}</Project>
-      <Name>ParallelN64RT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
-      <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>
-      <Name>Snes9XRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VBAMRT\VBAMRT.vcxproj">
-      <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
-      <Name>VBAMRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YabauseRT\YabauseRT.vcxproj">
-      <Project>{a8f6202b-b329-4888-ba1a-8c841993b195}</Project>
-      <Name>YabauseRT</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
