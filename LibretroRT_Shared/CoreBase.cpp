@@ -20,6 +20,8 @@ struct retro_vfs_file_handle
 	}
 };
 
+CoreBase^ CoreBase::singletonInstance = nullptr;
+
 void LogHandler(enum retro_log_level level, const char *fmt, ...)
 {
 #ifndef NDEBUG
@@ -186,7 +188,10 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	case RETRO_ENVIRONMENT_GET_VFS_INTERFACE:
 	{
 		const uint32_t SupportedVFSVersion = 1;
-		static struct retro_vfs_interface vfsInterface;
+		static struct retro_vfs_interface vfsInterface =
+		{
+			[](retro_vfs_file_handle* stream) { return SingletonInstance->VFSGetPath(stream); }
+		};
 
 		auto dataPtr = reinterpret_cast<retro_vfs_interface_info*>(data);
 		if (dataPtr->required_interface_version <= SupportedVFSVersion)

@@ -14,6 +14,8 @@ namespace LibretroRT_Shared
 	private ref class CoreBase : public ICore
 	{
 	private:
+		static CoreBase^ singletonInstance;
+
 		String^ name;
 		String^ version;
 		IStorageFolder^ systemFolder;
@@ -66,6 +68,10 @@ namespace LibretroRT_Shared
 		int VFSRename(const char* old_path, const char* new_path);
 
 	public:
+		//This only works if this file is compiled independently (shared project) for each core.
+		//This is needed to convert from class methods to function pointers used in Libretro cores
+		static property CoreBase^ SingletonInstance { CoreBase^ get() { return singletonInstance; } void set(CoreBase^ value); }
+
 		virtual property String^ Name { String^ get() { return name; } }
 		virtual property String^ Version { String^ get() { return version; } }
 		virtual property IStorageFolder^ SystemFolder { IStorageFolder^ get() { return systemFolder; } }
