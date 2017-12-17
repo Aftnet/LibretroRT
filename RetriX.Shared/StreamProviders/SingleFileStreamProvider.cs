@@ -16,7 +16,7 @@ namespace RetriX.Shared.StreamProviders
             Path = path;
             File = file;
         }
-
+        
         public override Task<IEnumerable<string>> ListEntriesAsync()
         {
             var output = new string[] { Path };
@@ -30,7 +30,7 @@ namespace RetriX.Shared.StreamProviders
                 return File.OpenAsync(accessType);
             }
 
-            return Task.FromResult(null as Stream);
+            return Task.FromResult(default(Stream));
         }
     }
 }

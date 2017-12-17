@@ -21,12 +21,18 @@ namespace RetriX.Shared.StreamProviders
         public override async Task<IEnumerable<string>> ListEntriesAsync()
         {
             var contents = await GetContents();
-            return contents.Keys;
+            return contents.Keys.Select(d => HandledScheme + d).ToArray();
         }
 
         protected override async Task<Stream> OpenFileStreamAsyncInternal(string path, FileAccess accessType)
         {
+            if (!path.StartsWith(HandledScheme))
+            {
+                return null;
+            }
+
             var contents = await GetContents();
+            path = path.Substring(HandledScheme.Length).ToLowerInvariant();
             contents.TryGetValue(path, out var file);
             if (accessType == FileAccess.Read && file == null)
             {
@@ -45,7 +51,7 @@ namespace RetriX.Shared.StreamProviders
 
         private string GenerateSchemaName(IFileInfo file)
         {
-            return $"{HandledScheme}{file.FullName.Substring(RootFolder.FullName.Length)}";
+            return file.FullName.Substring(RootFolder.FullName.Length).ToLowerInvariant();
         }
 
         private async Task<IDictionary<string, IFileInfo>> GetContents()
