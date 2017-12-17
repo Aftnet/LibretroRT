@@ -56,7 +56,7 @@ namespace LibretroRT_Shared
 		const char* VFSGetPath(struct retro_vfs_file_handle* stream);
 		struct retro_vfs_file_handle* VFSOpen(const char* path, unsigned mode, unsigned hints);
 		int VFSClose(struct retro_vfs_file_handle* stream);
-		int64_t VFSSize(struct retro_vfs_file_handle* stream);
+		int64_t VFSGetSize(struct retro_vfs_file_handle* stream);
 		int64_t VFSGetPosition(struct retro_vfs_file_handle* stream);
 		int64_t VFSSeek(struct retro_vfs_file_handle* stream, int64_t offset, int seek_position);
 		int64_t VFSRead(struct retro_vfs_file_handle* stream, void* s, uint64_t len);

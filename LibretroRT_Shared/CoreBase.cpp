@@ -297,7 +297,7 @@ int CoreBase::VFSClose(struct retro_vfs_file_handle* stream)
 	return 0;
 }
 
-int64_t CoreBase::VFSSize(struct retro_vfs_file_handle* stream)
+int64_t CoreBase::VFSGetSize(struct retro_vfs_file_handle* stream)
 {
 	return stream->Stream->Size;
 }
@@ -309,7 +309,16 @@ int64_t CoreBase::VFSGetPosition(struct retro_vfs_file_handle* stream)
 
 int64_t CoreBase::VFSSeek(struct retro_vfs_file_handle* stream, int64_t offset, int seek_position)
 {
-	return -1;
+	switch (seek_position)
+	{
+	case RETRO_VFS_SEEK_POSITION_CURRENT:
+		offset += VFSGetPosition(stream);
+	case RETRO_VFS_SEEK_POSITION_END:
+		offset = VFSGetSize(stream) - offset;
+	}
+
+	stream->Stream->Seek(offset);
+	return 0;
 }
 
 int64_t CoreBase::VFSRead(struct retro_vfs_file_handle* stream, void* s, uint64_t len)
