@@ -372,7 +372,7 @@ int64_t CoreBase::VFSRead(struct retro_vfs_file_handle* stream, void* s, uint64_
 	auto output = min(len, remaining);
 
 	auto buffer = LibretroRT_Shared::CreateNativeBuffer(s, len);
-	concurrency::create_task(winStream->ReadAsync(buffer, output, InputStreamOptions::None)).wait();
+	concurrency::create_task(winStream->ReadAsync(buffer, output, InputStreamOptions::None)).get();
 
 	return output;
 }
@@ -383,7 +383,7 @@ int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void* s, 
 	auto writer = ref new DataWriter(stream->Stream);
 
 	writer->WriteBytes(dataArray);
-	concurrency::create_task(stream->Stream->FlushAsync()).wait();
+	concurrency::create_task(stream->Stream->FlushAsync()).get();
 	writer->DetachStream();
 
 	return len;
