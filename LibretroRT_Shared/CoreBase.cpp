@@ -312,14 +312,28 @@ int64_t CoreBase::VFSSeek(struct retro_vfs_file_handle* stream, int64_t offset, 
 	return -1;
 }
 
-int64_t CoreBase::VFSRead(struct retro_vfs_file_handle* stream, void *s, uint64_t len)
+int64_t CoreBase::VFSRead(struct retro_vfs_file_handle* stream, void* s, uint64_t len)
 {
-	return -1;
+	auto winStream = stream->Stream;
+	size_t remaining = winStream->Size - winStream->Position;
+	auto output = min(len, remaining);
+
+	//auto buffer = LibretroRT_Shared::CreateNativeBuffer(s, len);
+	//concurrency::create_task(winStream->ReadAsync(buffer, output, InputStreamOptions::None)).wait();
+
+	return output;
 }
 
-int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void *s, uint64_t len)
+int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void* s, uint64_t len)
 {
-	return -1;
+	auto dataArray = Platform::ArrayReference<unsigned char>((unsigned char*)s, len);
+	auto writer = ref new DataWriter(stream->Stream);
+
+	writer->WriteBytes(dataArray);
+	concurrency::create_task(stream->Stream->FlushAsync()).wait();
+	writer->DetachStream();
+
+	return len;
 }
 
 int CoreBase::VFSFlush(struct retro_vfs_file_handle* stream)
