@@ -7,6 +7,8 @@ using namespace Windows::Foundation::Collections;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
+struct retro_vfs_file_handle;
+
 namespace LibretroRT_Shared
 {
 	private ref class CoreBase : public ICore
@@ -50,6 +52,18 @@ namespace LibretroRT_Shared
 		int16_t RaiseGetInputState(unsigned port, unsigned device, unsigned index, unsigned keyId);
 		size_t RaiseRenderAudioFrames(const int16_t* data, size_t frames);
 		void RaiseRenderVideoFrame(const void* data, unsigned width, unsigned height, size_t pitch);
+
+		const char* VFSGetPath(struct retro_vfs_file_handle* stream);
+		struct retro_vfs_file_handle* VFSOpen(const char* path, unsigned mode, unsigned hints);
+		int VFSClose(struct retro_vfs_file_handle* stream);
+		int64_t VFSSize(struct retro_vfs_file_handle* stream);
+		int64_t VFSGetPosition(struct retro_vfs_file_handle* stream);
+		int64_t VFSSeek(struct retro_vfs_file_handle* stream, int64_t offset, int seek_position);
+		int64_t VFSRead(struct retro_vfs_file_handle* stream, void *s, uint64_t len);
+		int64_t VFSWrite(struct retro_vfs_file_handle* stream, const void *s, uint64_t len);
+		int VFSFlush(struct retro_vfs_file_handle* stream);
+		int VFSDelete(const char* path);
+		int VFSRename(const char* old_path, const char* new_path);
 
 	public:
 		virtual property String^ Name { String^ get() { return name; } }

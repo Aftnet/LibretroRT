@@ -7,6 +7,18 @@
 using namespace LibretroRT_Shared;
 using namespace Windows::Storage;
 
+struct retro_vfs_file_handle
+{
+	Platform::String^ const Path;
+	IRandomAccessStream^ const Stream;
+
+	retro_vfs_file_handle(Platform::String^ path, IRandomAccessStream^ stream):
+		Path(path),
+		Stream(stream)
+	{
+	}
+};
+
 void LogHandler(enum retro_log_level level, const char *fmt, ...)
 {
 #ifndef NDEBUG
@@ -78,8 +90,8 @@ unsigned int CoreBase::SerializationSize::get()
 void CoreBase::ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data)
 {
 	auto stream = OpenFileStream(filePath, Windows::Storage::FileAccessMode::Read);
-	data.resize(stream->Size);
-	auto dataArray = Platform::ArrayReference<unsigned char>(data.data(), stream->Size);
+	data.resize((size_t)stream->Size);
+	auto dataArray = Platform::ArrayReference<unsigned char>(data.data(), (size_t)stream->Size);
 
 	auto reader = ref new Windows::Storage::Streams::DataReader(stream);
 	concurrency::create_task(reader->LoadAsync(stream->Size)).get();
@@ -256,6 +268,75 @@ void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned 
 	//See retro_video_refresh_t for why buffer size is computed that way
 	auto dataArray = Platform::ArrayReference<uint8>(dataPtr, height * pitch);
 	RenderVideoFrame(dataArray, width, height, pitch);
+}
+
+const char* CoreBase::VFSGetPath(struct retro_vfs_file_handle *stream)
+{
+	return StringConverter::PlatformToCPPString(stream->Path).data();
+}
+
+struct retro_vfs_file_handle* CoreBase::VFSOpen(const char* path, unsigned mode, unsigned hints)
+{
+	auto pathString = StringConverter::CPPToPlatformString(path);
+	auto fileAcces = FileAccessMode::Read;
+	if (mode & RETRO_VFS_FILE_ACCESS_WRITE != 0)
+	{
+		fileAcces = FileAccessMode::ReadWrite;
+	}
+
+	auto stream = OpenFileStream(pathString, fileAcces);
+	auto output = new retro_vfs_file_handle(pathString, stream);
+	return output;
+}
+
+int CoreBase::VFSClose(struct retro_vfs_file_handle* stream)
+{
+	VFSFlush(stream);
+	CloseFileStream(stream->Stream);
+	delete stream;
+	return 0;
+}
+
+int64_t CoreBase::VFSSize(struct retro_vfs_file_handle* stream)
+{
+	return stream->Stream->Size;
+}
+
+int64_t CoreBase::VFSGetPosition(struct retro_vfs_file_handle* stream)
+{
+	return stream->Stream->Position;
+}
+
+int64_t CoreBase::VFSSeek(struct retro_vfs_file_handle* stream, int64_t offset, int seek_position)
+{
+	return -1;
+}
+
+int64_t CoreBase::VFSRead(struct retro_vfs_file_handle* stream, void *s, uint64_t len)
+{
+	return -1;
+}
+
+int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void *s, uint64_t len)
+{
+	return -1;
+}
+
+int CoreBase::VFSFlush(struct retro_vfs_file_handle* stream)
+{
+	concurrency::create_task(stream->Stream->FlushAsync()).wait();
+	return 0;
+}
+
+
+int CoreBase::VFSDelete(const char *path)
+{
+	return -1;
+}
+
+int CoreBase::VFSRename(const char *old_path, const char *new_path)
+{
+	return -1;
 }
 
 bool CoreBase::LoadGame(String^ mainGameFilePath)
