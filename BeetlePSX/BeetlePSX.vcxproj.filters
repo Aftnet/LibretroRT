@@ -254,5 +254,6 @@
     <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
     <ClCompile Include="src\libretro-common\file\file_path.c" />
     <ClCompile Include="src\libretro-common\file\retro_dirent.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
   </ItemGroup>
 </Project>

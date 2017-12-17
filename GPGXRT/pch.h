@@ -11,7 +11,7 @@
 #include <vector>
 #include <codecvt>
 
-//Get rifd of these after deleting nativeBUfer
+//Get rifd of these after deleting nativeBuffer
 #include <wrl.h>
 #include <wrl/implements.h>
 #include <windows.storage.streams.h>

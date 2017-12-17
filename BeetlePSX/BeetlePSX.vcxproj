@@ -368,6 +368,7 @@
     <ClCompile Include="src\deps\zlib\uncompr.c" />
     <ClCompile Include="src\deps\zlib\zutil.c" />
     <ClCompile Include="src\input.cpp" />
+    <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
     <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
@@ -453,11 +454,6 @@
     <ClCompile Include="src\rsx\rsx_intf.cpp" />
     <ClCompile Include="src\rsx\rsx_lib_soft.c" />
     <ClCompile Include="src\scrc32.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LibretroRT_Tools\LibretroRT_Tools.vcxproj">
-      <Project>{e64ed7da-f5bc-413b-a80d-a95111894139}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -260,6 +260,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
+      <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
+      <Name>BeetlePSXRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GPGXRT\GPGXRT.vcxproj">
       <Project>{82569d80-5620-4012-8314-26bfecb7c9d8}</Project>
       <Name>GPGXRT</Name>

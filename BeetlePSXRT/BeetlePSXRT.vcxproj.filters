@@ -9,13 +9,11 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="BeetlePSXCoreInternal.cpp" />
-    <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
     <ClCompile Include="BeetlePSXCore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="BeetlePSXCoreInternal.h" />
-    <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
     <ClInclude Include="BeetlePSXCore.h" />
   </ItemGroup>
 </Project>
