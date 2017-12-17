@@ -422,6 +422,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 			auto size = VFSGetSize(stream);
 			gameData.resize(size);
 			auto readBytes = VFSRead(stream, gameData.data(), size);
+			VFSClose(stream);
 
 			gameInfo.data = gameData.data();
 			gameInfo.size = size;
