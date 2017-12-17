@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CoreBase.h"
 #include "Converter.h"
+#include "NativeBuffer.h"
 #include "StringConverter.h"
 #include "libretro.h"
 
@@ -184,8 +185,15 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 
 	case RETRO_ENVIRONMENT_GET_VFS_INTERFACE:
 	{
-		auto in = 0;
-		in++;
+		const uint32_t SupportedVFSVersion = 1;
+		static struct retro_vfs_interface vfsInterface;
+
+		auto dataPtr = reinterpret_cast<retro_vfs_interface_info*>(data);
+		if (dataPtr->required_interface_version <= SupportedVFSVersion)
+		{
+			dataPtr->required_interface_version = SupportedVFSVersion;
+			dataPtr->iface = &vfsInterface;
+		}
 	}
 
 	/*case RETRO_ENVIRONMENT_SET_HW_RENDER:

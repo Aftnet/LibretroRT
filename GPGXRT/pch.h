@@ -10,3 +10,9 @@
 #include <iterator>
 #include <vector>
 #include <codecvt>
+
+//Get rifd of these after deleting nativeBUfer
+#include <wrl.h>
+#include <wrl/implements.h>
+#include <windows.storage.streams.h>
+#include <robuffer.h>
