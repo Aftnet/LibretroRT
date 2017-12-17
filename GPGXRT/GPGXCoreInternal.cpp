@@ -12,7 +12,8 @@ GPGXCoreInternal^ GPGXCoreInternal::Instance::get()
 {
 	if (coreInstance == nullptr)
 	{
-		CoreBase::SingletonInstance = coreInstance = ref new GPGXCoreInternal();
+		coreInstance = ref new GPGXCoreInternal();
+		CoreBase::SingletonInstance = coreInstance;
 	}
 
 	return coreInstance;
@@ -27,5 +28,6 @@ GPGXCoreInternal::GPGXCoreInternal() : CoreBase(true, true, false)
 
 GPGXCoreInternal::~GPGXCoreInternal()
 {
-	CoreBase::SingletonInstance = coreInstance = nullptr;
+	coreInstance = nullptr;
+	CoreBase::SingletonInstance = nullptr;
 }

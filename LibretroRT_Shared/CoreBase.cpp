@@ -24,13 +24,6 @@ CoreBase^ CoreBase::singletonInstance = nullptr;
 
 void CoreBase::SingletonInstance::set(CoreBase^ value)
 {
-	retro_set_environment(nullptr);
-	retro_set_input_poll(nullptr);
-	retro_set_input_state(nullptr);
-	retro_set_audio_sample(nullptr);
-	retro_set_audio_sample_batch(nullptr);
-	retro_set_video_refresh(nullptr);
-
 	singletonInstance = value;
 	if (singletonInstance == nullptr)
 	{
@@ -230,6 +223,8 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 			dataPtr->required_interface_version = SupportedVFSVersion;
 			dataPtr->iface = &vfsInterface;
 		}
+
+		return true;
 	}
 
 	/*case RETRO_ENVIRONMENT_SET_HW_RENDER:
