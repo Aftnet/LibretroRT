@@ -22,20 +22,27 @@ struct retro_vfs_file_handle
 
 CoreBase^ CoreBase::singletonInstance = nullptr;
 
-void LogHandler(enum retro_log_level level, const char *fmt, ...)
+void CoreBase::SingletonInstance::set(CoreBase^ value)
 {
-#ifndef NDEBUG
-	const int bufLen = 1024;
-	static char logBuffer[bufLen];
+	retro_set_environment(nullptr);
+	retro_set_input_poll(nullptr);
+	retro_set_input_state(nullptr);
+	retro_set_audio_sample(nullptr);
+	retro_set_audio_sample_batch(nullptr);
+	retro_set_video_refresh(nullptr);
 
-	va_list args;
-	va_start(args, fmt);
-	vsnprintf_s(logBuffer, bufLen, fmt, args);
-	va_end(args);
+	singletonInstance = value;
+	if (singletonInstance == nullptr)
+	{
+		return;
+	}
 
-	auto debugMsg = StringConverter::CPPToPlatformString(logBuffer);
-	OutputDebugString(debugMsg->Data());
-#endif // DEBUG
+	retro_set_environment([](unsigned cmd, void* data) { return singletonInstance->EnvironmentHandler(cmd, data); });
+	retro_set_input_poll([]() { singletonInstance->RaisePollInput(); });
+	retro_set_input_state([](unsigned port, unsigned device, unsigned index, unsigned keyId) { return singletonInstance->RaiseGetInputState(port, device, index, keyId); });
+	retro_set_audio_sample([](int16_t left, int16_t right) { singletonInstance->SingleAudioFrameHandler(left, right); });
+	retro_set_audio_sample_batch([](const int16_t* data, size_t numFrames) { return singletonInstance->RaiseRenderAudioFrames(data, numFrames); });
+	retro_set_video_refresh([](const void *data, unsigned width, unsigned height, size_t pitch) { singletonInstance->RaiseRenderVideoFrame(data, width, height, pitch); });
 }
 
 CoreBase::CoreBase(bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport) :
@@ -162,7 +169,21 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 	case RETRO_ENVIRONMENT_GET_LOG_INTERFACE:
 	{
 		auto dataPtr = reinterpret_cast<retro_log_callback*>(data);
-		dataPtr->log = LogHandler;
+		dataPtr->log = [](enum retro_log_level level, const char *fmt, ...)
+		{
+#ifndef NDEBUG
+			const int bufLen = 1024;
+			static char logBuffer[bufLen];
+
+			va_list args;
+			va_start(args, fmt);
+			vsnprintf_s(logBuffer, bufLen, fmt, args);
+			va_end(args);
+
+			auto debugMsg = StringConverter::CPPToPlatformString(logBuffer);
+			OutputDebugString(debugMsg->Data());
+#endif // DEBUG
+		};
 		return true;
 	}
 	case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
