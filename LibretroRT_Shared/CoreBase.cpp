@@ -318,12 +318,17 @@ struct retro_vfs_file_handle* CoreBase::VFSOpen(const char* path, unsigned mode,
 {
 	auto pathString = StringConverter::CPPToPlatformString(path);
 	auto fileAcces = FileAccessMode::Read;
-	if (mode & RETRO_VFS_FILE_ACCESS_WRITE != 0)
+	if ((mode & RETRO_VFS_FILE_ACCESS_WRITE) != 0)
 	{
 		fileAcces = FileAccessMode::ReadWrite;
 	}
 
 	auto stream = OpenFileStream(pathString, fileAcces);
+	if (stream == nullptr)
+	{
+		return nullptr;
+	}
+
 	auto output = new retro_vfs_file_handle(pathString, stream);
 	return output;
 }
@@ -366,8 +371,8 @@ int64_t CoreBase::VFSRead(struct retro_vfs_file_handle* stream, void* s, uint64_
 	size_t remaining = winStream->Size - winStream->Position;
 	auto output = min(len, remaining);
 
-	//auto buffer = LibretroRT_Shared::CreateNativeBuffer(s, len);
-	//concurrency::create_task(winStream->ReadAsync(buffer, output, InputStreamOptions::None)).wait();
+	auto buffer = LibretroRT_Shared::CreateNativeBuffer(s, len);
+	concurrency::create_task(winStream->ReadAsync(buffer, output, InputStreamOptions::None)).wait();
 
 	return output;
 }
@@ -386,7 +391,6 @@ int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void* s, 
 
 int CoreBase::VFSFlush(struct retro_vfs_file_handle* stream)
 {
-	concurrency::create_task(stream->Stream->FlushAsync()).wait();
 	return 0;
 }
 
