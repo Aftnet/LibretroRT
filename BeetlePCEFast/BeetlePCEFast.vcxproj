@@ -234,7 +234,6 @@
     <ClInclude Include="src\libretro-common\include\compat\zutil.h" />
     <ClInclude Include="src\libretro-common\include\encodings\crc32.h" />
     <ClInclude Include="src\libretro-common\include\encodings\utf.h" />
-    <ClInclude Include="src\libretro-common\include\file\file_path.h" />
     <ClInclude Include="src\libretro-common\include\libretro.h" />
     <ClInclude Include="src\libretro-common\include\memmap.h" />
     <ClInclude Include="src\libretro-common\include\retro_common.h" />
@@ -333,7 +332,6 @@
     <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
     <ClCompile Include="src\libretro-common\encodings\encoding_crc32.c" />
     <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
-    <ClCompile Include="src\libretro-common\file\file_path.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
