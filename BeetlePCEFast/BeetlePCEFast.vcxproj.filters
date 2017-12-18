@@ -105,6 +105,11 @@
     <ClInclude Include="src\deps\zlib\trees.h" />
     <ClInclude Include="src\deps\zlib\zconf.h" />
     <ClInclude Include="src\deps\zlib\zlib.h" />
+    <ClInclude Include="src\libretro-common\include\compat\fopen_utf8.h" />
+    <ClInclude Include="src\libretro-common\include\encodings\crc32.h" />
+    <ClInclude Include="src\libretro-common\include\encodings\utf.h" />
+    <ClInclude Include="src\libretro-common\include\vfs\vfs_implementation.h" />
+    <ClInclude Include="src\libretro-common\include\libretro.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\pce_fast\huc6280.cpp" />
@@ -160,8 +165,6 @@
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\mednafen\hw_misc\arcade_card\arcade_card.cpp" />
     <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
-    <ClCompile Include="..\LibretroRT_Tools\file_path.cpp" />
     <ClCompile Include="src\deps\zlib\crc32.c" />
     <ClCompile Include="src\deps\zlib\zutil.c" />
     <ClCompile Include="src\deps\zlib\adler32.c" />
@@ -177,5 +180,11 @@
     <ClCompile Include="src\deps\zlib\inftrees.c" />
     <ClCompile Include="src\deps\zlib\trees.c" />
     <ClCompile Include="src\deps\zlib\uncompr.c" />
+    <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
+    <ClCompile Include="src\libretro-common\encodings\encoding_crc32.c" />
+    <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
+    <ClCompile Include="src\libretro-common\file\file_path.c" />
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
   </ItemGroup>
 </Project>

@@ -264,6 +264,10 @@
       <Project>{07645043-df95-4bd8-84fe-dc74eaeae3bf}</Project>
       <Name>BeetleNGPRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BeetlePCEFastRT\BeetlePCEFastRT.vcxproj">
+      <Project>{7a0eb6b5-801e-469e-b9b4-1f3cb68cc900}</Project>
+      <Name>BeetlePCEFastRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
       <Name>BeetlePSXRT</Name>

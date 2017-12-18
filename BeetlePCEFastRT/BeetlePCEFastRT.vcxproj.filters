@@ -8,13 +8,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
     <ClCompile Include="BeetlePCEFastCore.cpp" />
     <ClCompile Include="BeetlePCEFastCoreInternal.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
     <ClInclude Include="BeetlePCEFastCore.h" />
     <ClInclude Include="BeetlePCEFastCoreInternal.h" />
   </ItemGroup>
