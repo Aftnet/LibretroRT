@@ -187,6 +187,10 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BeetleNGPRT\BeetleNGPRT.vcxproj">
+      <Project>{07645043-df95-4bd8-84fe-dc74eaeae3bf}</Project>
+      <Name>BeetleNGPRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
       <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
       <Name>BeetlePSXRT</Name>

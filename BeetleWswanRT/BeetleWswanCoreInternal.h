@@ -2,7 +2,6 @@
 
 #include "CoreBase.h"
 
-using namespace Platform;
 using namespace LibretroRT_Shared;
 
 namespace BeetleWswanRT

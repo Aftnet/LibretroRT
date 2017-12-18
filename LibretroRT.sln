@@ -97,6 +97,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetriX.Shared.Test", "Retri
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{07645043-df95-4bd8-84fe-dc74eaeae3bf}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{514bebc4-127b-4894-9905-d0f7a09b0287}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{51ebaee3-774b-4060-adfa-c7c0a740b789}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{82569d80-5620-4012-8314-26bfecb7c9d8}*SharedItemsImports = 4
