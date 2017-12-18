@@ -238,7 +238,6 @@
     <ClInclude Include="src\libretro-common\include\compat\strcasestr.h" />
     <ClInclude Include="src\libretro-common\include\compat\strl.h" />
     <ClInclude Include="src\libretro-common\include\encodings\utf.h" />
-    <ClInclude Include="src\libretro-common\include\file\file_path.h" />
     <ClInclude Include="src\libretro-common\include\glsm\glsm.h" />
     <ClInclude Include="src\libretro-common\include\glsm\glsmsym.h" />
     <ClInclude Include="src\libretro-common\include\glsym\glsym.h" />
@@ -374,8 +373,6 @@
     <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
     <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
     <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
-    <ClCompile Include="src\libretro-common\file\file_path.c" />
-    <ClCompile Include="src\libretro-common\file\retro_dirent.c" />
     <ClCompile Include="src\libretro-common\hash\rhash.c" />
     <ClCompile Include="src\libretro-common\rthreads\rthreads.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />

@@ -101,7 +101,6 @@
     <ClInclude Include="src\libretro-common\include\compat\posix_string.h" />
     <ClInclude Include="src\libretro-common\include\compat\strcasestr.h" />
     <ClInclude Include="src\libretro-common\include\compat\strl.h" />
-    <ClInclude Include="src\libretro-common\include\file\file_path.h" />
     <ClInclude Include="src\libretro-common\include\glsm\glsm.h" />
     <ClInclude Include="src\libretro-common\include\glsm\glsmsym.h" />
     <ClInclude Include="src\libretro-common\include\glsym\glsym.h" />
@@ -252,8 +251,6 @@
     <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
     <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
-    <ClCompile Include="src\libretro-common\file\retro_dirent.c" />
     <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
-    <ClCompile Include="src\libretro-common\file\file_path.c" />
   </ItemGroup>
 </Project>
