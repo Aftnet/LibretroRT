@@ -38,10 +38,11 @@ void CoreBase::SingletonInstance::set(CoreBase^ value)
 	retro_set_video_refresh([](const void *data, unsigned width, unsigned height, size_t pitch) { singletonInstance->RaiseRenderVideoFrame(data, width, height, pitch); });
 }
 
-CoreBase::CoreBase(bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport) :
+CoreBase::CoreBase(bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport, unsigned inputTypeIndex) :
 	supportsSystemFolderVirtualization(supportsSystemFolderVirtualization),
 	supportsSaveGameFolderVirtualization(supportsSaveGameFolderVirtualization),
 	nativeArchiveSupport(nativeArchiveSupport),
+	inputTypeIndex(inputTypeIndex),
 	options(ref new Map<String^, CoreOption^>()),
 	pixelFormat(LibretroRT::PixelFormats::FormatRGB565),
 	geometry(ref new GameGeometry),
@@ -50,7 +51,8 @@ CoreBase::CoreBase(bool supportsSystemFolderVirtualization, bool supportsSaveGam
 	systemFolder(nullptr),
 	saveGameFolder(nullptr),
 	fileDependencies(ref new Vector<FileDependency^>),
-	isInitialized(false)
+	isInitialized(false),
+	inputTypeId(RETRO_DEVICE_JOYPAD)
 {
 	retro_system_info info;
 	retro_get_system_info(&info);
@@ -186,7 +188,16 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 		Timing = Converter::CToRTSystemTiming(dataPtr->timing);
 		return true;
 	}
+	case RETRO_ENVIRONMENT_SET_CONTROLLER_INFO:
+	{
+		auto dataPtr = reinterpret_cast<const retro_controller_info*>(data);
+		if (inputTypeIndex < dataPtr->num_types)
+		{
+			inputTypeId = dataPtr->types[inputTypeIndex].id;
+		}
 
+		return true;
+	}
 	case RETRO_ENVIRONMENT_GET_VFS_INTERFACE:
 	{
 		const uint32_t SupportedVFSVersion = 1;
@@ -437,7 +448,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 			Geometry = Converter::CToRTGameGeometry(info.geometry);
 			Timing = Converter::CToRTSystemTiming(info.timing);
 
-			retro_set_controller_port_device(0, RETRO_DEVICE_ANALOG);
+			retro_set_controller_port_device(0, inputTypeId);
 		}
 		else
 		{

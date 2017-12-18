@@ -25,7 +25,8 @@ namespace LibretroRT_Shared
 		std::string coreEnvironmentSaveGameFolderPath;
 		const bool supportsSaveGameFolderVirtualization;
 		IVectorView<String^>^ supportedExtensions;
-		bool nativeArchiveSupport;
+		const bool nativeArchiveSupport;
+		const unsigned inputTypeIndex;
 		IMap<String^, CoreOption^>^ const options;
 		PixelFormats pixelFormat;
 		GameGeometry^ geometry;
@@ -36,11 +37,12 @@ namespace LibretroRT_Shared
 		bool isInitialized;
 		std::string gameFilePath;
 		std::string lastResolvedEnvironmentVariable;
+		unsigned inputTypeId;
 
 		void UnloadGameNoDeinit();
 
 	protected private:
-		CoreBase(bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport);
+		CoreBase(bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport, unsigned inputTypeIndex = 0);
 
 		Vector<FileDependency^>^ fileDependencies;
 		void ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data);

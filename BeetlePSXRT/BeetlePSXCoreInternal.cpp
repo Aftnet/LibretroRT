@@ -19,7 +19,7 @@ BeetlePSXCoreInternal^ BeetlePSXCoreInternal::Instance::get()
 	return coreInstance;
 }
 
-BeetlePSXCoreInternal::BeetlePSXCoreInternal() : LibretroRT_Shared::CoreBase(true, true, false)
+BeetlePSXCoreInternal::BeetlePSXCoreInternal() : LibretroRT_Shared::CoreBase(true, true, false, 1)
 {
 	fileDependencies->Append(ref new FileDependency(L"scph5500.bin", L"PlayStation (v3.0 09/09/96 J) BIOS", L"8dd7d5296a650fac7319bce665a6a53c"));
 	fileDependencies->Append(ref new FileDependency(L"scph5501.bin", L"PlayStation (v3.0 11/18/96 A) BIOS", L"490f666e1afb15b7362b406ed1cea246"));
