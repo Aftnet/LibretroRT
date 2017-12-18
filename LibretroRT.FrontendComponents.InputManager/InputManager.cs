@@ -119,11 +119,11 @@ namespace LibretroRT.FrontendComponents.InputManager
                         case InputTypes.DeviceIdAnalogLeftX:
                             return ConvertAxisReading(reading.LeftThumbstickX, reading.LeftThumbstickY);
                         case InputTypes.DeviceIdAnalogLeftY:
-                            return ConvertAxisReading(reading.LeftThumbstickY, reading.LeftThumbstickX);
+                            return ConvertAxisReading(-reading.LeftThumbstickY, reading.LeftThumbstickX);
                         case InputTypes.DeviceIdAnalogRightX:
                             return ConvertAxisReading(reading.RightThumbstickX, reading.RightThumbstickY);
                         case InputTypes.DeviceIdAnalogRightY:
-                            return ConvertAxisReading(reading.RightThumbstickY, reading.RightThumbstickX);
+                            return ConvertAxisReading(-reading.RightThumbstickY, reading.RightThumbstickX);
                     }
                 }
 
