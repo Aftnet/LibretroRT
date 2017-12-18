@@ -58,6 +58,13 @@
     <ClInclude Include="src\mednafen\msvc_compat.h" />
     <ClInclude Include="src\mednafen\file.h" />
     <ClInclude Include="src\libretro.h" />
+    <ClInclude Include="src\libretro-common\include\compat\fopen_utf8.h" />
+    <ClInclude Include="src\libretro-common\include\encodings\utf.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\libretro-common\include\vfs\vfs_implementation.h" />
+    <ClInclude Include="src\libretro-common\include\libretro.h" />
+    <ClInclude Include="src\libretro-common\include\retro_environment.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\wswan\gfx.cpp" />
@@ -76,6 +83,12 @@
     <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
+    <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
+    <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
+    <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
+    <ClCompile Include="src\libretro-common\memmap\memmap.c" />
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
   </ItemGroup>
 </Project>
