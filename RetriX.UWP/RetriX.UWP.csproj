@@ -300,6 +300,10 @@
       <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>
       <Name>RetriX.Shared</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
+      <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>
+      <Name>Snes9XRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VBAMRT\VBAMRT.vcxproj">
       <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
       <Name>VBAMRT</Name>
