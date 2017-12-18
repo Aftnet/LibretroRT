@@ -100,6 +100,7 @@ Global
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{51ebaee3-774b-4060-adfa-c7c0a740b789}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{82569d80-5620-4012-8314-26bfecb7c9d8}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{ca149c62-5ba2-45f8-bf2f-bc616f434696}*SharedItemsImports = 9
+		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{d19bfce3-0233-4b39-8ea5-fa0ee0d4a753}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
