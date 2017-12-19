@@ -126,6 +126,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>__LIBRETRO__;_LIB;NST_NO_ZLIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +139,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>__LIBRETRO__;_LIB;NST_NO_ZLIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +152,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>__LIBRETRO__;_LIB;NST_NO_ZLIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,6 +165,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>__LIBRETRO__;_LIB;NST_NO_ZLIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -174,6 +178,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>__LIBRETRO__;_LIB;NST_NO_ZLIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -186,6 +191,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <PreprocessorDefinitions>__LIBRETRO__;_LIB;NST_NO_ZLIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -194,7 +200,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\libretro\libretro.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\libretro.h" />
     <ClInclude Include="src\source\core\api\NstApi.hpp" />
     <ClInclude Include="src\source\core\api\NstApiBarcodeReader.hpp" />
     <ClInclude Include="src\source\core\api\NstApiCartridge.hpp" />

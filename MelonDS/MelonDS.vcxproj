@@ -264,14 +264,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp">
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
-    </ClCompile>
     <ClCompile Include="src\src\ARM.cpp" />
     <ClCompile Include="src\src\ARMInterpreter.cpp" />
     <ClCompile Include="src\src\ARMInterpreter_ALU.cpp" />

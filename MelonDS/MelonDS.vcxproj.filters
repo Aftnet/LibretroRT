@@ -83,7 +83,6 @@
     <ClCompile Include="src\src\Config.cpp" />
     <ClCompile Include="src\src\Wifi.cpp" />
     <ClCompile Include="src\src\NDS.cpp" />
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
     <ClCompile Include="src\src\libretro\libretro.cpp" />
     <ClCompile Include="src\src\libretro\libretro-common\rthreads\rthreads.c" />
   </ItemGroup>

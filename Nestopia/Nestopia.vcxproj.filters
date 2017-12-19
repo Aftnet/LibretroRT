@@ -8,7 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="src\libretro\libretro.h" />
     <ClInclude Include="src\source\core\api\NstApi.hpp" />
     <ClInclude Include="src\source\core\api\NstApiBarcodeReader.hpp" />
     <ClInclude Include="src\source\core\api\NstApiCartridge.hpp" />
@@ -332,6 +331,7 @@
     <ClInclude Include="src\source\core\NstVideoScreen.hpp" />
     <ClInclude Include="src\source\core\NstXml.hpp" />
     <ClInclude Include="src\source\core\NstZlib.hpp" />
+    <ClInclude Include="src\libretro\libretro-common\include\libretro.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libretro\libretro.cpp" />
