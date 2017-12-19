@@ -223,6 +223,10 @@
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
       <Name>LibretroRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MelonDSRT\MelonDSRT.vcxproj">
+      <Project>{196b484a-2687-410b-a17e-3cf1f000a471}</Project>
+      <Name>MelonDSRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NestopiaRT\NestopiaRT.vcxproj">
       <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
       <Name>NestopiaRT</Name>

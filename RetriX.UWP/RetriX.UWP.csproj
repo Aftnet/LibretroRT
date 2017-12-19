@@ -316,6 +316,10 @@
       <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
       <Name>LibretroRT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MelonDSRT\MelonDSRT.vcxproj">
+      <Project>{196b484a-2687-410b-a17e-3cf1f000a471}</Project>
+      <Name>MelonDSRT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">
       <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>
       <Name>RetriX.Shared</Name>
