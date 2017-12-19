@@ -22,7 +22,6 @@
     <ClInclude Include="src\src\burner\libretro\burn_endian.h" />
     <ClInclude Include="src\src\burner\libretro\burn_libretro_opts.h" />
     <ClInclude Include="src\src\burner\libretro\burner_libretro.h" />
-    <ClInclude Include="src\src\burner\libretro\libretro.h" />
     <ClInclude Include="src\src\burner\libretro\libretro_private.h" />
     <ClInclude Include="src\src\burner\libretro\net.h" />
     <ClInclude Include="src\src\burner\burner.h" />
@@ -306,6 +305,9 @@
     <ClInclude Include="src\src\dep\libs\lib7z\XzCrc64.h" />
     <ClInclude Include="src\src\dep\libs\lib7z\XzEnc.h" />
     <ClInclude Include="src\src\burner\un7z.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\encodings\utf.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\file\file_path.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\libretro.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\dep\libs\zlib\adler32.c" />
@@ -1018,7 +1020,6 @@
     <ClCompile Include="src\src\intf\audio\aud_dsp.cpp" />
     <ClCompile Include="src\src\intf\audio\lowpass2.cpp" />
     <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream_transforms.c" />
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
     <ClCompile Include="src\src\dep\libs\lib7z\7zAlloc.c" />
     <ClCompile Include="src\src\dep\libs\lib7z\7zArcIn.c" />
     <ClCompile Include="src\src\dep\libs\lib7z\7zBuf.c" />
@@ -1052,6 +1053,12 @@
     <ClCompile Include="src\src\dep\libs\lib7z\XzDec.c" />
     <ClCompile Include="src\src\dep\libs\lib7z\XzIn.c" />
     <ClCompile Include="src\src\burner\un7z.cpp" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\compat\compat_strcasestr.c" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\compat\compat_strl.c" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\encodings\encoding_utf.c" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\file\file_path.c" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\compat\compat_posix_string.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\src\cpu\a68k\mips\a68ktbl.inc" />
