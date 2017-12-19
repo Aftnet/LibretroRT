@@ -56,7 +56,6 @@
     <ClInclude Include="src\mednafen\mednafen-types.h" />
     <ClInclude Include="src\mednafen\mempatcher-driver.h" />
     <ClInclude Include="src\mednafen\msvc_compat.h" />
-    <ClInclude Include="src\mednafen\file.h" />
     <ClInclude Include="src\libretro.h" />
     <ClInclude Include="src\libretro-common\include\compat\fopen_utf8.h" />
     <ClInclude Include="src\libretro-common\include\encodings\utf.h" />
@@ -80,7 +79,6 @@
     <ClCompile Include="src\mednafen\settings.cpp" />
     <ClCompile Include="src\mednafen\state.cpp" />
     <ClCompile Include="src\mednafen\mempatcher.cpp" />
-    <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
     <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />

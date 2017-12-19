@@ -280,7 +280,6 @@
     <ClInclude Include="src\mednafen\clamp.h" />
     <ClInclude Include="src\mednafen\driver.h" />
     <ClInclude Include="src\mednafen\error.h" />
-    <ClInclude Include="src\mednafen\file.h" />
     <ClInclude Include="src\mednafen\FileStream.h" />
     <ClInclude Include="src\mednafen\general.h" />
     <ClInclude Include="src\mednafen\git.h" />
@@ -394,7 +393,6 @@
     <ClCompile Include="src\mednafen\cdrom\misc.cpp" />
     <ClCompile Include="src\mednafen\cdrom\recover-raw.c" />
     <ClCompile Include="src\mednafen\error.cpp" />
-    <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\mednafen\FileStream.cpp" />
     <ClCompile Include="src\mednafen\general.cpp" />
     <ClCompile Include="src\mednafen\md5.c" />
