@@ -39,7 +39,6 @@
     <ClInclude Include="src\src\NDS.h" />
     <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
     <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
-    <ClInclude Include="src\src\libretro\libretro.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\compat\msvc\stdint.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\compat\apple_compat.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\compat\fnmatch.h" />
@@ -54,8 +53,6 @@
     <ClInclude Include="src\src\libretro\libretro-common\include\compat\zlib.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\compat\zutil.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\rthreads\rthreads.h" />
-    <ClInclude Include="src\src\libretro\libretro-common\include\streams\file_stream.h" />
-    <ClInclude Include="src\src\libretro\libretro-common\include\streams\file_stream_transforms.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\boolean.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\memmap.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\retro_assert.h" />
@@ -63,6 +60,12 @@
     <ClInclude Include="src\src\libretro\libretro-common\include\retro_common_api.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\retro_inline.h" />
     <ClInclude Include="src\src\libretro\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\encodings\utf.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\vfs\vfs_implementation.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\libretro.h" />
+    <ClInclude Include="src\src\libretro\libretro-common\include\compat\fopen_utf8.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\ARM.cpp" />
@@ -85,5 +88,11 @@
     <ClCompile Include="src\src\NDS.cpp" />
     <ClCompile Include="src\src\libretro\libretro.cpp" />
     <ClCompile Include="src\src\libretro\libretro-common\rthreads\rthreads.c" />
+    <ClCompile Include="src\src\libretro\libretro-common\vfs\vfs_implementation.c" />
+    <ClCompile Include="src\src\libretro\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\src\libretro\libretro-common\streams\file_stream_transforms.c" />
+    <ClCompile Include="src\src\libretro\libretro-common\encodings\encoding_utf.c" />
+    <ClCompile Include="src\src\libretro\libretro-common\compat\compat_strl.c" />
+    <ClCompile Include="src\src\libretro\libretro-common\compat\fopen_utf8.c" />
   </ItemGroup>
 </Project>

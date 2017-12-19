@@ -12,7 +12,7 @@
 	branch = master
 [submodule "Nestopia/src"]
 	path = Nestopia/src
-	url = https://github.com/Aftnet/nestopia.git
+	url = https://github.com/libretro/nestopia.git
 	branch = master
 [submodule "FCEUMM/src"]
 	path = FCEUMM/src
@@ -32,7 +32,7 @@
 	branch = master
 [submodule "MelonDS/src"]
 	path = MelonDS/src
-	url = https://github.com/libretro/melonDS.git
+	url = https://github.com/Aftnet/melonDS.git
 	branch = master
 [submodule "ParallelN64/src"]
 	path = ParallelN64/src
