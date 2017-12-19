@@ -99,6 +99,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{07645043-df95-4bd8-84fe-dc74eaeae3bf}*SharedItemsImports = 4
+		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{196b484a-2687-410b-a17e-3cf1f000a471}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{2901b352-ba31-4bef-bd0c-ba6b4e671feb}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{514bebc4-127b-4894-9905-d0f7a09b0287}*SharedItemsImports = 4
 		LibretroRT_Shared\LibretroRT_Shared.vcxitems*{51ebaee3-774b-4060-adfa-c7c0a740b789}*SharedItemsImports = 4
