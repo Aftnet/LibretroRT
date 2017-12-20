@@ -1,5 +1,4 @@
-﻿using PCLStorage;
-using RetriX.Shared.Services;
+﻿using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,6 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Input;
 using Windows.Gaming.Input;
-using Windows.Storage.Pickers;
 using Windows.System;
 using Windows.System.Profile;
 using Windows.UI.Core;
@@ -119,37 +117,6 @@ namespace RetriX.UWP.Services
         public void ForceUIElementFocus()
         {
             FocusManager.TryMoveFocus(FocusNavigationDirection.Next);
-        }
-
-        public async Task<IFile> SelectFileAsync(IEnumerable<string> extensionsFilter)
-        {
-            var picker = new FileOpenPicker();
-            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            foreach (var i in extensionsFilter)
-            {
-                picker.FileTypeFilter.Add(i);
-            }
-
-            var file = await picker.PickSingleFileAsync();
-            return file == null ? null : new WinRTFile(file);
-        }
-
-        public async Task<IFolder> SelectFolderAsync()
-        {
-            var picker = new FolderPicker();
-            picker.FileTypeFilter.Add("*");
-            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-
-            var folder = await picker.PickSingleFolderAsync();
-            if (folder == null)
-            {
-                return null;
-            }
-
-            var accessList = Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList;
-            accessList.Clear();
-            accessList.Add(folder);
-            return new WinRTFolder(folder);
         }
 
         public void CopyToClipboard(string content)

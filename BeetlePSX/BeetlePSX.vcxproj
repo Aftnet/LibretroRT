@@ -228,6 +228,7 @@
     <ClInclude Include="src\libretro-common\include\boolean.h" />
     <ClInclude Include="src\libretro-common\include\compat\apple_compat.h" />
     <ClInclude Include="src\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\libretro-common\include\compat\fopen_utf8.h" />
     <ClInclude Include="src\libretro-common\include\compat\getopt.h" />
     <ClInclude Include="src\libretro-common\include\compat\ifaddrs.h" />
     <ClInclude Include="src\libretro-common\include\compat\intrinsics.h" />
@@ -236,7 +237,7 @@
     <ClInclude Include="src\libretro-common\include\compat\posix_string.h" />
     <ClInclude Include="src\libretro-common\include\compat\strcasestr.h" />
     <ClInclude Include="src\libretro-common\include\compat\strl.h" />
-    <ClInclude Include="src\libretro-common\include\file\file_path.h" />
+    <ClInclude Include="src\libretro-common\include\encodings\utf.h" />
     <ClInclude Include="src\libretro-common\include\glsm\glsm.h" />
     <ClInclude Include="src\libretro-common\include\glsm\glsmsym.h" />
     <ClInclude Include="src\libretro-common\include\glsym\glsym.h" />
@@ -251,13 +252,16 @@
     <ClInclude Include="src\libretro-common\include\retro_common.h" />
     <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
     <ClInclude Include="src\libretro-common\include\retro_dirent.h" />
+    <ClInclude Include="src\libretro-common\include\retro_endianness.h" />
     <ClInclude Include="src\libretro-common\include\retro_environment.h" />
     <ClInclude Include="src\libretro-common\include\retro_inline.h" />
     <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\libretro-common\include\rhash.h" />
     <ClInclude Include="src\libretro-common\include\rthreads\rsemaphore.h" />
     <ClInclude Include="src\libretro-common\include\rthreads\rthreads.h" />
     <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
     <ClInclude Include="src\libretro-common\include\string\stdstring.h" />
+    <ClInclude Include="src\libretro-common\include\vfs\vfs_implementation.h" />
     <ClInclude Include="src\libretro_cbs.h" />
     <ClInclude Include="src\libretro_options.h" />
     <ClInclude Include="src\mednafen\cdrom\audioreader.h" />
@@ -276,7 +280,6 @@
     <ClInclude Include="src\mednafen\clamp.h" />
     <ClInclude Include="src\mednafen\driver.h" />
     <ClInclude Include="src\mednafen\error.h" />
-    <ClInclude Include="src\mednafen\file.h" />
     <ClInclude Include="src\mednafen\FileStream.h" />
     <ClInclude Include="src\mednafen\general.h" />
     <ClInclude Include="src\mednafen\git.h" />
@@ -340,22 +343,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\LibretroRT_Tools\file_path.cpp">
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
-    </ClCompile>
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp">
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
-    </ClCompile>
     <ClCompile Include="src\deps\libkirk\aes.c" />
     <ClCompile Include="src\deps\libkirk\amctrl.c" />
     <ClCompile Include="src\deps\libkirk\bn.c" />
@@ -379,9 +366,17 @@
     <ClCompile Include="src\deps\zlib\uncompr.c" />
     <ClCompile Include="src\deps\zlib\zutil.c" />
     <ClCompile Include="src\input.cpp" />
+    <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
+    <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
+    <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
     <ClCompile Include="src\libretro-common\hash\rhash.c" />
     <ClCompile Include="src\libretro-common\rthreads\rthreads.c" />
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
+    <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\libretro_cbs.c" />
     <ClCompile Include="src\mednafen\cdrom\audioreader.cpp" />
@@ -398,7 +393,6 @@
     <ClCompile Include="src\mednafen\cdrom\misc.cpp" />
     <ClCompile Include="src\mednafen\cdrom\recover-raw.c" />
     <ClCompile Include="src\mednafen\error.cpp" />
-    <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\mednafen\FileStream.cpp" />
     <ClCompile Include="src\mednafen\general.cpp" />
     <ClCompile Include="src\mednafen\md5.c" />
@@ -455,11 +449,6 @@
     <ClCompile Include="src\rsx\rsx_intf.cpp" />
     <ClCompile Include="src\rsx\rsx_lib_soft.c" />
     <ClCompile Include="src\scrc32.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LibretroRT_Tools\LibretroRT_Tools.vcxproj">
-      <Project>{e64ed7da-f5bc-413b-a80d-a95111894139}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

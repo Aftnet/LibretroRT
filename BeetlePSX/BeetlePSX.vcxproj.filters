@@ -10,7 +10,6 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="src\scrc32.h" />
     <ClInclude Include="src\mednafen\error.h" />
-    <ClInclude Include="src\mednafen\file.h" />
     <ClInclude Include="src\mednafen\FileStream.h" />
     <ClInclude Include="src\mednafen\general.h" />
     <ClInclude Include="src\mednafen\md5.h" />
@@ -101,7 +100,6 @@
     <ClInclude Include="src\libretro-common\include\compat\posix_string.h" />
     <ClInclude Include="src\libretro-common\include\compat\strcasestr.h" />
     <ClInclude Include="src\libretro-common\include\compat\strl.h" />
-    <ClInclude Include="src\libretro-common\include\file\file_path.h" />
     <ClInclude Include="src\libretro-common\include\glsm\glsm.h" />
     <ClInclude Include="src\libretro-common\include\glsm\glsmsym.h" />
     <ClInclude Include="src\libretro-common\include\glsym\glsym.h" />
@@ -139,13 +137,17 @@
     <ClInclude Include="src\mednafen\psx\FastFIFO.h" />
     <ClInclude Include="src\mednafen\psx\psx.h" />
     <ClInclude Include="src\input.h" />
+    <ClInclude Include="src\libretro-common\include\compat\fopen_utf8.h" />
+    <ClInclude Include="src\libretro-common\include\encodings\utf.h" />
+    <ClInclude Include="src\libretro-common\include\vfs\vfs_implementation.h" />
+    <ClInclude Include="src\libretro-common\include\retro_endianness.h" />
+    <ClInclude Include="src\libretro-common\include\rhash.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\scrc32.c" />
     <ClCompile Include="src\libretro-common\rthreads\rthreads.c" />
     <ClCompile Include="src\mednafen\error.cpp" />
-    <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\mednafen\FileStream.cpp" />
     <ClCompile Include="src\mednafen\general.cpp" />
     <ClCompile Include="src\mednafen\md5.c" />
@@ -238,9 +240,15 @@
     <ClCompile Include="src\deps\zlib\uncompr.c" />
     <ClCompile Include="src\deps\zlib\zutil.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
-    <ClCompile Include="..\LibretroRT_Tools\file_path.cpp" />
     <ClCompile Include="src\libretro-common\hash\rhash.c" />
     <ClCompile Include="src\input.cpp" />
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
+    <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
+    <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
   </ItemGroup>
 </Project>

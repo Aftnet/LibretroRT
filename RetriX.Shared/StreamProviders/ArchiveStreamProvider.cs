@@ -1,20 +1,20 @@
-﻿using PCLStorage;
+﻿using Plugin.FileSystem.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
 
 namespace RetriX.Shared.StreamProviders
 {
     public class ArchiveStreamProvider : IStreamProvider
     {
         private readonly string HandledScheme;
-        private readonly IFile ArchiveFile;
+        private readonly IFileInfo ArchiveFile;
         private readonly Dictionary<string, byte[]> EntriesBufferMapping = new Dictionary<string, byte[]>();
 
-        public ArchiveStreamProvider(string handledScheme, IFile archiveFile)
+        public ArchiveStreamProvider(string handledScheme, IFileInfo archiveFile)
         {
             HandledScheme = handledScheme;
             ArchiveFile = archiveFile;
@@ -26,7 +26,7 @@ namespace RetriX.Shared.StreamProviders
 
         public async Task InitializeAsync()
         {
-            var stream = await ArchiveFile.OpenAsync(PCLStorage.FileAccess.Read);
+            var stream = await ArchiveFile.OpenAsync(FileAccess.Read);
             using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
             {
                 foreach (var i in archive.Entries)
@@ -46,7 +46,7 @@ namespace RetriX.Shared.StreamProviders
             return Task.FromResult(EntriesBufferMapping.Keys.OrderBy(d => d) as IEnumerable<string>);
         }
 
-        public Task<Stream> OpenFileStreamAsync(string path, PCLStorage.FileAccess accessType)
+        public Task<Stream> OpenFileStreamAsync(string path, FileAccess accessType)
         {
             if (!EntriesBufferMapping.Keys.Contains(path, StringComparer.OrdinalIgnoreCase))
             {

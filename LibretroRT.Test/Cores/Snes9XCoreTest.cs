@@ -3,7 +3,6 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
-    [Collection(nameof(TestBase))]
     public class Snes9XCoreTest : TestBase
     {
         protected const string RomName = "SNESGame.sfc";

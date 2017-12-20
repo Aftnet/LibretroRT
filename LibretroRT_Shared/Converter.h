@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Export.h"
-
 struct retro_game_geometry;
 struct retro_system_timing;
 struct retro_variable;
@@ -10,9 +8,9 @@ enum retro_pixel_format;
 using namespace Platform;
 using namespace LibretroRT;
 
-namespace LibretroRT_Tools
+namespace LibretroRT_Shared
 {
-	class SUPPORT_API Converter
+	class Converter
 	{
 	public:
 		static GameGeometry^ CToRTGameGeometry(const retro_game_geometry& geometry);

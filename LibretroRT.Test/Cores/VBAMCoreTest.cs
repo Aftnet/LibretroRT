@@ -3,7 +3,6 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
-    [Collection(nameof(TestBase))]
     public class VBAMCoreTest : TestBase
     {
         protected const string RomName = "GBAGame.gba";

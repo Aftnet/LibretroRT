@@ -1,7 +1,7 @@
 ﻿using Acr.UserDialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using PCLStorage;
+using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,7 @@ namespace RetriX.Shared.ViewModels
         public const string SystemUnmetDependenciesAlertTitleKey = nameof(SystemUnmetDependenciesAlertTitleKey);
         public const string SystemUnmetDependenciesAlertMessageKey = nameof(SystemUnmetDependenciesAlertMessageKey);
 
+        private readonly IFileSystem FileSystem;
         private readonly IUserDialogs DialogsService;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
@@ -33,8 +34,9 @@ namespace RetriX.Shared.ViewModels
         public IReadOnlyList<GameSystemVM> GameSystems => EmulationService.Systems;
         public RelayCommand<GameSystemVM> GameSystemSelectedCommand { get; private set; }
 
-        public GameSystemSelectionVM(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, IEmulationService emulationService)
+        public GameSystemSelectionVM(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, IEmulationService emulationService)
         {
+            FileSystem = fileSystem;
             DialogsService = dialogsService;
             LocalizationService = localizationService;
             PlatformService = platformService;
@@ -49,7 +51,7 @@ namespace RetriX.Shared.ViewModels
         public async void GameSystemSelected(GameSystemVM system)
         {
             var extensions = system.SupportedExtensions.Concat(EmulationService.ArchiveExtensions).ToArray();
-            var file = await PlatformService.SelectFileAsync(extensions);
+            var file = await FileSystem.PickFileAsync(extensions);
             if (file == null)
             {
                 return;
@@ -58,7 +60,7 @@ namespace RetriX.Shared.ViewModels
             await StartGameAsync(system, file);
         }
 
-        public async Task StartGameFromFileAsync(IFile file)
+        public async Task StartGameFromFileAsync(IFileInfo file)
         {
             var system = await EmulationService.SuggestSystemForFileAsync(file);
             if (system == null)
@@ -69,7 +71,7 @@ namespace RetriX.Shared.ViewModels
             await StartGameAsync(system, file);
         }
 
-        private async Task StartGameAsync(GameSystemVM system, IFile file)
+        private async Task StartGameAsync(GameSystemVM system, IFileInfo file)
         {
             var dependenciesMet = await system.CheckDependenciesMetAsync();
             if (!dependenciesMet)
@@ -79,17 +81,17 @@ namespace RetriX.Shared.ViewModels
             }
 
             var folderNeeded = system.CheckRootFolderRequired(file);
-            IFolder folder = null;
+            IDirectoryInfo folder = null;
             if (folderNeeded)
             {
                 await DisplayNotification(SelectFolderRequestAlertTitleKey, SelectFolderRequestAlertMessageKey);
-                folder = await PlatformService.SelectFolderAsync();
+                folder = await FileSystem.PickDirectoryAsync();
                 if (folder == null)
                 {
                     return;
                 }
 
-                if (!Path.GetDirectoryName(file.Path).StartsWith(folder.Path))
+                if (!Path.GetDirectoryName(file.FullName).StartsWith(folder.FullName))
                 {
                     await DisplayNotification(SelectFolderInvalidAlertTitleKey, SelectFolderInvalidAlertMessageKey);
                     return;

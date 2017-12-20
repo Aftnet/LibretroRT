@@ -174,7 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.1</Version>
+      <Version>6.0.5</Version>
     </PackageReference>
     <PackageReference Include="xunit">
       <Version>2.3.1</Version>
@@ -235,10 +235,6 @@
       <Project>{a1897c60-c8ca-45ac-8917-a4dcfbcae523}</Project>
       <Name>NestopiaRT</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ParallelN64RT\ParallelN64RT.vcxproj">
-      <Project>{95540631-8e61-475d-bd82-bafb7874eaca}</Project>
-      <Name>ParallelN64RT</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
       <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>
       <Name>Snes9XRT</Name>
@@ -246,10 +242,6 @@
     <ProjectReference Include="..\VBAMRT\VBAMRT.vcxproj">
       <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
       <Name>VBAMRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YabauseRT\YabauseRT.vcxproj">
-      <Project>{a8f6202b-b329-4888-ba1a-8c841993b195}</Project>
-      <Name>YabauseRT</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

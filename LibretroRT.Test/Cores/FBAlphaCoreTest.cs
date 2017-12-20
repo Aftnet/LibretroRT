@@ -3,7 +3,6 @@ using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
-    [Collection(nameof(TestBase))]
     public class FBAlphaCoreTest : TestBase
     {
         protected const string CPS1RomName = "3wondersu.zip";

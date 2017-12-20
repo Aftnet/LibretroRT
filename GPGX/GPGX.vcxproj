@@ -127,7 +127,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;USE_LIBTREMOR;MSVC2010_EXPORTS;_CRT_SECURE_NO_WARNINGS;__inline__=_inline;__extension__=;LSB_FIRST;__LIBRETRO__;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;_DEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;WIN32;_WINDOWS;USE_LIBTREMOR;_CRT_SECURE_NO_WARNINGS;INLINE=static inline;LSB_FIRST;M68K_OVERCLOCK_SHIFT=20;Z80_OVERCLOCK_SHIFT=20;HAVE_YM3438_CORE;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;_DEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,7 +141,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;USE_LIBTREMOR;MSVC2010_EXPORTS;_CRT_SECURE_NO_WARNINGS;__inline__=_inline;__extension__=;LSB_FIRST;__LIBRETRO__;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;WIN32;_WINDOWS;USE_LIBTREMOR;_CRT_SECURE_NO_WARNINGS;INLINE=static inline;LSB_FIRST;M68K_OVERCLOCK_SHIFT=20;Z80_OVERCLOCK_SHIFT=20;HAVE_YM3438_CORE;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,7 +155,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;USE_LIBTREMOR;MSVC2010_EXPORTS;_CRT_SECURE_NO_WARNINGS;__inline__=_inline;__extension__=;LSB_FIRST;__LIBRETRO__;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;_DEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;WIN32;_WINDOWS;USE_LIBTREMOR;_CRT_SECURE_NO_WARNINGS;INLINE=static inline;LSB_FIRST;M68K_OVERCLOCK_SHIFT=20;Z80_OVERCLOCK_SHIFT=20;HAVE_YM3438_CORE;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;_DEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,7 +169,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;USE_LIBTREMOR;MSVC2010_EXPORTS;_CRT_SECURE_NO_WARNINGS;__inline__=_inline;__extension__=;LSB_FIRST;__LIBRETRO__;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;WIN32;_WINDOWS;USE_LIBTREMOR;_CRT_SECURE_NO_WARNINGS;INLINE=static inline;LSB_FIRST;M68K_OVERCLOCK_SHIFT=20;Z80_OVERCLOCK_SHIFT=20;HAVE_YM3438_CORE;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;NDEBUG;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -183,7 +183,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;USE_LIBTREMOR;MSVC2010_EXPORTS;_CRT_SECURE_NO_WARNINGS;__inline__=_inline;__extension__=;LSB_FIRST;__LIBRETRO__;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;_DEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;WIN32;_WINDOWS;USE_LIBTREMOR;_CRT_SECURE_NO_WARNINGS;INLINE=static inline;LSB_FIRST;M68K_OVERCLOCK_SHIFT=20;Z80_OVERCLOCK_SHIFT=20;HAVE_YM3438_CORE;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;_DEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -197,7 +197,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir)src\libretro\libretro-common\include;$(ProjectDir)src\core;$(ProjectDir)src\core\cart_hw;$(ProjectDir)src\core\cd_hw;$(ProjectDir)src\core\input_hw;$(ProjectDir)src\core\m68k;$(ProjectDir)src\core\ntsc;$(ProjectDir)src\core\sound;$(ProjectDir)src\core\tremor;$(ProjectDir)src\core\z80;$(ProjectDir)src\core\cart_hw\svp;$(ProjectDir)src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;USE_LIBTREMOR;MSVC2010_EXPORTS;_CRT_SECURE_NO_WARNINGS;__inline__=_inline;__extension__=;LSB_FIRST;__LIBRETRO__;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__LIBRETRO__;WIN32;_WINDOWS;USE_LIBTREMOR;_CRT_SECURE_NO_WARNINGS;INLINE=static inline;LSB_FIRST;M68K_OVERCLOCK_SHIFT=20;Z80_OVERCLOCK_SHIFT=20;HAVE_YM3438_CORE;USE_16BPP_RENDERING;FRONTEND_SUPPORTS_RGB565;BYTE_ORDER=LITTLE_ENDIAN;NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -291,6 +291,7 @@
     <ClInclude Include="src\libretro\libretro-common\include\boolean.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\apple_compat.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\fnmatch.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\compat\fopen_utf8.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\getopt.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\ifaddrs.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\intrinsics.h" />
@@ -302,27 +303,21 @@
     <ClInclude Include="src\libretro\libretro-common\include\compat\zconf.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\zlib.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\zutil.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\encodings\utf.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\libretro.h" />
     <ClInclude Include="src\libretro\libretro-common\include\memmap.h" />
     <ClInclude Include="src\libretro\libretro-common\include\retro_common.h" />
     <ClInclude Include="src\libretro\libretro-common\include\retro_common_api.h" />
     <ClInclude Include="src\libretro\libretro-common\include\retro_inline.h" />
-    <ClInclude Include="src\libretro\libretro-common\include\retro_miscellaneous.h" />
     <ClInclude Include="src\libretro\libretro-common\include\streams\file_stream.h" />
     <ClInclude Include="src\libretro\libretro-common\include\streams\file_stream_transforms.h" />
+    <ClInclude Include="src\libretro\libretro-common\include\vfs\vfs_implementation.h" />
     <ClInclude Include="src\libretro\libretro.h" />
     <ClInclude Include="src\libretro\osd.h" />
     <ClInclude Include="src\libretro\scrc32.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp">
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsWinRT>
-      <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsWinRT>
-    </ClCompile>
     <ClCompile Include="src\core\cart_hw\areplay.c" />
     <ClCompile Include="src\core\cart_hw\eeprom_93c.c" />
     <ClCompile Include="src\core\cart_hw\eeprom_i2c.c" />
@@ -387,15 +382,15 @@
     <ClCompile Include="src\core\vdp_ctrl.c" />
     <ClCompile Include="src\core\vdp_render.c" />
     <ClCompile Include="src\core\z80\z80.c" />
+    <ClCompile Include="src\libretro\libretro-common\compat\compat_strl.c" />
+    <ClCompile Include="src\libretro\libretro-common\compat\fopen_utf8.c" />
+    <ClCompile Include="src\libretro\libretro-common\encodings\encoding_utf.c" />
     <ClCompile Include="src\libretro\libretro-common\memmap\memmap.c" />
+    <ClCompile Include="src\libretro\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro\libretro-common\streams\file_stream_transforms.c" />
+    <ClCompile Include="src\libretro\libretro-common\vfs\vfs_implementation.c" />
     <ClCompile Include="src\libretro\libretro.c" />
     <ClCompile Include="src\libretro\scrc32.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LibretroRT_Tools\LibretroRT_Tools.vcxproj">
-      <Project>{e64ed7da-f5bc-413b-a80d-a95111894139}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

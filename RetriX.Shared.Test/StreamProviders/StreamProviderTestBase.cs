@@ -1,4 +1,4 @@
-﻿using PCLStorage;
+﻿using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.StreamProviders;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +20,7 @@ namespace RetriX.Shared.Test.StreamProviders
         protected async Task OpeningFileWorksInternal(string path, bool expectedSuccess)
         {
             var target = await GetTargetAsync();
-            var stream = await target.OpenFileStreamAsync(path, FileAccess.Read);
+            var stream = await target.OpenFileStreamAsync(path, System.IO.FileAccess.Read);
             if (expectedSuccess)
             {
                 Assert.NotNull(stream);
@@ -33,9 +33,9 @@ namespace RetriX.Shared.Test.StreamProviders
             stream?.Dispose();
         }
 
-        protected Task<IFolder> GetTestFilesFolderAsync()
+        protected Task<IDirectoryInfo> GetTestFilesFolderAsync()
         {
-            return FileSystem.Current.GetFolderFromPathAsync("TestFiles");
+            return Plugin.FileSystem.CrossFileSystem.Current.GetDirectoryFromPathAsync("TestFiles");
         }
     }
 }

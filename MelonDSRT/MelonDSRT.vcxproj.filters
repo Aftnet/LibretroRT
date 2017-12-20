@@ -10,12 +10,9 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="MelonDSCore.cpp" />
     <ClCompile Include="MelonDSCoreInternal.cpp" />
-    <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="MelonDSCore.h" />
     <ClInclude Include="MelonDSCoreInternal.h" />
-    <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
   </ItemGroup>
 </Project>

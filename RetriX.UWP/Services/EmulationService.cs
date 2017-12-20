@@ -1,17 +1,17 @@
 ﻿using Acr.UserDialogs;
 using LibretroRT;
 using LibretroRT.FrontendComponents.Common;
-using PCLStorage;
+using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
 using RetriX.Shared.StreamProviders;
 using RetriX.Shared.ViewModels;
 using RetriX.UWP.Pages;
-using RetriX.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -61,7 +61,7 @@ namespace RetriX.UWP.Services
         public event GameStartedDelegate GameStarted;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
-        public EmulationService(IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IInputManager inputManager)
+        public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IInputManager inputManager)
         {
             LocalizationService = localizationService;
             PlatformService = platformService;
@@ -92,15 +92,15 @@ namespace RetriX.UWP.Services
                 new ViewModels.GameSystemVM(BeetlePCEFastRT.BeetlePCEFastCore.Instance, LocalizationService, "SystemNamePCEngineCD", "ManufacturerNameNEC", "\uf124", false, new HashSet<string>{ ".cue", ".ccd" }, CDImageExtensions),
                 new ViewModels.GameSystemVM(BeetlePCFXRT.BeetlePCFXCore.Instance, LocalizationService, "SystemNamePCFX", "ManufacturerNameNEC", "\uf124", false, new HashSet<string>{ ".cue", ".ccd", ".toc" }, CDImageExtensions),
                 new ViewModels.GameSystemVM(BeetleWswanRT.BeetleWswanCore.Instance, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
-                new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
+                //new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
                 new ViewModels.GameSystemVM(BeetleNGPRT.BeetleNGPCore.Instance, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
-                new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
+                //new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
                 };
 
                 var allCores = systems.Select(d => d.Core).Distinct().ToArray();
                 fileDependencyImporters = allCores.Where(d => d.FileDependencies.Any()).SelectMany(d => d.FileDependencies.Select(e => new { core = d, deps = e }))
-                        .Select(d => new FileImporterVM(dialogsService, localizationService, platformService, cryptographyService,
-                        new WinRTFolder(d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
+                        .Select(d => new FileImporterVM(fileSystem, dialogsService, localizationService, platformService, cryptographyService,
+                        new Plugin.FileSystem.DirectoryInfo((StorageFolder)d.core.SystemFolder), d.deps.Name, d.deps.Description, d.deps.MD5)).ToArray();
             }).ContinueWith(d =>
             {
                 InitializationComplete = true;
@@ -108,8 +108,7 @@ namespace RetriX.UWP.Services
             });
         }
 
-        
-        public async Task<Shared.ViewModels.GameSystemVM> SuggestSystemForFileAsync(IFile file)
+        public async Task<Shared.ViewModels.GameSystemVM> SuggestSystemForFileAsync(IFileInfo file)
         {
             while (!InitializationComplete)
             {
@@ -120,7 +119,7 @@ namespace RetriX.UWP.Services
             return Systems.FirstOrDefault(d => d.SupportedExtensions.Contains(extension));
         }
 
-        public async Task<bool> StartGameAsync(Shared.ViewModels.GameSystemVM system, IFile file, IFolder rootFolder = null)
+        public async Task<bool> StartGameAsync(Shared.ViewModels.GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder = null)
         {
             ViewModels.GameSystemVM nativeSystem = (ViewModels.GameSystemVM)system;
 
@@ -263,7 +262,7 @@ namespace RetriX.UWP.Services
 
         private Windows.Storage.Streams.IRandomAccessStream OnCoreOpenFileStream(string path, Windows.Storage.FileAccessMode fileAccess)
         {
-            var accessMode = fileAccess == Windows.Storage.FileAccessMode.Read ? PCLStorage.FileAccess.Read : PCLStorage.FileAccess.ReadAndWrite;
+            var accessMode = fileAccess == Windows.Storage.FileAccessMode.Read ? FileAccess.Read : FileAccess.ReadWrite;
             var stream = StreamProvider.OpenFileStreamAsync(path, accessMode).Result;
             var output = stream?.AsRandomAccessStream();
             return output;
@@ -274,7 +273,7 @@ namespace RetriX.UWP.Services
             StreamProvider.CloseStream(stream.AsStream());
         }
 
-        private void GetStreamProviderAndVirtualPath(ViewModels.GameSystemVM system, IFile file, IFolder rootFolder, out IStreamProvider provider, out string mainFileVirtualPath)
+        private void GetStreamProviderAndVirtualPath(ViewModels.GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder, out IStreamProvider provider, out string mainFileVirtualPath)
         {
             IStreamProvider romProvider;
             if (rootFolder == null)
@@ -284,13 +283,13 @@ namespace RetriX.UWP.Services
             }
             else
             {
-                mainFileVirtualPath = file.Path.Substring(rootFolder.Path.Length + 1);
+                mainFileVirtualPath = file.FullName.Substring(rootFolder.FullName.Length + 1);
                 mainFileVirtualPath = $"{VFS.RomPath}{Path.DirectorySeparatorChar}{mainFileVirtualPath}";
                 romProvider = new FolderStreamProvider(VFS.RomPath, rootFolder);
             }
 
-            var systemProvider = new FolderStreamProvider(VFS.SystemPath, new WinRTFolder(system.Core.SystemFolder));
-            var saveProvider = new FolderStreamProvider(VFS.SavePath, new WinRTFolder(system.Core.SaveGameFolder));
+            var systemProvider = new FolderStreamProvider(VFS.SystemPath, new Plugin.FileSystem.DirectoryInfo((StorageFolder)system.Core.SystemFolder));
+            var saveProvider = new FolderStreamProvider(VFS.SavePath, new Plugin.FileSystem.DirectoryInfo((StorageFolder)system.Core.SaveGameFolder));
             var combinedProvider = new CombinedStreamProvider(new HashSet<IStreamProvider> { romProvider, systemProvider, saveProvider });
             provider = combinedProvider;
         }

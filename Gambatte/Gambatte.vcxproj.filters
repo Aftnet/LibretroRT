@@ -35,6 +35,24 @@
     <ClInclude Include="src\libgambatte\src\video\next_m0_time.h" />
     <ClInclude Include="src\libgambatte\src\video\ppu.h" />
     <ClInclude Include="src\libgambatte\src\video\sprite_mapper.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\compat\msvc\stdint.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\compat\fopen_utf8.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\compat\msvc.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\compat\strl.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\encodings\utf.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\streams\file_stream.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\vfs\vfs_implementation.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\boolean.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\libretro.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\memmap.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\retro_common_api.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\libgambatte\libretro-common\include\retro_miscellaneous.h" />
+    <ClInclude Include="src\common\gambatte-array.h" />
+    <ClInclude Include="src\common\uncopyable.h" />
+    <ClInclude Include="src\libgambatte\include\gambatte.h" />
+    <ClInclude Include="src\libgambatte\include\gbint.h" />
+    <ClInclude Include="src\libgambatte\include\inputgetter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libgambatte\libretro\libretro.cpp" />
@@ -68,5 +86,9 @@
     <ClCompile Include="src\libgambatte\src\video\ppu.cpp" />
     <ClCompile Include="src\libgambatte\src\video\sprite_mapper.cpp" />
     <ClCompile Include="src\libgambatte\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libgambatte\libretro-common\compat\compat_strl.c" />
+    <ClCompile Include="src\libgambatte\libretro-common\compat\fopen_utf8.c" />
+    <ClCompile Include="src\libgambatte\libretro-common\encodings\encoding_utf.c" />
+    <ClCompile Include="src\libgambatte\libretro-common\vfs\vfs_implementation.c" />
   </ItemGroup>
 </Project>

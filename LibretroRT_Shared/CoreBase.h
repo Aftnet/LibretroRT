@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../LibretroRT/libretro.h"
-
 using namespace LibretroRT;
 using namespace Platform;
 using namespace Platform::Collections;
@@ -9,36 +7,14 @@ using namespace Windows::Foundation::Collections;
 using namespace Windows::Storage;
 using namespace Windows::Storage::Streams;
 
-namespace LibretroRT_Tools
-{
-	typedef void (*LibretroInitPtr)(void);
-	typedef void (*LibretroDeinitPtr)(void);
-	typedef void (*LibretroGetSystemInfoPtr)(struct retro_system_info *info);
-	typedef void (*LibretroGetSystemAVInfoPtr)(struct retro_system_av_info *info);
-	typedef void (*LibretroSetControllerPortDevicePtr)(unsigned port, unsigned device);
-	typedef bool (*LibretroLoadGamePtr)(const struct retro_game_info *game);
-	typedef void (*LibretroUnloadGamePtr)(void);
-	typedef void (*LibretroRunPtr)(void);
-	typedef void (*LibretroResetPtr)(void);
-	typedef size_t (*LibretroSerializeSizePtr)(void);
-	typedef bool (*LibretroSerializePtr)(void *data, size_t size);
-	typedef bool (*LibretroUnserializePtr)(const void *data, size_t size);
+struct retro_vfs_file_handle;
 
+namespace LibretroRT_Shared
+{
 	private ref class CoreBase : public ICore
 	{
 	private:
-		const LibretroInitPtr LibretroInit;
-		const LibretroDeinitPtr LibretroDeinit;
-		const LibretroGetSystemInfoPtr LibretroGetSystemInfo;
-		const LibretroGetSystemAVInfoPtr LibretroGetSystemAVInfo;
-		const LibretroSetControllerPortDevicePtr LibretroSetControllerPortDevice;
-		const LibretroLoadGamePtr LibretroLoadGame;
-		const LibretroUnloadGamePtr LibretroUnloadGame;
-		const LibretroRunPtr LibretroRun;
-		const LibretroResetPtr LibretroReset;
-		const LibretroSerializeSizePtr LibretroSerializeSize;
-		const LibretroSerializePtr LibretroSerialize;
-		const LibretroUnserializePtr LibretroUnserialize;
+		static CoreBase^ singletonInstance;
 
 		String^ name;
 		String^ version;
@@ -49,27 +25,24 @@ namespace LibretroRT_Tools
 		std::string coreEnvironmentSaveGameFolderPath;
 		const bool supportsSaveGameFolderVirtualization;
 		IVectorView<String^>^ supportedExtensions;
-		bool nativeArchiveSupport;
+		const bool nativeArchiveSupport;
+		const unsigned inputTypeIndex;
 		IMap<String^, CoreOption^>^ const options;
 		PixelFormats pixelFormat;
 		GameGeometry^ geometry;
 		SystemTiming^ timing;
 
 		bool coreRequiresGameFilePath;
-		
+
 		bool isInitialized;
 		std::string gameFilePath;
 		std::string lastResolvedEnvironmentVariable;
+		unsigned inputTypeId;
 
 		void UnloadGameNoDeinit();
 
 	protected private:
-		CoreBase(LibretroInitPtr libretroInit, LibretroDeinitPtr libretroDeinit,
-			LibretroGetSystemInfoPtr libretroGetSystemInfo, LibretroGetSystemAVInfoPtr libretroGetSystemAVInfo, LibretroSetControllerPortDevicePtr libretroSetControllerPortDevice,
-			LibretroLoadGamePtr libretroLoadGame, LibretroUnloadGamePtr libretroUnloadGame,
-			LibretroRunPtr libretroRun, LibretroResetPtr libretroReset, LibretroSerializeSizePtr libretroSerializeSize,
-			LibretroSerializePtr libretroSerialize, LibretroUnserializePtr libretroUnserialize,
-			bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport);
+		CoreBase(bool supportsSystemFolderVirtualization, bool supportsSaveGameFolderVirtualization, bool nativeArchiveSupport, unsigned inputTypeIndex = 0);
 
 		Vector<FileDependency^>^ fileDependencies;
 		void ReadFileToMemory(String^ filePath, std::vector<unsigned char>& data);
@@ -84,7 +57,23 @@ namespace LibretroRT_Tools
 		size_t RaiseRenderAudioFrames(const int16_t* data, size_t frames);
 		void RaiseRenderVideoFrame(const void* data, unsigned width, unsigned height, size_t pitch);
 
+		const char* VFSGetPath(struct retro_vfs_file_handle* stream);
+		struct retro_vfs_file_handle* VFSOpen(const char* path, unsigned mode, unsigned hints);
+		int VFSClose(struct retro_vfs_file_handle* stream);
+		int64_t VFSGetSize(struct retro_vfs_file_handle* stream);
+		int64_t VFSGetPosition(struct retro_vfs_file_handle* stream);
+		int64_t VFSSeek(struct retro_vfs_file_handle* stream, int64_t offset, int seek_position);
+		int64_t VFSRead(struct retro_vfs_file_handle* stream, void* s, uint64_t len);
+		int64_t VFSWrite(struct retro_vfs_file_handle* stream, const void* s, uint64_t len);
+		int VFSFlush(struct retro_vfs_file_handle* stream);
+		int VFSDelete(const char* path);
+		int VFSRename(const char* old_path, const char* new_path);
+
 	public:
+		//This only works if this file is compiled independently (shared project) for each core.
+		//This is needed to convert from class methods to function pointers used in Libretro cores
+		static property CoreBase^ SingletonInstance { CoreBase^ get() { return singletonInstance; } void set(CoreBase^ value); }
+
 		virtual property String^ Name { String^ get() { return name; } }
 		virtual property String^ Version { String^ get() { return version; } }
 		virtual property IStorageFolder^ SystemFolder { IStorageFolder^ get() { return systemFolder; } }
@@ -115,12 +104,12 @@ namespace LibretroRT_Tools
 			void set(SystemTiming^ value) { timing = value; if (TimingChanged != nullptr) { TimingChanged(timing); } }
 		}
 
-		virtual property unsigned int SerializationSize { unsigned int get() { return LibretroSerializeSize(); } }
+		virtual property unsigned int SerializationSize { unsigned int get(); }
 
-		virtual property RenderVideoFrameDelegate ^ RenderVideoFrame;
-		virtual property RenderAudioFramesDelegate ^ RenderAudioFrames;
-		virtual property PollInputDelegate ^ PollInput;
-		virtual property GetInputStateDelegate ^ GetInputState;
+		virtual property RenderVideoFrameDelegate^ RenderVideoFrame;
+		virtual property RenderAudioFramesDelegate^ RenderAudioFrames;
+		virtual property PollInputDelegate^ PollInput;
+		virtual property GetInputStateDelegate^ GetInputState;
 		virtual property GeometryChangedDelegate^ GeometryChanged;
 		virtual property TimingChangedDelegate^ TimingChanged;
 		virtual property PixelFormatChangedDelegate^ PixelFormatChanged;
@@ -138,5 +127,3 @@ namespace LibretroRT_Tools
 		virtual bool Unserialize(const Array<uint8>^ stateData);
 	};
 }
-
-

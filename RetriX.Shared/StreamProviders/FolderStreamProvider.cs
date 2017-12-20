@@ -1,4 +1,4 @@
-﻿using PCLStorage;
+﻿using Plugin.FileSystem.Abstractions;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,9 +9,10 @@ namespace RetriX.Shared.StreamProviders
     public class FolderStreamProvider : StreamProviderBase
     {
         private readonly string HandledScheme;
-        private readonly IFolder RootFolder;
+        private readonly IDirectoryInfo RootFolder;
+        private IDictionary<string, IFileInfo> Contents;
 
-        public FolderStreamProvider(string handledScheme, IFolder rootFolder)
+        public FolderStreamProvider(string handledScheme, IDirectoryInfo rootFolder)
         {
             HandledScheme = handledScheme;
             RootFolder = rootFolder;
@@ -19,38 +20,59 @@ namespace RetriX.Shared.StreamProviders
 
         public override async Task<IEnumerable<string>> ListEntriesAsync()
         {
-            var files = await ListFilesRecursiveAsync(RootFolder);
-            var output = files.Select(d => HandledScheme + d.Path.Substring(RootFolder.Path.Length + 1)).OrderBy(d => d).ToArray();
-            return output;
+            var contents = await GetContents();
+            return contents.Keys.Select(d => HandledScheme + d).ToArray();
         }
 
-        protected override async Task<Stream> OpenFileStreamAsyncInternal(string path, PCLStorage.FileAccess accessType)
+        protected override async Task<Stream> OpenFileStreamAsyncInternal(string path, FileAccess accessType)
         {
-            if (!path.StartsWith(HandledScheme, System.StringComparison.OrdinalIgnoreCase))
+            if (!path.StartsWith(HandledScheme))
             {
                 return null;
             }
 
-            path = path.Substring(HandledScheme.Length + 1);
-
-            if (accessType == PCLStorage.FileAccess.Read)
+            var contents = await GetContents();
+            path = path.Substring(HandledScheme.Length).ToLowerInvariant();
+            contents.TryGetValue(path, out var file);
+            if (accessType == FileAccess.Read && file == null)
             {
-                var existenceCheck = await RootFolder.CheckExistsAsync(path);
-                if (existenceCheck != ExistenceCheckResult.FileExists)
-                {
-                    return null;
-                }
+                return null;
             }
 
-            var file = await RootFolder.CreateFileAsync(path, CreationCollisionOption.OpenIfExists);
+            if (file == null)
+            {
+                file = await RootFolder.CreateFileAsync(path);
+                Contents.Add(GenerateSchemaName(file), file);
+            }
+
             var output = await file.OpenAsync(accessType);
             return output;
         }
 
-        private async Task<IEnumerable<IFile>> ListFilesRecursiveAsync(IFolder folder)
+        private string GenerateSchemaName(IFileInfo file)
         {
-            IEnumerable<IFile> files = await folder.GetFilesAsync();
-            var subfolders = await folder.GetFoldersAsync();
+            return file.FullName.Substring(RootFolder.FullName.Length).ToLowerInvariant();
+        }
+
+        private async Task<IDictionary<string, IFileInfo>> GetContents()
+        {
+            if (Contents == null)
+            {
+                Contents = new SortedDictionary<string, IFileInfo>();
+                var list = await ListFilesRecursiveAsync(RootFolder);
+                foreach (var i in list)
+                {
+                    Contents.Add(GenerateSchemaName(i), i);
+                }
+            }
+
+            return Contents;
+        }
+
+        private async Task<IEnumerable<IFileInfo>> ListFilesRecursiveAsync(IDirectoryInfo folder)
+        {
+            IEnumerable<IFileInfo> files = await folder.EnumerateFilesAsync();
+            var subfolders = await folder.EnumerateDirectoriesAsync();
             foreach (var i in subfolders)
             {
                 var subfolderFiles = await ListFilesRecursiveAsync(i);

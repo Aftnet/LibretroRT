@@ -1,8 +1,6 @@
 ﻿using Microsoft.Practices.ServiceLocation;
-using PCLStorage;
 using RetriX.Shared.ViewModels;
 using RetriX.UWP.Pages;
-using RetriX.UWP.ViewModels;
 using System;
 using System.Linq;
 using Windows.ApplicationModel;
@@ -49,8 +47,8 @@ namespace RetriX.UWP
         {
             InitializeApp(args.PreviousExecutionState, false);
             var mainVM = ServiceLocator.Current.GetInstance<GameSystemSelectionVM>();
-            var file = args.Files.First(d => d as IStorageFile != null);
-            var wrappedFile = new WinRTFile(file as IStorageFile);
+            var file = args.Files.First(d => d is IStorageFile);
+            var wrappedFile = new Plugin.FileSystem.FileInfo((StorageFile)file);
             var task = mainVM.StartGameFromFileAsync(wrappedFile);
         }
 

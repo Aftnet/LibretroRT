@@ -3,7 +3,7 @@
 
 using namespace Platform;
 
-using namespace LibretroRT_Tools;
+using namespace LibretroRT_Shared;
 
 String^ StringConverter::CPPToPlatformString(const std::string string)
 {

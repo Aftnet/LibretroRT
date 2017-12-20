@@ -138,6 +138,15 @@
     <ClInclude Include="src\mednafen\video\surface.h" />
     <ClInclude Include="src\mednafen\hash\md5.h" />
     <ClInclude Include="src\mednafen\hash\sha256.h" />
+    <ClInclude Include="src\libretro-common\include\compat\fopen_utf8.h" />
+    <ClInclude Include="src\libretro-common\include\encodings\utf.h" />
+    <ClInclude Include="src\libretro-common\include\vfs\vfs_implementation.h" />
+    <ClInclude Include="src\libretro-common\include\libretro.h" />
+    <ClInclude Include="src\libretro-common\include\retro_endianness.h" />
+    <ClInclude Include="src\libretro-common\include\retro_environment.h" />
+    <ClInclude Include="src\libretro-common\include\retro_timers.h" />
+    <ClInclude Include="src\libretro-common\rthreads\gx_pthread.h" />
+    <ClInclude Include="src\libretro-common\rthreads\psp_pthread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\deps\zlib\adler32.c" />
@@ -230,7 +239,11 @@
     <ClCompile Include="src\mednafen\hash\sha256.cpp" />
     <ClCompile Include="src\libretro-common\rthreads\rthreads.c" />
     <ClCompile Include="src\libretro-common\string\stdstring.c" />
-    <ClCompile Include="..\LibretroRT_Tools\file_path.cpp" />
-    <ClCompile Include="..\LibretroRT_Tools\file_stream.cpp" />
+    <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
+    <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
+    <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
+    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
   </ItemGroup>
 </Project>

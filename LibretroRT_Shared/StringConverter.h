@@ -1,15 +1,13 @@
 #pragma once
 
-#include "Export.h"
-
 #include <string>
 #include <vector>
 
 using namespace Platform;
 
-namespace LibretroRT_Tools
+namespace LibretroRT_Shared
 {
-	class SUPPORT_API StringConverter
+	class StringConverter
 	{
 	public:
 		static String^ CPPToPlatformString(const std::string string);

@@ -9,7 +9,7 @@ namespace RetriX.Shared.StreamProviders
         private readonly HashSet<Stream> OpenStreams = new HashSet<Stream>();
 
         public abstract Task<IEnumerable<string>> ListEntriesAsync();
-        protected abstract Task<Stream> OpenFileStreamAsyncInternal(string path, PCLStorage.FileAccess accessType);
+        protected abstract Task<Stream> OpenFileStreamAsyncInternal(string path, FileAccess accessType);
 
         public virtual void Dispose()
         {
@@ -19,7 +19,7 @@ namespace RetriX.Shared.StreamProviders
             }
         }
 
-        public async Task<Stream> OpenFileStreamAsync(string path, PCLStorage.FileAccess accessType)
+        public async Task<Stream> OpenFileStreamAsync(string path, FileAccess accessType)
         {
             var stream = await OpenFileStreamAsyncInternal(path, accessType);
             if (stream != null)

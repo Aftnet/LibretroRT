@@ -8,13 +8,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="..\LibretroRT_Tools\CoreBase.cpp" />
     <ClCompile Include="FBAlphaCore.cpp" />
     <ClCompile Include="FBAlphaCoreInternal.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="..\LibretroRT_Tools\CoreBase.h" />
     <ClInclude Include="FBAlphaCore.h" />
     <ClInclude Include="FBAlphaCoreInternal.h" />
   </ItemGroup>

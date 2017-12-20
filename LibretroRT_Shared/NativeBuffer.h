@@ -1,14 +1,6 @@
 #pragma once
 
-#include <wrl.h>
-#include <wrl/implements.h>
-#include <windows.storage.streams.h>
-#include <robuffer.h>
-#include <vector>
-
-// todo: namespace
-
-namespace LibretroRT_Tools
+namespace LibretroRT_Shared
 {
 	class NativeBuffer :
 		public Microsoft::WRL::RuntimeClass<Microsoft::WRL::RuntimeClassFlags<Microsoft::WRL::RuntimeClassType::WinRtClassicComMix>,
@@ -61,13 +53,5 @@ namespace LibretroRT_Tools
 		byte *m_buffer;
 	};
 
-	Windows::Storage::Streams::IBuffer ^CreateNativeBuffer(void* lpBuffer, size_t nNumberOfBytes)
-	{
-		Microsoft::WRL::ComPtr<LibretroRT_Tools::NativeBuffer> nativeBuffer;
-		Microsoft::WRL::Details::MakeAndInitialize<LibretroRT_Tools::NativeBuffer>(&nativeBuffer, (byte *)lpBuffer, nNumberOfBytes);
-		auto iinspectable = (IInspectable *)reinterpret_cast<IInspectable *>(nativeBuffer.Get());
-		Windows::Storage::Streams::IBuffer ^buffer = reinterpret_cast<Windows::Storage::Streams::IBuffer ^>(iinspectable);
-
-		return buffer;
-	}
+	Windows::Storage::Streams::IBuffer ^CreateNativeBuffer(void* lpBuffer, size_t nNumberOfBytes);
 }

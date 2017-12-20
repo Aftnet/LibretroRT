@@ -20,7 +20,7 @@ namespace RetriX.Shared.Test.Services
 
         protected override SaveStateService InstantiateTarget()
         {
-            var output = new SaveStateService(NotificationServiceMock.Object, LocalizationServiceMock.Object);
+            var output = new SaveStateService(Plugin.FileSystem.CrossFileSystem.Current, NotificationServiceMock.Object, LocalizationServiceMock.Object);
             output.SetGameId(GameId);
             return output;
         }
