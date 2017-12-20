@@ -308,6 +308,8 @@
     <ClInclude Include="src\src\burner\libretro\libretro-common\include\encodings\utf.h" />
     <ClInclude Include="src\src\burner\libretro\libretro-common\include\file\file_path.h" />
     <ClInclude Include="src\src\burner\libretro\libretro-common\include\libretro.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\compat\fopen_utf8.h" />
+    <ClInclude Include="src\src\burner\libretro\libretro-common\include\vfs\vfs_implementation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\dep\libs\zlib\adler32.c" />
@@ -1059,6 +1061,8 @@
     <ClCompile Include="src\src\burner\libretro\libretro-common\file\file_path.c" />
     <ClCompile Include="src\src\burner\libretro\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\src\burner\libretro\libretro-common\compat\compat_posix_string.c" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\compat\fopen_utf8.c" />
+    <ClCompile Include="src\src\burner\libretro\libretro-common\vfs\vfs_implementation.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\src\cpu\a68k\mips\a68ktbl.inc" />

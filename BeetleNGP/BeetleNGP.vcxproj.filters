@@ -73,6 +73,7 @@
     <ClInclude Include="src\libretro-common\include\vfs\vfs_implementation.h" />
     <ClInclude Include="src\libretro-common\include\libretro.h" />
     <ClInclude Include="src\libretro-common\include\retro_environment.h" />
+    <ClInclude Include="src\mednafen\file.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\ngp\biosHLE.cpp" />
@@ -115,5 +116,6 @@
     <ClCompile Include="src\libretro-common\memmap\memmap.c" />
     <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />
+    <ClCompile Include="src\mednafen\file.c" />
   </ItemGroup>
 </Project>
