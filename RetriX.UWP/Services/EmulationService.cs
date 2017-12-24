@@ -92,9 +92,9 @@ namespace RetriX.UWP.Services
                 new ViewModels.GameSystemVM(BeetlePCEFastRT.BeetlePCEFastCore.Instance, LocalizationService, "SystemNamePCEngineCD", "ManufacturerNameNEC", "\uf124", false, new HashSet<string>{ ".cue", ".ccd" }, CDImageExtensions),
                 new ViewModels.GameSystemVM(BeetlePCFXRT.BeetlePCFXCore.Instance, LocalizationService, "SystemNamePCFX", "ManufacturerNameNEC", "\uf124", false, new HashSet<string>{ ".cue", ".ccd", ".toc" }, CDImageExtensions),
                 new ViewModels.GameSystemVM(BeetleWswanRT.BeetleWswanCore.Instance, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
-                //new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
+                new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
                 new ViewModels.GameSystemVM(BeetleNGPRT.BeetleNGPCore.Instance, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
-                //new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
+                new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
                 };
 
                 var allCores = systems.Select(d => d.Core).Distinct().ToArray();
