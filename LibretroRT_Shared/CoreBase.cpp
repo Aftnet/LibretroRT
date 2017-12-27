@@ -370,15 +370,15 @@ int64_t CoreBase::VFSRead(struct retro_vfs_file_handle* stream, void* s, uint64_
 	auto remaining = winStream->Size - winStream->Position;
 	auto output = min(len, remaining);
 
-	auto buffer = LibretroRT_Shared::CreateNativeBuffer(s, len);
-	concurrency::create_task(winStream->ReadAsync(buffer, output, InputStreamOptions::None)).get();
+	auto buffer = LibretroRT_Shared::CreateNativeBuffer(s, (size_t)len);
+	concurrency::create_task(winStream->ReadAsync(buffer, (unsigned int)output, InputStreamOptions::None)).get();
 
 	return output;
 }
 
 int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void* s, uint64_t len)
 {
-	auto dataArray = Platform::ArrayReference<unsigned char>((unsigned char*)s, len);
+	auto dataArray = Platform::ArrayReference<unsigned char>((unsigned char*)s, (unsigned int)len);
 	auto writer = ref new DataWriter(stream->Stream);
 
 	writer->WriteBytes(dataArray);
@@ -430,7 +430,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 		if (!coreRequiresGameFilePath)
 		{
 			auto stream = VFSOpen(gameFilePath.data(), RETRO_VFS_FILE_ACCESS_READ, RETRO_VFS_FILE_ACCESS_HINT_NONE);
-			auto size = VFSGetSize(stream);
+			auto size = (size_t)VFSGetSize(stream);
 			gameData.resize(size);
 			auto readBytes = VFSRead(stream, gameData.data(), size);
 			VFSClose(stream);
@@ -455,7 +455,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 			gameFilePath.clear();
 		}
 	}
-	catch (const std::exception& e)
+	catch (...)
 	{
 		UnloadGameNoDeinit();
 	}

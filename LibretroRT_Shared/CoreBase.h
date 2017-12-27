@@ -87,21 +87,21 @@ namespace LibretroRT_Shared
 		{
 			PixelFormats get() { return pixelFormat; }
 		private:
-			void set(PixelFormats value) { pixelFormat = value; if (PixelFormatChanged != nullptr) { PixelFormatChanged(pixelFormat); } }
+			void set(PixelFormats value) sealed { pixelFormat = value; if (PixelFormatChanged != nullptr) { PixelFormatChanged(pixelFormat); } }
 		}
 
 		virtual property GameGeometry^ Geometry
 		{
 			GameGeometry^ get() { return geometry; }
 		private:
-			void set(GameGeometry^ value) { geometry = value; if (GeometryChanged != nullptr) { GeometryChanged(geometry); } }
+			void set(GameGeometry^ value) sealed { geometry = value; if (GeometryChanged != nullptr) { GeometryChanged(geometry); } }
 		}
 
 		virtual property SystemTiming^ Timing
 		{
 			SystemTiming^ get() { return timing; }
 		private:
-			void set(SystemTiming^ value) { timing = value; if (TimingChanged != nullptr) { TimingChanged(timing); } }
+			void set(SystemTiming^ value) sealed { timing = value; if (TimingChanged != nullptr) { TimingChanged(timing); } }
 		}
 
 		virtual property unsigned int SerializationSize { unsigned int get(); }
