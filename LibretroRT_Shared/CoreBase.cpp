@@ -367,7 +367,7 @@ int64_t CoreBase::VFSSeek(struct retro_vfs_file_handle* stream, int64_t offset, 
 int64_t CoreBase::VFSRead(struct retro_vfs_file_handle* stream, void* s, uint64_t len)
 {
 	auto winStream = stream->Stream;
-	size_t remaining = winStream->Size - winStream->Position;
+	auto remaining = winStream->Size - winStream->Position;
 	auto output = min(len, remaining);
 
 	auto buffer = LibretroRT_Shared::CreateNativeBuffer(s, len);
