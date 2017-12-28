@@ -382,7 +382,8 @@ int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void* s, 
 	auto writer = ref new DataWriter(stream->Stream);
 
 	writer->WriteBytes(dataArray);
-	concurrency::create_task(stream->Stream->FlushAsync()).get();
+	concurrency::create_task(writer->StoreAsync()).wait();
+	concurrency::create_task(writer->FlushAsync()).get();
 	writer->DetachStream();
 
 	return len;
@@ -390,6 +391,13 @@ int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void* s, 
 
 int CoreBase::VFSFlush(struct retro_vfs_file_handle* stream)
 {
+	auto winStream = stream->Stream;
+	if (winStream->CanWrite)
+	{
+		auto flushResult = concurrency::create_task(stream->Stream->FlushAsync()).get();
+		return flushResult ? 0 : -1;
+	}
+	
 	return 0;
 }
 
