@@ -360,7 +360,15 @@ int64_t CoreBase::VFSSeek(struct retro_vfs_file_handle* stream, int64_t offset, 
 		offset = VFSGetSize(stream) - offset;
 	}
 
-	stream->Stream->Seek(offset);
+	try
+	{
+		stream->Stream->Seek(offset);
+	}
+	catch(...)
+	{
+		return -1;
+	}
+
 	return 0;
 }
 
