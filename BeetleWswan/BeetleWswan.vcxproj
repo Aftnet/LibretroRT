@@ -209,7 +209,6 @@
     <ClInclude Include="src\libretro-common\include\boolean.h" />
     <ClInclude Include="src\libretro-common\include\compat\apple_compat.h" />
     <ClInclude Include="src\libretro-common\include\compat\fnmatch.h" />
-    <ClInclude Include="src\libretro-common\include\compat\fopen_utf8.h" />
     <ClInclude Include="src\libretro-common\include\compat\getopt.h" />
     <ClInclude Include="src\libretro-common\include\compat\ifaddrs.h" />
     <ClInclude Include="src\libretro-common\include\compat\intrinsics.h" />
@@ -218,22 +217,16 @@
     <ClInclude Include="src\libretro-common\include\compat\posix_string.h" />
     <ClInclude Include="src\libretro-common\include\compat\strcasestr.h" />
     <ClInclude Include="src\libretro-common\include\compat\strl.h" />
-    <ClInclude Include="src\libretro-common\include\encodings\utf.h" />
     <ClInclude Include="src\libretro-common\include\libretro.h" />
-    <ClInclude Include="src\libretro-common\include\memmap.h" />
     <ClInclude Include="src\libretro-common\include\retro_common.h" />
     <ClInclude Include="src\libretro-common\include\retro_common_api.h" />
     <ClInclude Include="src\libretro-common\include\retro_environment.h" />
     <ClInclude Include="src\libretro-common\include\retro_inline.h" />
+    <ClInclude Include="src\libretro-common\include\retro_math.h" />
     <ClInclude Include="src\libretro-common\include\retro_miscellaneous.h" />
     <ClInclude Include="src\libretro-common\include\retro_stat.h" />
-    <ClInclude Include="src\libretro-common\include\streams\file_stream.h" />
-    <ClInclude Include="src\libretro-common\include\streams\file_stream_transforms.h" />
-    <ClInclude Include="src\libretro-common\include\vfs\vfs_implementation.h" />
     <ClInclude Include="src\libretro.h" />
     <ClInclude Include="src\mednafen\driver.h" />
-    <ClInclude Include="src\mednafen\file.h" />
-    <ClInclude Include="src\mednafen\general.h" />
     <ClInclude Include="src\mednafen\git.h" />
     <ClInclude Include="src\mednafen\include\blargg_common.h" />
     <ClInclude Include="src\mednafen\include\blargg_config.h" />
@@ -241,7 +234,6 @@
     <ClInclude Include="src\mednafen\include\blargg_source.h" />
     <ClInclude Include="src\mednafen\include\blip\Blip_Buffer.h" />
     <ClInclude Include="src\mednafen\masmem.h" />
-    <ClInclude Include="src\mednafen\math_ops.h" />
     <ClInclude Include="src\mednafen\mednafen-driver.h" />
     <ClInclude Include="src\mednafen\mednafen-types.h" />
     <ClInclude Include="src\mednafen\mednafen.h" />
@@ -262,20 +254,12 @@
     <ClInclude Include="src\mednafen\wswan\v30mz.h" />
     <ClInclude Include="src\mednafen\wswan\wswan-memory.h" />
     <ClInclude Include="src\mednafen\wswan\wswan.h" />
-    <ClInclude Include="src\scrc32.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
-    <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
-    <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
-    <ClCompile Include="src\libretro-common\memmap\memmap.c" />
-    <ClCompile Include="src\libretro-common\streams\file_stream.c" />
-    <ClCompile Include="src\libretro-common\streams\file_stream_transforms.c" />
-    <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
     <ClCompile Include="src\libretro.cpp" />
-    <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\mednafen\mempatcher.cpp" />
     <ClCompile Include="src\mednafen\settings.cpp" />
     <ClCompile Include="src\mednafen\sound\Blip_Buffer.cpp" />
@@ -288,7 +272,6 @@
     <ClCompile Include="src\mednafen\wswan\tcache.cpp" />
     <ClCompile Include="src\mednafen\wswan\v30mz.cpp" />
     <ClCompile Include="src\mednafen\wswan\wswan-memory.cpp" />
-    <ClCompile Include="src\scrc32.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

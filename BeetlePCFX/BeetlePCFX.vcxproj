@@ -257,10 +257,10 @@
     <ClInclude Include="src\mednafen\FileWrapper.h" />
     <ClInclude Include="src\mednafen\general.h" />
     <ClInclude Include="src\mednafen\git.h" />
-    <ClInclude Include="src\mednafen\hw_cpu\v810\fpu-new\softfloat.h" />
     <ClInclude Include="src\mednafen\hw_cpu\v810\v810_cpu.h" />
     <ClInclude Include="src\mednafen\hw_cpu\v810\v810_cpuD.h" />
     <ClInclude Include="src\mednafen\hw_cpu\v810\v810_do_am.h" />
+    <ClInclude Include="src\mednafen\hw_cpu\v810\v810_fp_ops.h" />
     <ClInclude Include="src\mednafen\hw_cpu\v810\v810_opt.h" />
     <ClInclude Include="src\mednafen\hw_sound\pce_psg\pce_psg.h" />
     <ClInclude Include="src\mednafen\hw_video\huc6270\vdc.h" />
@@ -318,6 +318,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
     <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
@@ -346,9 +347,9 @@
     <ClCompile Include="src\mednafen\FileStream.cpp" />
     <ClCompile Include="src\mednafen\FileWrapper.cpp" />
     <ClCompile Include="src\mednafen\general.cpp" />
-    <ClCompile Include="src\mednafen\hw_cpu\v810\fpu-new\softfloat.c" />
     <ClCompile Include="src\mednafen\hw_cpu\v810\v810_cpu.cpp" />
     <ClCompile Include="src\mednafen\hw_cpu\v810\v810_cpuD.cpp" />
+    <ClCompile Include="src\mednafen\hw_cpu\v810\v810_fp_ops.cpp" />
     <ClCompile Include="src\mednafen\hw_sound\pce_psg\pce_psg.cpp" />
     <ClCompile Include="src\mednafen\hw_video\huc6270\vdc_video.cpp" />
     <ClCompile Include="src\mednafen\mednafen-endian.c" />
@@ -388,11 +389,6 @@
     <ClCompile Include="src\mednafen\tremor\window.c" />
     <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
     <ClCompile Include="src\mednafen\video\surface.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\mednafen\hw_cpu\v810\v810_oploop.inc" />
-    <None Include="src\mednafen\hw_cpu\v810\v810_op_table.inc" />
-    <None Include="src\mednafen\hw_cpu\v810\v810_op_table_msvc.inc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

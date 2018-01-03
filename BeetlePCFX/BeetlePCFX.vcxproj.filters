@@ -44,7 +44,6 @@
     <ClInclude Include="src\mednafen\hw_cpu\v810\v810_opt.h" />
     <ClInclude Include="src\mednafen\hw_sound\pce_psg\pce_psg.h" />
     <ClInclude Include="src\mednafen\hw_video\huc6270\vdc.h" />
-    <ClInclude Include="src\mednafen\hw_cpu\v810\fpu-new\softfloat.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess_Image.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess_CCD.h" />
@@ -116,6 +115,7 @@
     <ClInclude Include="src\libretro-common\include\retro_dirent.h" />
     <ClInclude Include="src\libretro-common\include\retro_environment.h" />
     <ClInclude Include="src\libretro-common\include\retro_timers.h" />
+    <ClInclude Include="src\mednafen\hw_cpu\v810\v810_fp_ops.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mednafen\pcfx\input.cpp" />
@@ -132,7 +132,6 @@
     <ClCompile Include="src\mednafen\hw_cpu\v810\v810_cpuD.cpp" />
     <ClCompile Include="src\mednafen\hw_sound\pce_psg\pce_psg.cpp" />
     <ClCompile Include="src\mednafen\hw_video\huc6270\vdc_video.cpp" />
-    <ClCompile Include="src\mednafen\hw_cpu\v810\fpu-new\softfloat.c" />
     <ClCompile Include="src\libretro-common\rthreads\rthreads.c" />
     <ClCompile Include="src\mednafen\cdrom\CDAccess.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAccess_Image.cpp" />
@@ -189,10 +188,7 @@
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
     <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\mednafen\hw_cpu\v810\v810_op_table.inc" />
-    <None Include="src\mednafen\hw_cpu\v810\v810_op_table_msvc.inc" />
-    <None Include="src\mednafen\hw_cpu\v810\v810_oploop.inc" />
+    <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
+    <ClCompile Include="src\mednafen\hw_cpu\v810\v810_fp_ops.cpp" />
   </ItemGroup>
 </Project>
