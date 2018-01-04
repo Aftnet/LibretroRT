@@ -126,7 +126,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -154,7 +154,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -168,7 +168,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -182,7 +182,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -196,7 +196,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
