@@ -353,4 +353,7 @@ Restart RetriX and try again.</value>
   <data name="SystemNameNeoGeo" xml:space="preserve">
     <value>Neo Geo</value>
   </data>
+  <data name="CHDRomDescription.Text" xml:space="preserve">
+    <value>CHD compressed Rom</value>
+  </data>
 </root>
