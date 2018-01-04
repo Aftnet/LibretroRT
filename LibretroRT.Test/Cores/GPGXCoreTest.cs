@@ -7,7 +7,7 @@ namespace LibretroRT.Test.Cores
     public class GPGXCoreTest : TestBase
     {
         protected const string GenesisRomName = "GenesisGame.md";
-        protected const string MegaCDRomName = "MegaCDGame.cue";
+        protected const string MegaCDRomName = "MegaCDGame.chd";
 
         public GPGXCoreTest() : base(() => GPGXRT.GPGXCore.Instance)
         {

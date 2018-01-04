@@ -5,7 +5,7 @@ namespace LibretroRT.Test.Cores
 {
     public class BeetlePSXCoreTest : TestBase
     {
-        protected const string RomName = "PlayStationGame.cue";
+        protected const string RomName = "PlayStationGame.chd";
 
         public BeetlePSXCoreTest() : base(() => BeetlePSXRT.BeetlePSXCore.Instance)
         {

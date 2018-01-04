@@ -149,8 +149,6 @@
     <Content Include="Roms\GBAGame.gba" />
     <Content Include="Roms\GBCGame.gbc" />
     <Content Include="Roms\GenesisGame.md" />
-    <Content Include="Roms\MegaCDGame.bin" />
-    <Content Include="Roms\MegaCDGame.cue" />
     <Content Include="Roms\N64Game.n64" />
     <Content Include="Roms\NDSGame.nds" />
     <Content Include="Roms\NeoGeoPocketGame.ngc" />
@@ -160,8 +158,6 @@
     <Content Include="Roms\PCEngineGame.pce" />
     <Content Include="Roms\PCFXGame.bin" />
     <Content Include="Roms\PCFXGame.cue" />
-    <Content Include="Roms\PlayStationGame.bin" />
-    <Content Include="Roms\PlayStationGame.cue" />
     <Content Include="Roms\SaturnGame.bin" />
     <Content Include="Roms\SaturnGame.cue" />
     <Content Include="Roms\SCPH5500.bin" />
@@ -253,6 +249,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Roms\neogeo.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\MegaCDGame.chd" />
+    <Content Include="Roms\PlayStationGame.chd" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
