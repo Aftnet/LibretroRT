@@ -153,11 +153,7 @@
     <Content Include="Roms\NDSGame.nds" />
     <Content Include="Roms\NeoGeoPocketGame.ngc" />
     <Content Include="Roms\NESGame.nes" />
-    <Content Include="Roms\PCEngineCDGame.cue" />
-    <Content Include="Roms\PCEngineCDGame.iso" />
     <Content Include="Roms\PCEngineGame.pce" />
-    <Content Include="Roms\PCFXGame.bin" />
-    <Content Include="Roms\PCFXGame.cue" />
     <Content Include="Roms\SaturnGame.bin" />
     <Content Include="Roms\SaturnGame.cue" />
     <Content Include="Roms\SCPH5500.bin" />
@@ -253,6 +249,13 @@
   <ItemGroup>
     <Content Include="Roms\MegaCDGame.chd" />
     <Content Include="Roms\PlayStationGame.chd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Roms\dkong.zip" />
+    <Content Include="Roms\PCEngineCDGame.chd" />
+    <Content Include="Roms\PCFXGame.chd" />
+    <Content Include="Roms\sfiii.zip" />
+    <Content Include="Roms\xmcota.zip" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

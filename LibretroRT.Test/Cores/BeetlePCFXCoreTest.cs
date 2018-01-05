@@ -5,7 +5,7 @@ namespace LibretroRT.Test.Cores
 {
     public class BeetlePCFXCoreTest : TestBase
     {
-        protected const string RomName = "PCFXGame.cue";
+        protected const string RomName = "PCFXGame.chd";
 
         public BeetlePCFXCoreTest() : base(() => BeetlePCFXRT.BeetlePCFXCore.Instance)
         {
