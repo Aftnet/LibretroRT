@@ -125,8 +125,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;HAVE_FSEEKO;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -139,8 +139,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;HAVE_FSEEKO;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -153,8 +153,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;HAVE_FSEEKO;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -167,8 +167,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;HAVE_FSEEKO;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -181,8 +181,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;HAVE_FSEEKO;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -195,8 +195,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NOMINMAX;NEED_DEINTERLACER;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\mednafen;$(ProjectDir)src\mednafen\include;$(ProjectDir)src\mednafen\intl;$(ProjectDir)src\mednafen\hw_sound;$(ProjectDir)src\mednafen\hw_cpu;$(ProjectDir)src\mednafen\hw_misc;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NOMINMAX;WANT_32BPP;WANT_STEREO_SOUND;FRONTEND_SUPPORTS_RGB565;NEED_CD;HAVE_FSEEKO;NEED_TREMOR;WANT_PCFX_EMU;SIZEOF_DOUBLE=8;MEDNAFEN_VERSION=0.9.31;DPACKAGE=mednafen;MEDNAFEN_VERSION_NUMERIC=931;PSS_STYLE=1;MPC_FIXED_POINT;STDC_HEADERS;__STDC_LIMIT_MACROS;__LIBRETRO__;_LOW_ACCURACY_;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;HAVE_FSEEKO;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/wd 4996 /wd 4146</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -206,6 +206,58 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\deps\crypto\sha1.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\all.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\bitmath.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\bitreader.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\bitwriter.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\cpu.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\crc.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\fixed.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\float.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\format.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\lpc.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\macros.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\md5.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\memory.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\metadata.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\ogg_decoder_aspect.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\ogg_encoder_aspect.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\ogg_helper.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\ogg_mapping.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\stream_encoder.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\stream_encoder_framing.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\private\window.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\protected\all.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\protected\stream_decoder.h" />
+    <ClInclude Include="src\deps\flac-1.3.2\src\libFLAC\include\protected\stream_encoder.h" />
+    <ClInclude Include="src\deps\libchdr\bitstream.h" />
+    <ClInclude Include="src\deps\libchdr\cdrom.h" />
+    <ClInclude Include="src\deps\libchdr\chd.h" />
+    <ClInclude Include="src\deps\libchdr\coretypes.h" />
+    <ClInclude Include="src\deps\libchdr\flac.h" />
+    <ClInclude Include="src\deps\libchdr\huffman.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\Alloc.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\Bra.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\CpuArch.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\Delta.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\LzFind.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\Lzma86.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\LzmaDec.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\LzmaEnc.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\LzmaLib.h" />
+    <ClInclude Include="src\deps\lzma-16.04\C\Sort.h" />
+    <ClInclude Include="src\deps\zlib\crc32.h" />
+    <ClInclude Include="src\deps\zlib\deflate.h" />
+    <ClInclude Include="src\deps\zlib\gzguts.h" />
+    <ClInclude Include="src\deps\zlib\inffast.h" />
+    <ClInclude Include="src\deps\zlib\inffixed.h" />
+    <ClInclude Include="src\deps\zlib\inflate.h" />
+    <ClInclude Include="src\deps\zlib\inftrees.h" />
+    <ClInclude Include="src\deps\zlib\trees.h" />
+    <ClInclude Include="src\deps\zlib\zconf.h" />
+    <ClInclude Include="src\deps\zlib\zlib.h" />
+    <ClInclude Include="src\deps\zlib\zutil.h" />
     <ClInclude Include="src\libretro-common\include\boolean.h" />
     <ClInclude Include="src\libretro-common\include\compat\apple_compat.h" />
     <ClInclude Include="src\libretro-common\include\compat\fnmatch.h" />
@@ -239,6 +291,7 @@
     <ClInclude Include="src\libretro.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess_CCD.h" />
+    <ClInclude Include="src\mednafen\cdrom\CDAccess_CHD.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess_Image.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAFReader.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAFReader_Vorbis.h" />
@@ -257,10 +310,10 @@
     <ClInclude Include="src\mednafen\FileWrapper.h" />
     <ClInclude Include="src\mednafen\general.h" />
     <ClInclude Include="src\mednafen\git.h" />
-    <ClInclude Include="src\mednafen\hw_cpu\v810\fpu-new\softfloat.h" />
     <ClInclude Include="src\mednafen\hw_cpu\v810\v810_cpu.h" />
     <ClInclude Include="src\mednafen\hw_cpu\v810\v810_cpuD.h" />
     <ClInclude Include="src\mednafen\hw_cpu\v810\v810_do_am.h" />
+    <ClInclude Include="src\mednafen\hw_cpu\v810\v810_fp_ops.h" />
     <ClInclude Include="src\mednafen\hw_cpu\v810\v810_opt.h" />
     <ClInclude Include="src\mednafen\hw_sound\pce_psg\pce_psg.h" />
     <ClInclude Include="src\mednafen\hw_video\huc6270\vdc.h" />
@@ -317,7 +370,70 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\deps\crypto\sha1.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\bitmath.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\bitreader.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\cpu.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\crc.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\fixed.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\fixed_intrin_sse2.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\fixed_intrin_ssse3.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\float.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\format.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\lpc.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\lpc_intrin_avx2.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\lpc_intrin_sse.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\lpc_intrin_sse2.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\lpc_intrin_sse41.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\md5.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\memory.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\metadata_iterators.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\metadata_object.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\stream_decoder.c" />
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\window.c">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">flac_window</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">flac_window</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">flac_window</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">flac_window</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">flac_window</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">flac_window</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\windows_unicode_filenames.c" />
+    <ClCompile Include="src\deps\libchdr\bitstream.c" />
+    <ClCompile Include="src\deps\libchdr\cdrom.c" />
+    <ClCompile Include="src\deps\libchdr\chd.c" />
+    <ClCompile Include="src\deps\libchdr\flac.c" />
+    <ClCompile Include="src\deps\libchdr\huffman.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\Alloc.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\Bra.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\Bra86.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\BraIA64.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\CpuArch.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\Delta.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\LzFind.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\Lzma86Dec.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\Lzma86Enc.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\LzmaDec.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\LzmaEnc.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\LzmaLib.c" />
+    <ClCompile Include="src\deps\lzma-16.04\C\Sort.c" />
+    <ClCompile Include="src\deps\zlib\adler32.c" />
+    <ClCompile Include="src\deps\zlib\compress.c" />
+    <ClCompile Include="src\deps\zlib\crc32.c" />
+    <ClCompile Include="src\deps\zlib\deflate.c" />
+    <ClCompile Include="src\deps\zlib\gzclose.c" />
+    <ClCompile Include="src\deps\zlib\gzlib.c" />
+    <ClCompile Include="src\deps\zlib\gzread.c" />
+    <ClCompile Include="src\deps\zlib\gzwrite.c" />
+    <ClCompile Include="src\deps\zlib\infback.c" />
+    <ClCompile Include="src\deps\zlib\inffast.c" />
+    <ClCompile Include="src\deps\zlib\inflate.c" />
+    <ClCompile Include="src\deps\zlib\inftrees.c" />
+    <ClCompile Include="src\deps\zlib\trees.c" />
+    <ClCompile Include="src\deps\zlib\uncompr.c" />
+    <ClCompile Include="src\deps\zlib\zutil.c" />
     <ClCompile Include="src\libretro-common\compat\compat_posix_string.c" />
+    <ClCompile Include="src\libretro-common\compat\compat_snprintf.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
     <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
@@ -330,6 +446,7 @@
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAccess.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAccess_CCD.cpp" />
+    <ClCompile Include="src\mednafen\cdrom\CDAccess_CHD.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAccess_Image.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAFReader.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAFReader_Vorbis.cpp" />
@@ -346,9 +463,9 @@
     <ClCompile Include="src\mednafen\FileStream.cpp" />
     <ClCompile Include="src\mednafen\FileWrapper.cpp" />
     <ClCompile Include="src\mednafen\general.cpp" />
-    <ClCompile Include="src\mednafen\hw_cpu\v810\fpu-new\softfloat.c" />
     <ClCompile Include="src\mednafen\hw_cpu\v810\v810_cpu.cpp" />
     <ClCompile Include="src\mednafen\hw_cpu\v810\v810_cpuD.cpp" />
+    <ClCompile Include="src\mednafen\hw_cpu\v810\v810_fp_ops.cpp" />
     <ClCompile Include="src\mednafen\hw_sound\pce_psg\pce_psg.cpp" />
     <ClCompile Include="src\mednafen\hw_video\huc6270\vdc_video.cpp" />
     <ClCompile Include="src\mednafen\mednafen-endian.c" />
@@ -388,11 +505,6 @@
     <ClCompile Include="src\mednafen\tremor\window.c" />
     <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
     <ClCompile Include="src\mednafen\video\surface.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\mednafen\hw_cpu\v810\v810_oploop.inc" />
-    <None Include="src\mednafen\hw_cpu\v810\v810_op_table.inc" />
-    <None Include="src\mednafen\hw_cpu\v810\v810_op_table_msvc.inc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

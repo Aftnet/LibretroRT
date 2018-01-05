@@ -12,14 +12,14 @@ namespace LibretroRT.Test.Cores
 //        }
 
 //        [Theory]
-//        [InlineData(RomName)]
+//        [MemberData(nameof(RomNames))]
 //        public override Task LoadingRomWorks(string romName)
 //        {
 //            return LoadingRomWorksInternal(romName);
 //        }
 
 //        [Theory]
-//        [InlineData(RomName)]
+//        [MemberData(nameof(RomNames))]
 //        public override Task ExecutionWorks(string romName)
 //        {
 //            return ExecutionWorksInternal(romName);

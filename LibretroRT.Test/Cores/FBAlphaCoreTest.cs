@@ -1,28 +1,33 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace LibretroRT.Test.Cores
 {
     public class FBAlphaCoreTest : TestBase
     {
-        protected const string CPS1RomName = "3wondersu.zip";
-        protected const string NeoGeoRomName = "mslug.zip";
+        public static IEnumerable<object[]> RomNames => new List<object[]>
+        {
+            new object[] { "mslug.zip" },
+            new object[] { "dkong.zip" },
+            new object[] { "3wondersu.zip" },
+            new object[] { "xmcota.zip" },
+            new object[] { "sfiii.zip" }
+        };
 
         public FBAlphaCoreTest() : base(() => FBAlphaRT.FBAlphaCore.Instance)
         {
         }
 
         [Theory]
-        [InlineData(CPS1RomName)]
-        [InlineData(NeoGeoRomName)]
+        [MemberData(nameof(RomNames))]
         public override Task LoadingRomWorks(string romName)
         {
             return LoadingRomWorksInternal(romName);
         }
 
         [Theory]
-        [InlineData(CPS1RomName)]
-        [InlineData(NeoGeoRomName)]
+        [MemberData(nameof(RomNames))]
         public override Task ExecutionWorks(string romName)
         {
             return ExecutionWorksInternal(romName);

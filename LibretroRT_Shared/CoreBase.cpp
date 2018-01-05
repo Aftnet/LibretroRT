@@ -360,29 +360,38 @@ int64_t CoreBase::VFSSeek(struct retro_vfs_file_handle* stream, int64_t offset, 
 		offset = VFSGetSize(stream) - offset;
 	}
 
-	stream->Stream->Seek(offset);
+	try
+	{
+		stream->Stream->Seek(offset);
+	}
+	catch(...)
+	{
+		return -1;
+	}
+
 	return 0;
 }
 
 int64_t CoreBase::VFSRead(struct retro_vfs_file_handle* stream, void* s, uint64_t len)
 {
 	auto winStream = stream->Stream;
-	size_t remaining = winStream->Size - winStream->Position;
+	auto remaining = winStream->Size - winStream->Position;
 	auto output = min(len, remaining);
 
-	auto buffer = LibretroRT_Shared::CreateNativeBuffer(s, len);
-	concurrency::create_task(winStream->ReadAsync(buffer, output, InputStreamOptions::None)).get();
+	auto buffer = LibretroRT_Shared::CreateNativeBuffer(s, (size_t)len);
+	concurrency::create_task(winStream->ReadAsync(buffer, (unsigned int)output, InputStreamOptions::None)).get();
 
 	return output;
 }
 
 int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void* s, uint64_t len)
 {
-	auto dataArray = Platform::ArrayReference<unsigned char>((unsigned char*)s, len);
+	auto dataArray = Platform::ArrayReference<unsigned char>((unsigned char*)s, (unsigned int)len);
 	auto writer = ref new DataWriter(stream->Stream);
 
 	writer->WriteBytes(dataArray);
-	concurrency::create_task(stream->Stream->FlushAsync()).get();
+	concurrency::create_task(writer->StoreAsync()).wait();
+	concurrency::create_task(writer->FlushAsync()).get();
 	writer->DetachStream();
 
 	return len;
@@ -390,6 +399,13 @@ int64_t CoreBase::VFSWrite(struct retro_vfs_file_handle* stream, const void* s, 
 
 int CoreBase::VFSFlush(struct retro_vfs_file_handle* stream)
 {
+	auto winStream = stream->Stream;
+	if (winStream->CanWrite)
+	{
+		auto flushResult = concurrency::create_task(stream->Stream->FlushAsync()).get();
+		return flushResult ? 0 : -1;
+	}
+	
 	return 0;
 }
 
@@ -430,7 +446,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 		if (!coreRequiresGameFilePath)
 		{
 			auto stream = VFSOpen(gameFilePath.data(), RETRO_VFS_FILE_ACCESS_READ, RETRO_VFS_FILE_ACCESS_HINT_NONE);
-			auto size = VFSGetSize(stream);
+			auto size = (size_t)VFSGetSize(stream);
 			gameData.resize(size);
 			auto readBytes = VFSRead(stream, gameData.data(), size);
 			VFSClose(stream);
@@ -455,7 +471,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 			gameFilePath.clear();
 		}
 	}
-	catch (const std::exception& e)
+	catch (...)
 	{
 		UnloadGameNoDeinit();
 	}
