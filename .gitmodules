@@ -48,7 +48,7 @@
 	branch = master
 [submodule "BeetlePCEFast/src"]
 	path = BeetlePCEFast/src
-	url = https://github.com/libretro/beetle-pce-fast-libretro.git
+	url = https://github.com/Aftnet/beetle-pce-fast-libretro.git
 	branch = master
 [submodule "BeetleSaturn/src"]
 	path = BeetleSaturn/src
