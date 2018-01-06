@@ -24,6 +24,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 		void InitializeVideoParameters(ICore^ core);
 		virtual void GeometryChanged(GameGeometry^ geometry);
 		virtual void PixelFormatChanged(PixelFormats format);
+		virtual void TimingChanged(SystemTiming^ timings);
 
 		virtual void RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch);
 		void CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args);

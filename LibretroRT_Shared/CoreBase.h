@@ -87,32 +87,32 @@ namespace LibretroRT_Shared
 		{
 			PixelFormats get() { return pixelFormat; }
 		private:
-			void set(PixelFormats value) sealed { pixelFormat = value; if (PixelFormatChanged != nullptr) { PixelFormatChanged(pixelFormat); } }
+			void set(PixelFormats value) sealed { pixelFormat = value; PixelFormatChanged(pixelFormat); }
 		}
 
 		virtual property GameGeometry^ Geometry
 		{
 			GameGeometry^ get() { return geometry; }
 		private:
-			void set(GameGeometry^ value) sealed { geometry = value; if (GeometryChanged != nullptr) { GeometryChanged(geometry); } }
+			void set(GameGeometry^ value) sealed { geometry = value; GeometryChanged(geometry); }
 		}
 
 		virtual property SystemTiming^ Timing
 		{
 			SystemTiming^ get() { return timing; }
 		private:
-			void set(SystemTiming^ value) sealed { timing = value; if (TimingChanged != nullptr) { TimingChanged(timing); } }
+			void set(SystemTiming^ value) sealed { timing = value; TimingChanged(timing); }
 		}
 
 		virtual property unsigned int SerializationSize { unsigned int get(); }
 
-		virtual property RenderVideoFrameDelegate^ RenderVideoFrame;
-		virtual property RenderAudioFramesDelegate^ RenderAudioFrames;
+		virtual event RenderVideoFrameDelegate^ RenderVideoFrame;
+		virtual event RenderAudioFramesDelegate^ RenderAudioFrames;
 		virtual property PollInputDelegate^ PollInput;
 		virtual property GetInputStateDelegate^ GetInputState;
-		virtual property GeometryChangedDelegate^ GeometryChanged;
-		virtual property TimingChangedDelegate^ TimingChanged;
-		virtual property PixelFormatChangedDelegate^ PixelFormatChanged;
+		virtual event GeometryChangedDelegate^ GeometryChanged;
+		virtual event TimingChangedDelegate^ TimingChanged;
+		virtual event PixelFormatChangedDelegate^ PixelFormatChanged;
 		virtual property OpenFileStreamDelegate^ OpenFileStream;
 		virtual property CloseFileStreamDelegate^ CloseFileStream;
 

@@ -274,9 +274,6 @@ int16_t CoreBase::RaiseGetInputState(unsigned port, unsigned device, unsigned in
 
 size_t CoreBase::RaiseRenderAudioFrames(const int16_t* data, size_t frames)
 {
-	if (RenderAudioFrames == nullptr)
-		return 0;
-
 	auto dataPtr = const_cast<int16_t*>(data);
 	auto dataArray = Platform::ArrayReference<int16_t>(dataPtr, frames * 2);
 	RenderAudioFrames(dataArray);
@@ -285,9 +282,6 @@ size_t CoreBase::RaiseRenderAudioFrames(const int16_t* data, size_t frames)
 
 void CoreBase::RaiseRenderVideoFrame(const void* data, unsigned width, unsigned height, size_t pitch)
 {
-	if (RenderVideoFrame == nullptr)
-		return;
-
 	//Duped frame
 	if (data == nullptr)
 	{
