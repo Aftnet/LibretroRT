@@ -25,6 +25,7 @@ void Renderer::InitializeVideoParameters(ICore^ core)
 {
 	GeometryChanged(core->Geometry);
 	PixelFormatChanged(core->PixelFormat);
+	TimingChanged(core->Timing);
 }
 
 void Renderer::GeometryChanged(GameGeometry^ geometry)
@@ -57,6 +58,12 @@ void Renderer::GeometryChanged(GameGeometry^ geometry)
 void Renderer::PixelFormatChanged(PixelFormats format)
 {
 	PixelFormat = format;
+}
+
+void Renderer::TimingChanged(SystemTiming^ timings)
+{
+	TimeSpan newTargetDuration = { 10000000.0 / timings->FPS };
+	Canvas->TargetElapsedTime = newTargetDuration;
 }
 
 void Renderer::RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch)

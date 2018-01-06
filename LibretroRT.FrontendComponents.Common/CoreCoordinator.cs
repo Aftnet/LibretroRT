@@ -78,12 +78,19 @@ namespace LibretroRT.FrontendComponents.Common
             if (Core == null)
                 return;
 
-            Core.GeometryChanged = null;
-            Core.PixelFormatChanged = null;
-            Core.RenderVideoFrame = null;
+            if (Renderer != null)
+            {
+                Core.GeometryChanged -= Renderer.GeometryChanged;
+                Core.PixelFormatChanged -= Renderer.PixelFormatChanged;
+                Core.RenderVideoFrame -= Renderer.RenderVideoFrame;
+                Core.TimingChanged -= Renderer.TimingChanged;
+            }
 
-            Core.TimingChanged = null;
-            Core.RenderAudioFrames = null;
+            if (AudioPlayer != null)
+            {
+                Core.TimingChanged -= AudioPlayer.TimingChanged;
+                Core.RenderAudioFrames -= AudioPlayer.RenderAudioFrames;
+            }
 
             Core.PollInput = null;
             Core.GetInputState = null;
@@ -96,15 +103,16 @@ namespace LibretroRT.FrontendComponents.Common
 
             if (Renderer != null)
             {
-                Core.GeometryChanged = Renderer.GeometryChanged;
-                Core.PixelFormatChanged = Renderer.PixelFormatChanged;
-                Core.RenderVideoFrame = Renderer.RenderVideoFrame;
+                Core.GeometryChanged += Renderer.GeometryChanged;
+                Core.PixelFormatChanged += Renderer.PixelFormatChanged;
+                Core.RenderVideoFrame += Renderer.RenderVideoFrame;
+                Core.TimingChanged += Renderer.TimingChanged;
             }
 
             if (AudioPlayer != null)
             {
-                Core.TimingChanged = AudioPlayer.TimingChanged;
-                Core.RenderAudioFrames = AudioPlayer.RenderAudioFrames;
+                Core.TimingChanged += AudioPlayer.TimingChanged;
+                Core.RenderAudioFrames += AudioPlayer.RenderAudioFrames;
             }
 
             if (InputManager != null)

@@ -56,13 +56,13 @@ namespace LibretroRT
 		bool Serialize(WriteOnlyArray<uint8>^ stateData);
 		bool Unserialize(const Array<uint8>^ stateData);
 
-		property RenderVideoFrameDelegate^ RenderVideoFrame;
-		property RenderAudioFramesDelegate^ RenderAudioFrames;
+		event RenderVideoFrameDelegate^ RenderVideoFrame;
+		event RenderAudioFramesDelegate^ RenderAudioFrames;
 		property PollInputDelegate^ PollInput;
 		property GetInputStateDelegate^ GetInputState;
-		property GeometryChangedDelegate^ GeometryChanged;
-		property TimingChangedDelegate^ TimingChanged;
-		property PixelFormatChangedDelegate^ PixelFormatChanged;
+		event GeometryChangedDelegate^ GeometryChanged;
+		event TimingChangedDelegate^ TimingChanged;
+		event PixelFormatChangedDelegate^ PixelFormatChanged;
 		property OpenFileStreamDelegate^ OpenFileStream;
 		property CloseFileStreamDelegate^ CloseFileStream;
 	};
