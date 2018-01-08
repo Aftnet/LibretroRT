@@ -20,6 +20,8 @@ namespace RetriX.UWP.Services
 {
     public class EmulationService : IEmulationService
     {
+        private static readonly Type GamePlayerPageType = typeof(GamePlayerPage);
+
         private const char CoreExtensionDelimiter = '|';
         private static readonly IReadOnlyDictionary<InjectedInputTypes, InputTypes> InjectedInputMapping = new Dictionary<InjectedInputTypes, InputTypes>
         {
@@ -59,6 +61,7 @@ namespace RetriX.UWP.Services
 
         public event CoresInitializedDelegate CoresInitialized;
         public event GameStartedDelegate GameStarted;
+        public event GameStoppedDelegate GameStopped;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
         public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IInputManager inputManager)
@@ -104,11 +107,11 @@ namespace RetriX.UWP.Services
             }).ContinueWith(d =>
             {
                 InitializationComplete = true;
-                PlatformService.RunOnUIThreadAsync(() => CoresInitialized(this));
+                PlatformService.RunOnUIThreadAsync(() => CoresInitialized?.Invoke(this));
             });
         }
 
-        public async Task<Shared.ViewModels.GameSystemVM> SuggestSystemForFileAsync(IFileInfo file)
+        public async Task<IEnumerable<GameSystemVM>> FilterSystemsForFileAsync(IFileInfo file)
         {
             while (!InitializationComplete)
             {
@@ -116,7 +119,7 @@ namespace RetriX.UWP.Services
             }
 
             var extension = Path.GetExtension(file.Name);
-            return Systems.FirstOrDefault(d => d.SupportedExtensions.Contains(extension));
+            return Systems.Where(d => d.SupportedExtensions.Contains(extension));
         }
 
         public async Task<bool> StartGameAsync(Shared.ViewModels.GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder = null)
@@ -125,7 +128,7 @@ namespace RetriX.UWP.Services
 
             if (CoreRunner == null)
             {
-                RootFrame.Navigate(typeof(GamePlayerPage));
+                RootFrame.Navigate(GamePlayerPageType);
             }
             else
             {
@@ -176,7 +179,7 @@ namespace RetriX.UWP.Services
 
             if (loadSuccessful)
             {
-                GameStarted(this);
+                GameStarted?.Invoke(this);
             }
             else
             {
@@ -194,10 +197,13 @@ namespace RetriX.UWP.Services
 
         public async Task StopGameAsync()
         {
-            await CoreRunner?.UnloadGameAsync();
-            StreamProvider?.Dispose();
-            StreamProvider = null;
-            RootFrame.GoBack();
+            if (CoreRunner != null)
+            {
+                await CoreRunner.UnloadGameAsync();
+            }
+
+            CleanupAndGoBack();
+            GameStopped?.Invoke(this);
         }
 
         public Task PauseGameAsync()
@@ -253,10 +259,8 @@ namespace RetriX.UWP.Services
         {
             var task = PlatformService.RunOnUIThreadAsync(() =>
             {
-                StreamProvider?.Dispose();
-                StreamProvider = null;
-                RootFrame.GoBack();
-                GameRuntimeExceptionOccurred(this, e);
+                CleanupAndGoBack();
+                GameRuntimeExceptionOccurred?.Invoke(this, e);
             });
         }
 
@@ -292,6 +296,19 @@ namespace RetriX.UWP.Services
             var saveProvider = new FolderStreamProvider(VFS.SavePath, new Plugin.FileSystem.DirectoryInfo((StorageFolder)system.Core.SaveGameFolder));
             var combinedProvider = new CombinedStreamProvider(new HashSet<IStreamProvider> { romProvider, systemProvider, saveProvider });
             provider = combinedProvider;
+        }
+
+        private void CleanupAndGoBack()
+        {
+            StreamProvider?.Dispose();
+            StreamProvider = null;
+
+            if (RootFrame.CurrentSourcePageType == GamePlayerPageType)
+            {
+                RootFrame.GoBack();
+            }
+
+            PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Visible);
         }
     }
 }

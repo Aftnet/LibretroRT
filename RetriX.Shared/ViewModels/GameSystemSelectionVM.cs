@@ -31,7 +31,15 @@ namespace RetriX.Shared.ViewModels
         private readonly IPlatformService PlatformService;
         private readonly IEmulationService EmulationService;
 
-        public IReadOnlyList<GameSystemVM> GameSystems => EmulationService.Systems;
+        private IFileInfo SelectedGameFile;
+
+        private IReadOnlyList<GameSystemVM> gameSystems;
+        public IReadOnlyList<GameSystemVM> GameSystems
+        {
+            get { return gameSystems; }
+            private set { Set(ref gameSystems, value); }
+        }
+
         public RelayCommand<GameSystemVM> GameSystemSelectedCommand { get; private set; }
 
         public GameSystemSelectionVM(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, IEmulationService emulationService)
@@ -46,29 +54,48 @@ namespace RetriX.Shared.ViewModels
 
             EmulationService.CoresInitialized += OnCoresInitialized;
             EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
+            EmulationService.GameStopped += d => { ResetSystemsSelection(); };
+
+            ResetSystemsSelection();
         }
 
         public async void GameSystemSelected(GameSystemVM system)
         {
-            var extensions = system.SupportedExtensions.Concat(EmulationService.ArchiveExtensions).ToArray();
-            var file = await FileSystem.PickFileAsync(extensions);
-            if (file == null)
+            if (SelectedGameFile == null)
+            {
+                var extensions = system.SupportedExtensions.Concat(EmulationService.ArchiveExtensions).ToArray();
+                SelectedGameFile = await FileSystem.PickFileAsync(extensions);
+            }
+            if (SelectedGameFile == null)
             {
                 return;
             }
 
-            await StartGameAsync(system, file);
+            await StartGameAsync(system, SelectedGameFile);
         }
 
         public async Task StartGameFromFileAsync(IFileInfo file)
         {
-            var system = await EmulationService.SuggestSystemForFileAsync(file);
-            if (system == null)
+            //Find compatible systems for file extension
+            var compatibleSystems = await EmulationService.FilterSystemsForFileAsync(file);
+
+            //If none, do nothing
+            if (!compatibleSystems.Any())
             {
                 return;
             }
 
-            await StartGameAsync(system, file);
+            //If just one, start game with it
+            if (compatibleSystems.Count() == 1)
+            {
+                await StartGameAsync(compatibleSystems.First(), file);
+                return;
+            }
+
+            //If multiple ones, filter system selection accordingly and have user select a system
+            await EmulationService.StopGameAsync();
+            GameSystems = compatibleSystems.ToArray();
+            SelectedGameFile = file;
         }
 
         private async Task StartGameAsync(GameSystemVM system, IFileInfo file)
@@ -76,6 +103,7 @@ namespace RetriX.Shared.ViewModels
             var dependenciesMet = await system.CheckDependenciesMetAsync();
             if (!dependenciesMet)
             {
+                ResetSystemsSelection();
                 await DisplayNotification(SystemUnmetDependenciesAlertTitleKey, SystemUnmetDependenciesAlertMessageKey);
                 return;
             }
@@ -88,11 +116,13 @@ namespace RetriX.Shared.ViewModels
                 folder = await FileSystem.PickDirectoryAsync();
                 if (folder == null)
                 {
+                    ResetSystemsSelection();
                     return;
                 }
 
                 if (!Path.GetDirectoryName(file.FullName).StartsWith(folder.FullName))
                 {
+                    ResetSystemsSelection();
                     await DisplayNotification(SelectFolderInvalidAlertTitleKey, SelectFolderInvalidAlertMessageKey);
                     return;
                 }
@@ -101,18 +131,27 @@ namespace RetriX.Shared.ViewModels
             var startSuccess = await EmulationService.StartGameAsync(system, file, folder);
             if (!startSuccess)
             {
+                ResetSystemsSelection();
                 await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
             }
         }
 
         private void OnCoresInitialized(IEmulationService sender)
         {
-            RaisePropertyChanged(nameof(GameSystems));
+            GameSystems = EmulationService.Systems;
         }
 
         private void OnGameRuntimeExceptionOccurred(IEmulationService sender, Exception e)
         {
+            ResetSystemsSelection();
             DisplayNotification(GameRunningFailAlertTitleKey, GameRunningFailAlertMessageKey);
+        }
+
+        private void ResetSystemsSelection()
+        {
+            //Reset systems selection
+            GameSystems = EmulationService.Systems;
+            SelectedGameFile = null;
         }
 
         private Task DisplayNotification(string titleKey, string messageKey)
