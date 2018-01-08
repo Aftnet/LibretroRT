@@ -37,7 +37,7 @@ namespace RetriX.Shared.ViewModels
         public IReadOnlyList<GameSystemVM> GameSystems
         {
             get { return gameSystems; }
-            private set { Set(ref gameSystems); }
+            private set { Set(ref gameSystems, value); }
         }
 
         public RelayCommand<GameSystemVM> GameSystemSelectedCommand { get; private set; }
@@ -54,9 +54,9 @@ namespace RetriX.Shared.ViewModels
 
             EmulationService.CoresInitialized += OnCoresInitialized;
             EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
-            EmulationService.GameStopped += ResetSystemsSelection;
+            EmulationService.GameStopped += d => { ResetSystemsSelection(); };
 
-            ResetSystemsSelection(null);
+            ResetSystemsSelection();
         }
 
         public async void GameSystemSelected(GameSystemVM system)
@@ -76,16 +76,10 @@ namespace RetriX.Shared.ViewModels
 
         public async Task StartGameFromFileAsync(IFileInfo file)
         {
-            //When starting app from file cores may not yet be initialized. Wait
-            while (GameSystems == null)
-            {
-                await Task.Delay(100);
-            }
-
             //Find compatible systems for file extension
-            var compatibleSystems = EmulationService.Systems.Where(d => d.SupportedExtensions.Contains(Path.GetExtension(file.FullName))).ToArray();
+            var compatibleSystems = await EmulationService.FilterSystemsForFileAsync(file);
 
-            //If none, just display system selection
+            //If none, do nothing
             if (!compatibleSystems.Any())
             {
                 return;
@@ -95,10 +89,12 @@ namespace RetriX.Shared.ViewModels
             if (compatibleSystems.Count() == 1)
             {
                 await StartGameAsync(compatibleSystems.First(), file);
+                return;
             }
 
             //If multiple ones, filter system selection accordingly and have user select a system
-            GameSystems = compatibleSystems;
+            await EmulationService.StopGameAsync();
+            GameSystems = compatibleSystems.ToArray();
             SelectedGameFile = file;
         }
 
@@ -143,10 +139,11 @@ namespace RetriX.Shared.ViewModels
 
         private void OnGameRuntimeExceptionOccurred(IEmulationService sender, Exception e)
         {
+            ResetSystemsSelection();
             DisplayNotification(GameRunningFailAlertTitleKey, GameRunningFailAlertMessageKey);
         }
 
-        private void ResetSystemsSelection(IEmulationService sender)
+        private void ResetSystemsSelection()
         {
             //Reset systems selection
             GameSystems = EmulationService.Systems;
