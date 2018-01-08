@@ -356,4 +356,7 @@ Restart RetriX and try again.</value>
   <data name="CHDRomDescription.Text" xml:space="preserve">
     <value>CHD compressed Rom</value>
   </data>
+  <data name="CueFileDescription.Text" xml:space="preserve">
+    <value>Cue sheet</value>
+  </data>
 </root>
