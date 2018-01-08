@@ -59,6 +59,7 @@ namespace RetriX.UWP.Services
 
         public event CoresInitializedDelegate CoresInitialized;
         public event GameStartedDelegate GameStarted;
+        public event GameStoppedDelegate GameStopped;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
         public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IInputManager inputManager)
@@ -104,7 +105,7 @@ namespace RetriX.UWP.Services
             }).ContinueWith(d =>
             {
                 InitializationComplete = true;
-                PlatformService.RunOnUIThreadAsync(() => CoresInitialized(this));
+                PlatformService.RunOnUIThreadAsync(() => CoresInitialized?.Invoke(this));
             });
         }
 
@@ -176,7 +177,7 @@ namespace RetriX.UWP.Services
 
             if (loadSuccessful)
             {
-                GameStarted(this);
+                GameStarted?.Invoke(this);
             }
             else
             {
@@ -197,6 +198,7 @@ namespace RetriX.UWP.Services
             await CoreRunner?.UnloadGameAsync();
             StreamProvider?.Dispose();
             StreamProvider = null;
+            GameStopped?.Invoke(this);
             RootFrame.GoBack();
         }
 
@@ -256,7 +258,7 @@ namespace RetriX.UWP.Services
                 StreamProvider?.Dispose();
                 StreamProvider = null;
                 RootFrame.GoBack();
-                GameRuntimeExceptionOccurred(this, e);
+                GameRuntimeExceptionOccurred?.Invoke(this, e);
             });
         }
 
