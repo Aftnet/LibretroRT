@@ -103,6 +103,7 @@ namespace RetriX.Shared.ViewModels
             var dependenciesMet = await system.CheckDependenciesMetAsync();
             if (!dependenciesMet)
             {
+                ResetSystemsSelection();
                 await DisplayNotification(SystemUnmetDependenciesAlertTitleKey, SystemUnmetDependenciesAlertMessageKey);
                 return;
             }
@@ -115,11 +116,13 @@ namespace RetriX.Shared.ViewModels
                 folder = await FileSystem.PickDirectoryAsync();
                 if (folder == null)
                 {
+                    ResetSystemsSelection();
                     return;
                 }
 
                 if (!Path.GetDirectoryName(file.FullName).StartsWith(folder.FullName))
                 {
+                    ResetSystemsSelection();
                     await DisplayNotification(SelectFolderInvalidAlertTitleKey, SelectFolderInvalidAlertMessageKey);
                     return;
                 }
@@ -128,6 +131,7 @@ namespace RetriX.Shared.ViewModels
             var startSuccess = await EmulationService.StartGameAsync(system, file, folder);
             if (!startSuccess)
             {
+                ResetSystemsSelection();
                 await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
             }
         }

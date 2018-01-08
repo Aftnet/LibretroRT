@@ -197,7 +197,11 @@ namespace RetriX.UWP.Services
 
         public async Task StopGameAsync()
         {
-            await CoreRunner?.UnloadGameAsync();
+            if (CoreRunner != null)
+            {
+                await CoreRunner.UnloadGameAsync();
+            }
+
             CleanupAndGoBack();
             GameStopped?.Invoke(this);
         }
