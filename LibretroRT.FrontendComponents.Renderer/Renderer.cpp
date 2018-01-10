@@ -5,6 +5,7 @@
 using namespace LibretroRT_FrontendComponents_Renderer;
 
 using namespace Windows::Graphics::DirectX::Direct3D11;
+using namespace Windows::Foundation::Numerics;
 
 Renderer::Renderer(CanvasAnimatedControl^ canvas) :
 	Canvas(canvas),
@@ -149,9 +150,26 @@ void Renderer::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEven
 		return;
 	}
 
-	critical_section::scoped_lock lock(RenderTargetCriticalSection);
+	static const float piValue = 3.14159265358979323846f;
+	auto rotAngle = 0.0f;
+	switch (Rotation)
+	{
+	case Rotations::CCW90:
+		rotAngle = -0.5f * piValue;
+		break;
+	case Rotations::CCW180:
+		rotAngle = -piValue;
+		break;
+	case Rotations::CCW270:
+		rotAngle = -1.5f * piValue;
+		break;
+	}
 
+	auto rotMatrix = make_float3x2_rotation(rotAngle, float2(0.5f * canvasSize.Width, 0.5f * canvasSize.Height));
 	auto destinationRect = ComputeBestFittingSize(canvasSize, Geometry->AspectRatio);
+
+	critical_section::scoped_lock lock(RenderTargetCriticalSection);
+	drawingSession->Transform = rotMatrix;
 	drawingSession->DrawImage(Win2DTexture, destinationRect, RenderTargetViewport);
 }
 
