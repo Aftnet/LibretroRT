@@ -172,7 +172,7 @@ void Renderer::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEven
 	auto scaleMatrix = make_float3x2_scale(destinationSize.Width, destinationSize.Height);
 	auto rotMatrix = make_float3x2_rotation(rotAngle);
 	auto transMatrix = make_float3x2_translation(0.5f * canvasSize.Width, 0.5f * canvasSize.Height);
-	auto transformMatrix = scaleMatrix * rotMatrix * transMatrix;
+	auto transformMatrix = rotMatrix * scaleMatrix * transMatrix;
 
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 	drawingSession->Transform = transformMatrix;
