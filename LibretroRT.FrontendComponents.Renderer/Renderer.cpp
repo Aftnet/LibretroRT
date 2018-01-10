@@ -60,6 +60,11 @@ void Renderer::PixelFormatChanged(PixelFormats format)
 	PixelFormat = format;
 }
 
+void Renderer::RotationChanged(Rotations rotation)
+{
+	Rotation = rotation;
+}
+
 void Renderer::TimingChanged(SystemTiming^ timings)
 {
 	TimeSpan newTargetDuration = { 10000000.0 / timings->FPS };

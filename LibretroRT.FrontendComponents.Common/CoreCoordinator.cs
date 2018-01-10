@@ -84,6 +84,7 @@ namespace LibretroRT.FrontendComponents.Common
                 Core.PixelFormatChanged -= Renderer.PixelFormatChanged;
                 Core.RenderVideoFrame -= Renderer.RenderVideoFrame;
                 Core.TimingChanged -= Renderer.TimingChanged;
+                Core.RotationChanged -= Renderer.RotationChanged;
             }
 
             if (AudioPlayer != null)
@@ -107,6 +108,7 @@ namespace LibretroRT.FrontendComponents.Common
                 Core.PixelFormatChanged += Renderer.PixelFormatChanged;
                 Core.RenderVideoFrame += Renderer.RenderVideoFrame;
                 Core.TimingChanged += Renderer.TimingChanged;
+                Core.RotationChanged += Renderer.RotationChanged;
             }
 
             if (AudioPlayer != null)

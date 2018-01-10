@@ -234,5 +234,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         {
             RenderPanel.TargetElapsedTime = TimeSpan.FromMilliseconds(1000.0 / timings.FPS);
         }
+
+        public void RotationChanged(Rotations rotation)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

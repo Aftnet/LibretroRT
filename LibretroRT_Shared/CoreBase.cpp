@@ -463,6 +463,7 @@ bool CoreBase::LoadGame(String^ mainGameFilePath)
 
 			Geometry = Converter::CToRTGameGeometry(info.geometry);
 			Timing = Converter::CToRTSystemTiming(info.timing);
+			Rotation = Rotations::CCW0;
 
 			retro_set_controller_port_device(0, inputTypeId);
 		}
