@@ -10,6 +10,14 @@ namespace LibretroRT
 		FormatUknown,
 	};
 
+	public enum class Rotations
+	{
+		CCW0 = 0,
+		CCW90 = 1,
+		CCW180 = 2,
+		CCW270 = 3,
+	};
+
 	public enum class InputTypes
 	{
 		DeviceIdJoypadB,

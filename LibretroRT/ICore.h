@@ -21,6 +21,7 @@ namespace LibretroRT
 
 	public delegate void GeometryChangedDelegate(GameGeometry^ geometry);
 	public delegate void TimingChangedDelegate(SystemTiming^ timing);
+	public delegate void RotationChangedDelegate(Rotations rotation);
 	public delegate void PixelFormatChangedDelegate(PixelFormats format);
 
 	public delegate IRandomAccessStream^ OpenFileStreamDelegate(String^ path, FileAccessMode fileAccess);
@@ -44,7 +45,7 @@ namespace LibretroRT
 		property PixelFormats PixelFormat { PixelFormats get(); }
 		property GameGeometry^ Geometry { GameGeometry^ get(); }
 		property SystemTiming^ Timing { SystemTiming^ get(); }
-
+		property Rotations Rotation { Rotations get(); }
 		property unsigned int SerializationSize { unsigned int get(); }
 
 		bool LoadGame(String^ mainGameFilePath);
@@ -60,9 +61,10 @@ namespace LibretroRT
 		event RenderAudioFramesDelegate^ RenderAudioFrames;
 		property PollInputDelegate^ PollInput;
 		property GetInputStateDelegate^ GetInputState;
+		event PixelFormatChangedDelegate^ PixelFormatChanged;
 		event GeometryChangedDelegate^ GeometryChanged;
 		event TimingChangedDelegate^ TimingChanged;
-		event PixelFormatChangedDelegate^ PixelFormatChanged;
+		event RotationChangedDelegate^ RotationChanged;
 		property OpenFileStreamDelegate^ OpenFileStream;
 		property CloseFileStreamDelegate^ CloseFileStream;
 	};

@@ -19,6 +19,24 @@ SystemTiming^ Converter::CToRTSystemTiming(const retro_system_timing & timing)
 	return ref new SystemTiming(timing.fps, timing.sample_rate);
 }
 
+Rotations Converter::CToRTRotation(const unsigned int rotation)
+{
+	switch (rotation)
+	{
+	case 1:
+		return Rotations::CCW90;
+		break;
+	case 2:
+		return Rotations::CCW180;
+		break;
+	case 3:
+		return Rotations::CCW270;
+		break;
+	}
+
+	return Rotations::CCW0;
+}
+
 CoreOption^ Converter::RetroVariableToCoreOptionDescription(const std::string payload)
 {
 	auto description = payload.substr(0, payload.find(';'));

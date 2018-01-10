@@ -181,6 +181,12 @@ bool CoreBase::EnvironmentHandler(unsigned cmd, void *data)
 		Geometry = Converter::CToRTGameGeometry(*dataPtr);
 		return true;
 	}
+	case RETRO_ENVIRONMENT_SET_ROTATION:
+	{
+		auto dataPtr = reinterpret_cast<const unsigned int*>(data);
+		Rotation = Converter::CToRTRotation(*dataPtr);
+		return true;
+	}
 	case RETRO_ENVIRONMENT_SET_SYSTEM_AV_INFO:
 	{
 		auto dataPtr = reinterpret_cast<retro_system_av_info*>(data);
