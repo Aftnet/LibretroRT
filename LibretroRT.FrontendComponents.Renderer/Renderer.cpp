@@ -165,12 +165,15 @@ void Renderer::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEven
 		break;
 	}
 
-	auto rotMatrix = make_float3x2_rotation(rotAngle, float2(0.5f * canvasSize.Width, 0.5f * canvasSize.Height));
-	auto destinationRect = ComputeBestFittingSize(canvasSize, Geometry->AspectRatio);
+	auto destinationSize = ComputeBestFittingSize(canvasSize, Geometry->AspectRatio);
+	auto rotMatrix = make_float3x2_rotation(rotAngle);
+	auto transMatrix = make_float3x2_translation(0.5f * canvasSize.Width, 0.5f * canvasSize.Height);
+	auto transformMatrix = rotMatrix * transMatrix;
 
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
-	drawingSession->Transform = rotMatrix;
-	drawingSession->DrawImage(Win2DTexture, destinationRect, RenderTargetViewport);
+	drawingSession->Transform = transformMatrix;
+	drawingSession->DrawImage(Win2DTexture, Rect(Point(-0.5f * destinationSize.Width, -0.5f * destinationSize.Height), destinationSize), RenderTargetViewport);
+	drawingSession->Transform = float3x2::identity();
 }
 
 void Renderer::CreateRenderTargets(CanvasAnimatedControl^ canvas, unsigned int width, unsigned int height)
@@ -221,22 +224,17 @@ void Renderer::DestroyRenderTargets()
 	}
 }
 
-Rect Renderer::ComputeBestFittingSize(Size viewportSize, float aspectRatio)
+Size Renderer::ComputeBestFittingSize(Size viewportSize, float aspectRatio)
 {
 	auto candidateWidth = std::floor(viewportSize.Height * aspectRatio);
-	if (viewportSize.Width >= candidateWidth)
-	{
-		Size size(candidateWidth, viewportSize.Height);
-		Rect output(Point((viewportSize.Width - candidateWidth) / 2, 0), size);
-		return output;
-	}
-	else
+	Size size(candidateWidth, viewportSize.Height);
+	if (viewportSize.Width < candidateWidth)
 	{
 		auto height = viewportSize.Width / aspectRatio;
-		Size size(viewportSize.Width, height);
-		Rect output(Point(0, (viewportSize.Height - height) / 2), size);
-		return output;
+		size = Size(viewportSize.Width, height);
 	}
+
+	return size;
 }
 
 unsigned int Renderer::ClosestGreaterPowerTwo(unsigned int value)

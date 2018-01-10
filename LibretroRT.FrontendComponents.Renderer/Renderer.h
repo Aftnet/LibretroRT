@@ -52,7 +52,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 
 		void CreateRenderTargets(CanvasAnimatedControl^ canvas, unsigned int width, unsigned int height);
 		void DestroyRenderTargets();
-		static Rect ComputeBestFittingSize(Size viewportSize, float aspectRatio);
+		static Size ComputeBestFittingSize(Size viewportSize, float aspectRatio);
 		static unsigned int ClosestGreaterPowerTwo(unsigned int value);
 	};
 }
