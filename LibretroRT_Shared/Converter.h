@@ -15,6 +15,7 @@ namespace LibretroRT_Shared
 	public:
 		static GameGeometry^ CToRTGameGeometry(const retro_game_geometry& geometry);
 		static SystemTiming^ CToRTSystemTiming(const retro_system_timing& timing);
+		static Rotations CToRTRotation(const unsigned int rotation);
 		static CoreOption^ RetroVariableToCoreOptionDescription(const std::string payload);
 		static PixelFormats ConvertToPixelFormat(enum retro_pixel_format format);
 		static InputTypes ConvertToInputType(unsigned device, unsigned index, unsigned id);

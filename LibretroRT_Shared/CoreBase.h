@@ -31,6 +31,7 @@ namespace LibretroRT_Shared
 		PixelFormats pixelFormat;
 		GameGeometry^ geometry;
 		SystemTiming^ timing;
+		Rotations rotation;
 
 		bool coreRequiresGameFilePath;
 
@@ -104,6 +105,13 @@ namespace LibretroRT_Shared
 			void set(SystemTiming^ value) sealed { timing = value; TimingChanged(timing); }
 		}
 
+		virtual property Rotations Rotation
+		{
+			Rotations get() { return rotation; }
+		private:
+			void set(Rotations value) sealed { rotation = value; RotationChanged(rotation); }
+		}
+
 		virtual property unsigned int SerializationSize { unsigned int get(); }
 
 		virtual event RenderVideoFrameDelegate^ RenderVideoFrame;
@@ -112,6 +120,7 @@ namespace LibretroRT_Shared
 		virtual property GetInputStateDelegate^ GetInputState;
 		virtual event GeometryChangedDelegate^ GeometryChanged;
 		virtual event TimingChangedDelegate^ TimingChanged;
+		virtual event RotationChangedDelegate^ RotationChanged;
 		virtual event PixelFormatChangedDelegate^ PixelFormatChanged;
 		virtual property OpenFileStreamDelegate^ OpenFileStream;
 		virtual property CloseFileStreamDelegate^ CloseFileStream;

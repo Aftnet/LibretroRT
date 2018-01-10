@@ -25,6 +25,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 		virtual void GeometryChanged(GameGeometry^ geometry);
 		virtual void PixelFormatChanged(PixelFormats format);
 		virtual void TimingChanged(SystemTiming^ timings);
+		virtual void RotationChanged(Rotations rotation);
 
 		virtual void RenderVideoFrame(const Array<byte>^ frameBuffer, unsigned int width, unsigned int height, unsigned int pitch);
 		void CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEventArgs^ args);
@@ -36,6 +37,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 
 		GameGeometry^ Geometry = nullptr;
 		PixelFormats PixelFormat = PixelFormats::FormatUknown;
+		Rotations Rotation = Rotations::CCW0;
 
 		CanvasAnimatedControl^ const Canvas;
 		ComPtr<ID3D11Device> Direct3DDevice;
@@ -50,7 +52,7 @@ namespace LibretroRT_FrontendComponents_Renderer
 
 		void CreateRenderTargets(CanvasAnimatedControl^ canvas, unsigned int width, unsigned int height);
 		void DestroyRenderTargets();
-		static Rect ComputeBestFittingSize(Size viewportSize, float aspectRatio);
+		static Size ComputeBestFittingSize(Size viewportSize, float aspectRatio);
 		static unsigned int ClosestGreaterPowerTwo(unsigned int value);
 	};
 }

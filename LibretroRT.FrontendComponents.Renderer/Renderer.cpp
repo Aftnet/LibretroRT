@@ -5,6 +5,7 @@
 using namespace LibretroRT_FrontendComponents_Renderer;
 
 using namespace Windows::Graphics::DirectX::Direct3D11;
+using namespace Windows::Foundation::Numerics;
 
 Renderer::Renderer(CanvasAnimatedControl^ canvas) :
 	Canvas(canvas),
@@ -58,6 +59,11 @@ void Renderer::GeometryChanged(GameGeometry^ geometry)
 void Renderer::PixelFormatChanged(PixelFormats format)
 {
 	PixelFormat = format;
+}
+
+void Renderer::RotationChanged(Rotations rotation)
+{
+	Rotation = rotation;
 }
 
 void Renderer::TimingChanged(SystemTiming^ timings)
@@ -138,16 +144,40 @@ void Renderer::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEven
 {
 	auto drawingSession = args->DrawingSession;
 	auto canvasSize = sender->Size;
+	auto aspectRatio = Geometry->AspectRatio;
 
 	if (Win2DTexture == nullptr || RenderTargetViewport.Width <= 0 || RenderTargetViewport.Height <= 0)
 	{
 		return;
 	}
 
-	critical_section::scoped_lock lock(RenderTargetCriticalSection);
+	static const float piValue = 3.14159265358979323846f;
+	auto rotAngle = 0.0f;
+	switch (Rotation)
+	{
+	case Rotations::CCW90:
+		rotAngle = -0.5f * piValue;
+		aspectRatio = 1.0f / aspectRatio;
+		break;
+	case Rotations::CCW180:
+		rotAngle = -piValue;
+		break;
+	case Rotations::CCW270:
+		rotAngle = -1.5f * piValue;
+		aspectRatio = 1.0f / aspectRatio;
+		break;
+	}
 
-	auto destinationRect = ComputeBestFittingSize(canvasSize, Geometry->AspectRatio);
-	drawingSession->DrawImage(Win2DTexture, destinationRect, RenderTargetViewport);
+	auto destinationSize = ComputeBestFittingSize(canvasSize, aspectRatio);
+	auto scaleMatrix = make_float3x2_scale(destinationSize.Width, destinationSize.Height);
+	auto rotMatrix = make_float3x2_rotation(rotAngle);
+	auto transMatrix = make_float3x2_translation(0.5f * canvasSize.Width, 0.5f * canvasSize.Height);
+	auto transformMatrix = rotMatrix * scaleMatrix * transMatrix;
+
+	critical_section::scoped_lock lock(RenderTargetCriticalSection);
+	drawingSession->Transform = transformMatrix;
+	drawingSession->DrawImage(Win2DTexture, Rect(-0.5f, -0.5f, 1.0f, 1.0f), RenderTargetViewport);
+	drawingSession->Transform = float3x2::identity();
 }
 
 void Renderer::CreateRenderTargets(CanvasAnimatedControl^ canvas, unsigned int width, unsigned int height)
@@ -198,22 +228,17 @@ void Renderer::DestroyRenderTargets()
 	}
 }
 
-Rect Renderer::ComputeBestFittingSize(Size viewportSize, float aspectRatio)
+Size Renderer::ComputeBestFittingSize(Size viewportSize, float aspectRatio)
 {
 	auto candidateWidth = std::floor(viewportSize.Height * aspectRatio);
-	if (viewportSize.Width >= candidateWidth)
-	{
-		Size size(candidateWidth, viewportSize.Height);
-		Rect output(Point((viewportSize.Width - candidateWidth) / 2, 0), size);
-		return output;
-	}
-	else
+	Size size(candidateWidth, viewportSize.Height);
+	if (viewportSize.Width < candidateWidth)
 	{
 		auto height = viewportSize.Width / aspectRatio;
-		Size size(viewportSize.Width, height);
-		Rect output(Point(0, (viewportSize.Height - height) / 2), size);
-		return output;
+		size = Size(viewportSize.Width, height);
 	}
+
+	return size;
 }
 
 unsigned int Renderer::ClosestGreaterPowerTwo(unsigned int value)

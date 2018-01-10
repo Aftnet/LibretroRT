@@ -9,6 +9,8 @@
 
 #include <math.h>
 
+#include <WindowsNumerics.h>
+
 // DirectX headers.
 #include <d3d11.h>
 #include <d2d1_3.h>
