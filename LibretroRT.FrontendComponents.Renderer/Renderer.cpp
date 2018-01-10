@@ -144,6 +144,7 @@ void Renderer::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEven
 {
 	auto drawingSession = args->DrawingSession;
 	auto canvasSize = sender->Size;
+	auto aspectRatio = Geometry->AspectRatio;
 
 	if (Win2DTexture == nullptr || RenderTargetViewport.Width <= 0 || RenderTargetViewport.Height <= 0)
 	{
@@ -156,23 +157,26 @@ void Renderer::CanvasDraw(ICanvasAnimatedControl^ sender, CanvasAnimatedDrawEven
 	{
 	case Rotations::CCW90:
 		rotAngle = -0.5f * piValue;
+		aspectRatio = 1.0f / aspectRatio;
 		break;
 	case Rotations::CCW180:
 		rotAngle = -piValue;
 		break;
 	case Rotations::CCW270:
 		rotAngle = -1.5f * piValue;
+		aspectRatio = 1.0f / aspectRatio;
 		break;
 	}
 
-	auto destinationSize = ComputeBestFittingSize(canvasSize, Geometry->AspectRatio);
+	auto destinationSize = ComputeBestFittingSize(canvasSize, aspectRatio);
+	auto scaleMatrix = make_float3x2_scale(destinationSize.Width, destinationSize.Height);
 	auto rotMatrix = make_float3x2_rotation(rotAngle);
 	auto transMatrix = make_float3x2_translation(0.5f * canvasSize.Width, 0.5f * canvasSize.Height);
-	auto transformMatrix = rotMatrix * transMatrix;
+	auto transformMatrix = scaleMatrix * rotMatrix * transMatrix;
 
 	critical_section::scoped_lock lock(RenderTargetCriticalSection);
 	drawingSession->Transform = transformMatrix;
-	drawingSession->DrawImage(Win2DTexture, Rect(Point(-0.5f * destinationSize.Width, -0.5f * destinationSize.Height), destinationSize), RenderTargetViewport);
+	drawingSession->DrawImage(Win2DTexture, Rect(-0.5f, -0.5f, 1.0f, 1.0f), RenderTargetViewport);
 	drawingSession->Transform = float3x2::identity();
 }
 
