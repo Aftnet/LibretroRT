@@ -280,10 +280,6 @@
       <Project>{AF8ACEB6-36A7-4A72-8002-4682413A9103}</Project>
       <Name>LibretroRT.FrontendComponents.Win2DCoreRunner</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
-      <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
-      <Name>LibretroRT</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">
       <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>
       <Name>RetriX.Shared</Name>

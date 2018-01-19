@@ -1,0 +1,26 @@
+﻿namespace LibRetriX.RetroBindings
+{
+    public enum Languages
+    {
+        RETRO_LANGUAGE_ENGLISH = 0,
+        RETRO_LANGUAGE_JAPANESE = 1,
+        RETRO_LANGUAGE_FRENCH = 2,
+        RETRO_LANGUAGE_SPANISH = 3,
+        RETRO_LANGUAGE_GERMAN = 4,
+        RETRO_LANGUAGE_ITALIAN = 5,
+        RETRO_LANGUAGE_DUTCH = 6,
+        RETRO_LANGUAGE_PORTUGUESE_BRAZIL = 7,
+        RETRO_LANGUAGE_PORTUGUESE_PORTUGAL = 8,
+        RETRO_LANGUAGE_RUSSIAN = 9,
+        RETRO_LANGUAGE_KOREAN = 10,
+        RETRO_LANGUAGE_CHINESE_TRADITIONAL = 11,
+        RETRO_LANGUAGE_CHINESE_SIMPLIFIED = 12,
+        RETRO_LANGUAGE_ESPERANTO = 13,
+        RETRO_LANGUAGE_POLISH = 14,
+        RETRO_LANGUAGE_VIETNAMESE = 15,
+        RETRO_LANGUAGE_LAST,
+
+        /* Ensure sizeof(enum) == sizeof(int) */
+        RETRO_LANGUAGE_DUMMY = int.MaxValue
+    };
+}

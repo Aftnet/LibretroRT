@@ -133,10 +133,6 @@
       <Project>{0bba2068-71d5-4fec-8e44-761d0e9b44d4}</Project>
       <Name>LibretroRT.FrontendComponents.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
-      <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
-      <Name>LibretroRT</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
