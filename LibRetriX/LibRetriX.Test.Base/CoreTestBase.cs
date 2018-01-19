@@ -130,8 +130,7 @@ namespace LibRetriX.Test.Base
 
         private async Task<string> SetupTestROMLoading(string romName)
         {
-            var romsFolder = await Plugin.FileSystem.CrossFileSystem.Current.GetDirectoryFromPathAsync(
-                @"C:\Users\Alberto\Documents\Projects\LibretroRT\LibretroRT.Test\Roms");
+            var romsFolder = await Plugin.FileSystem.CrossFileSystem.Current.InstallLocation.GetDirectoryAsync("TestRoms");
 
             var provider = new StreamProvider("Test\\", romsFolder);
             Target.SystemRootPath = "Test";
