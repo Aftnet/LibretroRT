@@ -4,7 +4,6 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Windows.Foundation;
 using Windows.UI;
 
 namespace LibretroRT.FrontendComponents.Win2DRenderer
@@ -68,7 +67,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             }
         }
 
-        public IAsyncOperation<bool> LoadGameAsync(ICore core, string mainGameFilePath)
+        public Task<bool> LoadGameAsync(ICore core, string mainGameFilePath)
         {
             return Task.Run(async () =>
             {
@@ -94,10 +93,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                     CoreIsExecuting = true;
                     return true;
                 }
-            }).AsAsyncOperation();
+            });
         }
 
-        public IAsyncAction UnloadGameAsync()
+        public Task UnloadGameAsync()
         {
             return Task.Run(() =>
             {
@@ -108,10 +107,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                     Coordinator.Core?.UnloadGame();
                     Coordinator.AudioPlayer?.Stop();
                 }
-            }).AsAsyncAction();
+            });
         }
 
-        public IAsyncAction ResetGameAsync()
+        public Task ResetGameAsync()
         {
             return Task.Run(() =>
             {
@@ -120,10 +119,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                     Coordinator.AudioPlayer?.Stop();
                     Coordinator.Core?.Reset();
                 }
-            }).AsAsyncAction();
+            });
         }
 
-        public IAsyncAction PauseCoreExecutionAsync()
+        public Task PauseCoreExecutionAsync()
         {
             return Task.Run(() =>
             {
@@ -132,10 +131,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                     Coordinator.AudioPlayer?.Stop();
                     CoreIsExecuting = false;
                 }
-            }).AsAsyncAction();
+            });
         }
 
-        public IAsyncAction ResumeCoreExecutionAsync()
+        public Task ResumeCoreExecutionAsync()
         {
             return Task.Run(() =>
             {
@@ -143,10 +142,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                 {
                     CoreIsExecuting = true;
                 }
-            }).AsAsyncAction();
+            });
         }
 
-        public IAsyncOperation<bool> SaveGameStateAsync(Stream outputStream)
+        public Task<bool> SaveGameStateAsync(Stream outputStream)
         {
             return Task.Run(() =>
             {
@@ -158,10 +157,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
                     return core.SaveState(outputStream);
                 }
-            }).AsAsyncOperation();
+            });
         }
 
-        public IAsyncOperation<bool> LoadGameStateAsync(Stream inputStream)
+        public Task<bool> LoadGameStateAsync(Stream inputStream)
         {
             return Task.Run(() =>
             {
@@ -173,7 +172,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
                     return core.LoadState(inputStream);
                 }
-            }).AsAsyncOperation();
+            });
         }
 
         private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)

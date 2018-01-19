@@ -1,7 +1,7 @@
 ﻿using LibRetriX;
 using System;
 using System.IO;
-using Windows.Foundation;
+using System.Threading.Tasks;
 
 namespace LibretroRT.FrontendComponents.Common
 {
@@ -13,15 +13,15 @@ namespace LibretroRT.FrontendComponents.Common
         bool CoreIsExecuting { get; }
         ulong SerializationSize { get; }
 
-        IAsyncOperation<bool> LoadGameAsync(ICore core, string mainGameFilePath);
-        IAsyncAction UnloadGameAsync();
-        IAsyncAction ResetGameAsync();
+        Task<bool> LoadGameAsync(ICore core, string mainGameFilePath);
+        Task UnloadGameAsync();
+        Task ResetGameAsync();
 
-        IAsyncAction PauseCoreExecutionAsync();
-        IAsyncAction ResumeCoreExecutionAsync();
+        Task PauseCoreExecutionAsync();
+        Task ResumeCoreExecutionAsync();
 
-        IAsyncOperation<bool> SaveGameStateAsync(Stream outputStream);
-        IAsyncOperation<bool> LoadGameStateAsync(Stream inputStream);
+        Task<bool> SaveGameStateAsync(Stream outputStream);
+        Task<bool> LoadGameStateAsync(Stream inputStream);
 
         event CoreRunExceptionOccurredDelegate CoreRunExceptionOccurred;
     }

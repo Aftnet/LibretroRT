@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -191,7 +190,7 @@ namespace RetriX.UWP.Services
 
         public Task ResetGameAsync()
         {
-            return CoreRunner?.ResetGameAsync().AsTask();
+            return CoreRunner != null ? Task.CompletedTask : CoreRunner.ResetGameAsync();
         }
 
         public async Task StopGameAsync()
@@ -207,34 +206,33 @@ namespace RetriX.UWP.Services
 
         public Task PauseGameAsync()
         {
-            return CoreRunner != null ? CoreRunner.PauseCoreExecutionAsync().AsTask() : Task.CompletedTask;
+            return CoreRunner != null ? CoreRunner.PauseCoreExecutionAsync() : Task.CompletedTask;
         }
 
         public Task ResumeGameAsync()
         {
-            return CoreRunner != null ? CoreRunner.ResumeCoreExecutionAsync().AsTask() : Task.CompletedTask;
+            return CoreRunner != null ? CoreRunner.ResumeCoreExecutionAsync() : Task.CompletedTask;
         }
 
-        public async Task<byte[]> SaveGameStateAsync()
-        {
-            if (CoreRunner == null)
-            {
-                return null;
-            }
-
-            var output = new byte[CoreRunner.SerializationSize];
-            var success = await CoreRunner.SaveGameStateAsync(output);
-            return success ? output : null;
-        }
-
-        public Task<bool> LoadGameStateAsync(byte[] stateData)
+        public Task<bool> SaveGameStateAsync(Stream outputStream)
         {
             if (CoreRunner == null)
             {
                 return Task.FromResult(false);
             }
 
-            return CoreRunner.LoadGameStateAsync(stateData).AsTask();
+            var output = new byte[CoreRunner.SerializationSize];
+            return CoreRunner.SaveGameStateAsync(outputStream);
+        }
+
+        public Task<bool> LoadGameStateAsync(Stream inputStream)
+        {
+            if (CoreRunner == null)
+            {
+                return Task.FromResult(false);
+            }
+
+            return CoreRunner.LoadGameStateAsync(inputStream);
         }
 
         public void InjectInputPlayer1(InjectedInputTypes inputType)
@@ -263,17 +261,15 @@ namespace RetriX.UWP.Services
             });
         }
 
-        private Windows.Storage.Streams.IRandomAccessStream OnCoreOpenFileStream(string path, Windows.Storage.FileAccessMode fileAccess)
+        private Stream OnCoreOpenFileStream(string path, FileAccess fileAccess)
         {
-            var accessMode = fileAccess == Windows.Storage.FileAccessMode.Read ? FileAccess.Read : FileAccess.ReadWrite;
-            var stream = StreamProvider.OpenFileStreamAsync(path, accessMode).Result;
-            var output = stream?.AsRandomAccessStream();
-            return output;
+            var stream = StreamProvider.OpenFileStreamAsync(path, fileAccess).Result;
+            return stream;
         }
 
-        private void OnCoreCloseFileStream(Windows.Storage.Streams.IRandomAccessStream stream)
+        private void OnCoreCloseFileStream(Stream stream)
         {
-            StreamProvider.CloseStream(stream.AsStream());
+            StreamProvider.CloseStream(stream);
         }
 
         private void GetStreamProviderAndVirtualPath(ViewModels.GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder, out IStreamProvider provider, out string mainFileVirtualPath)
