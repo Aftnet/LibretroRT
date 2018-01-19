@@ -260,6 +260,21 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\GPGX\GPGX.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>GPGX</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="..\GPGX.LibRetriX\GPGX.LibRetriX.csproj">
+      <Project>{11582216-fb0e-4c91-bda6-dd04bd1f3681}</Project>
+      <Name>GPGX.LibRetriX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj">
+      <Project>{4FC73E3B-43F0-4830-8DFD-7D32A97D5029}</Project>
+      <Name>LibRetriX.Primitives</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LibretroRT.FrontendComponents.AudioGraphPlayer\LibretroRT.FrontendComponents.AudioGraphPlayer.csproj">
       <Project>{80dda0d6-5181-49d1-9cb6-4a441e743086}</Project>
       <Name>LibretroRT.FrontendComponents.AudioGraphPlayer</Name>
@@ -272,13 +287,9 @@
       <Project>{0555a467-b1b2-4301-901c-0489f63b8ecc}</Project>
       <Name>LibretroRT.FrontendComponents.InputManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.Renderer\LibretroRT.FrontendComponents.Renderer.vcxproj">
-      <Project>{70a8cb20-70cf-4351-b62d-e0755dfc15f0}</Project>
-      <Name>LibretroRT.FrontendComponents.Renderer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.Win2DCoreRunner\LibretroRT.FrontendComponents.Win2DCoreRunner.csproj">
-      <Project>{AF8ACEB6-36A7-4A72-8002-4682413A9103}</Project>
-      <Name>LibretroRT.FrontendComponents.Win2DCoreRunner</Name>
+    <ProjectReference Include="..\LibretroRT.FrontendComponents.Win2DRenderer\LibretroRT.FrontendComponents.Win2DRenderer.csproj">
+      <Project>{cc7fb684-776f-4902-be3b-d354933ef2dc}</Project>
+      <Name>LibretroRT.FrontendComponents.Win2DRenderer</Name>
     </ProjectReference>
     <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">
       <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>

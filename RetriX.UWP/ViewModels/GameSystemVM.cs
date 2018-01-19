@@ -1,7 +1,6 @@
-﻿using LibretroRT;
+﻿using LibRetriX;
 using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

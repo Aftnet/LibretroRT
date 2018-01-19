@@ -237,7 +237,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         public void RotationChanged(Rotations rotation)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

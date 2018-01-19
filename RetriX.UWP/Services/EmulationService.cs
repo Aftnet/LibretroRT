@@ -1,5 +1,5 @@
 ﻿using Acr.UserDialogs;
-using LibretroRT;
+using LibRetriX;
 using LibretroRT.FrontendComponents.Common;
 using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
@@ -22,7 +22,6 @@ namespace RetriX.UWP.Services
     {
         private static readonly Type GamePlayerPageType = typeof(GamePlayerPage);
 
-        private const char CoreExtensionDelimiter = '|';
         private static readonly IReadOnlyDictionary<InjectedInputTypes, InputTypes> InjectedInputMapping = new Dictionary<InjectedInputTypes, InputTypes>
         {
             { InjectedInputTypes.DeviceIdJoypadA, InputTypes.DeviceIdJoypadA },
@@ -78,26 +77,26 @@ namespace RetriX.UWP.Services
 
                 systems = new ViewModels.GameSystemVM[]
                 {
-                new ViewModels.GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
-                new ViewModels.GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
+                //new ViewModels.GameSystemVM(FCEUMMRT.FCEUMMCore.Instance, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
+                //new ViewModels.GameSystemVM(Snes9XRT.Snes9XCore.Instance, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
                 //new ViewModels.GameSystemVM(ParallelN64RT.ParallelN64Core.Instance, LocalizationService, "SystemNameNintendo64", "ManufacturerNameNintendo", "\uf116"),
-                new ViewModels.GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
-                new ViewModels.GameSystemVM(VBAMRT.VBAMCore.Instance, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
-                new ViewModels.GameSystemVM(MelonDSRT.MelonDSCore.Instance, LocalizationService, "SystemNameDS", "ManufacturerNameNintendo", "\uf117"),
-                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", true, new HashSet<string>{ ".sg" }),
-                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", true, new HashSet<string>{ ".sms" }),
-                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", true, new HashSet<string>{ ".gg" }),
-                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", true, new HashSet<string>{ ".mds", ".md", ".smd", ".gen" }),
-                new ViewModels.GameSystemVM(GPGXRT.GPGXCore.Instance, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", false, new HashSet<string>{ ".bin", ".cue", ".iso", ".chd" }, CDImageExtensions),
+                //new ViewModels.GameSystemVM(GambatteRT.GambatteCore.Instance, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
+                //new ViewModels.GameSystemVM(VBAMRT.VBAMCore.Instance, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
+                //new ViewModels.GameSystemVM(MelonDSRT.MelonDSCore.Instance, LocalizationService, "SystemNameDS", "ManufacturerNameNintendo", "\uf117"),
+                new ViewModels.GameSystemVM(LibRetriX.GPGX.Core.Instance, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", true, new HashSet<string>{ ".sg" }),
+                new ViewModels.GameSystemVM(LibRetriX.GPGX.Core.Instance, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", true, new HashSet<string>{ ".sms" }),
+                new ViewModels.GameSystemVM(LibRetriX.GPGX.Core.Instance, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", true, new HashSet<string>{ ".gg" }),
+                new ViewModels.GameSystemVM(LibRetriX.GPGX.Core.Instance, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", true, new HashSet<string>{ ".mds", ".md", ".smd", ".gen" }),
+                new ViewModels.GameSystemVM(LibRetriX.GPGX.Core.Instance, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", false, new HashSet<string>{ ".bin", ".cue", ".iso", ".chd" }, CDImageExtensions),
                 //new ViewModels.GameSystemVM(BeetleSaturnRT.BeetleSaturnCore.Instance, LocalizationService, "SystemNameSaturn", "ManufacturerNameSega", "\uf124", false, null, CDImageExtensions),
-                new ViewModels.GameSystemVM(BeetlePSXRT.BeetlePSXCore.Instance, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", false, null, CDImageExtensions),
-                new ViewModels.GameSystemVM(BeetlePCEFastRT.BeetlePCEFastCore.Instance, LocalizationService, "SystemNamePCEngine", "ManufacturerNameNEC", "\uf124", true, new HashSet<string>{ ".pce" }),
-                new ViewModels.GameSystemVM(BeetlePCEFastRT.BeetlePCEFastCore.Instance, LocalizationService, "SystemNamePCEngineCD", "ManufacturerNameNEC", "\uf124", false, new HashSet<string>{ ".cue", ".ccd", ".chd" }, CDImageExtensions),
-                new ViewModels.GameSystemVM(BeetlePCFXRT.BeetlePCFXCore.Instance, LocalizationService, "SystemNamePCFX", "ManufacturerNameNEC", "\uf124", false, null, CDImageExtensions),
-                new ViewModels.GameSystemVM(BeetleWswanRT.BeetleWswanCore.Instance, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
-                new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
-                new ViewModels.GameSystemVM(BeetleNGPRT.BeetleNGPCore.Instance, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
-                new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
+                //new ViewModels.GameSystemVM(BeetlePSXRT.BeetlePSXCore.Instance, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", false, null, CDImageExtensions),
+                //new ViewModels.GameSystemVM(BeetlePCEFastRT.BeetlePCEFastCore.Instance, LocalizationService, "SystemNamePCEngine", "ManufacturerNameNEC", "\uf124", true, new HashSet<string>{ ".pce" }),
+                //new ViewModels.GameSystemVM(BeetlePCEFastRT.BeetlePCEFastCore.Instance, LocalizationService, "SystemNamePCEngineCD", "ManufacturerNameNEC", "\uf124", false, new HashSet<string>{ ".cue", ".ccd", ".chd" }, CDImageExtensions),
+                //new ViewModels.GameSystemVM(BeetlePCFXRT.BeetlePCFXCore.Instance, LocalizationService, "SystemNamePCFX", "ManufacturerNameNEC", "\uf124", false, null, CDImageExtensions),
+                //new ViewModels.GameSystemVM(BeetleWswanRT.BeetleWswanCore.Instance, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
+                //new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
+                //new ViewModels.GameSystemVM(BeetleNGPRT.BeetleNGPCore.Instance, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
+                //new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
                 };
 
                 var allCores = systems.Select(d => d.Core).Distinct().ToArray();
