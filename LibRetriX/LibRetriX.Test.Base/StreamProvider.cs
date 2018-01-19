@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace LibRetriX.TestBase
+namespace LibRetriX.Test.Base
 {
     public class StreamProvider : IDisposable
     {

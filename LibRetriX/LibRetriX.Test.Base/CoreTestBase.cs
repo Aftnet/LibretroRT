@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xunit;
 
-namespace LibRetriX.TestBase
+namespace LibRetriX.Test.Base
 {
     [Collection(nameof(CoreTestBase))]
     public abstract class CoreTestBase
