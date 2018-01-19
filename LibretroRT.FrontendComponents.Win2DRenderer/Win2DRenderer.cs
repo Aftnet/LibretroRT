@@ -2,10 +2,9 @@
 using LibretroRT.FrontendComponents.Common;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Storage;
 using Windows.UI;
 
 namespace LibretroRT.FrontendComponents.Win2DRenderer
@@ -147,7 +146,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             }).AsAsyncAction();
         }
 
-        public IAsyncOperation<bool> SaveGameStateAsync([WriteOnlyArray] byte[] stateData)
+        public IAsyncOperation<bool> SaveGameStateAsync(Stream outputStream)
         {
             return Task.Run(() =>
             {
@@ -157,12 +156,12 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                     if (core == null)
                         return false;
 
-                    return core.Serialize(stateData);
+                    return core.SaveState(outputStream);
                 }
             }).AsAsyncOperation();
         }
 
-        public IAsyncOperation<bool> LoadGameStateAsync([ReadOnlyArray] byte[] stateData)
+        public IAsyncOperation<bool> LoadGameStateAsync(Stream inputStream)
         {
             return Task.Run(() =>
             {
@@ -172,7 +171,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                     if (core == null)
                         return false;
 
-                    return core.Unserialize(stateData);
+                    return core.LoadState(inputStream);
                 }
             }).AsAsyncOperation();
         }
@@ -216,9 +215,9 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             RenderTargetManager.Render(args.DrawingSession, sender.Size);
         }
 
-        public void RenderVideoFrame([ReadOnlyArray] byte[] frameBuffer, uint width, uint height, uint pitch)
+        public void RenderVideoFrame(Stream data, uint width, uint height, ulong pitch)
         {
-            RenderTargetManager.UpdateFromCoreOutput(frameBuffer, width, height, pitch);
+            RenderTargetManager.UpdateFromCoreOutput(data, width, height, pitch);
         }
 
         public void GeometryChanged(GameGeometry geometry)

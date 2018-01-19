@@ -1,6 +1,6 @@
 ﻿using LibRetriX;
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.IO;
 using Windows.Foundation;
 
 namespace LibretroRT.FrontendComponents.Common
@@ -20,8 +20,8 @@ namespace LibretroRT.FrontendComponents.Common
         IAsyncAction PauseCoreExecutionAsync();
         IAsyncAction ResumeCoreExecutionAsync();
 
-        IAsyncOperation<bool> SaveGameStateAsync([WriteOnlyArray] byte[] stateData);
-        IAsyncOperation<bool> LoadGameStateAsync([ReadOnlyArray] byte[] stateData);
+        IAsyncOperation<bool> SaveGameStateAsync(Stream outputStream);
+        IAsyncOperation<bool> LoadGameStateAsync(Stream inputStream);
 
         event CoreRunExceptionOccurredDelegate CoreRunExceptionOccurred;
     }

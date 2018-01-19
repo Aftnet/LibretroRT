@@ -2,6 +2,7 @@
 using Microsoft.Graphics.Canvas;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
 
@@ -58,14 +59,14 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             }
         }
 
-        public void UpdateFromCoreOutput(byte[] frameBuffer, uint width, uint height, uint pitch)
+        public void UpdateFromCoreOutput(Stream data, uint width, uint height, ulong pitch)
         {
-            if (frameBuffer == null || RenderTarget == null || CurrentCorePixelSize == 0)
+            if (data == null || RenderTarget == null || CurrentCorePixelSize == 0)
                 return;
 
             lock (RenderTargetLock)
             {
-                var virtualWidth = pitch / CurrentCorePixelSize;
+                var virtualWidth = (int)pitch / CurrentCorePixelSize;
                 RenderTargetViewport.Width = width;
                 RenderTargetViewport.Height = height;
 
