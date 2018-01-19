@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{80DDA0D6-5181-49D1-9CB6-4A441E743086}</ProjectGuid>
-    <OutputType>winmdobj</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LibretroRT.FrontendComponents.AudioGraphPlayer</RootNamespace>
     <AssemblyName>LibretroRT.FrontendComponents.AudioGraphPlayer</AssemblyName>
@@ -125,6 +125,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj">
+      <Project>{4FC73E3B-43F0-4830-8DFD-7D32A97D5029}</Project>
+      <Name>LibRetriX.Primitives</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LibretroRT.FrontendComponents.Common\LibretroRT.FrontendComponents.Common.csproj">
       <Project>{0bba2068-71d5-4fec-8e44-761d0e9b44d4}</Project>
       <Name>LibretroRT.FrontendComponents.Common</Name>

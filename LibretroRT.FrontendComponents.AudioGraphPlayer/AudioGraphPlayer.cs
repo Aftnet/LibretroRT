@@ -1,6 +1,8 @@
-﻿using LibretroRT.FrontendComponents.Common;
+﻿using LibRetriX;
+using LibretroRT.FrontendComponents.Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -71,7 +73,7 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
             DisposeGraph();
         }
 
-        public void TimingChanged(SystemTiming timings)
+        public void TimingChanged(SystemTimings timings)
         {
             uint sampleRate = (uint)timings.SampleRate;
             if (SampleRate == sampleRate || GraphReconstructionInProgress)
@@ -81,7 +83,7 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
             var operation = ReconstructGraph(sampleRate);
         }
 
-        public void RenderAudioFrames([ReadOnlyArray] short[] samples)
+        public void RenderAudioFrames(Stream data, ulong numFrames)
         {
             if (!AllowPlaybackControl)
                 return;
