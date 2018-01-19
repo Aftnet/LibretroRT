@@ -1,19 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using LibRetriX.GPGX;
+using LibRetriX.Test.Base;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace LibretroRT.Test.Cores
+namespace LibRetriX.Test.UWP
 {
-    [Collection(nameof(TestBase))]
-    public class GPGXCoreTest : TestBase
+    public class GPGXTest : CoreTestBase
     {
         public static IEnumerable<object[]> RomNames => new List<object[]>
         {
             new object[] { "GenesisGame.md" },
-            new object[] { "MegaCDGame.chd" },
+            new object[] { "MegaCDGame.chd" }
         };
 
-        public GPGXCoreTest() : base(() => GPGXRT.GPGXCore.Instance)
+        public GPGXTest() : base(() => Core.Instance)
         {
         }
 

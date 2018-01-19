@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{AE7BE95F-6D28-4E0A-9051-732F47A8E8A6}</ProjectGuid>
+    <ProjectGuid>{12DE3993-821A-400F-A154-13CA8AA21BB5}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LibretroRT.Test</RootNamespace>
-    <AssemblyName>LibretroRT.Test</AssemblyName>
+    <RootNamespace>LibRetriX.Test.UWP</RootNamespace>
+    <AssemblyName>LibRetriX.Test.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
@@ -16,10 +16,8 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>LibRetriX.Test.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
     <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">$(VisualStudioVersion)</UnitTestPlatformVersion>
-    <PackageCertificateThumbprint>E41AD44652F74B64772FE79EEFA90CFBBC766A65</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -97,28 +95,11 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cores\FBAlphaCoreTest.cs" />
-    <Compile Include="Cores\BeetlePCFXCoreTest.cs" />
-    <Compile Include="Cores\BeetlePCEFastCoreTest.cs" />
-    <Compile Include="Cores\BeetleNGPCoreTest.cs" />
-    <Compile Include="Cores\BeetleSaturnCoreTest.cs" />
-    <Compile Include="Cores\BeetleWswanCoreTest.cs" />
-    <Compile Include="Cores\ParallelN64CoreTest.cs" />
-    <Compile Include="Cores\MelonDSCoreTest.cs" />
-    <Compile Include="Cores\BeetlePSXCoreTest.cs" />
-    <Compile Include="Cores\GambatteCoreTest.cs" />
-    <Compile Include="Cores\FCEUMMCoreTest.cs" />
-    <Compile Include="Cores\NestopiaCoreTest.cs" />
-    <Compile Include="Cores\YabauseCoreTest.cs" />
-    <Compile Include="Cores\VBAMCoreTest.cs" />
-    <Compile Include="Cores\GPGXCoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Cores\Snes9XCoreTest.cs" />
-    <Compile Include="StreamProvider.cs" />
     <Compile Include="UnitTestApp.xaml.cs">
       <DependentUpon>UnitTestApp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestBase.cs" />
+    <Compile Include="GPGX.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="UnitTestApp.xaml">
@@ -130,8 +111,114 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="..\..\TestRoms\3wondersu.zip">
+      <Link>TestRoms\3wondersu.zip</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\bios7.bin">
+      <Link>TestRoms\bios7.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\bios9.bin">
+      <Link>TestRoms\bios9.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\BIOS_CD_E.bin">
+      <Link>TestRoms\BIOS_CD_E.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\BIOS_CD_J.bin">
+      <Link>TestRoms\BIOS_CD_J.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\BIOS_CD_U.bin">
+      <Link>TestRoms\BIOS_CD_U.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\dkong.zip">
+      <Link>TestRoms\dkong.zip</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\firmware.bin">
+      <Link>TestRoms\firmware.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\GBAGame.gba">
+      <Link>TestRoms\GBAGame.gba</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\GBCGame.gbc">
+      <Link>TestRoms\GBCGame.gbc</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\GenesisGame.md">
+      <Link>TestRoms\GenesisGame.md</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\MegaCDGame.chd">
+      <Link>TestRoms\MegaCDGame.chd</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\mpr-17933.bin">
+      <Link>TestRoms\mpr-17933.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\mslug.zip">
+      <Link>TestRoms\mslug.zip</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\N64Game.n64">
+      <Link>TestRoms\N64Game.n64</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\NDSGame.nds">
+      <Link>TestRoms\NDSGame.nds</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\neogeo.zip">
+      <Link>TestRoms\neogeo.zip</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\NeoGeoPocketGame.ngc">
+      <Link>TestRoms\NeoGeoPocketGame.ngc</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\NESGame.nes">
+      <Link>TestRoms\NESGame.nes</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\PCEngineCDGame.chd">
+      <Link>TestRoms\PCEngineCDGame.chd</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\PCEngineGame.pce">
+      <Link>TestRoms\PCEngineGame.pce</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\pcfx.rom">
+      <Link>TestRoms\pcfx.rom</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\PCFXGame.chd">
+      <Link>TestRoms\PCFXGame.chd</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\PlayStationGame.chd">
+      <Link>TestRoms\PlayStationGame.chd</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\SaturnGame.bin">
+      <Link>TestRoms\SaturnGame.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\SaturnGame.cue">
+      <Link>TestRoms\SaturnGame.cue</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\SCPH5500.bin">
+      <Link>TestRoms\SCPH5500.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\SCPH5501.bin">
+      <Link>TestRoms\SCPH5501.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\SCPH5502.bin">
+      <Link>TestRoms\SCPH5502.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\sega_101.bin">
+      <Link>TestRoms\sega_101.bin</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\sfiii.zip">
+      <Link>TestRoms\sfiii.zip</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\SNESGame.sfc">
+      <Link>TestRoms\SNESGame.sfc</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\syscard3.pce">
+      <Link>TestRoms\syscard3.pce</Link>
+    </Content>
+    <Content Include="..\..\TestRoms\xmcota.zip">
+      <Link>TestRoms\xmcota.zip</Link>
+    </Content>
+    <None Include="LibRetriX.Test.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\TestRoms\WonderSwanGame.wsc">
+      <Link>TestRoms\WonderSwanGame.wsc</Link>
+    </Content>
     <Content Include="Properties\UnitTestApp.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -140,65 +227,30 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="Roms\bios7.bin" />
-    <Content Include="Roms\bios9.bin" />
-    <Content Include="Roms\BIOS_CD_E.bin" />
-    <Content Include="Roms\BIOS_CD_J.bin" />
-    <Content Include="Roms\BIOS_CD_U.bin" />
-    <Content Include="Roms\firmware.bin" />
-    <Content Include="Roms\GBAGame.gba" />
-    <Content Include="Roms\GBCGame.gbc" />
-    <Content Include="Roms\GenesisGame.md" />
-    <Content Include="Roms\N64Game.n64" />
-    <Content Include="Roms\NDSGame.nds" />
-    <Content Include="Roms\NeoGeoPocketGame.ngc" />
-    <Content Include="Roms\NESGame.nes" />
-    <Content Include="Roms\PCEngineGame.pce" />
-    <Content Include="Roms\SaturnGame.bin" />
-    <Content Include="Roms\SaturnGame.cue" />
-    <Content Include="Roms\SCPH5500.bin" />
-    <Content Include="Roms\SCPH5501.bin" />
-    <Content Include="Roms\SCPH5502.bin" />
-    <Content Include="Roms\sega_101.bin" />
-    <Content Include="Roms\SNESGame.sfc" />
-    <Content Include="Roms\syscard3.pce" />
-    <Content Include="Roms\WonderSwanGame.wsc" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.5</Version>
-    </PackageReference>
-    <PackageReference Include="xunit">
-      <Version>2.3.1</Version>
+      <Version>6.0.6</Version>
     </PackageReference>
     <PackageReference Include="xunit.runner.visualstudio">
       <Version>2.3.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <ProjectReference Include="..\..\GPGX.LibRetriX\GPGX.LibRetriX.csproj">
+      <Project>{11582216-fb0e-4c91-bda6-dd04bd1f3681}</Project>
+      <Name>GPGX.LibRetriX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibRetriX.Primitives\LibRetriX.Primitives.csproj">
+      <Project>{4fc73e3b-43f0-4830-8dfd-7d32a97d5029}</Project>
+      <Name>LibRetriX.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibRetriX.Test.Base\LibRetriX.Test.Base.csproj">
+      <Project>{1bd40e0b-9903-473b-8343-4ebdf6a1868a}</Project>
+      <Name>LibRetriX.Test.Base</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Roms\pcfx.rom" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Roms\3wondersu.zip" />
-    <Content Include="Roms\mslug.zip" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Roms\neogeo.zip" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Roms\MegaCDGame.chd" />
-    <Content Include="Roms\PlayStationGame.chd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Roms\dkong.zip" />
-    <Content Include="Roms\PCEngineCDGame.chd" />
-    <Content Include="Roms\PCFXGame.chd" />
-    <Content Include="Roms\sfiii.zip" />
-    <Content Include="Roms\xmcota.zip" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

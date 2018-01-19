@@ -5,14 +5,14 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   IgnorableNamespaces="uap mp">
 
-  <Identity Name="054bc078-c700-42d2-b81b-49ac470ff325"
+  <Identity Name="06acdea4-99fb-4b41-b08f-ad789690296a"
             Publisher="CN=Alberto"
             Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="054bc078-c700-42d2-b81b-49ac470ff325" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="06acdea4-99fb-4b41-b08f-ad789690296a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>LibretroRT.Test</DisplayName>
+    <DisplayName>LibRetriX.Test.UWP</DisplayName>
     <PublisherDisplayName>Alberto</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -27,12 +27,12 @@
   <Applications>
     <Application Id="vstest.executionengine.universal.App"
         Executable="$targetnametoken$.exe"
-        EntryPoint="LibretroRT.Test.App">
+        EntryPoint="LibRetriX.Test.UWP.App">
       <uap:VisualElements
-        DisplayName="LibretroRT.Test"
+        DisplayName="LibRetriX.Test.UWP"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="LibretroRT.Test"
+        Description="LibRetriX.Test.UWP"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
