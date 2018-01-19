@@ -230,7 +230,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             RenderTargetManager.CurrentCorePixelFormat = format;
         }
 
-        public void TimingChanged(SystemTimings timings)
+        public void TimingsChanged(SystemTimings timings)
         {
             RenderPanel.TargetElapsedTime = TimeSpan.FromMilliseconds(1000.0 / timings.FPS);
         }

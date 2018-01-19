@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LibretroRT.FrontendComponents.Common;
+using System;
+using System.IO;
 
 namespace LibretroRT.FrontendComponents.Win2DRenderer
 {
@@ -25,19 +27,19 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             }
         }
 
-        unsafe public static void ConvertFrameBufferRGB565ToXRGB8888(byte[] input, uint width, uint height, uint pitch, byte[] output)
+        unsafe public static void ConvertFrameBufferRGB565ToXRGB8888(Stream input, uint width, uint height, ulong pitch, byte[] output)
         {
             if (output.Length < input.Length * 2)
             {
                 throw new ArgumentException();
             }
 
-            fixed (byte* inPtr = input)
+            input.TryGetPointer(out var inputPtr, out var handle);
             fixed (byte* outPtr = output)
             fixed (uint* lutPtr = RGB565LookupTable)
             {
                 var outIntPtr = (uint*)outPtr;
-                var inLineStart = inPtr;
+                var inLineStart = (byte*)inputPtr;
 
                 for (var i = 0; i < height; i++)
                 {
