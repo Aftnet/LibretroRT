@@ -88,16 +88,27 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
             if (!AllowPlaybackControl)
                 return;
 
-            lock (SamplesBuffer)
+            unsafe
             {
-                for (var i = 0; i < Math.Min(samples.Length, Math.Max(0, MaxSamplesQueueSize - SamplesBuffer.Count)); i++)
+                var sourcePointerAcquired = data.TryGetPointer(out var srcPointer, out var srcHandle);
+                if (!sourcePointerAcquired)
                 {
-                    SamplesBuffer.Enqueue(samples[i]);
+                    return;
                 }
 
-                if (SamplesBuffer.Count >= MinNumSamplesForPlayback)
+                var srcData = (short*)srcPointer;
+                lock (SamplesBuffer)
                 {
-                    Graph.Start();
+                    for (var i = 0; i < Math.Min((uint)numFrames * NumChannels, Math.Max(0, MaxSamplesQueueSize - SamplesBuffer.Count)); i++)
+                    {
+                        SamplesBuffer.Enqueue(srcData[i]);
+                    }
+
+                    srcHandle.Free();
+                    if (SamplesBuffer.Count >= MinNumSamplesForPlayback)
+                    {
+                        Graph.Start();
+                    }
                 }
             }
         }
