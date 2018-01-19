@@ -1,4 +1,5 @@
-﻿using LibretroRT.FrontendComponents.Common;
+﻿using LibRetriX;
+using LibretroRT.FrontendComponents.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

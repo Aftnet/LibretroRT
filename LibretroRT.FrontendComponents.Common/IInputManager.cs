@@ -1,4 +1,6 @@
-﻿namespace LibretroRT.FrontendComponents.Common
+﻿using LibRetriX;
+
+namespace LibretroRT.FrontendComponents.Common
 {
     public interface IInputManager
     {

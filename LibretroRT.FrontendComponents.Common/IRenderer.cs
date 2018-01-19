@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
+﻿using LibRetriX;
+using System.IO;
 
 namespace LibretroRT.FrontendComponents.Common
 {
@@ -7,7 +8,7 @@ namespace LibretroRT.FrontendComponents.Common
         void GeometryChanged(GameGeometry geometry);
         void PixelFormatChanged(PixelFormats format);
         void RotationChanged(Rotations rotation);
-        void TimingChanged(SystemTiming timings);
-        void RenderVideoFrame([ReadOnlyArray] byte[] frameBuffer, uint width, uint height, uint pitch);
+        void TimingsChanged(SystemTimings timings);
+        void RenderVideoFrame(Stream data, uint width, uint height, ulong pitch);
     }
 }

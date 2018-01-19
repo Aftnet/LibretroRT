@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibRetriX;
+using System;
 
 namespace LibretroRT.FrontendComponents.Common
 {
@@ -83,13 +84,13 @@ namespace LibretroRT.FrontendComponents.Common
                 Core.GeometryChanged -= Renderer.GeometryChanged;
                 Core.PixelFormatChanged -= Renderer.PixelFormatChanged;
                 Core.RenderVideoFrame -= Renderer.RenderVideoFrame;
-                Core.TimingChanged -= Renderer.TimingChanged;
+                Core.TimingsChanged -= Renderer.TimingsChanged;
                 Core.RotationChanged -= Renderer.RotationChanged;
             }
 
             if (AudioPlayer != null)
             {
-                Core.TimingChanged -= AudioPlayer.TimingChanged;
+                Core.TimingsChanged -= AudioPlayer.TimingChanged;
                 Core.RenderAudioFrames -= AudioPlayer.RenderAudioFrames;
             }
 
@@ -107,13 +108,13 @@ namespace LibretroRT.FrontendComponents.Common
                 Core.GeometryChanged += Renderer.GeometryChanged;
                 Core.PixelFormatChanged += Renderer.PixelFormatChanged;
                 Core.RenderVideoFrame += Renderer.RenderVideoFrame;
-                Core.TimingChanged += Renderer.TimingChanged;
+                Core.TimingsChanged += Renderer.TimingsChanged;
                 Core.RotationChanged += Renderer.RotationChanged;
             }
 
             if (AudioPlayer != null)
             {
-                Core.TimingChanged += AudioPlayer.TimingChanged;
+                Core.TimingsChanged += AudioPlayer.TimingChanged;
                 Core.RenderAudioFrames += AudioPlayer.RenderAudioFrames;
             }
 
