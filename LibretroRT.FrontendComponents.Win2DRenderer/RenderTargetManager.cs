@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas;
+﻿using LibRetriX;
+using Microsoft.Graphics.Canvas;
 using System;
 using System.Collections.Generic;
 using Windows.Foundation;
@@ -14,10 +15,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
         private static readonly IReadOnlyDictionary<PixelFormats, int> PixelFormatsSizeMapping = new Dictionary<PixelFormats, int>
         {
-            { PixelFormats.FormatXRGB8888, 4 },
-            { PixelFormats.FormatRGB565, 2 },
-            { PixelFormats.Format0RGB1555, 2 },
-            { PixelFormats.FormatUknown, 0 },
+            { PixelFormats.XRGB8888, 4 },
+            { PixelFormats.RGB565, 2 },
+            { PixelFormats.RGB0555, 2 },
+            { PixelFormats.Unknown, 0 },
         };
 
         private readonly object RenderTargetLock = new object();
@@ -27,7 +28,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         //This may be different from viewport's width/haight.
         private float RenderTargetAspectRatio = 1.0f;
 
-        private PixelFormats currentCorePixelFormat = PixelFormats.FormatUknown;
+        private PixelFormats currentCorePixelFormat = PixelFormats.Unknown;
         public PixelFormats CurrentCorePixelFormat
         {
             get { return currentCorePixelFormat; }
@@ -70,10 +71,10 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
 
                 switch(CurrentCorePixelFormat)
                 {
-                    case PixelFormats.FormatXRGB8888:
+                    case PixelFormats.XRGB8888:
                         RenderTarget.SetPixelBytes(frameBuffer, 0, 0, (int)virtualWidth, (int)height);
                         break;
-                    case PixelFormats.FormatRGB565:
+                    case PixelFormats.RGB565:
                         ColorConverter.ConvertFrameBufferRGB565ToXRGB8888(frameBuffer, width, height, pitch, RenderTargetBuffer);
                         RenderTarget.SetPixelBytes(RenderTargetBuffer, 0, 0, (int)width, (int)height);
                         break;

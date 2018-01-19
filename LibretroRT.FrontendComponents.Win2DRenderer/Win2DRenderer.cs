@@ -1,4 +1,5 @@
-﻿using LibretroRT.FrontendComponents.Common;
+﻿using LibRetriX;
+using LibretroRT.FrontendComponents.Common;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,7 +19,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
         public string GameID { get; private set; }
         public bool CoreIsExecuting { get; private set; }
 
-        public uint SerializationSize
+        public ulong SerializationSize
         {
             get
             {
@@ -230,7 +231,7 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
             RenderTargetManager.CurrentCorePixelFormat = format;
         }
 
-        public void TimingChanged(SystemTiming timings)
+        public void TimingChanged(SystemTimings timings)
         {
             RenderPanel.TargetElapsedTime = TimeSpan.FromMilliseconds(1000.0 / timings.FPS);
         }
