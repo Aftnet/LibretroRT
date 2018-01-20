@@ -103,7 +103,11 @@ namespace LibretroRT.FrontendComponents.AudioGraphPlayer
                         SamplesBuffer.Enqueue(srcData[i]);
                     }
 
-                    srcHandle.Free();
+                    if(srcHandle.IsAllocated)
+                    {
+                        srcHandle.Free();
+                    }
+
                     if (SamplesBuffer.Count >= MinNumSamplesForPlayback)
                     {
                         Graph.Start();

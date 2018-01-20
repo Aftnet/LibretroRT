@@ -54,6 +54,11 @@ namespace LibretroRT.FrontendComponents.Win2DRenderer
                     inLineStart += pitch;
                 }
             }
+
+            if (handle.IsAllocated)
+            {
+                handle.Free();
+            }
         }
     }
 }

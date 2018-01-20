@@ -19,6 +19,10 @@ namespace RetriX.UWP.Services
 {
     public class EmulationService : IEmulationService
     {
+        private const string VFSRomPath = "ROM\\";
+        private const string VFSSystemPath = "System\\";
+        private const string VFSSavePath = "Save\\";
+
         private static readonly Type GamePlayerPageType = typeof(GamePlayerPage);
 
         private static readonly IReadOnlyDictionary<InjectedInputTypes, InputTypes> InjectedInputMapping = new Dictionary<InjectedInputTypes, InputTypes>
@@ -144,7 +148,7 @@ namespace RetriX.UWP.Services
             }
             else
             {
-                var archiveProvider = new ArchiveStreamProvider(VFS.RomPath, file);
+                var archiveProvider = new ArchiveStreamProvider(VFSRomPath, file);
                 await archiveProvider.InitializeAsync();
                 StreamProvider = archiveProvider;
                 var entries = await StreamProvider.ListEntriesAsync();
@@ -277,18 +281,18 @@ namespace RetriX.UWP.Services
             IStreamProvider romProvider;
             if (rootFolder == null)
             {
-                mainFileVirtualPath = $"{VFS.RomPath}{Path.DirectorySeparatorChar}{file.Name}";
+                mainFileVirtualPath = $"{VFSRomPath}{Path.DirectorySeparatorChar}{file.Name}";
                 romProvider = new SingleFileStreamProvider(mainFileVirtualPath, file);
             }
             else
             {
                 mainFileVirtualPath = file.FullName.Substring(rootFolder.FullName.Length + 1);
-                mainFileVirtualPath = $"{VFS.RomPath}{Path.DirectorySeparatorChar}{mainFileVirtualPath}";
-                romProvider = new FolderStreamProvider(VFS.RomPath, rootFolder);
+                mainFileVirtualPath = $"{VFSRomPath}{Path.DirectorySeparatorChar}{mainFileVirtualPath}";
+                romProvider = new FolderStreamProvider(VFSRomPath, rootFolder);
             }
 
-            var systemProvider = new FolderStreamProvider(VFS.SystemPath, new Plugin.FileSystem.DirectoryInfo((StorageFolder)system.Core.SystemFolder));
-            var saveProvider = new FolderStreamProvider(VFS.SavePath, new Plugin.FileSystem.DirectoryInfo((StorageFolder)system.Core.SaveGameFolder));
+            var systemProvider = new FolderStreamProvider(VFSSystemPath, new Plugin.FileSystem.DirectoryInfo((StorageFolder)system.Core.SystemFolder));
+            var saveProvider = new FolderStreamProvider(VFSSavePath, new Plugin.FileSystem.DirectoryInfo((StorageFolder)system.Core.SaveGameFolder));
             var combinedProvider = new CombinedStreamProvider(new HashSet<IStreamProvider> { romProvider, systemProvider, saveProvider });
             provider = combinedProvider;
         }

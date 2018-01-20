@@ -1,6 +1,7 @@
 ﻿using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.ExtensionMethods;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -48,7 +49,7 @@ namespace RetriX.Shared.Services
             GameId = id.MD5();
         }
 
-        public async Task<byte[]> LoadStateAsync(uint slotId)
+        public async Task<Stream> GetStreamForSlotAsync(uint slotId, FileAccess access)
         {
             if (!AllowOperations)
             {
@@ -62,50 +63,22 @@ namespace RetriX.Shared.Services
             var file = await statesFolder.GetFileAsync(fileName);
             if (file == null)
             {
-                OperationInProgress = false;
-                return null;
-            }
+                if (access == FileAccess.Read)
+                {
+                    OperationInProgress = false;
+                    return null;
+                }
 
-            using (var stream = await file.OpenAsync(System.IO.FileAccess.Read))
-            {
-                var output = new byte[stream.Length];
-                await stream.ReadAsync(output, 0, output.Length);
-
-                OperationInProgress = false;
-                return output;
-            }
-        }
-
-        public async Task<bool> SaveStateAsync(uint slotId, byte[] data)
-        {
-            if (!AllowOperations)
-            {
-                return false;
-            }
-
-            OperationInProgress = true;
-
-            var statesFolder = await GetGameSaveStatesFolderAsync();
-            var fileName = GenerateSaveFileName(slotId);
-
-            var file = await statesFolder.GetFileAsync(fileName);
-            if (file == null)
-            {
                 file = await statesFolder.CreateFileAsync(fileName);
+                //This should never happen
+                if (file == null)
+                {
+                    return null;
+                }
             }
 
-            using (var stream = await file.OpenAsync(System.IO.FileAccess.ReadWrite))
-            {
-                await stream.WriteAsync(data, 0, data.Length);
-            }
-
-            var messageTitle = LocalizationService.GetLocalizedString(StateSavedToSlotMessageTitleKey);
-            var messageBody = LocalizationService.GetLocalizedString(StateSavedToSlotMessageBodyKey);
-            messageBody = string.Format(messageBody, slotId);
-            NotificationService.Show(messageTitle, messageBody);
-
-            OperationInProgress = false;
-            return true;
+            var stream = await file.OpenAsync(access);
+            return stream;
         }
 
         public async Task<bool> SlotHasDataAsync(uint slotId)

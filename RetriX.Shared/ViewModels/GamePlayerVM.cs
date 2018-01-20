@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using RetriX.Shared.Services;
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -230,11 +231,11 @@ namespace RetriX.Shared.ViewModels
         {
             CoreOperationsAllowed = false;
 
-            var data = await EmulationService.SaveGameStateAsync();
-            if (data != null)
+            SaveStateService.SetGameId(EmulationService.GameID);
+            var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.ReadWrite);
+            if (stream != null)
             {
-                SaveStateService.SetGameId(EmulationService.GameID);
-                await SaveStateService.SaveStateAsync(slotID, data);
+                await EmulationService.SaveGameStateAsync(stream);
             }
 
             CoreOperationsAllowed = true;
@@ -250,10 +251,10 @@ namespace RetriX.Shared.ViewModels
             CoreOperationsAllowed = false;
 
             SaveStateService.SetGameId(EmulationService.GameID);
-            var data = await SaveStateService.LoadStateAsync(slotID);
-            if (data != null)
+            var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.Read);
+            if (stream != null)
             {
-                await EmulationService.LoadGameStateAsync(data);
+                await EmulationService.LoadGameStateAsync(stream);
             }
 
             CoreOperationsAllowed = true;

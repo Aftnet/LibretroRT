@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
 {
@@ -6,8 +7,7 @@ namespace RetriX.Shared.Services
     {
         void SetGameId(string id);
 
-        Task<byte[]> LoadStateAsync(uint slotId);
-        Task<bool> SaveStateAsync(uint slotId, byte[] data);
+        Task<Stream> GetStreamForSlotAsync(uint slotId, FileAccess access);
         Task<bool> SlotHasDataAsync(uint slotId);
         Task ClearSavesAsync();
     };

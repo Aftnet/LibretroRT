@@ -225,7 +225,9 @@ namespace LibRetriX.RetroBindings
 
             if (result == true)
             {
+                outputStream.Position = 0;
                 outputStream.Write(stateData, 0, stateData.Length);
+                outputStream.SetLength(stateData.Length);
             }
 
             return result;
@@ -234,6 +236,7 @@ namespace LibRetriX.RetroBindings
         public bool LoadState(Stream inputStream)
         {
             var stateData = new byte[inputStream.Length];
+            inputStream.Position = 0;
             inputStream.Read(stateData, 0, stateData.Length);
 
             var handle = GCHandle.Alloc(stateData, GCHandleType.Pinned);
