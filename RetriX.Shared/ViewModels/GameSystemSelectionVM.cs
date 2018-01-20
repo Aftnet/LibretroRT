@@ -50,9 +50,9 @@ namespace RetriX.Shared.ViewModels
             PlatformService = platformService;
             EmulationService = emulationService;
 
+            GameSystems = EmulationService.Systems;
             GameSystemSelectedCommand = new RelayCommand<GameSystemVM>(GameSystemSelected);
 
-            EmulationService.CoresInitialized += OnCoresInitialized;
             EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
             EmulationService.GameStopped += d => { ResetSystemsSelection(); };
 
@@ -77,7 +77,7 @@ namespace RetriX.Shared.ViewModels
         public async Task StartGameFromFileAsync(IFileInfo file)
         {
             //Find compatible systems for file extension
-            var compatibleSystems = await EmulationService.FilterSystemsForFileAsync(file);
+            var compatibleSystems = EmulationService.FilterSystemsForFile(file);
 
             //If none, do nothing
             if (!compatibleSystems.Any())
@@ -134,11 +134,6 @@ namespace RetriX.Shared.ViewModels
                 ResetSystemsSelection();
                 await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
             }
-        }
-
-        private void OnCoresInitialized(IEmulationService sender)
-        {
-            GameSystems = EmulationService.Systems;
         }
 
         private void OnGameRuntimeExceptionOccurred(IEmulationService sender, Exception e)
