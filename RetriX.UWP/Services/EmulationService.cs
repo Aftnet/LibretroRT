@@ -23,9 +23,9 @@ namespace RetriX.UWP.Services
         public const string StateSavedToSlotMessageTitleKey = "StateSavedToSlotMessageTitleKey";
         public const string StateSavedToSlotMessageBodyKey = "StateSavedToSlotMessageBodyKey";
 
-        private const string VFSRomPath = "ROM\\";
-        private const string VFSSystemPath = "System\\";
-        private const string VFSSavePath = "Save\\";
+        private const string VFSRomPath = "ROM";
+        private const string VFSSystemPath = "System";
+        private const string VFSSavePath = "Save";
 
         private static readonly Type GamePlayerPageType = typeof(GamePlayerPage);
 
@@ -245,8 +245,9 @@ namespace RetriX.UWP.Services
             var success = await CoreRunner.SaveGameStateAsync(stream);
             if (success)
             {
-                var notificationMessage = string.Format(StateSavedToSlotMessageTitleKey, slotID);
-                NotificationService.Show(StateSavedToSlotMessageTitleKey, notificationMessage);
+                var notificationTitle = LocalizationService.GetLocalizedString(StateSavedToSlotMessageTitleKey);
+                var notificationBody = string.Format(LocalizationService.GetLocalizedString(StateSavedToSlotMessageBodyKey), slotID);
+                NotificationService.Show(notificationTitle, notificationBody);
             }
 
             return success;
