@@ -1,5 +1,4 @@
 ﻿using Plugin.FileSystem.Abstractions;
-using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.ExtensionMethods;
 using System.IO;
 using System.Threading.Tasks;
@@ -10,11 +9,7 @@ namespace RetriX.Shared.Services
     {
         private const string SaveStatesFolderName = "SaveStates";
 
-        public const string StateSavedToSlotMessageTitleKey = "StateSavedToSlotMessageTitleKey";
-        public const string StateSavedToSlotMessageBodyKey = "StateSavedToSlotMessageBodyKey";
-
         private readonly IFileSystem FileSystem;
-        private readonly ILocalizationService LocalizationService;
 
         private string GameId { get; set; }
 
@@ -23,10 +18,9 @@ namespace RetriX.Shared.Services
 
         private IDirectoryInfo SaveStatesFolder;
 
-        public SaveStateService(IFileSystem fileSystem, ILocalizationService localizationService)
+        public SaveStateService(IFileSystem fileSystem)
         {
             FileSystem = fileSystem;
-            LocalizationService = localizationService;
 
             GetSubfolderAsync(FileSystem.LocalStorage, SaveStatesFolderName).ContinueWith(d =>
             {

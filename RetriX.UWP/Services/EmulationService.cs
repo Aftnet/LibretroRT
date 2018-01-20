@@ -20,6 +20,9 @@ namespace RetriX.UWP.Services
 {
     public class EmulationService : IEmulationService
     {
+        public const string StateSavedToSlotMessageTitleKey = "StateSavedToSlotMessageTitleKey";
+        public const string StateSavedToSlotMessageBodyKey = "StateSavedToSlotMessageBodyKey";
+
         private const string VFSRomPath = "ROM\\";
         private const string VFSSystemPath = "System\\";
         private const string VFSSavePath = "Save\\";
@@ -103,6 +106,14 @@ namespace RetriX.UWP.Services
                 //new ViewModels.GameSystemVM(FBAlphaRT.FBAlphaCore.Instance, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
             };
 
+            foreach (var i in systems.Select(d => d.Core).Distinct())
+            {
+                i.SystemRootPath = VFSSystemPath;
+                i.SaveRootPath = VFSSavePath;
+                i.OpenFileStream = OnCoreOpenFileStream;
+                i.CloseFileStream = OnCoreCloseFileStream;
+            }
+
             Task.Run(() => GetFileDependencyImportersAsync(systems, fileSystem, dialogsService, localizationService, platformService, cryptographyService)).ContinueWith(d =>
             {
                 FileDependencyImporters = d.Result;
@@ -117,6 +128,7 @@ namespace RetriX.UWP.Services
 
         public async Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder = null)
         {
+            var core = system.Core;
             if (CoreRunner == null)
             {
                 RootFrame.Navigate(GamePlayerPageType);
@@ -129,7 +141,7 @@ namespace RetriX.UWP.Services
             StreamProvider?.Dispose();
             StreamProvider = null;
             string virtualMainFilePath = null;
-            if (system.Core.NativeArchiveSupport || !ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
+            if (core.NativeArchiveSupport || !ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
             {
                 virtualMainFilePath = $"{VFSRomPath}{Path.DirectorySeparatorChar}{file.Name}";
                 StreamProvider = new SingleFileStreamProvider(virtualMainFilePath, file);
@@ -166,12 +178,10 @@ namespace RetriX.UWP.Services
                 return false;
             }
 
-            system.Core.OpenFileStream = OnCoreOpenFileStream;
-            system.Core.CloseFileStream = OnCoreCloseFileStream;
             var loadSuccessful = false;
             try
             {
-                loadSuccessful = await CoreRunner.LoadGameAsync(system.Core, virtualMainFilePath);
+                loadSuccessful = await CoreRunner.LoadGameAsync(core, virtualMainFilePath);
             }
             catch
             {
@@ -235,7 +245,8 @@ namespace RetriX.UWP.Services
             var success = await CoreRunner.SaveGameStateAsync(stream);
             if (success)
             {
-                //NotificationService.Show()
+                var notificationMessage = string.Format(StateSavedToSlotMessageTitleKey, slotID);
+                NotificationService.Show(StateSavedToSlotMessageTitleKey, notificationMessage);
             }
 
             return success;
