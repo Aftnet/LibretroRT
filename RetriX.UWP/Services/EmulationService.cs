@@ -229,19 +229,24 @@ namespace RetriX.UWP.Services
 
         public async Task<bool> SaveGameStateAsync(uint slotID)
         {
+            var success = false;
             if (CoreRunner == null)
             {
-                return false;
+                return success;
             }
 
             SaveStateService.SetGameId(GameID);
-            var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.ReadWrite);
-            if (stream == null)
+            using (var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.ReadWrite))
             {
-                return false;
+                if (stream == null)
+                {
+                    return success;
+                }
+
+                success = await CoreRunner.SaveGameStateAsync(stream);
+                await stream.FlushAsync();
             }
 
-            var success = await CoreRunner.SaveGameStateAsync(stream);
             if (success)
             {
                 var notificationTitle = LocalizationService.GetLocalizedString(StateSavedToSlotMessageTitleKey);
@@ -254,19 +259,23 @@ namespace RetriX.UWP.Services
 
         public async Task<bool> LoadGameStateAsync(uint slotID)
         {
+            var success = false;
             if (CoreRunner == null)
             {
-                return false;
+                return success;
             }
 
             SaveStateService.SetGameId(GameID);
-            var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.Read);
-            if (stream == null)
+            using (var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.Read))
             {
-                return false;
+                if (stream == null)
+                {
+                    return false;
+                }
+
+                success = await CoreRunner.LoadGameStateAsync(stream);
             }
 
-            var success = await CoreRunner.LoadGameStateAsync(stream);
             return success;
         }
 
