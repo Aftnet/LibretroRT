@@ -220,7 +220,6 @@ namespace RetriX.UWP.Services
                 return Task.FromResult(false);
             }
 
-            var output = new byte[CoreRunner.SerializationSize];
             return CoreRunner.SaveGameStateAsync(outputStream);
         }
 
