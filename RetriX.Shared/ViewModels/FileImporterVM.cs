@@ -4,7 +4,6 @@ using GalaSoft.MvvmLight.Command;
 using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
