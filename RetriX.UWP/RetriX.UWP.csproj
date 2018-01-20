@@ -239,7 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.5</Version>
+      <Version>6.0.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>2.1.1</Version>
@@ -273,25 +273,13 @@
       <Project>{4FC73E3B-43F0-4830-8DFD-7D32A97D5029}</Project>
       <Name>LibRetriX.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.AudioGraphPlayer\LibretroRT.FrontendComponents.AudioGraphPlayer.csproj">
-      <Project>{80dda0d6-5181-49d1-9cb6-4a441e743086}</Project>
-      <Name>LibretroRT.FrontendComponents.AudioGraphPlayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.Common\LibretroRT.FrontendComponents.Common.csproj">
-      <Project>{0bba2068-71d5-4fec-8e44-761d0e9b44d4}</Project>
-      <Name>LibretroRT.FrontendComponents.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.InputManager\LibretroRT.FrontendComponents.InputManager.csproj">
-      <Project>{0555a467-b1b2-4301-901c-0489f63b8ecc}</Project>
-      <Name>LibretroRT.FrontendComponents.InputManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.Win2DRenderer\LibretroRT.FrontendComponents.Win2DRenderer.csproj">
-      <Project>{cc7fb684-776f-4902-be3b-d354933ef2dc}</Project>
-      <Name>LibretroRT.FrontendComponents.Win2DRenderer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">
       <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>
       <Name>RetriX.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RetriX.UWP.Unsafe\RetriX.UWP.Unsafe.csproj">
+      <Project>{0d8d76f1-1383-437c-9482-bbd3c9723768}</Project>
+      <Name>RetriX.UWP.Unsafe</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

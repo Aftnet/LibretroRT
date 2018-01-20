@@ -1,6 +1,4 @@
-﻿using LibretroRT.FrontendComponents.Common;
-using LibretroRT.FrontendComponents.Win2DRenderer;
-using Microsoft.Practices.ServiceLocation;
+﻿using Microsoft.Practices.ServiceLocation;
 using RetriX.Shared.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

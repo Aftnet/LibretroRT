@@ -112,17 +112,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.5</Version>
+      <Version>6.0.6</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj">
       <Project>{4FC73E3B-43F0-4830-8DFD-7D32A97D5029}</Project>
       <Name>LibRetriX.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.Common\LibretroRT.FrontendComponents.Common.csproj">
-      <Project>{0bba2068-71d5-4fec-8e44-761d0e9b44d4}</Project>
-      <Name>LibretroRT.FrontendComponents.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
