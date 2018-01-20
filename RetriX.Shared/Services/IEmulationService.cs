@@ -2,7 +2,6 @@
 using RetriX.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -42,8 +41,8 @@ namespace RetriX.Shared.Services
         Task PauseGameAsync();
         Task ResumeGameAsync();
 
-        Task<bool> SaveGameStateAsync(Stream outputData);
-        Task<bool> LoadGameStateAsync(Stream inputStream);
+        Task<bool> SaveGameStateAsync(uint slotID);
+        Task<bool> LoadGameStateAsync(uint slotID);
 
         void InjectInputPlayer1(InjectedInputTypes inputType);
 

@@ -14,7 +14,6 @@ namespace RetriX.Shared.Services
         public const string StateSavedToSlotMessageBodyKey = "StateSavedToSlotMessageBodyKey";
 
         private readonly IFileSystem FileSystem;
-        private readonly ILocalNotifications NotificationService;
         private readonly ILocalizationService LocalizationService;
 
         private string GameId { get; set; }
@@ -24,10 +23,9 @@ namespace RetriX.Shared.Services
 
         private IDirectoryInfo SaveStatesFolder;
 
-        public SaveStateService(IFileSystem fileSystem, ILocalNotifications notificationService, ILocalizationService localizationService)
+        public SaveStateService(IFileSystem fileSystem, ILocalizationService localizationService)
         {
             FileSystem = fileSystem;
-            NotificationService = notificationService;
             LocalizationService = localizationService;
 
             GetSubfolderAsync(FileSystem.LocalStorage, SaveStatesFolderName).ContinueWith(d =>

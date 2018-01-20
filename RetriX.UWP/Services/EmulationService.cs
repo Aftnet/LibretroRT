@@ -2,6 +2,7 @@
 using LibRetriX;
 using LibretroRT.FrontendComponents.Common;
 using Plugin.FileSystem.Abstractions;
+using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.Services;
 using RetriX.Shared.StreamProviders;
 using RetriX.Shared.ViewModels;
@@ -42,6 +43,8 @@ namespace RetriX.UWP.Services
         private readonly IFileSystem FileSystem;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
+        private readonly ISaveStateService SaveStateService;
+        private readonly ILocalNotifications NotificationService;
         private readonly IInputManager InputManager;
 
         private readonly Frame RootFrame = Window.Current.Content as Frame;
@@ -52,7 +55,7 @@ namespace RetriX.UWP.Services
         private static readonly string[] archiveExtensions = { ".zip" };
         public IReadOnlyList<string> ArchiveExtensions => archiveExtensions;
 
-        private GameSystemVM[] systems = new GameSystemVM[0];
+        private readonly GameSystemVM[] systems;
         public IReadOnlyList<GameSystemVM> Systems => systems;
 
         public IReadOnlyList<FileImporterVM> FileDependencyImporters { get; private set; }
@@ -63,11 +66,13 @@ namespace RetriX.UWP.Services
         public event GameStoppedDelegate GameStopped;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
-        public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IInputManager inputManager)
+        public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService, ILocalNotifications notificationService, ICryptographyService cryptographyService, IInputManager inputManager)
         {
             FileSystem = fileSystem;
             LocalizationService = localizationService;
             PlatformService = platformService;
+            SaveStateService = saveStateService;
+            NotificationService = notificationService;
             InputManager = inputManager;
 
             RootFrame.Navigated += OnNavigated;
@@ -213,24 +218,45 @@ namespace RetriX.UWP.Services
             return CoreRunner != null ? CoreRunner.ResumeCoreExecutionAsync() : Task.CompletedTask;
         }
 
-        public Task<bool> SaveGameStateAsync(Stream outputStream)
+        public async Task<bool> SaveGameStateAsync(uint slotID)
         {
             if (CoreRunner == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            return CoreRunner.SaveGameStateAsync(outputStream);
+            SaveStateService.SetGameId(GameID);
+            var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.ReadWrite);
+            if (stream == null)
+            {
+                return false;
+            }
+
+            var success = await CoreRunner.SaveGameStateAsync(stream);
+            if (success)
+            {
+                //NotificationService.Show()
+            }
+
+            return success;
         }
 
-        public Task<bool> LoadGameStateAsync(Stream inputStream)
+        public async Task<bool> LoadGameStateAsync(uint slotID)
         {
             if (CoreRunner == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            return CoreRunner.LoadGameStateAsync(inputStream);
+            SaveStateService.SetGameId(GameID);
+            var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.Read);
+            if (stream == null)
+            {
+                return false;
+            }
+
+            var success = await CoreRunner.LoadGameStateAsync(stream);
+            return success;
         }
 
         public void InjectInputPlayer1(InjectedInputTypes inputType)
