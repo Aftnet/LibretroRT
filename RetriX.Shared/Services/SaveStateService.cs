@@ -70,6 +70,7 @@ namespace RetriX.Shared.Services
             }
 
             var stream = await file.OpenAsync(access);
+            OperationInProgress = false;
             return stream;
         }
 
