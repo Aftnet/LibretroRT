@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.UnmanagedMemoryStream" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LibRetriX\LibRetriX.RetroBindings\LibRetriX.RetroBindings.csproj" />
+    <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\LibRetriX\LibRetriX.RetroBindings.Static\LibRetriX.RetroBindings.Static.projitems" Label="Shared" />
+
+</Project>
