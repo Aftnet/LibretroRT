@@ -51,11 +51,8 @@ namespace RetriX.Shared.ViewModels
             var systemFolder = await GetSystemDirectoryAsync();
             foreach (var i in Core.FileDependencies)
             {
-                try
-                {
-                    await systemFolder.GetFileAsync(i.Name);
-                }
-                catch
+                var file = await systemFolder.GetFileAsync(i.Name);
+                if (file == null)
                 {
                     return false;
                 }
