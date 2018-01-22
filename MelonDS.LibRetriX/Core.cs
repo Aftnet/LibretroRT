@@ -17,9 +17,9 @@ namespace LibRetriX.MelonDS
 
         private static readonly FileDependency[] Dependencies =
         {
-            new FileDependency("BIOS_CD_E.bin", "Mega-CD (Model 1 1.00 Europe) BIOS", "e66fa1dc5820d254611fdcdba0662372"),
-            new FileDependency("BIOS_CD_J.bin", "Mega-CD (Model 1 1.00 Japan) BIOS", "278a9397d192149e84e820ac621a8edd"),
-            new FileDependency("BIOS_CD_U.bin", "Mega-CD (Model 1 1.00 USA) BIOS", "2efd74e3232ff260e371b99f84024f7f"),
+            new FileDependency("bios7.bin", "Nintendo DS ARM7 BIOS", "df692a80a5b1bc90728bc3dfc76cd948"),
+            new FileDependency("bios9.bin", "Nintendo DS ARM9 BIOS", "a392174eb3e572fed6447e956bde4b25"),
+	        new FileDependency("firmware.bin", "Nintendo DS Firmware", "b10f39a8a5a573753406f9da2e7232c8"),
         };
     }
 }
