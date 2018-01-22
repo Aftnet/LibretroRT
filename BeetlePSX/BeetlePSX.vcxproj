@@ -128,6 +128,7 @@
       <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>DHAVE_FSEEKO;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;__STDC_LIMIT_MACROS;__STDC_CONSTANT_MACROS;STDC_HEADERS;MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,6 +143,7 @@
       <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>DHAVE_FSEEKO;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;__STDC_LIMIT_MACROS;__STDC_CONSTANT_MACROS;STDC_HEADERS;MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +158,7 @@
       <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>DHAVE_FSEEKO;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;__STDC_LIMIT_MACROS;__STDC_CONSTANT_MACROS;STDC_HEADERS;MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -170,6 +173,7 @@
       <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>DHAVE_FSEEKO;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;__STDC_LIMIT_MACROS;__STDC_CONSTANT_MACROS;STDC_HEADERS;MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -184,6 +188,7 @@
       <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>DHAVE_FSEEKO;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;__STDC_LIMIT_MACROS;__STDC_CONSTANT_MACROS;STDC_HEADERS;MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -198,6 +203,7 @@
       <AdditionalOptions>/wd4996 /wd4703</AdditionalOptions>
       <PreprocessorDefinitions>DHAVE_FSEEKO;HAVE_CHD;_7ZIP_ST;PACKAGE_VERSION="1.3.2";FLAC_API_EXPORTS;FLAC__HAS_OGG=0;HAVE_LROUND;HAVE_STDINT_H;HAVE_STDLIB_H;HAVE_SYS_PARAM_H;__STDC_LIMIT_MACROS;__STDC_CONSTANT_MACROS;STDC_HEADERS;MPC_FIXED_POINT;_LOW_ACCURACY_;SIZEOF_DOUBLE=8;PSS_STYLE=1;HAVE_PBP;_WINDOWS;_USRDLL;LIBRETROPSX_EXPORTS;WANT_THREADING;HAVE_THREADS;WANT_32BPP;__LIBRETRO__;WANT_NEW_API;NEED_TREMOR;NEED_DEINTERLACER;NEED_CD;MEDNAFEN_VERSION_NUMERIC=9361;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;$(ProjectDir)src\deps\zlib;$(ProjectDir)src\mednafen;$(ProjectDir)src\libretro-common\include;$(ProjectDir)src\deps\crypto;$(ProjectDir)src\deps\flac-1.3.2\include;$(ProjectDir)src\deps\flac-1.3.2\src\libFLAC\include;$(ProjectDir)src\deps\lzma-16.04\C;$(ProjectDir)src\deps\libchdr;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -364,32 +370,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\deps\crypto\md5.c">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">crypto_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">crypto_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">crypto_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">crypto_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">crypto_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">crypto_md5</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="src\deps\crypto\sha1.c">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">crypto_sha1</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">crypto_sha1</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">crypto_sha1</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">crypto_sha1</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">crypto_sha1</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">crypto_sha1</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="src\deps\crypto\md5.c" />
+    <ClCompile Include="src\deps\crypto\sha1.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\bitmath.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\bitreader.c" />
-    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\cpu.c">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">flac_cpu</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">flac_cpu</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">flac_cpu</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">flac_cpu</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">flac_cpu</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">flac_cpu</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\cpu.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\crc.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\fixed.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\fixed_intrin_sse2.c" />
@@ -401,26 +386,12 @@
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\lpc_intrin_sse.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\lpc_intrin_sse2.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\lpc_intrin_sse41.c" />
-    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\md5.c">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">flac_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">flac_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">flac_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">flac_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">flac_md5</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">flac_md5</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\md5.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\memory.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\metadata_iterators.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\metadata_object.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\stream_decoder.c" />
-    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\window.c">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">flac_window</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">flac_window</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">flac_window</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">flac_window</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">flac_window</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">flac_window</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\window.c" />
     <ClCompile Include="src\deps\flac-1.3.2\src\libFLAC\windows_unicode_filenames.c" />
     <ClCompile Include="src\deps\libchdr\bitstream.c" />
     <ClCompile Include="src\deps\libchdr\cdrom.c" />
