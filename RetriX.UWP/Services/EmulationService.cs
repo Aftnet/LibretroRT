@@ -203,7 +203,7 @@ namespace RetriX.UWP.Services
 
         public Task ResetGameAsync()
         {
-            return CoreRunner != null ? Task.CompletedTask : CoreRunner.ResetGameAsync();
+            return CoreRunner == null ? Task.CompletedTask : CoreRunner.ResetGameAsync();
         }
 
         public async Task StopGameAsync()
