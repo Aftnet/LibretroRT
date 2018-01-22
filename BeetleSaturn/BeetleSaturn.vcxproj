@@ -217,6 +217,8 @@
     <ClInclude Include="src\deps\zlib\zconf.h" />
     <ClInclude Include="src\deps\zlib\zlib.h" />
     <ClInclude Include="src\deps\zlib\zutil.h" />
+    <ClInclude Include="src\disc.h" />
+    <ClInclude Include="src\input.h" />
     <ClInclude Include="src\libretro-common\include\boolean.h" />
     <ClInclude Include="src\libretro-common\include\compat\apple_compat.h" />
     <ClInclude Include="src\libretro-common\include\compat\fnmatch.h" />
@@ -257,6 +259,7 @@
     <ClInclude Include="src\libretro-common\rthreads\psp_pthread.h" />
     <ClInclude Include="src\libretro.h" />
     <ClInclude Include="src\libretro_cbs.h" />
+    <ClInclude Include="src\libretro_settings.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess_CCD.h" />
     <ClInclude Include="src\mednafen\cdrom\CDAccess_Image.h" />
@@ -290,6 +293,7 @@
     <ClInclude Include="src\mednafen\settings-driver.h" />
     <ClInclude Include="src\mednafen\settings.h" />
     <ClInclude Include="src\mednafen\ss\cart.h" />
+    <ClInclude Include="src\mednafen\ss\cart\ar4mp.h" />
     <ClInclude Include="src\mednafen\ss\cart\backup.h" />
     <ClInclude Include="src\mednafen\ss\cart\common.h" />
     <ClInclude Include="src\mednafen\ss\cart\cs1ram.h" />
@@ -362,6 +366,8 @@
     <ClCompile Include="src\deps\zlib\trees.c" />
     <ClCompile Include="src\deps\zlib\uncompr.c" />
     <ClCompile Include="src\deps\zlib\zutil.c" />
+    <ClCompile Include="src\disc.cpp" />
+    <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\libretro-common\compat\compat_strcasestr.c" />
     <ClCompile Include="src\libretro-common\compat\compat_strl.c" />
     <ClCompile Include="src\libretro-common\compat\fopen_utf8.c" />
@@ -372,6 +378,7 @@
     <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
     <ClCompile Include="src\libretro.cpp" />
     <ClCompile Include="src\libretro_cbs.c" />
+    <ClCompile Include="src\libretro_settings.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAccess.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAccess_CCD.cpp" />
     <ClCompile Include="src\mednafen\cdrom\CDAccess_Image.cpp" />
@@ -396,6 +403,7 @@
     <ClCompile Include="src\mednafen\mempatcher.cpp" />
     <ClCompile Include="src\mednafen\settings.cpp" />
     <ClCompile Include="src\mednafen\ss\cart.cpp" />
+    <ClCompile Include="src\mednafen\ss\cart\ar4mp.cpp" />
     <ClCompile Include="src\mednafen\ss\cart\backup.cpp" />
     <ClCompile Include="src\mednafen\ss\cart\cs1ram.cpp" />
     <ClCompile Include="src\mednafen\ss\cart\debug.cpp" />

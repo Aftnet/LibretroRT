@@ -146,6 +146,10 @@
     <ClInclude Include="src\libretro-common\include\retro_timers.h" />
     <ClInclude Include="src\libretro-common\rthreads\gx_pthread.h" />
     <ClInclude Include="src\libretro-common\rthreads\psp_pthread.h" />
+    <ClInclude Include="src\input.h" />
+    <ClInclude Include="src\disc.h" />
+    <ClInclude Include="src\libretro_settings.h" />
+    <ClInclude Include="src\mednafen\ss\cart\ar4mp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\deps\zlib\adler32.c" />
@@ -243,5 +247,9 @@
     <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
+    <ClCompile Include="src\input.cpp" />
+    <ClCompile Include="src\disc.cpp" />
+    <ClCompile Include="src\libretro_settings.cpp" />
+    <ClCompile Include="src\mednafen\ss\cart\ar4mp.cpp" />
   </ItemGroup>
 </Project>
