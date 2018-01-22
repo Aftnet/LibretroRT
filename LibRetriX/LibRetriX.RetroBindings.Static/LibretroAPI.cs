@@ -135,6 +135,7 @@ namespace LibRetriX.RetroBindings
         /// <param name="game">Game info struct</param>
         /// <returns>Whether the game was successfully loaded</returns>
         [DllImport(NativeDllInfo.DllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "retro_load_game")]
+        [return: MarshalAs(UnmanagedType.I1)]
         public extern static bool LoadGame([In] ref GameInfo game);
 
         /// <summary>
@@ -168,9 +169,11 @@ namespace LibRetriX.RetroBindings
         public extern static IntPtr GetSerializationSize();
 
         [DllImport(NativeDllInfo.DllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "retro_serialize")]
+        [return: MarshalAs(UnmanagedType.I1)]
         public extern static bool SaveState(IntPtr data, IntPtr size);
 
         [DllImport(NativeDllInfo.DllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "retro_unserialize")]
+        [return: MarshalAs(UnmanagedType.I1)]
         public extern static bool LoadState(IntPtr data, IntPtr size);
         #endregion
     }

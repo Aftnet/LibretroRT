@@ -8,6 +8,7 @@ namespace LibRetriX.RetroBindings
     public delegate void LibretroLogDelegate(LogLevels level, IntPtr format, IntPtr argAddresses);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.I1)]
     public delegate bool LibretroEnvironmentDelegate(uint command, IntPtr data);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

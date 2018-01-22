@@ -30,6 +30,7 @@ namespace LibRetriX.RetroBindings
         /// </summary>
         public string ValidExtensions => Marshal.PtrToStringAnsi(validExtensions);
 
+        [MarshalAs(UnmanagedType.I1)]
         private bool needFullpath;
         /// <summary>
         /// If true, retro_load_game() is guaranteed to provide a valid pathname in path. data and size are both invalid.
@@ -39,6 +40,7 @@ namespace LibRetriX.RetroBindings
         /// </summary>
         public bool NeedFullpath => needFullpath;
 
+        [MarshalAs(UnmanagedType.I1)]
         private bool blockExtract;
         /// <summary>
         /// If true, the frontend is not allowed to extract any archives before loading the real content.
