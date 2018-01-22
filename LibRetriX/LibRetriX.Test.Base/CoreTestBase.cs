@@ -125,7 +125,7 @@ namespace LibRetriX.Test.Base
             Assert.True(numPollInputCalled == numFramesToRun);
             Assert.True(numGetInputStateCalled >= numFramesToRun);
             Assert.True(numRenderVideoFrameCalled == numFramesToRun);
-            Assert.True(numRenderAudioFrameCalled == numFramesToRun);
+            Assert.True(numRenderAudioFrameCalled >= numFramesToRun);
         }
 
         private async Task<string> SetupTestROMLoading(string romName)
