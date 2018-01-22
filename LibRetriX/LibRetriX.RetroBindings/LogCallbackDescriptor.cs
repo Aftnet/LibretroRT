@@ -5,6 +5,11 @@ namespace LibRetriX.RetroBindings
     [StructLayout(LayoutKind.Sequential)]
     public struct LogCallbackDescriptor
     {
-        public LibretroLogDelegate LogCallback { get; set; }
+        private LibretroLogDelegate logCallback;
+        public LibretroLogDelegate LogCallback
+        {
+            get => logCallback;
+            set { logCallback = value; }
+        }
     }
 }

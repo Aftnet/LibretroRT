@@ -5,26 +5,31 @@ namespace LibRetriX
     [StructLayout(LayoutKind.Sequential)]
     public struct GameGeometry
     {
+        private uint baseWidth;
         /// <summary>
         /// Nominal video width of game
         /// </summary>
-        public uint BaseWidth { get; private set; }
+        public uint BaseWidth => baseWidth;
 
+        private uint baseHeight;
         /// <summary>
         /// Nominal video height of game
         /// </summary>
-        public uint BaseHeight { get; private set; }
+        public uint BaseHeight => baseHeight;
 
+        private uint maxWidth;
         /// <summary>
         /// Maximum possible width of game
         /// </summary>
-        public uint MaxWidth { get; private set; }
+        public uint MaxWidth => maxWidth;
 
+        private uint maxHeight;
         /// <summary>
         /// Maximum possible height of game
         /// </summary>
-        public uint MaxHeight { get; private set; }
+        public uint MaxHeight => maxHeight;
 
+        private float aspectRatio;
         /// <summary>
         /// Nominal aspect ratio of game.
         /// If aspect_ratio is <= 0.0, an aspect ratio
@@ -32,6 +37,6 @@ namespace LibRetriX
         /// A frontend could override this setting
         /// if desired
         /// </summary>
-        public float AspectRatio { get; private set; }
+        public float AspectRatio => aspectRatio;
     }
 }

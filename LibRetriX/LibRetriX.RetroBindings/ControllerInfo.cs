@@ -6,7 +6,10 @@ namespace LibRetriX.RetroBindings
     [StructLayout(LayoutKind.Sequential)]
     public struct ControllerInfo
     {
-        public IntPtr DescriptionsPtr { get; private set; }
-        public uint NumDescriptions { get; private set; }
+        private IntPtr descriptionsPtr;
+        public IntPtr DescriptionsPtr => descriptionsPtr;
+
+        private uint numDescriptions;
+        public uint NumDescriptions => numDescriptions;
     };
 }

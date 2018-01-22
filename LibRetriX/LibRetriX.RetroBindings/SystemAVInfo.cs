@@ -5,7 +5,10 @@ namespace LibRetriX.RetroBindings
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct SystemAVInfo
     {
-        public GameGeometry Geometry { get; private set; }
-        public SystemTimings Timings { get; private set; }
+        private GameGeometry geometry;
+        public GameGeometry Geometry => geometry;
+
+        private SystemTimings timings;
+        public SystemTimings Timings => timings;
     }
 }
