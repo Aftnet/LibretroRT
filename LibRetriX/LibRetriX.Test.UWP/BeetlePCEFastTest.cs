@@ -1,4 +1,4 @@
-﻿using LibRetriX.GPGX;
+﻿using LibRetriX.BeetlePCEFast;
 using LibRetriX.Test.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
