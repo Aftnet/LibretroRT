@@ -12,14 +12,21 @@ namespace LibRetriX.BeetlePSX
 
         private static ICore InitCore()
         {
-            return new LibretroCore(Dependencies);
+            return new LibretroCore(Dependencies, Options, 1);
         }
 
         private static readonly FileDependency[] Dependencies =
         {
-            new FileDependency("BIOS_CD_E.bin", "Mega-CD (Model 1 1.00 Europe) BIOS", "e66fa1dc5820d254611fdcdba0662372"),
-            new FileDependency("BIOS_CD_J.bin", "Mega-CD (Model 1 1.00 Japan) BIOS", "278a9397d192149e84e820ac621a8edd"),
-            new FileDependency("BIOS_CD_U.bin", "Mega-CD (Model 1 1.00 USA) BIOS", "2efd74e3232ff260e371b99f84024f7f"),
+            new FileDependency("scph5500.bin", "PlayStation (v3.0 09/09/96 J) BIOS", "8dd7d5296a650fac7319bce665a6a53c"),
+            new FileDependency("scph5501.bin", "PlayStation (v3.0 11/18/96 A) BIOS", "490f666e1afb15b7362b406ed1cea246"),
+            new FileDependency("scph5502.bin", "PlayStation (v3.0 01/06/97 E) BIOS", "32736f17079d0b2b7024407c39bd3050"),
+        };
+
+        private static readonly Tuple<string, uint>[] Options =
+        {
+            Tuple.Create("beetle_psx_frame_duping_enable", 1U),
+            Tuple.Create("beetle_psx_analog_calibration", 1U),
+            Tuple.Create("beetle_psx_skipbios", 1U),
         };
     }
 }
