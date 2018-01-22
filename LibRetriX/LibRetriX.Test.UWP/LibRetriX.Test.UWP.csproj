@@ -95,6 +95,11 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GambatteTest.cs" />
+    <Compile Include="NestopiaTest.cs" />
+    <Compile Include="Snes9XTest.cs" />
+    <Compile Include="VBAMTest.cs" />
+    <Compile Include="MelonDSTest.cs" />
     <Compile Include="BeetleNGPTest.cs" />
     <Compile Include="FBAlphaTest.cs" />
     <Compile Include="BeetleWswanTest.cs" />
