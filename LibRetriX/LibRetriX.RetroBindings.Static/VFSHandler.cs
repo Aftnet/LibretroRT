@@ -167,7 +167,7 @@ namespace LibRetriX.RetroBindings
                 }
 
                 vfsStream.BackingStream.Position = offset;
-                return offset;
+                return VFSSuccessCode;
             }
             catch
             {
