@@ -12,7 +12,9 @@ namespace LibRetriX.BeetlePSX
 
         private static ICore InitCore()
         {
-            return new LibretroCore(Dependencies, Options, 1);
+            var core = new LibretroCore(Dependencies, Options, 1);
+            core.Initialize();
+            return core;
         }
 
         private static readonly FileDependency[] Dependencies =

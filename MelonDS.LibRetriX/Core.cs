@@ -12,7 +12,9 @@ namespace LibRetriX.MelonDS
 
         private static ICore InitCore()
         {
-            return new LibretroCore(Dependencies);
+            var core = new LibretroCore(Dependencies);
+            core.Initialize();
+            return core;
         }
 
         private static readonly FileDependency[] Dependencies =

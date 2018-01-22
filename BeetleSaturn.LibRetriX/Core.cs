@@ -12,7 +12,9 @@ namespace LibRetriX.BeetleSaturn
 
         private static ICore InitCore()
         {
-            return new LibretroCore();
+            var core = new LibretroCore();
+            core.Initialize();
+            return core;
         }
     }
 }

@@ -115,13 +115,6 @@ namespace LibRetriX.RetroBindings
             OptionSetters = optionSetters == null ? Array.Empty<Tuple<string, uint>>() : optionSetters;
             inputTypeIndex = inputTypeIx;
 
-            LibretroAPI.EnvironmentCallback = EnvironmentHandler;
-            LibretroAPI.RenderVideoFrameCallback = RenderVideoFrameHandler;
-            LibretroAPI.RenderAudioFrameCallback = RenderAudioFrameHandler;
-            LibretroAPI.RenderAudioFramesCallback = RenderAudioFramesHandler;
-            LibretroAPI.PollInputCallback = PollInputHandler;
-            LibretroAPI.GetInputStateCallback = GetInputStateHandler;
-
             var systemInfo = new SystemInfo();
             LibretroAPI.GetSystemInfo(ref systemInfo);
             name = systemInfo.LibraryName;
@@ -143,6 +136,16 @@ namespace LibRetriX.RetroBindings
                 Marshal.FreeHGlobal(currentlyResolvedCoreOptionValue);
                 currentlyResolvedCoreOptionValue = IntPtr.Zero;
             }
+        }
+
+        public void Initialize()
+        {
+            LibretroAPI.EnvironmentCallback = EnvironmentHandler;
+            LibretroAPI.RenderVideoFrameCallback = RenderVideoFrameHandler;
+            LibretroAPI.RenderAudioFrameCallback = RenderAudioFrameHandler;
+            LibretroAPI.RenderAudioFramesCallback = RenderAudioFramesHandler;
+            LibretroAPI.PollInputCallback = PollInputHandler;
+            LibretroAPI.GetInputStateCallback = GetInputStateHandler;
         }
 
         public bool LoadGame(string mainGameFilePath)
