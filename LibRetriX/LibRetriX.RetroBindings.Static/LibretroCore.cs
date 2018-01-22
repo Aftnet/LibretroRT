@@ -129,6 +129,8 @@ namespace LibRetriX.RetroBindings
             supportedExtensions = systemInfo.ValidExtensions.Split('|').Select(d => $".{d}").ToArray();
             nativeArchiveSupport = systemInfo.BlockExtract;
             RequiresFullPath = systemInfo.NeedFullpath;
+
+            Options = new Dictionary<string, CoreOption>();
         }
 
         public void Dispose()
