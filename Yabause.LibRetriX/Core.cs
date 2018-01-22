@@ -2,7 +2,7 @@
 using System;
 using System.Threading;
 
-namespace LibRetriX.GPGX
+namespace LibRetriX.Yabause
 {
     public static class Core
     {

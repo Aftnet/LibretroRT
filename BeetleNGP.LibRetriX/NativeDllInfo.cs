@@ -2,6 +2,6 @@
 {
     internal static class NativeDllInfo
     {
-        public const string DllName = "GPGX";
+        public const string DllName = "BeetleNGP";
     }
 }
