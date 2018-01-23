@@ -3,6 +3,7 @@ using Microsoft.Graphics.Canvas;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
 
@@ -36,6 +37,8 @@ namespace RetriX.UWP
             set { currentCorePixelFormat = value; CurrentCorePixelSize = PixelFormatsSizeMapping[currentCorePixelFormat]; }
         }
 
+        public Rotations CorrentRotation { get; set; }
+
         private int CurrentCorePixelSize = 0;
 
         public void Dispose()
@@ -48,14 +51,37 @@ namespace RetriX.UWP
         {
             var viewportWidth = RenderTargetViewport.Width;
             var viewportHeight = RenderTargetViewport.Height;
-
+            var aspectRatio = RenderTargetAspectRatio;
             if (RenderTarget == null || viewportWidth <= 0 || viewportHeight <= 0)
                 return;
 
+            var rotAngle = 0.0;
+            switch (CorrentRotation)
+            {
+                case Rotations.CCW90:
+                    rotAngle = -0.5 * Math.PI;
+                    aspectRatio = 1.0f / aspectRatio;
+                    break;
+                case Rotations.CCW180:
+                    rotAngle = -Math.PI;
+                    break;
+                case Rotations.CCW270:
+                    rotAngle = -1.5 * Math.PI;
+                    aspectRatio = 1.0f / aspectRatio;
+                    break;
+            }
+
+            var destinationSize = ComputeBestFittingSize(canvasSize, aspectRatio);
+            var scaleMatrix = Matrix3x2.CreateScale((float)destinationSize.Width, (float)destinationSize.Height);
+            var rotMatrix = Matrix3x2.CreateRotation((float)rotAngle);
+            var transMatrix = Matrix3x2.CreateTranslation((float)(0.5 * canvasSize.Width), (float)(0.5f * canvasSize.Height));
+            var transformMatrix = rotMatrix * scaleMatrix * transMatrix;
+
             lock (RenderTargetLock)
             {
-                var destinationRect = ComputeBestFittingSize(canvasSize, RenderTargetAspectRatio);
-                drawingSession.DrawImage(RenderTarget, destinationRect, RenderTargetViewport);
+                drawingSession.Transform = transformMatrix;
+                drawingSession.DrawImage(RenderTarget, new Rect(-0.5, -0.5, 1.0, 1.0), RenderTargetViewport);
+                drawingSession.Transform = Matrix3x2.Identity;
             }
         }
 
@@ -112,23 +138,17 @@ namespace RetriX.UWP
             }
         }
 
-        private static Rect ComputeBestFittingSize(Size viewportSize, float aspectRatio)
+        private static Size ComputeBestFittingSize(Size viewportSize, float aspectRatio)
         {
-            Rect output;
             var candidateWidth = Math.Floor(viewportSize.Height * aspectRatio);
-            if (viewportSize.Width >= candidateWidth)
-            {
-                var size = new Size(candidateWidth, viewportSize.Height);
-                output = new Rect(new Point((viewportSize.Width - candidateWidth) / 2, 0), size);
-            }
-            else
+            var size = new Size(candidateWidth, viewportSize.Height);
+            if (viewportSize.Width < candidateWidth)
             {
                 var height = viewportSize.Width / aspectRatio;
-                var size = new Size(viewportSize.Width, height);
-                output = new Rect(new Point(0, (viewportSize.Height - height) / 2), size);
+                size = new Size(viewportSize.Width, height);
             }
 
-            return output;
+            return size;
         }
 
         private static uint ClosestGreaterPowerTwo(uint value)

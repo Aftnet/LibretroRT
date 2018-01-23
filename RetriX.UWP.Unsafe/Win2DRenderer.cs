@@ -235,7 +235,7 @@ namespace RetriX.UWP
 
         public void RotationChanged(Rotations rotation)
         {
-
+            RenderTargetManager.CorrentRotation = rotation;
         }
     }
 }
