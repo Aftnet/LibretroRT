@@ -81,37 +81,38 @@ namespace RetriX.UWP
             var operation = ReconstructGraph(sampleRate);
         }
 
-        public void RenderAudioFrames(Stream data, ulong numFrames)
+        public unsafe void RenderAudioFrames(Stream data, ulong numFrames)
         {
             if (!AllowPlaybackControl)
                 return;
 
-            unsafe
+            var sourcePointerAcquired = data.TryGetPointer(out var srcPointer, out var srcHandle);
+            if (!sourcePointerAcquired)
             {
-                var sourcePointerAcquired = data.TryGetPointer(out var srcPointer, out var srcHandle);
-                if (!sourcePointerAcquired)
+                return;
+            }
+
+            var numSrcSamples = (uint)numFrames * NumChannels;
+            var bufferRemainingCapacity = Math.Max(0, MaxSamplesQueueSize - SamplesBuffer.Count);
+            var numSamplesToCopy = Math.Min(numSrcSamples, bufferRemainingCapacity);
+
+            var srcData = (short*)srcPointer;
+            lock (SamplesBuffer)
+            {
+                for (var i = 0; i < numSamplesToCopy; i++)
                 {
-                    return;
+                    SamplesBuffer.Enqueue(srcData[i]);
                 }
 
-                var srcData = (short*)srcPointer;
-                lock (SamplesBuffer)
+                if (SamplesBuffer.Count >= MinNumSamplesForPlayback)
                 {
-                    for (var i = 0; i < Math.Min((uint)numFrames * NumChannels, Math.Max(0, MaxSamplesQueueSize - SamplesBuffer.Count)); i++)
-                    {
-                        SamplesBuffer.Enqueue(srcData[i]);
-                    }
-
-                    if(srcHandle.IsAllocated)
-                    {
-                        srcHandle.Free();
-                    }
-
-                    if (SamplesBuffer.Count >= MinNumSamplesForPlayback)
-                    {
-                        Graph.Start();
-                    }
+                    Graph.Start();
                 }
+            }
+
+            if (srcHandle.IsAllocated)
+            {
+                srcHandle.Free();
             }
         }
 
