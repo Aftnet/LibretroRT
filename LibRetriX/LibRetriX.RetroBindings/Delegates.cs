@@ -12,13 +12,13 @@ namespace LibRetriX.RetroBindings
     public delegate bool LibretroEnvironmentDelegate(uint command, IntPtr data);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void LibretroRenderVideoFrameDelegate(IntPtr data, uint width, uint height, IntPtr pitch);
+    public delegate void LibretroRenderVideoFrameDelegate(IntPtr data, uint width, uint height, UIntPtr pitch);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void LibretroRenderAudioFrameDelegate(short left, short right);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate IntPtr LibretroRenderAudioFramesDelegate(IntPtr data, IntPtr frames);
+    public delegate UIntPtr LibretroRenderAudioFramesDelegate(IntPtr data,UIntPtr frames);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void LibretroPollInputDelegate();

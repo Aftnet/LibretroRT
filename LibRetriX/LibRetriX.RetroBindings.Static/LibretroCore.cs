@@ -414,7 +414,7 @@ namespace LibRetriX.RetroBindings
 #endif
         }
 
-        private void RenderVideoFrameHandler(IntPtr data, uint width, uint height, IntPtr pitch)
+        private void RenderVideoFrameHandler(IntPtr data, uint width, uint height, UIntPtr pitch)
         {
             //Duped frame
             if (data == IntPtr.Zero)
@@ -441,17 +441,14 @@ namespace LibRetriX.RetroBindings
             }
         }
 
-        private IntPtr RenderAudioFramesHandler(IntPtr data, IntPtr numFrames)
+        private unsafe UIntPtr RenderAudioFramesHandler(IntPtr data, UIntPtr numFrames)
         {
-            unsafe
+            using (var stream = new UnmanagedMemoryStream((byte*)data.ToPointer(), (long)numFrames * Marshal.SizeOf<short>() * 2))
             {
-                using (var stream = new UnmanagedMemoryStream((byte*)data.ToPointer(), (long)numFrames * Marshal.SizeOf<short>() * 2))
-                {
-                    RenderAudioFrames?.Invoke(stream, (ulong)numFrames);
-                }
+                RenderAudioFrames?.Invoke(stream, (ulong)numFrames);
             }
 
-            return IntPtr.Zero;
+            return UIntPtr.Zero;
         }
 
         private void PollInputHandler()
