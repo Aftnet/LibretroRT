@@ -85,9 +85,9 @@ namespace RetriX.UWP
             }
         }
 
-        public void UpdateFromCoreOutput(Stream data, uint width, uint height, ulong pitch)
+        public unsafe void UpdateFromCoreOutput(IntPtr data, uint width, uint height, ulong pitch)
         {
-            if (data == null || RenderTarget == null || CurrentCorePixelSize == 0)
+            if (data == IntPtr.Zero || RenderTarget == null || CurrentCorePixelSize == 0)
                 return;
 
             lock (RenderTargetLock)
@@ -99,7 +99,12 @@ namespace RetriX.UWP
                 switch(CurrentCorePixelFormat)
                 {
                     case PixelFormats.XRGB8888:
-                        data.Read(RenderTargetBuffer, 0, (int)data.Length);
+                        var dataBytePtr = (byte*)data.ToPointer();
+                        for (var i = 0; i < height * (uint)pitch; i++)
+                        {
+                            RenderTargetBuffer[i] = dataBytePtr[i];
+                        }
+
                         RenderTarget.SetPixelBytes(RenderTargetBuffer, 0, 0, virtualWidth, (int)height);
                         break;
                     case PixelFormats.RGB565:

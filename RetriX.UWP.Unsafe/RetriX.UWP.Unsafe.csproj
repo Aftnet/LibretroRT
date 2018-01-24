@@ -125,7 +125,6 @@
     <Compile Include="IRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderTargetManager.cs" />
-    <Compile Include="StreamMemoryMapperExtensions.cs" />
     <Compile Include="Win2DRenderer.cs" />
     <EmbeddedResource Include="Properties\RetriX.UWP.Unsafe.rd.xml" />
   </ItemGroup>

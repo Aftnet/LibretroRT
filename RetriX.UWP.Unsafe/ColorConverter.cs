@@ -26,19 +26,18 @@ namespace RetriX.UWP
             }
         }
 
-        unsafe public static void ConvertFrameBufferRGB565ToXRGB8888(Stream input, uint width, uint height, ulong pitch, byte[] output)
+        unsafe public static void ConvertFrameBufferRGB565ToXRGB8888(IntPtr input, uint width, uint height, ulong pitch, byte[] output)
         {
-            if (output.Length < input.Length * 2)
+            if (output.Length < height * (uint)pitch * 2)
             {
                 throw new ArgumentException();
             }
 
-            input.TryGetPointer(out var inputPtr, out var handle);
             fixed (byte* outPtr = output)
             fixed (uint* lutPtr = RGB565LookupTable)
             {
                 var outIntPtr = (uint*)outPtr;
-                var inLineStart = (byte*)inputPtr;
+                var inLineStart = (byte*)input.ToPointer();
 
                 for (var i = 0; i < height; i++)
                 {
@@ -52,11 +51,6 @@ namespace RetriX.UWP
 
                     inLineStart += pitch;
                 }
-            }
-
-            if (handle.IsAllocated)
-            {
-                handle.Free();
             }
         }
     }

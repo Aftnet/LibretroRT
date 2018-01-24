@@ -107,8 +107,6 @@ namespace LibRetriX.Test.Base
 
             Target.RenderAudioFrames += (d, e) =>
             {
-                Assert.True(d.Length % 2 == 0);
-                Assert.Equal(2 * (int)e * sizeof(short), d.Length);
                 numRenderAudioFrameCalled++;
             };
 

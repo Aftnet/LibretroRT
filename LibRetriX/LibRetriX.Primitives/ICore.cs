@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace LibRetriX
@@ -6,17 +7,17 @@ namespace LibRetriX
     /// <summary>
     /// Video frame render callback
     /// </summary>
-    /// <param name="data">Stream to framebuffer data. Only valid while inside the calback</param>
+    /// <param name="data">Framebuffer data. Only valid while inside the calback</param>
     /// <param name="width">Framebufer width in pixels</param>
     /// <param name="height">Framebuffer height in pixels</param>
     /// <param name="pitch">Byte offset between horizontal lines (framebuffer is not always packed in memory)</param>
-    public delegate void RenderVideoFrameDelegate(Stream data, uint width, uint height, ulong pitch);
+    public delegate void RenderVideoFrameDelegate(IntPtr data, uint width, uint height, ulong pitch);
 
     /// <summary>
     /// Audio data render callback. Use to fill audio buffers of whatever playback mechanism the front end uses
     /// </summary>
-    /// <param name="data">Audio data</param>
-    public delegate void RenderAudioFramesDelegate(Stream data, ulong numFrames);
+    /// <param name="data">Audio data. Only valid while inside the calback</param>
+    public delegate void RenderAudioFramesDelegate(IntPtr data, ulong numFrames);
 
     public delegate void PollInputDelegate();
     public delegate short GetInputStateDelegate(uint port, InputTypes inputType);

@@ -109,6 +109,8 @@ namespace LibRetriX.RetroBindings
         private GameInfo? CurrentGameInfo { get; set; }
         private GCHandle GameDataHandle { get; set; }
 
+        private readonly IntPtr RenderAudioFrameBuffer;
+
         public LibretroCore(IReadOnlyList<FileDependency> dependencies = null, IReadOnlyList<Tuple<string, uint>> optionSetters = null, uint inputTypeIx = 0)
         {
             fileDependencies = dependencies == null ? Array.Empty<FileDependency>() : dependencies;
@@ -124,6 +126,8 @@ namespace LibRetriX.RetroBindings
             RequiresFullPath = systemInfo.NeedFullpath;
 
             Options = new Dictionary<string, CoreOption>();
+
+            RenderAudioFrameBuffer = Marshal.AllocHGlobal(2 * Marshal.SizeOf<short>());
         }
 
         public void Dispose()
@@ -136,6 +140,8 @@ namespace LibRetriX.RetroBindings
                 Marshal.FreeHGlobal(currentlyResolvedCoreOptionValue);
                 currentlyResolvedCoreOptionValue = IntPtr.Zero;
             }
+
+            Marshal.FreeHGlobal(RenderAudioFrameBuffer);
         }
 
         public void Initialize()
@@ -416,38 +422,21 @@ namespace LibRetriX.RetroBindings
 
         private void RenderVideoFrameHandler(IntPtr data, uint width, uint height, UIntPtr pitch)
         {
-            //Duped frame
-            if (data == IntPtr.Zero)
-            {
-                RenderVideoFrame?.Invoke(null, width, height, (ulong)pitch);
-                return;
-            }
-
-            unsafe
-            {
-                using (var stream = new UnmanagedMemoryStream((byte*)data.ToPointer(), height * (long)pitch))
-                {
-                    RenderVideoFrame?.Invoke(stream, width, height, (ulong)pitch);
-                }
-            }
+            RenderVideoFrame?.Invoke(data, width, height, (ulong)pitch);
         }
 
-        private void RenderAudioFrameHandler(short left, short right)
+        private unsafe void RenderAudioFrameHandler(short left, short right)
         {
-            var data = BitConverter.GetBytes(left).Concat(BitConverter.GetBytes(right)).ToArray();
-            using (var stream = new MemoryStream(data))
-            {
-                RenderAudioFrames?.Invoke(stream, 1);
-            }
+            var bufferPtr = (short*)RenderAudioFrameBuffer.ToPointer();
+            bufferPtr[0] = left;
+            bufferPtr[1] = right;
+
+            RenderAudioFrames?.Invoke(RenderAudioFrameBuffer, 1);
         }
 
         private unsafe UIntPtr RenderAudioFramesHandler(IntPtr data, UIntPtr numFrames)
         {
-            using (var stream = new UnmanagedMemoryStream((byte*)data.ToPointer(), (long)numFrames * Marshal.SizeOf<short>() * 2))
-            {
-                RenderAudioFrames?.Invoke(stream, (ulong)numFrames);
-            }
-
+            RenderAudioFrames?.Invoke(data, (ulong)numFrames);
             return UIntPtr.Zero;
         }
 

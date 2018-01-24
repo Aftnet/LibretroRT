@@ -1,5 +1,5 @@
 ﻿using LibRetriX;
-using System.IO;
+using System;
 
 namespace RetriX.UWP
 {
@@ -9,6 +9,6 @@ namespace RetriX.UWP
         void PixelFormatChanged(PixelFormats format);
         void RotationChanged(Rotations rotation);
         void TimingsChanged(SystemTimings timings);
-        void RenderVideoFrame(Stream data, uint width, uint height, ulong pitch);
+        void RenderVideoFrame(IntPtr data, uint width, uint height, ulong pitch);
     }
 }

@@ -213,7 +213,7 @@ namespace RetriX.UWP
             RenderTargetManager.Render(args.DrawingSession, sender.Size);
         }
 
-        public void RenderVideoFrame(Stream data, uint width, uint height, ulong pitch)
+        public void RenderVideoFrame(IntPtr data, uint width, uint height, ulong pitch)
         {
             RenderTargetManager.UpdateFromCoreOutput(data, width, height, pitch);
         }

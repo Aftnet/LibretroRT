@@ -81,23 +81,21 @@ namespace RetriX.UWP
             var operation = ReconstructGraph(sampleRate);
         }
 
-        public void RenderAudioFrames(Stream data, ulong numFrames)
+        public unsafe void RenderAudioFrames(IntPtr data, ulong numFrames)
         {
             if (!AllowPlaybackControl)
                 return;
 
+            var dataAsShortPtr = (short*)data.ToPointer();
             var numSrcSamples = (uint)numFrames * NumChannels;
             var bufferRemainingCapacity = Math.Max(0, MaxSamplesQueueSize - SamplesBuffer.Count);
             var numSamplesToCopy = Math.Min(numSrcSamples, bufferRemainingCapacity);
 
             lock (SamplesBuffer)
             {
-                using (var reader = new BinaryReader(data, System.Text.Encoding.ASCII, true))
+                for (var i = 0; i < numSamplesToCopy; i++)
                 {
-                    for (var i = 0; i < numSamplesToCopy; i++)
-                    {
-                        SamplesBuffer.Enqueue(reader.ReadInt16());
-                    }
+                    SamplesBuffer.Enqueue(dataAsShortPtr[i]);
                 }
 
                 if (SamplesBuffer.Count >= MinNumSamplesForPlayback)
