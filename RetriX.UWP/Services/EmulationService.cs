@@ -119,12 +119,6 @@ namespace RetriX.UWP.Services
             });
         }
 
-        public IEnumerable<GameSystemVM> FilterSystemsForFile(IFileInfo file)
-        {
-            var extension = Path.GetExtension(file.Name);
-            return Systems.Where(d => d.SupportedExtensions.Contains(extension));
-        }
-
         public async Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder = null)
         {
             var core = system.Core;

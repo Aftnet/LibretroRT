@@ -77,7 +77,8 @@ namespace RetriX.Shared.ViewModels
         public async Task StartGameFromFileAsync(IFileInfo file)
         {
             //Find compatible systems for file extension
-            var compatibleSystems = EmulationService.FilterSystemsForFile(file);
+            var extension = Path.GetExtension(file.Name);
+            var compatibleSystems = EmulationService.Systems.Where(d => d.SupportedExtensions.Contains(extension));
 
             //If none, do nothing
             if (!compatibleSystems.Any())

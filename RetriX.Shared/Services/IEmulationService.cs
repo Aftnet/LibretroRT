@@ -32,7 +32,6 @@ namespace RetriX.Shared.Services
 
         string GameID { get; }
 
-        IEnumerable<GameSystemVM> FilterSystemsForFile(IFileInfo file);
         Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder = null);
 
         Task ResetGameAsync();
