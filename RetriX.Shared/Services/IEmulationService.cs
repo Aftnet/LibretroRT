@@ -28,7 +28,6 @@ namespace RetriX.Shared.Services
     {
         IReadOnlyList<GameSystemVM> Systems { get; }
         IReadOnlyList<string> ArchiveExtensions { get; }
-        IReadOnlyList<FileImporterVM> FileDependencyImporters { get; }
 
         string GameID { get; }
 

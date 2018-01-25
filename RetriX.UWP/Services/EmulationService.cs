@@ -60,8 +60,6 @@ namespace RetriX.UWP.Services
         private readonly GameSystemVM[] systems;
         public IReadOnlyList<GameSystemVM> Systems => systems;
 
-        public IReadOnlyList<FileImporterVM> FileDependencyImporters { get; private set; }
-
         public string GameID => CoreRunner?.GameID;
 
         public event GameStartedDelegate GameStarted;
@@ -112,11 +110,6 @@ namespace RetriX.UWP.Services
                 i.OpenFileStream = OnCoreOpenFileStream;
                 i.CloseFileStream = OnCoreCloseFileStream;
             }
-
-            Task.Run(() => GetFileDependencyImportersAsync(systems, fileSystem, dialogsService, localizationService, platformService, cryptographyService)).ContinueWith(d =>
-            {
-                FileDependencyImporters = d.Result;
-            });
         }
 
         public async Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder = null)
@@ -333,29 +326,6 @@ namespace RetriX.UWP.Services
             }
 
             PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Visible);
-        }
-
-        private static async Task<List<FileImporterVM>> GetFileDependencyImportersAsync(IEnumerable<GameSystemVM> gameSystems, IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService)
-        {
-            var importers = new List<FileImporterVM>();
-            var distinctCores = new HashSet<ICore>();
-            foreach (var i in gameSystems)
-            {
-                var core = i.Core;
-                if (distinctCores.Contains(core))
-                {
-                    continue;
-                }
-
-                distinctCores.Add(core);
-                var systemFolder = await i.GetSystemDirectoryAsync();
-                foreach (var j in core.FileDependencies)
-                {
-                    importers.Add(new FileImporterVM(fileSystem, dialogsService, localizationService, platformService, cryptographyService, systemFolder, j.Name, j.Description, j.MD5));
-                }
-            }
-
-            return importers;
         }
     }
 }

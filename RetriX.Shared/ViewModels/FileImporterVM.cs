@@ -45,7 +45,7 @@ namespace RetriX.Shared.ViewModels
         public RelayCommand ImportCommand { get; private set; }
         public RelayCommand CopyMD5ToClipboardCommand { get; private set; }
 
-        public FileImporterVM(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
+        protected FileImporterVM(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
         {
             FileSystem = fileSystem;
             DialogsService = dialogsService;
@@ -60,16 +60,20 @@ namespace RetriX.Shared.ViewModels
 
             ImportCommand = new RelayCommand(ImportHandler, () => !FileAvailable);
             CopyMD5ToClipboardCommand = new RelayCommand(() => PlatformService.CopyToClipboard(TargetMD5));
-
-            GetTargetFileAsync().ContinueWith(d => PlatformService.RunOnUIThreadAsync(() => FileAvailable = d.Result != null));
         }
 
-        public async Task<IFileInfo> GetTargetFileAsync()
+        public static async Task<FileImporterVM> CreateFileImporterAsync(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
         {
-            var result = await TargetFolder.GetFileAsync(TargetFileName);
-            return result;
+            var output = new FileImporterVM(fileSystem, dialogsService, localizationService, platformService, cryptographyService, folder, fileName, description, MD5);
+            var targetFile = await output.GetTargetFileAsync();
+            output.FileAvailable = targetFile != null;
+            return output;
         }
 
+        public Task<IFileInfo> GetTargetFileAsync()
+        {
+            return TargetFolder.GetFileAsync(TargetFileName);
+        }
         private async void ImportHandler()
         {
             var fileExt = Path.GetExtension(TargetFileName);

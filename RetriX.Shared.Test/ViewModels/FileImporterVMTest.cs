@@ -13,7 +13,7 @@ namespace RetriX.Shared.Test.ViewModels
     {
         protected override FileImporterVM InstantiateTarget()
         {
-            return new FileImporterVM(FileSystemMock.Object, DialogsServiceMock.Object, LocalizationServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "Target file description", "SomeMD5");
+            return FileImporterVM.CreateFileImporterAsync(FileSystemMock.Object, DialogsServiceMock.Object, LocalizationServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "Target file description", "SomeMD5").Result;
         }
 
         [Theory]
@@ -21,7 +21,6 @@ namespace RetriX.Shared.Test.ViewModels
         [InlineData(false)]
         public async Task ImportingWorks(bool providedFileMD5Matches)
         {
-            await Task.Delay(50);
             Assert.False(Target.FileAvailable);
             Assert.Null(await Target.GetTargetFileAsync());
             Assert.True(Target.ImportCommand.CanExecute(null));
@@ -56,7 +55,6 @@ namespace RetriX.Shared.Test.ViewModels
         [Fact]
         public async Task NoFileSelectionIsHandled()
         {
-            await Task.Delay(50);
             Assert.False(Target.FileAvailable);
 
             FileSystemMock.Setup(d => d.PickFileAsync(It.Is<IEnumerable<string>>(e => e.Contains(Path.GetExtension(Target.TargetFileName))))).Returns(Task.FromResult(default(IFileInfo)));
