@@ -230,7 +230,8 @@ namespace RetriX.UWP
 
         public void TimingsChanged(SystemTimings timings)
         {
-            RenderPanel.TargetElapsedTime = TimeSpan.FromMilliseconds(1000.0 / timings.FPS);
+            var targetTimeTicks = (long)(TimeSpan.TicksPerSecond / timings.FPS);
+            RenderPanel.TargetElapsedTime = TimeSpan.FromTicks(targetTimeTicks);
         }
 
         public void RotationChanged(Rotations rotation)

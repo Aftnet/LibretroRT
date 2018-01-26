@@ -14,8 +14,8 @@ namespace RetriX.UWP
     {
         private const uint MaxSamplesQueueSize = 44100 * 4;
         private const uint NumChannels = 2;
-        private const float PlaybackDelaySeconds = 0.1f; //Have some buffer to avoid crackling
-        private const float MaxAllowedDelaySeconds = 0.3f; //Limit maximum delay
+        private const float PlaybackDelaySeconds = 0.2f; //Have some buffer to avoid crackling
+        private const float MaxAllowedDelaySeconds = 0.4f; //Limit maximum delay
 
         private int MinNumSamplesForPlayback = 0;
         private int MaxNumSamplesForTargetDelay = 0;
