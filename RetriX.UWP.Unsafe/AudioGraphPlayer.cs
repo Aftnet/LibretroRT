@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media;
@@ -81,12 +82,11 @@ namespace RetriX.UWP
             var operation = ReconstructGraph(sampleRate);
         }
 
-        public unsafe void RenderAudioFrames(IntPtr data, ulong numFrames)
+        public void RenderAudioFrames(IntPtr data, ulong numFrames)
         {
             if (!AllowPlaybackControl)
                 return;
 
-            var dataAsShortPtr = (short*)data.ToPointer();
             var numSrcSamples = (uint)numFrames * NumChannels;
             var bufferRemainingCapacity = Math.Max(0, MaxSamplesQueueSize - SamplesBuffer.Count);
             var numSamplesToCopy = Math.Min(numSrcSamples, bufferRemainingCapacity);
@@ -95,7 +95,8 @@ namespace RetriX.UWP
             {
                 for (var i = 0; i < numSamplesToCopy; i++)
                 {
-                    SamplesBuffer.Enqueue(dataAsShortPtr[i]);
+                    SamplesBuffer.Enqueue(Marshal.ReadInt16(data));
+                    data += sizeof(short);
                 }
 
                 if (SamplesBuffer.Count >= MinNumSamplesForPlayback)
