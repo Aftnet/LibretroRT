@@ -97,14 +97,14 @@ namespace RetriX.UWP
                 RenderTargetViewport.Height = height;
 
                 var renderTargetMap = D3DSurfaceManager.Map(device, RenderTargetSurface);
-
+                var targetDataPtr = (IntPtr)renderTargetMap.Data;
                 switch (CurrentCorePixelFormat)
                 {
                     case PixelFormats.XRGB8888:
-                        FramebufferConverter.ConvertFrameBufferXRGB8888(width, height, data, (int)pitch, renderTargetMap.Data, (int)renderTargetMap.Pitch);
+                        FramebufferConverter.ConvertFrameBufferXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
                         break;
                     case PixelFormats.RGB565:
-                        FramebufferConverter.ConvertFrameBufferRGB565ToXRGB8888(width, height, data, (int)pitch, renderTargetMap.Data, (int)renderTargetMap.Pitch);
+                        FramebufferConverter.ConvertFrameBufferRGB565ToXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
                         break;
                 }
 

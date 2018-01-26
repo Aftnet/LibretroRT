@@ -11,20 +11,26 @@ namespace Retrix
 	{
 		namespace Native
 		{
+#ifdef _WIN64
+			typedef int64 UnsafeIntPtr;
+#else
+			typedef int32 UnsafeIntPtr;
+#endif
+
 			public ref class D3DSurfaceMap sealed
 			{
 			private:
 				const UINT32 pitch;
-				const IntPtr data;
+				const UnsafeIntPtr data;
 
 			public:
 				property UINT32 Pitch { UINT32 get() { return pitch; } }
-				property IntPtr Data { IntPtr get() { return data; } }
+				property UnsafeIntPtr Data { UnsafeIntPtr get() { return data; } }
 
 			internal:
 				D3DSurfaceMap(D3D11_MAPPED_SUBRESOURCE input):
 					pitch(input.RowPitch),
-					data(input.pData)
+					data((UnsafeIntPtr)input.pData)
 				{
 				}
 			};
