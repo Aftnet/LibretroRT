@@ -1,19 +1,17 @@
 ﻿using LibRetriX;
 using Microsoft.Graphics.Canvas;
+using Retrix.UWP.Native;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Numerics;
 using Windows.Foundation;
-using Windows.Graphics.DirectX;
+using Windows.Graphics.DirectX.Direct3D11;
 
 namespace RetriX.UWP
 {
     internal class RenderTargetManager : IDisposable
     {
         private const uint RenderTargetMinSize = 1024;
-        private const DirectXPixelFormat RenderTargetPixelFormat = DirectXPixelFormat.B8G8R8A8UIntNormalized;
-        private const int RenderTargetPixelSize = 4;
 
         private static readonly IReadOnlyDictionary<PixelFormats, int> PixelFormatsSizeMapping = new Dictionary<PixelFormats, int>
         {
@@ -25,7 +23,7 @@ namespace RetriX.UWP
 
         private readonly object RenderTargetLock = new object();
         private CanvasBitmap RenderTarget = null;
-        private byte[] RenderTargetBuffer = null;
+        private IDirect3DSurface RenderTargetSurface = null;
         private Rect RenderTargetViewport = new Rect();
         //This may be different from viewport's width/haight.
         private float RenderTargetAspectRatio = 1.0f;
@@ -45,6 +43,9 @@ namespace RetriX.UWP
         {
             RenderTarget?.Dispose();
             RenderTarget = null;
+
+            RenderTargetSurface?.Dispose();
+            RenderTargetSurface = null;
         }
 
         public void Render(CanvasDrawingSession drawingSession, Size canvasSize)
@@ -85,37 +86,33 @@ namespace RetriX.UWP
             }
         }
 
-        public unsafe void UpdateFromCoreOutput(IntPtr data, uint width, uint height, ulong pitch)
+        public unsafe void UpdateFromCoreOutput(CanvasDevice device, IntPtr data, uint width, uint height, ulong pitch)
         {
             if (data == IntPtr.Zero || RenderTarget == null || CurrentCorePixelSize == 0)
                 return;
 
             lock (RenderTargetLock)
             {
-                var virtualWidth = (int)pitch / CurrentCorePixelSize;
                 RenderTargetViewport.Width = width;
                 RenderTargetViewport.Height = height;
 
-                switch(CurrentCorePixelFormat)
+                var renderTargetMap = D3DSurfaceManager.Map(device, RenderTargetSurface);
+
+                switch (CurrentCorePixelFormat)
                 {
                     case PixelFormats.XRGB8888:
-                        var dataBytePtr = (byte*)data.ToPointer();
-                        for (var i = 0; i < height * (uint)pitch; i++)
-                        {
-                            RenderTargetBuffer[i] = dataBytePtr[i];
-                        }
-
-                        RenderTarget.SetPixelBytes(RenderTargetBuffer, 0, 0, virtualWidth, (int)height);
+                        FramebufferConverter.ConvertFrameBufferXRGB8888(width, height, data, (int)pitch, renderTargetMap.Data, (int)renderTargetMap.Pitch);
                         break;
                     case PixelFormats.RGB565:
-                        ColorConverter.ConvertFrameBufferRGB565ToXRGB8888(data, width, height, pitch, RenderTargetBuffer);
-                        RenderTarget.SetPixelBytes(RenderTargetBuffer, 0, 0, (int)width, (int)height);
+                        FramebufferConverter.ConvertFrameBufferRGB565ToXRGB8888(width, height, data, (int)pitch, renderTargetMap.Data, (int)renderTargetMap.Pitch);
                         break;
                 }
+
+                D3DSurfaceManager.Unmap(device, RenderTargetSurface);
             }
         }
 
-        public void UpdateRenderTargetSize(ICanvasResourceCreator resourceCreator, GameGeometry geometry)
+        public void UpdateRenderTargetSize(CanvasDevice device, GameGeometry geometry)
         {
             RenderTargetAspectRatio = geometry.AspectRatio;
             if (RenderTargetAspectRatio < 0.1f)
@@ -136,10 +133,11 @@ namespace RetriX.UWP
             {
                 var size = Math.Max(Math.Max(geometry.MaxWidth, geometry.MaxHeight), RenderTargetMinSize);
                 size = ClosestGreaterPowerTwo(size);
-                RenderTargetBuffer = new byte[size * size * RenderTargetPixelSize];
 
                 RenderTarget?.Dispose();
-                RenderTarget = CanvasBitmap.CreateFromBytes(resourceCreator, RenderTargetBuffer, (int)size, (int)size, RenderTargetPixelFormat);
+                RenderTargetSurface?.Dispose();
+                RenderTargetSurface = D3DSurfaceManager.CreateWriteableD3DSurface(device, size, size);
+                RenderTarget = CanvasBitmap.CreateFromDirect3D11Surface(device, RenderTargetSurface);
             }
         }
 

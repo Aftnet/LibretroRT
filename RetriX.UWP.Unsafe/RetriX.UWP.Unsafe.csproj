@@ -115,7 +115,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AudioGraphPlayer.cs" />
-    <Compile Include="ColorConverter.cs" />
+    <Compile Include="FramebufferConverter.cs" />
     <Compile Include="CoreCoordinator.cs" />
     <Compile Include="IAudioPlayer.cs" />
     <Compile Include="ICoreRunner.cs" />
@@ -140,6 +140,10 @@
     <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj">
       <Project>{4fc73e3b-43f0-4830-8dfd-7d32a97d5029}</Project>
       <Name>LibRetriX.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Retrix.UWP.Native\Retrix.UWP.Native.vcxproj">
+      <Project>{aa168014-f150-4a65-93f9-121da3eb0a01}</Project>
+      <Name>Retrix.UWP.Native</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

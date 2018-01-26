@@ -215,12 +215,12 @@ namespace RetriX.UWP
 
         public void RenderVideoFrame(IntPtr data, uint width, uint height, ulong pitch)
         {
-            RenderTargetManager.UpdateFromCoreOutput(data, width, height, pitch);
+            RenderTargetManager.UpdateFromCoreOutput(RenderPanel.Device, data, width, height, pitch);
         }
 
         public void GeometryChanged(GameGeometry geometry)
         {
-            RenderTargetManager.UpdateRenderTargetSize(RenderPanel, geometry);
+            RenderTargetManager.UpdateRenderTargetSize(RenderPanel.Device, geometry);
         }
 
         public void PixelFormatChanged(PixelFormats format)

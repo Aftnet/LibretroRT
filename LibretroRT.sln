@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GPGX", "GPGX\GPGX.vcxproj", "{63E4B9AF-E8E7-4130-A6C1-E0FE46636A16}"
 EndProject
@@ -65,35 +65,37 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibRetriX.Test.UWP", "LibRe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetriX.UWP.Unsafe", "RetriX.UWP.Unsafe\RetriX.UWP.Unsafe.csproj", "{0D8D76F1-1383-437C-9482-BBD3C9723768}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeetleNGP.LibRetriX", "BeetleNGP.LibRetriX\BeetleNGP.LibRetriX.csproj", "{A9ED76C1-034B-41C6-805C-9176C0128E41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeetleNGP.LibRetriX", "BeetleNGP.LibRetriX\BeetleNGP.LibRetriX.csproj", "{A9ED76C1-034B-41C6-805C-9176C0128E41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeetlePCEFast.LibRetriX", "BeetlePCEFast.LibRetriX\BeetlePCEFast.LibRetriX.csproj", "{D5004EEC-FAA3-453F-846E-04400574D165}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeetlePCEFast.LibRetriX", "BeetlePCEFast.LibRetriX\BeetlePCEFast.LibRetriX.csproj", "{D5004EEC-FAA3-453F-846E-04400574D165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeetlePCFX.LibRetriX", "BeetlePCFX.LibRetriX\BeetlePCFX.LibRetriX.csproj", "{C177DD85-D6CD-47DF-BE35-C9B832F030AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeetlePCFX.LibRetriX", "BeetlePCFX.LibRetriX\BeetlePCFX.LibRetriX.csproj", "{C177DD85-D6CD-47DF-BE35-C9B832F030AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeetlePSX.LibRetriX", "BeetlePSX.LibRetriX\BeetlePSX.LibRetriX.csproj", "{54C8EC8C-1C03-4FA8-9140-086A59B8109B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeetlePSX.LibRetriX", "BeetlePSX.LibRetriX\BeetlePSX.LibRetriX.csproj", "{54C8EC8C-1C03-4FA8-9140-086A59B8109B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeetleSaturn.LibRetriX", "BeetleSaturn.LibRetriX\BeetleSaturn.LibRetriX.csproj", "{90861BD1-16F1-4986-AA37-94B135E0FC46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeetleSaturn.LibRetriX", "BeetleSaturn.LibRetriX\BeetleSaturn.LibRetriX.csproj", "{90861BD1-16F1-4986-AA37-94B135E0FC46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeetleWswan.LibRetriX", "BeetleWswan.LibRetriX\BeetleWswan.LibRetriX.csproj", "{2317C404-6E11-4110-B79D-E87524BB7B12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeetleWswan.LibRetriX", "BeetleWswan.LibRetriX\BeetleWswan.LibRetriX.csproj", "{2317C404-6E11-4110-B79D-E87524BB7B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBAlpha.LibRetriX", "FBAlpha.LibRetriX\FBAlpha.LibRetriX.csproj", "{3CD5F011-0B1C-4F25-8527-0C8CB754F2FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FBAlpha.LibRetriX", "FBAlpha.LibRetriX\FBAlpha.LibRetriX.csproj", "{3CD5F011-0B1C-4F25-8527-0C8CB754F2FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCEUMM.LibRetriX", "FCEUMM.LibRetriX\FCEUMM.LibRetriX.csproj", "{FE413FFE-C2FA-47FE-B4EE-21C8FBA50ADD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCEUMM.LibRetriX", "FCEUMM.LibRetriX\FCEUMM.LibRetriX.csproj", "{FE413FFE-C2FA-47FE-B4EE-21C8FBA50ADD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gambatte.LibRetriX", "Gambatte.LibRetriX\Gambatte.LibRetriX.csproj", "{D44D2222-F2BD-431A-B7E2-23CA93EEDCF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gambatte.LibRetriX", "Gambatte.LibRetriX\Gambatte.LibRetriX.csproj", "{D44D2222-F2BD-431A-B7E2-23CA93EEDCF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MelonDS.LibRetriX", "MelonDS.LibRetriX\MelonDS.LibRetriX.csproj", "{9DEE7739-FCF6-447C-B0A6-8B00B60E7160}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MelonDS.LibRetriX", "MelonDS.LibRetriX\MelonDS.LibRetriX.csproj", "{9DEE7739-FCF6-447C-B0A6-8B00B60E7160}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nestopia.LibRetriX", "Nestopia.LibRetriX\Nestopia.LibRetriX.csproj", "{62CC9FE5-9440-4AE2-B57F-8F8789CF2266}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nestopia.LibRetriX", "Nestopia.LibRetriX\Nestopia.LibRetriX.csproj", "{62CC9FE5-9440-4AE2-B57F-8F8789CF2266}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelN64.LibRetriX", "ParallelN64.LibRetriX\ParallelN64.LibRetriX.csproj", "{C1E87C7F-476B-4542-A5D6-8E99790E2300}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParallelN64.LibRetriX", "ParallelN64.LibRetriX\ParallelN64.LibRetriX.csproj", "{C1E87C7F-476B-4542-A5D6-8E99790E2300}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snes9X.LibRetriX", "Snes9X.LibRetriX\Snes9X.LibRetriX.csproj", "{DDFC2C2D-9FB8-43DD-BB29-F751D291F33E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snes9X.LibRetriX", "Snes9X.LibRetriX\Snes9X.LibRetriX.csproj", "{DDFC2C2D-9FB8-43DD-BB29-F751D291F33E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VBAM.LibRetriX", "VBAM.LibRetriX\VBAM.LibRetriX.csproj", "{5C407CAB-14A1-469E-BCE2-7ED26E2FA5BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VBAM.LibRetriX", "VBAM.LibRetriX\VBAM.LibRetriX.csproj", "{5C407CAB-14A1-469E-BCE2-7ED26E2FA5BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yabause.LibRetriX", "Yabause.LibRetriX\Yabause.LibRetriX.csproj", "{8CB06B21-915E-4C8E-9B2C-552BCEECE00F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yabause.LibRetriX", "Yabause.LibRetriX\Yabause.LibRetriX.csproj", "{8CB06B21-915E-4C8E-9B2C-552BCEECE00F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Retrix.UWP.Native", "Retrix.UWP.Native\Retrix.UWP.Native.vcxproj", "{AA168014-F150-4A65-93F9-121DA3EB0A01}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -756,6 +758,20 @@ Global
 		{8CB06B21-915E-4C8E-9B2C-552BCEECE00F}.Release|x64.Build.0 = Release|Any CPU
 		{8CB06B21-915E-4C8E-9B2C-552BCEECE00F}.Release|x86.ActiveCfg = Release|Any CPU
 		{8CB06B21-915E-4C8E-9B2C-552BCEECE00F}.Release|x86.Build.0 = Release|Any CPU
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Debug|ARM.ActiveCfg = Debug|ARM
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Debug|ARM.Build.0 = Debug|ARM
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Debug|x64.ActiveCfg = Debug|x64
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Debug|x64.Build.0 = Debug|x64
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Debug|x86.ActiveCfg = Debug|Win32
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Debug|x86.Build.0 = Debug|Win32
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|Any CPU.ActiveCfg = Release|Win32
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|ARM.ActiveCfg = Release|ARM
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|ARM.Build.0 = Release|ARM
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|x64.ActiveCfg = Release|x64
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|x64.Build.0 = Release|x64
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|x86.ActiveCfg = Release|Win32
+		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
