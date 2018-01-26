@@ -114,7 +114,6 @@
       <DependentUpon>VirtualPad.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ItemClickEventArgsConverter.cs" />
-    <Compile Include="FileProviders\FileAccessExtensions.cs" />
     <Compile Include="Locator\Locator.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -134,7 +133,6 @@
     <Compile Include="Services\EmulationService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\PlatformService.cs" />
-    <Compile Include="ViewModels\GameSystemVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -241,7 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.5</Version>
+      <Version>6.0.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>2.1.1</Version>
@@ -260,81 +258,160 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BeetleNGPRT\BeetleNGPRT.vcxproj">
-      <Project>{07645043-df95-4bd8-84fe-dc74eaeae3bf}</Project>
-      <Name>BeetleNGPRT</Name>
+    <ProjectReference Include="..\BeetleNGP\BeetleNGP.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>BeetleNGP</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="..\BeetlePCEFastRT\BeetlePCEFastRT.vcxproj">
-      <Project>{7a0eb6b5-801e-469e-b9b4-1f3cb68cc900}</Project>
-      <Name>BeetlePCEFastRT</Name>
+    <ProjectReference Include="..\BeetleNGP.LibRetriX\BeetleNGP.LibRetriX.csproj">
+      <Project>{a9ed76c1-034b-41c6-805c-9176c0128e41}</Project>
+      <Name>BeetleNGP.LibRetriX</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BeetlePCFXRT\BeetlePCFXRT.vcxproj">
-      <Project>{2901b352-ba31-4bef-bd0c-ba6b4e671feb}</Project>
-      <Name>BeetlePCFXRT</Name>
+    <ProjectReference Include="..\BeetlePCEFast\BeetlePCEFast.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>BeetlePCEFast</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="..\BeetlePSXRT\BeetlePSXRT.vcxproj">
-      <Project>{d9b6bc43-a49f-4893-9556-5e9d51f7d5c1}</Project>
-      <Name>BeetlePSXRT</Name>
+    <ProjectReference Include="..\BeetlePCEFast.LibRetriX\BeetlePCEFast.LibRetriX.csproj">
+      <Project>{d5004eec-faa3-453f-846e-04400574d165}</Project>
+      <Name>BeetlePCEFast.LibRetriX</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BeetleWswanRT\BeetleWswanRT.vcxproj">
-      <Project>{514bebc4-127b-4894-9905-d0f7a09b0287}</Project>
-      <Name>BeetleWswanRT</Name>
+    <ProjectReference Include="..\BeetlePCFX\BeetlePCFX.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>BeetlePCFX</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="..\FBAlphaRT\FBAlphaRT.vcxproj">
-      <Project>{7fafc809-282a-4c3a-b1ac-5d4d7ffd613b}</Project>
-      <Name>FBAlphaRT</Name>
+    <ProjectReference Include="..\BeetlePCFX.LibRetriX\BeetlePCFX.LibRetriX.csproj">
+      <Project>{c177dd85-d6cd-47df-be35-c9b832f030ab}</Project>
+      <Name>BeetlePCFX.LibRetriX</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FCEUMMRT\FCEUMMRT.vcxproj">
-      <Project>{024e6cca-6d5d-45dc-8a5e-a4f2f94666ee}</Project>
-      <Name>FCEUMMRT</Name>
+    <ProjectReference Include="..\BeetlePSX\BeetlePSX.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>BeetlePSX</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="..\GambatteRT\GambatteRT.vcxproj">
-      <Project>{d19bfce3-0233-4b39-8ea5-fa0ee0d4a753}</Project>
-      <Name>GambatteRT</Name>
+    <ProjectReference Include="..\BeetlePSX.LibRetriX\BeetlePSX.LibRetriX.csproj">
+      <Project>{54c8ec8c-1c03-4fa8-9140-086a59b8109b}</Project>
+      <Name>BeetlePSX.LibRetriX</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GPGXRT\GPGXRT.vcxproj">
-      <Project>{82569d80-5620-4012-8314-26bfecb7c9d8}</Project>
-      <Name>GPGXRT</Name>
+    <ProjectReference Include="..\BeetleWswan\BeetleWswan.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>BeetleWswan</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.AudioGraphPlayer\LibretroRT.FrontendComponents.AudioGraphPlayer.csproj">
-      <Project>{80dda0d6-5181-49d1-9cb6-4a441e743086}</Project>
-      <Name>LibretroRT.FrontendComponents.AudioGraphPlayer</Name>
+    <ProjectReference Include="..\BeetleWswan.LibRetriX\BeetleWswan.LibRetriX.csproj">
+      <Project>{2317c404-6e11-4110-b79d-e87524bb7b12}</Project>
+      <Name>BeetleWswan.LibRetriX</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.Common\LibretroRT.FrontendComponents.Common.csproj">
-      <Project>{0bba2068-71d5-4fec-8e44-761d0e9b44d4}</Project>
-      <Name>LibretroRT.FrontendComponents.Common</Name>
+    <ProjectReference Include="..\FBAlpha\FBAlpha.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>FBAlpha</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.InputManager\LibretroRT.FrontendComponents.InputManager.csproj">
-      <Project>{0555a467-b1b2-4301-901c-0489f63b8ecc}</Project>
-      <Name>LibretroRT.FrontendComponents.InputManager</Name>
+    <ProjectReference Include="..\FBAlpha.LibRetriX\FBAlpha.LibRetriX.csproj">
+      <Project>{3cd5f011-0b1c-4f25-8527-0c8cb754f2fa}</Project>
+      <Name>FBAlpha.LibRetriX</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.Renderer\LibretroRT.FrontendComponents.Renderer.vcxproj">
-      <Project>{70a8cb20-70cf-4351-b62d-e0755dfc15f0}</Project>
-      <Name>LibretroRT.FrontendComponents.Renderer</Name>
+    <ProjectReference Include="..\FCEUMM\FCEUMM.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>FCEUMM</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT.FrontendComponents.Win2DCoreRunner\LibretroRT.FrontendComponents.Win2DCoreRunner.csproj">
-      <Project>{AF8ACEB6-36A7-4A72-8002-4682413A9103}</Project>
-      <Name>LibretroRT.FrontendComponents.Win2DCoreRunner</Name>
+    <ProjectReference Include="..\FCEUMM.LibRetriX\FCEUMM.LibRetriX.csproj">
+      <Project>{fe413ffe-c2fa-47fe-b4ee-21c8fba50add}</Project>
+      <Name>FCEUMM.LibRetriX</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
-      <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
-      <Name>LibretroRT</Name>
+    <ProjectReference Include="..\Gambatte\Gambatte.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>Gambatte</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="..\MelonDSRT\MelonDSRT.vcxproj">
-      <Project>{196b484a-2687-410b-a17e-3cf1f000a471}</Project>
-      <Name>MelonDSRT</Name>
+    <ProjectReference Include="..\Gambatte.LibRetriX\Gambatte.LibRetriX.csproj">
+      <Project>{d44d2222-f2bd-431a-b7e2-23ca93eedcf5}</Project>
+      <Name>Gambatte.LibRetriX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GPGX\GPGX.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>GPGX</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="..\GPGX.LibRetriX\GPGX.LibRetriX.csproj">
+      <Project>{11582216-fb0e-4c91-bda6-dd04bd1f3681}</Project>
+      <Name>GPGX.LibRetriX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MelonDS\MelonDS.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>MelonDS</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="..\MelonDS.LibRetriX\MelonDS.LibRetriX.csproj">
+      <Project>{9dee7739-fcf6-447c-b0a6-8b00b60e7160}</Project>
+      <Name>MelonDS.LibRetriX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nestopia\Nestopia.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>Nestopia</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="..\Nestopia.LibRetriX\Nestopia.LibRetriX.csproj">
+      <Project>{62cc9fe5-9440-4ae2-b57f-8f8789cf2266}</Project>
+      <Name>Nestopia.LibRetriX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Snes9X\Snes9X.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>Snes9X</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="..\Snes9X.LibRetriX\Snes9X.LibRetriX.csproj">
+      <Project>{ddfc2c2d-9fb8-43dd-bb29-f751d291f33e}</Project>
+      <Name>Snes9X.LibRetriX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VBAM\VBAM.vcxproj">
+      <Project>{700a24e8-c97f-4843-91bb-d2036ac7ab26}</Project>
+      <Name>VBAM</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="..\VBAM.LibRetriX\VBAM.LibRetriX.csproj">
+      <Project>{5c407cab-14a1-469e-bce2-7ed26e2fa5bc}</Project>
+      <Name>VBAM.LibRetriX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj">
+      <Project>{4FC73E3B-43F0-4830-8DFD-7D32A97D5029}</Project>
+      <Name>LibRetriX.Primitives</Name>
     </ProjectReference>
     <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">
       <Project>{58b82d57-a956-4492-96fb-3e82fa82798a}</Project>
       <Name>RetriX.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Snes9XRT\Snes9XRT.vcxproj">
-      <Project>{aa3ce6bf-9976-4268-9b36-4956897f5185}</Project>
-      <Name>Snes9XRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VBAMRT\VBAMRT.vcxproj">
-      <Project>{51ebaee3-774b-4060-adfa-c7c0a740b789}</Project>
-      <Name>VBAMRT</Name>
+    <ProjectReference Include="..\RetriX.UWP.Unsafe\RetriX.UWP.Unsafe.csproj">
+      <Project>{0d8d76f1-1383-437c-9482-bbd3c9723768}</Project>
+      <Name>RetriX.UWP.Unsafe</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

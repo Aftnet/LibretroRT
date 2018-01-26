@@ -1,6 +1,4 @@
-﻿using LibretroRT.FrontendComponents.Common;
-
-namespace RetriX.UWP.Pages
+﻿namespace RetriX.UWP.Pages
 {
     public interface ICoreRunnerPage
     {

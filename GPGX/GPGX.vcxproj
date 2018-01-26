@@ -355,7 +355,6 @@
     <ClInclude Include="src\libretro\libretro-common\include\streams\file_stream.h" />
     <ClInclude Include="src\libretro\libretro-common\include\streams\file_stream_transforms.h" />
     <ClInclude Include="src\libretro\libretro-common\include\vfs\vfs_implementation.h" />
-    <ClInclude Include="src\libretro\libretro.h" />
     <ClInclude Include="src\libretro\osd.h" />
     <ClInclude Include="src\libretro\scrc32.h" />
     <ClInclude Include="targetver.h" />

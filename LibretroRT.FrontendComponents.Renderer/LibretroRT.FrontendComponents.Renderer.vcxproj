@@ -231,9 +231,6 @@
     <ProjectReference Include="..\LibretroRT.FrontendComponents.Common\LibretroRT.FrontendComponents.Common.csproj">
       <Project>{0bba2068-71d5-4fec-8e44-761d0e9b44d4}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\LibretroRT\LibretroRT.vcxproj">
-      <Project>{458b4cb3-2af3-4f93-9397-67598fd764ee}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -194,7 +194,6 @@
     <ClInclude Include="src\core\types.h" />
     <ClInclude Include="src\core\vdp_ctrl.h" />
     <ClInclude Include="src\core\vdp_render.h" />
-    <ClInclude Include="src\libretro\libretro.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\msvc\stdint.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\apple_compat.h" />
     <ClInclude Include="src\libretro\libretro-common\include\compat\fnmatch.h" />

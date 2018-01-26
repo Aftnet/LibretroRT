@@ -1,6 +1,4 @@
-﻿using LibretroRT.FrontendComponents.Common;
-using LibretroRT.FrontendComponents.Win2DCoreRunner;
-using Microsoft.Practices.ServiceLocation;
+﻿using Microsoft.Practices.ServiceLocation;
 using RetriX.Shared.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -17,7 +15,7 @@ namespace RetriX.UWP.Pages
         public GamePlayerVM VM => ServiceLocator.Current.GetInstance<GamePlayerVM>();
         public ICoreRunner CoreRunner => Runner;
 
-        private Win2DCoreRunner Runner;
+        private Win2DRenderer Runner;
 
         public GamePlayerPage()
         {
@@ -26,7 +24,7 @@ namespace RetriX.UWP.Pages
             var locator = ServiceLocator.Current;
             var audioPlayer = locator.GetInstance<IAudioPlayer>();
             var inputManager = locator.GetInstance<IInputManager>();
-            Runner = new Win2DCoreRunner(PlayerPanel, audioPlayer, inputManager);
+            Runner = new Win2DRenderer(PlayerPanel, audioPlayer, inputManager);
 
             Unloaded += OnUnloading;
         }

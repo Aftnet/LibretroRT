@@ -131,7 +131,6 @@
     <ClInclude Include="src\mednafen\mednafen-driver.h" />
     <ClInclude Include="src\mednafen\mednafen-endian.h" />
     <ClInclude Include="src\mednafen\mednafen-types.h" />
-    <ClInclude Include="src\mednafen\file.h" />
     <ClInclude Include="src\mednafen\clamp.h" />
     <ClInclude Include="src\mednafen\driver.h" />
     <ClInclude Include="src\mednafen\video\Deinterlacer.h" />
@@ -147,6 +146,10 @@
     <ClInclude Include="src\libretro-common\include\retro_timers.h" />
     <ClInclude Include="src\libretro-common\rthreads\gx_pthread.h" />
     <ClInclude Include="src\libretro-common\rthreads\psp_pthread.h" />
+    <ClInclude Include="src\input.h" />
+    <ClInclude Include="src\disc.h" />
+    <ClInclude Include="src\libretro_settings.h" />
+    <ClInclude Include="src\mednafen\ss\cart\ar4mp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\deps\zlib\adler32.c" />
@@ -232,7 +235,6 @@
     <ClCompile Include="src\mednafen\mempatcher.cpp" />
     <ClCompile Include="src\mednafen\git.cpp" />
     <ClCompile Include="src\mednafen\mednafen-endian.c" />
-    <ClCompile Include="src\mednafen\file.c" />
     <ClCompile Include="src\mednafen\video\Deinterlacer.cpp" />
     <ClCompile Include="src\mednafen\video\surface.cpp" />
     <ClCompile Include="src\mednafen\hash\md5.cpp" />
@@ -245,5 +247,9 @@
     <ClCompile Include="src\libretro-common\encodings\encoding_utf.c" />
     <ClCompile Include="src\libretro-common\streams\file_stream.c" />
     <ClCompile Include="src\libretro-common\vfs\vfs_implementation.c" />
+    <ClCompile Include="src\input.cpp" />
+    <ClCompile Include="src\disc.cpp" />
+    <ClCompile Include="src\libretro_settings.cpp" />
+    <ClCompile Include="src\mednafen\ss\cart\ar4mp.cpp" />
   </ItemGroup>
 </Project>

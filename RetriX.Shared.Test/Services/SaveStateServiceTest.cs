@@ -1,12 +1,15 @@
 ﻿using Moq;
+using Plugin.FileSystem;
 using RetriX.Shared.Services;
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace RetriX.Shared.Test.Services
 {
-    public class SaveStateServiceTest : TestBase<SaveStateService>
+    public class SaveStateServiceTest : TestBase<SaveStateService>, IDisposable
     {
         private const int InitializationDelayMs = 50;
 
@@ -20,15 +23,14 @@ namespace RetriX.Shared.Test.Services
 
         protected override SaveStateService InstantiateTarget()
         {
-            var output = new SaveStateService(Plugin.FileSystem.CrossFileSystem.Current, NotificationServiceMock.Object, LocalizationServiceMock.Object);
+            var output = new SaveStateService(CrossFileSystem.Current);
             output.SetGameId(GameId);
             return output;
         }
 
-        public SaveStateServiceTest()
+        public void Dispose()
         {
-            LocalizationServiceMock.Setup(d => d.GetLocalizedString(SaveStateService.StateSavedToSlotMessageTitleKey)).Returns(StateSavedToSlotMessageTitle);
-            LocalizationServiceMock.Setup(d => d.GetLocalizedString(SaveStateService.StateSavedToSlotMessageBodyKey)).Returns(StateSavedToSlotMessageBody);
+            Target.ClearSavesAsync().Wait();
         }
 
         [Theory]
@@ -43,40 +45,36 @@ namespace RetriX.Shared.Test.Services
             var result = await Target.SlotHasDataAsync(SlotID);
             Assert.False(result);
 
-            result = await Target.SaveStateAsync(SlotID, TestSavePayload);
-            Assert.False(result);
+            var stream = await Target.GetStreamForSlotAsync(SlotID, FileAccess.ReadWrite);
+            Assert.Null(stream);
 
-            result = await Target.SlotHasDataAsync(SlotID);
-            Assert.False(result);
-
-            var loaded = await Target.LoadStateAsync(SlotID);
-            Assert.Null(loaded);
+            stream = await Target.GetStreamForSlotAsync(SlotID, FileAccess.Read);
+            Assert.Null(stream);
         }
 
         [Fact]
-        public async Task SaveLoadDeleteWorks()
+        public async Task SaveFilesAreCreatedWhenNeeded()
         {
             await Task.Delay(InitializationDelayMs);
 
-            var result = await Target.SlotHasDataAsync(SlotID);
-            Assert.False(result);
+            var slotHasData = await Target.SlotHasDataAsync(SlotID);
+            Assert.False(slotHasData);
 
-            var loaded = await Target.LoadStateAsync(SlotID);
-            Assert.Null(loaded);
+            var stream = await Target.GetStreamForSlotAsync(SlotID, FileAccess.Read);
+            Assert.Null(stream);
 
-            result = await Target.SaveStateAsync(SlotID, TestSavePayload);
-            Assert.True(result);
+            using (stream = await Target.GetStreamForSlotAsync(SlotID, FileAccess.ReadWrite))
+            {
+                Assert.NotNull(stream);
+            }
 
-            loaded = await Target.LoadStateAsync(SlotID);
-            Assert.Equal(loaded, TestSavePayload);
+            slotHasData  = await Target.SlotHasDataAsync(SlotID);
+            Assert.True(slotHasData);
 
-            await Target.ClearSavesAsync();
-
-            result = await Target.SlotHasDataAsync(SlotID);
-            Assert.False(result);
-
-            loaded = await Target.LoadStateAsync(SlotID);
-            Assert.Null(loaded);
+            using (stream = await Target.GetStreamForSlotAsync(SlotID, FileAccess.Read))
+            {
+                Assert.NotNull(stream);
+            }
         }
 
         [Fact]
@@ -84,18 +82,29 @@ namespace RetriX.Shared.Test.Services
         {
             await Task.Delay(InitializationDelayMs);
 
-            var result = await Target.SaveStateAsync(SlotID, TestSavePayload);
-            Assert.True(result);
+            using (var stream = await Target.GetStreamForSlotAsync(SlotID, FileAccess.ReadWrite))
+            {
+                Assert.NotNull(stream);
+                await stream.WriteAsync(TestSavePayload, 0, TestSavePayload.Length);
+            }
 
             var otherSlotID = SlotID + 1;
+            using (var stream = await Target.GetStreamForSlotAsync(otherSlotID, FileAccess.ReadWrite))
+            {
+                Assert.NotNull(stream);
+            }
 
-            result = await Target.SlotHasDataAsync(otherSlotID);
-            Assert.False(result);
+            using (var stream = await Target.GetStreamForSlotAsync(SlotID, FileAccess.Read))
+            {
+                Assert.NotNull(stream);
+                Assert.Equal(TestSavePayload.Length, stream.Length);
+            }
 
-            var loaded = await Target.LoadStateAsync(otherSlotID);
-            Assert.Null(loaded);
-
-            await Target.ClearSavesAsync();
+            using (var stream = await Target.GetStreamForSlotAsync(otherSlotID, FileAccess.Read))
+            {
+                Assert.NotNull(stream);
+                Assert.Equal(0, stream.Length);
+            }
         }
 
         [Fact]
@@ -104,45 +113,20 @@ namespace RetriX.Shared.Test.Services
             await Task.Delay(InitializationDelayMs);
 
             var otherSlotID = SlotID + 1;
-
-            var result = await Target.SaveStateAsync(SlotID, TestSavePayload);
-            Assert.True(result);
-            result = await Target.SaveStateAsync(otherSlotID, TestSavePayload);
-            Assert.True(result);
-
-            var loadTasks = new Task<byte[]>[]
+            var loadTasks = new Task<Stream>[]
             {
-                Target.LoadStateAsync(SlotID),
-                Target.LoadStateAsync(otherSlotID)
+                Target.GetStreamForSlotAsync(SlotID, FileAccess.ReadWrite),
+                Target.GetStreamForSlotAsync(otherSlotID, FileAccess.ReadWrite)
             };
 
             await Task.WhenAll(loadTasks);
-            Assert.NotNull(loadTasks[0].Result);
-            Assert.Null(loadTasks[1].Result);
 
-            await Target.ClearSavesAsync();
-        }
+            var stream = loadTasks[0].Result;
+            Assert.NotNull(stream);
+            stream.Dispose();
 
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public async Task NotificationsAreSentWhenAppropriate(bool saveSuccessful)
-        {
-            await Task.Delay(InitializationDelayMs);
-
-            if(!saveSuccessful)
-            {
-                Target.SetGameId(null);
-            }
-
-            var result = await Target.SaveStateAsync(SlotID, TestSavePayload);
-            Assert.Equal(saveSuccessful, result);
-
-            var expectedBody = string.Format(StateSavedToSlotMessageBody, SlotID);
-            var expectedTimes = saveSuccessful ? Times.Once() : Times.Never();
-            NotificationServiceMock.Verify(d => d.Show(StateSavedToSlotMessageTitle, expectedBody, 0), expectedTimes);
-
-            await Target.ClearSavesAsync();
+            stream = loadTasks[1].Result;
+            Assert.Null(stream);
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>3f31cf6f-c2df-489a-9c2a-0b9958d0c143</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>LibRetriX.RetroBindings</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)LibretroAPI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibretroCore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VFSHandler.cs" />
+  </ItemGroup>
+</Project>

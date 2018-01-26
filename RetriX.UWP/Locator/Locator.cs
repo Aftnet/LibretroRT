@@ -1,8 +1,5 @@
 ﻿using Acr.UserDialogs;
 using GalaSoft.MvvmLight.Ioc;
-using LibretroRT.FrontendComponents.AudioGraphPlayer;
-using LibretroRT.FrontendComponents.Common;
-using LibretroRT.FrontendComponents.InputManager;
 using Microsoft.Practices.ServiceLocation;
 using Plugin.FileSystem;
 using Plugin.LocalNotifications;

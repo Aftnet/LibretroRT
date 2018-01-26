@@ -14,7 +14,6 @@ namespace RetriX.Shared.ViewModels
 
         private readonly IPlatformService PlatformService;
         private readonly IEmulationService EmulationService;
-        private readonly ISaveStateService SaveStateService;
 
         public RelayCommand TappedCommand { get; private set; }
         public RelayCommand PointerMovedCommand { get; private set; }
@@ -93,11 +92,10 @@ namespace RetriX.Shared.ViewModels
         private DateTimeOffset PlayerUIDisplayTime = DateTimeOffset.UtcNow;
         private DateTimeOffset LastPointerMoveTime = DateTimeOffset.UtcNow;
 
-        public GamePlayerVM(IPlatformService platformService, IEmulationService emulationService, ISaveStateService saveStateService)
+        public GamePlayerVM(IPlatformService platformService, IEmulationService emulationService)
         {
             PlatformService = platformService;
             EmulationService = emulationService;
-            SaveStateService = saveStateService;
 
             ShouldDisplayTouchGamepad = PlatformService.ShouldDisplayTouchGamepad;
 
@@ -169,6 +167,7 @@ namespace RetriX.Shared.ViewModels
             CoreOperationsAllowed = false;
             PlatformService.HandleGameplayKeyShortcuts = false;
             PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Visible);
+            PlatformService.ChangeFullScreenState(FullScreenChangeType.Exit);
         }
 
         private async Task TogglePause(bool dismissOverlayImmediately)
@@ -229,14 +228,7 @@ namespace RetriX.Shared.ViewModels
         private async void SaveState(uint slotID)
         {
             CoreOperationsAllowed = false;
-
-            var data = await EmulationService.SaveGameStateAsync();
-            if (data != null)
-            {
-                SaveStateService.SetGameId(EmulationService.GameID);
-                await SaveStateService.SaveStateAsync(slotID, data);
-            }
-
+            await EmulationService.SaveGameStateAsync(slotID);
             CoreOperationsAllowed = true;
 
             if (GameIsPaused)
@@ -248,14 +240,7 @@ namespace RetriX.Shared.ViewModels
         private async void LoadState(uint slotID)
         {
             CoreOperationsAllowed = false;
-
-            SaveStateService.SetGameId(EmulationService.GameID);
-            var data = await SaveStateService.LoadStateAsync(slotID);
-            if (data != null)
-            {
-                await EmulationService.LoadGameStateAsync(data);
-            }
-
+            await EmulationService.LoadGameStateAsync(slotID);
             CoreOperationsAllowed = true;
 
             if (GameIsPaused)

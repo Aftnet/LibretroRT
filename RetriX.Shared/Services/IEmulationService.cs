@@ -20,7 +20,6 @@ namespace RetriX.Shared.Services
         DeviceIdJoypadX = 9,
     };
 
-    public delegate void CoresInitializedDelegate(IEmulationService sender);
     public delegate void GameStoppedDelegate(IEmulationService sender);
     public delegate void GameStartedDelegate(IEmulationService sender);
     public delegate void GameRuntimeExceptionOccurredDelegate(IEmulationService sender, Exception exception);
@@ -29,11 +28,9 @@ namespace RetriX.Shared.Services
     {
         IReadOnlyList<GameSystemVM> Systems { get; }
         IReadOnlyList<string> ArchiveExtensions { get; }
-        IReadOnlyList<FileImporterVM> FileDependencyImporters { get; }
 
         string GameID { get; }
 
-        Task<IEnumerable<GameSystemVM>> FilterSystemsForFileAsync(IFileInfo file);
         Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder = null);
 
         Task ResetGameAsync();
@@ -42,12 +39,11 @@ namespace RetriX.Shared.Services
         Task PauseGameAsync();
         Task ResumeGameAsync();
 
-        Task<byte[]> SaveGameStateAsync();
-        Task<bool> LoadGameStateAsync(byte[] stateData);
+        Task<bool> SaveGameStateAsync(uint slotID);
+        Task<bool> LoadGameStateAsync(uint slotID);
 
         void InjectInputPlayer1(InjectedInputTypes inputType);
 
-        event CoresInitializedDelegate CoresInitialized;
         event GameStartedDelegate GameStarted;
         event GameStoppedDelegate GameStopped;
         event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
