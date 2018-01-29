@@ -13,7 +13,6 @@ namespace RetriX.UWP
 
         private readonly CoreCoordinator Coordinator;
 
-        public string GameID { get; private set; }
         public bool CoreIsExecuting { get; private set; }
 
         public ulong SerializationSize
@@ -87,7 +86,6 @@ namespace RetriX.UWP
                         return false;
                     }
 
-                    GameID = mainGameFilePath;
                     RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
                     CoreIsExecuting = true;
                     return true;
@@ -101,7 +99,6 @@ namespace RetriX.UWP
             {
                 lock (Coordinator)
                 {
-                    GameID = null;
                     CoreIsExecuting = false;
                     Coordinator.Core?.UnloadGame();
                     Coordinator.AudioPlayer?.Stop();
@@ -199,7 +196,6 @@ namespace RetriX.UWP
                     }
                     catch (Exception e)
                     {
-                        GameID = null;
                         CoreIsExecuting = false;
                         Coordinator.AudioPlayer?.Stop();
                         CoreRunExceptionOccurred(Coordinator.Core, e);

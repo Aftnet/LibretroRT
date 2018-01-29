@@ -9,7 +9,6 @@ namespace RetriX.UWP
 
     public interface ICoreRunner
     {
-        string GameID { get; }
         bool CoreIsExecuting { get; }
         ulong SerializationSize { get; }
 

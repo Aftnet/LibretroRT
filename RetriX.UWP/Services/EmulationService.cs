@@ -60,8 +60,6 @@ namespace RetriX.UWP.Services
         private readonly GameSystemVM[] systems;
         public IReadOnlyList<GameSystemVM> Systems => systems;
 
-        public string GameID => CoreRunner?.GameID;
-
         public event GameStartedDelegate GameStarted;
         public event GameStoppedDelegate GameStopped;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
@@ -124,8 +122,7 @@ namespace RetriX.UWP.Services
                 await CoreRunner.UnloadGameAsync();
             }
 
-            StreamProvider?.Dispose();
-            StreamProvider = null;
+            Cleanup();
             string virtualMainFilePath = null;
             if (core.NativeArchiveSupport || !ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
             {
@@ -152,6 +149,7 @@ namespace RetriX.UWP.Services
             var saveFolder = await system.GetSaveDirectoryAsync();
             var saveProvider = new FolderStreamProvider(VFSSavePath, saveFolder);
             StreamProvider = new CombinedStreamProvider(new HashSet<IStreamProvider>() { StreamProvider, systemProvider, saveProvider });
+            SaveStateService.SetGameId(virtualMainFilePath);
 
             //Navigation should cause the player page to load, which in turn should initialize the core runner
             while (CoreRunner == null)
@@ -222,7 +220,6 @@ namespace RetriX.UWP.Services
                 return success;
             }
 
-            SaveStateService.SetGameId(GameID);
             using (var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.ReadWrite))
             {
                 if (stream == null)
@@ -252,7 +249,6 @@ namespace RetriX.UWP.Services
                 return success;
             }
 
-            SaveStateService.SetGameId(GameID);
             using (var stream = await SaveStateService.GetStreamForSlotAsync(slotID, FileAccess.Read))
             {
                 if (stream == null)
@@ -315,10 +311,16 @@ namespace RetriX.UWP.Services
             return mainFileVirtualPath;
         }
 
-        private void CleanupAndGoBack()
+        private void Cleanup()
         {
+            SaveStateService.SetGameId(null);
             StreamProvider?.Dispose();
             StreamProvider = null;
+        }
+
+        private void CleanupAndGoBack()
+        {
+            Cleanup();
 
             if (RootFrame.CurrentSourcePageType == GamePlayerPageType)
             {
