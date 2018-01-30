@@ -8,7 +8,7 @@ using Windows.UI;
 
 namespace RetriX.UWP
 {
-    public sealed class Win2DRenderer : IVideoService
+    public sealed class VideoService : IVideoService
     {
         public event RequestRunCoreFrameDelegate RequestRunCoreFrame;
 

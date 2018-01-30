@@ -16,7 +16,7 @@ namespace RetriX.UWP.Pages
         public GamePlayerVM VM => ServiceLocator.Current.GetInstance<GamePlayerVM>();
 
         private IEmulationService EmulationService => ServiceLocator.Current.GetInstance<IEmulationService>();
-        private Win2DRenderer Renderer => ServiceLocator.Current.GetInstance<IVideoService>() as Win2DRenderer;
+        private VideoService Renderer => ServiceLocator.Current.GetInstance<IVideoService>() as VideoService;
 
         public GamePlayerPage()
         {
