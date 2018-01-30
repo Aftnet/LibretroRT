@@ -7,7 +7,7 @@ using System.Numerics;
 using Windows.Foundation;
 using Windows.Graphics.DirectX.Direct3D11;
 
-namespace RetriX.UWP
+namespace RetriX.UWP.Components
 {
     internal class RenderTargetManager : IDisposable
     {

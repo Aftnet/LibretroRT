@@ -276,6 +276,11 @@ namespace RetriX.UWP.Services
         private async Task SetCorePaused(bool value)
         {
             await CoreSemaphore.WaitAsync();
+            if (value)
+            {
+                await Task.Run(() => AudioService.Stop());
+            }
+
             CorePaused = value;
             CoreSemaphore.Release();
         }

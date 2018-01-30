@@ -1,16 +1,17 @@
 ﻿using LibRetriX;
+using RetriX.Shared.Services;
+using RetriX.UWP.Components;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media;
 using Windows.Media.Audio;
 
-namespace RetriX.UWP
+namespace RetriX.UWP.Services
 {
-    public sealed class AudioGraphPlayer : IDisposable, IAudioPlayer
+    public sealed class AudioGraphPlayer : IAudioService, IDisposable
     {
         private const uint MaxSamplesQueueSize = 44100 * 4;
         private const uint NumChannels = 2;
