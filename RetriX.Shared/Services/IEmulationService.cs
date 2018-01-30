@@ -1,4 +1,6 @@
-﻿using Plugin.FileSystem.Abstractions;
+﻿using LibRetriX;
+using Plugin.FileSystem.Abstractions;
+using RetriX.Shared.StreamProviders;
 using RetriX.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -29,7 +31,7 @@ namespace RetriX.Shared.Services
         IReadOnlyList<GameSystemVM> Systems { get; }
         IReadOnlyList<string> ArchiveExtensions { get; }
 
-        Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder = null);
+        Task<bool> StartGameAsync(ICore core, IStreamProvider streamProvider, string virtualMainFilePath);
 
         Task ResetGameAsync();
         Task StopGameAsync();

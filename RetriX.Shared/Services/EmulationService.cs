@@ -117,7 +117,10 @@ namespace RetriX.UWP.Services
         public event GameStoppedDelegate GameStopped;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
-        public EmulationService(INavigationService navigationService,  IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService, ILocalNotifications notificationService, ICryptographyService cryptographyService, IInputService inputService)
+        public EmulationService(INavigationService navigationService,  IFileSystem fileSystem, IUserDialogs dialogsService,
+            ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService,
+            ILocalNotifications notificationService, ICryptographyService cryptographyService,
+            IVideoService videoService, IAudioService audioService, IInputService inputService)
         {
             NavigationService = navigationService;
             FileSystem = fileSystem;
@@ -125,7 +128,12 @@ namespace RetriX.UWP.Services
             PlatformService = platformService;
             SaveStateService = saveStateService;
             NotificationService = notificationService;
+
+            VideoService = videoService;
+            AudioService = audioService;
             InputService = inputService;
+
+            VideoService.RequestRunCoreFrame += d => OnCoreRunFrameRequested();
 
             var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso", ".mds", ".mdf" };
 
@@ -338,6 +346,24 @@ namespace RetriX.UWP.Services
         public void InjectInputPlayer1(InjectedInputTypes inputType)
         {
             InputService.InjectInputPlayer1(InjectedInputMapping[inputType]);
+        }
+
+        private void OnCoreRunFrameRequested()
+        {
+            if (Core == null || CorePaused || AudioService.ShouldDelayNextFrame)
+            {
+                return;
+            }
+
+            CoreSemaphore.WaitAsync().Wait();
+            try
+            {
+                Core.RunFrame();
+            }
+            finally
+            {
+                CoreSemaphore.Release();
+            }
         }
 
         private void OnCoreExceptionOccurred(ICore core, Exception e)
