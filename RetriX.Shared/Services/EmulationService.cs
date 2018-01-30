@@ -162,8 +162,12 @@ namespace RetriX.UWP.Services
             //};
         }
 
-        public async Task<bool> StartGameAsync(ICore core, IStreamProvider streamProvider, string virtualMainFilePath)
+        public async Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder)
         {
+            var gameLaunchEnvironment = await GenerateGameLaunchEnvironmentAsync(system, file, rootFolder);
+            var provider = gameLaunchEnvironment.Item1;
+            var virtualMainFilePath = gameLaunchEnvironment.Item2;
+
             if (NavigationService.CurrentPageKey != GamePlayerPageKey)
             {
                 NavigationService.NavigateTo(GamePlayerPageKey);
@@ -181,7 +185,7 @@ namespace RetriX.UWP.Services
                     await Task.Run(() => Core.UnloadGame());
                 }
 
-                StreamProvider = streamProvider;
+                StreamProvider = provider;
                 SaveStateService.SetGameId(virtualMainFilePath);
                 Core = core;
 
@@ -348,6 +352,7 @@ namespace RetriX.UWP.Services
             InputService.InjectInputPlayer1(InjectedInputMapping[inputType]);
         }
 
+        //Synhronous since it's going to be called by a non UI thread
         private void OnCoreRunFrameRequested()
         {
             if (Core == null || CorePaused || AudioService.ShouldDelayNextFrame)
@@ -391,25 +396,25 @@ namespace RetriX.UWP.Services
             var core = system.Core;
 
             string virtualMainFilePath = null;
-            var streamProvider = default(IStreamProvider);
+            var provider = default(IStreamProvider);
 
             if (core.NativeArchiveSupport || !ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
             {
                 virtualMainFilePath = $"{VFSRomPath}{Path.DirectorySeparatorChar}{file.Name}";
-                streamProvider = new SingleFileStreamProvider(virtualMainFilePath, file);
+                provider = new SingleFileStreamProvider(virtualMainFilePath, file);
                 if (rootFolder != null)
                 {
                     virtualMainFilePath = file.FullName.Substring(rootFolder.FullName.Length + 1);
                     virtualMainFilePath = $"{VFSRomPath}{Path.DirectorySeparatorChar}{virtualMainFilePath}";
-                    streamProvider = new FolderStreamProvider(VFSRomPath, rootFolder);
+                    provider = new FolderStreamProvider(VFSRomPath, rootFolder);
                 }
             }
             else
             {
                 var archiveProvider = new ArchiveStreamProvider(VFSRomPath, file);
                 await archiveProvider.InitializeAsync();
-                streamProvider = archiveProvider;
-                var entries = await streamProvider.ListEntriesAsync();
+                provider = archiveProvider;
+                var entries = await provider.ListEntriesAsync();
                 virtualMainFilePath = entries.FirstOrDefault(d => system.SupportedExtensions.Contains(Path.GetExtension(d)));
             }
 
@@ -417,9 +422,9 @@ namespace RetriX.UWP.Services
             var systemProvider = new FolderStreamProvider(VFSSystemPath, systemFolder);
             var saveFolder = await system.GetSaveDirectoryAsync();
             var saveProvider = new FolderStreamProvider(VFSSavePath, saveFolder);
-            streamProvider = new CombinedStreamProvider(new HashSet<IStreamProvider>() { streamProvider, systemProvider, saveProvider });
+            provider = new CombinedStreamProvider(new HashSet<IStreamProvider>() { provider, systemProvider, saveProvider });
 
-            return Tuple.Create(streamProvider, virtualMainFilePath);
+            return Tuple.Create(provider, virtualMainFilePath);
         }
     }
 }

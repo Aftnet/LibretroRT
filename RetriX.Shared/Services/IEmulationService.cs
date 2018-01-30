@@ -31,7 +31,7 @@ namespace RetriX.Shared.Services
         IReadOnlyList<GameSystemVM> Systems { get; }
         IReadOnlyList<string> ArchiveExtensions { get; }
 
-        Task<bool> StartGameAsync(ICore core, IStreamProvider streamProvider, string virtualMainFilePath);
+        Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder);
 
         Task ResetGameAsync();
         Task StopGameAsync();
