@@ -137,29 +137,29 @@ namespace RetriX.UWP.Services
 
             var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso", ".mds", ".mdf" };
 
-            systems = new GameSystemVM[0];
-            //{
-            //    new GameSystemVM(LibRetriX.FCEUMM.Core.Instance, FileSystem, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
-            //    new GameSystemVM(LibRetriX.Snes9X.Core.Instance, FileSystem, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
-            //    //new GameSystemVM(LibRetriX.ParallelN64.Core.Instance, FileSystem, LocalizationService, "SystemNameNintendo64", "ManufacturerNameNintendo", "\uf116"),
-            //    new GameSystemVM(LibRetriX.Gambatte.Core.Instance, FileSystem, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
-            //    new GameSystemVM(LibRetriX.VBAM.Core.Instance, FileSystem, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
-            //    new GameSystemVM(LibRetriX.MelonDS.Core.Instance, FileSystem, LocalizationService, "SystemNameDS", "ManufacturerNameNintendo", "\uf117"),
-            //    new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", true, new HashSet<string>{ ".sg" }),
-            //    new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", true, new HashSet<string>{ ".sms" }),
-            //    new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", true, new HashSet<string>{ ".gg" }),
-            //    new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", true, new HashSet<string>{ ".mds", ".md", ".smd", ".gen" }),
-            //    new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", false, new HashSet<string>{ ".bin", ".cue", ".iso", ".chd" }, CDImageExtensions),
-            //    //new GameSystemVM(LibRetriX.BeetleSaturn.Core.Instance, FileSystem, LocalizationService, "SystemNameSaturn", "ManufacturerNameSega", "\uf124", false, null, CDImageExtensions),
-            //    new GameSystemVM(LibRetriX.BeetlePSX.Core.Instance, FileSystem, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", false, null, CDImageExtensions),
-            //    new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, LocalizationService, "SystemNamePCEngine", "ManufacturerNameNEC", "\uf124", true, new HashSet<string>{ ".pce" }),
-            //    new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, LocalizationService, "SystemNamePCEngineCD", "ManufacturerNameNEC", "\uf124", false, new HashSet<string>{ ".cue", ".ccd", ".chd" }, CDImageExtensions),
-            //    new GameSystemVM(LibRetriX.BeetlePCFX.Core.Instance, FileSystem, LocalizationService, "SystemNamePCFX", "ManufacturerNameNEC", "\uf124", false, null, CDImageExtensions),
-            //    new GameSystemVM(LibRetriX.BeetleWswan.Core.Instance, FileSystem, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
-            //    new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
-            //    new GameSystemVM(LibRetriX.BeetleNGP.Core.Instance, FileSystem, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
-            //    new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
-            //};
+            systems = new GameSystemVM[]
+            {
+                new GameSystemVM(LibRetriX.FCEUMM.Core.Instance, FileSystem, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
+                new GameSystemVM(LibRetriX.Snes9X.Core.Instance, FileSystem, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
+                //new GameSystemVM(LibRetriX.ParallelN64.Core.Instance, FileSystem, LocalizationService, "SystemNameNintendo64", "ManufacturerNameNintendo", "\uf116"),
+                new GameSystemVM(LibRetriX.Gambatte.Core.Instance, FileSystem, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
+                new GameSystemVM(LibRetriX.VBAM.Core.Instance, FileSystem, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
+                new GameSystemVM(LibRetriX.MelonDS.Core.Instance, FileSystem, LocalizationService, "SystemNameDS", "ManufacturerNameNintendo", "\uf117"),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", true, new HashSet<string> { ".sg" }),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", true, new HashSet<string> { ".sms" }),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", true, new HashSet<string> { ".gg" }),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", true, new HashSet<string> { ".mds", ".md", ".smd", ".gen" }),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", false, new HashSet<string> { ".bin", ".cue", ".iso", ".chd" }, CDImageExtensions),
+                //new GameSystemVM(LibRetriX.BeetleSaturn.Core.Instance, FileSystem, LocalizationService, "SystemNameSaturn", "ManufacturerNameSega", "\uf124", false, null, CDImageExtensions),
+                new GameSystemVM(LibRetriX.BeetlePSX.Core.Instance, FileSystem, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", false, null, CDImageExtensions),
+                new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, LocalizationService, "SystemNamePCEngine", "ManufacturerNameNEC", "\uf124", true, new HashSet<string> { ".pce" }),
+                new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, LocalizationService, "SystemNamePCEngineCD", "ManufacturerNameNEC", "\uf124", false, new HashSet<string> { ".cue", ".ccd", ".chd" }, CDImageExtensions),
+                new GameSystemVM(LibRetriX.BeetlePCFX.Core.Instance, FileSystem, LocalizationService, "SystemNamePCFX", "ManufacturerNameNEC", "\uf124", false, null, CDImageExtensions),
+                new GameSystemVM(LibRetriX.BeetleWswan.Core.Instance, FileSystem, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
+                new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
+                new GameSystemVM(LibRetriX.BeetleNGP.Core.Instance, FileSystem, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
+                new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
+            };
         }
 
         public async Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder)
@@ -425,8 +425,11 @@ namespace RetriX.UWP.Services
 
             var systemFolder = await system.GetSystemDirectoryAsync();
             var systemProvider = new FolderStreamProvider(VFSSystemPath, systemFolder);
+            core.SystemRootPath = VFSSystemPath;
             var saveFolder = await system.GetSaveDirectoryAsync();
             var saveProvider = new FolderStreamProvider(VFSSavePath, saveFolder);
+            core.SaveRootPath = VFSSavePath;
+
             provider = new CombinedStreamProvider(new HashSet<IStreamProvider>() { provider, systemProvider, saveProvider });
 
             return Tuple.Create(provider, virtualMainFilePath);
