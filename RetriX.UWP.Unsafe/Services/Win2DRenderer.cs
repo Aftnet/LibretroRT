@@ -12,28 +12,43 @@ namespace RetriX.UWP
     {
         public event RequestRunCoreFrameDelegate RequestRunCoreFrame;
 
-        private CanvasAnimatedControl RenderPanel;
-        private bool RenderPanelInitialized = false;
+        private CanvasAnimatedControl renderPanel;
+        public CanvasAnimatedControl RenderPanel
+        {
+            get => renderPanel;
+            set
+            {
+                if (renderPanel == value)
+                {
+                    return;
+                }
+
+                if (renderPanel != null)
+                {
+                    renderPanel.Update -= RenderPanelUpdate;
+                    renderPanel.Draw -= RenderPanelDraw;
+                    renderPanel.Unloaded -= RenderPanelUnloaded;
+                }
+
+                renderPanel = value;
+                if (renderPanel != null)
+                {
+                    RenderPanel.ClearColor = Color.FromArgb(0xff, 0, 0, 0);
+                    renderPanel.Update += RenderPanelUpdate;
+                    renderPanel.Draw += RenderPanelDraw;
+                    renderPanel.Unloaded += RenderPanelUnloaded;
+                }
+            }
+        }
 
         private readonly RenderTargetManager RenderTargetManager = new RenderTargetManager();
 
-        public Win2DRenderer(CanvasAnimatedControl renderPanel)
-        {
-            RenderPanel = renderPanel;
-            RenderPanel.ClearColor = Color.FromArgb(0xff, 0, 0, 0);
-            RenderPanel.Update -= RenderPanelUpdate;
-            RenderPanel.Update += RenderPanelUpdate;
-            RenderPanel.CreateResources -= RenderPanelCreateResources;
-            RenderPanel.CreateResources += RenderPanelCreateResources;
-            RenderPanel.Draw -= RenderPanelDraw;
-            RenderPanel.Draw += RenderPanelDraw;
-            RenderPanel.Unloaded -= RenderPanelUnloaded;
-            RenderPanel.Unloaded += RenderPanelUnloaded;
-        }
+        private TaskCompletionSource<object> InitTCS;
 
         public Task InitAsync()
         {
-
+            InitTCS = new TaskCompletionSource<object>();
+            return InitTCS.Task;
         }
 
         public Task DeinitAsync()
@@ -44,19 +59,17 @@ namespace RetriX.UWP
 
         private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            RenderPanel.Update -= RenderPanelUpdate;
-            RenderPanel.Draw -= RenderPanelDraw;
-            RenderPanel.Unloaded -= RenderPanelUnloaded;
             RenderPanel = null;
-        }
-
-        private void RenderPanelCreateResources(CanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
-        {
-            RenderPanelInitialized = true;
         }
 
         private void RenderPanelUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
+            if (InitTCS != null)
+            {
+                InitTCS.SetResult(null);
+                InitTCS = null;
+            }
+
             RequestRunCoreFrame?.Invoke(this);
         }
 
