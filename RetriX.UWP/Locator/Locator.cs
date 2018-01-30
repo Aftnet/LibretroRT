@@ -22,7 +22,7 @@ namespace RetriX.UWP.Locator
             ioc.Register(() => CrossFileSystem.Current);
             ioc.Register(() => CrossLocalNotifications.Current);
             ioc.Register(() => CrossVersionTracking.Current);
-            ioc.Register<IAudioPlayer, AudioGraphPlayer>();
+            ioc.Register<IAudioPlayer, AudioService>();
             ioc.Register<IInputManager, InputManager>();
             ioc.Register<IPlatformService, PlatformService>();
             ioc.Register<ICryptographyService, CryptographyService>();

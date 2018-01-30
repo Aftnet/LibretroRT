@@ -114,10 +114,10 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Services\AudioGraphPlayer.cs" />
+    <Compile Include="Services\AudioService.cs" />
     <Compile Include="Components\FramebufferConverter.cs" />
     <Compile Include="Components\IMemoryBufferByteAccess.cs" />
-    <Compile Include="Services\InputManager.cs" />
+    <Compile Include="Services\InputService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\RenderTargetManager.cs" />
     <Compile Include="Services\Win2DRenderer.cs" />

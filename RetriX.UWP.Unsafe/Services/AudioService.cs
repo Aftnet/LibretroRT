@@ -11,7 +11,7 @@ using Windows.Media.Audio;
 
 namespace RetriX.UWP.Services
 {
-    public sealed class AudioGraphPlayer : IAudioService, IDisposable
+    public sealed class AudioService : IAudioService, IDisposable
     {
         private const uint MaxSamplesQueueSize = 44100 * 4;
         private const uint NumChannels = 2;
@@ -63,7 +63,7 @@ namespace RetriX.UWP.Services
             set { inputNode?.Dispose(); inputNode = value; }
         }
 
-        public AudioGraphPlayer()
+        public AudioService()
         {
             SampleRate = 0;
         }
@@ -71,6 +71,17 @@ namespace RetriX.UWP.Services
         public void Dispose()
         {
             DisposeGraph();
+        }
+
+        public Task InitAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeinitAsync()
+        {
+            DisposeGraph();
+            return Task.CompletedTask;
         }
 
         public void TimingChanged(SystemTimings timings)

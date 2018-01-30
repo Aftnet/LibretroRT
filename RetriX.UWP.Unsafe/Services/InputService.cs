@@ -1,14 +1,16 @@
 ﻿using LibRetriX;
+using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Gaming.Input;
 using Windows.System;
 using Windows.UI.Core;
 
 namespace RetriX.UWP
 {
-    public sealed class InputManager : IInputManager
+    public sealed class InputService : IInputService
     {
         private const uint InjectedInputFramePermamence = 4;
         private const double GamepadAnalogDeadZoneSquareRadius = 0.0;
@@ -68,13 +70,23 @@ namespace RetriX.UWP
         private readonly object GamepadReadingsLock = new object();
         private GamepadReading[] GamepadReadings;
 
-        public InputManager()
+        public InputService()
         {
             var window = CoreWindow.GetForCurrentThread();
             window.KeyDown -= WindowKeyDownHandler;
             window.KeyDown += WindowKeyDownHandler;
             window.KeyUp -= WindowKeyUpHandler;
             window.KeyUp += WindowKeyUpHandler;
+        }
+
+        public Task InitAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeinitAsync()
+        {
+            return Task.CompletedTask;
         }
 
         public void InjectInputPlayer1(InputTypes inputType)
