@@ -1,48 +1,24 @@
 ﻿using LibRetriX;
 using Microsoft.Graphics.Canvas.UI.Xaml;
+using RetriX.Shared.Services;
+using RetriX.UWP.Components;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Windows.UI;
 
 namespace RetriX.UWP
 {
-    public sealed class Win2DRenderer : IRenderer, ICoreRunner, IDisposable
+    public sealed class Win2DRenderer : IVideoService
     {
-        public event CoreRunExceptionOccurredDelegate CoreRunExceptionOccurred;
-
-        private readonly CoreCoordinator Coordinator;
-
-        public bool CoreIsExecuting { get; private set; }
-
-        public ulong SerializationSize
-        {
-            get
-            {
-                lock (Coordinator)
-                {
-                    var core = Coordinator.Core;
-                    return core != null ? core.SerializationSize : 0;
-                }
-            }
-        }
+        public event RequestRunCoreFrameDelegate RequestRunCoreFrame;
 
         private CanvasAnimatedControl RenderPanel;
         private bool RenderPanelInitialized = false;
 
         private readonly RenderTargetManager RenderTargetManager = new RenderTargetManager();
 
-        public Win2DRenderer(CanvasAnimatedControl renderPanel, IAudioPlayer audioPlayer, IInputManager inputManager)
+        public Win2DRenderer(CanvasAnimatedControl renderPanel)
         {
-            Coordinator = new CoreCoordinator
-            {
-                Renderer = this,
-                AudioPlayer = audioPlayer,
-                InputManager = inputManager
-            };
-
-            CoreIsExecuting = false;
-
             RenderPanel = renderPanel;
             RenderPanel.ClearColor = Color.FromArgb(0xff, 0, 0, 0);
             RenderPanel.Update -= RenderPanelUpdate;
@@ -55,120 +31,15 @@ namespace RetriX.UWP
             RenderPanel.Unloaded += RenderPanelUnloaded;
         }
 
-        public void Dispose()
+        public Task InitAsync()
         {
-            lock (Coordinator)
-            {
-                Coordinator.Core?.UnloadGame();
-                Coordinator.Dispose();
-                RenderTargetManager.Dispose();
-            }
+
         }
 
-        public Task<bool> LoadGameAsync(ICore core, string mainGameFilePath)
+        public Task DeinitAsync()
         {
-            return Task.Run(async () =>
-            {
-                while (!RenderPanelInitialized)
-                {
-                    //Ensure core doesn't try rendering before Win2D is ready.
-                    //Some games load faster than the Win2D canvas is initialized
-                    await Task.Delay(100);
-                }
-
-                await UnloadGameAsync();
-
-                lock (Coordinator)
-                {
-                    Coordinator.Core = core;
-                    if (core.LoadGame(mainGameFilePath) == false)
-                    {
-                        return false;
-                    }
-
-                    RenderTargetManager.CurrentCorePixelFormat = core.PixelFormat;
-                    CoreIsExecuting = true;
-                    return true;
-                }
-            });
-        }
-
-        public Task UnloadGameAsync()
-        {
-            return Task.Run(() =>
-            {
-                lock (Coordinator)
-                {
-                    CoreIsExecuting = false;
-                    Coordinator.Core?.UnloadGame();
-                    Coordinator.AudioPlayer?.Stop();
-                }
-            });
-        }
-
-        public Task ResetGameAsync()
-        {
-            return Task.Run(() =>
-            {
-                lock (Coordinator)
-                {
-                    Coordinator.AudioPlayer?.Stop();
-                    Coordinator.Core?.Reset();
-                }
-            });
-        }
-
-        public Task PauseCoreExecutionAsync()
-        {
-            return Task.Run(() =>
-            {
-                lock (Coordinator)
-                {
-                    Coordinator.AudioPlayer?.Stop();
-                    CoreIsExecuting = false;
-                }
-            });
-        }
-
-        public Task ResumeCoreExecutionAsync()
-        {
-            return Task.Run(() =>
-            {
-                lock (Coordinator)
-                {
-                    CoreIsExecuting = true;
-                }
-            });
-        }
-
-        public Task<bool> SaveGameStateAsync(Stream outputStream)
-        {
-            return Task.Run(() =>
-            {
-                lock (Coordinator)
-                {
-                    var core = Coordinator.Core;
-                    if (core == null)
-                        return false;
-
-                    return core.SaveState(outputStream);
-                }
-            });
-        }
-
-        public Task<bool> LoadGameStateAsync(Stream inputStream)
-        {
-            return Task.Run(() =>
-            {
-                lock (Coordinator)
-                {
-                    var core = Coordinator.Core;
-                    if (core == null)
-                        return false;
-
-                    return core.LoadState(inputStream);
-                }
-            });
+            RenderTargetManager.Dispose();
+            return Task.CompletedTask;
         }
 
         private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -186,22 +57,7 @@ namespace RetriX.UWP
 
         private void RenderPanelUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            lock (Coordinator)
-            {
-                if (CoreIsExecuting && !Coordinator.AudioPlayerRequestsFrameDelay)
-                {
-                    try
-                    {
-                        Coordinator.Core?.RunFrame();
-                    }
-                    catch (Exception e)
-                    {
-                        CoreIsExecuting = false;
-                        Coordinator.AudioPlayer?.Stop();
-                        CoreRunExceptionOccurred(Coordinator.Core, e);
-                    }
-                }
-            }
+            RequestRunCoreFrame?.Invoke(this);
         }
 
         private void RenderPanelDraw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)

@@ -11,7 +11,7 @@ using Windows.Media.Audio;
 
 namespace RetriX.UWP.Services
 {
-    public sealed class AudioService : IAudioService, IDisposable
+    public sealed class AudioService : IAudioService
     {
         private const uint MaxSamplesQueueSize = 44100 * 4;
         private const uint NumChannels = 2;
@@ -66,11 +66,6 @@ namespace RetriX.UWP.Services
         public AudioService()
         {
             SampleRate = 0;
-        }
-
-        public void Dispose()
-        {
-            DisposeGraph();
         }
 
         public Task InitAsync()
