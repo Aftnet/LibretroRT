@@ -55,47 +55,47 @@ namespace RetriX.UWP.Services
 
         private readonly SemaphoreSlim CoreSemaphore = new SemaphoreSlim(1, 1);
 
-        private ICore core;
-        private ICore Core
+        private ICore currentCore;
+        private ICore CurrentCore
         {
-            get => core;
+            get => currentCore;
             set
             {
-                if (core == value)
+                if (currentCore == value)
                 {
                     return;
                 }
 
-                if (core != null)
+                if (currentCore != null)
                 {
-                    Core.GeometryChanged -= VideoService.GeometryChanged;
-                    Core.PixelFormatChanged -= VideoService.PixelFormatChanged;
-                    Core.RenderVideoFrame -= VideoService.RenderVideoFrame;
-                    Core.TimingsChanged -= VideoService.TimingsChanged;
-                    Core.RotationChanged -= VideoService.RotationChanged;
-                    Core.TimingsChanged -= AudioService.TimingChanged;
-                    Core.RenderAudioFrames -= AudioService.RenderAudioFrames;
-                    Core.PollInput = null;
-                    Core.GetInputState = null;
-                    Core.OpenFileStream = null;
-                    Core.CloseFileStream = null;
+                    currentCore.GeometryChanged -= VideoService.GeometryChanged;
+                    currentCore.PixelFormatChanged -= VideoService.PixelFormatChanged;
+                    currentCore.RenderVideoFrame -= VideoService.RenderVideoFrame;
+                    currentCore.TimingsChanged -= VideoService.TimingsChanged;
+                    currentCore.RotationChanged -= VideoService.RotationChanged;
+                    currentCore.TimingsChanged -= AudioService.TimingChanged;
+                    currentCore.RenderAudioFrames -= AudioService.RenderAudioFrames;
+                    currentCore.PollInput = null;
+                    currentCore.GetInputState = null;
+                    currentCore.OpenFileStream = null;
+                    currentCore.CloseFileStream = null;
                 }
 
-                core = value;
+                currentCore = value;
 
-                if (core != null)
+                if (currentCore != null)
                 {
-                    Core.GeometryChanged += VideoService.GeometryChanged;
-                    Core.PixelFormatChanged += VideoService.PixelFormatChanged;
-                    Core.RenderVideoFrame += VideoService.RenderVideoFrame;
-                    Core.TimingsChanged += VideoService.TimingsChanged;
-                    Core.RotationChanged += VideoService.RotationChanged;
-                    Core.TimingsChanged += AudioService.TimingChanged;
-                    Core.RenderAudioFrames += AudioService.RenderAudioFrames;
-                    Core.PollInput = InputService.PollInput;
-                    Core.GetInputState = InputService.GetInputState;
-                    Core.OpenFileStream = OnCoreOpenFileStream;
-                    Core.CloseFileStream = OnCoreCloseFileStream;
+                    currentCore.GeometryChanged += VideoService.GeometryChanged;
+                    currentCore.PixelFormatChanged += VideoService.PixelFormatChanged;
+                    currentCore.RenderVideoFrame += VideoService.RenderVideoFrame;
+                    currentCore.TimingsChanged += VideoService.TimingsChanged;
+                    currentCore.RotationChanged += VideoService.RotationChanged;
+                    currentCore.TimingsChanged += AudioService.TimingChanged;
+                    currentCore.RenderAudioFrames += AudioService.RenderAudioFrames;
+                    currentCore.PollInput = InputService.PollInput;
+                    currentCore.GetInputState = InputService.GetInputState;
+                    currentCore.OpenFileStream = OnCoreOpenFileStream;
+                    currentCore.CloseFileStream = OnCoreCloseFileStream;
                 }
             }
         }
@@ -180,20 +180,20 @@ namespace RetriX.UWP.Services
             await CoreSemaphore.WaitAsync();
             try
             {
-                if (Core != null)
+                if (CurrentCore != null)
                 {
-                    await Task.Run(() => Core.UnloadGame());
+                    await Task.Run(() => CurrentCore.UnloadGame());
                 }
 
                 StreamProvider = provider;
                 SaveStateService.SetGameId(virtualMainFilePath);
-                Core = core;
+                CurrentCore = system.Core;
 
                 loadSuccessful = await Task.Run(() =>
                 {
                     try
                     {
-                        return Core.LoadGame(virtualMainFilePath);
+                        return CurrentCore.LoadGame(virtualMainFilePath);
                     }
                     catch
                     {
@@ -218,7 +218,7 @@ namespace RetriX.UWP.Services
 
         public async Task ResetGameAsync()
         {
-            if (Core == null)
+            if (CurrentCore == null)
             {
                 return;
             }
@@ -226,7 +226,7 @@ namespace RetriX.UWP.Services
             await CoreSemaphore.WaitAsync();
             try
             {
-                await Task.Run(() => Core.Reset());
+                await Task.Run(() => CurrentCore.Reset());
             }
             finally
             {
@@ -251,11 +251,14 @@ namespace RetriX.UWP.Services
 
         private async Task StopGameAsyncInternal()
         {
-            await Task.Run(() => Core.UnloadGame());
-            Core = null;
+            await Task.Run(() => CurrentCore.UnloadGame());
+            CurrentCore = null;
 
             SaveStateService.SetGameId(null);
             StreamProvider = null;
+
+            var initTasks = new Task[] { InputService.DeinitAsync(), AudioService.DeinitAsync(), VideoService.DeinitAsync() };
+            await Task.WhenAll(initTasks);
 
             if (NavigationService.CurrentPageKey == GamePlayerPageKey)
             {
@@ -288,7 +291,7 @@ namespace RetriX.UWP.Services
         public async Task<bool> SaveGameStateAsync(uint slotID)
         {
             var success = false;
-            if (Core == null)
+            if (CurrentCore == null)
             {
                 return success;
             }
@@ -303,7 +306,7 @@ namespace RetriX.UWP.Services
                 await CoreSemaphore.WaitAsync();
                 try
                 {
-                    success = await Task.Run(() => Core.SaveState(stream));
+                    success = await Task.Run(() => CurrentCore.SaveState(stream));
                 }
                 finally
                 {
@@ -326,7 +329,7 @@ namespace RetriX.UWP.Services
         public async Task<bool> LoadGameStateAsync(uint slotID)
         {
             var success = false;
-            if (Core == null)
+            if (CurrentCore == null)
             {
                 return success;
             }
@@ -341,7 +344,7 @@ namespace RetriX.UWP.Services
                 await CoreSemaphore.WaitAsync();
                 try
                 {
-                    success = await Task.Run(() => Core.LoadState(stream));
+                    success = await Task.Run(() => CurrentCore.LoadState(stream));
                 }
                 finally
                 {
@@ -360,15 +363,13 @@ namespace RetriX.UWP.Services
         //Synhronous since it's going to be called by a non UI thread
         private void OnCoreRunFrameRequested()
         {
-            if (Core == null || CorePaused || AudioService.ShouldDelayNextFrame)
-            {
-                return;
-            }
-
             CoreSemaphore.WaitAsync().Wait();
             try
             {
-                Core.RunFrame();
+                if (!(CurrentCore == null || CorePaused || AudioService.ShouldDelayNextFrame))
+                {
+                    CurrentCore.RunFrame();
+                }
             }
             finally
             {
