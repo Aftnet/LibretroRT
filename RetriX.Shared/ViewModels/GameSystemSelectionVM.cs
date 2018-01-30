@@ -110,7 +110,7 @@ namespace RetriX.Shared.ViewModels
             }
 
             var folderNeeded = system.CheckRootFolderRequired(file);
-            IDirectoryInfo folder = null;
+            var folder = default(IDirectoryInfo);
             if (folderNeeded)
             {
                 await DisplayNotification(SelectFolderRequestAlertTitleKey, SelectFolderRequestAlertMessageKey);

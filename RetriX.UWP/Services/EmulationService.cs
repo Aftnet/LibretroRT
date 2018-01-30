@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using GalaSoft.MvvmLight.Views;
 using LibRetriX;
 using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
@@ -11,8 +12,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace RetriX.UWP.Services
@@ -26,7 +25,7 @@ namespace RetriX.UWP.Services
         private const string VFSSystemPath = "System";
         private const string VFSSavePath = "Save";
 
-        private static readonly Type GamePlayerPageType = typeof(GamePlayerPage);
+        private const string GamePlayerPageKey = nameof(GamePlayerVM);
 
         private static readonly IReadOnlyDictionary<InjectedInputTypes, InputTypes> InjectedInputMapping = new Dictionary<InjectedInputTypes, InputTypes>
         {
@@ -42,14 +41,13 @@ namespace RetriX.UWP.Services
             { InjectedInputTypes.DeviceIdJoypadY, InputTypes.DeviceIdJoypadY },
         };
 
+        private readonly INavigationService NavigationService;
         private readonly IFileSystem FileSystem;
         private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
         private readonly ISaveStateService SaveStateService;
         private readonly ILocalNotifications NotificationService;
         private readonly IInputManager InputManager;
-
-        private readonly Frame RootFrame = Window.Current.Content as Frame;
 
         private IStreamProvider StreamProvider;
         private ICoreRunner CoreRunner;
@@ -64,8 +62,9 @@ namespace RetriX.UWP.Services
         public event GameStoppedDelegate GameStopped;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
-        public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService, ILocalNotifications notificationService, ICryptographyService cryptographyService, IInputManager inputManager)
+        public EmulationService(INavigationService navigationService,  IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService, ILocalNotifications notificationService, ICryptographyService cryptographyService, IInputManager inputManager)
         {
+            NavigationService = navigationService;
             FileSystem = fileSystem;
             LocalizationService = localizationService;
             PlatformService = platformService;
