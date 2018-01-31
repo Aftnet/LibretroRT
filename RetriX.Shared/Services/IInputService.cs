@@ -1,8 +1,8 @@
 ﻿using LibRetriX;
 
-namespace RetriX.UWP
+namespace RetriX.Shared.Services
 {
-    public interface IInputManager
+    public interface IInputService : IInitializable
     {
         void InjectInputPlayer1(InputTypes inputType);
         void PollInput();

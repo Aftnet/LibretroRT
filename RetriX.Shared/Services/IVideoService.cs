@@ -1,10 +1,14 @@
 ﻿using LibRetriX;
 using System;
 
-namespace RetriX.UWP
+namespace RetriX.Shared.Services
 {
-    public interface IRenderer
+    public delegate void RequestRunCoreFrameDelegate(IVideoService sender);
+
+    public interface IVideoService : IInitializable
     {
+        event RequestRunCoreFrameDelegate RequestRunCoreFrame;
+
         void GeometryChanged(GameGeometry geometry);
         void PixelFormatChanged(PixelFormats format);
         void RotationChanged(Rotations rotation);

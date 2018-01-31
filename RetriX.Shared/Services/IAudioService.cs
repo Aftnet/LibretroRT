@@ -1,9 +1,9 @@
 ﻿using LibRetriX;
 using System;
 
-namespace RetriX.UWP
+namespace RetriX.Shared.Services
 {
-    public interface IAudioPlayer
+    public interface IAudioService : IInitializable
     {
         bool ShouldDelayNextFrame { get; }
         void TimingChanged(SystemTimings timings);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace RetriX.UWP
+namespace RetriX.UWP.Components
 {
     internal unsafe static class FramebufferConverter
     {

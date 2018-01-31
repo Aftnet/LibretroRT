@@ -1,4 +1,5 @@
 ﻿using Microsoft.Practices.ServiceLocation;
+using RetriX.Shared.Services;
 using RetriX.Shared.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -10,23 +11,19 @@ namespace RetriX.UWP.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class GamePlayerPage : Page, ITypedViewModel<GamePlayerVM>, ICoreRunnerPage
+    public sealed partial class GamePlayerPage : Page, ITypedViewModel<GamePlayerVM>
     {
         public GamePlayerVM VM => ServiceLocator.Current.GetInstance<GamePlayerVM>();
-        public ICoreRunner CoreRunner => Runner;
 
-        private Win2DRenderer Runner;
+        private IEmulationService EmulationService => ServiceLocator.Current.GetInstance<IEmulationService>();
+        private VideoService Renderer => ServiceLocator.Current.GetInstance<IVideoService>() as VideoService;
 
         public GamePlayerPage()
         {
             InitializeComponent();
-
-            var locator = ServiceLocator.Current;
-            var audioPlayer = locator.GetInstance<IAudioPlayer>();
-            var inputManager = locator.GetInstance<IInputManager>();
-            Runner = new Win2DRenderer(PlayerPanel, audioPlayer, inputManager);
-
             Unloaded += OnUnloading;
+
+            Renderer.RenderPanel = PlayerPanel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -38,14 +35,12 @@ namespace RetriX.UWP.Pages
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             VM.Deactivated();
+            EmulationService.StopGameAsync(false);
             base.OnNavigatingFrom(e);
         }
 
         private void OnUnloading(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Runner.Dispose();
-            Runner = null;
-
             PlayerPanel.RemoveFromVisualTree();
             PlayerPanel = null;
         }

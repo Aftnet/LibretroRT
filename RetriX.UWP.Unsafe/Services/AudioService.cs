@@ -1,17 +1,19 @@
 ﻿using LibRetriX;
+using RetriX.Shared.Services;
+using RetriX.UWP.Components;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media;
 using Windows.Media.Audio;
 
-namespace RetriX.UWP
+namespace RetriX.UWP.Services
 {
-    public sealed class AudioGraphPlayer : IDisposable, IAudioPlayer
+    public sealed class AudioService : IAudioService
     {
+        private const uint NullSampleRate = 0;
         private const uint MaxSamplesQueueSize = 44100 * 4;
         private const uint NumChannels = 2;
         private const float PlaybackDelaySeconds = 0.2f; //Have some buffer to avoid crackling
@@ -26,7 +28,7 @@ namespace RetriX.UWP
         {
             get
             {
-                if (SampleRate == 0)
+                if (SampleRate == NullSampleRate)
                     return false; //Allow core a chance to init timings by runnning
 
                 lock (SamplesBuffer)
@@ -62,14 +64,21 @@ namespace RetriX.UWP
             set { inputNode?.Dispose(); inputNode = value; }
         }
 
-        public AudioGraphPlayer()
+        public AudioService()
         {
-            SampleRate = 0;
+            SampleRate = NullSampleRate;
         }
 
-        public void Dispose()
+        public Task InitAsync()
         {
+            return Task.CompletedTask;
+        }
+
+        public Task DeinitAsync()
+        {
+            Stop();
             DisposeGraph();
+            return Task.CompletedTask;
         }
 
         public void TimingChanged(SystemTimings timings)
@@ -123,16 +132,17 @@ namespace RetriX.UWP
         {
             GraphReconstructionInProgress = true;
 
-            SampleRate = sampleRate;
-            MinNumSamplesForPlayback = (int)(sampleRate * PlaybackDelaySeconds);
-            MaxNumSamplesForTargetDelay = (int)(sampleRate * MaxAllowedDelaySeconds);
-
-            DisposeGraph();
-            if (SampleRate == 0) //If invalid sample rate do not create graph but return to allow trying again
+            if (sampleRate == NullSampleRate) //If invalid sample rate do not create graph but return to allow trying again
             {
                 GraphReconstructionInProgress = false;
                 return;
             }
+
+            DisposeGraph();
+
+            SampleRate = sampleRate;
+            MinNumSamplesForPlayback = (int)(SampleRate * PlaybackDelaySeconds);
+            MaxNumSamplesForTargetDelay = (int)(SampleRate * MaxAllowedDelaySeconds);
 
             var graphResult = await AudioGraph.CreateAsync(new AudioGraphSettings(Windows.Media.Render.AudioRenderCategory.GameMedia));
             if (graphResult.Status != AudioGraphCreationStatus.Success)
@@ -164,9 +174,11 @@ namespace RetriX.UWP
 
         private void DisposeGraph()
         {
+            Stop();
             InputNode = null;
             OutputNode = null;
             Graph = null;
+            SampleRate = NullSampleRate;
         }
 
         private void InputNodeQuantumStartedHandler(AudioFrameInputNode sender, FrameInputNodeQuantumStartedEventArgs args)
