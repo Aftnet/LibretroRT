@@ -35,7 +35,7 @@ namespace RetriX.UWP.Pages
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             VM.Deactivated();
-            EmulationService.StopGameAsync();
+            EmulationService.StopGameAsync(false);
             base.OnNavigatingFrom(e);
         }
 
