@@ -396,19 +396,21 @@ namespace RetriX.UWP.Services
                     CurrentCore.RunFrame();
                 }
             }
+            catch (Exception e)
+            {
+                if (!StartStopOperationInProgress)
+                {
+                    StartStopOperationInProgress = true;
+                    StopGameAsyncInternal(true).Wait();
+                    StartStopOperationInProgress = false;
+                }
+
+                var task = PlatformService.RunOnUIThreadAsync(() => GameRuntimeExceptionOccurred?.Invoke(this, e));
+            }
             finally
             {
                 CoreSemaphore.Release();
             }
-        }
-
-        private void OnCoreExceptionOccurred(ICore core, Exception e)
-        {
-            var task = PlatformService.RunOnUIThreadAsync(async () =>
-            {
-                await StopGameAsync();
-                GameRuntimeExceptionOccurred?.Invoke(this, e);
-            });
         }
 
         private Stream OnCoreOpenFileStream(string path, FileAccess fileAccess)
