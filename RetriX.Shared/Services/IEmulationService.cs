@@ -35,6 +35,7 @@ namespace RetriX.Shared.Services
 
         Task ResetGameAsync();
         Task StopGameAsync();
+        Task StopGameAsync(bool performBackNavigation);
 
         Task PauseGameAsync();
         Task ResumeGameAsync();

@@ -203,7 +203,7 @@ namespace RetriX.UWP.Services
 
                 if (!loadSuccessful)
                 {
-                    await StopGameAsyncInternal();
+                    await StopGameAsyncInternal(false);
                     return loadSuccessful;
                 }
             }
@@ -218,15 +218,13 @@ namespace RetriX.UWP.Services
 
         public async Task ResetGameAsync()
         {
-            if (CurrentCore == null)
-            {
-                return;
-            }
-
             await CoreSemaphore.WaitAsync();
             try
             {
-                await Task.Run(() => CurrentCore.Reset());
+                if (CurrentCore != null)
+                {
+                    await Task.Run(() => CurrentCore.Reset());
+                }
             }
             finally
             {
@@ -234,12 +232,17 @@ namespace RetriX.UWP.Services
             }
         }
 
-        public async Task StopGameAsync()
+        public Task StopGameAsync()
+        {
+            return StopGameAsync(true);
+        }
+
+        public async Task StopGameAsync(bool performBackNavigation)
         {
             await CoreSemaphore.WaitAsync();
             try
             {
-                await StopGameAsyncInternal();
+                await StopGameAsyncInternal(performBackNavigation);
             }
             finally
             {
@@ -249,10 +252,13 @@ namespace RetriX.UWP.Services
             GameStopped?.Invoke(this);
         }
 
-        private async Task StopGameAsyncInternal()
+        private async Task StopGameAsyncInternal(bool performBackNavigation)
         {
-            await Task.Run(() => CurrentCore.UnloadGame());
-            CurrentCore = null;
+            if (CurrentCore != null)
+            {
+                await Task.Run(() => CurrentCore.UnloadGame());
+                CurrentCore = null;
+            }
 
             SaveStateService.SetGameId(null);
             StreamProvider = null;
@@ -260,7 +266,7 @@ namespace RetriX.UWP.Services
             var initTasks = new Task[] { InputService.DeinitAsync(), AudioService.DeinitAsync(), VideoService.DeinitAsync() };
             await Task.WhenAll(initTasks);
 
-            if (NavigationService.CurrentPageKey == GamePlayerPageKey)
+            if (performBackNavigation && NavigationService.CurrentPageKey == GamePlayerPageKey)
             {
                 NavigationService.GoBack();
             }
