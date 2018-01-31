@@ -51,8 +51,8 @@ namespace RetriX.UWP.Services
         private readonly IAudioService AudioService;
         private readonly IInputService InputService;
 
-        private bool CorePaused;
-        private bool GameIsStopping;
+        private bool CorePaused = false;
+        private bool StartStopOperationInProgress = false;
 
         private readonly SemaphoreSlim CoreSemaphore = new SemaphoreSlim(1, 1);
 
@@ -165,6 +165,13 @@ namespace RetriX.UWP.Services
 
         public async Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder)
         {
+            if (StartStopOperationInProgress)
+            {
+                return false;
+            }
+
+            StartStopOperationInProgress = true;
+
             var gameLaunchEnvironment = await GenerateGameLaunchEnvironmentAsync(system, file, rootFolder);
             var provider = gameLaunchEnvironment.Item1;
             var virtualMainFilePath = gameLaunchEnvironment.Item2;
@@ -188,6 +195,7 @@ namespace RetriX.UWP.Services
 
                 StreamProvider = provider;
                 SaveStateService.SetGameId(virtualMainFilePath);
+                CorePaused = false;
                 CurrentCore = system.Core;
 
                 loadSuccessful = await Task.Run(() =>
@@ -205,6 +213,7 @@ namespace RetriX.UWP.Services
                 if (!loadSuccessful)
                 {
                     await StopGameAsyncInternal(true);
+                    StartStopOperationInProgress = false;
                     return loadSuccessful;
                 }
             }
@@ -214,6 +223,7 @@ namespace RetriX.UWP.Services
             }
 
             GameStarted?.Invoke(this);
+            StartStopOperationInProgress = false;
             return loadSuccessful;
         }
 
@@ -240,10 +250,12 @@ namespace RetriX.UWP.Services
 
         public async Task StopGameAsync(bool performBackNavigation)
         {
-            if (GameIsStopping)
+            if (StartStopOperationInProgress)
             {
                 return;
             }
+
+            StartStopOperationInProgress = true;
 
             await CoreSemaphore.WaitAsync();
             try
@@ -256,16 +268,11 @@ namespace RetriX.UWP.Services
             }
 
             GameStopped?.Invoke(this);
+            StartStopOperationInProgress = false;
         }
 
         private async Task StopGameAsyncInternal(bool performBackNavigation)
         {
-            if (GameIsStopping)
-            {
-                return;
-            }
-
-            GameIsStopping = true;
             if (CurrentCore != null)
             {
                 await Task.Run(() => CurrentCore.UnloadGame());
@@ -282,8 +289,6 @@ namespace RetriX.UWP.Services
             {
                 NavigationService.GoBack();
             }
-
-            GameIsStopping = false;
         }
 
         public Task PauseGameAsync()
