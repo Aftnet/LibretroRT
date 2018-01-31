@@ -52,6 +52,7 @@ namespace RetriX.UWP.Services
         private readonly IInputService InputService;
 
         private bool CorePaused;
+        private bool GameIsStopping;
 
         private readonly SemaphoreSlim CoreSemaphore = new SemaphoreSlim(1, 1);
 
@@ -203,7 +204,7 @@ namespace RetriX.UWP.Services
 
                 if (!loadSuccessful)
                 {
-                    await StopGameAsyncInternal(false);
+                    await StopGameAsyncInternal(true);
                     return loadSuccessful;
                 }
             }
@@ -239,6 +240,11 @@ namespace RetriX.UWP.Services
 
         public async Task StopGameAsync(bool performBackNavigation)
         {
+            if (GameIsStopping)
+            {
+                return;
+            }
+
             await CoreSemaphore.WaitAsync();
             try
             {
@@ -254,6 +260,12 @@ namespace RetriX.UWP.Services
 
         private async Task StopGameAsyncInternal(bool performBackNavigation)
         {
+            if (GameIsStopping)
+            {
+                return;
+            }
+
+            GameIsStopping = true;
             if (CurrentCore != null)
             {
                 await Task.Run(() => CurrentCore.UnloadGame());
@@ -270,6 +282,8 @@ namespace RetriX.UWP.Services
             {
                 NavigationService.GoBack();
             }
+
+            GameIsStopping = false;
         }
 
         public Task PauseGameAsync()
