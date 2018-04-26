@@ -1,6 +1,6 @@
 ﻿using Acr.UserDialogs;
-using GalaSoft.MvvmLight.Views;
 using LibRetriX;
+using MvvmCross.Core.Navigation;
 using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.StreamProviders;
@@ -39,20 +39,20 @@ namespace RetriX.Shared.Services
             { InjectedInputTypes.DeviceIdJoypadY, InputTypes.DeviceIdJoypadY },
         };
 
-        private readonly INavigationService NavigationService;
-        private readonly IFileSystem FileSystem;
-        private readonly IPlatformService PlatformService;
-        private readonly ISaveStateService SaveStateService;
-        private readonly ILocalNotifications NotificationService;
+        private IMvxNavigationService NavigationService { get; }
+        private IFileSystem FileSystem { get; }
+        private IPlatformService PlatformService { get; }
+        private ISaveStateService SaveStateService { get; }
+        private ILocalNotifications NotificationService { get; }
 
-        private readonly IVideoService VideoService;
-        private readonly IAudioService AudioService;
-        private readonly IInputService InputService;
+        private IVideoService VideoService { get; }
+        private IAudioService AudioService { get; }
+        private IInputService InputService { get; }
 
-        private bool CorePaused = false;
-        private bool StartStopOperationInProgress = false;
+        private bool CorePaused { get; set; } = false;
+        private bool StartStopOperationInProgress { get; set; } = false;
 
-        private readonly SemaphoreSlim CoreSemaphore = new SemaphoreSlim(1, 1);
+        private SemaphoreSlim CoreSemaphore { get; } = new SemaphoreSlim(1, 1);
 
         private ICore currentCore;
         private ICore CurrentCore
@@ -106,17 +106,15 @@ namespace RetriX.Shared.Services
             set { if (streamProvider != value) streamProvider?.Dispose(); streamProvider = value; }
         }
         
-        private static readonly string[] archiveExtensions = { ".zip" };
-        public IReadOnlyList<string> ArchiveExtensions => archiveExtensions;
+        public IReadOnlyList<string> ArchiveExtensions { get; } = new string[] { ".zip" };
 
-        private readonly GameSystemVM[] systems;
-        public IReadOnlyList<GameSystemVM> Systems => systems;
+        public IReadOnlyList<GameSystemVM> Systems { get; }
 
         public event GameStartedDelegate GameStarted;
         public event GameStoppedDelegate GameStopped;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
-        public EmulationService(INavigationService navigationService,  IFileSystem fileSystem, IUserDialogs dialogsService,
+        public EmulationService(IMvxNavigationService navigationService,  IFileSystem fileSystem, IUserDialogs dialogsService,
             ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService,
             ILocalNotifications notificationService, ICryptographyService cryptographyService,
             IVideoService videoService, IAudioService audioService, IInputService inputService)
@@ -135,7 +133,7 @@ namespace RetriX.Shared.Services
 
             var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso", ".mds", ".mdf" };
 
-            systems = new GameSystemVM[]
+            Systems = new GameSystemVM[]
             {
                 new GameSystemVM(LibRetriX.FCEUMM.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameNES"), localizationService.GetLocalizedString("ManufacturerNameNintendo"), "\uf118"),
                 new GameSystemVM(LibRetriX.Snes9X.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameSNES"), localizationService.GetLocalizedString("ManufacturerNameNintendo"), "\uf119"),
