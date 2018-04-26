@@ -1,16 +1,15 @@
-﻿using GalaSoft.MvvmLight;
+﻿using MvvmCross.Core.ViewModels;
 using Plugin.VersionTracking.Abstractions;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class AboutVM : ViewModelBase
+    public class AboutVM : MvxViewModel
     {
-        private readonly string version;
-        public string Version { get { return version; } }
+        public string Version { get; }
 
         public AboutVM(IVersionTracking versionTracker)
         {
-            version = versionTracker.CurrentVersion;
+            Version = versionTracker.CurrentVersion;
         }
     }
 }

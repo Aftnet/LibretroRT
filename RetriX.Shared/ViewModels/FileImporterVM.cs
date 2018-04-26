@@ -1,6 +1,5 @@
 ﻿using Acr.UserDialogs;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using MvvmCross.Core.ViewModels;
 using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class FileImporterVM : ViewModelBase
+    public class FileImporterVM : MvxViewModel
     {
         public const string SerachLinkFormat = "https://www.google.com/search?q={0}";
 
@@ -17,29 +16,22 @@ namespace RetriX.Shared.ViewModels
         private readonly IPlatformService PlatformService;
         private readonly ICryptographyService CryptographyService;
 
-        private readonly IDirectoryInfo targetFolder;
-        public IDirectoryInfo TargetFolder { get { return targetFolder; } }
-
-        private readonly string targetFileName;
-        public string TargetFileName { get { return targetFileName; } }
-
-        private readonly string targetDescription;
-        public string TargetDescription { get { return targetDescription; } }
-
-        private readonly string targetMD5;
-        public string TargetMD5 { get { return targetMD5; } }
+        public IDirectoryInfo TargetFolder { get; }
+        public string TargetFileName { get; }
+        public string TargetDescription { get; }
+        public string TargetMD5 { get; }
 
         public string SearchLink => string.Format(SerachLinkFormat, TargetMD5);
 
         private bool fileAvailable = false;
         public bool FileAvailable
         {
-            get { return fileAvailable; }
-            private set { if(Set(ref fileAvailable, value)) { ImportCommand.RaiseCanExecuteChanged(); } }
+            get => fileAvailable;
+            private set { if (SetProperty(ref fileAvailable, value)) { ImportCommand.RaiseCanExecuteChanged(); } }
         }
 
-        public RelayCommand ImportCommand { get; private set; }
-        public RelayCommand CopyMD5ToClipboardCommand { get; private set; }
+        public IMvxCommand ImportCommand { get; }
+        public IMvxCommand CopyMD5ToClipboardCommand { get; }
 
         protected FileImporterVM(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
         {
@@ -48,13 +40,13 @@ namespace RetriX.Shared.ViewModels
             PlatformService = platformService;
             CryptographyService = cryptographyService;
 
-            targetFolder = folder;
-            targetFileName = fileName;
-            targetDescription = description;
-            targetMD5 = MD5;
+            TargetFolder = folder;
+            TargetFileName = fileName;
+            TargetDescription = description;
+            TargetMD5 = MD5;
 
-            ImportCommand = new RelayCommand(ImportHandler, () => !FileAvailable);
-            CopyMD5ToClipboardCommand = new RelayCommand(() => PlatformService.CopyToClipboard(TargetMD5));
+            ImportCommand = new MvxCommand(ImportHandler, () => !FileAvailable);
+            CopyMD5ToClipboardCommand = new MvxCommand(() => PlatformService.CopyToClipboard(TargetMD5));
         }
 
         public static async Task<FileImporterVM> CreateFileImporterAsync(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
@@ -69,6 +61,7 @@ namespace RetriX.Shared.ViewModels
         {
             return TargetFolder.GetFileAsync(TargetFileName);
         }
+
         private async void ImportHandler()
         {
             var fileExt = Path.GetExtension(TargetFileName);
@@ -89,7 +82,7 @@ namespace RetriX.Shared.ViewModels
 
             using (var inStream = await sourceFile.OpenAsync(FileAccess.Read))
             {
-                var targetFile = await TargetFolder.CreateFileAsync(targetFileName);
+                var targetFile = await TargetFolder.CreateFileAsync(TargetFileName);
                 using (var outStream = await targetFile.OpenAsync(FileAccess.ReadWrite))
                 {
                     await inStream.CopyToAsync(outStream);

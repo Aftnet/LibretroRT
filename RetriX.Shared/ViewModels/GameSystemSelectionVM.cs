@@ -1,6 +1,5 @@
 ﻿using Acr.UserDialogs;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using MvvmCross.Core.ViewModels;
 using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
 using System;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class GameSystemSelectionVM : ViewModelBase
+    public class GameSystemSelectionVM : MvxViewModel
     {
         private readonly IFileSystem FileSystem;
         private readonly IUserDialogs DialogsService;
@@ -23,11 +22,11 @@ namespace RetriX.Shared.ViewModels
         private IReadOnlyList<GameSystemVM> gameSystems;
         public IReadOnlyList<GameSystemVM> GameSystems
         {
-            get { return gameSystems; }
-            private set { Set(ref gameSystems, value); }
+            get => gameSystems;
+            private set => SetProperty(ref gameSystems, value);
         }
 
-        public RelayCommand<GameSystemVM> GameSystemSelectedCommand { get; private set; }
+        public IMvxCommand<GameSystemVM> GameSystemSelectedCommand { get; }
 
         public GameSystemSelectionVM(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, IEmulationService emulationService)
         {
@@ -37,7 +36,7 @@ namespace RetriX.Shared.ViewModels
             EmulationService = emulationService;
 
             GameSystems = EmulationService.Systems;
-            GameSystemSelectedCommand = new RelayCommand<GameSystemVM>(GameSystemSelected);
+            GameSystemSelectedCommand = new MvxCommand<GameSystemVM>(GameSystemSelected);
 
             EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
             EmulationService.GameStopped += d => { ResetSystemsSelection(); };

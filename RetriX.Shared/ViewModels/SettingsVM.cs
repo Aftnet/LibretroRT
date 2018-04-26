@@ -1,6 +1,6 @@
 ﻿using Acr.UserDialogs;
-using GalaSoft.MvvmLight;
 using LibRetriX;
+using MvvmCross.Core.ViewModels;
 using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
 using System.Collections.Generic;
@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class SettingsVM : ViewModelBase
+    public class SettingsVM : MvxViewModel
     {
-        private readonly IEmulationService EmulationService;
-        private readonly IFileSystem FileSystem;
-        private readonly IUserDialogs DialogsService;
-        private readonly IPlatformService PlatformService;
-        private readonly ICryptographyService CryptographyService;
+        private IEmulationService EmulationService { get; }
+        private IFileSystem FileSystem { get; }
+        private IUserDialogs DialogsService { get; }
+        private IPlatformService PlatformService { get; }
+        private ICryptographyService CryptographyService { get; }
 
         private IReadOnlyList<FileImporterVM> fileDependencyImporters;
         public IReadOnlyList<FileImporterVM> FileDependencyImporters
         {
             get => fileDependencyImporters;
-            private set { Set(ref fileDependencyImporters, value); }
+            private set => SetProperty(ref fileDependencyImporters, value);
         }
 
         public SettingsVM(IEmulationService emulationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService)

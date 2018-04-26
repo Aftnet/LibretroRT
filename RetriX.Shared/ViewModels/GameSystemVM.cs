@@ -9,15 +9,15 @@ namespace RetriX.Shared.ViewModels
 {
     public class GameSystemVM
     {
-        private readonly IFileSystem FileSystem;
+        private IFileSystem FileSystem { get; }
 
-        public ICore Core { get; private set; }
+        public ICore Core { get; }
 
-        public string Name { get; private set; }
-        public string Manufacturer { get; private set; }
-        public string Symbol { get; private set; }
-        public IEnumerable<string> SupportedExtensions { get; private set; }
-        public IEnumerable<string> MultiFileExtensions { get; private set; }
+        public string Name { get; }
+        public string Manufacturer { get; }
+        public string Symbol { get; }
+        public IEnumerable<string> SupportedExtensions { get; }
+        public IEnumerable<string> MultiFileExtensions { get; }
 
         private readonly bool DependenciesOverride;
 
