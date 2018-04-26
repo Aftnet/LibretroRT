@@ -14,7 +14,6 @@ namespace RetriX.Shared.ViewModels
         private readonly IEmulationService EmulationService;
         private readonly IFileSystem FileSystem;
         private readonly IUserDialogs DialogsService;
-        private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
         private readonly ICryptographyService CryptographyService;
 
@@ -25,12 +24,11 @@ namespace RetriX.Shared.ViewModels
             private set { Set(ref fileDependencyImporters, value); }
         }
 
-        public SettingsVM(IEmulationService emulationService, IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService)
+        public SettingsVM(IEmulationService emulationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService)
         {
             EmulationService = emulationService;
             FileSystem = fileSystem;
             DialogsService = dialogsService;
-            LocalizationService = localizationService;
             PlatformService = platformService;
             CryptographyService = cryptographyService;
 
@@ -54,7 +52,7 @@ namespace RetriX.Shared.ViewModels
 
                 distinctCores.Add(core);
                 var systemFolder = await i.GetSystemDirectoryAsync();
-                var tasks = core.FileDependencies.Select(d => FileImporterVM.CreateFileImporterAsync(FileSystem, DialogsService, LocalizationService, PlatformService, CryptographyService, systemFolder, d.Name, d.Description, d.MD5)).ToArray();
+                var tasks = core.FileDependencies.Select(d => FileImporterVM.CreateFileImporterAsync(FileSystem, DialogsService, PlatformService, CryptographyService, systemFolder, d.Name, d.Description, d.MD5)).ToArray();
                 var newImporters = await Task.WhenAll(tasks);
                 importers.AddRange(newImporters);
             }

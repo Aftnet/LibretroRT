@@ -3,7 +3,6 @@ using GalaSoft.MvvmLight.Views;
 using LibRetriX;
 using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
-using RetriX.Shared.Services;
 using RetriX.Shared.StreamProviders;
 using RetriX.Shared.ViewModels;
 using System;
@@ -13,7 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RetriX.UWP.Services
+namespace RetriX.Shared.Services
 {
     public class EmulationService : IEmulationService
     {
@@ -42,7 +41,6 @@ namespace RetriX.UWP.Services
 
         private readonly INavigationService NavigationService;
         private readonly IFileSystem FileSystem;
-        private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
         private readonly ISaveStateService SaveStateService;
         private readonly ILocalNotifications NotificationService;
@@ -125,7 +123,6 @@ namespace RetriX.UWP.Services
         {
             NavigationService = navigationService;
             FileSystem = fileSystem;
-            LocalizationService = localizationService;
             PlatformService = platformService;
             SaveStateService = saveStateService;
             NotificationService = notificationService;
@@ -140,26 +137,26 @@ namespace RetriX.UWP.Services
 
             systems = new GameSystemVM[]
             {
-                new GameSystemVM(LibRetriX.FCEUMM.Core.Instance, FileSystem, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
-                new GameSystemVM(LibRetriX.Snes9X.Core.Instance, FileSystem, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
-                //new GameSystemVM(LibRetriX.ParallelN64.Core.Instance, FileSystem, LocalizationService, "SystemNameNintendo64", "ManufacturerNameNintendo", "\uf116"),
-                new GameSystemVM(LibRetriX.Gambatte.Core.Instance, FileSystem, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
-                new GameSystemVM(LibRetriX.VBAM.Core.Instance, FileSystem, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
-                new GameSystemVM(LibRetriX.MelonDS.Core.Instance, FileSystem, LocalizationService, "SystemNameDS", "ManufacturerNameNintendo", "\uf117"),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", true, new HashSet<string> { ".sg" }),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", true, new HashSet<string> { ".sms" }),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", true, new HashSet<string> { ".gg" }),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", true, new HashSet<string> { ".mds", ".md", ".smd", ".gen" }),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", false, new HashSet<string> { ".bin", ".cue", ".iso", ".chd" }, CDImageExtensions),
-                //new GameSystemVM(LibRetriX.BeetleSaturn.Core.Instance, FileSystem, LocalizationService, "SystemNameSaturn", "ManufacturerNameSega", "\uf124", false, null, CDImageExtensions),
-                new GameSystemVM(LibRetriX.BeetlePSX.Core.Instance, FileSystem, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", false, null, CDImageExtensions),
-                new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, LocalizationService, "SystemNamePCEngine", "ManufacturerNameNEC", "\uf124", true, new HashSet<string> { ".pce" }),
-                new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, LocalizationService, "SystemNamePCEngineCD", "ManufacturerNameNEC", "\uf124", false, new HashSet<string> { ".cue", ".ccd", ".chd" }, CDImageExtensions),
-                new GameSystemVM(LibRetriX.BeetlePCFX.Core.Instance, FileSystem, LocalizationService, "SystemNamePCFX", "ManufacturerNameNEC", "\uf124", false, null, CDImageExtensions),
-                new GameSystemVM(LibRetriX.BeetleWswan.Core.Instance, FileSystem, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
-                new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
-                new GameSystemVM(LibRetriX.BeetleNGP.Core.Instance, FileSystem, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
-                new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
+                new GameSystemVM(LibRetriX.FCEUMM.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameNES"), localizationService.GetLocalizedString("ManufacturerNameNintendo"), "\uf118"),
+                new GameSystemVM(LibRetriX.Snes9X.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameSNES"), localizationService.GetLocalizedString("ManufacturerNameNintendo"), "\uf119"),
+                //new GameSystemVM(LibRetriX.ParallelN64.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameNintendo64"), localizationService.GetLocalizedString("ManufacturerNameNintendo"), "\uf116"),
+                new GameSystemVM(LibRetriX.Gambatte.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameGameBoy"), localizationService.GetLocalizedString("ManufacturerNameNintendo"), "\uf11b"),
+                new GameSystemVM(LibRetriX.VBAM.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameGameBoyAdvance"), localizationService.GetLocalizedString("ManufacturerNameNintendo"), "\uf115"),
+                new GameSystemVM(LibRetriX.MelonDS.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameDS"), localizationService.GetLocalizedString("ManufacturerNameNintendo"), "\uf117"),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameSG1000"), localizationService.GetLocalizedString("ManufacturerNameSega"), "\uf102", true, new HashSet<string> { ".sg" }),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameMasterSystem"), localizationService.GetLocalizedString("ManufacturerNameSega"), "\uf118", true, new HashSet<string> { ".sms" }),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameGameGear"), localizationService.GetLocalizedString("ManufacturerNameSega"), "\uf129", true, new HashSet<string> { ".gg" }),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameMegaDrive"), localizationService.GetLocalizedString("ManufacturerNameSega"), "\uf124", true, new HashSet<string> { ".mds", ".md", ".smd", ".gen" }),
+                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameMegaCD"), localizationService.GetLocalizedString("ManufacturerNameSega"), "\uf124", false, new HashSet<string> { ".bin", ".cue", ".iso", ".chd" }, CDImageExtensions),
+                //new GameSystemVM(LibRetriX.BeetleSaturn.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameSaturn"), localizationService.GetLocalizedString("ManufacturerNameSega"), "\uf124", false, null, CDImageExtensions),
+                new GameSystemVM(LibRetriX.BeetlePSX.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNamePlayStation"), localizationService.GetLocalizedString("ManufacturerNameSony"), "\uf128", false, null, CDImageExtensions),
+                new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNamePCEngine"), localizationService.GetLocalizedString("ManufacturerNameNEC"), "\uf124", true, new HashSet<string> { ".pce" }),
+                new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNamePCEngineCD"), localizationService.GetLocalizedString("ManufacturerNameNEC"), "\uf124", false, new HashSet<string> { ".cue", ".ccd", ".chd" }, CDImageExtensions),
+                new GameSystemVM(LibRetriX.BeetlePCFX.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNamePCFX"), localizationService.GetLocalizedString("ManufacturerNameNEC"), "\uf124", false, null, CDImageExtensions),
+                new GameSystemVM(LibRetriX.BeetleWswan.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameWonderSwan"), localizationService.GetLocalizedString("ManufacturerNameBandai"), "\uf129"),
+                new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameNeoGeo"), localizationService.GetLocalizedString("ManufacturerNameSNK"), "\uf102", false),
+                new GameSystemVM(LibRetriX.BeetleNGP.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameNeoGeoPocket"), localizationService.GetLocalizedString("ManufacturerNameSNK"), "\uf129"),
+                new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, localizationService.GetLocalizedString("SystemNameArcade"), localizationService.GetLocalizedString("ManufacturerNameFBAlpha"), "\uf102", true),
             };
         }
 
@@ -343,9 +340,8 @@ namespace RetriX.UWP.Services
 
             if (success)
             {
-                var notificationTitle = LocalizationService.GetLocalizedString(StateSavedToSlotMessageTitleKey);
-                var notificationBody = string.Format(LocalizationService.GetLocalizedString(StateSavedToSlotMessageBodyKey), slotID);
-                NotificationService.Show(notificationTitle, notificationBody);
+                var notificationBody = string.Format(Resources.Strings.StateSavedToSlotMessageBody, slotID);
+                NotificationService.Show(Resources.Strings.StateSavedToSlotMessageTitle, notificationBody);
             }
 
             return success;

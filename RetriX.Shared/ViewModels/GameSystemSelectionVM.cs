@@ -13,21 +13,8 @@ namespace RetriX.Shared.ViewModels
 {
     public class GameSystemSelectionVM : ViewModelBase
     {
-        public const string SelectFolderRequestAlertTitleKey = nameof(SelectFolderRequestAlertTitleKey);
-        public const string SelectFolderRequestAlertMessageKey = nameof(SelectFolderRequestAlertMessageKey);
-        public const string SelectFolderInvalidAlertTitleKey = nameof(SelectFolderInvalidAlertTitleKey);
-        public const string SelectFolderInvalidAlertMessageKey = nameof(SelectFolderInvalidAlertMessageKey);
-
-        public const string GameLoadingFailAlertTitleKey = nameof(GameLoadingFailAlertTitleKey);
-        public const string GameLoadingFailAlertMessageKey = nameof(GameLoadingFailAlertMessageKey);
-        public const string GameRunningFailAlertTitleKey = nameof(GameRunningFailAlertTitleKey);
-        public const string GameRunningFailAlertMessageKey = nameof(GameRunningFailAlertMessageKey);
-        public const string SystemUnmetDependenciesAlertTitleKey = nameof(SystemUnmetDependenciesAlertTitleKey);
-        public const string SystemUnmetDependenciesAlertMessageKey = nameof(SystemUnmetDependenciesAlertMessageKey);
-
         private readonly IFileSystem FileSystem;
         private readonly IUserDialogs DialogsService;
-        private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
         private readonly IEmulationService EmulationService;
 
@@ -42,11 +29,10 @@ namespace RetriX.Shared.ViewModels
 
         public RelayCommand<GameSystemVM> GameSystemSelectedCommand { get; private set; }
 
-        public GameSystemSelectionVM(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, IEmulationService emulationService)
+        public GameSystemSelectionVM(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, IEmulationService emulationService)
         {
             FileSystem = fileSystem;
             DialogsService = dialogsService;
-            LocalizationService = localizationService;
             PlatformService = platformService;
             EmulationService = emulationService;
 
@@ -105,7 +91,7 @@ namespace RetriX.Shared.ViewModels
             if (!dependenciesMet)
             {
                 ResetSystemsSelection();
-                await DisplayNotification(SystemUnmetDependenciesAlertTitleKey, SystemUnmetDependenciesAlertMessageKey);
+                await DialogsService.AlertAsync(Resources.Strings.SystemUnmetDependenciesAlertTitle, Resources.Strings.SystemUnmetDependenciesAlertMessage);
                 return;
             }
 
@@ -113,7 +99,7 @@ namespace RetriX.Shared.ViewModels
             var folder = default(IDirectoryInfo);
             if (folderNeeded)
             {
-                await DisplayNotification(SelectFolderRequestAlertTitleKey, SelectFolderRequestAlertMessageKey);
+                await DialogsService.AlertAsync(Resources.Strings.SelectFolderRequestAlertTitle, Resources.Strings.SelectFolderRequestAlertMessage);
                 folder = await FileSystem.PickDirectoryAsync();
                 if (folder == null)
                 {
@@ -124,7 +110,7 @@ namespace RetriX.Shared.ViewModels
                 if (!Path.GetDirectoryName(file.FullName).StartsWith(folder.FullName))
                 {
                     ResetSystemsSelection();
-                    await DisplayNotification(SelectFolderInvalidAlertTitleKey, SelectFolderInvalidAlertMessageKey);
+                    await DialogsService.AlertAsync(Resources.Strings.SelectFolderInvalidAlertTitle, Resources.Strings.SelectFolderInvalidAlertMessage);
                     return;
                 }
             }
@@ -133,14 +119,14 @@ namespace RetriX.Shared.ViewModels
             if (!startSuccess)
             {
                 ResetSystemsSelection();
-                await DisplayNotification(GameLoadingFailAlertTitleKey, GameLoadingFailAlertMessageKey);
+                await DialogsService.AlertAsync(Resources.Strings.GameLoadingFailAlertTitle, Resources.Strings.GameLoadingFailAlertMessage);
             }
         }
 
         private void OnGameRuntimeExceptionOccurred(IEmulationService sender, Exception e)
         {
             ResetSystemsSelection();
-            DisplayNotification(GameRunningFailAlertTitleKey, GameRunningFailAlertMessageKey);
+            DialogsService.AlertAsync(Resources.Strings.GameRunningFailAlertTitle, Resources.Strings.GameRunningFailAlertMessage);
         }
 
         private void ResetSystemsSelection()
@@ -148,13 +134,6 @@ namespace RetriX.Shared.ViewModels
             //Reset systems selection
             GameSystems = EmulationService.Systems;
             SelectedGameFile = null;
-        }
-
-        private Task DisplayNotification(string titleKey, string messageKey)
-        {
-            var title = LocalizationService.GetLocalizedString(titleKey);
-            var message = LocalizationService.GetLocalizedString(messageKey);
-            return DialogsService.AlertAsync(message, title);
         }
     }
 }

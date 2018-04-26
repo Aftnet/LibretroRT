@@ -1,6 +1,5 @@
 ﻿using LibRetriX;
 using Plugin.FileSystem.Abstractions;
-using RetriX.Shared.Services;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,13 +21,13 @@ namespace RetriX.Shared.ViewModels
 
         private readonly bool DependenciesOverride;
 
-        public GameSystemVM(ICore core, IFileSystem fileSystem, ILocalizationService localizer, string nameResKey, string manufacturerResKey, string symbol, bool dependenciesOverride = false, IEnumerable<string> supportedExtensionsOverride = null, IEnumerable<string> multiFileExtensions = null)
+        public GameSystemVM(ICore core, IFileSystem fileSystem, string name, string manufacturer, string symbol, bool dependenciesOverride = false, IEnumerable<string> supportedExtensionsOverride = null, IEnumerable<string> multiFileExtensions = null)
         {
             FileSystem = fileSystem;
 
             Core = core;
-            Name = localizer.GetLocalizedString(nameResKey);
-            Manufacturer = localizer.GetLocalizedString(manufacturerResKey);
+            Name = name;
+            Manufacturer = manufacturer;
             Symbol = symbol;
             SupportedExtensions = supportedExtensionsOverride != null ? supportedExtensionsOverride : Core.SupportedExtensions;
             MultiFileExtensions = multiFileExtensions == null ? new string[0] : multiFileExtensions;

@@ -12,12 +12,8 @@ namespace RetriX.Shared.ViewModels
     {
         public const string SerachLinkFormat = "https://www.google.com/search?q={0}";
 
-        public const string FileHashMismatchTitleKey = nameof(FileHashMismatchTitleKey);
-        public const string FileHashMismatchMessageKey = nameof(FileHashMismatchMessageKey);
-
         private readonly IFileSystem FileSystem;
         private readonly IUserDialogs DialogsService;
-        private readonly ILocalizationService LocalizationService;
         private readonly IPlatformService PlatformService;
         private readonly ICryptographyService CryptographyService;
 
@@ -45,11 +41,10 @@ namespace RetriX.Shared.ViewModels
         public RelayCommand ImportCommand { get; private set; }
         public RelayCommand CopyMD5ToClipboardCommand { get; private set; }
 
-        protected FileImporterVM(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
+        protected FileImporterVM(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
         {
             FileSystem = fileSystem;
             DialogsService = dialogsService;
-            LocalizationService = localizationService;
             PlatformService = platformService;
             CryptographyService = cryptographyService;
 
@@ -62,9 +57,9 @@ namespace RetriX.Shared.ViewModels
             CopyMD5ToClipboardCommand = new RelayCommand(() => PlatformService.CopyToClipboard(TargetMD5));
         }
 
-        public static async Task<FileImporterVM> CreateFileImporterAsync(IFileSystem fileSystem, IUserDialogs dialogsService, ILocalizationService localizationService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
+        public static async Task<FileImporterVM> CreateFileImporterAsync(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
         {
-            var output = new FileImporterVM(fileSystem, dialogsService, localizationService, platformService, cryptographyService, folder, fileName, description, MD5);
+            var output = new FileImporterVM(fileSystem, dialogsService, platformService, cryptographyService, folder, fileName, description, MD5);
             var targetFile = await output.GetTargetFileAsync();
             output.FileAvailable = targetFile != null;
             return output;
@@ -86,8 +81,8 @@ namespace RetriX.Shared.ViewModels
             var md5 = await CryptographyService.ComputeMD5Async(sourceFile);
             if (md5.ToLowerInvariant() != TargetMD5.ToLowerInvariant())
             {
-                var title = LocalizationService.GetLocalizedString(FileHashMismatchTitleKey);
-                var message = LocalizationService.GetLocalizedString(FileHashMismatchMessageKey);
+                var title = Resources.Strings.FileHashMismatchTitle;
+                var message = Resources.Strings.FileHashMismatchMessage;
                 await DialogsService.AlertAsync(message, title);
                 return;
             }
