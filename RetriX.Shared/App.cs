@@ -13,11 +13,10 @@ namespace RetriX.Shared
             Mvx.RegisterSingleton(Plugin.FileSystem.CrossFileSystem.Current);
             Mvx.RegisterSingleton(Plugin.LocalNotifications.CrossLocalNotifications.Current);
             Mvx.RegisterSingleton(Plugin.VersionTracking.CrossVersionTracking.Current);
-            Mvx.ConstructAndRegisterSingleton<IMvxNavigationService, MvxNavigationService>();
             Mvx.ConstructAndRegisterSingleton<ICryptographyService, CryptographyService>();
             Mvx.ConstructAndRegisterSingleton<ISaveStateService, SaveStateService>();
             Mvx.LazyConstructAndRegisterSingleton<IEmulationService, EmulationService>();
-            RegisterCustomAppStart<AppStart>();
+            Mvx.LazyConstructAndRegisterSingleton<IMvxAppStart, AppStart>();
         }
     }
 }
