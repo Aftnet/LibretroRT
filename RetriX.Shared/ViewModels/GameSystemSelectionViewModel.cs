@@ -40,8 +40,6 @@ namespace RetriX.Shared.ViewModels
 
             GameSystems = EmulationService.Systems;
             GameSystemSelected = new MvxCommand<GameSystemViewModel>(GameSystemSelectedHandler);
-
-            ResetSystemsSelection();
         }
 
         public override void Prepare(IFileInfo parameter)
