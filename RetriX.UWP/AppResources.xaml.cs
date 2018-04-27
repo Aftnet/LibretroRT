@@ -14,12 +14,12 @@ namespace RetriX.UWP
 
             this.Add("TopNavItems", new NavMenuItem[]
             {
-                new NavMenuItem {Symbol = "\ue7fc", Label = resLoader.GetString("GameSystemsNavItem\\Text"), DestPage = typeof(SystemSelectionPage) },
+                new NavMenuItem {Symbol = "\ue7fc", Label = resLoader.GetString("GameSystemsNavItem\\Text"), DestPage = typeof(SystemSelectionView) },
             });
 
             this.Add("BottomNavItems", new NavMenuItem[]
             {
-                new NavMenuItem {Symbol = "\ue115", Label = resLoader.GetString("SettingsNavItem\\Text"), DestPage = typeof(SettingsPage) },
+                new NavMenuItem {Symbol = "\ue115", Label = resLoader.GetString("SettingsNavItem\\Text"), DestPage = typeof(SettingsView) },
                 new NavMenuItem {Symbol = "\ue946", Label = resLoader.GetString("AboutNavItem\\Text"), DestPage = typeof(AboutPage) }
             });
 
