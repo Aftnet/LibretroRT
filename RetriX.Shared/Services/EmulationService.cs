@@ -8,7 +8,6 @@ using RetriX.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,15 +15,6 @@ namespace RetriX.Shared.Services
 {
     public class EmulationService : IEmulationService
     {
-        public const string StateSavedToSlotMessageTitleKey = "StateSavedToSlotMessageTitleKey";
-        public const string StateSavedToSlotMessageBodyKey = "StateSavedToSlotMessageBodyKey";
-
-        private const string VFSRomPath = "ROM";
-        private const string VFSSystemPath = "System";
-        private const string VFSSavePath = "Save";
-
-        private const string GamePlayerPageKey = nameof(GamePlayerVM);
-
         private static readonly IReadOnlyDictionary<InjectedInputTypes, InputTypes> InjectedInputMapping = new Dictionary<InjectedInputTypes, InputTypes>
         {
             { InjectedInputTypes.DeviceIdJoypadA, InputTypes.DeviceIdJoypadA },
@@ -39,7 +29,6 @@ namespace RetriX.Shared.Services
             { InjectedInputTypes.DeviceIdJoypadY, InputTypes.DeviceIdJoypadY },
         };
 
-        private IMvxNavigationService NavigationService { get; }
         private IFileSystem FileSystem { get; }
         private IPlatformService PlatformService { get; }
         private ISaveStateService SaveStateService { get; }
@@ -105,8 +94,6 @@ namespace RetriX.Shared.Services
             get => streamProvider;
             set { if (streamProvider != value) streamProvider?.Dispose(); streamProvider = value; }
         }
-        
-        public IReadOnlyList<string> ArchiveExtensions { get; } = new string[] { ".zip" };
 
         public IReadOnlyList<GameSystemVM> Systems { get; }
 
@@ -114,12 +101,11 @@ namespace RetriX.Shared.Services
         public event GameStoppedDelegate GameStopped;
         public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
 
-        public EmulationService(IMvxNavigationService navigationService,  IFileSystem fileSystem, IUserDialogs dialogsService,
+        public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService,
             ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService,
             ILocalNotifications notificationService, ICryptographyService cryptographyService,
             IVideoService videoService, IAudioService audioService, IInputService inputService)
         {
-            NavigationService = navigationService;
             FileSystem = fileSystem;
             PlatformService = platformService;
             SaveStateService = saveStateService;
@@ -158,7 +144,7 @@ namespace RetriX.Shared.Services
             };
         }
 
-        public async Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder)
+        public async Task<bool> StartGameAsync(ICore core, IStreamProvider streamProvider, string mainFilePath)
         {
             if (StartStopOperationInProgress)
             {
@@ -166,15 +152,6 @@ namespace RetriX.Shared.Services
             }
 
             StartStopOperationInProgress = true;
-
-            var gameLaunchEnvironment = await GenerateGameLaunchEnvironmentAsync(system, file, rootFolder);
-            var provider = gameLaunchEnvironment.Item1;
-            var virtualMainFilePath = gameLaunchEnvironment.Item2;
-
-            if (NavigationService.CurrentPageKey != GamePlayerPageKey)
-            {
-                NavigationService.NavigateTo(GamePlayerPageKey);
-            }
 
             var initTasks = new Task[] { InputService.InitAsync(), AudioService.InitAsync(), VideoService.InitAsync() };
             await Task.WhenAll(initTasks);
@@ -188,16 +165,16 @@ namespace RetriX.Shared.Services
                     await Task.Run(() => CurrentCore.UnloadGame());
                 }
 
-                StreamProvider = provider;
-                SaveStateService.SetGameId(virtualMainFilePath);
+                StreamProvider = streamProvider;
+                SaveStateService.SetGameId(mainFilePath);
                 CorePaused = false;
-                CurrentCore = system.Core;
+                CurrentCore = core;
 
                 loadSuccessful = await Task.Run(() =>
                 {
                     try
                     {
-                        return CurrentCore.LoadGame(virtualMainFilePath);
+                        return CurrentCore.LoadGame(mainFilePath);
                     }
                     catch
                     {
@@ -207,7 +184,7 @@ namespace RetriX.Shared.Services
 
                 if (!loadSuccessful)
                 {
-                    await StopGameAsyncInternal(true);
+                    await StopGameAsyncInternal();
                     StartStopOperationInProgress = false;
                     return loadSuccessful;
                 }
@@ -238,12 +215,7 @@ namespace RetriX.Shared.Services
             }
         }
 
-        public Task StopGameAsync()
-        {
-            return StopGameAsync(true);
-        }
-
-        public async Task StopGameAsync(bool performBackNavigation)
+        public async Task StopGameAsync()
         {
             if (StartStopOperationInProgress)
             {
@@ -255,7 +227,7 @@ namespace RetriX.Shared.Services
             await CoreSemaphore.WaitAsync();
             try
             {
-                await StopGameAsyncInternal(performBackNavigation);
+                await StopGameAsyncInternal();
             }
             finally
             {
@@ -266,7 +238,7 @@ namespace RetriX.Shared.Services
             StartStopOperationInProgress = false;
         }
 
-        private async Task StopGameAsyncInternal(bool performBackNavigation)
+        private async Task StopGameAsyncInternal()
         {
             if (CurrentCore != null)
             {
@@ -279,11 +251,6 @@ namespace RetriX.Shared.Services
 
             var initTasks = new Task[] { InputService.DeinitAsync(), AudioService.DeinitAsync(), VideoService.DeinitAsync() };
             await Task.WhenAll(initTasks);
-
-            if (performBackNavigation && NavigationService.CurrentPageKey == GamePlayerPageKey)
-            {
-                NavigationService.GoBack();
-            }
         }
 
         public Task PauseGameAsync()
@@ -395,7 +362,7 @@ namespace RetriX.Shared.Services
                 if (!StartStopOperationInProgress)
                 {
                     StartStopOperationInProgress = true;
-                    StopGameAsyncInternal(true).Wait();
+                    StopGameAsyncInternal().Wait();
                     StartStopOperationInProgress = false;
                 }
 
@@ -416,45 +383,6 @@ namespace RetriX.Shared.Services
         private void OnCoreCloseFileStream(Stream stream)
         {
             StreamProvider.CloseStream(stream);
-        }
-
-        private async Task<Tuple<IStreamProvider, string>> GenerateGameLaunchEnvironmentAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder)
-        {
-            var core = system.Core;
-
-            string virtualMainFilePath = null;
-            var provider = default(IStreamProvider);
-
-            if (core.NativeArchiveSupport || !ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
-            {
-                virtualMainFilePath = $"{VFSRomPath}{Path.DirectorySeparatorChar}{file.Name}";
-                provider = new SingleFileStreamProvider(virtualMainFilePath, file);
-                if (rootFolder != null)
-                {
-                    virtualMainFilePath = file.FullName.Substring(rootFolder.FullName.Length + 1);
-                    virtualMainFilePath = $"{VFSRomPath}{Path.DirectorySeparatorChar}{virtualMainFilePath}";
-                    provider = new FolderStreamProvider(VFSRomPath, rootFolder);
-                }
-            }
-            else
-            {
-                var archiveProvider = new ArchiveStreamProvider(VFSRomPath, file);
-                await archiveProvider.InitializeAsync();
-                provider = archiveProvider;
-                var entries = await provider.ListEntriesAsync();
-                virtualMainFilePath = entries.FirstOrDefault(d => system.SupportedExtensions.Contains(Path.GetExtension(d)));
-            }
-
-            var systemFolder = await system.GetSystemDirectoryAsync();
-            var systemProvider = new FolderStreamProvider(VFSSystemPath, systemFolder);
-            core.SystemRootPath = VFSSystemPath;
-            var saveFolder = await system.GetSaveDirectoryAsync();
-            var saveProvider = new FolderStreamProvider(VFSSavePath, saveFolder);
-            core.SaveRootPath = VFSSavePath;
-
-            provider = new CombinedStreamProvider(new HashSet<IStreamProvider>() { provider, systemProvider, saveProvider });
-
-            return Tuple.Create(provider, virtualMainFilePath);
-        }
+        }        
     }
 }

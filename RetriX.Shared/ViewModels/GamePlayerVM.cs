@@ -1,16 +1,34 @@
-﻿using MvvmCross.Core.ViewModels;
+﻿using LibRetriX;
+using MvvmCross.Core.Navigation;
+using MvvmCross.Core.ViewModels;
 using RetriX.Shared.Services;
+using RetriX.Shared.StreamProviders;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class GamePlayerVM : MvxViewModel
+    public class GamePlayerVM : MvxViewModel<GamePlayerVM.Parameter>
     {
+        public class Parameter
+        {
+            public ICore Core { get; }
+            public IStreamProvider StreamProvider { get; }       
+            public string MainFilePath { get; }
+
+            public Parameter(ICore core, IStreamProvider streamProvider, string mainFilePath)
+            {
+                Core = core;
+                StreamProvider = streamProvider;
+                MainFilePath = mainFilePath;
+            }
+        }
+
         private static readonly TimeSpan PriodicChecksInterval = TimeSpan.FromSeconds(2);
         private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(4);
 
+        private IMvxNavigationService NavigationService { get; }
         private IPlatformService PlatformService { get; }
         private IEmulationService EmulationService { get; }
 
@@ -91,8 +109,9 @@ namespace RetriX.Shared.ViewModels
         private DateTimeOffset PlayerUIDisplayTime = DateTimeOffset.UtcNow;
         private DateTimeOffset LastPointerMoveTime = DateTimeOffset.UtcNow;
 
-        public GamePlayerVM(IPlatformService platformService, IEmulationService emulationService)
+        public GamePlayerVM(IMvxNavigationService navigationService, IPlatformService platformService, IEmulationService emulationService)
         {
+            NavigationService = navigationService;
             PlatformService = platformService;
             EmulationService = emulationService;
 
@@ -137,10 +156,15 @@ namespace RetriX.Shared.ViewModels
                 LoadStateSlot1, LoadStateSlot2, LoadStateSlot3, LoadStateSlot4, LoadStateSlot5, LoadStateSlot6
             };
 
-            EmulationService.GameStarted += OnGameStarted;
             PlatformService.FullScreenChangeRequested += (d, e) => RequestFullScreenChange(e.Type);
             PlatformService.PauseToggleRequested += d => OnPauseToggleKey();
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
+        }
+
+
+        public override void Prepare(Parameter parameter)
+        {
+            EmulationService.StartGameAsync(parameter.Core, parameter.StreamProvider, parameter.MainFilePath);
         }
 
         private async void RequestFullScreenChange(FullScreenChangeType fullScreenChangeType)
@@ -152,7 +176,7 @@ namespace RetriX.Shared.ViewModels
             RaisePropertyChanged(nameof(IsFullScreenMode));
         }
 
-        public void Activated()
+        public override void ViewAppeared()
         {
             CoreOperationsAllowed = true;
             PlatformService.HandleGameplayKeyShortcuts = true;
@@ -160,8 +184,9 @@ namespace RetriX.Shared.ViewModels
             PeriodicChecksTimer = new Timer(d => PeriodicChecks(), null, PriodicChecksInterval, PriodicChecksInterval);
         }
 
-        public void Deactivated()
+        public override void ViewDisappearing()
         {
+            EmulationService.StopGameAsync();
             PeriodicChecksTimer.Dispose();
             CoreOperationsAllowed = false;
             PlatformService.HandleGameplayKeyShortcuts = false;
@@ -217,11 +242,9 @@ namespace RetriX.Shared.ViewModels
             }
         }
 
-        private async void Stop()
+        private void Stop()
         {
-            CoreOperationsAllowed = false;
-            await EmulationService.StopGameAsync();
-            CoreOperationsAllowed = true;
+            NavigationService.Close(this);
         }
 
         private async void SaveState(uint slotID)
@@ -246,11 +269,6 @@ namespace RetriX.Shared.ViewModels
             {
                 await TogglePause(true);
             }
-        }
-
-        private void OnGameStarted(IEmulationService sender)
-        {
-            GameIsPaused = false;
         }
 
         private void OnGameStateOperationRequested(IPlatformService sender, GameStateOperationEventArgs args)

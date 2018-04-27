@@ -10,9 +10,11 @@ namespace RetriX.Shared.StreamProviders
 {
     public class ArchiveStreamProvider : IStreamProvider
     {
-        private readonly string HandledScheme;
-        private readonly IFileInfo ArchiveFile;
-        private readonly Dictionary<string, byte[]> EntriesBufferMapping = new Dictionary<string, byte[]>();
+        public static ISet<string> SupportedExtensions { get; } = new HashSet<string> { ".zip" };
+
+        private string HandledScheme { get; }
+        private IFileInfo ArchiveFile { get; }
+        private IDictionary<string, byte[]> EntriesBufferMapping { get; } = new Dictionary<string, byte[]>();
 
         public ArchiveStreamProvider(string handledScheme, IFileInfo archiveFile)
         {

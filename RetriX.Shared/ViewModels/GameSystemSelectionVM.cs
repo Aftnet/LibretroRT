@@ -1,8 +1,9 @@
 ﻿using Acr.UserDialogs;
+using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
 using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Services;
-using System;
+using RetriX.Shared.StreamProviders;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,14 +11,15 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class GameSystemSelectionVM : MvxViewModel
+    public class GameSystemSelectionVM : MvxViewModel<IFileInfo>
     {
-        private readonly IFileSystem FileSystem;
-        private readonly IUserDialogs DialogsService;
-        private readonly IPlatformService PlatformService;
-        private readonly IEmulationService EmulationService;
+        private IMvxNavigationService NavigationService { get; }
+        private IFileSystem FileSystem { get; }
+        private IUserDialogs DialogsService { get; }
+        private IPlatformService PlatformService { get; }
+        private IEmulationService EmulationService { get; }
 
-        private IFileInfo SelectedGameFile;
+        private IFileInfo SelectedGameFile { get; set; }
 
         private IReadOnlyList<GameSystemVM> gameSystems;
         public IReadOnlyList<GameSystemVM> GameSystems
@@ -26,43 +28,31 @@ namespace RetriX.Shared.ViewModels
             private set => SetProperty(ref gameSystems, value);
         }
 
-        public IMvxCommand<GameSystemVM> GameSystemSelectedCommand { get; }
+        public IMvxCommand<GameSystemVM> GameSystemSelected { get; }
 
-        public GameSystemSelectionVM(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, IEmulationService emulationService)
+        public GameSystemSelectionVM(IMvxNavigationService navigationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, IEmulationService emulationService)
         {
+            NavigationService = navigationService;
             FileSystem = fileSystem;
             DialogsService = dialogsService;
             PlatformService = platformService;
             EmulationService = emulationService;
 
             GameSystems = EmulationService.Systems;
-            GameSystemSelectedCommand = new MvxCommand<GameSystemVM>(GameSystemSelected);
-
-            EmulationService.GameRuntimeExceptionOccurred += OnGameRuntimeExceptionOccurred;
-            EmulationService.GameStopped += d => { ResetSystemsSelection(); };
+            GameSystemSelected = new MvxCommand<GameSystemVM>(GameSystemSelectedHandler);
 
             ResetSystemsSelection();
         }
 
-        public async void GameSystemSelected(GameSystemVM system)
+        public override void Prepare(IFileInfo parameter)
         {
-            if (SelectedGameFile == null)
-            {
-                var extensions = system.SupportedExtensions.Concat(EmulationService.ArchiveExtensions).ToArray();
-                SelectedGameFile = await FileSystem.PickFileAsync(extensions);
-            }
-            if (SelectedGameFile == null)
-            {
-                return;
-            }
-
-            await StartGameAsync(system, SelectedGameFile);
+            SelectedGameFile = parameter;
         }
 
-        public async Task StartGameFromFileAsync(IFileInfo file)
+        public override async Task Initialize()
         {
             //Find compatible systems for file extension
-            var extension = Path.GetExtension(file.Name);
+            var extension = SelectedGameFile != null ? Path.GetExtension(SelectedGameFile.Name) : string.Empty;
             var compatibleSystems = EmulationService.Systems.Where(d => d.SupportedExtensions.Contains(extension));
 
             //If none, do nothing
@@ -74,14 +64,26 @@ namespace RetriX.Shared.ViewModels
             //If just one, start game with it
             if (compatibleSystems.Count() == 1)
             {
-                await StartGameAsync(compatibleSystems.First(), file);
+                await StartGameAsync(compatibleSystems.Single(), SelectedGameFile);
                 return;
             }
 
-            //If multiple ones, filter system selection accordingly and have user select a system
-            await EmulationService.StopGameAsync();
             GameSystems = compatibleSystems.ToArray();
-            SelectedGameFile = file;
+        }
+
+        private async void GameSystemSelectedHandler(GameSystemVM system)
+        {
+            if (SelectedGameFile == null)
+            {
+                var extensions = system.SupportedExtensions.Concat(ArchiveStreamProvider.SupportedExtensions).ToArray();
+                SelectedGameFile = await FileSystem.PickFileAsync(extensions);
+            }
+            if (SelectedGameFile == null)
+            {
+                return;
+            }
+
+            await StartGameAsync(system, SelectedGameFile);
         }
 
         private async Task StartGameAsync(GameSystemVM system, IFileInfo file)
@@ -114,18 +116,8 @@ namespace RetriX.Shared.ViewModels
                 }
             }
 
-            var startSuccess = await EmulationService.StartGameAsync(system, file, folder);
-            if (!startSuccess)
-            {
-                ResetSystemsSelection();
-                await DialogsService.AlertAsync(Resources.Strings.GameLoadingFailAlertTitle, Resources.Strings.GameLoadingFailAlertMessage);
-            }
-        }
-
-        private void OnGameRuntimeExceptionOccurred(IEmulationService sender, Exception e)
-        {
-            ResetSystemsSelection();
-            DialogsService.AlertAsync(Resources.Strings.GameRunningFailAlertTitle, Resources.Strings.GameRunningFailAlertMessage);
+            var param = await GenerateGameLaunchParamAsync(system, file, folder);
+            var task = NavigationService.Navigate<GamePlayerVM, GamePlayerVM.Parameter>(param);
         }
 
         private void ResetSystemsSelection()
@@ -133,6 +125,49 @@ namespace RetriX.Shared.ViewModels
             //Reset systems selection
             GameSystems = EmulationService.Systems;
             SelectedGameFile = null;
+        }
+
+        private async Task<GamePlayerVM.Parameter> GenerateGameLaunchParamAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder)
+        {
+            var vfsRomPath = "ROM";
+            var vfsSystemPath = "System";
+            var vfsSavePath = "Save";
+
+            var core = system.Core;
+
+            string virtualMainFilePath = null;
+            var provider = default(IStreamProvider);
+
+            if (core.NativeArchiveSupport || !ArchiveStreamProvider.SupportedExtensions.Contains(Path.GetExtension(file.Name)))
+            {
+                virtualMainFilePath = $"{vfsRomPath}{Path.DirectorySeparatorChar}{file.Name}";
+                provider = new SingleFileStreamProvider(virtualMainFilePath, file);
+                if (rootFolder != null)
+                {
+                    virtualMainFilePath = file.FullName.Substring(rootFolder.FullName.Length + 1);
+                    virtualMainFilePath = $"{vfsRomPath}{Path.DirectorySeparatorChar}{virtualMainFilePath}";
+                    provider = new FolderStreamProvider(vfsRomPath, rootFolder);
+                }
+            }
+            else
+            {
+                var archiveProvider = new ArchiveStreamProvider(vfsRomPath, file);
+                await archiveProvider.InitializeAsync();
+                provider = archiveProvider;
+                var entries = await provider.ListEntriesAsync();
+                virtualMainFilePath = entries.FirstOrDefault(d => system.SupportedExtensions.Contains(Path.GetExtension(d)));
+            }
+
+            var systemFolder = await system.GetSystemDirectoryAsync();
+            var systemProvider = new FolderStreamProvider(vfsSystemPath, systemFolder);
+            core.SystemRootPath = vfsSystemPath;
+            var saveFolder = await system.GetSaveDirectoryAsync();
+            var saveProvider = new FolderStreamProvider(vfsSavePath, saveFolder);
+            core.SaveRootPath = vfsSavePath;
+
+            provider = new CombinedStreamProvider(new HashSet<IStreamProvider>() { provider, systemProvider, saveProvider });
+
+            return new GamePlayerVM.Parameter(core, provider, virtualMainFilePath);
         }
     }
 }

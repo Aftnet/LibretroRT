@@ -29,13 +29,11 @@ namespace RetriX.Shared.Services
     public interface IEmulationService
     {
         IReadOnlyList<GameSystemVM> Systems { get; }
-        IReadOnlyList<string> ArchiveExtensions { get; }
 
-        Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder);
+        Task<bool> StartGameAsync(ICore core, IStreamProvider streamProvider, string mainFilePath);
 
         Task ResetGameAsync();
         Task StopGameAsync();
-        Task StopGameAsync(bool performBackNavigation);
 
         Task PauseGameAsync();
         Task ResumeGameAsync();
