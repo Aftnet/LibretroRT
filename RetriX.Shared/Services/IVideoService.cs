@@ -3,11 +3,9 @@ using System;
 
 namespace RetriX.Shared.Services
 {
-    public delegate void RequestRunCoreFrameDelegate(IVideoService sender);
-
     public interface IVideoService : IInitializable
     {
-        event RequestRunCoreFrameDelegate RequestRunCoreFrame;
+        event EventHandler RequestRunCoreFrame;
 
         void GeometryChanged(GameGeometry geometry);
         void PixelFormatChanged(PixelFormats format);

@@ -157,7 +157,7 @@ namespace RetriX.Shared.ViewModels
             };
 
             PlatformService.FullScreenChangeRequested += (d, e) => RequestFullScreenChange(e.Type);
-            PlatformService.PauseToggleRequested += d => OnPauseToggleKey();
+            PlatformService.PauseToggleRequested += OnPauseToggleKey;
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
         }
 
@@ -221,7 +221,7 @@ namespace RetriX.Shared.ViewModels
             CoreOperationsAllowed = true;
         }
 
-        private async void OnPauseToggleKey()
+        private async void OnPauseToggleKey(object sender, EventArgs args)
         {
             await TogglePause(true);
             if (GameIsPaused)
@@ -271,7 +271,7 @@ namespace RetriX.Shared.ViewModels
             }
         }
 
-        private void OnGameStateOperationRequested(IPlatformService sender, GameStateOperationEventArgs args)
+        private void OnGameStateOperationRequested(object sender, GameStateOperationEventArgs args)
         {
             if (!CoreOperationsAllowed)
             {

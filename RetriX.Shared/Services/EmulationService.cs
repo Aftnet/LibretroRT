@@ -97,9 +97,9 @@ namespace RetriX.Shared.Services
 
         public IReadOnlyList<GameSystemViewModel> Systems { get; }
 
-        public event GameStartedDelegate GameStarted;
-        public event GameStoppedDelegate GameStopped;
-        public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
+        public event EventHandler GameStarted;
+        public event EventHandler GameStopped;
+        public event EventHandler<Exception> GameRuntimeExceptionOccurred;
 
         public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService,
             ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService,
@@ -115,7 +115,7 @@ namespace RetriX.Shared.Services
             AudioService = audioService;
             InputService = inputService;
 
-            VideoService.RequestRunCoreFrame += d => OnCoreRunFrameRequested();
+            VideoService.RequestRunCoreFrame += OnRunFrameRequested;
 
             var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso", ".mds", ".mdf" };
 
@@ -194,7 +194,7 @@ namespace RetriX.Shared.Services
                 CoreSemaphore.Release();
             }
 
-            GameStarted?.Invoke(this);
+            GameStarted?.Invoke(this, EventArgs.Empty);
             StartStopOperationInProgress = false;
             return loadSuccessful;
         }
@@ -234,7 +234,7 @@ namespace RetriX.Shared.Services
                 CoreSemaphore.Release();
             }
 
-            GameStopped?.Invoke(this);
+            GameStopped?.Invoke(this, EventArgs.Empty);
             StartStopOperationInProgress = false;
         }
 
@@ -347,7 +347,7 @@ namespace RetriX.Shared.Services
         }
 
         //Synhronous since it's going to be called by a non UI thread
-        private void OnCoreRunFrameRequested()
+        private void OnRunFrameRequested(object sender, EventArgs args)
         {
             CoreSemaphore.WaitAsync().Wait();
             try

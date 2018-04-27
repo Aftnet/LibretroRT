@@ -21,10 +21,6 @@ namespace RetriX.Shared.Services
         DeviceIdJoypadX = 9,
     };
 
-    public delegate void GameStoppedDelegate(IEmulationService sender);
-    public delegate void GameStartedDelegate(IEmulationService sender);
-    public delegate void GameRuntimeExceptionOccurredDelegate(IEmulationService sender, Exception exception);
-
     public interface IEmulationService
     {
         IReadOnlyList<GameSystemViewModel> Systems { get; }
@@ -42,8 +38,8 @@ namespace RetriX.Shared.Services
 
         void InjectInputPlayer1(InjectedInputTypes inputType);
 
-        event GameStartedDelegate GameStarted;
-        event GameStoppedDelegate GameStopped;
-        event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
+        event EventHandler GameStarted;
+        event EventHandler GameStopped;
+        event EventHandler<Exception> GameRuntimeExceptionOccurred;
     }
 }
