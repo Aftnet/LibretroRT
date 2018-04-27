@@ -8,9 +8,16 @@
     <x:Double x:Key="WideLayoutSplitPoint">800</x:Double>
     <Thickness x:Key="DafaultContentMargin">16,0</Thickness>
 
+    <Style x:Name="RootScrollViewerStyle" TargetType="ScrollViewer">
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Background" Value="{StaticResource ApplicationPageBackgroundThemeBrush}"/>
+    </Style>
+    
     <Style x:Name="PageHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Margin" Value="16,12,0,0"/>
+        <Setter Property="Margin" Value="0,12,0,0"/>
         <Setter Property="Text" Value="DESIGN"/>
     </Style>
 

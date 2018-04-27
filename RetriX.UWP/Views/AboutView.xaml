@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:MvvmCross.Uwp.Views"
-    xmlns:nmu="using:NavigationMenuUWP"
     mc:Ignorable="d">
 
     <views:MvxWindowsPage.Resources>
@@ -14,38 +13,22 @@
         </Style>
     </views:MvxWindowsPage.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <nmu:NavigationFrame NavigationItemsTop="{StaticResource TopNavItems}" NavigationItemsBottom="{StaticResource BottomNavItems}">
-            <nmu:NavigationFrame.FrameContent>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <nmu:PageHeader Grid.Row="0">
-                        <nmu:PageHeader.HeaderContent>
-                            <TextBlock x:Uid="AboutHeader" Style="{StaticResource PageHeaderTextBlockStyle}"/>
-                        </nmu:PageHeader.HeaderContent>
-                    </nmu:PageHeader>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
-                        <StackPanel Orientation="Vertical" Margin="{StaticResource DafaultContentMargin}">
-                            <TextBlock x:Uid="AppName" Text="AppNameDes" Style="{ThemeResource HeaderTextBlockStyle}"/>
-                            <TextBlock Style="{StaticResource SectionTBStyle}">
-                                <Run x:Uid="VersionLabel" Text="VersionDesign"/> <Run Text="{x:Bind VM.Version}"/>
-                                <LineBreak/>
-                                <Run x:Uid="CopyrightLabel" Text="CopyrightDesign"/> <Hyperlink NavigateUri="https://www.aftnet.net">Aftnet</Hyperlink>
-                            </TextBlock>
-                            <TextBlock Style="{StaticResource SectionTBStyle}">
-                                <Run x:Uid="EmulationCodeThanksToLabel" Text="EmuCoreThanks"/> <Hyperlink NavigateUri="https://www.libretro.com/">Libretro</Hyperlink>
-                            </TextBlock>
-                            <TextBlock Style="{StaticResource SectionTBStyle}">
-                                <Hyperlink NavigateUri="http://www.flaticon.com/packs/gaming-4">Playing Videogames icon pack</Hyperlink> 
-                                <Run x:Uid="IconsDesignedByLabel" Text="DesignedBy"/> <Hyperlink NavigateUri="http://www.flaticon.com/authors/freepik">Freepik</Hyperlink>
-                            </TextBlock>
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
-            </nmu:NavigationFrame.FrameContent>
-        </nmu:NavigationFrame>
-    </Grid>
+    <ScrollViewer Style="{StaticResource RootScrollViewerStyle}">
+        <StackPanel Orientation="Vertical" Margin="{StaticResource DafaultContentMargin}">
+            <TextBlock x:Uid="AboutHeader" Style="{StaticResource PageHeaderTextBlockStyle}"/>
+            <TextBlock x:Uid="AppName" Text="AppNameDes" Style="{ThemeResource HeaderTextBlockStyle}"/>
+            <TextBlock Style="{StaticResource SectionTBStyle}">
+                <Run x:Uid="VersionLabel" Text="VersionDesign"/> <Run Text="{x:Bind VM.Version}"/>
+                <LineBreak/>
+                <Run x:Uid="CopyrightLabel" Text="CopyrightDesign"/> <Hyperlink NavigateUri="https://www.aftnet.net">Aftnet</Hyperlink>
+            </TextBlock>
+            <TextBlock Style="{StaticResource SectionTBStyle}">
+                <Run x:Uid="EmulationCodeThanksToLabel" Text="EmuCoreThanks"/> <Hyperlink NavigateUri="https://www.libretro.com/">Libretro</Hyperlink>
+            </TextBlock>
+            <TextBlock Style="{StaticResource SectionTBStyle}">
+                <Hyperlink NavigateUri="http://www.flaticon.com/packs/gaming-4">Playing Videogames icon pack</Hyperlink> 
+                <Run x:Uid="IconsDesignedByLabel" Text="DesignedBy"/> <Hyperlink NavigateUri="http://www.flaticon.com/authors/freepik">Freepik</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </ScrollViewer>
 </views:MvxWindowsPage>
