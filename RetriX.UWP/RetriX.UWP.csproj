@@ -114,18 +114,17 @@
       <DependentUpon>VirtualPad.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ItemClickEventArgsConverter.cs" />
-    <Compile Include="Locator\Locator.cs" />
-    <Compile Include="Pages\AboutPage.xaml.cs">
+    <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ITypedViewModel.cs" />
-    <Compile Include="Pages\SettingsPage.xaml.cs">
+    <Compile Include="Views\ITypedViewModel.cs" />
+    <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SystemSelectionPage.xaml.cs">
+    <Compile Include="Views\SystemSelectionPage.xaml.cs">
       <DependentUpon>SystemSelectionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GamePlayerPage.xaml.cs">
+    <Compile Include="Views\GamePlayerPage.xaml.cs">
       <DependentUpon>GamePlayerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -218,19 +217,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AboutPage.xaml">
+    <Page Include="Views\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SettingsPage.xaml">
+    <Page Include="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SystemSelectionPage.xaml">
+    <Page Include="Views\SystemSelectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\GamePlayerPage.xaml">
+    <Page Include="Views\GamePlayerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

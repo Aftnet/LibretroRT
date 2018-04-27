@@ -10,7 +10,7 @@ namespace RetriX.UWP
 {
     public sealed class VideoService : IVideoService
     {
-        public event RequestRunCoreFrameDelegate RequestRunCoreFrame;
+        public event EventHandler RequestRunCoreFrame;
 
         private CanvasAnimatedControl renderPanel;
         public CanvasAnimatedControl RenderPanel
@@ -70,7 +70,7 @@ namespace RetriX.UWP
                 InitTCS = null;
             }
 
-            RequestRunCoreFrame?.Invoke(this);
+            RequestRunCoreFrame?.Invoke(this, EventArgs.Empty);
         }
 
         private void RenderPanelDraw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)

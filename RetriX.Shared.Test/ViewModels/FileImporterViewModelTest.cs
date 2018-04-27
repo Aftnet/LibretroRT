@@ -9,7 +9,7 @@ using Xunit;
 
 namespace RetriX.Shared.Test.ViewModels
 {
-    public class FileImporterVMTest : TestBase<FileImporterViewModel>
+    public class FileImporterViewModelTest : TestBase<FileImporterViewModel>
     {
         protected override FileImporterViewModel InstantiateTarget()
         {
