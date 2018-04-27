@@ -201,14 +201,8 @@
   <data name="AboutHeader.Text" xml:space="preserve">
     <value>ABOUT</value>
   </data>
-  <data name="GameSystemsHeader.Text" xml:space="preserve">
-    <value>GAME SYSTEMS</value>
-  </data>
-  <data name="AboutNavItem.Text" xml:space="preserve">
+  <data name="AboutBtn.Label" xml:space="preserve">
     <value>About</value>
-  </data>
-  <data name="GameSystemsNavItem.Text" xml:space="preserve">
-    <value>Game Systems</value>
   </data>
   <data name="CopyrightLabel.Text" xml:space="preserve">
     <value>©2017</value>
@@ -237,7 +231,7 @@
   <data name="ImportFileButtonLabel.Text" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="SettingsNavItem.Text" xml:space="preserve">
+  <data name="SettingsBtn.Label" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="SettingsHeader.Text" xml:space="preserve">

@@ -28,6 +28,8 @@ namespace RetriX.Shared.ViewModels
             private set => SetProperty(ref gameSystems, value);
         }
 
+        public IMvxCommand ShowSettings { get; }
+        public IMvxCommand ShowAbout { get; }
         public IMvxCommand<GameSystemViewModel> GameSystemSelected { get; }
 
         public GameSystemSelectionViewModel(IMvxNavigationService navigationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, IEmulationService emulationService)
@@ -39,6 +41,9 @@ namespace RetriX.Shared.ViewModels
             EmulationService = emulationService;
 
             GameSystems = EmulationService.Systems;
+
+            ShowSettings = new MvxCommand(() => NavigationService.Navigate<SettingsViewModel>());
+            ShowAbout = new MvxCommand(() => NavigationService.Navigate<AboutViewModel>());
             GameSystemSelected = new MvxCommand<GameSystemViewModel>(GameSystemSelectedHandler);
         }
 
