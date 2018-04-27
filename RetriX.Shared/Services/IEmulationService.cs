@@ -1,5 +1,4 @@
 ﻿using LibRetriX;
-using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.StreamProviders;
 using RetriX.Shared.ViewModels;
 using System;
@@ -28,7 +27,7 @@ namespace RetriX.Shared.Services
 
     public interface IEmulationService
     {
-        IReadOnlyList<GameSystemVM> Systems { get; }
+        IReadOnlyList<GameSystemViewModel> Systems { get; }
 
         Task<bool> StartGameAsync(ICore core, IStreamProvider streamProvider, string mainFilePath);
 

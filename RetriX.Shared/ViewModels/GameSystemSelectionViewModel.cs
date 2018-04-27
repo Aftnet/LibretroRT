@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class GameSystemSelectionVM : MvxViewModel<IFileInfo>
+    public class GameSystemSelectionViewModel : MvxViewModel<IFileInfo>
     {
         private IMvxNavigationService NavigationService { get; }
         private IFileSystem FileSystem { get; }
@@ -21,16 +21,16 @@ namespace RetriX.Shared.ViewModels
 
         private IFileInfo SelectedGameFile { get; set; }
 
-        private IReadOnlyList<GameSystemVM> gameSystems;
-        public IReadOnlyList<GameSystemVM> GameSystems
+        private IReadOnlyList<GameSystemViewModel> gameSystems;
+        public IReadOnlyList<GameSystemViewModel> GameSystems
         {
             get => gameSystems;
             private set => SetProperty(ref gameSystems, value);
         }
 
-        public IMvxCommand<GameSystemVM> GameSystemSelected { get; }
+        public IMvxCommand<GameSystemViewModel> GameSystemSelected { get; }
 
-        public GameSystemSelectionVM(IMvxNavigationService navigationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, IEmulationService emulationService)
+        public GameSystemSelectionViewModel(IMvxNavigationService navigationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, IEmulationService emulationService)
         {
             NavigationService = navigationService;
             FileSystem = fileSystem;
@@ -39,7 +39,7 @@ namespace RetriX.Shared.ViewModels
             EmulationService = emulationService;
 
             GameSystems = EmulationService.Systems;
-            GameSystemSelected = new MvxCommand<GameSystemVM>(GameSystemSelectedHandler);
+            GameSystemSelected = new MvxCommand<GameSystemViewModel>(GameSystemSelectedHandler);
 
             ResetSystemsSelection();
         }
@@ -71,7 +71,7 @@ namespace RetriX.Shared.ViewModels
             GameSystems = compatibleSystems.ToArray();
         }
 
-        private async void GameSystemSelectedHandler(GameSystemVM system)
+        private async void GameSystemSelectedHandler(GameSystemViewModel system)
         {
             if (SelectedGameFile == null)
             {
@@ -86,7 +86,7 @@ namespace RetriX.Shared.ViewModels
             await StartGameAsync(system, SelectedGameFile);
         }
 
-        private async Task StartGameAsync(GameSystemVM system, IFileInfo file)
+        private async Task StartGameAsync(GameSystemViewModel system, IFileInfo file)
         {
             var dependenciesMet = await system.CheckDependenciesMetAsync();
             if (!dependenciesMet)
@@ -117,7 +117,7 @@ namespace RetriX.Shared.ViewModels
             }
 
             var param = await GenerateGameLaunchParamAsync(system, file, folder);
-            var task = NavigationService.Navigate<GamePlayerVM, GamePlayerVM.Parameter>(param);
+            var task = NavigationService.Navigate<GamePlayerViewModel, GamePlayerViewModel.Parameter>(param);
         }
 
         private void ResetSystemsSelection()
@@ -127,7 +127,7 @@ namespace RetriX.Shared.ViewModels
             SelectedGameFile = null;
         }
 
-        private async Task<GamePlayerVM.Parameter> GenerateGameLaunchParamAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder)
+        private async Task<GamePlayerViewModel.Parameter> GenerateGameLaunchParamAsync(GameSystemViewModel system, IFileInfo file, IDirectoryInfo rootFolder)
         {
             var vfsRomPath = "ROM";
             var vfsSystemPath = "System";
@@ -167,7 +167,7 @@ namespace RetriX.Shared.ViewModels
 
             provider = new CombinedStreamProvider(new HashSet<IStreamProvider>() { provider, systemProvider, saveProvider });
 
-            return new GamePlayerVM.Parameter(core, provider, virtualMainFilePath);
+            return new GamePlayerViewModel.Parameter(core, provider, virtualMainFilePath);
         }
     }
 }

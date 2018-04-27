@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class SettingsVM : MvxViewModel
+    public class SettingsViewModel : MvxViewModel
     {
         private IEmulationService EmulationService { get; }
         private IFileSystem FileSystem { get; }
@@ -17,14 +17,14 @@ namespace RetriX.Shared.ViewModels
         private IPlatformService PlatformService { get; }
         private ICryptographyService CryptographyService { get; }
 
-        private IReadOnlyList<FileImporterVM> fileDependencyImporters;
-        public IReadOnlyList<FileImporterVM> FileDependencyImporters
+        private IReadOnlyList<FileImporterViewModel> fileDependencyImporters;
+        public IReadOnlyList<FileImporterViewModel> FileDependencyImporters
         {
             get => fileDependencyImporters;
             private set => SetProperty(ref fileDependencyImporters, value);
         }
 
-        public SettingsVM(IEmulationService emulationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService)
+        public SettingsViewModel(IEmulationService emulationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService)
         {
             EmulationService = emulationService;
             FileSystem = fileSystem;
@@ -38,9 +38,9 @@ namespace RetriX.Shared.ViewModels
             });
         }
 
-        private async Task<List<FileImporterVM>> GetFileDependencyImportersAsync()
+        private async Task<List<FileImporterViewModel>> GetFileDependencyImportersAsync()
         {
-            var importers = new List<FileImporterVM>();
+            var importers = new List<FileImporterViewModel>();
             var distinctCores = new HashSet<ICore>();
             foreach (var i in EmulationService.Systems)
             {
@@ -52,7 +52,7 @@ namespace RetriX.Shared.ViewModels
 
                 distinctCores.Add(core);
                 var systemFolder = await i.GetSystemDirectoryAsync();
-                var tasks = core.FileDependencies.Select(d => FileImporterVM.CreateFileImporterAsync(FileSystem, DialogsService, PlatformService, CryptographyService, systemFolder, d.Name, d.Description, d.MD5)).ToArray();
+                var tasks = core.FileDependencies.Select(d => FileImporterViewModel.CreateFileImporterAsync(FileSystem, DialogsService, PlatformService, CryptographyService, systemFolder, d.Name, d.Description, d.MD5)).ToArray();
                 var newImporters = await Task.WhenAll(tasks);
                 importers.AddRange(newImporters);
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class GameSystemVM
+    public class GameSystemViewModel
     {
         private IFileSystem FileSystem { get; }
 
@@ -21,7 +21,7 @@ namespace RetriX.Shared.ViewModels
 
         private readonly bool DependenciesOverride;
 
-        public GameSystemVM(ICore core, IFileSystem fileSystem, string name, string manufacturer, string symbol, bool dependenciesOverride = false, IEnumerable<string> supportedExtensionsOverride = null, IEnumerable<string> multiFileExtensions = null)
+        public GameSystemViewModel(ICore core, IFileSystem fileSystem, string name, string manufacturer, string symbol, bool dependenciesOverride = false, IEnumerable<string> supportedExtensionsOverride = null, IEnumerable<string> multiFileExtensions = null)
         {
             FileSystem = fileSystem;
 

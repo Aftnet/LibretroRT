@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class FileImporterVM : MvxViewModel
+    public class FileImporterViewModel : MvxViewModel
     {
         public const string SerachLinkFormat = "https://www.google.com/search?q={0}";
 
@@ -33,7 +33,7 @@ namespace RetriX.Shared.ViewModels
         public IMvxCommand ImportCommand { get; }
         public IMvxCommand CopyMD5ToClipboardCommand { get; }
 
-        protected FileImporterVM(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
+        protected FileImporterViewModel(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
         {
             FileSystem = fileSystem;
             DialogsService = dialogsService;
@@ -49,9 +49,9 @@ namespace RetriX.Shared.ViewModels
             CopyMD5ToClipboardCommand = new MvxCommand(() => PlatformService.CopyToClipboard(TargetMD5));
         }
 
-        public static async Task<FileImporterVM> CreateFileImporterAsync(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
+        public static async Task<FileImporterViewModel> CreateFileImporterAsync(IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService, IDirectoryInfo folder, string fileName, string description, string MD5)
         {
-            var output = new FileImporterVM(fileSystem, dialogsService, platformService, cryptographyService, folder, fileName, description, MD5);
+            var output = new FileImporterViewModel(fileSystem, dialogsService, platformService, cryptographyService, folder, fileName, description, MD5);
             var targetFile = await output.GetTargetFileAsync();
             output.FileAvailable = targetFile != null;
             return output;

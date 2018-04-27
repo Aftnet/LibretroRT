@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RetriX.Shared.ViewModels
 {
-    public class GamePlayerVM : MvxViewModel<GamePlayerVM.Parameter>
+    public class GamePlayerViewModel : MvxViewModel<GamePlayerViewModel.Parameter>
     {
         public class Parameter
         {
@@ -109,7 +109,7 @@ namespace RetriX.Shared.ViewModels
         private DateTimeOffset PlayerUIDisplayTime = DateTimeOffset.UtcNow;
         private DateTimeOffset LastPointerMoveTime = DateTimeOffset.UtcNow;
 
-        public GamePlayerVM(IMvxNavigationService navigationService, IPlatformService platformService, IEmulationService emulationService)
+        public GamePlayerViewModel(IMvxNavigationService navigationService, IPlatformService platformService, IEmulationService emulationService)
         {
             NavigationService = navigationService;
             PlatformService = platformService;

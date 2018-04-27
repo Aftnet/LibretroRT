@@ -9,11 +9,11 @@ using Xunit;
 
 namespace RetriX.Shared.Test.ViewModels
 {
-    public class FileImporterVMTest : TestBase<FileImporterVM>
+    public class FileImporterVMTest : TestBase<FileImporterViewModel>
     {
-        protected override FileImporterVM InstantiateTarget()
+        protected override FileImporterViewModel InstantiateTarget()
         {
-            return FileImporterVM.CreateFileImporterAsync(FileSystemMock.Object, DialogsServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "Target file description", "SomeMD5").Result;
+            return FileImporterViewModel.CreateFileImporterAsync(FileSystemMock.Object, DialogsServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "Target file description", "SomeMD5").Result;
         }
 
         [Theory]
