@@ -61,7 +61,7 @@
             <Setter Property="FontSize" Value="100"/>
         </Style>
         <DataTemplate x:Key="GameSystemGridItemDT" x:DataType="vm:GameSystemViewModel">
-            <StackPanel Orientation="Vertical" Margin="8,0">
+            <StackPanel Orientation="Vertical" Margin="8">
                 <Border Style="{StaticResource GameSystemGridItemIconFrameStyle}">
                     <TextBlock Text="{x:Bind Symbol, FallbackValue=&#xf118;}" Style="{StaticResource GameSystemGridItemIconStyle}"/>
                 </Border>
@@ -82,7 +82,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <CommandBar>
+        <CommandBar Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <AppBarButton x:Uid="SettingsBtn" Icon="Setting" Command="{x:Bind VM.ShowSettings}"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Uid="AboutBtn" Command="{x:Bind VM.ShowAbout}"/>
