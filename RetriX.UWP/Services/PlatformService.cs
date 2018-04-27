@@ -78,11 +78,11 @@ namespace RetriX.UWP.Services
             }
         }
 
-        public event FullScreenChangeRequestedDelegate FullScreenChangeRequested;
+        public event EventHandler<FullScreenChangeEventArgs> FullScreenChangeRequested;
 
-        public event PauseToggleRequestedDelegate PauseToggleRequested;
+        public event EventHandler PauseToggleRequested;
 
-        public event GameStateOperationRequestedDelegate GameStateOperationRequested;
+        public event EventHandler<GameStateOperationEventArgs> GameStateOperationRequested;
 
         public bool ChangeFullScreenState(FullScreenChangeType changeType)
         {
@@ -161,14 +161,14 @@ namespace RetriX.UWP.Services
                     break;
 
                 case VirtualKey.Space:
-                    PauseToggleRequested(this);
+                    PauseToggleRequested(this, EventArgs.Empty);
                     args.Handled = true;
                     break;
 
                 case VirtualKey.GamepadMenu:
                     if(gamepadViewIsDown)
                     {
-                        PauseToggleRequested(this);
+                        PauseToggleRequested(this, EventArgs.Empty);
                         args.Handled = true;
                     }
                     break;

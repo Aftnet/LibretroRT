@@ -9,14 +9,14 @@ namespace RetriX.UWP.Controls
 {
     public sealed partial class VirtualPad : UserControl
     {
-        public GamePlayerVM ViewModel
+        public GamePlayerViewModel ViewModel
         {
-            get { return (GamePlayerVM)GetValue(VMProperty); }
+            get { return (GamePlayerViewModel)GetValue(VMProperty); }
             set { SetValue(VMProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for UpButtonInput.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty VMProperty = DependencyProperty.Register(nameof(ViewModel), typeof(GamePlayerVM), typeof(PlayerOverlay), new PropertyMetadata(null));
+        public static readonly DependencyProperty VMProperty = DependencyProperty.Register(nameof(ViewModel), typeof(GamePlayerViewModel), typeof(PlayerOverlay), new PropertyMetadata(null));
 
         public InjectedInputTypes UpButtonInputType
         {
