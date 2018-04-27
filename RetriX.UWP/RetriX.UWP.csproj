@@ -121,8 +121,8 @@
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SystemSelectionView.xaml.cs">
-      <DependentUpon>SystemSelectionView.xaml</DependentUpon>
+    <Compile Include="Views\GameSystemSelectionView.xaml.cs">
+      <DependentUpon>GameSystemSelectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GamePlayerView.xaml.cs">
       <DependentUpon>GamePlayerView.xaml</DependentUpon>
@@ -225,7 +225,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SystemSelectionView.xaml">
+    <Page Include="Views\GameSystemSelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

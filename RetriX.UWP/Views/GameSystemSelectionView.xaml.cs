@@ -3,11 +3,11 @@ using RetriX.Shared.ViewModels;
 
 namespace RetriX.UWP.Pages
 {
-    public sealed partial class SystemSelectionView : MvxWindowsPage
+    public sealed partial class GameSystemSelectionView : MvxWindowsPage
     {
         public GameSystemSelectionViewModel VM => ViewModel as GameSystemSelectionViewModel;
 
-        public SystemSelectionView()
+        public GameSystemSelectionView()
         {
             this.InitializeComponent();
         }

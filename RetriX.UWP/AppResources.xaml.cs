@@ -14,7 +14,7 @@ namespace RetriX.UWP
 
             this.Add("TopNavItems", new NavMenuItem[]
             {
-                new NavMenuItem {Symbol = "\ue7fc", Label = resLoader.GetString("GameSystemsNavItem\\Text"), DestPage = typeof(SystemSelectionView) },
+                new NavMenuItem {Symbol = "\ue7fc", Label = resLoader.GetString("GameSystemsNavItem\\Text"), DestPage = typeof(GameSystemSelectionView) },
             });
 
             this.Add("BottomNavItems", new NavMenuItem[]
