@@ -40,7 +40,7 @@ namespace RetriX.Shared.ViewModels
             PlatformService = platformService;
             EmulationService = emulationService;
 
-            GameSystems = EmulationService.Systems;
+            ResetSystemsSelection();
 
             ShowSettings = new MvxCommand(() => NavigationService.Navigate<SettingsViewModel>());
             ShowAbout = new MvxCommand(() => NavigationService.Navigate<AboutViewModel>());
@@ -125,7 +125,8 @@ namespace RetriX.Shared.ViewModels
             }
 
             var param = await GenerateGameLaunchParamAsync(system, file, folder);
-            var task = NavigationService.Navigate<GamePlayerViewModel, GamePlayerViewModel.Parameter>(param);
+            await NavigationService.Navigate<GamePlayerViewModel, GamePlayerViewModel.Parameter>(param);
+            ResetSystemsSelection();
         }
 
         private void ResetSystemsSelection()
