@@ -54,6 +54,7 @@ namespace RetriX.UWP
         public Task DeinitAsync()
         {
             RenderTargetManager.Dispose();
+            RenderPanel = null;
             return Task.CompletedTask;
         }
 
