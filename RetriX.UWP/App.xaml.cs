@@ -43,12 +43,12 @@ namespace RetriX.UWP
             InitializeApp(e.PreviousExecutionState, e.PrelaunchActivated, null);
         }
 
-        protected override void OnFileActivated(FileActivatedEventArgs args)
+        protected override void OnFileActivated(FileActivatedEventArgs e)
         {
-            var file = args.Files.First(d => d is IStorageFile);
+            var file = e.Files.First(d => d is IStorageFile);
             var wrappedFile = new Plugin.FileSystem.FileInfo((StorageFile)file);
 
-            InitializeApp(args.PreviousExecutionState, false, wrappedFile);
+            InitializeApp(e.PreviousExecutionState, false, wrappedFile);
         }
 
         private void InitializeApp(ApplicationExecutionState previousExecutionState, bool prelaunchActivated, IFileInfo file)
@@ -83,10 +83,11 @@ namespace RetriX.UWP
 
                     var setup = new Setup(rootFrame);
                     setup.Initialize();
-
-                    var start = Mvx.Resolve<IMvxAppStart>();
-                    start.Start(file);
                 }
+
+                var start = Mvx.Resolve<IMvxAppStart>();
+                start.Start(file);
+
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
