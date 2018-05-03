@@ -1,6 +1,5 @@
 ﻿using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
-using MvvmCross.Core.Views;
 using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.Presentation;
 using RetriX.Shared.Services;

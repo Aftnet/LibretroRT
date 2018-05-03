@@ -169,10 +169,7 @@ namespace RetriX.Shared.ViewModels
 
         private async void RequestFullScreenChange(FullScreenChangeType fullScreenChangeType)
         {
-            PlatformService.ChangeFullScreenState(fullScreenChangeType);
-
-            //Fullscreen toggling takes some time
-            await Task.Delay(100);
+            await PlatformService.ChangeFullScreenStateAsync(fullScreenChangeType);
             RaisePropertyChanged(nameof(IsFullScreenMode));
         }
 
@@ -191,7 +188,7 @@ namespace RetriX.Shared.ViewModels
             CoreOperationsAllowed = false;
             PlatformService.HandleGameplayKeyShortcuts = false;
             PlatformService.ChangeMousePointerVisibility(MousePointerVisibility.Visible);
-            PlatformService.ChangeFullScreenState(FullScreenChangeType.Exit);
+            PlatformService.ChangeFullScreenStateAsync(FullScreenChangeType.Exit);
         }
 
         private async Task TogglePause(bool dismissOverlayImmediately)

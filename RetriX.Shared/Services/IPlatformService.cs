@@ -14,7 +14,7 @@ namespace RetriX.Shared.Services
         bool ShouldDisplayTouchGamepad { get; }
         bool HandleGameplayKeyShortcuts { get; set; }
 
-        bool ChangeFullScreenState(FullScreenChangeType changeType);
+        Task<bool> ChangeFullScreenStateAsync(FullScreenChangeType changeType);
         void ChangeMousePointerVisibility(MousePointerVisibility visibility);
         void ForceUIElementFocus();
 

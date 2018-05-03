@@ -70,10 +70,10 @@ namespace RetriX.UWP.Services
             {
                 handleGameplayKeyShortcuts = value;
                 var window = CoreWindow.GetForCurrentThread();
-                window.KeyDown -= OnKeyDown;
+                window.KeyUp -= OnKeyUp;
                 if (handleGameplayKeyShortcuts)
                 {               
-                    window.KeyDown += OnKeyDown;
+                    window.KeyUp += OnKeyUp;
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace RetriX.UWP.Services
 
         public event EventHandler<GameStateOperationEventArgs> GameStateOperationRequested;
 
-        public bool ChangeFullScreenState(FullScreenChangeType changeType)
+        public async Task<bool> ChangeFullScreenStateAsync(FullScreenChangeType changeType)
         {
             if ((changeType == FullScreenChangeType.Enter && IsFullScreenMode) || (changeType == FullScreenChangeType.Exit && !IsFullScreenMode))
             {
@@ -96,16 +96,22 @@ namespace RetriX.UWP.Services
                 changeType = IsFullScreenMode ? FullScreenChangeType.Exit : FullScreenChangeType.Enter;
             }
 
+            var result = false;
             switch (changeType)
             {
                 case FullScreenChangeType.Enter:
-                    return AppView.TryEnterFullScreenMode();
+                    result = AppView.TryEnterFullScreenMode();
+                    break;
                 case FullScreenChangeType.Exit:
                     AppView.ExitFullScreenMode();
-                    return true;
+                    result = true;
+                    break;
+                default:
+                    throw new Exception("this should never happen");
             }
 
-            throw new Exception("this should never happen");
+            await Task.Delay(100);
+            return result;
         }
 
         public void ChangeMousePointerVisibility(MousePointerVisibility visibility)
@@ -126,7 +132,7 @@ namespace RetriX.UWP.Services
             Clipboard.SetContent(dataPackage);
         }
 
-        private void OnKeyDown(CoreWindow sender, KeyEventArgs args)
+        private void OnKeyUp(CoreWindow sender, KeyEventArgs args)
         {
             var shiftState = sender.GetKeyState(VirtualKey.Shift);
             var shiftIsDown = (shiftState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
