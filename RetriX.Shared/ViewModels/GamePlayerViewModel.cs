@@ -1,6 +1,7 @@
 ﻿using LibRetriX;
 using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
+using Plugin.Settings.Abstractions;
 using RetriX.Shared.Services;
 using RetriX.Shared.StreamProviders;
 using System;
@@ -25,6 +26,7 @@ namespace RetriX.Shared.ViewModels
             }
         }
 
+        private const string CurrentFilterKey = "CurrentFilter";
         private static readonly TimeSpan PriodicChecksInterval = TimeSpan.FromSeconds(2);
         private static readonly TimeSpan UIHidingTime = TimeSpan.FromSeconds(4);
 
@@ -32,6 +34,7 @@ namespace RetriX.Shared.ViewModels
         private IPlatformService PlatformService { get; }
         private IEmulationService EmulationService { get; }
         private IVideoService VideoService { get; }
+        private ISettings Settings { get; }
 
         public IMvxCommand TappedCommand { get; }
         public IMvxCommand PointerMovedCommand { get; }
@@ -63,6 +66,7 @@ namespace RetriX.Shared.ViewModels
             {
                 if (SetProperty(ref currentFilter, value))
                 {
+                    Settings.AddOrUpdateValue(CurrentFilterKey, CurrentFilter.ToString());
                     VideoService.SetFilter(value);
                     RaisePropertyChanged(nameof(NNFilteringSet));
                     RaisePropertyChanged(nameof(LinearFilteringSet));
@@ -131,12 +135,13 @@ namespace RetriX.Shared.ViewModels
         private DateTimeOffset PlayerUIDisplayTime = DateTimeOffset.UtcNow;
         private DateTimeOffset LastPointerMoveTime = DateTimeOffset.UtcNow;
 
-        public GamePlayerViewModel(IMvxNavigationService navigationService, IPlatformService platformService, IVideoService videoService, IEmulationService emulationService)
+        public GamePlayerViewModel(IMvxNavigationService navigationService, IPlatformService platformService, IVideoService videoService, IEmulationService emulationService, ISettings settings)
         {
             NavigationService = navigationService;
             PlatformService = platformService;
             EmulationService = emulationService;
             VideoService = videoService;
+            Settings = settings;
 
             ShouldDisplayTouchGamepad = PlatformService.ShouldDisplayTouchGamepad;
 
@@ -186,7 +191,12 @@ namespace RetriX.Shared.ViewModels
             PlatformService.PauseToggleRequested += OnPauseToggleKey;
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
 
-            VideoService.SetFilter(CurrentFilter);
+            var parseSuccessful = Enum.TryParse<TextureFilterTypes>(Settings.GetValueOrDefault(CurrentFilterKey, string.Empty), out var parsedFilter);
+            if (parseSuccessful)
+            {
+                currentFilter = parsedFilter;
+                VideoService.SetFilter(CurrentFilter);
+            }
         }
 
 
