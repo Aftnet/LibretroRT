@@ -309,4 +309,13 @@
   <data name="CueFileDescription.Text" xml:space="preserve">
     <value>Cue sheet</value>
   </data>
+  <data name="FilteringMenuFlyoutItem.Text" xml:space="preserve">
+    <value>Filtering</value>
+  </data>
+  <data name="LinearFilteringMenuFlyout.Text" xml:space="preserve">
+    <value>Linear</value>
+  </data>
+  <data name="NNFilteringMenuFlyout.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
 </root>

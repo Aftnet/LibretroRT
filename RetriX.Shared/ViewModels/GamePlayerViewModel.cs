@@ -31,6 +31,7 @@ namespace RetriX.Shared.ViewModels
         private IMvxNavigationService NavigationService { get; }
         private IPlatformService PlatformService { get; }
         private IEmulationService EmulationService { get; }
+        private IVideoService VideoService { get; }
 
         public IMvxCommand TappedCommand { get; }
         public IMvxCommand PointerMovedCommand { get; }
@@ -53,6 +54,27 @@ namespace RetriX.Shared.ViewModels
         public IMvxCommand LoadStateSlot4 { get; }
         public IMvxCommand LoadStateSlot5 { get; }
         public IMvxCommand LoadStateSlot6 { get; }
+
+        private TextureFilterTypes currentFilter = TextureFilterTypes.Bilinear;
+        public TextureFilterTypes CurrentFilter
+        {
+            get => currentFilter;
+            private set
+            {
+                if (SetProperty(ref currentFilter, value))
+                {
+                    VideoService.SetFilter(value);
+                    RaisePropertyChanged(nameof(NNFilteringSet));
+                    RaisePropertyChanged(nameof(LinearFilteringSet));
+                }
+            }
+        }
+
+        public bool NNFilteringSet => CurrentFilter == TextureFilterTypes.NearestNeighbor;
+        public IMvxCommand SetNNFiltering { get; }
+        public bool LinearFilteringSet => CurrentFilter == TextureFilterTypes.Bilinear;
+        public IMvxCommand SetLinearFiltering { get; }
+
 
         public IMvxCommand<InjectedInputTypes> InjectInputCommand { get; }
 
@@ -109,11 +131,12 @@ namespace RetriX.Shared.ViewModels
         private DateTimeOffset PlayerUIDisplayTime = DateTimeOffset.UtcNow;
         private DateTimeOffset LastPointerMoveTime = DateTimeOffset.UtcNow;
 
-        public GamePlayerViewModel(IMvxNavigationService navigationService, IPlatformService platformService, IEmulationService emulationService)
+        public GamePlayerViewModel(IMvxNavigationService navigationService, IPlatformService platformService, IVideoService videoService, IEmulationService emulationService)
         {
             NavigationService = navigationService;
             PlatformService = platformService;
             EmulationService = emulationService;
+            VideoService = videoService;
 
             ShouldDisplayTouchGamepad = PlatformService.ShouldDisplayTouchGamepad;
 
@@ -149,6 +172,9 @@ namespace RetriX.Shared.ViewModels
             LoadStateSlot5 = new MvxCommand(() => LoadState(5), () => CoreOperationsAllowed);
             LoadStateSlot6 = new MvxCommand(() => LoadState(6), () => CoreOperationsAllowed);
 
+            SetNNFiltering = new MvxCommand(() => CurrentFilter = TextureFilterTypes.NearestNeighbor);
+            SetLinearFiltering = new MvxCommand(() => CurrentFilter = TextureFilterTypes.Bilinear);
+
             InjectInputCommand = new MvxCommand<InjectedInputTypes>(d => EmulationService.InjectInputPlayer1(d));
 
             AllCoreCommands = new IMvxCommand[] { TogglePauseCommand, ResetCommand, StopCommand,
@@ -159,6 +185,8 @@ namespace RetriX.Shared.ViewModels
             PlatformService.FullScreenChangeRequested += (d, e) => RequestFullScreenChange(e.Type);
             PlatformService.PauseToggleRequested += OnPauseToggleKey;
             PlatformService.GameStateOperationRequested += OnGameStateOperationRequested;
+
+            VideoService.SetFilter(CurrentFilter);
         }
 
 

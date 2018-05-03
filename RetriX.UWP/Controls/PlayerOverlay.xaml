@@ -101,6 +101,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0" Style="{StaticResource ControlButtonStyle}">
             <TextBlock Text="&#xE105;" Style="{StaticResource GlyphStyle}"/>
@@ -142,7 +143,18 @@
         <Button Grid.Column="4" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ResetCommand}">
             <TextBlock Text="&#xe72c;" Style="{StaticResource GlyphStyle}"/>
         </Button>
-        <Button Grid.Column="6" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ToggleFullScreenCommand}" Visibility="{x:Bind ViewModel.FullScreenChangingPossible, Converter={StaticResource BoolToVisibilityConverter}}">
+        <Button Grid.Column="6" Style="{StaticResource ControlButtonStyle}">
+            <TextBlock Text="&#xe115;" Style="{StaticResource GlyphStyle}"/>
+            <Button.Flyout>
+                <MenuFlyout>
+                    <MenuFlyoutSubItem x:Uid="FilteringMenuFlyoutItem" Text="FilteringDesign">
+                        <ToggleMenuFlyoutItem x:Uid="NNFilteringMenuFlyout" IsChecked="{x:Bind ViewModel.NNFilteringSet, Mode=OneWay}" Command="{x:Bind ViewModel.SetNNFiltering}"/>
+                        <ToggleMenuFlyoutItem x:Uid="LinearFilteringMenuFlyout" IsChecked="{x:Bind ViewModel.LinearFilteringSet, Mode=OneWay}" Command="{x:Bind ViewModel.SetLinearFiltering}"/>
+                    </MenuFlyoutSubItem>
+                </MenuFlyout>
+            </Button.Flyout>
+        </Button>
+        <Button Grid.Column="7" Style="{StaticResource ControlButtonStyle}" Command="{x:Bind ViewModel.ToggleFullScreenCommand}" Visibility="{x:Bind ViewModel.FullScreenChangingPossible, Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock Text="{x:Bind ViewModel.IsFullScreenMode, Mode=OneWay, Converter={StaticResource FullScreenSymbolConverter}, FallbackValue=&#xe740;}" Style="{StaticResource GlyphStyle}"/>
         </Button>
     </Grid>
