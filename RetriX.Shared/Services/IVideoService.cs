@@ -3,6 +3,8 @@ using System;
 
 namespace RetriX.Shared.Services
 {
+    public enum TextureFilterTypes { NearestNeighbor, Bilinear };
+
     public interface IVideoService : IInitializable
     {
         event EventHandler RequestRunCoreFrame;
@@ -12,5 +14,6 @@ namespace RetriX.Shared.Services
         void RotationChanged(Rotations rotation);
         void TimingsChanged(SystemTimings timings);
         void RenderVideoFrame(IntPtr data, uint width, uint height, ulong pitch);
+        void SetFilter(TextureFilterTypes filterType);
     }
 }

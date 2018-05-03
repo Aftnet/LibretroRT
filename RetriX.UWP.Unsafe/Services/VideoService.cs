@@ -58,27 +58,6 @@ namespace RetriX.UWP
             return Task.CompletedTask;
         }
 
-        private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            RenderPanel = null;
-        }
-
-        private void RenderPanelUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
-        {
-            if (InitTCS != null)
-            {
-                InitTCS.SetResult(null);
-                InitTCS = null;
-            }
-
-            RequestRunCoreFrame?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void RenderPanelDraw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
-        {
-            RenderTargetManager.Render(args.DrawingSession, sender.Size);
-        }
-
         public void RenderVideoFrame(IntPtr data, uint width, uint height, ulong pitch)
         {
             RenderTargetManager.UpdateFromCoreOutput(RenderPanel.Device, data, width, height, pitch);
@@ -103,6 +82,32 @@ namespace RetriX.UWP
         public void RotationChanged(Rotations rotation)
         {
             RenderTargetManager.CorrentRotation = rotation;
+        }
+
+        public void SetFilter(TextureFilterTypes filterType)
+        {
+            RenderTargetManager.RenderTargetFilterType = filterType;
+        }
+
+        private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            RenderPanel = null;
+        }
+
+        private void RenderPanelUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
+        {
+            if (InitTCS != null)
+            {
+                InitTCS.SetResult(null);
+                InitTCS = null;
+            }
+
+            RequestRunCoreFrame?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void RenderPanelDraw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
+        {
+            RenderTargetManager.Render(args.DrawingSession, sender.Size);
         }
     }
 }

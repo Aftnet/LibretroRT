@@ -1,6 +1,7 @@
 ﻿using LibRetriX;
 using Microsoft.Graphics.Canvas;
 using Retrix.UWP.Native;
+using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -21,12 +22,13 @@ namespace RetriX.UWP.Components
             { PixelFormats.Unknown, 0 },
         };
 
-        private readonly object RenderTargetLock = new object();
-        private CanvasBitmap RenderTarget = null;
-        private IDirect3DSurface RenderTargetSurface = null;
+        private object RenderTargetLock { get; } = new object();
+        private CanvasBitmap RenderTarget { get; set; } = null;
+        public TextureFilterTypes RenderTargetFilterType { get; set; } = TextureFilterTypes.Bilinear;
+        private IDirect3DSurface RenderTargetSurface { get; set; } = null;
         private Rect RenderTargetViewport = new Rect();
         //This may be different from viewport's width/haight.
-        private float RenderTargetAspectRatio = 1.0f;
+        private float RenderTargetAspectRatio { get; set; } = 1.0f;
 
         private PixelFormats currentCorePixelFormat = PixelFormats.Unknown;
         public PixelFormats CurrentCorePixelFormat
@@ -81,7 +83,8 @@ namespace RetriX.UWP.Components
             lock (RenderTargetLock)
             {
                 drawingSession.Transform = transformMatrix;
-                drawingSession.DrawImage(RenderTarget, new Rect(-0.5, -0.5, 1.0, 1.0), RenderTargetViewport);
+                var interpolation = RenderTargetFilterType == TextureFilterTypes.NearestNeighbor ? CanvasImageInterpolation.NearestNeighbor : CanvasImageInterpolation.Linear;
+                drawingSession.DrawImage(RenderTarget, new Rect(-0.5, -0.5, 1.0, 1.0), RenderTargetViewport, 1.0f, interpolation);
                 drawingSession.Transform = Matrix3x2.Identity;
             }
         }
