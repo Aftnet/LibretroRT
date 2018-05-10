@@ -23,11 +23,13 @@ namespace RetriX.UWP
                     return;
                 }
 
+                RenderTargetManager.Dispose();
+
                 if (renderPanel != null)
                 {
                     renderPanel.Update -= RenderPanelUpdate;
                     renderPanel.Draw -= RenderPanelDraw;
-                    renderPanel.Unloaded -= RenderPanelUnloaded;
+                    renderPanel.GameLoopStopped -= RenderPanelLoopStopping;
                 }
 
                 renderPanel = value;
@@ -36,7 +38,7 @@ namespace RetriX.UWP
                     RenderPanel.ClearColor = Color.FromArgb(0xff, 0, 0, 0);
                     renderPanel.Update += RenderPanelUpdate;
                     renderPanel.Draw += RenderPanelDraw;
-                    renderPanel.Unloaded += RenderPanelUnloaded;
+                    renderPanel.GameLoopStopped += RenderPanelLoopStopping;
                 }
             }
         }
@@ -47,24 +49,37 @@ namespace RetriX.UWP
 
         public Task InitAsync()
         {
-            InitTCS = new TaskCompletionSource<object>();
+            if (InitTCS == null)
+            {
+                InitTCS = new TaskCompletionSource<object>();
+            }
+            
             return InitTCS.Task;
         }
 
         public Task DeinitAsync()
         {
-            RenderTargetManager.Dispose();
             RenderPanel = null;
             return Task.CompletedTask;
         }
 
         public void RenderVideoFrame(IntPtr data, uint width, uint height, ulong pitch)
         {
+            if (RenderPanel == null)
+            {
+                return;
+            }
+
             RenderTargetManager.UpdateFromCoreOutput(RenderPanel.Device, data, width, height, pitch);
         }
 
         public void GeometryChanged(GameGeometry geometry)
         {
+            if (RenderPanel == null)
+            {
+                return;
+            }
+
             RenderTargetManager.UpdateRenderTargetSize(RenderPanel.Device, geometry);
         }
 
@@ -75,13 +90,18 @@ namespace RetriX.UWP
 
         public void TimingsChanged(SystemTimings timings)
         {
+            if (RenderPanel == null)
+            {
+                return;
+            }
+
             var targetTimeTicks = (long)(TimeSpan.TicksPerSecond / timings.FPS);
             RenderPanel.TargetElapsedTime = TimeSpan.FromTicks(targetTimeTicks);
         }
 
         public void RotationChanged(Rotations rotation)
         {
-            RenderTargetManager.CorrentRotation = rotation;
+            RenderTargetManager.CurrentRotation = rotation;
         }
 
         public void SetFilter(TextureFilterTypes filterType)
@@ -89,7 +109,7 @@ namespace RetriX.UWP
             RenderTargetManager.RenderTargetFilterType = filterType;
         }
 
-        private void RenderPanelUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void RenderPanelLoopStopping(ICanvasAnimatedControl sender, object args)
         {
             RenderPanel = null;
         }

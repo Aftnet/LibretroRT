@@ -37,7 +37,7 @@ namespace RetriX.UWP.Components
             set { currentCorePixelFormat = value; CurrentCorePixelSize = PixelFormatsSizeMapping[currentCorePixelFormat]; }
         }
 
-        public Rotations CorrentRotation { get; set; }
+        public Rotations CurrentRotation { get; set; }
 
         private int CurrentCorePixelSize = 0;
 
@@ -59,7 +59,7 @@ namespace RetriX.UWP.Components
                 return;
 
             var rotAngle = 0.0;
-            switch (CorrentRotation)
+            switch (CurrentRotation)
             {
                 case Rotations.CCW90:
                     rotAngle = -0.5 * Math.PI;

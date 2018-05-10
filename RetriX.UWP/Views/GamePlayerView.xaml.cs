@@ -20,8 +20,8 @@ namespace RetriX.UWP.Pages
 
         private void OnUnloading(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            Renderer.RenderPanel = null;
             PlayerPanel.RemoveFromVisualTree();
-            PlayerPanel = null;
         }
     }
 }
