@@ -41,27 +41,27 @@ namespace RetriX.UWP.Services
         private readonly Queue<short> SamplesBuffer = new Queue<short>();
 
         private bool GraphReconstructionInProgress = false;
-        private bool AllowPlaybackControl { get { return !GraphReconstructionInProgress && InputNode != null; } }
+        private bool AllowPlaybackControl => !GraphReconstructionInProgress && InputNode != null;
 
         private AudioGraph graph;
         private AudioGraph Graph
         {
-            get { return graph; }
-            set { graph?.Dispose(); graph = value; }
+            get => graph;
+            set { if (graph != value) { graph?.Dispose(); graph = value; } }
         }
 
         private AudioDeviceOutputNode outputNode;
         private AudioDeviceOutputNode OutputNode
         {
-            get { return outputNode; }
-            set { outputNode?.Dispose(); outputNode = value; }
+            get => outputNode;
+            set { if (outputNode != value) { outputNode?.Dispose(); outputNode = value; } }
         }
 
         private AudioFrameInputNode inputNode;
         private AudioFrameInputNode InputNode
         {
-            get { return inputNode; }
-            set { inputNode?.Dispose(); inputNode = value; }
+            get => inputNode;
+            set { if (inputNode != value) { inputNode?.Dispose(); inputNode = value; } }
         }
 
         public AudioService()
