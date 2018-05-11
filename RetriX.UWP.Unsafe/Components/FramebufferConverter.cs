@@ -35,11 +35,7 @@ namespace RetriX.UWP.Components
         {
             for (var i = 0; i < height; i++)
             {
-                for (var j = 0; j < width; j++)
-                {
-                    Buffer.MemoryCopy(input.ToPointer(), output.ToPointer(), outputPitch, width * sizeof(uint));
-                }
-
+                Buffer.MemoryCopy(input.ToPointer(), output.ToPointer(), outputPitch, width * sizeof(uint));
                 input += inputPitch;
                 output += outputPitch;
             }
