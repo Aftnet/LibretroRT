@@ -4,18 +4,18 @@ using System.Collections.Generic;
 
 namespace LibRetriX.RetroBindings.Unsafe
 {
-    public unsafe class UnmanagedListInt : IReadOnlyList<int>
+    public unsafe class UnmanagedListUShort : IReadOnlyList<ushort>
     {
-        private class InnerEnumerator : IEnumerator<int>
+        private class InnerEnumerator : IEnumerator<ushort>
         {
-            private int* StartPtr { get; }
-            private int* EndPtr { get; }
-            private int* CurrentPtr { get; set; } = null;
+            private ushort* StartPtr { get; }
+            private ushort* EndPtr { get; }
+            private ushort* CurrentPtr { get; set; } = null;
 
-            public int Current => *CurrentPtr;
+            public ushort Current => *CurrentPtr;
             object IEnumerator.Current => Current;
 
-            public InnerEnumerator(int* startPtr, int* endPtr)
+            public InnerEnumerator(ushort* startPtr, ushort* endPtr)
             {
                 StartPtr = startPtr;
                 EndPtr = endPtr;
@@ -37,18 +37,18 @@ namespace LibRetriX.RetroBindings.Unsafe
             }
         }
 
-        private int* StartPtr { get; }
+        private ushort* StartPtr { get; }
 
         public int Count { get; }
-        public int this[int index] => StartPtr[index];
+        public ushort this[int index] => StartPtr[index];
 
-        public UnmanagedListInt(IntPtr startPtr, int count)
+        public UnmanagedListUShort(IntPtr startPtr, int count)
         {
-            StartPtr = (int*)startPtr.ToPointer();
+            StartPtr = (ushort*)startPtr.ToPointer();
             Count = count;
         }
 
-        public IEnumerator<int> GetEnumerator()
+        public IEnumerator<ushort> GetEnumerator()
         {
             return new InnerEnumerator(StartPtr, StartPtr + Count);
         }
