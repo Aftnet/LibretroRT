@@ -4,9 +4,7 @@ using Retrix.UWP.Native;
 using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Numerics;
-using System.Runtime.InteropServices;
 using Windows.Foundation;
 using Windows.Graphics.DirectX.Direct3D11;
 
@@ -91,36 +89,10 @@ namespace RetriX.UWP.Components
             }
         }
 
-        public unsafe void UpdateFromCoreOutput(CanvasDevice device, Stream data, uint width, uint height, ulong pitch)
+        public unsafe void UpdateFromCoreOutputRGB0555(CanvasDevice device, IReadOnlyList<ushort> data, uint width, uint height, ulong pitch)
         {
             if (data == null || RenderTarget == null || CurrentCorePixelSize == 0)
                 return;
-
-            GCHandle pinnedDataHandle;
-            void* dataPtr = null;
-            if (data is UnmanagedMemoryStream)
-            {
-                dataPtr = (data as UnmanagedMemoryStream).PositionPointer;
-            }
-            else if (data is MemoryStream)
-            {
-                if ((data as MemoryStream).TryGetBuffer(out var buffer))
-                {
-                    pinnedDataHandle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
-                    dataPtr = pinnedDataHandle.AddrOfPinnedObject().ToPointer();
-                }
-            }
-
-            //Last resort. Make a copy of frame buffer for processing. Hopefully never used
-            if (dataPtr == null)
-            {
-                var buffer = new byte[data.Length];
-                data.Read(buffer, 0, buffer.Length);
-                data.Position = 0;
-
-                pinnedDataHandle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
-                dataPtr = pinnedDataHandle.AddrOfPinnedObject().ToPointer();
-            }
 
             lock (RenderTargetLock)
             {
@@ -129,16 +101,41 @@ namespace RetriX.UWP.Components
 
                 var renderTargetMap = D3DSurfaceManager.Map(device, RenderTargetSurface);
                 var targetDataPtr = (byte*)renderTargetMap.Data;
-                switch (CurrentCorePixelFormat)
-                {
-                    case PixelFormats.XRGB8888:
-                        FramebufferConverter.ConvertFrameBufferXRGB8888(width, height, (byte*)dataPtr, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
-                        break;
-                    case PixelFormats.RGB565:
-                        FramebufferConverter.ConvertFrameBufferRGB565ToXRGB8888(width, height, (byte*)dataPtr, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
-                        break;
-                }
+                FramebufferConverter.ConvertFrameBufferRGB0555ToXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
+                D3DSurfaceManager.Unmap(device, RenderTargetSurface);
+            }
+        }
 
+        public unsafe void UpdateFromCoreOutputRGB565(CanvasDevice device, IReadOnlyList<ushort> data, uint width, uint height, ulong pitch)
+        {
+            if (data == null || RenderTarget == null || CurrentCorePixelSize == 0)
+                return;
+
+            lock (RenderTargetLock)
+            {
+                RenderTargetViewport.Width = width;
+                RenderTargetViewport.Height = height;
+
+                var renderTargetMap = D3DSurfaceManager.Map(device, RenderTargetSurface);
+                var targetDataPtr = (byte*)renderTargetMap.Data;
+                FramebufferConverter.ConvertFrameBufferRGB565ToXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
+                D3DSurfaceManager.Unmap(device, RenderTargetSurface);
+            }
+        }
+
+        public unsafe void UpdateFromCoreOutputXRGB8888(CanvasDevice device, IReadOnlyList<uint> data, uint width, uint height, ulong pitch)
+        {
+            if (data == null || RenderTarget == null || CurrentCorePixelSize == 0)
+                return;
+
+            lock (RenderTargetLock)
+            {
+                RenderTargetViewport.Width = width;
+                RenderTargetViewport.Height = height;
+
+                var renderTargetMap = D3DSurfaceManager.Map(device, RenderTargetSurface);
+                var targetDataPtr = (byte*)renderTargetMap.Data;
+                FramebufferConverter.ConvertFrameBufferXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
                 D3DSurfaceManager.Unmap(device, RenderTargetSurface);
             }
         }

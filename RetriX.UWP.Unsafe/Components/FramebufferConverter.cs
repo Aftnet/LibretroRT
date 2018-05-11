@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace RetriX.UWP.Components
@@ -31,31 +32,41 @@ namespace RetriX.UWP.Components
             RGB565LookupTablePtr = (uint*)RGB565LookupTableHandle.AddrOfPinnedObject();
         }
 
-        public static void ConvertFrameBufferXRGB8888(uint width, uint height, byte* input, int inputPitch, byte* output, int outputPitch)
+        public static void ConvertFrameBufferXRGB8888(uint width, uint height, IReadOnlyList<uint> input, int inputPitch, byte* output, int outputPitch)
         {
+            var inLineStartIx = 0;
             for (var i = 0; i < height; i++)
             {
-                Buffer.MemoryCopy(input, output, outputPitch, width * sizeof(uint));
-                input += inputPitch;
+                var outLineStart = (uint*)output;
+                for (var j = 0; j < width; j++)
+                {
+                    outLineStart[j] = input[inLineStartIx + j];
+                }
+
+                inLineStartIx += inputPitch;
                 output += outputPitch;
             }
         }
 
-        public static void ConvertFrameBufferRGB565ToXRGB8888(uint width, uint height, byte* input, int inputPitch, byte* output, int outputPitch)
+        public static void ConvertFrameBufferRGB565ToXRGB8888(uint width, uint height, IReadOnlyList<ushort> input, int inputPitch, byte* output, int outputPitch)
         {
+            var inLineStartIx = 0;
             for (var i = 0; i < height; i++)
             {
-                var inLineStart = (ushort*)input;
                 var outLineStart = (uint*)output;
-
                 for (var j = 0; j < width; j++)
                 {
-                    outLineStart[j] = RGB565LookupTablePtr[inLineStart[j]];
+                    outLineStart[j] = RGB565LookupTablePtr[input[inLineStartIx + j]];
                 }
 
-                input += inputPitch;
+                inLineStartIx += inputPitch;
                 output += outputPitch;
             }
+        }
+
+        public static void ConvertFrameBufferRGB0555ToXRGB8888(uint width, uint height, IReadOnlyList<ushort> input, int inputPitch, byte* output, int outputPitch)
+        {
+            throw new NotImplementedException();
         }
     }
 }

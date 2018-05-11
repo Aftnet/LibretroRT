@@ -1,6 +1,6 @@
 ﻿using LibRetriX;
 using System;
-using System.IO;
+using System.Collections.Generic;
 
 namespace RetriX.Shared.Services
 {
@@ -14,7 +14,9 @@ namespace RetriX.Shared.Services
         void PixelFormatChanged(PixelFormats format);
         void RotationChanged(Rotations rotation);
         void TimingsChanged(SystemTimings timings);
-        void RenderVideoFrame(Stream data, uint width, uint height, ulong pitch);
+        void RenderVideoFrameRGB0555(IReadOnlyList<ushort> data, uint width, uint height, ulong pitch);
+        void RenderVideoFrameRGB565(IReadOnlyList<ushort> data, uint width, uint height, ulong pitch);
+        void RenderVideoFrameXRGB8888(IReadOnlyList<uint> data, uint width, uint height, ulong pitch);
         void SetFilter(TextureFilterTypes filterType);
     }
 }

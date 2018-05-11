@@ -4,18 +4,19 @@ using System.IO;
 namespace LibRetriX
 {
     /// <summary>
-    /// Video frame render callback
+    /// Video frame render callbacks
     /// </summary>
-    /// <param name="data">Framebuffer data. Only valid while inside the calback</param>
+    /// <param name="data">Framebuffer data. Only valid while inside the callback</param>
     /// <param name="width">Framebufer width in pixels</param>
     /// <param name="height">Framebuffer height in pixels</param>
-    /// <param name="pitch">Byte offset between horizontal lines (framebuffer is not always packed in memory)</param>
-    public delegate void RenderVideoFrameDelegate(Stream data, uint width, uint height, ulong pitch);
+    /// <param name="pitch">Number of elements between horizontal lines (framebuffer is not always packed in memory)</param>
+    public delegate void RenderVideoFrameUshortDelegate(IReadOnlyList<ushort> data, uint width, uint height, ulong pitch);
+    public delegate void RenderVideoFrameUintDelegate(IReadOnlyList<uint> data, uint width, uint height, ulong pitch);
 
     /// <summary>
     /// Audio data render callback. Use to fill audio buffers of whatever playback mechanism the front end uses
     /// </summary>
-    /// <param name="data">Audio data. Only valid while inside the calback</param>
+    /// <param name="data">Audio data. Only valid while inside the callback</param>
     public delegate void RenderAudioFramesDelegate(IReadOnlyList<short> data, ulong numFrames);
 
     public delegate void PollInputDelegate();
@@ -60,8 +61,10 @@ namespace LibRetriX
 		bool SaveState(Stream outputStream);
 		bool LoadState(Stream inputStream);
 
-		event RenderVideoFrameDelegate RenderVideoFrame;
-		event RenderAudioFramesDelegate RenderAudioFrames;
+        event RenderVideoFrameUshortDelegate RenderVideoFrameRGB0555;
+        event RenderVideoFrameUshortDelegate RenderVideoFrameRGB565;
+        event RenderVideoFrameUintDelegate RenderVideoFrameXRGB8888;
+        event RenderAudioFramesDelegate RenderAudioFrames;
         event PixelFormatChangedDelegate PixelFormatChanged;
 		event GeometryChangedDelegate GeometryChanged;
 		event TimingsChangedDelegate TimingsChanged;

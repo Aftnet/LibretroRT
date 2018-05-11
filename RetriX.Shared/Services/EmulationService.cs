@@ -1,6 +1,5 @@
 ﻿using Acr.UserDialogs;
 using LibRetriX;
-using MvvmCross.Core.Navigation;
 using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.StreamProviders;
@@ -59,7 +58,9 @@ namespace RetriX.Shared.Services
                 {
                     currentCore.GeometryChanged -= VideoService.GeometryChanged;
                     currentCore.PixelFormatChanged -= VideoService.PixelFormatChanged;
-                    currentCore.RenderVideoFrame -= VideoService.RenderVideoFrame;
+                    currentCore.RenderVideoFrameRGB0555 -= VideoService.RenderVideoFrameRGB0555;
+                    currentCore.RenderVideoFrameRGB565 -= VideoService.RenderVideoFrameRGB565;
+                    currentCore.RenderVideoFrameXRGB8888 -= VideoService.RenderVideoFrameXRGB8888;
                     currentCore.TimingsChanged -= VideoService.TimingsChanged;
                     currentCore.RotationChanged -= VideoService.RotationChanged;
                     currentCore.TimingsChanged -= AudioService.TimingChanged;
@@ -76,7 +77,9 @@ namespace RetriX.Shared.Services
                 {
                     currentCore.GeometryChanged += VideoService.GeometryChanged;
                     currentCore.PixelFormatChanged += VideoService.PixelFormatChanged;
-                    currentCore.RenderVideoFrame += VideoService.RenderVideoFrame;
+                    currentCore.RenderVideoFrameRGB0555 += VideoService.RenderVideoFrameRGB0555;
+                    currentCore.RenderVideoFrameRGB565 += VideoService.RenderVideoFrameRGB565;
+                    currentCore.RenderVideoFrameXRGB8888 += VideoService.RenderVideoFrameXRGB8888;
                     currentCore.TimingsChanged += VideoService.TimingsChanged;
                     currentCore.RotationChanged += VideoService.RotationChanged;
                     currentCore.TimingsChanged += AudioService.TimingChanged;

@@ -86,7 +86,9 @@ namespace LibRetriX.RetroBindings
             set { VFSHandler.CloseFileStream = value; }
         }
 
-        public event RenderVideoFrameDelegate RenderVideoFrame;
+        public event RenderVideoFrameUshortDelegate RenderVideoFrameRGB0555;
+        public event RenderVideoFrameUshortDelegate RenderVideoFrameRGB565;
+        public event RenderVideoFrameUintDelegate RenderVideoFrameXRGB8888;
         public event RenderAudioFramesDelegate RenderAudioFrames;
         public event PixelFormatChangedDelegate PixelFormatChanged;
         public event GeometryChangedDelegate GeometryChanged;
@@ -416,9 +418,21 @@ namespace LibRetriX.RetroBindings
         unsafe private void RenderVideoFrameHandler(IntPtr data, uint width, uint height, UIntPtr pitch)
         {
             var size = height * (int)pitch;
-            using (var stream = new UnmanagedMemoryStream((byte*)data.ToPointer(), size, size, FileAccess.Read))
+            int pitchSizeInElements = 0;
+            switch(PixelFormat)
             {
-                RenderVideoFrame?.Invoke(stream, width, height, (ulong)pitch);
+                case PixelFormats.RGB0555:
+                    pitchSizeInElements = (int)pitch / sizeof(ushort);
+                    RenderVideoFrameRGB0555?.Invoke(new UnmanagedListUShort(data, (int)height * pitchSizeInElements), width, height, (ulong)pitchSizeInElements);
+                    break;
+                case PixelFormats.RGB565:
+                    pitchSizeInElements = (int)pitch / sizeof(ushort);
+                    RenderVideoFrameRGB565?.Invoke(new UnmanagedListUShort(data, (int)height * pitchSizeInElements), width, height, (ulong)pitchSizeInElements);
+                    break;
+                case PixelFormats.XRGB8888:
+                    pitchSizeInElements = (int)pitch / sizeof(uint);
+                    RenderVideoFrameXRGB8888?.Invoke(new UnmanagedListUInt(data, (int)height * pitchSizeInElements), width, height, (ulong)pitchSizeInElements);
+                    break;
             }
         }
 
