@@ -1,5 +1,5 @@
 ﻿using LibRetriX;
-using System;
+using System.IO;
 
 namespace RetriX.Shared.Services
 {
@@ -7,7 +7,7 @@ namespace RetriX.Shared.Services
     {
         bool ShouldDelayNextFrame { get; }
         void TimingChanged(SystemTimings timings);
-        void RenderAudioFrames(IntPtr data, ulong numFrames);
+        void RenderAudioFrames(Stream data, ulong numFrames);
         void Stop();
     }
 }

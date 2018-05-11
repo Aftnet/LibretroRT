@@ -3,7 +3,7 @@ using RetriX.Shared.Services;
 using RetriX.UWP.Components;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media;
@@ -91,7 +91,7 @@ namespace RetriX.UWP.Services
             var operation = ReconstructGraph(sampleRate);
         }
 
-        public void RenderAudioFrames(IntPtr data, ulong numFrames)
+        public void RenderAudioFrames(Stream data, ulong numFrames)
         {
             if (!AllowPlaybackControl)
                 return;
@@ -102,10 +102,12 @@ namespace RetriX.UWP.Services
 
             lock (SamplesBuffer)
             {
-                for (var i = 0; i < numSamplesToCopy; i++)
+                using (var reader = new BinaryReader(data, System.Text.Encoding.UTF8, true))
                 {
-                    SamplesBuffer.Enqueue(Marshal.ReadInt16(data));
-                    data += sizeof(short);
+                    for (var i = 0; i < numSamplesToCopy; i++)
+                    {
+                        SamplesBuffer.Enqueue(reader.ReadInt16());
+                    }
                 }
 
                 if (SamplesBuffer.Count >= MinNumSamplesForPlayback)

@@ -9,6 +9,8 @@ namespace LibRetriX.RetroBindings
 {
     internal sealed class LibretroCore : ICore, IDisposable
     {
+        private const int AudioFrameSize = 2 * sizeof(short);
+
         public string Name { get; }
         public string Version { get; }
         public IReadOnlyList<string> SupportedExtensions { get; }
@@ -421,12 +423,20 @@ namespace LibRetriX.RetroBindings
             bufferPtr[0] = left;
             bufferPtr[1] = right;
 
-            RenderAudioFrames?.Invoke(RenderAudioFrameBuffer, 1);
+            using (var stream = new UnmanagedMemoryStream((byte*)bufferPtr, AudioFrameSize, AudioFrameSize, FileAccess.Read))
+            {
+                RenderAudioFrames?.Invoke(stream, 1);
+            }
         }
 
         private unsafe UIntPtr RenderAudioFramesHandler(IntPtr data, UIntPtr numFrames)
         {
-            RenderAudioFrames?.Invoke(data, (ulong)numFrames);
+            var streamSize = (int)numFrames * AudioFrameSize;
+            using (var stream = new UnmanagedMemoryStream((byte*)data, streamSize, streamSize, FileAccess.Read))
+            {
+                RenderAudioFrames?.Invoke(stream, (ulong)numFrames);
+            }
+
             return UIntPtr.Zero;
         }
 
