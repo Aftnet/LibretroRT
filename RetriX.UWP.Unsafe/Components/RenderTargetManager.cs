@@ -99,10 +99,11 @@ namespace RetriX.UWP.Components
                 RenderTargetViewport.Width = width;
                 RenderTargetViewport.Height = height;
 
-                var renderTargetMap = D3DSurfaceManager.Map(device, RenderTargetSurface);
-                var targetDataPtr = (byte*)renderTargetMap.Data;
-                FramebufferConverter.ConvertFrameBufferRGB0555ToXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
-                D3DSurfaceManager.Unmap(device, RenderTargetSurface);
+                using (var renderTargetMap = new D3DSurfaceMap(device, RenderTargetSurface))
+                {
+                    var dataPtr = (byte*)new IntPtr(renderTargetMap.Data).ToPointer();
+                    FramebufferConverter.ConvertFrameBufferRGB0555ToXRGB8888(width, height, data, (int)pitch, dataPtr, (int)renderTargetMap.PitchBytes);
+                }
             }
         }
 
@@ -116,10 +117,11 @@ namespace RetriX.UWP.Components
                 RenderTargetViewport.Width = width;
                 RenderTargetViewport.Height = height;
 
-                var renderTargetMap = D3DSurfaceManager.Map(device, RenderTargetSurface);
-                var targetDataPtr = (byte*)renderTargetMap.Data;
-                FramebufferConverter.ConvertFrameBufferRGB565ToXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
-                D3DSurfaceManager.Unmap(device, RenderTargetSurface);
+                using (var renderTargetMap = new D3DSurfaceMap(device, RenderTargetSurface))
+                {
+                    var dataPtr = (byte*)new IntPtr(renderTargetMap.Data).ToPointer();
+                    FramebufferConverter.ConvertFrameBufferRGB565ToXRGB8888(width, height, data, (int)pitch, dataPtr, (int)renderTargetMap.PitchBytes);
+                }
             }
         }
 
@@ -133,10 +135,11 @@ namespace RetriX.UWP.Components
                 RenderTargetViewport.Width = width;
                 RenderTargetViewport.Height = height;
 
-                var renderTargetMap = D3DSurfaceManager.Map(device, RenderTargetSurface);
-                var targetDataPtr = (byte*)renderTargetMap.Data;
-                FramebufferConverter.ConvertFrameBufferXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
-                D3DSurfaceManager.Unmap(device, RenderTargetSurface);
+                using (var renderTargetMap = new D3DSurfaceMap(device, RenderTargetSurface))
+                {
+                    var dataPtr = (byte*)new IntPtr(renderTargetMap.Data).ToPointer();
+                    FramebufferConverter.ConvertFrameBufferXRGB8888(width, height, data, (int)pitch, dataPtr, (int)renderTargetMap.PitchBytes);
+                }
             }
         }
 
@@ -164,7 +167,7 @@ namespace RetriX.UWP.Components
 
                 RenderTarget?.Dispose();
                 RenderTargetSurface?.Dispose();
-                RenderTargetSurface = D3DSurfaceManager.CreateWriteableD3DSurface(device, size, size);
+                RenderTargetSurface = D3DSurfaceMap.CreateMappableD3DSurface(device, size, size);
                 RenderTarget = CanvasBitmap.CreateFromDirect3D11Surface(device, RenderTargetSurface);
             }
         }
