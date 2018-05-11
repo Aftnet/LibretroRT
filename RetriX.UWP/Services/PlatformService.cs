@@ -214,8 +214,7 @@ namespace RetriX.UWP.Services
 
         private bool KeyIsDown(CoreWindow window, VirtualKey key)
         {
-            var keystate = window.GetKeyState(key);
-            var output = (keystate & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+            var output = window.GetKeyState(key).HasFlag(CoreVirtualKeyStates.Down);
             return output;
         }
 
