@@ -31,22 +31,22 @@ namespace RetriX.UWP.Components
             RGB565LookupTablePtr = (uint*)RGB565LookupTableHandle.AddrOfPinnedObject();
         }
 
-        public static void ConvertFrameBufferXRGB8888(uint width, uint height, IntPtr input, int inputPitch, IntPtr output, int outputPitch)
+        public static void ConvertFrameBufferXRGB8888(uint width, uint height, byte* input, int inputPitch, byte* output, int outputPitch)
         {
             for (var i = 0; i < height; i++)
             {
-                Buffer.MemoryCopy(input.ToPointer(), output.ToPointer(), outputPitch, width * sizeof(uint));
+                Buffer.MemoryCopy(input, output, outputPitch, width * sizeof(uint));
                 input += inputPitch;
                 output += outputPitch;
             }
         }
 
-        public static void ConvertFrameBufferRGB565ToXRGB8888(uint width, uint height, IntPtr input, int inputPitch, IntPtr output, int outputPitch)
+        public static void ConvertFrameBufferRGB565ToXRGB8888(uint width, uint height, byte* input, int inputPitch, byte* output, int outputPitch)
         {
             for (var i = 0; i < height; i++)
             {
-                var inLineStart = (ushort*)input.ToPointer();
-                var outLineStart = (uint*)output.ToPointer();
+                var inLineStart = (ushort*)input;
+                var outLineStart = (uint*)output;
 
                 for (var j = 0; j < width; j++)
                 {
