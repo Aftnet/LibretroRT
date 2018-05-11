@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace LibRetriX
@@ -11,7 +10,7 @@ namespace LibRetriX
     /// <param name="width">Framebufer width in pixels</param>
     /// <param name="height">Framebuffer height in pixels</param>
     /// <param name="pitch">Byte offset between horizontal lines (framebuffer is not always packed in memory)</param>
-    public delegate void RenderVideoFrameDelegate(IntPtr data, uint width, uint height, ulong pitch);
+    public delegate void RenderVideoFrameDelegate(Stream data, uint width, uint height, ulong pitch);
 
     /// <summary>
     /// Audio data render callback. Use to fill audio buffers of whatever playback mechanism the front end uses

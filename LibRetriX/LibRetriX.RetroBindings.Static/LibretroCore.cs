@@ -412,9 +412,13 @@ namespace LibRetriX.RetroBindings
 #endif
         }
 
-        private void RenderVideoFrameHandler(IntPtr data, uint width, uint height, UIntPtr pitch)
+        unsafe private void RenderVideoFrameHandler(IntPtr data, uint width, uint height, UIntPtr pitch)
         {
-            RenderVideoFrame?.Invoke(data, width, height, (ulong)pitch);
+            var size = height * (int)pitch;
+            using (var stream = new UnmanagedMemoryStream((byte*)data.ToPointer(), size, size, FileAccess.Read))
+            {
+                RenderVideoFrame?.Invoke(stream, width, height, (ulong)pitch);
+            }
         }
 
         private unsafe void RenderAudioFrameHandler(short left, short right)

@@ -108,6 +108,8 @@ namespace RetriX.UWP.Services
                     {
                         SamplesBuffer.Enqueue(reader.ReadInt16());
                     }
+
+                    data.Position = 0;
                 }
 
                 if (SamplesBuffer.Count >= MinNumSamplesForPlayback)
