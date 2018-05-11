@@ -1,4 +1,5 @@
 ﻿using LibRetriX.RetroBindings.Tools;
+using LibRetriX.Unsafe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ namespace LibRetriX.RetroBindings
 {
     internal sealed class LibretroCore : ICore, IDisposable
     {
-        private const int AudioFrameSize = 2 * sizeof(short);
+        private const int AudioSamplesPerFrame = 2;
 
         public string Name { get; }
         public string Version { get; }
@@ -426,20 +427,14 @@ namespace LibRetriX.RetroBindings
             var bufferPtr = (short*)RenderAudioFrameBuffer.ToPointer();
             bufferPtr[0] = left;
             bufferPtr[1] = right;
-
-            using (var stream = new UnmanagedMemoryStream((byte*)bufferPtr, AudioFrameSize, AudioFrameSize, FileAccess.Read))
-            {
-                RenderAudioFrames?.Invoke(stream, 1);
-            }
+            RenderAudioFrames?.Invoke(new UnmanagedListShort(RenderAudioFrameBuffer, AudioSamplesPerFrame), 1);
         }
 
         private unsafe UIntPtr RenderAudioFramesHandler(IntPtr data, UIntPtr numFrames)
         {
-            var streamSize = (int)numFrames * AudioFrameSize;
-            using (var stream = new UnmanagedMemoryStream((byte*)data, streamSize, streamSize, FileAccess.Read))
-            {
-                RenderAudioFrames?.Invoke(stream, (ulong)numFrames);
-            }
+            var longFrames = (ulong)numFrames;
+            var numSamples = (int)numFrames * (int)longFrames;
+            RenderAudioFrames?.Invoke(new UnmanagedListShort(data, numSamples), longFrames);
 
             return UIntPtr.Zero;
         }

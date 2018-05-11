@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace LibRetriX.RetroBindings.Unsafe
+namespace LibRetriX.Unsafe
 {
     public unsafe class UnmanagedListUInt : IReadOnlyList<uint>
     {

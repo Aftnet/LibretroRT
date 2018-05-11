@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LibRetriX.Unsafe\LibRetriX.Unsafe.csproj" />
     <ProjectReference Include="..\LibRetriX\LibRetriX.RetroBindings\LibRetriX.RetroBindings.csproj" />
     <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj" />
   </ItemGroup>

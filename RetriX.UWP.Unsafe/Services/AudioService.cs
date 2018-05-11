@@ -91,7 +91,7 @@ namespace RetriX.UWP.Services
             var operation = ReconstructGraph(sampleRate);
         }
 
-        public void RenderAudioFrames(Stream data, ulong numFrames)
+        public void RenderAudioFrames(IReadOnlyList<short> data, ulong numFrames)
         {
             if (!AllowPlaybackControl)
                 return;
@@ -102,14 +102,9 @@ namespace RetriX.UWP.Services
 
             lock (SamplesBuffer)
             {
-                using (var reader = new BinaryReader(data, System.Text.Encoding.UTF8, true))
+                for (var i = 0; i < numSamplesToCopy; i++)
                 {
-                    for (var i = 0; i < numSamplesToCopy; i++)
-                    {
-                        SamplesBuffer.Enqueue(reader.ReadInt16());
-                    }
-
-                    data.Position = 0;
+                    SamplesBuffer.Enqueue(data[i]);
                 }
 
                 if (SamplesBuffer.Count >= MinNumSamplesForPlayback)

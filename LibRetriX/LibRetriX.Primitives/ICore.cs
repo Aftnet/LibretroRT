@@ -16,7 +16,7 @@ namespace LibRetriX
     /// Audio data render callback. Use to fill audio buffers of whatever playback mechanism the front end uses
     /// </summary>
     /// <param name="data">Audio data. Only valid while inside the calback</param>
-    public delegate void RenderAudioFramesDelegate(Stream data, ulong numFrames);
+    public delegate void RenderAudioFramesDelegate(IReadOnlyList<short> data, ulong numFrames);
 
     public delegate void PollInputDelegate();
     public delegate short GetInputStateDelegate(uint port, InputTypes inputType);
