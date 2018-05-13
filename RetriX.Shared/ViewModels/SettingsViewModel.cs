@@ -32,10 +32,7 @@ namespace RetriX.Shared.ViewModels
             PlatformService = platformService;
             CryptographyService = cryptographyService;
 
-            Task.Run(GetFileDependencyImportersAsync).ContinueWith(d =>
-            {
-                PlatformService.RunOnUIThreadAsync(() => FileDependencyImporters = d.Result);
-            });
+            Task.Run(GetFileDependencyImportersAsync).ContinueWith(d => FileDependencyImporters = d.Result, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private async Task<List<FileImporterViewModel>> GetFileDependencyImportersAsync()

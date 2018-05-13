@@ -1,5 +1,6 @@
 ﻿using Acr.UserDialogs;
 using LibRetriX;
+using MvvmCross.Platform.Core;
 using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.StreamProviders;
@@ -33,6 +34,7 @@ namespace RetriX.Shared.Services
         private IPlatformService PlatformService { get; }
         private ISaveStateService SaveStateService { get; }
         private ILocalNotifications NotificationService { get; }
+        private IMvxMainThreadDispatcher Dispatcher { get; }
 
         private IVideoService VideoService { get; }
         private IAudioService AudioService { get; }
@@ -108,12 +110,13 @@ namespace RetriX.Shared.Services
         public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService,
             ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService,
             ILocalNotifications notificationService, ICryptographyService cryptographyService,
-            IVideoService videoService, IAudioService audioService, IInputService inputService)
+            IVideoService videoService, IAudioService audioService, IInputService inputService, IMvxMainThreadDispatcher dispatcher)
         {
             FileSystem = fileSystem;
             PlatformService = platformService;
             SaveStateService = saveStateService;
             NotificationService = notificationService;
+            Dispatcher = dispatcher;
 
             VideoService = videoService;
             AudioService = audioService;
@@ -431,7 +434,7 @@ namespace RetriX.Shared.Services
                     StartStopOperationInProgress = false;
                 }
 
-                var task = PlatformService.RunOnUIThreadAsync(() => GameRuntimeExceptionOccurred?.Invoke(this, e));
+                var task = Dispatcher.RequestMainThreadAction(() => GameRuntimeExceptionOccurred?.Invoke(this, e));
             }
             finally
             {

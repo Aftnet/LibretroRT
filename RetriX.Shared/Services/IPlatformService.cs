@@ -20,8 +20,6 @@ namespace RetriX.Shared.Services
 
         void CopyToClipboard(string content);
 
-        Task RunOnUIThreadAsync(Action action);
-
         event EventHandler<FullScreenChangeEventArgs> FullScreenChangeRequested;
 
         event EventHandler PauseToggleRequested;

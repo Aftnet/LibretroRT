@@ -218,11 +218,6 @@ namespace RetriX.UWP.Services
             return output;
         }
 
-        public Task RunOnUIThreadAsync(Action action)
-        {
-            return CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()).AsTask();
-        }
-
         private void HandleFunctionKeyPress(bool shiftIsDown, uint slotID, KeyEventArgs args)
         {
             var eventArgs = new GameStateOperationEventArgs(shiftIsDown ? GameStateOperationEventArgs.GameStateOperationType.Save : GameStateOperationEventArgs.GameStateOperationType.Load, slotID);
