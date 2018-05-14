@@ -17,7 +17,7 @@ namespace RetriX.Shared.ViewModels
         private IFileSystem FileSystem { get; }
         private IUserDialogs DialogsService { get; }
         private IPlatformService PlatformService { get; }
-        private IEmulationService EmulationService { get; }
+        private IGameSystemsProviderService GameSystemsProviderService { get; }
 
         private IFileInfo SelectedGameFile { get; set; }
 
@@ -32,13 +32,13 @@ namespace RetriX.Shared.ViewModels
         public IMvxCommand ShowAbout { get; }
         public IMvxCommand<GameSystemViewModel> GameSystemSelected { get; }
 
-        public GameSystemSelectionViewModel(IMvxNavigationService navigationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, IEmulationService emulationService)
+        public GameSystemSelectionViewModel(IMvxNavigationService navigationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, IGameSystemsProviderService gameSystemsProviderService)
         {
             NavigationService = navigationService;
             FileSystem = fileSystem;
             DialogsService = dialogsService;
             PlatformService = platformService;
-            EmulationService = emulationService;
+            GameSystemsProviderService = gameSystemsProviderService;
 
             ResetSystemsSelection();
 
@@ -61,7 +61,7 @@ namespace RetriX.Shared.ViewModels
         {
             //Find compatible systems for file extension
             var extension = SelectedGameFile != null ? Path.GetExtension(SelectedGameFile.Name) : string.Empty;
-            var compatibleSystems = EmulationService.Systems.Where(d => d.SupportedExtensions.Contains(extension));
+            var compatibleSystems = GameSystemsProviderService.Systems.Where(d => d.SupportedExtensions.Contains(extension));
 
             //If none, do nothing
             if (!compatibleSystems.Any())
@@ -124,7 +124,7 @@ namespace RetriX.Shared.ViewModels
                 }
             }
 
-            var param = await EmulationService.GenerateGameLaunchEnvironmentAsync(system, file, folder);
+            var param = await GameSystemsProviderService.GenerateGameLaunchEnvironmentAsync(system, file, folder);
             await NavigationService.Navigate<GamePlayerViewModel, GamePlayerViewModel.Parameter>(param);
             ResetSystemsSelection();
         }
@@ -132,7 +132,7 @@ namespace RetriX.Shared.ViewModels
         private void ResetSystemsSelection()
         {
             //Reset systems selection
-            GameSystems = EmulationService.Systems;
+            GameSystems = GameSystemsProviderService.Systems;
             SelectedGameFile = null;
         }
     }

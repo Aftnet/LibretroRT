@@ -32,6 +32,11 @@ namespace RetriX.UWP
             Mvx.ConstructAndRegisterSingleton<IVideoService, VideoService>();
         }
 
+        protected override void InitializeLastChance()
+        {
+            Mvx.ConstructAndRegisterSingleton<IGameSystemsProviderService, GameSystemsProviderService>();
+        }
+
         protected override IMvxWindowsViewPresenter CreateViewPresenter(IMvxWindowsFrame rootFrame)
         {
             Presenter = new CurrentViewModelPresenter(rootFrame);

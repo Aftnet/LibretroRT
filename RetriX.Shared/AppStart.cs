@@ -11,13 +11,13 @@ namespace RetriX.Shared
     {
         private IMvxNavigationService NavigationService { get; }
         private ICurrentViewModelPresenter Presenter { get; }
-        private IEmulationService EmulationService { get; }
+        private IGameSystemsProviderService GameSystemsProviderService { get; }
 
-        public AppStart(IMvxNavigationService navigationService, ICurrentViewModelPresenter presenter, IEmulationService emulationService)
+        public AppStart(IMvxNavigationService navigationService, ICurrentViewModelPresenter presenter, IGameSystemsProviderService gameSystemsProviderService)
         {
             NavigationService = navigationService;
             Presenter = presenter;
-            EmulationService = emulationService;
+            GameSystemsProviderService = gameSystemsProviderService;
         }
 
         public async void Start(object hint = null)
@@ -29,7 +29,7 @@ namespace RetriX.Shared
                 return;
             }
 
-            var param = await EmulationService.GenerateGameLaunchEnvironmentAsync(file);
+            var param = await GameSystemsProviderService.GenerateGameLaunchEnvironmentAsync(file);
             if (param != null && Presenter.CurrentViewModel is GamePlayerViewModel)
             {
                 var currentGamePlayerVM = Presenter.CurrentViewModel as GamePlayerViewModel;

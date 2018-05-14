@@ -21,19 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BeetleNGP.LibRetriX\BeetleNGP.LibRetriX.csproj" />
-    <ProjectReference Include="..\BeetlePCEFast.LibRetriX\BeetlePCEFast.LibRetriX.csproj" />
-    <ProjectReference Include="..\BeetlePCFX.LibRetriX\BeetlePCFX.LibRetriX.csproj" />
-    <ProjectReference Include="..\BeetlePSX.LibRetriX\BeetlePSX.LibRetriX.csproj" />
-    <ProjectReference Include="..\BeetleWswan.LibRetriX\BeetleWswan.LibRetriX.csproj" />
-    <ProjectReference Include="..\FBAlpha.LibRetriX\FBAlpha.LibRetriX.csproj" />
-    <ProjectReference Include="..\FCEUMM.LibRetriX\FCEUMM.LibRetriX.csproj" />
-    <ProjectReference Include="..\Gambatte.LibRetriX\Gambatte.LibRetriX.csproj" />
-    <ProjectReference Include="..\GPGX.LibRetriX\GPGX.LibRetriX.csproj" />
     <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj" />
-    <ProjectReference Include="..\MelonDS.LibRetriX\MelonDS.LibRetriX.csproj" />
-    <ProjectReference Include="..\Snes9X.LibRetriX\Snes9X.LibRetriX.csproj" />
-    <ProjectReference Include="..\VBAM.LibRetriX\VBAM.LibRetriX.csproj" />
   </ItemGroup>
 
   <ItemGroup>

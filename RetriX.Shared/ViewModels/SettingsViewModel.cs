@@ -11,7 +11,7 @@ namespace RetriX.Shared.ViewModels
 {
     public class SettingsViewModel : MvxViewModel
     {
-        private IEmulationService EmulationService { get; }
+        private IGameSystemsProviderService GameSystemsProvider { get; }
         private IFileSystem FileSystem { get; }
         private IUserDialogs DialogsService { get; }
         private IPlatformService PlatformService { get; }
@@ -24,9 +24,9 @@ namespace RetriX.Shared.ViewModels
             private set => SetProperty(ref fileDependencyImporters, value);
         }
 
-        public SettingsViewModel(IEmulationService emulationService, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService)
+        public SettingsViewModel(IGameSystemsProviderService gameSystemsProvider, IFileSystem fileSystem, IUserDialogs dialogsService, IPlatformService platformService, ICryptographyService cryptographyService)
         {
-            EmulationService = emulationService;
+            GameSystemsProvider = gameSystemsProvider;
             FileSystem = fileSystem;
             DialogsService = dialogsService;
             PlatformService = platformService;
@@ -39,7 +39,7 @@ namespace RetriX.Shared.ViewModels
         {
             var importers = new List<FileImporterViewModel>();
             var distinctCores = new HashSet<ICore>();
-            foreach (var i in EmulationService.Systems)
+            foreach (var i in GameSystemsProvider.Systems)
             {
                 var core = i.Core;
                 if (distinctCores.Contains(core))

@@ -4,11 +4,9 @@ using MvvmCross.Platform.Core;
 using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
 using RetriX.Shared.StreamProviders;
-using RetriX.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -100,8 +98,6 @@ namespace RetriX.Shared.Services
             set { if (streamProvider != value) streamProvider?.Dispose(); streamProvider = value; }
         }
 
-        public IReadOnlyList<GameSystemViewModel> Systems { get; }
-
         public event EventHandler GameStarted;
         public event EventHandler GameStopped;
         public event EventHandler<Exception> GameRuntimeExceptionOccurred;
@@ -122,91 +118,6 @@ namespace RetriX.Shared.Services
             InputService = inputService;
 
             VideoService.RequestRunCoreFrame += OnRunFrameRequested;
-
-            Systems = new GameSystemViewModel[]
-            {
-                GameSystemViewModel.MakeNES(LibRetriX.FCEUMM.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeSNES(LibRetriX.Snes9X.Core.Instance, fileSystem),
-                //GameSystemViewModel.MakeN64(LibRetriX.ParallelN64.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeGB(LibRetriX.Gambatte.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeGBA(LibRetriX.VBAM.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeDS(LibRetriX.MelonDS.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeSG1000(LibRetriX.GPGX.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeMasterSystem(LibRetriX.GPGX.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeGameGear(LibRetriX.GPGX.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeMegaDrive(LibRetriX.GPGX.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeMegaCD(LibRetriX.GPGX.Core.Instance, fileSystem),
-                //GameSystemViewModel.MakeSaturn(LibRetriX.BeetleSaturn.Core.Instance, fileSystem),
-                GameSystemViewModel.MakePlayStation(LibRetriX.BeetlePSX.Core.Instance, fileSystem),
-                GameSystemViewModel.MakePCEngine(LibRetriX.BeetlePCEFast.Core.Instance, fileSystem),
-                GameSystemViewModel.MakePCEngineCD(LibRetriX.BeetlePCEFast.Core.Instance, fileSystem),
-                GameSystemViewModel.MakePCFX(LibRetriX.BeetlePCFX.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeWonderSwan(LibRetriX.BeetleWswan.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeArcade(LibRetriX.FBAlpha.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeNeoGeoPocket(LibRetriX.BeetleNGP.Core.Instance, fileSystem),
-                GameSystemViewModel.MakeNeoGeo(LibRetriX.FBAlpha.Core.Instance, fileSystem),
-            };
-        }
-
-        public Task<GamePlayerViewModel.Parameter> GenerateGameLaunchEnvironmentAsync(IFileInfo file)
-        {
-            var extension = Path.GetExtension(file.Name);
-            var compatibleSystems = Systems.Where(d => d.SupportedExtensions.Contains(extension)).ToArray();
-            if (compatibleSystems.Length != 1)
-            {
-                return Task.FromResult(default(GamePlayerViewModel.Parameter));
-            }
-
-            return GenerateGameLaunchEnvironmentAsync(compatibleSystems.First(), file, null);
-        }
-
-        public async Task<GamePlayerViewModel.Parameter> GenerateGameLaunchEnvironmentAsync(GameSystemViewModel system, IFileInfo file, IDirectoryInfo rootFolder)
-        {
-            var dependenciesMet = await system.CheckDependenciesMetAsync();
-            if (!dependenciesMet || (system.CheckRootFolderRequired(file) && rootFolder == null))
-            {
-                return null;
-            }
-
-            var vfsRomPath = "ROM";
-            var vfsSystemPath = "System";
-            var vfsSavePath = "Save";
-
-            var core = system.Core;
-
-            string virtualMainFilePath = null;
-            var provider = default(IStreamProvider);
-
-            if (core.NativeArchiveSupport || !ArchiveStreamProvider.SupportedExtensions.Contains(Path.GetExtension(file.Name)))
-            {
-                virtualMainFilePath = $"{vfsRomPath}{Path.DirectorySeparatorChar}{file.Name}";
-                provider = new SingleFileStreamProvider(virtualMainFilePath, file);
-                if (rootFolder != null)
-                {
-                    virtualMainFilePath = file.FullName.Substring(rootFolder.FullName.Length + 1);
-                    virtualMainFilePath = $"{vfsRomPath}{Path.DirectorySeparatorChar}{virtualMainFilePath}";
-                    provider = new FolderStreamProvider(vfsRomPath, rootFolder);
-                }
-            }
-            else
-            {
-                var archiveProvider = new ArchiveStreamProvider(vfsRomPath, file);
-                await archiveProvider.InitializeAsync();
-                provider = archiveProvider;
-                var entries = await provider.ListEntriesAsync();
-                virtualMainFilePath = entries.FirstOrDefault(d => system.SupportedExtensions.Contains(Path.GetExtension(d)));
-            }
-
-            var systemFolder = await system.GetSystemDirectoryAsync();
-            var systemProvider = new FolderStreamProvider(vfsSystemPath, systemFolder);
-            core.SystemRootPath = vfsSystemPath;
-            var saveFolder = await system.GetSaveDirectoryAsync();
-            var saveProvider = new FolderStreamProvider(vfsSavePath, saveFolder);
-            core.SaveRootPath = vfsSavePath;
-
-            provider = new CombinedStreamProvider(new HashSet<IStreamProvider>() { provider, systemProvider, saveProvider });
-
-            return new GamePlayerViewModel.Parameter(core, provider, virtualMainFilePath);
         }
 
         public async Task<bool> StartGameAsync(ICore core, IStreamProvider streamProvider, string mainFilePath)
