@@ -91,8 +91,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yabause.LibRetriX", "Yabaus
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Retrix.UWP.Native", "Retrix.UWP.Native\Retrix.UWP.Native.vcxproj", "{AA168014-F150-4A65-93F9-121DA3EB0A01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibRetriX.Unsafe", "LibRetriX.Unsafe\LibRetriX.Unsafe.csproj", "{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		LibRetriX\LibRetriX.RetroBindings.Static\LibRetriX.RetroBindings.Static.projitems*{3f31cf6f-c2df-489a-9c2a-0b9958d0c143}*SharedItemsImports = 13
@@ -738,22 +736,6 @@ Global
 		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|x64.Build.0 = Release|x64
 		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|x86.ActiveCfg = Release|Win32
 		{AA168014-F150-4A65-93F9-121DA3EB0A01}.Release|x86.Build.0 = Release|Win32
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Debug|ARM.Build.0 = Debug|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Debug|x64.Build.0 = Debug|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Debug|x86.Build.0 = Debug|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Release|ARM.ActiveCfg = Release|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Release|ARM.Build.0 = Release|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Release|x64.ActiveCfg = Release|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Release|x64.Build.0 = Release|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Release|x86.ActiveCfg = Release|Any CPU
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -796,7 +778,6 @@ Global
 		{DDFC2C2D-9FB8-43DD-BB29-F751D291F33E} = {2E23AE05-7906-4836-8902-B95250E0B238}
 		{5C407CAB-14A1-469E-BCE2-7ED26E2FA5BC} = {2E23AE05-7906-4836-8902-B95250E0B238}
 		{8CB06B21-915E-4C8E-9B2C-552BCEECE00F} = {2E23AE05-7906-4836-8902-B95250E0B238}
-		{91AAFBE6-E59B-44CE-8BF6-7DE51010FF3F} = {23A762F6-CDBD-480A-A91B-5551C3E7F434}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F70E1C5-5C4E-4792-9108-D1BF76C09C3F}

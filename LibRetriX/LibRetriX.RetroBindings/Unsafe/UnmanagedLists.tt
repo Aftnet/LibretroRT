@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace LibRetriX.Unsafe
+namespace LibRetriX.RetroBindings.Unsafe
 {
 <# foreach(var TemplateData in new Tuple<string,string>[] { Tuple.Create("Short","short"), Tuple.Create("UShort","ushort"), Tuple.Create("Int","int"), Tuple.Create("UInt","uint")})
 {

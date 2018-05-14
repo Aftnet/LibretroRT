@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace LibRetriX.Unsafe
+namespace LibRetriX.RetroBindings.Unsafe
 {
 	public unsafe class UnmanagedListShort : IReadOnlyList<short>
     {

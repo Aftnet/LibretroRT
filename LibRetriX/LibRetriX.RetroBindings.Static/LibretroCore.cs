@@ -1,5 +1,5 @@
 ﻿using LibRetriX.RetroBindings.Tools;
-using LibRetriX.Unsafe;
+using LibRetriX.RetroBindings.Unsafe;
 using System;
 using System.Collections.Generic;
 using System.IO;
