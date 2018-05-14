@@ -9,11 +9,11 @@ using Xunit;
 
 namespace RetriX.Shared.Test.ViewModels
 {
-    public class FileImporterVMTest : TestBase<FileImporterVM>
+    public class FileImporterViewModelTest : TestBase<FileImporterViewModel>
     {
-        protected override FileImporterVM InstantiateTarget()
+        protected override FileImporterViewModel InstantiateTarget()
         {
-            return FileImporterVM.CreateFileImporterAsync(FileSystemMock.Object, DialogsServiceMock.Object, LocalizationServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "Target file description", "SomeMD5").Result;
+            return FileImporterViewModel.CreateFileImporterAsync(FileSystemMock.Object, DialogsServiceMock.Object, PlatformServiceMock.Object, CryptographyServiceMock.Object, GetTestFilesFolderAsync().Result, "TargetFile.ext", "Target file description", "SomeMD5").Result;
         }
 
         [Theory]
@@ -32,14 +32,11 @@ namespace RetriX.Shared.Test.ViewModels
             var computedHash = providedFileMD5Matches ? Target.TargetMD5.ToUpperInvariant() : "otherHash";
             CryptographyServiceMock.Setup(d => d.ComputeMD5Async(pickedFile)).Returns(Task.FromResult(computedHash));
 
-            string localizedString = nameof(localizedString);
-            LocalizationServiceMock.Setup(d => d.GetLocalizedString(It.IsAny<string>())).Returns(localizedString);
-
             Target.ImportCommand.Execute(null);
             await Task.Delay(100);
 
             var expectedDialogServiceCalledTimes = providedFileMD5Matches ? Times.Never() : Times.Once();
-            DialogsServiceMock.Verify(d => d.AlertAsync(localizedString, localizedString, null, null), expectedDialogServiceCalledTimes);
+            DialogsServiceMock.Verify(d => d.AlertAsync(It.Is<string>(e => e == Resources.Strings.FileHashMismatchMessage), It.Is<string>(e => e == Resources.Strings.FileHashMismatchTitle), null, null), expectedDialogServiceCalledTimes);
 
             Assert.Equal(providedFileMD5Matches, Target.FileAvailable);
             Assert.Equal(!providedFileMD5Matches, Target.ImportCommand.CanExecute(null));
@@ -60,7 +57,6 @@ namespace RetriX.Shared.Test.ViewModels
             FileSystemMock.Setup(d => d.PickFileAsync(It.Is<IEnumerable<string>>(e => e.Contains(Path.GetExtension(Target.TargetFileName))))).Returns(Task.FromResult(default(IFileInfo)));
 
             CryptographyServiceMock.Verify(d => d.ComputeMD5Async(It.IsAny<IFileInfo>()), Times.Never);
-            LocalizationServiceMock.Verify(d => d.GetLocalizedString(It.IsAny<string>()), Times.Never);
             DialogsServiceMock.Verify(d => d.AlertAsync(It.IsAny<string>(), It.IsAny<string>(), null, null), Times.Never);
 
             Target.ImportCommand.Execute(null);

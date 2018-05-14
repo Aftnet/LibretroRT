@@ -1,4 +1,5 @@
 ﻿using LibRetriX.RetroBindings.Tools;
+using LibRetriX.RetroBindings.Unsafe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,27 +10,21 @@ namespace LibRetriX.RetroBindings
 {
     internal sealed class LibretroCore : ICore, IDisposable
     {
-        private readonly string name;
-        public string Name => name;
+        private const int AudioSamplesPerFrame = 2;
 
-        private readonly string version;
-        public string Version => version;
+        public string Name { get; }
+        public string Version { get; }
+        public IReadOnlyList<string> SupportedExtensions { get; }
+        public bool NativeArchiveSupport { get; }
 
-        private readonly string[] supportedExtensions;
-        public IReadOnlyList<string> SupportedExtensions => supportedExtensions;
+        private bool RequiresFullPath { get; }
 
-        private readonly bool nativeArchiveSupport;
-        public bool NativeArchiveSupport => nativeArchiveSupport;
-
-        private readonly bool RequiresFullPath;
-
-        private IntPtr currentlyResolvedCoreOptionValue;
+        private IntPtr CurrentlyResolvedCoreOptionValue { get; set; }
         public IReadOnlyDictionary<string, CoreOption> Options { get; private set; }
 
-        private IReadOnlyList<Tuple<string, uint>> OptionSetters { get; set; }
+        private IReadOnlyList<Tuple<string, uint>> OptionSetters { get; }
 
-        private readonly IReadOnlyList<FileDependency> fileDependencies;
-        public IReadOnlyList<FileDependency> FileDependencies => fileDependencies;
+        public IReadOnlyList<FileDependency> FileDependencies { get; }
 
         private IntPtr systemRootPathUnmanaged;
         private string systemRootPath;
@@ -91,18 +86,18 @@ namespace LibRetriX.RetroBindings
             set { VFSHandler.CloseFileStream = value; }
         }
 
-        public event RenderVideoFrameDelegate RenderVideoFrame;
+        public event RenderVideoFrameUshortDelegate RenderVideoFrameRGB0555;
+        public event RenderVideoFrameUshortDelegate RenderVideoFrameRGB565;
+        public event RenderVideoFrameUintDelegate RenderVideoFrameXRGB8888;
         public event RenderAudioFramesDelegate RenderAudioFrames;
         public event PixelFormatChangedDelegate PixelFormatChanged;
         public event GeometryChangedDelegate GeometryChanged;
         public event TimingsChangedDelegate TimingsChanged;
         public event RotationChangedDelegate RotationChanged;
 
-        private static readonly LogCallbackDescriptor LogCBDescriptor = new LogCallbackDescriptor { LogCallback = LogHandler };
+        private static LogCallbackDescriptor LogCBDescriptor { get; } = new LogCallbackDescriptor { LogCallback = LogHandler };
 
-        private readonly uint inputTypeIndex;
-        private uint InputTypeIndex => inputTypeIndex;
-
+        private uint InputTypeIndex { get; }
         private uint InputTypeId { get; set; }
 
         private bool IsInitialized { get; set; }
@@ -113,16 +108,16 @@ namespace LibRetriX.RetroBindings
 
         public LibretroCore(IReadOnlyList<FileDependency> dependencies = null, IReadOnlyList<Tuple<string, uint>> optionSetters = null, uint inputTypeIx = 0)
         {
-            fileDependencies = dependencies == null ? Array.Empty<FileDependency>() : dependencies;
+            FileDependencies = dependencies == null ? Array.Empty<FileDependency>() : dependencies;
             OptionSetters = optionSetters == null ? Array.Empty<Tuple<string, uint>>() : optionSetters;
-            inputTypeIndex = inputTypeIx;
+            InputTypeIndex = inputTypeIx;
 
             var systemInfo = new SystemInfo();
             LibretroAPI.GetSystemInfo(ref systemInfo);
-            name = systemInfo.LibraryName;
-            version = systemInfo.LibraryVersion;
-            supportedExtensions = systemInfo.ValidExtensions.Split('|').Select(d => $".{d}").ToArray();
-            nativeArchiveSupport = systemInfo.BlockExtract;
+            Name = systemInfo.LibraryName;
+            Version = systemInfo.LibraryVersion;
+            SupportedExtensions = systemInfo.ValidExtensions.Split('|').Select(d => $".{d}").ToArray();
+            NativeArchiveSupport = systemInfo.BlockExtract;
             RequiresFullPath = systemInfo.NeedFullpath;
 
             Options = new Dictionary<string, CoreOption>();
@@ -135,10 +130,10 @@ namespace LibRetriX.RetroBindings
             SystemRootPath = null;
             SaveRootPath = null;
 
-            if (currentlyResolvedCoreOptionValue != IntPtr.Zero)
+            if (CurrentlyResolvedCoreOptionValue != IntPtr.Zero)
             {
-                Marshal.FreeHGlobal(currentlyResolvedCoreOptionValue);
-                currentlyResolvedCoreOptionValue = IntPtr.Zero;
+                Marshal.FreeHGlobal(CurrentlyResolvedCoreOptionValue);
+                CurrentlyResolvedCoreOptionValue = IntPtr.Zero;
             }
 
             Marshal.FreeHGlobal(RenderAudioFrameBuffer);
@@ -324,13 +319,13 @@ namespace LibRetriX.RetroBindings
                             valueFound = true;
                             var coreOption = Options[key];
                             var value = coreOption.Values[(int)coreOption.SelectedValueIx];
-                            if (currentlyResolvedCoreOptionValue != IntPtr.Zero)
+                            if (CurrentlyResolvedCoreOptionValue != IntPtr.Zero)
                             {
-                                Marshal.FreeHGlobal(currentlyResolvedCoreOptionValue);
+                                Marshal.FreeHGlobal(CurrentlyResolvedCoreOptionValue);
                             }
 
-                            currentlyResolvedCoreOptionValue = Marshal.StringToHGlobalAnsi(value);
-                            data.ValuePtr = currentlyResolvedCoreOptionValue;
+                            CurrentlyResolvedCoreOptionValue = Marshal.StringToHGlobalAnsi(value);
+                            data.ValuePtr = CurrentlyResolvedCoreOptionValue;
                         }
 
                         Marshal.StructureToPtr(data, dataPtr, false);
@@ -420,9 +415,25 @@ namespace LibRetriX.RetroBindings
 #endif
         }
 
-        private void RenderVideoFrameHandler(IntPtr data, uint width, uint height, UIntPtr pitch)
+        unsafe private void RenderVideoFrameHandler(IntPtr data, uint width, uint height, UIntPtr pitch)
         {
-            RenderVideoFrame?.Invoke(data, width, height, (ulong)pitch);
+            var size = height * (int)pitch;
+            int pitchSizeInElements = 0;
+            switch(PixelFormat)
+            {
+                case PixelFormats.RGB0555:
+                    pitchSizeInElements = (int)pitch / sizeof(ushort);
+                    RenderVideoFrameRGB0555?.Invoke(new UnmanagedListUShort(data, (int)height * pitchSizeInElements), width, height, (ulong)pitchSizeInElements);
+                    break;
+                case PixelFormats.RGB565:
+                    pitchSizeInElements = (int)pitch / sizeof(ushort);
+                    RenderVideoFrameRGB565?.Invoke(new UnmanagedListUShort(data, (int)height * pitchSizeInElements), width, height, (ulong)pitchSizeInElements);
+                    break;
+                case PixelFormats.XRGB8888:
+                    pitchSizeInElements = (int)pitch / sizeof(uint);
+                    RenderVideoFrameXRGB8888?.Invoke(new UnmanagedListUInt(data, (int)height * pitchSizeInElements), width, height, (ulong)pitchSizeInElements);
+                    break;
+            }
         }
 
         private unsafe void RenderAudioFrameHandler(short left, short right)
@@ -430,13 +441,15 @@ namespace LibRetriX.RetroBindings
             var bufferPtr = (short*)RenderAudioFrameBuffer.ToPointer();
             bufferPtr[0] = left;
             bufferPtr[1] = right;
-
-            RenderAudioFrames?.Invoke(RenderAudioFrameBuffer, 1);
+            RenderAudioFrames?.Invoke(new UnmanagedListShort(RenderAudioFrameBuffer, AudioSamplesPerFrame), 1);
         }
 
         private unsafe UIntPtr RenderAudioFramesHandler(IntPtr data, UIntPtr numFrames)
         {
-            RenderAudioFrames?.Invoke(data, (ulong)numFrames);
+            var longFrames = (ulong)numFrames;
+            var numSamples = (int)numFrames * (int)longFrames;
+            RenderAudioFrames?.Invoke(new UnmanagedListShort(data, numSamples), longFrames);
+
             return UIntPtr.Zero;
         }
 

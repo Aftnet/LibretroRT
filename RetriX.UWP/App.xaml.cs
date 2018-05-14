@@ -1,5 +1,6 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using RetriX.Shared.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
+using Plugin.FileSystem.Abstractions;
 using RetriX.UWP.Pages;
 using System;
 using System.Linq;
@@ -26,7 +27,6 @@ namespace RetriX.UWP
         /// </summary>
         public App()
         {
-            Locator.Locator.Initialize();
             RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
 
             this.InitializeComponent();
@@ -40,19 +40,18 @@ namespace RetriX.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            InitializeApp(e.PreviousExecutionState, e.PrelaunchActivated);
+            InitializeApp(e.PreviousExecutionState, e.PrelaunchActivated, null);
         }
 
-        protected override void OnFileActivated(FileActivatedEventArgs args)
+        protected override void OnFileActivated(FileActivatedEventArgs e)
         {
-            InitializeApp(args.PreviousExecutionState, false);
-            var mainVM = ServiceLocator.Current.GetInstance<GameSystemSelectionVM>();
-            var file = args.Files.First(d => d is IStorageFile);
+            var file = e.Files.First(d => d is IStorageFile);
             var wrappedFile = new Plugin.FileSystem.FileInfo((StorageFile)file);
-            var task = mainVM.StartGameFromFileAsync(wrappedFile);
+
+            InitializeApp(e.PreviousExecutionState, false, wrappedFile);
         }
 
-        private void InitializeApp(ApplicationExecutionState previousExecutionState, bool prelaunchActivated)
+        private void InitializeApp(ApplicationExecutionState previousExecutionState, bool prelaunchActivated, IFileInfo file)
         {
             var rootFrame = RootFrame;
 
@@ -64,7 +63,6 @@ namespace RetriX.UWP
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
-                rootFrame.Navigated += OnNavigated;
 
                 if (previousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -73,16 +71,6 @@ namespace RetriX.UWP
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
-
-                // Register a handler for BackRequested events and set the
-                // visibility of the Back button
-                SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    rootFrame.CanGoBack ?
-                    AppViewBackButtonVisibility.Visible :
-                    AppViewBackButtonVisibility.Collapsed;
-
             }
 
             if (prelaunchActivated == false)
@@ -92,8 +80,14 @@ namespace RetriX.UWP
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(SystemSelectionPage), null);
+
+                    var setup = new Setup(rootFrame);
+                    setup.Initialize();
                 }
+
+                var start = Mvx.Resolve<IMvxAppStart>();
+                start.Start(file);
+
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
@@ -109,13 +103,6 @@ namespace RetriX.UWP
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
-        private void OnNavigated(object sender, NavigationEventArgs e)
-        {
-            // Each time a navigation event occurs, update the Back button's visibility
-            var visibility = ((Frame)sender).CanGoBack? AppViewBackButtonVisibility.Visible: AppViewBackButtonVisibility.Collapsed;
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = visibility;
-        }
-
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
         /// without knowing whether the application will be terminated or resumed with the contents
@@ -129,15 +116,5 @@ namespace RetriX.UWP
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
-
-        private void OnBackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (RootFrame.CanGoBack)
-            {
-                e.Handled = true;
-                RootFrame.GoBack();
-            }
-        }
-
     }
 }

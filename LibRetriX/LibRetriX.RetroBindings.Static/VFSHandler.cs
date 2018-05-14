@@ -33,13 +33,12 @@ namespace LibRetriX.RetroBindings
         public static OpenFileStreamDelegate OpenFileStream { get; set; }
         public static CloseFileStreamDelegate CloseFileStream { get; set; }
 
-        private static readonly VFSInterface vfsInterface;
-        private static readonly IntPtr vfsInterfacePtr;
-        public static IntPtr VFSInterfacePtr => vfsInterfacePtr;
+        private static VFSInterface VFSInterface { get; }
+        public static IntPtr VFSInterfacePtr { get; }
 
         static VFSHandler()
         {
-            vfsInterface = new VFSInterface
+            VFSInterface = new VFSInterface
             {
                 GetPath = VFSGetPathHandler,
                 Open = VFSOpenHandler,
@@ -54,8 +53,8 @@ namespace LibRetriX.RetroBindings
                 Rename = VFSRenameHandler
             };
 
-            vfsInterfacePtr = Marshal.AllocHGlobal(Marshal.SizeOf(vfsInterface));
-            Marshal.StructureToPtr(vfsInterface, vfsInterfacePtr, false);
+            VFSInterfacePtr = Marshal.AllocHGlobal(Marshal.SizeOf(VFSInterface));
+            Marshal.StructureToPtr(VFSInterface, VFSInterfacePtr, false);
         }
 
         private static VFSStream StreamFromIntPtr(IntPtr ptr)

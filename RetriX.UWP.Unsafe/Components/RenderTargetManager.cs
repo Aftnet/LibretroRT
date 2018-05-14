@@ -1,6 +1,7 @@
 ﻿using LibRetriX;
 using Microsoft.Graphics.Canvas;
 using Retrix.UWP.Native;
+using RetriX.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -21,12 +22,13 @@ namespace RetriX.UWP.Components
             { PixelFormats.Unknown, 0 },
         };
 
-        private readonly object RenderTargetLock = new object();
-        private CanvasBitmap RenderTarget = null;
-        private IDirect3DSurface RenderTargetSurface = null;
+        private object RenderTargetLock { get; } = new object();
+        private CanvasBitmap RenderTarget { get; set; } = null;
+        public TextureFilterTypes RenderTargetFilterType { get; set; } = TextureFilterTypes.Bilinear;
+        private IDirect3DSurface RenderTargetSurface { get; set; } = null;
         private Rect RenderTargetViewport = new Rect();
         //This may be different from viewport's width/haight.
-        private float RenderTargetAspectRatio = 1.0f;
+        private float RenderTargetAspectRatio { get; set; } = 1.0f;
 
         private PixelFormats currentCorePixelFormat = PixelFormats.Unknown;
         public PixelFormats CurrentCorePixelFormat
@@ -35,7 +37,7 @@ namespace RetriX.UWP.Components
             set { currentCorePixelFormat = value; CurrentCorePixelSize = PixelFormatsSizeMapping[currentCorePixelFormat]; }
         }
 
-        public Rotations CorrentRotation { get; set; }
+        public Rotations CurrentRotation { get; set; }
 
         private int CurrentCorePixelSize = 0;
 
@@ -57,7 +59,7 @@ namespace RetriX.UWP.Components
                 return;
 
             var rotAngle = 0.0;
-            switch (CorrentRotation)
+            switch (CurrentRotation)
             {
                 case Rotations.CCW90:
                     rotAngle = -0.5 * Math.PI;
@@ -81,14 +83,15 @@ namespace RetriX.UWP.Components
             lock (RenderTargetLock)
             {
                 drawingSession.Transform = transformMatrix;
-                drawingSession.DrawImage(RenderTarget, new Rect(-0.5, -0.5, 1.0, 1.0), RenderTargetViewport);
+                var interpolation = RenderTargetFilterType == TextureFilterTypes.NearestNeighbor ? CanvasImageInterpolation.NearestNeighbor : CanvasImageInterpolation.Linear;
+                drawingSession.DrawImage(RenderTarget, new Rect(-0.5, -0.5, 1.0, 1.0), RenderTargetViewport, 1.0f, interpolation);
                 drawingSession.Transform = Matrix3x2.Identity;
             }
         }
 
-        public unsafe void UpdateFromCoreOutput(CanvasDevice device, IntPtr data, uint width, uint height, ulong pitch)
+        public unsafe void UpdateFromCoreOutputRGB0555(CanvasDevice device, IReadOnlyList<ushort> data, uint width, uint height, ulong pitch)
         {
-            if (data == IntPtr.Zero || RenderTarget == null || CurrentCorePixelSize == 0)
+            if (data == null || RenderTarget == null || CurrentCorePixelSize == 0)
                 return;
 
             lock (RenderTargetLock)
@@ -96,19 +99,47 @@ namespace RetriX.UWP.Components
                 RenderTargetViewport.Width = width;
                 RenderTargetViewport.Height = height;
 
-                var renderTargetMap = D3DSurfaceManager.Map(device, RenderTargetSurface);
-                var targetDataPtr = (IntPtr)renderTargetMap.Data;
-                switch (CurrentCorePixelFormat)
+                using (var renderTargetMap = new D3DSurfaceMap(device, RenderTargetSurface))
                 {
-                    case PixelFormats.XRGB8888:
-                        FramebufferConverter.ConvertFrameBufferXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
-                        break;
-                    case PixelFormats.RGB565:
-                        FramebufferConverter.ConvertFrameBufferRGB565ToXRGB8888(width, height, data, (int)pitch, targetDataPtr, (int)renderTargetMap.Pitch);
-                        break;
+                    var dataPtr = (byte*)new IntPtr(renderTargetMap.Data).ToPointer();
+                    FramebufferConverter.ConvertFrameBufferRGB0555ToXRGB8888(width, height, data, (int)pitch, dataPtr, (int)renderTargetMap.PitchBytes);
                 }
+            }
+        }
 
-                D3DSurfaceManager.Unmap(device, RenderTargetSurface);
+        public unsafe void UpdateFromCoreOutputRGB565(CanvasDevice device, IReadOnlyList<ushort> data, uint width, uint height, ulong pitch)
+        {
+            if (data == null || RenderTarget == null || CurrentCorePixelSize == 0)
+                return;
+
+            lock (RenderTargetLock)
+            {
+                RenderTargetViewport.Width = width;
+                RenderTargetViewport.Height = height;
+
+                using (var renderTargetMap = new D3DSurfaceMap(device, RenderTargetSurface))
+                {
+                    var dataPtr = (byte*)new IntPtr(renderTargetMap.Data).ToPointer();
+                    FramebufferConverter.ConvertFrameBufferRGB565ToXRGB8888(width, height, data, (int)pitch, dataPtr, (int)renderTargetMap.PitchBytes);
+                }
+            }
+        }
+
+        public unsafe void UpdateFromCoreOutputXRGB8888(CanvasDevice device, IReadOnlyList<uint> data, uint width, uint height, ulong pitch)
+        {
+            if (data == null || RenderTarget == null || CurrentCorePixelSize == 0)
+                return;
+
+            lock (RenderTargetLock)
+            {
+                RenderTargetViewport.Width = width;
+                RenderTargetViewport.Height = height;
+
+                using (var renderTargetMap = new D3DSurfaceMap(device, RenderTargetSurface))
+                {
+                    var dataPtr = (byte*)new IntPtr(renderTargetMap.Data).ToPointer();
+                    FramebufferConverter.ConvertFrameBufferXRGB8888(width, height, data, (int)pitch, dataPtr, (int)renderTargetMap.PitchBytes);
+                }
             }
         }
 
@@ -136,7 +167,7 @@ namespace RetriX.UWP.Components
 
                 RenderTarget?.Dispose();
                 RenderTargetSurface?.Dispose();
-                RenderTargetSurface = D3DSurfaceManager.CreateWriteableD3DSurface(device, size, size);
+                RenderTargetSurface = D3DSurfaceMap.CreateMappableD3DSurface(device, size, size);
                 RenderTarget = CanvasBitmap.CreateFromDirect3D11Surface(device, RenderTargetSurface);
             }
         }

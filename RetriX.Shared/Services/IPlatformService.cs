@@ -7,12 +7,6 @@ namespace RetriX.Shared.Services
 
     public enum MousePointerVisibility { Visible, Hidden };
 
-    public delegate void FullScreenChangeRequestedDelegate(IPlatformService sender, FullScreenChangeEventArgs args);
-
-    public delegate void PauseToggleRequestedDelegate(IPlatformService sender);
-
-    public delegate void GameStateOperationRequestedDelegate(IPlatformService sender, GameStateOperationEventArgs args);
-
     public interface IPlatformService
     {
         bool FullScreenChangingPossible { get; }
@@ -20,18 +14,16 @@ namespace RetriX.Shared.Services
         bool ShouldDisplayTouchGamepad { get; }
         bool HandleGameplayKeyShortcuts { get; set; }
 
-        bool ChangeFullScreenState(FullScreenChangeType changeType);
+        Task<bool> ChangeFullScreenStateAsync(FullScreenChangeType changeType);
         void ChangeMousePointerVisibility(MousePointerVisibility visibility);
         void ForceUIElementFocus();
 
         void CopyToClipboard(string content);
 
-        Task RunOnUIThreadAsync(Action action);
+        event EventHandler<FullScreenChangeEventArgs> FullScreenChangeRequested;
 
-        event FullScreenChangeRequestedDelegate FullScreenChangeRequested;
+        event EventHandler PauseToggleRequested;
 
-        event PauseToggleRequestedDelegate PauseToggleRequested;
-
-        event GameStateOperationRequestedDelegate GameStateOperationRequested;
+        event EventHandler<GameStateOperationEventArgs> GameStateOperationRequested;
     }
 }

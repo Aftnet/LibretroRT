@@ -97,7 +97,23 @@ namespace LibRetriX.Test.Base
                 return 0;
             };
 
-            Target.RenderVideoFrame += (d, e, f, g) =>
+            Target.RenderVideoFrameRGB0555 += (d, e, f, g) =>
+            {
+                Assert.True(e > 0);
+                Assert.True(f > 0);
+                Assert.True(g > 0);
+                numRenderVideoFrameCalled++;
+            };
+
+            Target.RenderVideoFrameRGB565 += (d, e, f, g) =>
+            {
+                Assert.True(e > 0);
+                Assert.True(f > 0);
+                Assert.True(g > 0);
+                numRenderVideoFrameCalled++;
+            };
+
+            Target.RenderVideoFrameXRGB8888 += (d, e, f, g) =>
             {
                 Assert.True(e > 0);
                 Assert.True(f > 0);

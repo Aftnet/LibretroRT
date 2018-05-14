@@ -1,6 +1,8 @@
-﻿namespace RetriX.Shared.Services
+﻿using System;
+
+namespace RetriX.Shared.Services
 {
-    public class FullScreenChangeEventArgs
+    public class FullScreenChangeEventArgs : EventArgs
     {
         public FullScreenChangeType Type { get; private set; }
 
@@ -10,7 +12,7 @@
         }
     }
 
-    public class GameStateOperationEventArgs
+    public class GameStateOperationEventArgs : EventArgs
     {
         public enum GameStateOperationType { Save, Load };
 

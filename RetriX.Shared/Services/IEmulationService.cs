@@ -1,9 +1,6 @@
 ﻿using LibRetriX;
-using Plugin.FileSystem.Abstractions;
 using RetriX.Shared.StreamProviders;
-using RetriX.Shared.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RetriX.Shared.Services
@@ -22,20 +19,12 @@ namespace RetriX.Shared.Services
         DeviceIdJoypadX = 9,
     };
 
-    public delegate void GameStoppedDelegate(IEmulationService sender);
-    public delegate void GameStartedDelegate(IEmulationService sender);
-    public delegate void GameRuntimeExceptionOccurredDelegate(IEmulationService sender, Exception exception);
-
     public interface IEmulationService
     {
-        IReadOnlyList<GameSystemVM> Systems { get; }
-        IReadOnlyList<string> ArchiveExtensions { get; }
-
-        Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder);
+        Task<bool> StartGameAsync(ICore core, IStreamProvider streamProvider, string mainFilePath);
 
         Task ResetGameAsync();
         Task StopGameAsync();
-        Task StopGameAsync(bool performBackNavigation);
 
         Task PauseGameAsync();
         Task ResumeGameAsync();
@@ -45,8 +34,8 @@ namespace RetriX.Shared.Services
 
         void InjectInputPlayer1(InjectedInputTypes inputType);
 
-        event GameStartedDelegate GameStarted;
-        event GameStoppedDelegate GameStopped;
-        event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
+        event EventHandler GameStarted;
+        event EventHandler GameStopped;
+        event EventHandler<Exception> GameRuntimeExceptionOccurred;
     }
 }

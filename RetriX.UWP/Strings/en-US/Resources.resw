@@ -132,12 +132,6 @@
   <data name="GameGearRomDescription.Text" xml:space="preserve">
     <value>SEGA Game Gear Rom</value>
   </data>
-  <data name="ManufacturerNameNintendo" xml:space="preserve">
-    <value>Nintendo</value>
-  </data>
-  <data name="ManufacturerNameSega" xml:space="preserve">
-    <value>SEGA</value>
-  </data>
   <data name="MasterSystemRomDescription.Text" xml:space="preserve">
     <value>SEGA Master System Rom</value>
   </data>
@@ -155,21 +149,6 @@
   </data>
   <data name="SNESRomDescription.Text" xml:space="preserve">
     <value>Super Nintendo Entertainment System Rom</value>
-  </data>
-  <data name="SystemNameGameBoy" xml:space="preserve">
-    <value>Game Boy Color</value>
-  </data>
-  <data name="SystemNameGameBoyAdvance" xml:space="preserve">
-    <value>Game Boy Advance</value>
-  </data>
-  <data name="SystemNameMegaDrive" xml:space="preserve">
-    <value>Mega Drive</value>
-  </data>
-  <data name="SystemNameNES" xml:space="preserve">
-    <value>NES</value>
-  </data>
-  <data name="SystemNameSNES" xml:space="preserve">
-    <value>Super Nintendo</value>
   </data>
   <data name="Slot2MenuFlyoutItem.Text" xml:space="preserve">
     <value>Slot 2</value>
@@ -192,36 +171,17 @@
   <data name="Slot8MenuFlyoutItem.Text" xml:space="preserve">
     <value>Slot 8</value>
   </data>
-  <data name="StateSavedToSlotMessageBodyKey" xml:space="preserve">
-    <value>Game state saved to slot {0}</value>
-  </data>
-  <data name="StateSavedToSlotMessageTitleKey" xml:space="preserve">
-    <value>State saved</value>
-  </data>
   <data name="LoadMenuFlyoutItem.Text" xml:space="preserve">
     <value>Load</value>
   </data>
   <data name="SaveMenuFlyoutItem.Text" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="GameLoadingFailAlertMessageKey" xml:space="preserve">
-    <value>An error occurred while loading the game.
-The game file may be corrupt or in a wrong format: try another one.</value>
-  </data>
-  <data name="GameLoadingFailAlertTitleKey" xml:space="preserve">
-    <value>Unable to load game</value>
-  </data>
   <data name="AboutHeader.Text" xml:space="preserve">
     <value>ABOUT</value>
   </data>
-  <data name="GameSystemsHeader.Text" xml:space="preserve">
-    <value>GAME SYSTEMS</value>
-  </data>
-  <data name="AboutNavItem.Text" xml:space="preserve">
+  <data name="AboutBtn.Label" xml:space="preserve">
     <value>About</value>
-  </data>
-  <data name="GameSystemsNavItem.Text" xml:space="preserve">
-    <value>Game Systems</value>
   </data>
   <data name="CopyrightLabel.Text" xml:space="preserve">
     <value>©2017</value>
@@ -235,35 +195,13 @@ The game file may be corrupt or in a wrong format: try another one.</value>
   <data name="IconsDesignedByLabel.Text" xml:space="preserve">
     <value>designed by</value>
   </data>
-  <data name="GameRunningFailAlertMessageKey" xml:space="preserve">
-    <value>An error occurred while running the game.
-Restart RetriX and try again.</value>
-  </data>
-  <data name="GameRunningFailAlertTitleKey" xml:space="preserve">
-    <value>Game runtime error</value>
-  </data>
-  <data name="SystemNameGameGear" xml:space="preserve">
-    <value>Game Gear</value>
-  </data>
-  <data name="SystemNameMasterSystem" xml:space="preserve">
-    <value>Master System</value>
-  </data>
-  <data name="SystemNameSG1000" xml:space="preserve">
-    <value>SG-1000</value>
-  </data>
-  <data name="FileHashMismatchMessageKey" xml:space="preserve">
-    <value>The file supplied is not the expected one. Try a different file.</value>
-  </data>
-  <data name="FileHashMismatchTitleKey" xml:space="preserve">
-    <value>Wrong file</value>
-  </data>
   <data name="ExpectedFileMD5Label.Text" xml:space="preserve">
     <value>MD5 should be</value>
   </data>
   <data name="ImportFileButtonLabel.Text" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="SettingsNavItem.Text" xml:space="preserve">
+  <data name="SettingsBtn.Label" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="SettingsHeader.Text" xml:space="preserve">
@@ -272,91 +210,31 @@ Restart RetriX and try again.</value>
   <data name="BiosFilesHeader.Text" xml:space="preserve">
     <value>Bios files</value>
   </data>
-  <data name="SystemNameMegaCD" xml:space="preserve">
-    <value>Mega CD</value>
-  </data>
-  <data name="SelectFolderRequestAlertTitleKey" xml:space="preserve">
-    <value>Select the game folder</value>
-  </data>
-  <data name="SelectFolderRequestAlertMessageKey" xml:space="preserve">
-    <value>This game is made up of multiple files. Please select the folder that contains them to load it.</value>
-  </data>
-  <data name="SystemUnmetDependenciesAlertMessageKey" xml:space="preserve">
-    <value>Some files required to run this game are missing. Install them using the settings page and try again.</value>
-  </data>
-  <data name="SystemUnmetDependenciesAlertTitleKey" xml:space="preserve">
-    <value>Required files missing</value>
-  </data>
-  <data name="SelectFolderInvalidAlertMessageKey" xml:space="preserve">
-    <value>The folder you selected does not contain the game file you are trying to open. Try again.</value>
-  </data>
-  <data name="SelectFolderInvalidAlertTitleKey" xml:space="preserve">
-    <value>Invalid folder</value>
-  </data>
-  <data name="ManufacturerNameSony" xml:space="preserve">
-    <value>Sony</value>
-  </data>
-  <data name="SystemNamePlayStation" xml:space="preserve">
-    <value>PlayStation</value>
-  </data>
   <data name="PlayStationRomDescription.Text" xml:space="preserve">
     <value>Sony PlayStation Rom</value>
-  </data>
-  <data name="SystemNameSaturn" xml:space="preserve">
-    <value>Saturn</value>
-  </data>
-  <data name="SystemNameDS" xml:space="preserve">
-    <value>Nintendo DS</value>
   </data>
   <data name="DSRomDescription.Text" xml:space="preserve">
     <value>Nintendo DS Rom</value>
   </data>
-  <data name="ManufacturerNameBandai" xml:space="preserve">
-    <value>Bandai</value>
-  </data>
-  <data name="SystemNameWonderSwan" xml:space="preserve">
-    <value>WonderSwan Color</value>
-  </data>
-  <data name="ManufacturerNameSNK" xml:space="preserve">
-    <value>SNK</value>
-  </data>
-  <data name="SystemNameNeoGeoPocket" xml:space="preserve">
-    <value>Neo Geo Pocket Color</value>
-  </data>
   <data name="NeoGeoPocketRomDescription.Text" xml:space="preserve">
     <value>SNK Neo Geo Pocket Rom</value>
   </data>
-  <data name="ManufacturerNameNEC" xml:space="preserve">
-    <value>NEC</value>
-  </data>
-  <data name="SystemNamePCEngine" xml:space="preserve">
-    <value>PC Engine</value>
-  </data>
   <data name="PCEngineRomDescription.Text" xml:space="preserve">
     <value>NEC PC Engine Rom</value>
-  </data>
-  <data name="SystemNamePCEngineCD" xml:space="preserve">
-    <value>PC Engine CD</value>
-  </data>
-  <data name="SystemNamePCFX" xml:space="preserve">
-    <value>PC-FX</value>
-  </data>
-  <data name="SystemNameNintendo64" xml:space="preserve">
-    <value>Nintendo 64</value>
-  </data>
-  <data name="ManufacturerNameFBAlpha" xml:space="preserve">
-    <value>FinalBurn Alpha</value>
-  </data>
-  <data name="SystemNameArcade" xml:space="preserve">
-    <value>Arcade</value>
-  </data>
-  <data name="SystemNameNeoGeo" xml:space="preserve">
-    <value>Neo Geo</value>
   </data>
   <data name="CHDRomDescription.Text" xml:space="preserve">
     <value>CHD compressed Rom</value>
   </data>
   <data name="CueFileDescription.Text" xml:space="preserve">
     <value>Cue sheet</value>
+  </data>
+  <data name="FilteringMenuFlyoutItem.Text" xml:space="preserve">
+    <value>Filtering</value>
+  </data>
+  <data name="LinearFilteringMenuFlyout.Text" xml:space="preserve">
+    <value>Linear</value>
+  </data>
+  <data name="NNFilteringMenuFlyout.Text" xml:space="preserve">
+    <value>None</value>
   </data>
 </root>

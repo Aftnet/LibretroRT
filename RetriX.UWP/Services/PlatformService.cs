@@ -72,19 +72,19 @@ namespace RetriX.UWP.Services
                 var window = CoreWindow.GetForCurrentThread();
                 window.KeyDown -= OnKeyDown;
                 if (handleGameplayKeyShortcuts)
-                {               
+                {
                     window.KeyDown += OnKeyDown;
                 }
             }
         }
 
-        public event FullScreenChangeRequestedDelegate FullScreenChangeRequested;
+        public event EventHandler<FullScreenChangeEventArgs> FullScreenChangeRequested;
 
-        public event PauseToggleRequestedDelegate PauseToggleRequested;
+        public event EventHandler PauseToggleRequested;
 
-        public event GameStateOperationRequestedDelegate GameStateOperationRequested;
+        public event EventHandler<GameStateOperationEventArgs> GameStateOperationRequested;
 
-        public bool ChangeFullScreenState(FullScreenChangeType changeType)
+        public async Task<bool> ChangeFullScreenStateAsync(FullScreenChangeType changeType)
         {
             if ((changeType == FullScreenChangeType.Enter && IsFullScreenMode) || (changeType == FullScreenChangeType.Exit && !IsFullScreenMode))
             {
@@ -96,16 +96,22 @@ namespace RetriX.UWP.Services
                 changeType = IsFullScreenMode ? FullScreenChangeType.Exit : FullScreenChangeType.Enter;
             }
 
+            var result = false;
             switch (changeType)
             {
                 case FullScreenChangeType.Enter:
-                    return AppView.TryEnterFullScreenMode();
+                    result = AppView.TryEnterFullScreenMode();
+                    break;
                 case FullScreenChangeType.Exit:
                     AppView.ExitFullScreenMode();
-                    return true;
+                    result = true;
+                    break;
+                default:
+                    throw new Exception("this should never happen");
             }
 
-            throw new Exception("this should never happen");
+            await Task.Delay(100);
+            return result;
         }
 
         public void ChangeMousePointerVisibility(MousePointerVisibility visibility)
@@ -128,15 +134,6 @@ namespace RetriX.UWP.Services
 
         private void OnKeyDown(CoreWindow sender, KeyEventArgs args)
         {
-            var shiftState = sender.GetKeyState(VirtualKey.Shift);
-            var shiftIsDown = (shiftState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
-
-            var altState = sender.GetKeyState(VirtualKey.LeftMenu);
-            var altIsDown = (altState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
-
-            var gamepadViewState = sender.GetKeyState(VirtualKey.GamepadView);
-            var gamepadViewIsDown = (gamepadViewState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
-
             switch (args.VirtualKey)
             {
                 //By default the gamepad's B button is treated as a hardware back button.
@@ -146,9 +143,17 @@ namespace RetriX.UWP.Services
                     args.Handled = true;
                     break;
 
-                //Alt+Enter: enter fullscreen
+                //Shift+Enter: enter fullscreen
                 case VirtualKey.Enter:
-                    if (shiftIsDown)
+                    if (KeyIsDown(sender, VirtualKey.Shift))
+                    {
+                        FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Toggle));
+                        args.Handled = true;
+                    }
+                    break;
+
+                case VirtualKey.Shift:
+                    if (KeyIsDown(sender, VirtualKey.Enter))
                     {
                         FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Toggle));
                         args.Handled = true;
@@ -161,47 +166,56 @@ namespace RetriX.UWP.Services
                     break;
 
                 case VirtualKey.Space:
-                    PauseToggleRequested(this);
+                    PauseToggleRequested(this, EventArgs.Empty);
                     args.Handled = true;
                     break;
 
                 case VirtualKey.GamepadMenu:
-                    if(gamepadViewIsDown)
+                    if (KeyIsDown(sender, VirtualKey.GamepadView))
                     {
-                        PauseToggleRequested(this);
+                        PauseToggleRequested(this, EventArgs.Empty);
+                        args.Handled = true;
+                    }
+                    break;
+
+                case VirtualKey.GamepadView:
+                    if (KeyIsDown(sender, VirtualKey.GamepadMenu))
+                    {
+                        PauseToggleRequested(this, EventArgs.Empty);
                         args.Handled = true;
                     }
                     break;
 
                 case VirtualKey.F1:
-                    HandleFunctionKeyPress(shiftIsDown, 1, args);
+                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 1, args);
                     break;
 
                 case VirtualKey.F2:
-                    HandleFunctionKeyPress(shiftIsDown, 2, args);
+                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 2, args);
                     break;
 
                 case VirtualKey.F3:
-                    HandleFunctionKeyPress(shiftIsDown, 3, args);
+                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 3, args);
                     break;
 
                 case VirtualKey.F4:
-                    HandleFunctionKeyPress(shiftIsDown, 4, args);
+                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 4, args);
                     break;
 
                 case VirtualKey.F5:
-                    HandleFunctionKeyPress(shiftIsDown, 5, args);
+                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 5, args);
                     break;
 
                 case VirtualKey.F6:
-                    HandleFunctionKeyPress(shiftIsDown, 6, args);
+                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 6, args);
                     break;
             }
         }
 
-        public Task RunOnUIThreadAsync(Action action)
+        private bool KeyIsDown(CoreWindow window, VirtualKey key)
         {
-            return CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()).AsTask();
+            var output = window.GetKeyState(key).HasFlag(CoreVirtualKeyStates.Down);
+            return output;
         }
 
         private void HandleFunctionKeyPress(bool shiftIsDown, uint slotID, KeyEventArgs args)

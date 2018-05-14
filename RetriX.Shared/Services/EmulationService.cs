@@ -1,31 +1,19 @@
 ﻿using Acr.UserDialogs;
-using GalaSoft.MvvmLight.Views;
 using LibRetriX;
+using MvvmCross.Platform.Core;
 using Plugin.FileSystem.Abstractions;
 using Plugin.LocalNotifications.Abstractions;
-using RetriX.Shared.Services;
 using RetriX.Shared.StreamProviders;
-using RetriX.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RetriX.UWP.Services
+namespace RetriX.Shared.Services
 {
     public class EmulationService : IEmulationService
     {
-        public const string StateSavedToSlotMessageTitleKey = "StateSavedToSlotMessageTitleKey";
-        public const string StateSavedToSlotMessageBodyKey = "StateSavedToSlotMessageBodyKey";
-
-        private const string VFSRomPath = "ROM";
-        private const string VFSSystemPath = "System";
-        private const string VFSSavePath = "Save";
-
-        private const string GamePlayerPageKey = nameof(GamePlayerVM);
-
         private static readonly IReadOnlyDictionary<InjectedInputTypes, InputTypes> InjectedInputMapping = new Dictionary<InjectedInputTypes, InputTypes>
         {
             { InjectedInputTypes.DeviceIdJoypadA, InputTypes.DeviceIdJoypadA },
@@ -40,21 +28,19 @@ namespace RetriX.UWP.Services
             { InjectedInputTypes.DeviceIdJoypadY, InputTypes.DeviceIdJoypadY },
         };
 
-        private readonly INavigationService NavigationService;
-        private readonly IFileSystem FileSystem;
-        private readonly ILocalizationService LocalizationService;
-        private readonly IPlatformService PlatformService;
-        private readonly ISaveStateService SaveStateService;
-        private readonly ILocalNotifications NotificationService;
+        private IPlatformService PlatformService { get; }
+        private ISaveStateService SaveStateService { get; }
+        private ILocalNotifications NotificationService { get; }
+        private IMvxMainThreadDispatcher Dispatcher { get; }
 
-        private readonly IVideoService VideoService;
-        private readonly IAudioService AudioService;
-        private readonly IInputService InputService;
+        private IVideoService VideoService { get; }
+        private IAudioService AudioService { get; }
+        private IInputService InputService { get; }
 
-        private bool CorePaused = false;
-        private bool StartStopOperationInProgress = false;
+        private bool CorePaused { get; set; } = false;
+        private bool StartStopOperationInProgress { get; set; } = false;
 
-        private readonly SemaphoreSlim CoreSemaphore = new SemaphoreSlim(1, 1);
+        private SemaphoreSlim CoreSemaphore { get; } = new SemaphoreSlim(1, 1);
 
         private ICore currentCore;
         private ICore CurrentCore
@@ -71,7 +57,9 @@ namespace RetriX.UWP.Services
                 {
                     currentCore.GeometryChanged -= VideoService.GeometryChanged;
                     currentCore.PixelFormatChanged -= VideoService.PixelFormatChanged;
-                    currentCore.RenderVideoFrame -= VideoService.RenderVideoFrame;
+                    currentCore.RenderVideoFrameRGB0555 -= VideoService.RenderVideoFrameRGB0555;
+                    currentCore.RenderVideoFrameRGB565 -= VideoService.RenderVideoFrameRGB565;
+                    currentCore.RenderVideoFrameXRGB8888 -= VideoService.RenderVideoFrameXRGB8888;
                     currentCore.TimingsChanged -= VideoService.TimingsChanged;
                     currentCore.RotationChanged -= VideoService.RotationChanged;
                     currentCore.TimingsChanged -= AudioService.TimingChanged;
@@ -88,7 +76,9 @@ namespace RetriX.UWP.Services
                 {
                     currentCore.GeometryChanged += VideoService.GeometryChanged;
                     currentCore.PixelFormatChanged += VideoService.PixelFormatChanged;
-                    currentCore.RenderVideoFrame += VideoService.RenderVideoFrame;
+                    currentCore.RenderVideoFrameRGB0555 += VideoService.RenderVideoFrameRGB0555;
+                    currentCore.RenderVideoFrameRGB565 += VideoService.RenderVideoFrameRGB565;
+                    currentCore.RenderVideoFrameXRGB8888 += VideoService.RenderVideoFrameXRGB8888;
                     currentCore.TimingsChanged += VideoService.TimingsChanged;
                     currentCore.RotationChanged += VideoService.RotationChanged;
                     currentCore.TimingsChanged += AudioService.TimingChanged;
@@ -107,63 +97,30 @@ namespace RetriX.UWP.Services
             get => streamProvider;
             set { if (streamProvider != value) streamProvider?.Dispose(); streamProvider = value; }
         }
-        
-        private static readonly string[] archiveExtensions = { ".zip" };
-        public IReadOnlyList<string> ArchiveExtensions => archiveExtensions;
 
-        private readonly GameSystemVM[] systems;
-        public IReadOnlyList<GameSystemVM> Systems => systems;
+        public event EventHandler GameStarted;
+        public event EventHandler GameStopped;
+        public event EventHandler<Exception> GameRuntimeExceptionOccurred;
 
-        public event GameStartedDelegate GameStarted;
-        public event GameStoppedDelegate GameStopped;
-        public event GameRuntimeExceptionOccurredDelegate GameRuntimeExceptionOccurred;
-
-        public EmulationService(INavigationService navigationService,  IFileSystem fileSystem, IUserDialogs dialogsService,
-            ILocalizationService localizationService, IPlatformService platformService, ISaveStateService saveStateService,
+        public EmulationService(IFileSystem fileSystem, IUserDialogs dialogsService,
+            IPlatformService platformService, ISaveStateService saveStateService,
             ILocalNotifications notificationService, ICryptographyService cryptographyService,
-            IVideoService videoService, IAudioService audioService, IInputService inputService)
+            IVideoService videoService, IAudioService audioService,
+            IInputService inputService, IMvxMainThreadDispatcher dispatcher)
         {
-            NavigationService = navigationService;
-            FileSystem = fileSystem;
-            LocalizationService = localizationService;
             PlatformService = platformService;
             SaveStateService = saveStateService;
             NotificationService = notificationService;
+            Dispatcher = dispatcher;
 
             VideoService = videoService;
             AudioService = audioService;
             InputService = inputService;
 
-            VideoService.RequestRunCoreFrame += d => OnCoreRunFrameRequested();
-
-            var CDImageExtensions = new HashSet<string> { ".bin", ".cue", ".iso", ".mds", ".mdf" };
-
-            systems = new GameSystemVM[]
-            {
-                new GameSystemVM(LibRetriX.FCEUMM.Core.Instance, FileSystem, LocalizationService, "SystemNameNES", "ManufacturerNameNintendo", "\uf118"),
-                new GameSystemVM(LibRetriX.Snes9X.Core.Instance, FileSystem, LocalizationService, "SystemNameSNES", "ManufacturerNameNintendo", "\uf119"),
-                //new GameSystemVM(LibRetriX.ParallelN64.Core.Instance, FileSystem, LocalizationService, "SystemNameNintendo64", "ManufacturerNameNintendo", "\uf116"),
-                new GameSystemVM(LibRetriX.Gambatte.Core.Instance, FileSystem, LocalizationService, "SystemNameGameBoy", "ManufacturerNameNintendo", "\uf11b"),
-                new GameSystemVM(LibRetriX.VBAM.Core.Instance, FileSystem, LocalizationService, "SystemNameGameBoyAdvance", "ManufacturerNameNintendo", "\uf115"),
-                new GameSystemVM(LibRetriX.MelonDS.Core.Instance, FileSystem, LocalizationService, "SystemNameDS", "ManufacturerNameNintendo", "\uf117"),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameSG1000", "ManufacturerNameSega", "\uf102", true, new HashSet<string> { ".sg" }),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMasterSystem", "ManufacturerNameSega", "\uf118", true, new HashSet<string> { ".sms" }),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameGameGear", "ManufacturerNameSega", "\uf129", true, new HashSet<string> { ".gg" }),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMegaDrive", "ManufacturerNameSega", "\uf124", true, new HashSet<string> { ".mds", ".md", ".smd", ".gen" }),
-                new GameSystemVM(LibRetriX.GPGX.Core.Instance, FileSystem, LocalizationService, "SystemNameMegaCD", "ManufacturerNameSega", "\uf124", false, new HashSet<string> { ".bin", ".cue", ".iso", ".chd" }, CDImageExtensions),
-                //new GameSystemVM(LibRetriX.BeetleSaturn.Core.Instance, FileSystem, LocalizationService, "SystemNameSaturn", "ManufacturerNameSega", "\uf124", false, null, CDImageExtensions),
-                new GameSystemVM(LibRetriX.BeetlePSX.Core.Instance, FileSystem, LocalizationService, "SystemNamePlayStation", "ManufacturerNameSony", "\uf128", false, null, CDImageExtensions),
-                new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, LocalizationService, "SystemNamePCEngine", "ManufacturerNameNEC", "\uf124", true, new HashSet<string> { ".pce" }),
-                new GameSystemVM(LibRetriX.BeetlePCEFast.Core.Instance, FileSystem, LocalizationService, "SystemNamePCEngineCD", "ManufacturerNameNEC", "\uf124", false, new HashSet<string> { ".cue", ".ccd", ".chd" }, CDImageExtensions),
-                new GameSystemVM(LibRetriX.BeetlePCFX.Core.Instance, FileSystem, LocalizationService, "SystemNamePCFX", "ManufacturerNameNEC", "\uf124", false, null, CDImageExtensions),
-                new GameSystemVM(LibRetriX.BeetleWswan.Core.Instance, FileSystem, LocalizationService, "SystemNameWonderSwan", "ManufacturerNameBandai", "\uf129"),
-                new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, LocalizationService, "SystemNameNeoGeo", "ManufacturerNameSNK", "\uf102", false),
-                new GameSystemVM(LibRetriX.BeetleNGP.Core.Instance, FileSystem, LocalizationService, "SystemNameNeoGeoPocket", "ManufacturerNameSNK", "\uf129"),
-                new GameSystemVM(LibRetriX.FBAlpha.Core.Instance, FileSystem, LocalizationService, "SystemNameArcade", "ManufacturerNameFBAlpha", "\uf102", true),
-            };
+            VideoService.RequestRunCoreFrame += OnRunFrameRequested;
         }
 
-        public async Task<bool> StartGameAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder)
+        public async Task<bool> StartGameAsync(ICore core, IStreamProvider streamProvider, string mainFilePath)
         {
             if (StartStopOperationInProgress)
             {
@@ -171,15 +128,6 @@ namespace RetriX.UWP.Services
             }
 
             StartStopOperationInProgress = true;
-
-            var gameLaunchEnvironment = await GenerateGameLaunchEnvironmentAsync(system, file, rootFolder);
-            var provider = gameLaunchEnvironment.Item1;
-            var virtualMainFilePath = gameLaunchEnvironment.Item2;
-
-            if (NavigationService.CurrentPageKey != GamePlayerPageKey)
-            {
-                NavigationService.NavigateTo(GamePlayerPageKey);
-            }
 
             var initTasks = new Task[] { InputService.InitAsync(), AudioService.InitAsync(), VideoService.InitAsync() };
             await Task.WhenAll(initTasks);
@@ -193,16 +141,16 @@ namespace RetriX.UWP.Services
                     await Task.Run(() => CurrentCore.UnloadGame());
                 }
 
-                StreamProvider = provider;
-                SaveStateService.SetGameId(virtualMainFilePath);
+                StreamProvider = streamProvider;
+                SaveStateService.SetGameId(mainFilePath);
                 CorePaused = false;
-                CurrentCore = system.Core;
+                CurrentCore = core;
 
                 loadSuccessful = await Task.Run(() =>
                 {
                     try
                     {
-                        return CurrentCore.LoadGame(virtualMainFilePath);
+                        return CurrentCore.LoadGame(mainFilePath);
                     }
                     catch
                     {
@@ -212,7 +160,7 @@ namespace RetriX.UWP.Services
 
                 if (!loadSuccessful)
                 {
-                    await StopGameAsyncInternal(true);
+                    await StopGameAsyncInternal();
                     StartStopOperationInProgress = false;
                     return loadSuccessful;
                 }
@@ -222,7 +170,7 @@ namespace RetriX.UWP.Services
                 CoreSemaphore.Release();
             }
 
-            GameStarted?.Invoke(this);
+            GameStarted?.Invoke(this, EventArgs.Empty);
             StartStopOperationInProgress = false;
             return loadSuccessful;
         }
@@ -243,12 +191,7 @@ namespace RetriX.UWP.Services
             }
         }
 
-        public Task StopGameAsync()
-        {
-            return StopGameAsync(true);
-        }
-
-        public async Task StopGameAsync(bool performBackNavigation)
+        public async Task StopGameAsync()
         {
             if (StartStopOperationInProgress)
             {
@@ -260,18 +203,18 @@ namespace RetriX.UWP.Services
             await CoreSemaphore.WaitAsync();
             try
             {
-                await StopGameAsyncInternal(performBackNavigation);
+                await StopGameAsyncInternal();
             }
             finally
             {
                 CoreSemaphore.Release();
             }
 
-            GameStopped?.Invoke(this);
+            GameStopped?.Invoke(this, EventArgs.Empty);
             StartStopOperationInProgress = false;
         }
 
-        private async Task StopGameAsyncInternal(bool performBackNavigation)
+        private async Task StopGameAsyncInternal()
         {
             if (CurrentCore != null)
             {
@@ -284,11 +227,6 @@ namespace RetriX.UWP.Services
 
             var initTasks = new Task[] { InputService.DeinitAsync(), AudioService.DeinitAsync(), VideoService.DeinitAsync() };
             await Task.WhenAll(initTasks);
-
-            if (performBackNavigation && NavigationService.CurrentPageKey == GamePlayerPageKey)
-            {
-                NavigationService.GoBack();
-            }
         }
 
         public Task PauseGameAsync()
@@ -343,9 +281,8 @@ namespace RetriX.UWP.Services
 
             if (success)
             {
-                var notificationTitle = LocalizationService.GetLocalizedString(StateSavedToSlotMessageTitleKey);
-                var notificationBody = string.Format(LocalizationService.GetLocalizedString(StateSavedToSlotMessageBodyKey), slotID);
-                NotificationService.Show(notificationTitle, notificationBody);
+                var notificationBody = string.Format(Resources.Strings.StateSavedToSlotMessageBody, slotID);
+                NotificationService.Show(Resources.Strings.StateSavedToSlotMessageTitle, notificationBody);
             }
 
             return success;
@@ -386,26 +323,28 @@ namespace RetriX.UWP.Services
         }
 
         //Synhronous since it's going to be called by a non UI thread
-        private void OnCoreRunFrameRequested()
+        private async void OnRunFrameRequested(object sender, EventArgs args)
         {
-            CoreSemaphore.WaitAsync().Wait();
+            if (CurrentCore == null || CorePaused || AudioService.ShouldDelayNextFrame)
+            {
+                return;
+            }
+
+            await CoreSemaphore.WaitAsync();
             try
             {
-                if (!(CurrentCore == null || CorePaused || AudioService.ShouldDelayNextFrame))
-                {
-                    CurrentCore.RunFrame();
-                }
+                CurrentCore.RunFrame();
             }
             catch (Exception e)
             {
                 if (!StartStopOperationInProgress)
                 {
                     StartStopOperationInProgress = true;
-                    StopGameAsyncInternal(true).Wait();
+                    StopGameAsyncInternal().Wait();
                     StartStopOperationInProgress = false;
                 }
 
-                var task = PlatformService.RunOnUIThreadAsync(() => GameRuntimeExceptionOccurred?.Invoke(this, e));
+                var task = Dispatcher.RequestMainThreadAction(() => GameRuntimeExceptionOccurred?.Invoke(this, e));
             }
             finally
             {
@@ -422,45 +361,6 @@ namespace RetriX.UWP.Services
         private void OnCoreCloseFileStream(Stream stream)
         {
             StreamProvider.CloseStream(stream);
-        }
-
-        private async Task<Tuple<IStreamProvider, string>> GenerateGameLaunchEnvironmentAsync(GameSystemVM system, IFileInfo file, IDirectoryInfo rootFolder)
-        {
-            var core = system.Core;
-
-            string virtualMainFilePath = null;
-            var provider = default(IStreamProvider);
-
-            if (core.NativeArchiveSupport || !ArchiveExtensions.Contains(Path.GetExtension(file.Name)))
-            {
-                virtualMainFilePath = $"{VFSRomPath}{Path.DirectorySeparatorChar}{file.Name}";
-                provider = new SingleFileStreamProvider(virtualMainFilePath, file);
-                if (rootFolder != null)
-                {
-                    virtualMainFilePath = file.FullName.Substring(rootFolder.FullName.Length + 1);
-                    virtualMainFilePath = $"{VFSRomPath}{Path.DirectorySeparatorChar}{virtualMainFilePath}";
-                    provider = new FolderStreamProvider(VFSRomPath, rootFolder);
-                }
-            }
-            else
-            {
-                var archiveProvider = new ArchiveStreamProvider(VFSRomPath, file);
-                await archiveProvider.InitializeAsync();
-                provider = archiveProvider;
-                var entries = await provider.ListEntriesAsync();
-                virtualMainFilePath = entries.FirstOrDefault(d => system.SupportedExtensions.Contains(Path.GetExtension(d)));
-            }
-
-            var systemFolder = await system.GetSystemDirectoryAsync();
-            var systemProvider = new FolderStreamProvider(VFSSystemPath, systemFolder);
-            core.SystemRootPath = VFSSystemPath;
-            var saveFolder = await system.GetSaveDirectoryAsync();
-            var saveProvider = new FolderStreamProvider(VFSSavePath, saveFolder);
-            core.SaveRootPath = VFSSavePath;
-
-            provider = new CombinedStreamProvider(new HashSet<IStreamProvider>() { provider, systemProvider, saveProvider });
-
-            return Tuple.Create(provider, virtualMainFilePath);
-        }
+        }        
     }
 }

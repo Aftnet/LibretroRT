@@ -3,7 +3,7 @@ using RetriX.Shared.Services;
 using RetriX.UWP.Components;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media;
@@ -41,27 +41,27 @@ namespace RetriX.UWP.Services
         private readonly Queue<short> SamplesBuffer = new Queue<short>();
 
         private bool GraphReconstructionInProgress = false;
-        private bool AllowPlaybackControl { get { return !GraphReconstructionInProgress && InputNode != null; } }
+        private bool AllowPlaybackControl => !GraphReconstructionInProgress && InputNode != null;
 
         private AudioGraph graph;
         private AudioGraph Graph
         {
-            get { return graph; }
-            set { graph?.Dispose(); graph = value; }
+            get => graph;
+            set { if (graph != value) { graph?.Dispose(); graph = value; } }
         }
 
         private AudioDeviceOutputNode outputNode;
         private AudioDeviceOutputNode OutputNode
         {
-            get { return outputNode; }
-            set { outputNode?.Dispose(); outputNode = value; }
+            get => outputNode;
+            set { if (outputNode != value) { outputNode?.Dispose(); outputNode = value; } }
         }
 
         private AudioFrameInputNode inputNode;
         private AudioFrameInputNode InputNode
         {
-            get { return inputNode; }
-            set { inputNode?.Dispose(); inputNode = value; }
+            get => inputNode;
+            set { if (inputNode != value) { inputNode?.Dispose(); inputNode = value; } }
         }
 
         public AudioService()
@@ -91,7 +91,7 @@ namespace RetriX.UWP.Services
             var operation = ReconstructGraph(sampleRate);
         }
 
-        public void RenderAudioFrames(IntPtr data, ulong numFrames)
+        public void RenderAudioFrames(IReadOnlyList<short> data, ulong numFrames)
         {
             if (!AllowPlaybackControl)
                 return;
@@ -104,8 +104,7 @@ namespace RetriX.UWP.Services
             {
                 for (var i = 0; i < numSamplesToCopy; i++)
                 {
-                    SamplesBuffer.Enqueue(Marshal.ReadInt16(data));
-                    data += sizeof(short);
+                    SamplesBuffer.Enqueue(data[i]);
                 }
 
                 if (SamplesBuffer.Count >= MinNumSamplesForPlayback)

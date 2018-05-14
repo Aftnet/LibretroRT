@@ -17,7 +17,6 @@ namespace RetriX.Shared.Test
 
         protected readonly Mock<IFileSystem> FileSystemMock = new Mock<IFileSystem>();
         protected readonly Mock<IUserDialogs> DialogsServiceMock = new Mock<IUserDialogs>();
-        protected readonly Mock<ILocalizationService> LocalizationServiceMock = new Mock<ILocalizationService>();
         protected readonly Mock<IPlatformService> PlatformServiceMock = new Mock<IPlatformService>();
         protected readonly Mock<ILocalNotifications> NotificationServiceMock = new Mock<ILocalNotifications>();
         protected readonly Mock<ICryptographyService> CryptographyServiceMock = new Mock<ICryptographyService>();
