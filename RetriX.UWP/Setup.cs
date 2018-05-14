@@ -26,7 +26,6 @@ namespace RetriX.UWP
 
         protected override void InitializeFirstChance()
         {
-            Mvx.ConstructAndRegisterSingleton<ILocalizationService, LocalizationService>();
             Mvx.ConstructAndRegisterSingleton<IPlatformService, PlatformService>();
             Mvx.ConstructAndRegisterSingleton<IInputService, InputService>();
             Mvx.ConstructAndRegisterSingleton<IAudioService, AudioService>();

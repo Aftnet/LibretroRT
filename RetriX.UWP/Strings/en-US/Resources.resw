@@ -132,12 +132,6 @@
   <data name="GameGearRomDescription.Text" xml:space="preserve">
     <value>SEGA Game Gear Rom</value>
   </data>
-  <data name="ManufacturerNameNintendo" xml:space="preserve">
-    <value>Nintendo</value>
-  </data>
-  <data name="ManufacturerNameSega" xml:space="preserve">
-    <value>SEGA</value>
-  </data>
   <data name="MasterSystemRomDescription.Text" xml:space="preserve">
     <value>SEGA Master System Rom</value>
   </data>
@@ -155,21 +149,6 @@
   </data>
   <data name="SNESRomDescription.Text" xml:space="preserve">
     <value>Super Nintendo Entertainment System Rom</value>
-  </data>
-  <data name="SystemNameGameBoy" xml:space="preserve">
-    <value>Game Boy Color</value>
-  </data>
-  <data name="SystemNameGameBoyAdvance" xml:space="preserve">
-    <value>Game Boy Advance</value>
-  </data>
-  <data name="SystemNameMegaDrive" xml:space="preserve">
-    <value>Mega Drive</value>
-  </data>
-  <data name="SystemNameNES" xml:space="preserve">
-    <value>NES</value>
-  </data>
-  <data name="SystemNameSNES" xml:space="preserve">
-    <value>Super Nintendo</value>
   </data>
   <data name="Slot2MenuFlyoutItem.Text" xml:space="preserve">
     <value>Slot 2</value>
@@ -216,15 +195,6 @@
   <data name="IconsDesignedByLabel.Text" xml:space="preserve">
     <value>designed by</value>
   </data>
-  <data name="SystemNameGameGear" xml:space="preserve">
-    <value>Game Gear</value>
-  </data>
-  <data name="SystemNameMasterSystem" xml:space="preserve">
-    <value>Master System</value>
-  </data>
-  <data name="SystemNameSG1000" xml:space="preserve">
-    <value>SG-1000</value>
-  </data>
   <data name="ExpectedFileMD5Label.Text" xml:space="preserve">
     <value>MD5 should be</value>
   </data>
@@ -240,68 +210,17 @@
   <data name="BiosFilesHeader.Text" xml:space="preserve">
     <value>Bios files</value>
   </data>
-  <data name="SystemNameMegaCD" xml:space="preserve">
-    <value>Mega CD</value>
-  </data>
-  <data name="ManufacturerNameSony" xml:space="preserve">
-    <value>Sony</value>
-  </data>
-  <data name="SystemNamePlayStation" xml:space="preserve">
-    <value>PlayStation</value>
-  </data>
   <data name="PlayStationRomDescription.Text" xml:space="preserve">
     <value>Sony PlayStation Rom</value>
-  </data>
-  <data name="SystemNameSaturn" xml:space="preserve">
-    <value>Saturn</value>
-  </data>
-  <data name="SystemNameDS" xml:space="preserve">
-    <value>Nintendo DS</value>
   </data>
   <data name="DSRomDescription.Text" xml:space="preserve">
     <value>Nintendo DS Rom</value>
   </data>
-  <data name="ManufacturerNameBandai" xml:space="preserve">
-    <value>Bandai</value>
-  </data>
-  <data name="SystemNameWonderSwan" xml:space="preserve">
-    <value>WonderSwan Color</value>
-  </data>
-  <data name="ManufacturerNameSNK" xml:space="preserve">
-    <value>SNK</value>
-  </data>
-  <data name="SystemNameNeoGeoPocket" xml:space="preserve">
-    <value>Neo Geo Pocket Color</value>
-  </data>
   <data name="NeoGeoPocketRomDescription.Text" xml:space="preserve">
     <value>SNK Neo Geo Pocket Rom</value>
   </data>
-  <data name="ManufacturerNameNEC" xml:space="preserve">
-    <value>NEC</value>
-  </data>
-  <data name="SystemNamePCEngine" xml:space="preserve">
-    <value>PC Engine</value>
-  </data>
   <data name="PCEngineRomDescription.Text" xml:space="preserve">
     <value>NEC PC Engine Rom</value>
-  </data>
-  <data name="SystemNamePCEngineCD" xml:space="preserve">
-    <value>PC Engine CD</value>
-  </data>
-  <data name="SystemNamePCFX" xml:space="preserve">
-    <value>PC-FX</value>
-  </data>
-  <data name="SystemNameNintendo64" xml:space="preserve">
-    <value>Nintendo 64</value>
-  </data>
-  <data name="ManufacturerNameFBAlpha" xml:space="preserve">
-    <value>FinalBurn Alpha</value>
-  </data>
-  <data name="SystemNameArcade" xml:space="preserve">
-    <value>Arcade</value>
-  </data>
-  <data name="SystemNameNeoGeo" xml:space="preserve">
-    <value>Neo Geo</value>
   </data>
   <data name="CHDRomDescription.Text" xml:space="preserve">
     <value>CHD compressed Rom</value>

@@ -118,6 +118,69 @@ namespace RetriX.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bandai.
+        /// </summary>
+        internal static string ManufacturerNameBandai {
+            get {
+                return ResourceManager.GetString("ManufacturerNameBandai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FinalBurn Alpha.
+        /// </summary>
+        internal static string ManufacturerNameFBAlpha {
+            get {
+                return ResourceManager.GetString("ManufacturerNameFBAlpha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NEC.
+        /// </summary>
+        internal static string ManufacturerNameNEC {
+            get {
+                return ResourceManager.GetString("ManufacturerNameNEC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nintendo.
+        /// </summary>
+        internal static string ManufacturerNameNintendo {
+            get {
+                return ResourceManager.GetString("ManufacturerNameNintendo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEGA.
+        /// </summary>
+        internal static string ManufacturerNameSega {
+            get {
+                return ResourceManager.GetString("ManufacturerNameSega", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SNK.
+        /// </summary>
+        internal static string ManufacturerNameSNK {
+            get {
+                return ResourceManager.GetString("ManufacturerNameSNK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sony.
+        /// </summary>
+        internal static string ManufacturerNameSony {
+            get {
+                return ResourceManager.GetString("ManufacturerNameSony", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The folder you selected does not contain the game file you are trying to open. Try again..
         /// </summary>
         internal static string SelectFolderInvalidAlertMessage {
@@ -168,6 +231,186 @@ namespace RetriX.Shared.Resources {
         internal static string StateSavedToSlotMessageTitle {
             get {
                 return ResourceManager.GetString("StateSavedToSlotMessageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arcade.
+        /// </summary>
+        internal static string SystemNameArcade {
+            get {
+                return ResourceManager.GetString("SystemNameArcade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nintendo DS.
+        /// </summary>
+        internal static string SystemNameDS {
+            get {
+                return ResourceManager.GetString("SystemNameDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Boy Color.
+        /// </summary>
+        internal static string SystemNameGameBoy {
+            get {
+                return ResourceManager.GetString("SystemNameGameBoy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Boy Advance.
+        /// </summary>
+        internal static string SystemNameGameBoyAdvance {
+            get {
+                return ResourceManager.GetString("SystemNameGameBoyAdvance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Gear.
+        /// </summary>
+        internal static string SystemNameGameGear {
+            get {
+                return ResourceManager.GetString("SystemNameGameGear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Master System.
+        /// </summary>
+        internal static string SystemNameMasterSystem {
+            get {
+                return ResourceManager.GetString("SystemNameMasterSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mega CD.
+        /// </summary>
+        internal static string SystemNameMegaCD {
+            get {
+                return ResourceManager.GetString("SystemNameMegaCD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mega Drive.
+        /// </summary>
+        internal static string SystemNameMegaDrive {
+            get {
+                return ResourceManager.GetString("SystemNameMegaDrive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neo Geo.
+        /// </summary>
+        internal static string SystemNameNeoGeo {
+            get {
+                return ResourceManager.GetString("SystemNameNeoGeo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neo Geo Pocket Color.
+        /// </summary>
+        internal static string SystemNameNeoGeoPocket {
+            get {
+                return ResourceManager.GetString("SystemNameNeoGeoPocket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NES.
+        /// </summary>
+        internal static string SystemNameNES {
+            get {
+                return ResourceManager.GetString("SystemNameNES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nintendo 64.
+        /// </summary>
+        internal static string SystemNameNintendo64 {
+            get {
+                return ResourceManager.GetString("SystemNameNintendo64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PC Engine.
+        /// </summary>
+        internal static string SystemNamePCEngine {
+            get {
+                return ResourceManager.GetString("SystemNamePCEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PC Engine CD.
+        /// </summary>
+        internal static string SystemNamePCEngineCD {
+            get {
+                return ResourceManager.GetString("SystemNamePCEngineCD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PC-FX.
+        /// </summary>
+        internal static string SystemNamePCFX {
+            get {
+                return ResourceManager.GetString("SystemNamePCFX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PlayStation.
+        /// </summary>
+        internal static string SystemNamePlayStation {
+            get {
+                return ResourceManager.GetString("SystemNamePlayStation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saturn.
+        /// </summary>
+        internal static string SystemNameSaturn {
+            get {
+                return ResourceManager.GetString("SystemNameSaturn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SG-1000.
+        /// </summary>
+        internal static string SystemNameSG1000 {
+            get {
+                return ResourceManager.GetString("SystemNameSG1000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super Nintendo.
+        /// </summary>
+        internal static string SystemNameSNES {
+            get {
+                return ResourceManager.GetString("SystemNameSNES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WonderSwan Color.
+        /// </summary>
+        internal static string SystemNameWonderSwan {
+            get {
+                return ResourceManager.GetString("SystemNameWonderSwan", resourceCulture);
             }
         }
         
