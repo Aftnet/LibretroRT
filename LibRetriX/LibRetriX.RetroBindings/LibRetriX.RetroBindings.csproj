@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LibRetriX.Primitives\LibRetriX.Primitives.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Unsafe\UnmanagedLists.cs">
       <DependentUpon>UnmanagedLists.tt</DependentUpon>
       <DesignTime>True</DesignTime>

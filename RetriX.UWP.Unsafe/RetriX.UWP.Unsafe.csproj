@@ -132,10 +132,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj">
-      <Project>{4fc73e3b-43f0-4830-8dfd-7d32a97d5029}</Project>
-      <Name>LibRetriX.Primitives</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RetriX.Shared\RetriX.Shared.csproj">
       <Project>{58B82D57-A956-4492-96FB-3E82FA82798A}</Project>
       <Name>RetriX.Shared</Name>

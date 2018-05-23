@@ -395,14 +395,6 @@
       <Project>{5c407cab-14a1-469e-bce2-7ed26e2fa5bc}</Project>
       <Name>VBAM.LibRetriX</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibRetriX.Primitives\LibRetriX.Primitives.csproj">
-      <Project>{4fc73e3b-43f0-4830-8dfd-7d32a97d5029}</Project>
-      <Name>LibRetriX.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LibRetriX.Test.Base\LibRetriX.Test.Base.csproj">
-      <Project>{1bd40e0b-9903-473b-8343-4ebdf6a1868a}</Project>
-      <Name>LibRetriX.Test.Base</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

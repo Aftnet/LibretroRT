@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="6.5.1" />
+    <PackageReference Include="LibRetriX" Version="0.1.8" />
     <PackageReference Include="MvvmCross.Core" Version="5.7.0" />
     <PackageReference Include="Plugin.VersionTracking" Version="2.1.0" />
     <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
@@ -18,10 +19,6 @@
     <PackageReference Include="Xam.Plugin.FileSystem" Version="1.0.8" />
     <PackageReference Include="Xam.Plugins.Notifier" Version="2.1.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\LibRetriX\LibRetriX.Primitives\LibRetriX.Primitives.csproj" />
   </ItemGroup>
 
   <ItemGroup>
