@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Input;
 using Windows.Gaming.Input;
@@ -25,6 +24,7 @@ namespace RetriX.UWP.Services
 
         private ApplicationView AppView => ApplicationView.GetForCurrentView();
         private CoreWindow CoreWindow => CoreWindow.GetForCurrentThread();
+        private ISet<VirtualKey> PressedKeys { get; } = new HashSet<VirtualKey>();
 
         public bool FullScreenChangingPossible
         {
@@ -65,15 +65,18 @@ namespace RetriX.UWP.Services
         private bool handleGameplayKeyShortcuts = false;
         public bool HandleGameplayKeyShortcuts
         {
-            get { return handleGameplayKeyShortcuts; }
+            get => handleGameplayKeyShortcuts;
             set
             {
+                PressedKeys.Clear();
                 handleGameplayKeyShortcuts = value;
                 var window = CoreWindow.GetForCurrentThread();
                 window.KeyDown -= OnKeyDown;
+                window.KeyUp -= OnKeyUp;
                 if (handleGameplayKeyShortcuts)
                 {
                     window.KeyDown += OnKeyDown;
+                    window.KeyUp += OnKeyUp;
                 }
             }
         }
@@ -134,96 +137,95 @@ namespace RetriX.UWP.Services
 
         private void OnKeyDown(CoreWindow sender, KeyEventArgs args)
         {
-            switch (args.VirtualKey)
+            var key = args.VirtualKey;
+            if (!PressedKeys.Contains(key))
             {
-                //By default the gamepad's B button is treated as a hardware back button.
-                //Handling the KeyDown event disables this.
-                //We want this to happen only in the game page and not in the rest of the UI
-                case VirtualKey.GamepadB:
-                    args.Handled = true;
-                    break;
+                PressedKeys.Add(key);
+            }
 
+            switch (key)
+            {
                 //Shift+Enter: enter fullscreen
                 case VirtualKey.Enter:
-                    if (KeyIsDown(sender, VirtualKey.Shift))
+                    if (PressedKeys.Contains(VirtualKey.Shift))
                     {
                         FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Toggle));
-                        args.Handled = true;
                     }
                     break;
 
                 case VirtualKey.Shift:
-                    if (KeyIsDown(sender, VirtualKey.Enter))
+                    if (PressedKeys.Contains(VirtualKey.Enter))
                     {
                         FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Toggle));
-                        args.Handled = true;
                     }
                     break;
 
                 case VirtualKey.Escape:
                     FullScreenChangeRequested(this, new FullScreenChangeEventArgs(FullScreenChangeType.Exit));
-                    args.Handled = true;
                     break;
 
                 case VirtualKey.Space:
                     PauseToggleRequested(this, EventArgs.Empty);
-                    args.Handled = true;
                     break;
 
                 case VirtualKey.GamepadMenu:
-                    if (KeyIsDown(sender, VirtualKey.GamepadView))
+                    if (PressedKeys.Contains(VirtualKey.GamepadView))
                     {
                         PauseToggleRequested(this, EventArgs.Empty);
-                        args.Handled = true;
                     }
                     break;
 
                 case VirtualKey.GamepadView:
-                    if (KeyIsDown(sender, VirtualKey.GamepadMenu))
+                    if (PressedKeys.Contains(VirtualKey.GamepadMenu))
                     {
                         PauseToggleRequested(this, EventArgs.Empty);
-                        args.Handled = true;
                     }
                     break;
 
                 case VirtualKey.F1:
-                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 1, args);
+                    HandleSaveSlotKeyPress(1);
                     break;
 
                 case VirtualKey.F2:
-                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 2, args);
+                    HandleSaveSlotKeyPress(2);
                     break;
 
                 case VirtualKey.F3:
-                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 3, args);
+                    HandleSaveSlotKeyPress(3);
                     break;
 
                 case VirtualKey.F4:
-                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 4, args);
+                    HandleSaveSlotKeyPress(4);
                     break;
 
                 case VirtualKey.F5:
-                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 5, args);
+                    HandleSaveSlotKeyPress(5);
                     break;
 
                 case VirtualKey.F6:
-                    HandleFunctionKeyPress(KeyIsDown(sender, VirtualKey.Shift), 6, args);
+                    HandleSaveSlotKeyPress(6);
                     break;
             }
-        }
-
-        private bool KeyIsDown(CoreWindow window, VirtualKey key)
-        {
-            var output = window.GetKeyState(key).HasFlag(CoreVirtualKeyStates.Down);
-            return output;
-        }
-
-        private void HandleFunctionKeyPress(bool shiftIsDown, uint slotID, KeyEventArgs args)
-        {
-            var eventArgs = new GameStateOperationEventArgs(shiftIsDown ? GameStateOperationEventArgs.GameStateOperationType.Save : GameStateOperationEventArgs.GameStateOperationType.Load, slotID);
-            GameStateOperationRequested(this, eventArgs);
 
             args.Handled = true;
+        }
+
+        private void OnKeyUp(CoreWindow sender, KeyEventArgs args)
+        {
+            var key = args.VirtualKey;
+            if (PressedKeys.Contains(key))
+            {
+                PressedKeys.Remove(key);
+            }
+
+            args.Handled = true;
+        }
+
+        private void HandleSaveSlotKeyPress(uint slotID)
+        {
+            var modifierKeyPressed = PressedKeys.Contains(VirtualKey.Shift);
+            var eventArgs = new GameStateOperationEventArgs(modifierKeyPressed ? GameStateOperationEventArgs.GameStateOperationType.Save : GameStateOperationEventArgs.GameStateOperationType.Load, slotID);
+            GameStateOperationRequested(this, eventArgs);
         }
     }
 }
