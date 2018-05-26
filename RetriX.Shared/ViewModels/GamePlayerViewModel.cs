@@ -59,7 +59,7 @@ namespace RetriX.Shared.ViewModels
         public IMvxCommand LoadStateSlot5 { get; }
         public IMvxCommand LoadStateSlot6 { get; }
 
-        private TextureFilterTypes currentFilter = TextureFilterTypes.Bilinear;
+        private TextureFilterTypes currentFilter = TextureFilterTypes.NearestNeighbor;
         public TextureFilterTypes CurrentFilter
         {
             get => currentFilter;
